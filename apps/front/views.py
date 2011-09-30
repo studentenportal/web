@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from apps.front.decorators import render_to
 from apps.front import forms
+from apps.front import models
 
 
 @render_to('home.html')
@@ -23,4 +24,8 @@ def termine(request):
 
 @render_to('dozenten.html')
 def dozenten(request):
-    return {}
+    lecturers = models.Lecturer.objects.all()
+
+    return {
+        'lecturers': (lecturers[::2], lecturers[1::2]),
+    }

@@ -4,8 +4,7 @@
 <html>
 
 <head>
-    <title>HSR Studentenportal</title>
-    <link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.3.0/bootstrap.min.css">
+    <title>HSR Studentenportal - {% block title %}Willkommen{% endblock %}</title>
     {% assets 'stylesheets' %}<link rel="stylesheet" href="{{ ASSET_URL }}" />{% endassets %}
     {% assets 'scripts' %}<script src="{{ ASSET_URL }}"></script>{% endassets %}
 </head>

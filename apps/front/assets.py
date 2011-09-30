@@ -6,6 +6,7 @@ scripts = Bundle(
 
 stylesheets = Bundle(
     #'css/reset.css',
+    'css/bootstrap.css',
     'css/style.css',
     filters='cssmin,cssrewrite',
     output='css/packed.css')

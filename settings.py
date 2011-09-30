@@ -102,6 +102,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
 
 ROOT_URLCONF = 'studentenportal.urls'
@@ -125,6 +126,7 @@ INSTALLED_APPS = (
 
     # Third party apps
     'django_assets',
+    'debug_toolbar',
     'apps.tabs',
 
     # Own apps
@@ -155,3 +157,26 @@ LOGGING = {
 }
 
 LOGIN_REDIRECT_URL = '/'
+
+
+### DEBUG TOOLBAR ###
+
+def local_network_debug(request):
+    """Returns True if IP is internal and DEBUG = True."""
+    return DEBUG and request.META['REMOTE_ADDR'].startswith(('127.0.0', '192.168.1', '192.168.2'))
+
+DEBUG_TOOLBAR_PANELS = ( 
+    'debug_toolbar.panels.version.VersionDebugPanel',
+    'debug_toolbar.panels.timer.TimerDebugPanel',
+    'debug_toolbar.panels.settings_vars.SettingsVarsDebugPanel',
+    'debug_toolbar.panels.headers.HeaderDebugPanel',
+    'debug_toolbar.panels.request_vars.RequestVarsDebugPanel',
+    'debug_toolbar.panels.template.TemplateDebugPanel',
+    'debug_toolbar.panels.sql.SQLDebugPanel',
+    'debug_toolbar.panels.signals.SignalDebugPanel',
+    'debug_toolbar.panels.logger.LoggingPanel',
+)
+DEBUG_TOOLBAR_CONFIG = { 
+    'INTERCEPT_REDIRECTS': False,
+    'SHOW_TOOLBAR_CALLBACK': local_network_debug,
+}

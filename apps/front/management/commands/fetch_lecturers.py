@@ -41,7 +41,6 @@ class Command(NoArgsCommand):
                 l.save()
             except IntegrityError:
                 self.printE("Could not add %s." % repr(lecturer))
-                pass
             else:
                 self.printO("Added %s." % repr(lecturer))
                 added += 1
