@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load tabs %}
+{% load url from future %}
+
+{% block content %}
+    {% if form.errors %}
+        <div class="alert-message block-message error">Fehlerhafte Angaben. Bitte versuch es nochmals.</div>
+    {% endif %}
+
+    <form method="post" action="{% url 'django.contrib.auth.views.login' %}">
+        {% csrf_token %}
+        <fieldset>
+            <div class="clearfix">
+                {{ form.username.label_tag }}
+                <div class="input input-append">
+                    <input type="text" name="{{ form.username.name }}" id="id_{{ form.username.name }}">
+                    <span class="add-on">@hsr.ch</span>
+                </div>
+            </div>
+
+            <div class="clearfix">
+                {{ form.password.label_tag }}
+                <div class="input">
+                    <input type="password" name="{{ form.password.name }}" id="id_{{ form.password.name }}">
+                </div>
+            </div>
+            
+            <div class="actions">
+                <input type="submit" value="login" class="btn primary">
+                <input type="hidden" name="next" value="{{ next }}">
+            </div>
+        </fieldset>
+    </form>
+{% endblock %}

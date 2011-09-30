@@ -1,0 +1,42 @@
+body {
+    margin-top: 40px;
+}
+
+div#header {
+    text-align: center;
+    border-bottom: 2px solid blue;
+    padding: 20px 0px;
+    margin: 0px;
+}
+
+div#navigation {
+    margin-top: 10px;
+}
+
+div#content {
+    margin-top: 10px;
+}
+
+div#footer {
+    border-top: 2px solid green;
+    margin: 0px;
+}
+
+ul.navigation {
+    list-style-type: none;
+    margin-left: 0;
+}
+
+ul.navigation a {
+    display: inline-block;
+    padding: 5px 0px 10px;
+    font-size: 1.3em;
+}
+
+ul.navigation li.active a {
+    font-weight: bold;
+}
+
+form input[type=text], form input[type=password] {
+    height: 28px;
+}

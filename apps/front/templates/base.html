@@ -1,0 +1,65 @@
+{% load assets %}
+{% load tabs %}
+{% load url from future %}
+<html>
+
+<head>
+    <title>HSR Studentenportal</title>
+    <link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.3.0/bootstrap.min.css">
+    {% assets 'stylesheets' %}<link rel="stylesheet" href="{{ ASSET_URL }}" />{% endassets %}
+    {% assets 'scripts' %}<script src="{{ ASSET_URL }}"></script>{% endassets %}
+</head>
+
+<body>
+    <div class="topbar">
+        <div class="topbar-inner">
+            <div class="container">
+                <a class="brand" href="#">HSR Studentenportal</a>
+                <ul class="nav secondary-nav">
+                    {% if not user.is_authenticated %} <li><a href="/login/">Login</a></li> {% endif %}
+                    {% if user.is_authenticated %} <li><a href="/logout/">Logout</a></li> {% endif %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="span16" id="header">
+            <h1>Studentenportal 2.0</h1>
+        </div>
+        <div class="row">
+            <div class="span4" id="navigation">
+                {% block navigation %}
+                    <ul class="navigation">
+                        <li class="{% ifactivetab 'navigation' 'home' %}active{% endifactivetab %}">
+                            <a href="{% url 'home' %}">Home</a>
+                        </li>
+                        <li class="{% ifactivetab 'navigation' 'termine' %}active{% endifactivetab %}">
+                            <a href="{% url 'termine' %}">Termine</a>
+                        </li>
+                        <li class="{% ifactivetab 'navigation' 'tipps' %}active{% endifactivetab %}">
+                            <a href="{% url 'tipps' %}">Tipps zum Studium</a>
+                        </li>
+                        <li class="{% ifactivetab 'navigation' 'suche' %}active{% endifactivetab %}">
+                            <a href="#">Suche / Biete</a>
+                        </li>
+                        <li class="{% ifactivetab 'navigation' 'zusammenfassungen' %}active{% endifactivetab %}">
+                            <a href="#">Zusammenfassungen</a>
+                        </li>
+                        <li>
+                            <hr>
+                        </li>
+                        <li class="{% ifactivetab 'navigation' 'dozenten' %}active{% endifactivetab %}">
+                            <a href="{% url 'dozenten' %}">Dozenten</a>
+                        </li>
+                    </ul>
+                {% endblock %}
+            </div>
+            <div class="span12" id="content">
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+        <div class="span16" id="footer">
+            Footer. Powered by Django.
+        </div>
+    </div>
+</body>

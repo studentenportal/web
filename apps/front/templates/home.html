@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load tabs %}
+
+{% block navigation %}
+    {% activetab 'navigation' 'home' %}
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+
+    {% if not user.is_authenticated %}
+    <h2>Willkommen beim HSR Studentenportal</h2>
+    {% endif %}{% if user.is_authenticated %}
+    <h2>Willkommen {{ user.username }}!</h2>
+    {% endif %}
+    <p>Dieses Portal ist für alle Studenten der Hochschule Rapperswil gedacht. Hier
+    könnt ihr wertvolle Informationen für euer Studium bekommen, tägliche News
+    erfahren und euer Wissen mit anderen Studenten teilen.</p>
+{% endblock %}
