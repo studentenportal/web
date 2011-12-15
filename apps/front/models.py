@@ -11,7 +11,6 @@ class Lecturer(models.Model):
     
     def photo(self):
         path = os.path.join(settings.MEDIA_ROOT, 'lecturers', '%s.jpg' % self.abbreviation.lower())
-        print path
         if os.path.exists(path):
             return settings.MEDIA_URL + 'lecturers/%s.jpg' % self.abbreviation.lower()
         return None
@@ -24,6 +23,9 @@ class Lecturer(models.Model):
 
     def avg_rating_f(self):
         return '%u.%u' % (random.randint(1, 5), random.randint(0, 9))
+
+    def __unicode__(self):
+        return self.name
 
     class Meta:
         ordering = ['name']
