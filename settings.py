@@ -8,7 +8,7 @@ ASSETS_DEBUG = DEBUG
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 ADMINS = (
-    ('Danilo Bargen', 'gezuru@gmail.com'),
+    ('Danilo', 'gezuru@gmail.com'),
 )
 
 MANAGERS = ADMINS
