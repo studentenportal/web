@@ -16,13 +16,16 @@ class Lecturer(models.Model):
         return None
 
     def avg_rating_d(self):
-        return '%u.%u' % (random.randint(1, 5), random.randint(0, 9))
+        r = '%u.%u' % (random.randint(1, 5), random.randint(0, 9))
+        return float(r)
 
     def avg_rating_m(self):
-        return '%u.%u' % (random.randint(1, 5), random.randint(0, 9))
+        r = '%u.%u' % (random.randint(1, 5), random.randint(0, 9))
+        return float(r)
 
     def avg_rating_f(self):
-        return '%u.%u' % (random.randint(1, 5), random.randint(0, 9))
+        r = '%u.%u' % (random.randint(1, 5), random.randint(0, 9))
+        return float(r)
 
     def __unicode__(self):
         return self.name

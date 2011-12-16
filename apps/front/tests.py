@@ -14,12 +14,9 @@ class LecturerTestCase(unittest.TestCase):
 
     def testValidRatingsRange(self):
         """Rating must be between 1 and 6."""
-        d = self.lecturer.avg_rating_d()
-        m = self.lecturer.avg_rating_m()
-        f = self.lecturer.avg_rating_f()
-        self.assertTrue(1.0 <= d <= 6.0)
-        self.assertTrue(1.0 <= m <= 6.0)
-        self.assertTrue(1.0 <= f <= 6.0)
+        self.assertTrue(1.0 <= self.lecturer.avg_rating_d() <= 6.0)
+        self.assertTrue(1.0 <= self.lecturer.avg_rating_m() <= 6.0)
+        self.assertTrue(1.0 <= self.lecturer.avg_rating_f() <= 6.0)
 
 
 class HomeViewTestCase(unittest.TestCase):
@@ -42,3 +39,12 @@ class LecturersViewTestCase(unittest.TestCase):
     def testTitle(self):
         response = self.c.get('/dozenten/')
         self.assertIn('<h2>Unsere Dozenten</h2>', response.content)
+
+
+class ProfileTestCase(unittest.TestCase):
+    def setUp(self):
+        self.c = Client()
+
+    def testUnauthRedirect(self):
+        response = self.c.get('/profil/')
+        self.assertEqual(response.status_code, 302)
