@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load url from future %}
+{% load tabs %}
+{% load tags %}
+
+{% block title %}Zusammenfassungen{% endblock %}
+
+{% block navigation %}
+    {% activetab 'navigation' 'documents' %}
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+
+    <h2>Zusammenfassungen</h2>
+    
+    <p>Hier finden sich Zusammenfassungen des Unterrichtsstoffes und Lernhilfen für die Prüfungen.</p>
+    
+{% endblock %}

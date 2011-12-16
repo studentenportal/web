@@ -41,10 +41,24 @@ class LecturersViewTestCase(unittest.TestCase):
         self.assertIn('<h2>Unsere Dozenten</h2>', response.content)
 
 
-class ProfileTestCase(unittest.TestCase):
+class ProfileViewTestCase(unittest.TestCase):
     def setUp(self):
         self.c = Client()
 
     def testUnauthRedirect(self):
         response = self.c.get('/profil/')
         self.assertEqual(response.status_code, 302)
+
+
+class DocumentsViewTestCase(unittest.TestCase):
+    def setUp(self):
+        self.c = Client()
+        self.taburl = '/zusammenfassungen/'
+
+    def testHTTP200(self):
+        response = self.c.get(self.taburl)
+        self.assertEqual(response.status_code, 200)
+
+    def testTitle(self):
+        response = self.c.get(self.taburl)
+        self.assertIn('<h2>Zusammenfassungen</h2>', response.content)
