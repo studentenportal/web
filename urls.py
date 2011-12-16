@@ -8,14 +8,15 @@ admin.autodiscover()
 # Dynamic pages
 urlpatterns = patterns('apps.front.views',
     url(r'^$', 'home', name='home'),
-    url(r'^profil/$', 'profil', name='profil'),
-    url(r'^termine/$', 'termine', name='termine'),
-    url(r'^dozenten/$', 'dozenten', name='dozenten'),
+    url(r'^profil/$', 'profile', name='profile'),
+    url(r'^termine/$', 'calendar', name='calendar'),
+    url(r'^dozenten/$', 'lecturers', name='lecturers'),
+    url(r'^zusammenfassungen/$', 'documents', name='documents'),
 )
 
 # Static pages
 urlpatterns += patterns('django.views.generic.simple',
-    url(r'^tipps/$', 'direct_to_template', {'template': 'tipps.html'}, name='tipps'),
+    url(r'^tipps/$', 'direct_to_template', {'template': 'tips.html'}, name='tips'),
 )
 
 # Auth pages

@@ -33,22 +33,22 @@
                             <a href="{% url 'home' %}">Home</a>
                         </li>
                         <li class="{% ifactivetab 'navigation' 'termine' %}active{% endifactivetab %}">
-                            <a href="{% url 'termine' %}">Termine</a>
+                            <a href="{% url 'calendar' %}">Termine</a>
                         </li>
                         <li class="{% ifactivetab 'navigation' 'tipps' %}active{% endifactivetab %}">
-                            <a href="{% url 'tipps' %}">Tipps zum Studium</a>
+                            <a href="{% url 'tips' %}">Tipps zum Studium</a>
                         </li>
                         <li class="{% ifactivetab 'navigation' 'suche' %}active{% endifactivetab %}">
                             <a href="#">Suche / Biete</a>
                         </li>
                         <li class="{% ifactivetab 'navigation' 'zusammenfassungen' %}active{% endifactivetab %}">
-                            <a href="#">Zusammenfassungen</a>
+                            <a href="{% url 'documents' %}">Zusammenfassungen</a>
                         </li>
                         <li>
                             <hr>
                         </li>
                         <li class="{% ifactivetab 'navigation' 'dozenten' %}active{% endifactivetab %}">
-                            <a href="{% url 'dozenten' %}">Dozenten</a>
+                            <a href="{% url 'lecturers' %}">Dozenten</a>
                         </li>
                     </ul>
                 {% endblock %}

@@ -10,22 +10,28 @@ def home(request):
 
 
 @login_required
-@render_to('profil.html')
-def profil(request):
+@render_to('profile.html')
+def profile(request):
     profile_form = forms.ProfileForm(initial={'username': 'danilo'})
     return {
         'form': profile_form,
     }
 
 
-def termine(request):
+@render_to('calendar.html')
+def calendar(request):
     pass
 
 
-@render_to('dozenten.html')
-def dozenten(request):
+@render_to('lecturers.html')
+def lecturers(request):
     lecturers = models.Lecturer.objects.all()
 
     return {
         'lecturers': (lecturers[::2], lecturers[1::2]),
     }
+
+
+@render_to('documents.html')
+def documents(request):
+    return {}
