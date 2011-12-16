@@ -1,16 +1,44 @@
-"""
-This file demonstrates writing tests using the unittest module. These will pass
-when you run "manage.py test".
+from django.utils import unittest
+from django.test.client import Client
 
-Replace this with more appropriate tests for your application.
-"""
-
-from django.test import TestCase
+from apps.front.models import Lecturer
 
 
-class SimpleTest(TestCase):
-    def test_basic_addition(self):
-        """
-        Tests that 1 + 1 always equals 2.
-        """
-        self.assertEqual(1 + 1, 2)
+class LecturerTestCase(unittest.TestCase):
+    def setUp(self):
+        self.lecturer = Lecturer.objects.create(
+                name='Jussuf Jolder',
+                abbreviation='jol',
+                subjects='Testsubject',
+                description='Some guy')
+
+    def testValidRatingsRange(self):
+        """Rating must be between 1 and 6."""
+        d = self.lecturer.avg_rating_d()
+        m = self.lecturer.avg_rating_m()
+        f = self.lecturer.avg_rating_f()
+        self.assertTrue(1.0 <= d <= 6.0)
+        self.assertTrue(1.0 <= m <= 6.0)
+        self.assertTrue(1.0 <= f <= 6.0)
+
+
+class HomeViewTestCase(unittest.TestCase):
+    def setUp(self):
+        self.c = Client()
+
+    def testHTTP200(self):
+        response = self.c.get('/')
+        self.assertEqual(response.status_code, 200)
+
+
+class LecturersViewTestCase(unittest.TestCase):
+    def setUp(self):
+        self.c = Client()
+
+    def testHTTP200(self):
+        response = self.c.get('/dozenten/')
+        self.assertEqual(response.status_code, 200)
+
+    def testTitle(self):
+        response = self.c.get('/dozenten/')
+        self.assertIn('<h2>Unsere Dozenten</h2>', response.content)
