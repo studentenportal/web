@@ -6,6 +6,7 @@ TEMPLATE_DEBUG = DEBUG
 ASSETS_DEBUG = DEBUG
 
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+MODULE_NAME = os.path.basename(PROJECT_ROOT)
 
 ADMINS = (
     ('Danilo', 'gezuru@gmail.com'),
@@ -105,7 +106,7 @@ MIDDLEWARE_CLASSES = (
     'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
 
-ROOT_URLCONF = 'studentenportal.urls'
+ROOT_URLCONF = '%s.urls' % MODULE_NAME
 
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
