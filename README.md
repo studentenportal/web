@@ -21,15 +21,14 @@ Um die Entwicklungsumgebung einzurichten:
  1. Repository clonen
  2. Python Virtualenv erstellen und aktivieren
  3. `pip install -r requirements.txt`
- 4. `python mangement.py syncdb`
+ 4. `python management.py syncdb`
  5. `python management.py runserver`
 
 
-Lizenz
-------
+Um die Tests auszuführen:
 
-Noch nicht definiert, irgendwas opensourciges copyleftiges.
-Mithilfe wird gern gesehen. Einfach pull requests senden.
+ 1. `python management.py collectstatic`
+ 2. `python management.py test front`
 
 
 Features
@@ -49,3 +48,9 @@ Fragen
 ------
 
 Bei Fragen, wende dich an dbargen@hsr.ch / https://twitter.com/dbrgn
+
+
+Lizenz
+------
+
+Der Code wird unter der [AGPLv3](http://www.gnu.org/licenses/agpl-3.0.html) veröffentlicht.
