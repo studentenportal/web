@@ -1,0 +1,51 @@
+[
+  {
+    "pk": 1, 
+    "model": "front.documentcategory", 
+    "fields": {
+      "name": "An1I"
+    }
+  }, 
+  {
+    "pk": 1, 
+    "model": "front.document", 
+    "fields": {
+      "category": 1, 
+      "upload_date": "2011-12-18 01:28:52", 
+      "name": "Analysis 1 Theoriesammlung", 
+      "uploader": 2, 
+      "document": "documents/Analysis-Theoriesammlung.pdf", 
+      "description": "Dieses Dokument ist eine Zusammenfassung der Theorie aus dem AnI1-Skript auf 8 Seiten. Das Dokument ist in LaTeX gesetzt, Source ist hier: http://j.mp/fjtleh - Gute Erg\u00e4nzungen sind erw\u00fcnscht!"
+    }
+  }, 
+  {
+    "pk": 2, 
+    "model": "front.document", 
+    "fields": {
+      "category": 1, 
+      "upload_date": "2011-12-18 01:49:48", 
+      "name": "Formelsammlung Statistik", 
+      "uploader": 3, 
+      "document": "documents/zf_6.doc", 
+      "description": "Formeln zu Varianz, Durchschnitt, Standartabweichung, Empirische Varianz, Spanne,..."
+    }
+  }, 
+  {
+    "pk": 1, 
+    "model": "front.documentrating", 
+    "fields": {
+      "rating": 3, 
+      "document": 1, 
+      "user": 1
+    }
+  }, 
+  {
+    "pk": 2, 
+    "model": "front.documentrating", 
+    "fields": {
+      "rating": 5, 
+      "document": 1, 
+      "user": 3
+    }
+  }
+]
