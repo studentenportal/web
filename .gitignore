@@ -1,4 +1,4 @@
 *.pyc
 *.swp
-VE
+static
 db.sqlite
