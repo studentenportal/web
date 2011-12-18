@@ -84,6 +84,27 @@ class DocumentModelTest(unittest.TestCase):
         self.assertRaises(IntegrityError, dr.save)
 
 
+class UserModelTest(unittest.TestCase):
+    def setUp(self):
+        self.john = User.objects.create(username='john')
+        self.marc = User.objects.create(username='marc', first_name=u'Marc')
+        self.pete = User.objects.create(username='pete', last_name=u'Peterson')
+        self.mike = User.objects.create(username='mike', first_name=u'Mike', last_name=u'Müller')
+
+    def tearDown(self):
+        self.john.delete()
+        self.marc.delete()
+        self.pete.delete()
+        self.mike.delete()
+
+    def testName(self):
+        """Test whether the custom name function returns the correct string."""
+        self.assertEqual(self.john.name(), u'john')
+        self.assertEqual(self.marc.name(), u'Marc')
+        self.assertEqual(self.pete.name(), u'Peterson')
+        self.assertEqual(self.mike.name(), u'Mike Müller')
+
+
 ### VIEW TESTS ###
 
 class HomeViewTest(unittest.TestCase):
