@@ -79,8 +79,19 @@ class Document(models.Model):
         """Return rounded rating average."""
         return int(round(self.rating_exact()))
 
+    def filename(self):
+        """Return filename of uploaded file without directories."""
+        return os.path.basename(self.document.name)
+
+    def fileext(self):
+        """Return file extension by splitting at last occuring period."""
+        return self.document.name.split('.')[-1]
+
     def __unicode__(self):
         return self.name
+
+    class Meta:
+        ordering = ('-upload_date',)
 
 
 class DocumentRating(models.Model):
@@ -107,3 +118,12 @@ class DocumentRating(models.Model):
 
     class Meta:
         unique_together = ('user', 'document')
+
+
+def name(self):
+    """Return either full user first and last name or the username, if no
+    further data is found."""
+    if self.first_name or self.last_name:
+        return ' '.join(filter(None, [self.first_name, self.last_name]))
+    return self.username
+User.add_to_class('name', name)
