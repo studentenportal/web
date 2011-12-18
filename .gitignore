@@ -1,4 +1,5 @@
 *.pyc
 *.swp
-static
+/static
+/media/documents
 db.sqlite
