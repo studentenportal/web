@@ -34,4 +34,7 @@ def lecturers(request):
 
 @render_to('documents.html')
 def documents(request):
-    return {}
+    documents = models.Document.objects.all()
+    return {
+        'documents': documents,
+    }

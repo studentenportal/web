@@ -49,3 +49,7 @@ form input[type=text], form input[type=password] {
 .lecturer {
     margin-bottom: 20px;
 }
+
+table#documents .uploaddata_details {
+    font-style: italic;
+}
