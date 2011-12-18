@@ -67,7 +67,7 @@ class Document(models.Model):
     document = models.FileField(upload_to='documents')
     uploader = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
     upload_date = models.DateTimeField(auto_now_add=True)
-    categories = models.ManyToManyField(DocumentCategory)
+    category = models.ForeignKey(DocumentCategory, null=True, on_delete=models.SET_NULL)
 
     def rating_exact(self):
         """Return exact rating average."""
