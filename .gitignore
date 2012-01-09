@@ -3,3 +3,4 @@
 /static
 /media/documents
 db.sqlite
+apps/front/migrations/

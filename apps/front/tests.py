@@ -1,5 +1,5 @@
 # encoding=utf8
-from datetime import datetime
+import datetime
 
 from django.utils import unittest
 from django.test.client import Client
@@ -59,7 +59,7 @@ class DocumentModelTest(unittest.TestCase):
 
     def testUploadDate(self):
         """Check whether upload date has been set."""
-        self.assertTrue(isinstance(self.document.upload_date, datetime))
+        self.assertTrue(isinstance(self.document.upload_date, datetime.datetime))
 
     def testRatingAverage(self):
         self.assertEqual(self.document.DocumentRating.count(), 2)
@@ -103,6 +103,46 @@ class UserModelTest(unittest.TestCase):
         self.assertEqual(self.marc.name(), u'Marc')
         self.assertEqual(self.pete.name(), u'Peterson')
         self.assertEqual(self.mike.name(), u'Mike Müller')
+
+
+class EventModelTest(unittest.TestCase):
+    def setUp(self):
+        self.mike = User.objects.create(username='mike', first_name=u'Mike', last_name=u'Müller')
+        
+    def tearDown(self):
+        self.mike.delete()
+
+    def testDateTimeEvent(self):
+        event = models.Event.objects.create(
+            summary='Testbar',
+            description=u'This is a bar where people drink and party to \
+                          test the studentenportal event feature.',
+            author=self.mike,
+            start_date=datetime.date(day=1, month=9, year=2010),
+            start_time=datetime.time(hour=19, minute=30),
+            end_time=datetime.time(hour=23, minute=59))
+
+        self.assertEqual(event.summary, 'Testbar')
+        self.assertIsNone(event.end_date)
+        self.assertEqual(event.author.username, 'mike')
+        self.assertTrue(event.is_over())
+        self.assertIsNone(event.days_until())
+
+    def testAllDayEvent(self):
+        start_date = datetime.date.today() + datetime.timedelta(days=365)
+        event = models.Event.objects.create(
+            summary='In a year',
+            description='This happens in a year from now.',
+            author=self.mike,
+            start_date=start_date,
+            end_date=start_date + datetime.timedelta(days=1))
+
+        self.assertEqual(event.summary, 'In a year')
+        self.assertIsNone(event.start_time)
+        self.assertIsNone(event.end_time)
+        self.assertFalse(event.is_over())
+        self.assertTrue(event.all_day())
+        self.assertEqual(event.days_until(), 365)
 
 
 ### VIEW TESTS ###
@@ -150,3 +190,17 @@ class DocumentsViewTest(unittest.TestCase):
     def testTitle(self):
         response = self.client.get(self.taburl)
         self.assertIn('<h2>Zusammenfassungen</h2>', response.content)
+
+
+class EventsViewTest(unittest.TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.taburl = '/events/'
+
+    def testHTTP200(self):
+        response = self.client.get(self.taburl)
+        self.assertEqual(response.status_code, 200)
+
+    def testTitle(self):
+        response = self.client.get(self.taburl)
+        self.assertIn('<h2>Events</h2>', response.content)

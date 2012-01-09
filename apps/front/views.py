@@ -18,15 +18,14 @@ def profile(request):
     }
 
 
-@render_to('calendar.html')
-def calendar(request):
-    pass
+@render_to('events.html')
+def events(request):
+    return {}
 
 
 @render_to('lecturers.html')
 def lecturers(request):
     lecturers = models.Lecturer.objects.all()
-
     return {
         'lecturers': (lecturers[::2], lecturers[1::2]),
     }

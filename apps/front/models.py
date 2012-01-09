@@ -1,5 +1,6 @@
 import os
 import random
+import datetime
 from django.conf import settings
 from django.db import models
 from django.core.exceptions import ValidationError
@@ -118,6 +119,37 @@ class DocumentRating(models.Model):
 
     class Meta:
         unique_together = ('user', 'document')
+
+
+class Event(models.Model):
+    """An event.
+    
+    If end_date is null, then end_date = start_date.
+    
+    """
+    summary = models.CharField(max_length=64)
+    description = models.TextField()
+    author = models.ForeignKey(User, related_name='Event')
+    start_date = models.DateField()
+    start_time = models.TimeField(null=True, blank=True)
+    end_date = models.DateField(null=True, blank=True)
+    end_time = models.TimeField(null=True, blank=True)
+
+    def is_over(self):
+        """Return whether the start_date has already passed or not.
+        On the start_date day itself, is_over() will return False."""
+        delta = self.start_date - datetime.date.today()
+        return delta.days < 0
+
+    def all_day(self):
+        """Return whether the event runs all day long.
+        This is the case if start_time and end_time are not set."""
+        return self.start_time == self.end_time == None
+
+    def days_until(self):
+        """Return how many days are left until the day of the event."""
+        delta = self.start_date - datetime.date.today()
+        return delta.days if delta.days > 0 else None
 
 
 def name(self):

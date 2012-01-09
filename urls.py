@@ -5,13 +5,17 @@ from django.conf import settings
 from django.contrib import admin
 admin.autodiscover()
 
+from apps.front import views
+
+
 # Dynamic pages
 urlpatterns = patterns('apps.front.views',
     url(r'^$', 'home', name='home'),
     url(r'^profil/$', 'profile', name='profile'),
-    url(r'^termine/$', 'calendar', name='calendar'),
+    url(r'^events/$', 'events', name='events'),
     url(r'^dozenten/$', 'lecturers', name='lecturers'),
-    url(r'^zusammenfassungen/$', 'documents', name='documents'),
+    url(r'^zusammenfassungen/$', views.DocumentCategories.as_view(), name='document_categories'),
+    url(r'^zusammenfassungen/(?P<category>.*)/$', 'document_category', name='document_category'),
 )
 
 # Static pages
