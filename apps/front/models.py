@@ -51,7 +51,9 @@ class DocumentCategory(models.Model):
     A document can have several categories.
 
     """
+    # TODO prevent duplicate entries http://stackoverflow.com/questions/1857822/unique-model-field-in-django-and-case-sensitivity-postgres
     name = models.CharField(max_length=32, unique=True)
+    description = models.CharField(max_length=255, null=True, blank=True)
 
     def __unicode__(self):
         return self.name
@@ -68,7 +70,7 @@ class Document(models.Model):
     document = models.FileField(upload_to='documents')
     uploader = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
     upload_date = models.DateTimeField(auto_now_add=True)
-    category = models.ForeignKey(DocumentCategory, null=True, on_delete=models.SET_NULL)
+    category = models.ForeignKey(DocumentCategory, related_name=u'Document', null=True, on_delete=models.SET_NULL)
 
     def rating_exact(self):
         """Return exact rating average."""

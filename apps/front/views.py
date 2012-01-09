@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.views import generic
 from apps.front.decorators import render_to
 from apps.front import forms
 from apps.front import models
@@ -31,9 +32,19 @@ def lecturers(request):
     }
 
 
-@render_to('documents.html')
-def documents(request):
-    documents = models.Document.objects.all()
+class DocumentCategories(generic.list.ListView):
+    template_name = 'document_categories.html'
+    model = models.DocumentCategory
+
+
+@render_to('document_category.html')
+def document_category(request, category):
     return {
-        'documents': documents,
+        'object_list': models.DocumentCategory.objects.get(name__iexact=category).Document.all(),
     }
+
+
+class Document(generic.detail.DetailView):
+    template_name = 'document.html'
+    model = models.Document
+    pk_url_kwarg = 'category'
