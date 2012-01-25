@@ -128,6 +128,8 @@ INSTALLED_APPS = (
     # Third party apps
     'django_assets',
     'debug_toolbar',
+    'south',
+    'django_jenkins',
     'apps.tabs',
 
     # Own apps
