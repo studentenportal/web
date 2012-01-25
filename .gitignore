@@ -2,5 +2,6 @@
 *.swp
 /static
 /media/documents
+/reports
 db.sqlite
 apps/front/migrations/
