@@ -6,6 +6,8 @@ Es soll das alte Portal ablösen und in Sachen Ruhm und Ehre weit überholen.
 
 ![f\*ck yeah!](http://s3.amazonaws.com/kym-assets/entries/icons/original/000/001/987/fyeah.jpg)
 
+Jenkins Buildserver: http://178.33.33.43:8080/job/Studentenportal2/
+
 
 Technologie
 -----------
