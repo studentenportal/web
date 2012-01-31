@@ -2,7 +2,9 @@
 import datetime
 from django.contrib.auth.decorators import login_required
 from django.views import generic
+from django.views.generic.base import TemplateView
 from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
 from apps.front.decorators import render_to
 from apps.front import forms
 from apps.front import models
@@ -20,6 +22,20 @@ def profile(request):
     return {
         'form': profile_form,
     }
+
+
+class Event(DetailView):
+    model = models.Event
+    context_object_name = 'event'
+
+
+class EventAdd(TemplateView):
+    template_name = 'front/event_add.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(self.__class__, self).get_context_data(**kwargs)
+        context['form'] = forms.EventForm
+        return context
 
 
 class Events(ListView):

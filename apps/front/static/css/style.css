@@ -53,3 +53,19 @@ form input[type=text], form input[type=password] {
 table#documents .uploaddata_details {
     font-style: italic;
 }
+
+ul.blacklist li {
+    color: #404040;
+}
+
+form li {
+    list-style-type: none;
+}
+
+form.noleftpadding {
+    padding-left: 0px;
+}
+
+form .fieldWrapper {
+    padding-bottom: 12px;
+}

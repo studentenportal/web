@@ -12,10 +12,13 @@ from apps.front import views
 urlpatterns = patterns('apps.front.views',
     url(r'^$', 'home', name='home'),
     url(r'^profil/$', 'profile', name='profile'),
-    url(r'^events/$', views.Events.as_view(), name='events'),
+    url(r'^events/$', views.Events.as_view(), name='event_list'),
+    url(r'^events/(?P<pk>\d+)/$', views.Event.as_view(), name='event_detail'),
+    url(r'^events/add/$', views.EventAdd.as_view(), name='event_add'),
     url(r'^dozenten/$', 'lecturers', name='lecturers'),
     url(r'^zusammenfassungen/$', views.DocumentCategories.as_view(), name='document_categories'),
     url(r'^zusammenfassungen/(?P<category>.*)/$', 'document_category', name='document_category'),
+    url(r'^users/(?P<pk>\d+)-(?P<username>[^\/]+)/$', 'home', name='user'),
 )
 
 # Static pages

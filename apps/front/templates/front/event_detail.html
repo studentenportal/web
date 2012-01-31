@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load url from future %}
+{% load tabs %}
+
+{% block title %}{{ event.summary }}{% endblock %}
+
+{% block navigation %}
+    {% activetab 'navigation' 'events' %}
+    {{ block.super }}
+{% endblock %}
+
+{% block breadcrumbs %}
+    <a href="{% url 'event_list' %}">Events</a> &raquo; {{ event.summary }}
+{% endblock %}
+
+{% block content %}
+
+    <h2>{{ event.summary }}</h2>
+
+    <p><em>Erfasst von: <a href="{% url 'user' event.author.pk event.author.username|slugify %}">{{ event.author.username }}</a></em></p>
+    
+    <p>{{ event.description }}</p>
+
+    <ul class="blacklist unstyled">
+        <li><strong>Start:</strong> {{ event.start_date }} {{ event.start_time|time:"H:i" }}</li>
+        {% if event.end_date or event.end_time %}
+            <li><strong>Ende:</strong>
+                {% if event.end_date %}{{ event.end_date }} {{ event.end_time|time:"H:i" }}{% endif %}
+                {% if not event.end_date %}{{ event.start_date }} {{ event.end_time|time:"H:i" }}{% endif %}
+            </li>
+        {% endif %}
+    </ul>
+
+{% endblock %}

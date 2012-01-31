@@ -129,13 +129,13 @@ class Event(models.Model):
     If end_date is null, then end_date = start_date.
     
     """
-    summary = models.CharField(max_length=64)
-    description = models.TextField()
+    summary = models.CharField(u'Titel', max_length=64)
+    description = models.TextField(u'Beschreibung')
     author = models.ForeignKey(User, related_name='Event')
-    start_date = models.DateField()
-    start_time = models.TimeField(null=True, blank=True)
-    end_date = models.DateField(null=True, blank=True)
-    end_time = models.TimeField(null=True, blank=True)
+    start_date = models.DateField(u'Startdatum')
+    start_time = models.TimeField(u'Startzeit', null=True, blank=True)
+    end_date = models.DateField(u'Enddatum', null=True, blank=True)
+    end_time = models.TimeField(u'Endzeit', null=True, blank=True)
 
     def is_over(self):
         """Return whether the start_date has already passed or not.

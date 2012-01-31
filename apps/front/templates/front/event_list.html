@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 {% load url from future %}
 {% load tabs %}
-{% load tags %}
 
 {% block title %}Events{% endblock %}
 
@@ -18,6 +17,7 @@
 
     <h3>Eintragen</h3>
 
+    <p>Du kannst neue Events <a href="{% url 'event_add' %}">hier</a> hinzufügen.</p>
 
     <h3>Kommende Veranstaltungen</h3>
 
@@ -45,7 +45,7 @@
                         {% if event.end_date %}{{ event.end_date|date:"j. F Y" }}{% endif %}
                         {% if event.end_time %}{{ event.end_time|time:"H:i" }}{% endif %}
                     </td>
-                    <td><strong>{{ event.summary }}</strong></td>
+                    <td><a href="{% url 'event_detail' event.pk %}"><strong>{{ event.summary }}</strong></a></td>
                     <td>{{ event.author.name }}</td>
                 </tr>
             {% endfor %}
