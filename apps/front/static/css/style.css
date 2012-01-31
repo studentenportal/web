@@ -2,24 +2,24 @@ body {
     margin-top: 40px;
 }
 
-div#header {
+#header {
     text-align: center;
     border-bottom: 2px solid blue;
-    padding: 20px 0px;
-    margin: 0px;
+    padding: 20px 0;
+    margin: 0;
 }
 
-div#navigation {
+#navigation {
     margin-top: 10px;
 }
 
-div#content {
+#content {
     margin-top: 10px;
 }
 
-div#footer {
+#footer {
     border-top: 2px solid green;
-    margin: 0px;
+    margin: 0;
 }
 
 ul.navigation {
@@ -29,7 +29,7 @@ ul.navigation {
 
 ul.navigation a {
     display: inline-block;
-    padding: 5px 0px 10px;
+    padding: 5px 0 10px;
     font-size: 1.3em;
 }
 
@@ -63,7 +63,7 @@ form li {
 }
 
 form.noleftpadding {
-    padding-left: 0px;
+    padding-left: 0;
 }
 
 form .fieldWrapper {
