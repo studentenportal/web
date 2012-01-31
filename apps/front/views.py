@@ -42,9 +42,3 @@ def document_category(request, category):
     return {
         'object_list': models.DocumentCategory.objects.get(name__iexact=category).Document.all(),
     }
-
-
-class Document(generic.detail.DetailView):
-    template_name = 'document.html'
-    model = models.Document
-    pk_url_kwarg = 'category'
