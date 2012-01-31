@@ -130,6 +130,7 @@ INSTALLED_APPS = (
     'debug_toolbar',
     'south',
     'django_jenkins',
+    'django_extensions',
     'apps.tabs',
 
     # Own apps
