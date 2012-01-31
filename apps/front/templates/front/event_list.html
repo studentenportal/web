@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load url from future %}
+{% load tabs %}
+{% load tags %}
+
+{% block title %}Events{% endblock %}
+
+{% block navigation %}
+    {% activetab 'navigation' 'events' %}
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+
+    <h2>Events</h2>
+    
+    <p>Hier können Termine rund ums Studentenleben gepostet werden, wie zB Bars, Vereinsveranstaltungen etc...</p>
+
+    <h3>Eintragen</h3>
+
+
+    <h3>Kommende Veranstaltungen</h3>
+
+    {% if not events %}
+        <p class="alert-message"><strong>Epic Fail:</strong> Es wurden keine zukünftigen Events gefunden.</p>
+    {% else %}
+        <table id="events" class="zebra-striped">
+            <colgroup>
+                <col width="180px">
+                <col>
+                <col>
+            </colgroup>
+            <tr>
+                <th>Datum</th>
+                <th>Beschreibung</th>
+                <th>Erfasst von</th>
+            </tr>
+            {% for event in events %}
+                <tr>
+                    <td>
+                        {{ event.start_date|date:"d.m.Y" }}
+                        {% if event.start_time %} / {{ event.start_time|time:"H:i" }}{% endif %}
+                        {% if event.end_date or event.end_time %} - {% endif %}
+                        {% if event.end_date %}<br>{% endif %}
+                        {% if event.end_date %}{{ event.end_date|date:"j. F Y" }}{% endif %}
+                        {% if event.end_time %}{{ event.end_time|time:"H:i" }}{% endif %}
+                    </td>
+                    <td><strong>{{ event.summary }}</strong></td>
+                    <td>{{ event.author.name }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+
+{% endblock %}

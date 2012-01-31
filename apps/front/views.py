@@ -1,5 +1,8 @@
+# coding=utf-8
+import datetime
 from django.contrib.auth.decorators import login_required
 from django.views import generic
+from django.views.generic.list import ListView
 from apps.front.decorators import render_to
 from apps.front import forms
 from apps.front import models
@@ -19,9 +22,9 @@ def profile(request):
     }
 
 
-@render_to('events.html')
-def events(request):
-    return {}
+class Events(ListView):
+    queryset = models.Event.objects.filter(start_date__gte=datetime.date.today()).order_by('start_date', 'start_time')
+    context_object_name = 'events'
 
 
 @render_to('lecturers.html')

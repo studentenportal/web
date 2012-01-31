@@ -153,6 +153,9 @@ class Event(models.Model):
         delta = self.start_date - datetime.date.today()
         return delta.days if delta.days > 0 else None
 
+    def __unicode__(self):
+        return '%s %s' % (self.start_date, self.summary)
+
 
 def name(self):
     """Return either full user first and last name or the username, if no

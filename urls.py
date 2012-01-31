@@ -12,7 +12,7 @@ from apps.front import views
 urlpatterns = patterns('apps.front.views',
     url(r'^$', 'home', name='home'),
     url(r'^profil/$', 'profile', name='profile'),
-    url(r'^events/$', 'events', name='events'),
+    url(r'^events/$', views.Events.as_view(), name='events'),
     url(r'^dozenten/$', 'lecturers', name='lecturers'),
     url(r'^zusammenfassungen/$', views.DocumentCategories.as_view(), name='document_categories'),
     url(r'^zusammenfassungen/(?P<category>.*)/$', 'document_category', name='document_category'),
