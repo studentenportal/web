@@ -1,5 +1,6 @@
 {% load assets %}
 {% load tabs %}
+{% load messagegroups %}
 {% load url from future %}
 <html>
 
@@ -54,6 +55,7 @@
                 {% endblock %}
             </div>
             <div class="span12" id="content">
+                {% render_messages messages %}
                 <section id="breadcrumbs">{% block breadcrumbs %}{% endblock %}</section>
                 {% block content %}{% endblock %}
             </div>

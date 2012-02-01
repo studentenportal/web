@@ -6,3 +6,4 @@ webassets==0.6
 South==0.7.3
 django-debug-toolbar-django13
 django-extensions
+-e git://github.com/FactorAG/django-messagegroups.git@400f16246914590697c326a8563a1390de1f493a#egg=messagegroups-dev

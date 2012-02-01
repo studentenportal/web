@@ -114,6 +114,8 @@ TEMPLATE_DIRS = (
     # Don't forget to use absolute paths, not relative paths.
 )
 
+MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
+
 INSTALLED_APPS = (
     # Builtin apps
     'django.contrib.auth',
@@ -131,6 +133,7 @@ INSTALLED_APPS = (
     'south',
     'django_jenkins',
     'django_extensions',
+    'messagegroups',
     'apps.tabs',
 
     # Own apps
