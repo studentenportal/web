@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load url from future %}
+{% load tabs %}
+
+{% block title %}Event löschen{% endblock %}
+
+{% block navigation %}
+    {% activetab 'navigation' 'events' %}
+    {{ block.super }}
+{% endblock %}
+
+{% block breadcrumbs %}
+    <a href="{% url 'event_list' %}">Events</a> &raquo; <a href="{% url 'event_detail' event.pk %}">{{ event.summary }}</a> &raquo; Löschen
+{% endblock %}
+
+{% block content %}
+
+    <h2>Event löschen</h2>
+
+    <p>Möchtest du wirklich den Event "{{ event.summary }}" aus der Datenbank löschen?</p>
+
+    <form method="post">{% csrf_token %}
+        <input type="submit" class="btn danger" value="Ja, ich bin sicher." />
+    </form>
+
+{% endblock %}

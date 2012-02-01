@@ -26,7 +26,7 @@
     {% else %}
         <table id="events" class="zebra-striped">
             <colgroup>
-                <col width="180px">
+                <col width="150px">
                 <col>
                 <col>
             </colgroup>
@@ -37,14 +37,7 @@
             </tr>
             {% for event in events %}
                 <tr>
-                    <td>
-                        {{ event.start_date|date:"d.m.Y" }}
-                        {% if event.start_time %} / {{ event.start_time|time:"H:i" }}{% endif %}
-                        {% if event.end_date or event.end_time %} - {% endif %}
-                        {% if event.end_date %}<br>{% endif %}
-                        {% if event.end_date %}{{ event.end_date|date:"j. F Y" }}{% endif %}
-                        {% if event.end_time %}{{ event.end_time|time:"H:i" }}{% endif %}
-                    </td>
+                    <td>{{ event.start_date }}</td>
                     <td><a href="{% url 'event_detail' event.pk %}"><strong>{{ event.summary }}</strong></a></td>
                     <td>{{ event.author.name }}</td>
                 </tr>

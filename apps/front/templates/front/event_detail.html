@@ -31,4 +31,11 @@
         {% endif %}
     </ul>
 
+    {% if event.author = user %}
+    <p>
+        <a href="{% url 'event_edit' event.pk %}" class="btn">Bearbeiten</a>
+        <a href="{% url 'event_delete' event.pk %}" class="btn danger">Löschen</a>
+    </p>
+    {% endif %}
+
 {% endblock %}

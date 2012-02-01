@@ -62,8 +62,16 @@ form li {
     list-style-type: none;
 }
 
-form.noleftpadding {
+form.noindent {
     padding-left: 0;
+}
+
+form.noindent .errorlist {
+    margin: 0;
+}
+
+.errorlist li {
+    color: red;
 }
 
 form .fieldWrapper {

@@ -1,10 +1,15 @@
 # coding=utf-8
 import datetime
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from django.core.urlresolvers import reverse
+from django.http import HttpResponseRedirect, HttpResponseForbidden
 from django.views import generic
 from django.views.generic.base import TemplateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
+from django.utils.decorators import method_decorator
 from apps.front.decorators import render_to
 from apps.front import forms
 from apps.front import models
@@ -29,16 +34,64 @@ class Event(DetailView):
     context_object_name = 'event'
 
 
-class EventAdd(TemplateView):
-    template_name = 'front/event_add.html'
+class EventAdd(CreateView):
+    model = models.Event
+    form_class = forms.EventForm
 
-    def get_context_data(self, **kwargs):
-        context = super(self.__class__, self).get_context_data(**kwargs)
-        context['form'] = forms.EventForm
-        return context
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(EventAdd, self).dispatch(*args, **kwargs)
+
+    def form_valid(self, form):
+        """Override the form_valid method of the ModelFormMixin to insert
+        value of author field. To do this, the form's save() method is
+        called with commit=False to be able to edit the new object before
+        actually saving it."""
+        self.object = form.save(commit=False)
+        self.object.author = self.request.user
+        self.object.save()
+        return super(EventAdd, self).form_valid(form)
+
+    def get_success_url(self):
+        messages.add_message(self.request, messages.SUCCESS,
+            u'Event "%s" wurde erfolgreich erstellt.' % self.object.summary)
+        return reverse('event_detail', args=[self.object.pk])
 
 
-class Events(ListView):
+class EventEdit(UpdateView):
+    model = models.Event
+    form_class = forms.EventForm
+
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        handler = super(EventEdit, self).dispatch(request, *args, **kwargs)
+        # Only allow editing if current user is owner
+        if self.object.author != request.user:
+            return HttpResponseForbidden(u'Du darfst keine fremden Events editieren.')
+        return handler
+
+    def get_success_url(self):
+        return reverse('event_detail', args=[self.object.pk])
+
+
+class EventDelete(DeleteView):
+    model = models.Event
+
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        handler = super(EventDelete, self).dispatch(request, *args, **kwargs)
+        # Only allow deletion if current user is owner
+        if self.object.author != request.user:
+            return HttpResponseForbidden(u'Du darfst keine fremden Events löschen.')
+        return handler
+
+    def get_success_url(self):
+        messages.add_message(self.request, messages.SUCCESS,
+            u'Event "%s" wurde erfolgreich gelöscht.' % self.object.summary)
+        return reverse('event_list')
+
+
+class EventList(ListView):
     queryset = models.Event.objects.filter(start_date__gte=datetime.date.today()).order_by('start_date', 'start_time')
     context_object_name = 'events'
 

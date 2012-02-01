@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load url from future %}
+{% load tabs %}
+
+{% block title %}Event erfassen{% endblock %}
+
+{% block navigation %}
+    {% activetab 'navigation' 'events' %}
+    {{ block.super }}
+{% endblock %}
+
+{% block breadcrumbs %}
+    <a href="{% url 'event_list' %}">Events</a> &raquo; Event {{ event|yesno:"bearbeiten,erfassen" }}
+{% endblock %}
+
+{% block content %}
+
+    <h2>Event {{ event|yesno:"bearbeiten,erfassen" }}</h2>
+
+    <form method="POST" class="form-stacked noindent">{% csrf_token %}
+        {% include 'lib/form_loop.html' %}
+        <div class="actions">
+            <input type="submit" value="{{ event|yesno:"Speichern,Eintragen" }}" class="btn primary" />
+            {% if event %}
+                <a href="{% url 'event_detail' event.pk %}" class="btn">Abbrechen</a>
+            {% else %}
+                <a href="{% url 'event_list' %}" class="btn">Abbrechen</a>
+            {% endif %}
+        </div>
+    </form>
+{% endblock %}
