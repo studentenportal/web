@@ -6,7 +6,8 @@ Es soll das alte Portal ablösen und in Sachen Ruhm und Ehre weit überholen.
 
 ![f\*ck yeah!](http://s3.amazonaws.com/kym-assets/entries/icons/original/000/001/987/fyeah.jpg)
 
-Jenkins Buildserver: http://178.33.33.43:8080/job/Studentenportal2/
+ * Testinstanz: http://178.33.33.43/
+ * Jenkins Buildserver: http://178.33.33.43:8080/job/Studentenportal2/
 
 
 Technologie
@@ -23,14 +24,14 @@ Um die Entwicklungsumgebung einzurichten:
  1. Repository clonen
  2. Python Virtualenv erstellen und aktivieren
  3. `pip install -r requirements.txt`
- 4. `python management.py syncdb`
- 5. `python management.py runserver`
+ 4. `python manage.py syncdb`
+ 5. `python manage.py runserver`
 
 
 Um die Tests auszuführen:
 
- 1. `python management.py collectstatic`
- 2. `python management.py test front`
+ 1. `python manage.py collectstatic`
+ 2. `python manage.py test front`
 
 
 Features
