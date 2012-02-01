@@ -16,8 +16,8 @@
             <div class="container">
                 <a class="brand" href="#">HSR Studentenportal</a>
                 <ul class="nav secondary-nav">
-                    {% if not user.is_authenticated %} <li><a href="/login/">Login</a></li> {% endif %}
-                    {% if user.is_authenticated %} <li><a href="/logout/">[{{ user.username }}] Logout</a></li> {% endif %}
+                    {% if not user.is_authenticated %} <li><a href="{% url 'login' %}">Login</a></li> {% endif %}
+                    {% if user.is_authenticated %} <li><a href="{% url 'logout' %}">[{{ user.username }}] Logout</a></li> {% endif %}
                 </ul>
             </div>
         </div>

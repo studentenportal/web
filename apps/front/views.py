@@ -3,9 +3,8 @@ import datetime
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect, HttpResponseForbidden
+from django.http import HttpResponseForbidden
 from django.views import generic
-from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
@@ -92,10 +91,13 @@ class EventDelete(DeleteView):
 
 
 class EventList(ListView):
-    queryset = models.Event.objects.filter(start_date__gte=datetime.date.today()).order_by('start_date', 'start_time')
+    queryset = models.Event.objects \
+               .filter(start_date__gte=datetime.date.today()) \
+               .order_by('start_date', 'start_time')
     context_object_name = 'events'
 
 
+@login_required
 @render_to('lecturers.html')
 def lecturers(request):
     lecturers = models.Lecturer.objects.all()
@@ -111,6 +113,7 @@ class DocumentCategories(generic.list.ListView):
 
 @render_to('document_category.html')
 def document_category(request, category):
+    # TODO: class based view
     return {
         'object_list': models.DocumentCategory.objects.get(name__iexact=category).Document.all(),
     }
