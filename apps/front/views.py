@@ -4,7 +4,6 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseForbidden
-from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
@@ -100,20 +99,16 @@ class EventList(ListView):
 @login_required
 @render_to('lecturers.html')
 def lecturers(request):
-    lecturers = models.Lecturer.objects.all()
     return {
         'lecturers': (lecturers[::2], lecturers[1::2]),
     }
 
 
-class DocumentCategories(generic.list.ListView):
-    template_name = 'document_categories.html'
+class DocumentCategories(ListView):
     model = models.DocumentCategory
 
 
-@render_to('document_category.html')
-def document_category(request, category):
-    # TODO: class based view
-    return {
-        'object_list': models.DocumentCategory.objects.get(name__iexact=category).Document.all(),
-    }
+class DocumentCategory(ListView):
+    def get_queryset(self):
+        category = self.kwargs.get('category')
+        return models.DocumentCategory.objects.get(name__iexact=category).Document.all()

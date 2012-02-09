@@ -19,7 +19,7 @@ urlpatterns = patterns('apps.front.views',
     url(r'^events/(?P<pk>\d+)/delete/$', views.EventDelete.as_view(), name='event_delete'),
     url(r'^dozenten/$', 'lecturers', name='lecturers'),
     url(r'^zusammenfassungen/$', views.DocumentCategories.as_view(), name='document_categories'),
-    url(r'^zusammenfassungen/(?P<category>.*)/$', 'document_category', name='document_category'),
+    url(r'^zusammenfassungen/(?P<category>.*)/$', views.DocumentCategory.as_view(), name='document_category'),
     url(r'^users/(?P<pk>\d+)-(?P<username>[^\/]+)/$', 'home', name='user'),
 )
 
