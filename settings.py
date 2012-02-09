@@ -121,7 +121,7 @@ INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
-    'django.contrib.sites',
+    #'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admin',
@@ -135,6 +135,7 @@ INSTALLED_APPS = (
     'django_extensions',
     'messagegroups',
     'apps.tabs',
+    'registration',
 
     # Own apps
     'apps.front',
@@ -178,6 +179,12 @@ JENKINS_TASKS = (
     'django_jenkins.tasks.run_csslint',
     'django_jenkins.tasks.run_sloccount',
 )
+
+
+### REGISTRATION ###
+
+ACCOUNT_ACTIVATION_DAYS = 7
+REGISTRATION_OPEN = True
 
 
 ### DEBUG TOOLBAR ###

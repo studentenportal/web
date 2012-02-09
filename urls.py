@@ -30,8 +30,9 @@ urlpatterns += patterns('django.views.generic.simple',
 
 # Auth pages
 urlpatterns += patterns('django.contrib.auth.views',
-    url(r'^accounts/login/$', 'login', {'template_name': 'login.html'}, name='login'),
-    url(r'^accounts/logout/$', 'logout', {'template_name': 'logout.html'}, name='logout'),
+    url(r'^accounts/', include('registration.backends.default.urls')),
+    #url(r'^accounts/login/$', 'login', {'template_name': 'login.html'}, name='login'),
+    #url(r'^accounts/logout/$', 'logout', {'template_name': 'logout.html'}, name='logout'),
 )
 
 # Admin pages
