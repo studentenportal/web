@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseForbidden
+from django.views.generic import TemplateView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
@@ -18,13 +19,23 @@ def home(request):
     return {}
 
 
-@login_required
-@render_to('profile.html')
-def profile(request):
-    profile_form = forms.ProfileForm(initial={'username': 'danilo'})
-    return {
-        'form': profile_form,
-    }
+class Profile(UpdateView):
+    form_class = forms.ProfileForm
+    template_name = 'front/profile_form.html'
+
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super(Profile, self).dispatch(request, *args, **kwargs)
+
+    def get_object(self, queryset=None):
+        """Gets the current user object."""
+        assert self.request.user, u'request.user is empty.'
+        return self.request.user
+
+    def get_success_url(self):
+        messages.add_message(self.request, messages.SUCCESS,
+            u'Profil wurde erfolgreich aktualisiert.')
+        return reverse('profile')
 
 
 class Event(DetailView):
@@ -89,16 +100,24 @@ class EventDelete(DeleteView):
         return reverse('event_list')
 
 
-class EventList(ListView):
-    queryset = models.Event.objects \
+class EventList(TemplateView):
+    def get_context_data(self, **kwargs):
+        model = models.Event
+        context = super(EventList, self).get_context_data(**kwargs)
+        context['events_future'] = model.objects \
                .filter(start_date__gte=datetime.date.today()) \
                .order_by('start_date', 'start_time')
-    context_object_name = 'events'
+        context['events_past'] = model.objects \
+               .filter(start_date__lt=datetime.date.today()) \
+               .order_by('-start_date', 'start_time')
+        return context
 
 
 @login_required
 @render_to('lecturers.html')
 def lecturers(request):
+    lecturers = models.Lecturer.objects.all()
+
     return {
         'lecturers': (lecturers[::2], lecturers[1::2]),
     }

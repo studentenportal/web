@@ -17,20 +17,24 @@
     <p>Hier finden sich Zusammenfassungen des Unterrichtsstoffes und Lernhilfen für die Prüfungen.</p>
 
     {% if object_list %}
-        <table class="zebra">
-            <tr>
-                <th>Modul</th>
-                <th>Anzahl Dokumente</th>
-            </tr>
-            {% for category in object_list %}
+        <table class="table table-striped">
+            <thead>
                 <tr>
-                    <td><a href="{% url 'document_category' category.name|slugify %}">
-                        <strong>{{ category.name }}</strong>
-                        {% if category.description %}{{ category.description }}{% endif %}
-                    </td>
-                    <td>{{ category.Document.count }}</td>
+                    <th>Modul</th>
+                    <th>Anzahl Dokumente</th>
                 </tr>
-            {% endfor %}
+            </thead>
+            <tbody>
+                {% for category in object_list %}
+                    <tr>
+                        <td><a href="{% url 'document_category' category.name|slugify %}">
+                            <strong>{{ category.name }}</strong>
+                            {% if category.description %}{{ category.description }}{% endif %}
+                        </td>
+                        <td>{{ category.Document.count }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
         </table>
     {% endif %}
 

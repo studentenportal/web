@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load tabs %}
+{% load url from future %}
+
+{% block content %}
+    <h2>Benutzerprofil bearbeiten</h2>
+
+    <form method="post" action="{% url 'profile' %}">
+        {% csrf_token %}
+        {% include 'lib/form_loop.html' %}
+            
+        <input type="submit" value="Änderungen speichern" class="btn btn-primary">
+        <input type="hidden" name="next" value="{{ next }}">
+    </form>
+{% endblock %}

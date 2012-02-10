@@ -15,34 +15,30 @@
     
     <p>Hier können Termine rund ums Studentenleben gepostet werden, wie zB Bars, Vereinsveranstaltungen etc...</p>
 
-    <h3>Eintragen</h3>
-
-    <p>Du kannst neue Events <a href="{% url 'event_add' %}">hier</a> hinzufügen.</p>
+    {% if user.is_authenticated %}
+        <p><a class="btn" href="{% url 'event_add' %}">
+            <i class="icon-plus-sign"></i> Event hinzufügen
+        </a></p>
+    {% endif %}
 
     <h3>Kommende Veranstaltungen</h3>
 
-    {% if not events %}
-        <p class="alert-message"><strong>Epic Fail:</strong> Es wurden keine zukünftigen Events gefunden.</p>
+    {% if not events_future %}
+        <p class="alert"><strong>Epic Fail:</strong> Es wurden keine zukünftigen Events gefunden.</p>
     {% else %}
-        <table id="events" class="zebra-striped">
-            <colgroup>
-                <col width="150px">
-                <col>
-                <col>
-            </colgroup>
-            <tr>
-                <th>Datum</th>
-                <th>Beschreibung</th>
-                <th>Erfasst von</th>
-            </tr>
-            {% for event in events %}
-                <tr>
-                    <td>{{ event.start_date }}</td>
-                    <td><a href="{% url 'event_detail' event.pk %}"><strong>{{ event.summary }}</strong></a></td>
-                    <td>{{ event.author.name }}</td>
-                </tr>
-            {% endfor %}
-        </table>
+        {% with events_future as object_list %}
+            {% include 'front/blocks/event_table.html' %}
+        {% endwith %}
+    {% endif %}
+
+    <h3>Vergangene Veranstaltungen</h3>
+
+    {% if not events_past %}
+        <p class="alert"><strong>Epic Fail:</strong> Es wurden keine vergangenen Events gefunden.</p>
+    {% else %}
+        {% with events_past as object_list %}
+            {% include 'front/blocks/event_table.html' %}
+        {% endwith %}
     {% endif %}
 
 {% endblock %}

@@ -1,5 +1,5 @@
 body {
-    margin-top: 40px;
+    padding-top: 40px;
 }
 
 #header {
@@ -20,21 +20,6 @@ body {
 #footer {
     border-top: 2px solid green;
     margin: 0;
-}
-
-ul.navigation {
-    list-style-type: none;
-    margin-left: 0;
-}
-
-ul.navigation a {
-    display: inline-block;
-    padding: 5px 0 10px;
-    font-size: 1.3em;
-}
-
-ul.navigation li.active a {
-    font-weight: bold;
 }
 
 form input[type=text], form input[type=password] {

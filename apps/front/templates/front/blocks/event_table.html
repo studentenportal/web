@@ -1,0 +1,25 @@
+{% load url from future %}
+
+<table class="table table-striped">
+    <colgroup>
+        <col width="150px">
+        <col>
+        <col>
+    </colgroup>
+    <thead>
+        <tr>
+            <th>Datum</th>
+            <th>Beschreibung</th>
+            <th>Erfasst von</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for event in object_list %}
+            <tr>
+                <td>{{ event.start_date }}</td>
+                <td><a href="{% url 'event_detail' event.pk %}"><strong>{{ event.summary }}</strong></a></td>
+                <td>{{ event.author.name }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

@@ -11,7 +11,7 @@ from apps.front import views
 # Dynamic pages
 urlpatterns = patterns('apps.front.views',
     url(r'^$', 'home', name='home'),
-    url(r'^profil/$', 'profile', name='profile'),
+    url(r'^profil/$', views.Profile.as_view(), name='profile'),
     url(r'^events/$', views.EventList.as_view(), name='event_list'),
     url(r'^events/add/$', views.EventAdd.as_view(), name='event_add'),
     url(r'^events/(?P<pk>\d+)/$', views.Event.as_view(), name='event_detail'),

@@ -6,31 +6,48 @@
 
 <head>
     <title>HSR Studentenportal - {% block title %}Willkommen{% endblock %}</title>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
     {% assets 'stylesheets' %}<link rel="stylesheet" href="{{ ASSET_URL }}" />{% endassets %}
     {% assets 'scripts' %}<script src="{{ ASSET_URL }}"></script>{% endassets %}
 </head>
 
 <body>
-    <div class="topbar">
-        <div class="topbar-inner">
+    <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
             <div class="container">
                 <a class="brand" href="#">HSR Studentenportal</a>
-                <ul class="nav secondary-nav">
-                    {% if not user.is_authenticated %} <li><a href="{% url 'auth_login' %}">Login</a></li> {% endif %}
-                    {% if not user.is_authenticated %} <li><a href="{% url 'registration_register' %}">Register</a></li> {% endif %}
-                    {% if user.is_authenticated %} <li><a href="{% url 'auth_logout' %}">[{{ user.username }}] Logout</a></li> {% endif %}
+                <ul class="nav pull-right">
+                    {% if not user.is_authenticated %}
+                        <li><a href="{% url 'auth_login' %}">Login</a></li>
+                        <li><a href="{% url 'registration_register' %}">Register</a></li>
+                    {% else %}
+                        <li class="dropdown" id="authmenu">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#authmenu">
+                                {{ user.name }}
+                                <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{% url 'profile' %}">Profile</a></li>
+                                <li><a href="{% url 'auth_logout' %}">Logout</a></li>
+                            </ul>
+                        </li>
+                    {% endif %}
                 </ul>
             </div>
         </div>
     </div>
     <div class="container">
-        <div class="span16" id="header">
+        <div class="span12" id="header">
             <h1>Studentenportal 2.0</h1>
         </div>
         <div class="row">
-            <div class="span4" id="navigation">
+            <div class="span3" id="navigation">
                 {% block navigation %}
-                    <ul class="navigation">
+                    <ul class="nav nav-list">
+                        <li class="nav-header">
+                            Public
+                        </li>
                         <li class="{% ifactivetab 'navigation' 'home' %}active{% endifactivetab %}">
                             <a href="{% url 'home' %}">Home</a>
                         </li>
@@ -46,8 +63,8 @@
                         <li class="{% ifactivetab 'navigation' 'documents' %}active{% endifactivetab %}">
                             <a href="{% url 'document_categories' %}">Zusammenfassungen</a>
                         </li>
-                        <li>
-                            <hr>
+                        <li class="nav-header">
+                            Login-Bereich
                         </li>
                         <li class="{% ifactivetab 'navigation' 'dozenten' %}active{% endifactivetab %}">
                             <a href="{% url 'lecturers' %}">Dozenten</a>
@@ -55,13 +72,13 @@
                     </ul>
                 {% endblock %}
             </div>
-            <div class="span12" id="content">
+            <div class="span8" id="content">
                 {% render_messages messages %}
                 <section id="breadcrumbs">{% block breadcrumbs %}{% endblock %}</section>
                 {% block content %}{% endblock %}
             </div>
         </div>
-        <div class="span16" id="footer">
+        <div class="span12" id="footer">
             Footer. Powered by Django.
         </div>
     </div>

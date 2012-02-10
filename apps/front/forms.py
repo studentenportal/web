@@ -1,9 +1,13 @@
 from django import forms
+from django.contrib.auth import models as auth_models
 from apps.front import models
 
 
-class ProfileForm(forms.Form):
-    username = forms.CharField(label=u'E-Mail', required=True)
+class ProfileForm(forms.ModelForm):
+    #username = forms.CharField(label=u'E-Mail', required=True)
+    class Meta:
+        model = auth_models.User
+        fields = ('first_name', 'last_name', 'email')
 
 
 class PasswordForm(forms.Form):
