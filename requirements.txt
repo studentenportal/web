@@ -1,12 +1,22 @@
-BeautifulSoup==3.2.0
+# Base system
 Django==1.3.1
 PIL
-requests==0.6.1
+
+# Useful/important apps
 webassets==0.6
-South==0.7.3
+-e git://github.com/FactorAG/django-messagegroups.git@400f16246914590697c326a8563a1390de1f493a#egg=messagegroups-dev
+-e hg+https://bitbucket.org/ubernostrum/django-registration@fad7080fe76955e7d0d3c97bc468ea8360260a6b#egg=django_registration-dev
+
+# Development
 django-debug-toolbar-django13
 django-extensions
--e git://github.com/FactorAG/django-messagegroups.git@400f16246914590697c326a8563a1390de1f493a#egg=messagegroups-dev
+South==0.7.3
+
+# Parsing
+BeautifulSoup==3.2.0
+requests==0.6.1
+
+# Testing
 django-jenkins==0.12.0
 coverage
 httplib2
