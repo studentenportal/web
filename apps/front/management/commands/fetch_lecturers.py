@@ -29,7 +29,7 @@ class Command(NoArgsCommand):
         table = soup.find('table')
         rows = table.findAll('tr')[1:]
         lecturers = [tuple(td.text for td in row.findAll('td')) for row in rows]
-        
+
         # Write data into database
         self.printO('Writing to database...')
         added = 0
@@ -44,6 +44,6 @@ class Command(NoArgsCommand):
             else:
                 self.printO("Added %s." % repr(lecturer))
                 added += 1
-        
+
         self.printO("\nParsed %u lecturers." % len(lecturers))
         self.printO("Added %u lecturers." % added)

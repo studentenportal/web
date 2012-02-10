@@ -1,12 +1,12 @@
 # coding=utf-8
 from functools import wraps
-from django.shortcuts import render_to_response, redirect
+from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.template.loader import render_to_string
 
 
 def render_to(template=None, output='response', mimetype=None):
-    """ 
+    """
     Decorator for Django views that sends returned dict to render_to_response
     function.
 

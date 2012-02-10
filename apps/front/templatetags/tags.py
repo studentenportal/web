@@ -28,7 +28,7 @@ def get_range(value):
 @register.filter
 def get_range1(value):
     """Like get_range, but with an 1 based index."""
-    return xrange(1, value+1)
+    return xrange(1, value + 1)
 
 
 @register.filter

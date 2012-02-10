@@ -125,9 +125,9 @@ class DocumentRating(models.Model):
 
 class Event(models.Model):
     """An event.
-    
-    If end_date is null, then end_date = start_date.
-    
+
+    If end_date is null, then assume end_date = start_date.
+
     """
     summary = models.CharField(u'Titel', max_length=64)
     description = models.TextField(u'Beschreibung')

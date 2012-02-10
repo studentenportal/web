@@ -3,7 +3,6 @@ import datetime
 
 from django.test import TestCase
 from django.utils import unittest
-from django.test.client import Client
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.db import IntegrityError
@@ -109,7 +108,7 @@ class UserModelTest(unittest.TestCase):
 class EventModelTest(unittest.TestCase):
     def setUp(self):
         self.mike = User.objects.create(username='mike', first_name=u'Mike', last_name=u'Müller')
-        
+
     def tearDown(self):
         self.mike.delete()
 

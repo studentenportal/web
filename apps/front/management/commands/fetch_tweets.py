@@ -19,7 +19,7 @@ class Helpers(object):
         """Yields items from an iterator in iterable chunks."""
         it = iter(seq)
         while True:
-            yield chain([it.next()], islice(it, chunksize-1))
+            yield chain([it.next()], islice(it, chunksize - 1))
 
     @classmethod
     def chunked(cls, seq, chunksize):
