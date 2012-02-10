@@ -101,6 +101,8 @@ class EventDelete(DeleteView):
 
 
 class EventList(TemplateView):
+    template_name = 'front/event_list.html'
+
     def get_context_data(self, **kwargs):
         model = models.Event
         context = super(EventList, self).get_context_data(**kwargs)

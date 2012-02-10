@@ -1,6 +1,7 @@
 # encoding=utf8
 import datetime
 
+from django.test import TestCase
 from django.utils import unittest
 from django.test.client import Client
 from django.contrib.auth.models import User
@@ -147,41 +148,33 @@ class EventModelTest(unittest.TestCase):
 
 ### VIEW TESTS ###
 
-class HomeViewTest(unittest.TestCase):
-    def setUp(self):
-        self.client = Client()
-
+class HomeViewTest(TestCase):
     def testHTTP200(self):
         response = self.client.get('/')
         self.assertEqual(response.status_code, 200)
 
 
-class LecturersViewTest(unittest.TestCase):
-    def setUp(self):
-        self.client = Client()
+class LecturersViewTest(TestCase):
+    fixtures = ['testuser']
 
-    def testHTTP200(self):
+    def testLoginRequired(self):
         response = self.client.get('/dozenten/')
-        self.assertEqual(response.status_code, 200)
+        self.assertRedirects(response, '/accounts/login/?next=/dozenten/')
 
     def testTitle(self):
+        self.client.login(username='testuser', password='test')
         response = self.client.get('/dozenten/')
         self.assertIn('<h2>Unsere Dozenten</h2>', response.content)
 
 
-class ProfileViewTest(unittest.TestCase):
-    def setUp(self):
-        self.client = Client()
-
+class ProfileViewTest(TestCase):
     def testUnauthRedirect(self):
         response = self.client.get('/profil/')
         self.assertEqual(response.status_code, 302)
 
 
-class DocumentsViewTest(unittest.TestCase):
-    def setUp(self):
-        self.client = Client()
-        self.taburl = '/zusammenfassungen/'
+class DocumentsViewTest(TestCase):
+    taburl = '/zusammenfassungen/'
 
     def testHTTP200(self):
         response = self.client.get(self.taburl)
@@ -192,10 +185,8 @@ class DocumentsViewTest(unittest.TestCase):
         self.assertIn('<h2>Zusammenfassungen</h2>', response.content)
 
 
-class EventsViewTest(unittest.TestCase):
-    def setUp(self):
-        self.client = Client()
-        self.taburl = '/events/'
+class EventsViewTest(TestCase):
+    taburl = '/events/'
 
     def testHTTP200(self):
         response = self.client.get(self.taburl)
