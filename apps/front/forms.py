@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth import models as auth_models
+from registration.forms import RegistrationForm
 from apps.front import models
 
 
@@ -19,3 +20,13 @@ class EventForm(forms.ModelForm):
     class Meta:
         model = models.Event
         exclude = ('author',)
+
+
+class HsrRegistrationForm(RegistrationForm):
+        """Subclass of RegistrationForm which does not require
+        an e-mail address.
+        
+        """
+        def __init__(self, *args, **kwargs):
+            super(HsrRegistrationForm, self).__init__(*args, **kwargs)
+            del self.fields['email']  # Remove email field

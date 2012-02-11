@@ -1,12 +1,10 @@
 from django.conf.urls.defaults import patterns, include, url
 from django.conf import settings
-
-# Uncomment the next two lines to enable the admin:
 from django.contrib import admin
-admin.autodiscover()
-
+from registration.views import register
 from apps.front import views
 
+admin.autodiscover()
 
 # Dynamic pages
 urlpatterns = patterns('apps.front.views',
@@ -29,10 +27,9 @@ urlpatterns += patterns('django.views.generic.simple',
 )
 
 # Auth pages
-urlpatterns += patterns('django.contrib.auth.views',
+urlpatterns += patterns('',
     url(r'^accounts/', include('registration.backends.default.urls')),
-    #url(r'^accounts/login/$', 'login', {'template_name': 'login.html'}, name='login'),
-    #url(r'^accounts/logout/$', 'logout', {'template_name': 'logout.html'}, name='logout'),
+    url(r'^accounts/register/$', register, {'backend': 'apps.front.registration_backends.HsrEmailBackend'}, name='registration_register'),
 )
 
 # Admin pages

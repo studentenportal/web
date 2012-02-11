@@ -55,10 +55,6 @@ form.noindent .errorlist {
     margin: 0;
 }
 
-.errorlist li {
-    color: red;
-}
-
 form .fieldWrapper {
     padding-bottom: 12px;
 }

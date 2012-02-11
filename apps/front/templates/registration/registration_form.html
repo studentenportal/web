@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load url from future %}
+
+{% block title %}Registrierung{% endblock %}
+
+{% block content %}
+    <h1>Registrieren</h1>
+
+    <p>Diese Registrierung ist Personen mit einer HSR-Email-Adresse vorbehalten.</p>
+
+    {% if form.non_field_errors %}
+        <div class="alert alert-block alert-error">
+            <h4 class="alert-heading">Oops...</h4>
+            {{ form.non_field_errors }}
+        </div>
+    {% endif %}
+
+    <form method="post" action="" class="form-horizontal">{% csrf_token %}
+        <fieldset>
+            <div class="control-group {% if form.username.errors %}error{% endif %}">
+                <label class="control-label" for="id_{{ form.username.name }}">HSR E-Mail</label>
+                <div class="controls">
+                    <div class="input-append">
+                        <input type="text" name="{{ form.username.name }}" id="id_{{ form.username.name }}">
+                        <span class="add-on">@hsr.ch</span>
+                        {% if form.username.errors %}<span class="help-inline">{{ form.username.errors }}</span>{% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="control-group {% if form.password1.errors %}error{% endif %}">
+                <label class="control-label" for="id_{{ form.password1.name }}">{{ form.password1.label }}</label>
+                <div class="controls">
+                    <input type="password" name="{{ form.password1.name }}" id="id_{{ form.password1.name }}">
+                    {% if form.password1.errors %}<span class="help-inline">{{ form.password1.errors }}</span>{% endif %}
+                </div>
+            </div>
+
+            <div class="control-group {% if form.password2.errors %}error{% endif %}">
+                <label class="control-label" for="id_{{ form.password2.name }}">{{ form.password2.label }}</label>
+                <div class="controls">
+                    <input type="password" name="{{ form.password2.name }}" id="id_{{ form.password2.name }}">
+                    {% if form.password2.errors %}<span class="help-inline">{{ form.password2.errors }}</span>{% endif %}
+                </div>
+            </div>
+                        
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Aktivierungsmail senden</button>
+                <button type="reset" class="btn">Abbrechen</button>
+            </div>
+        </fieldset>
+    </form>
+{% endblock %}

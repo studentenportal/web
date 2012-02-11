@@ -12,7 +12,7 @@
     {% assets 'scripts' %}<script src="{{ ASSET_URL }}"></script>{% endassets %}
 </head>
 
-<body>
+<body class="{% block bodyclass %}{% endblock %}">
     <div class="navbar navbar-fixed-top">
         <div class="navbar-inner">
             <div class="container">
@@ -20,7 +20,7 @@
                 <ul class="nav pull-right">
                     {% if not user.is_authenticated %}
                         <li><a href="{% url 'auth_login' %}">Login</a></li>
-                        <li><a href="{% url 'registration_register' %}">Register</a></li>
+                        <li><a href="{% url 'registration_register' %}">Registrieren</a></li>
                     {% else %}
                         <li class="dropdown" id="authmenu">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#authmenu">

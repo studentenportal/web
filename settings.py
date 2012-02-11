@@ -116,6 +116,8 @@ TEMPLATE_DIRS = (
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 INSTALLED_APPS = (
     # Builtin apps
     'django.contrib.auth',

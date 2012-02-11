@@ -1,0 +1,15 @@
+Hey
+
+Du hast dich soeben auf studentenportal.ch registriert. Gratuliere,
+du darfst dir für diese Leistung selbst auf die Schulter klopfen!
+
+Um den Vorgang abzuschliessen (zuerst die Arbeit, dann das Vergnügen)
+musst du deinen Account noch bestätigen.
+
+http://{{site.domain}}/accounts/activate/{{ activation_key }}
+
+Du hast {{ expiration_days }} Tage Zeit um dies zu tun, ansonsten
+wird der Account gesperrt und du hast verloren.
+
+Mit mehr oder weniger freundlichen Grüssen,
+Das Studentenportal
