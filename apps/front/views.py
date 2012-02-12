@@ -1,6 +1,7 @@
 # coding=utf-8
 import datetime
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import models as auth_models
 from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseForbidden
@@ -34,6 +35,11 @@ class Profile(UpdateView):
         messages.add_message(self.request, messages.SUCCESS,
             u'Profil wurde erfolgreich aktualisiert.')
         return reverse('profile')
+
+
+class User(DetailView):
+    model = auth_models.User
+    template_name = 'front/user_detail.html'
 
 
 class Event(DetailView):

@@ -18,6 +18,7 @@ urlpatterns = patterns('apps.front.views',
     url(r'^dozenten/$', views.LecturerList.as_view(), name='lecturers'),
     url(r'^zusammenfassungen/$', views.DocumentCategories.as_view(), name='document_categories'),
     url(r'^zusammenfassungen/(?P<category>.*)/$', views.DocumentCategory.as_view(), name='document_category'),
+    url(r'^users/(?P<pk>\d+)/(?P<username>[^\/]+)/$', views.User.as_view(), name='user'),
 )
 
 # Static pages

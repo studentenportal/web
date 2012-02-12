@@ -68,7 +68,7 @@ class Document(models.Model):
     name = models.CharField(max_length=64, unique=True)
     description = models.CharField(max_length=255, blank=True)
     document = models.FileField(upload_to='documents')
-    uploader = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
+    uploader = models.ForeignKey(User, related_name=u'Document', null=True, on_delete=models.SET_NULL)
     upload_date = models.DateTimeField(auto_now_add=True)
     category = models.ForeignKey(DocumentCategory, related_name=u'Document', null=True, on_delete=models.SET_NULL)
 
@@ -107,7 +107,7 @@ class DocumentRating(models.Model):
         if value not in range(1, 6):
             raise ValidationError(u'Rating must be between 1 and 5, not %s.' % value)
 
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(User, related_name=u'DocumentRating')
     document = models.ForeignKey(Document, related_name='DocumentRating')
     rating = models.PositiveSmallIntegerField(validators=[validate_rating])
 
