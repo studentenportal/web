@@ -13,7 +13,7 @@ def get_range(value):
       <li>{{ i }}. Do something</li>
     {% endfor %}</ul>
 
-    Results with the HTML:
+    Results in the HTML:
     <ul>
       <li>0. Do something</li>
       <li>1. Do something</li>

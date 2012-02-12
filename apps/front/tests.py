@@ -8,6 +8,7 @@ from django.core.exceptions import ValidationError
 from django.db import IntegrityError
 
 from apps.front import models
+from apps.front import templatetags
 
 
 ### MODEL TESTS ###
@@ -194,3 +195,52 @@ class EventsViewTest(TestCase):
     def testTitle(self):
         response = self.client.get(self.taburl)
         self.assertIn('<h2>Events</h2>', response.content)
+
+
+class LoginTest(TestCase):
+    url = '/accounts/login/'
+
+    def testTitle(self):
+        r = self.client.get(self.url)
+        self.assertContains(r, '<h1>Login</h1>')
+
+# TODO registration test
+
+
+### TEMPLATETAG TESTS ###
+
+class GetRangeTest(unittest.TestCase):
+    def testZero(self):
+        r = templatetags.tags.get_range(0)
+        self.assertEqual(len(r), 0) 
+
+    def testNegative(self):
+        r = templatetags.tags.get_range(-5)
+        self.assertEqual(len(r), 0)
+
+    def testPositive(self):
+        r = templatetags.tags.get_range(5)
+        self.assertEqual(len(r), 5)
+        self.assertEqual(r[0], 0)
+        self.assertEqual(r[4], 4)
+
+
+class GetRange1Test(unittest.TestCase):
+    def testZero(self):
+        r = templatetags.tags.get_range1(0)
+        self.assertEqual(len(r), 0)
+
+    def testOne(self):
+        r = templatetags.tags.get_range1(1)
+        self.assertEqual(len(r), 1)
+        self.assertEqual(r[0], 1)
+
+    def testNegative(self):
+        r = templatetags.tags.get_range1(-5)
+        self.assertEqual(len(r), 0)
+
+    def testPositive(self):
+        r = templatetags.tags.get_range1(5)
+        self.assertEqual(len(r), 5)
+        self.assertEqual(r[0], 1)
+        self.assertEqual(r[4], 5)
