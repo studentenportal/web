@@ -15,7 +15,7 @@
 
 {% block content %}
 
-    <h2>Event {{ event|yesno:"bearbeiten,erfassen" }}</h2>
+    <h1>Event {{ event|yesno:"bearbeiten,erfassen" }}</h1>
 
     <form method="POST" class="form-horizontal">{% csrf_token %}
         {% include 'lib/form_loop.html' %}

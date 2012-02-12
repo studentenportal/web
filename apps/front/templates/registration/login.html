@@ -1,7 +1,11 @@
 {% extends 'front/base.html' %}
 {% load url from future %}
 
+{% block title %}Login{% endblock %}
+
 {% block content %}
+    <h1>Login</h1>
+
     {% if form.errors %}
         <div class="alert-message block-message error">Fehlerhafte Angaben. Bitte versuch es nochmals.</div>
     {% endif %}

@@ -15,7 +15,7 @@
 
 {% block content %}
 
-    <h2>{{ event.summary }}</h2>
+    <h1>{{ event.summary }}</h1>
 
     <p><em>Erfasst von: <a href="{% url 'user' event.author.pk event.author.username|slugify %}">{{ event.author.username }}</a></em></p>
     

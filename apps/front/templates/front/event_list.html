@@ -11,7 +11,7 @@
 
 {% block content %}
 
-    <h2>Events</h2>
+    <h1>Events</h1>
     
     <p>Hier können Termine rund ums Studentenleben gepostet werden, wie zB Bars, Vereinsveranstaltungen etc...</p>
 
@@ -21,7 +21,7 @@
         </a></p>
     {% endif %}
 
-    <h3>Kommende Veranstaltungen</h3>
+    <h2>Kommende Veranstaltungen</h2>
 
     {% if not events_future %}
         <p class="alert"><strong>Epic Fail:</strong> Es wurden keine zukünftigen Events gefunden.</p>
@@ -31,7 +31,7 @@
         {% endwith %}
     {% endif %}
 
-    <h3>Vergangene Veranstaltungen</h3>
+    <h2>Vergangene Veranstaltungen</h2>
 
     {% if not events_past %}
         <p class="alert"><strong>Epic Fail:</strong> Es wurden keine vergangenen Events gefunden.</p>

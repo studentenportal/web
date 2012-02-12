@@ -3,7 +3,7 @@
 {% load url from future %}
 
 {% block content %}
-    <h2>Benutzerprofil bearbeiten</h2>
+    <h1>Benutzerprofil bearbeiten</h1>
 
     <form method="post" action="{% url 'profile' %}">
         {% csrf_token %}

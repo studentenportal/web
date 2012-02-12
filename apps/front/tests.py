@@ -164,7 +164,7 @@ class LecturersViewTest(TestCase):
     def testTitle(self):
         self.client.login(username='testuser', password='test')
         response = self.client.get('/dozenten/')
-        self.assertIn('<h2>Unsere Dozenten</h2>', response.content)
+        self.assertIn('<h1>Unsere Dozenten</h1>', response.content)
 
 
 class ProfileViewTest(TestCase):
@@ -176,25 +176,17 @@ class ProfileViewTest(TestCase):
 class DocumentsViewTest(TestCase):
     taburl = '/zusammenfassungen/'
 
-    def testHTTP200(self):
-        response = self.client.get(self.taburl)
-        self.assertEqual(response.status_code, 200)
-
     def testTitle(self):
         response = self.client.get(self.taburl)
-        self.assertIn('<h2>Zusammenfassungen</h2>', response.content)
+        self.assertContains(response, '<h1>Zusammenfassungen</h1>')
 
 
 class EventsViewTest(TestCase):
     taburl = '/events/'
 
-    def testHTTP200(self):
-        response = self.client.get(self.taburl)
-        self.assertEqual(response.status_code, 200)
-
     def testTitle(self):
         response = self.client.get(self.taburl)
-        self.assertIn('<h2>Events</h2>', response.content)
+        self.assertContains(response, '<h1>Events</h1>')
 
 
 class LoginTest(TestCase):
