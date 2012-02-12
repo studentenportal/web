@@ -9,14 +9,12 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.utils.decorators import method_decorator
-from apps.front.decorators import render_to
 from apps.front import forms
 from apps.front import models
 
 
-@render_to('home.html')
-def home(request):
-    return {}
+class Home(TemplateView):
+    template_name = 'front/home.html'
 
 
 class Profile(UpdateView):
@@ -115,14 +113,19 @@ class EventList(TemplateView):
         return context
 
 
-@login_required
-@render_to('lecturers.html')
-def lecturers(request):
-    lecturers = models.Lecturer.objects.all()
+class LecturerList(ListView):
+    model = models.Lecturer
 
-    return {
-        'lecturers': (lecturers[::2], lecturers[1::2]),
-    }
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super(LecturerList, self).dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        # TODO do this in the frontend
+        context = super(LecturerList, self).get_context_data(**kwargs)
+        context['lecturers'] = (context['object_list'][::2],
+                                context['object_list'][1::2])
+        return context
 
 
 class DocumentCategories(ListView):

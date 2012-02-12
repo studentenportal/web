@@ -8,22 +8,21 @@ admin.autodiscover()
 
 # Dynamic pages
 urlpatterns = patterns('apps.front.views',
-    url(r'^$', 'home', name='home'),
+    url(r'^$', views.Home.as_view(), name='home'),
     url(r'^profil/$', views.Profile.as_view(), name='profile'),
     url(r'^events/$', views.EventList.as_view(), name='event_list'),
     url(r'^events/add/$', views.EventAdd.as_view(), name='event_add'),
     url(r'^events/(?P<pk>\d+)/$', views.Event.as_view(), name='event_detail'),
     url(r'^events/(?P<pk>\d+)/edit/$', views.EventEdit.as_view(), name='event_edit'),
     url(r'^events/(?P<pk>\d+)/delete/$', views.EventDelete.as_view(), name='event_delete'),
-    url(r'^dozenten/$', 'lecturers', name='lecturers'),
+    url(r'^dozenten/$', views.LecturerList.as_view(), name='lecturers'),
     url(r'^zusammenfassungen/$', views.DocumentCategories.as_view(), name='document_categories'),
     url(r'^zusammenfassungen/(?P<category>.*)/$', views.DocumentCategory.as_view(), name='document_category'),
-    url(r'^users/(?P<pk>\d+)-(?P<username>[^\/]+)/$', 'home', name='user'),
 )
 
 # Static pages
 urlpatterns += patterns('django.views.generic.simple',
-    url(r'^tipps/$', 'direct_to_template', {'template': 'tips.html'}, name='tips'),
+    url(r'^tipps/$', 'direct_to_template', {'template': 'front/tips.html'}, name='tips'),
 )
 
 # Auth pages
