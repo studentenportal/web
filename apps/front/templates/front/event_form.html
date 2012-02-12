@@ -17,10 +17,10 @@
 
     <h2>Event {{ event|yesno:"bearbeiten,erfassen" }}</h2>
 
-    <form method="POST" class="form-stacked noindent">{% csrf_token %}
+    <form method="POST" class="form-horizontal">{% csrf_token %}
         {% include 'lib/form_loop.html' %}
-        <div class="actions">
-            <input type="submit" value="{{ event|yesno:"Speichern,Eintragen" }}" class="btn primary" />
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">{{ event|yesno:"Speichern,Eintragen" }}</button>
             {% if event %}
                 <a href="{% url 'event_detail' event.pk %}" class="btn">Abbrechen</a>
             {% else %}

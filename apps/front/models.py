@@ -132,10 +132,14 @@ class Event(models.Model):
     summary = models.CharField(u'Titel', max_length=64)
     description = models.TextField(u'Beschreibung')
     author = models.ForeignKey(User, related_name='Event')
-    start_date = models.DateField(u'Startdatum')
-    start_time = models.TimeField(u'Startzeit', null=True, blank=True)
-    end_date = models.DateField(u'Enddatum', null=True, blank=True)
-    end_time = models.TimeField(u'Endzeit', null=True, blank=True)
+    start_date = models.DateField(u'Startdatum',
+        help_text=u'Format: dd.mm.YYYY')
+    start_time = models.TimeField(u'Startzeit', null=True, blank=True,
+        help_text=u'Format: hh:mm')
+    end_date = models.DateField(u'Enddatum', null=True, blank=True,
+        help_text=u'Format: dd.mm.YYYY')
+    end_time = models.TimeField(u'Endzeit', null=True, blank=True,
+        help_text=u'Format: hh:mm')
 
     def is_over(self):
         """Return whether the start_date has already passed or not.
