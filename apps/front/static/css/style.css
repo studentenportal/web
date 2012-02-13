@@ -22,10 +22,6 @@ body {
     margin: 0;
 }
 
-form input[type=text], form input[type=password] {
-    height: 28px;
-}
-
 .lecturer img {
     width: 120px;
     height: 160px;
