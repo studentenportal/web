@@ -28,8 +28,8 @@ urlpatterns += patterns('django.views.generic.simple',
 
 # Auth pages
 urlpatterns += patterns('',
+    url(r'^accounts/register/$', register, {'backend': 'apps.front.registration_backends.HsrEmailBackend'}, name='register'),
     url(r'^accounts/', include('registration.backends.default.urls')),
-    url(r'^accounts/register/$', register, {'backend': 'apps.front.registration_backends.HsrEmailBackend'}, name='registration_register'),
 )
 
 # Admin pages
