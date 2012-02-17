@@ -14,7 +14,7 @@ class Lecturer(models.Model):
     and the filename should be <abbreviation>.jpg.
 
     """
-    name = models.CharField(max_length=255, primary_key=True)
+    name = models.CharField(max_length=255)
     abbreviation = models.CharField(max_length=10, unique=True)
     subjects = models.CharField(max_length=50, null=True, blank=True)
     description = models.TextField(null=True, blank=True)
