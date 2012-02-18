@@ -123,6 +123,10 @@ class Lecturer(DetailView):
     model = models.Lecturer
     context_object_name = 'lecturer'
 
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super(Lecturer, self).dispatch(request, *args, **kwargs)
+
 
 class LecturerList(ListView):
     model = models.Lecturer

@@ -18,6 +18,8 @@ class Lecturer(models.Model):
     abbreviation = models.CharField(max_length=10, unique=True)
     subjects = models.CharField(max_length=50, null=True, blank=True)
     description = models.TextField(null=True, blank=True)
+    email = models.EmailField(null=True, blank=True)
+    office = models.CharField(max_length=20, null=True, blank=True)
 
     def photo(self):
         path = os.path.join(settings.MEDIA_ROOT, 'lecturers',

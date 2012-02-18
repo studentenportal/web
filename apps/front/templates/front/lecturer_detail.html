@@ -27,8 +27,13 @@
     <h3>Fächer</h3>
     <p>{{ lecturer.subjects|default:"Keine bekannt." }}</p>
 
-    <h3>Bewertungen</h3>
+    <h3>Kontakt</h3>
+    <ul>
+        <li>Büro: {{ lecturer.office }}</li>
+        <li>Email: {{ lecturer.email }}</li>
+    </ul>
 
+    <h3>Bewertungen</h3>
     <ul>
         <li>Didaktisch: <span class="label label-important">{{ lecturer.avg_rating_d }}</span></li>
         <li>Menschlich: <span class="label label-success">{{ lecturer.avg_rating_m }}</span></li>

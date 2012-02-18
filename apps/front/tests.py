@@ -19,7 +19,9 @@ class LecturerModelTest(unittest.TestCase):
                 name='Jussuf Jolder',
                 abbreviation='jol',
                 subjects='Testsubject',
-                description='Some guy')
+                description='Some guy',
+                email='j.jolder@hsr.ch',
+                office='1.234')
 
     def tearDown(self):
         self.lecturer.delete()
@@ -154,17 +156,40 @@ class HomeViewTest(TestCase):
         self.assertEqual(response.status_code, 200)
 
 
-class LecturersViewTest(TestCase):
-    fixtures = ['testuser']
+class LecturerListViewTest(TestCase):
+    fixtures = ['testuser', 'testlecturer']
 
     def testLoginRequired(self):
         response = self.client.get('/dozenten/')
         self.assertRedirects(response, '/accounts/login/?next=/dozenten/')
 
-    def testTitle(self):
+    def testContent(self):
         self.client.login(username='testuser', password='test')
         response = self.client.get('/dozenten/')
-        self.assertIn('<h1>Unsere Dozenten</h1>', response.content)
+        self.assertContains(response, '<h1>Unsere Dozenten</h1>')
+        self.assertContains(response, 'Prof. Dr. Krakaduku / kra')
+
+
+class LecturerDetailViewTest(TestCase):
+    fixtures = ['testuser', 'testlecturer']
+    url = '/dozenten/1/'
+
+    def testLoginRequired(self):
+        response = self.client.get(self.url)
+        self.assertRedirects(response, '/accounts/login/?next=%s' % self.url)
+
+    def testDescription(self):
+        self.client.login(username='testuser', password='test')
+        response = self.client.get(self.url)
+        self.assertContains(response, '<h1>Prof. Dr. Krakaduku (kra)</h1>')
+        self.assertContains(response, 'San Diego')
+        self.assertContains(response, 'Quantenphysik, Mathematik für Mathematiker')
+
+    def testContact(self):
+        self.client.login(username='testuser', password='test')
+        response = self.client.get(self.url)
+        self.assertContains(response, '1.337')
+        self.assertContains(response, 'krakaduku@hsr.ch')
 
 
 class ProfileViewTest(TestCase):

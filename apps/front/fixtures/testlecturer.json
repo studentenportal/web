@@ -1,0 +1,14 @@
+[
+  {
+    "pk": 1, 
+    "model": "front.lecturer", 
+    "fields": {
+      "name": "Prof. Dr. Krakaduku", 
+      "office": "1.337", 
+      "abbreviation": "kra", 
+      "subjects": "Quantenphysik, Mathematik f\u00fcr Mathematiker", 
+      "email": "krakaduku@hsr.ch", 
+      "description": "Er hat an der Universit\u00e4t in San Diego studiert."
+    }
+  }
+]
