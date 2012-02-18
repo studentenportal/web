@@ -119,6 +119,11 @@ class EventList(TemplateView):
         return context
 
 
+class Lecturer(DetailView):
+    model = models.Lecturer
+    context_object_name = 'lecturer'
+
+
 class LecturerList(ListView):
     model = models.Lecturer
 

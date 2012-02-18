@@ -66,8 +66,8 @@
                         <li class="nav-header">
                             Login-Bereich
                         </li>
-                        <li class="{% ifactivetab 'navigation' 'dozenten' %}active{% endifactivetab %}">
-                            <a href="{% url 'lecturers' %}">Dozenten</a>
+                        <li class="{% ifactivetab 'navigation' 'lecturers' %}active{% endifactivetab %}">
+                            <a href="{% url 'lecturer_list' %}">Dozenten</a>
                         </li>
                     </ul>
                 {% endblock %}

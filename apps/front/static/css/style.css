@@ -58,3 +58,26 @@ form.noindent .errorlist {
 form .fieldWrapper {
     padding-bottom: 12px;
 }
+
+
+/* General classes */
+
+.floatleft {
+    float: left;
+}
+
+.floatright {
+    float: right;
+}
+
+.clearleft {
+    clear: left;
+}
+
+.clearright {
+    clear: right;
+}
+
+.clearboth {
+    clear: both;
+}

@@ -1,0 +1,46 @@
+{% extends 'front/base.html' %}
+{% load url from future %}
+{% load tabs %}
+
+{% block title %}{{ lecturer.name }}{% endblock %}
+
+{% block navigation %}
+    {% activetab 'navigation' 'lecturers' %}
+    {{ block.super }}
+{% endblock %}
+
+{% block breadcrumbs %}
+    <a href="{% url 'lecturer_list' %}">Dozenten</a> &raquo; {{ lecturer.name }}
+{% endblock %}
+
+{% block content %}
+
+    <h1>{{ lecturer.name }} ({{ lecturer.abbreviation }})</h1>
+
+    <img class="thumbnail quimby_search_image floatright"
+    {% if lecturer.photo %} src="{{ lecturer.photo }}"{% endif %}
+    {% if not lecturer.photo %} src="http://placehold.it/120x160"{% endif %}
+    width="120" height="160">
+
+    <p>{{ lecturer.description|default:"Keine Beschreibung erfasst." }}</p>
+
+    <h3>Fächer</h3>
+    <p>{{ lecturer.subjects|default:"Keine bekannt." }}</p>
+
+    <h3>Bewertungen</h3>
+
+    <ul>
+        <li>Didaktisch: <span class="label label-important">{{ lecturer.avg_rating_d }}</span></li>
+        <li>Menschlich: <span class="label label-success">{{ lecturer.avg_rating_m }}</span></li>
+        <li>Fachlich: <span class="label label-warning">{{ lecturer.avg_rating_f }}</span></li>
+    </ul>
+
+
+    <h2>Zitate</h2>
+
+    <p><a class="btn" href="#">
+        <i class="icon-plus-sign"></i> Zitat hinzufügen
+    </a></p>
+
+    
+{% endblock %}

@@ -6,7 +6,7 @@
 {% block title %}Dozenten{% endblock %}
 
 {% block navigation %}
-    {% activetab 'navigation' 'dozenten' %}
+    {% activetab 'navigation' 'lecturers' %}
     {{ block.super }}
 {% endblock %}
 
@@ -30,8 +30,10 @@
             <ul class="unstyled">
                 {% for lecturer in lecturers|index:i %}
                 <div class="lecturer">
-                    <h4>{{ lecturer.name }} / {{ lecturer.abbreviation }}</h4>
-                    <p><span class="label label-important">{{ lecturer.avg_rating_d }}</span> <span class="label label-success">{{ lecturer.avg_rating_m }}</span> <span class="label label-warning">{{ lecturer.avg_rating_f }}</span></p>
+                    <h4><a href="{% url 'lecturer_detail' lecturer.pk %}">{{ lecturer.name }} / {{ lecturer.abbreviation }}</a></h4>
+                    <p><span class="label label-important">{{ lecturer.avg_rating_d }}</span>
+                       <span class="label label-success">{{ lecturer.avg_rating_m }}</span>
+                       <span class="label label-warning">{{ lecturer.avg_rating_f }}</span></p>
                     {% if lecturer.photo %}<li><img class="thumbnail quimby_search_image" src="{{ lecturer.photo }}"></li>{% endif %}
                     {% if not lecturer.photo %}<li><img class="thumbnail quimby_search_image" src="http://placehold.it/120x160"></li>{% endif %}
                 </div>
