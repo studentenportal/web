@@ -1,2566 +1,2851 @@
 [
   {
-    "pk": "Aberer, Daniel", 
+    "pk": 1, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "ABD", 
       "subjects": null, 
+      "name": "Aberer, Daniel", 
       "description": null
     }
   }, 
   {
-    "pk": "Aeschbach, Roger", 
+    "pk": 2, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "AES", 
       "subjects": null, 
+      "name": "Aeschbach, Roger", 
       "description": null
     }
   }, 
   {
-    "pk": "Aliesch, Beat", 
+    "pk": 3, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "ALI", 
       "subjects": null, 
+      "name": "Aliesch, Beat", 
       "description": null
     }
   }, 
   {
-    "pk": "Allet, Nicole", 
+    "pk": 5, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "ALL", 
       "subjects": null, 
+      "name": "Allet, Nicole", 
       "description": null
     }
   }, 
   {
-    "pk": "Altmeier, J\u00f6rg", 
+    "pk": 4, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "ALJ", 
       "subjects": null, 
+      "name": "Altmeier, J\u00f6rg", 
       "description": null
     }
   }, 
   {
-    "pk": "Altmeyer, Manuel", 
+    "pk": 6, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "ALM", 
       "subjects": null, 
+      "name": "Altmeyer, Manuel", 
       "description": null
     }
   }, 
   {
-    "pk": "Anderson, Marc Rainer", 
+    "pk": 7, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "ANM", 
       "subjects": null, 
+      "name": "Anderson, Marc Rainer", 
       "description": null
     }
   }, 
   {
-    "pk": "Arend, Michal", 
+    "pk": 8, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "ARE", 
       "subjects": null, 
+      "name": "Arend, Michal", 
       "description": null
     }
   }, 
   {
-    "pk": "Augenstein, Oliver", 
+    "pk": 9, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "AUG", 
       "subjects": null, 
+      "name": "Augenstein, Oliver", 
       "description": null
     }
   }, 
   {
-    "pk": "Baeriswyl, Bruno", 
+    "pk": 10, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "BAE", 
       "subjects": null, 
+      "name": "Baeriswyl, Bruno", 
       "description": null
     }
   }, 
   {
-    "pk": "Bauer, Manuel", 
+    "pk": 26, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "BML", 
       "subjects": null, 
+      "name": "Bauer, Manuel", 
       "description": null
     }
   }, 
   {
-    "pk": "Baumann, Rainer", 
+    "pk": 14, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "BAU", 
       "subjects": null, 
+      "name": "Baumann, Rainer", 
       "description": null
     }
   }, 
   {
-    "pk": "Beck, Philipp", 
+    "pk": 18, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "BEP", 
       "subjects": null, 
+      "name": "Beck, Philipp", 
       "description": null
     }
   }, 
   {
-    "pk": "Becker, Barbara", 
+    "pk": 16, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "BEB", 
       "subjects": null, 
+      "name": "Becker, Barbara", 
       "description": null
     }
   }, 
   {
-    "pk": "Bernath, Andr\u00e9", 
+    "pk": 15, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "BEA", 
       "subjects": null, 
+      "name": "Bernath, Andr\u00e9", 
       "description": null
     }
   }, 
   {
-    "pk": "Bernhardsgr\u00fctter, Remo", 
+    "pk": 19, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "BER", 
       "subjects": null, 
+      "name": "Bernhardsgr\u00fctter, Remo", 
       "description": null
     }
   }, 
   {
-    "pk": "Bertsch, Joachim", 
+    "pk": 17, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "BEJ", 
       "subjects": null, 
+      "name": "Bertsch, Joachim", 
       "description": null
     }
   }, 
   {
-    "pk": "Bichsel, Walter", 
+    "pk": 22, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "BIW", 
       "subjects": null, 
+      "name": "Bichsel, Walter", 
       "description": null
     }
   }, 
   {
-    "pk": "Bichsel-Altherr, Markus", 
+    "pk": 20, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "BIC", 
       "subjects": null, 
+      "name": "Bichsel-Altherr, Markus", 
       "description": null
     }
   }, 
   {
-    "pk": "Bieri, Crispin", 
+    "pk": 21, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "BIE", 
       "subjects": null, 
+      "name": "Bieri, Crispin", 
       "description": null
     }
   }, 
   {
-    "pk": "Bl\u00e4ser, Luc", 
+    "pk": 24, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "BLL", 
       "subjects": null, 
+      "name": "Bl\u00e4ser, Luc", 
       "description": null
     }
   }, 
   {
-    "pk": "Bode, J\u00e1nos", 
+    "pk": 23, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "BJA", 
       "subjects": null, 
+      "name": "Bode, J\u00e1nos", 
       "description": null
     }
   }, 
   {
-    "pk": "Bohr, B\u00e4rbel", 
+    "pk": 27, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "BOB", 
       "subjects": null, 
+      "name": "Bohr, B\u00e4rbel", 
       "description": null
     }
   }, 
   {
-    "pk": "Bolliger, Peter", 
+    "pk": 31, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "BOP", 
       "subjects": null, 
+      "name": "Bolliger, Peter", 
       "description": null
     }
   }, 
   {
-    "pk": "Bolomey, Nicole", 
+    "pk": 29, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "BOL", 
       "subjects": null, 
+      "name": "Bolomey, Nicole", 
       "description": null
     }
   }, 
   {
-    "pk": "Bommer, Christian", 
+    "pk": 44, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "CHB", 
       "subjects": null, 
+      "name": "Bommer, Christian", 
       "description": null
     }
   }, 
   {
-    "pk": "Bonderer, Reto", 
+    "pk": 30, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "BON", 
       "subjects": null, 
+      "name": "Bonderer, Reto", 
       "description": null
     }
   }, 
   {
-    "pk": "Breitenmoser, Bernadette", 
+    "pk": 33, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "BRE", 
       "subjects": null, 
+      "name": "Breitenmoser, Bernadette", 
       "description": null
     }
   }, 
   {
-    "pk": "Brenner, Werner", 
+    "pk": 34, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "BRW", 
       "subjects": null, 
+      "name": "Brenner, Werner", 
       "description": null
     }
   }, 
   {
-    "pk": "Br\u00e4ndle, Erwin", 
+    "pk": 32, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "BR\u00c4", 
       "subjects": null, 
+      "name": "Br\u00e4ndle, Erwin", 
       "description": null
     }
   }, 
   {
-    "pk": "Bucher Bauer, Mirjam", 
+    "pk": 25, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "BMI", 
       "subjects": null, 
+      "name": "Bucher Bauer, Mirjam", 
       "description": null
     }
   }, 
   {
-    "pk": "Bucher, Benno", 
+    "pk": 36, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "BUC", 
       "subjects": null, 
+      "name": "Bucher, Benno", 
       "description": null
     }
   }, 
   {
-    "pk": "Bunge, Rainer", 
+    "pk": 41, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "BUN", 
       "subjects": null, 
+      "name": "Bunge, Rainer", 
       "description": null
     }
   }, 
   {
-    "pk": "Burkhardt, Michael", 
+    "pk": 40, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "BUM", 
       "subjects": null, 
+      "name": "Burkhardt, Michael", 
       "description": null
     }
   }, 
   {
-    "pk": "Burnand, Jacques", 
+    "pk": 39, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "BUJ", 
       "subjects": null, 
+      "name": "Burnand, Jacques", 
       "description": null
     }
   }, 
   {
-    "pk": "B\u00e4nziger, Robert", 
+    "pk": 13, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "BAN", 
       "subjects": null, 
+      "name": "B\u00e4nziger, Robert", 
       "description": null
     }
   }, 
   {
-    "pk": "B\u00e4r, Stefan", 
+    "pk": 35, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "BSN", 
       "subjects": null, 
+      "name": "B\u00e4r, Stefan", 
       "description": null
     }
   }, 
   {
-    "pk": "B\u00e4rtschi, Felix", 
+    "pk": 11, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "BAF", 
       "subjects": null, 
+      "name": "B\u00e4rtschi, Felix", 
       "description": null
     }
   }, 
   {
-    "pk": "B\u00e4rtschi, Lisa", 
+    "pk": 12, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "BAL", 
       "subjects": null, 
+      "name": "B\u00e4rtschi, Lisa", 
       "description": null
     }
   }, 
   {
-    "pk": "B\u00f6hi, Hannes", 
+    "pk": 28, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "B\u00d6H", 
       "subjects": null, 
+      "name": "B\u00f6hi, Hannes", 
       "description": null
     }
   }, 
   {
-    "pk": "B\u00fchler, Peter", 
+    "pk": 38, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "B\u00dcH", 
       "subjects": null, 
+      "name": "B\u00fchler, Peter", 
       "description": null
     }
   }, 
   {
-    "pk": "B\u00fcrgi, Enrico", 
+    "pk": 37, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "BUG", 
       "subjects": null, 
+      "name": "B\u00fcrgi, Enrico", 
       "description": null
     }
   }, 
   {
-    "pk": "B\u00fctler, Ivan", 
+    "pk": 42, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "BUT", 
       "subjects": null, 
+      "name": "B\u00fctler, Ivan", 
       "description": null
     }
   }, 
   {
-    "pk": "Cejka, Andrea", 
+    "pk": 43, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "CEJ", 
       "subjects": null, 
+      "name": "Cejka, Andrea", 
       "description": null
     }
   }, 
   {
-    "pk": "Chavanne, Laura", 
+    "pk": 45, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "CHL", 
       "subjects": null, 
+      "name": "Chavanne, Laura", 
       "description": null
     }
   }, 
   {
-    "pk": "Cianelli, Colin", 
+    "pk": 46, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "CIC", 
       "subjects": null, 
+      "name": "Cianelli, Colin", 
       "description": null
     }
   }, 
   {
-    "pk": "Condrau, Victor", 
+    "pk": 47, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "CON", 
       "subjects": null, 
+      "name": "Condrau, Victor", 
       "description": null
     }
   }, 
   {
-    "pk": "Corbat, Thomas", 
+    "pk": 49, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "COT", 
       "subjects": null, 
+      "name": "Corbat, Thomas", 
       "description": null
     }
   }, 
   {
-    "pk": "Cossmann, Peter", 
+    "pk": 48, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "COS", 
       "subjects": null, 
+      "name": "Cossmann, Peter", 
       "description": null
     }
   }, 
   {
-    "pk": "Davidson, Brett", 
+    "pk": 50, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "DAV", 
       "subjects": null, 
+      "name": "Davidson, Brett", 
       "description": null
     }
   }, 
   {
-    "pk": "Deger, Yasar", 
+    "pk": 51, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "DEG", 
       "subjects": null, 
+      "name": "Deger, Yasar", 
       "description": null
     }
   }, 
   {
-    "pk": "Dejakum, Roger", 
+    "pk": 52, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "DER", 
       "subjects": null, 
+      "name": "Dejakum, Roger", 
       "description": null
     }
   }, 
   {
-    "pk": "Di Pizzo, B\u00e9atrice", 
+    "pk": 54, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "DIP", 
       "subjects": null, 
+      "name": "Di Pizzo, B\u00e9atrice", 
       "description": null
     }
   }, 
   {
-    "pk": "Dietiker, J\u00fcrg", 
+    "pk": 53, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "DIJ", 
       "subjects": null, 
+      "name": "Dietiker, J\u00fcrg", 
       "description": null
     }
   }, 
   {
-    "pk": "Dietschweiler, Patrik", 
+    "pk": 56, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "DPA", 
       "subjects": null, 
+      "name": "Dietschweiler, Patrik", 
       "description": null
     }
   }, 
   {
-    "pk": "Domeisen, Heinz", 
+    "pk": 55, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "DOM", 
       "subjects": null, 
+      "name": "Domeisen, Heinz", 
       "description": null
     }
   }, 
   {
-    "pk": "Ebneter, Josef", 
+    "pk": 57, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "EBN", 
       "subjects": null, 
+      "name": "Ebneter, Josef", 
       "description": null
     }
   }, 
   {
-    "pk": "Egger, Urs", 
+    "pk": 59, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "EGU", 
       "subjects": null, 
+      "name": "Egger, Urs", 
       "description": null
     }
   }, 
   {
-    "pk": "Egli, Martin", 
+    "pk": 58, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "EGM", 
       "subjects": null, 
+      "name": "Egli, Martin", 
       "description": null
     }
   }, 
   {
-    "pk": "Ehrig, Frank", 
+    "pk": 61, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "EHF", 
       "subjects": null, 
+      "name": "Ehrig, Frank", 
       "description": null
     }
   }, 
   {
-    "pk": "Ehrismann, Dieter", 
+    "pk": 60, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "EHD", 
       "subjects": null, 
+      "name": "Ehrismann, Dieter", 
       "description": null
     }
   }, 
   {
-    "pk": "Ehrismann, Mathias", 
+    "pk": 62, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "EHM", 
       "subjects": null, 
+      "name": "Ehrismann, Mathias", 
       "description": null
     }
   }, 
   {
-    "pk": "Eicher, Marianne", 
+    "pk": 63, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "EIM", 
       "subjects": null, 
+      "name": "Eicher, Marianne", 
       "description": null
     }
   }, 
   {
-    "pk": "Engelhardt, Matthias", 
+    "pk": 65, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "ENM", 
       "subjects": null, 
+      "name": "Engelhardt, Matthias", 
       "description": null
     }
   }, 
   {
-    "pk": "Englert, Alexander", 
+    "pk": 64, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "ENA", 
       "subjects": null, 
+      "name": "Englert, Alexander", 
       "description": null
     }
   }, 
   {
-    "pk": "Felber, Lukas", 
+    "pk": 67, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "FEL", 
       "subjects": null, 
+      "name": "Felber, Lukas", 
       "description": null
     }
   }, 
   {
-    "pk": "Fiedler, Ulrich", 
+    "pk": 68, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "FIE", 
       "subjects": null, 
+      "name": "Fiedler, Ulrich", 
       "description": null
     }
   }, 
   {
-    "pk": "Flepp, Simon David", 
+    "pk": 69, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "FLS", 
       "subjects": null, 
+      "name": "Flepp, Simon David", 
       "description": null
     }
   }, 
   {
-    "pk": "Fontana, Massimo", 
+    "pk": 72, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "FOM", 
       "subjects": null, 
+      "name": "Fontana, Massimo", 
       "description": null
     }
   }, 
   {
-    "pk": "Forrer, Andreas", 
+    "pk": 71, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "FOA", 
       "subjects": null, 
+      "name": "Forrer, Andreas", 
       "description": null
     }
   }, 
   {
-    "pk": "Frank, Elimar", 
+    "pk": 76, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "FRK", 
       "subjects": null, 
+      "name": "Frank, Elimar", 
       "description": null
     }
   }, 
   {
-    "pk": "Frei, Sandra", 
+    "pk": 77, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "FRS", 
       "subjects": null, 
+      "name": "Frei, Sandra", 
       "description": null
     }
   }, 
   {
-    "pk": "Friedl, Markus", 
+    "pk": 70, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "FMA", 
       "subjects": null, 
+      "name": "Friedl, Markus", 
       "description": null
     }
   }, 
   {
-    "pk": "Friedli Kl\u00f6tzli, Beatrice", 
+    "pk": 73, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "FRB", 
       "subjects": null, 
+      "name": "Friedli Kl\u00f6tzli, Beatrice", 
       "description": null
     }
   }, 
   {
-    "pk": "Frigerio, Antonio", 
+    "pk": 74, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "FRG", 
       "subjects": null, 
+      "name": "Frigerio, Antonio", 
       "description": null
     }
   }, 
   {
-    "pk": "Frischknecht, Harry", 
+    "pk": 75, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "FRH", 
       "subjects": null, 
+      "name": "Frischknecht, Harry", 
       "description": null
     }
   }, 
   {
-    "pk": "Fuchs, Frederik", 
+    "pk": 78, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "FUF", 
       "subjects": null, 
+      "name": "Fuchs, Frederik", 
       "description": null
     }
   }, 
   {
-    "pk": "F\u00e4h, Claudio Giorgio", 
+    "pk": 66, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "FAE", 
       "subjects": null, 
+      "name": "F\u00e4h, Claudio Giorgio", 
       "description": null
     }
   }, 
   {
-    "pk": "Gantenbein, Paul", 
+    "pk": 81, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "GAP", 
       "subjects": null, 
+      "name": "Gantenbein, Paul", 
       "description": null
     }
   }, 
   {
-    "pk": "Ganz, Daniel", 
+    "pk": 80, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "GAN", 
       "subjects": null, 
+      "name": "Ganz, Daniel", 
       "description": null
     }
   }, 
   {
-    "pk": "Gassmann, Hanno", 
+    "pk": 82, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "GAS", 
       "subjects": null, 
+      "name": "Gassmann, Hanno", 
       "description": null
     }
   }, 
   {
-    "pk": "Gaunt, Kevin", 
+    "pk": 79, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "GAK", 
       "subjects": null, 
+      "name": "Gaunt, Kevin", 
       "description": null
     }
   }, 
   {
-    "pk": "Geidl, Martin", 
+    "pk": 83, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "GEM", 
       "subjects": null, 
+      "name": "Geidl, Martin", 
       "description": null
     }
   }, 
   {
-    "pk": "Gfeller, Michael", 
+    "pk": 84, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "GFM", 
       "subjects": null, 
+      "name": "Gfeller, Michael", 
       "description": null
     }
   }, 
   {
-    "pk": "Gilgen, Kurt", 
+    "pk": 85, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "GIL", 
       "subjects": null, 
+      "name": "Gilgen, Kurt", 
       "description": null
     }
   }, 
   {
-    "pk": "Glatz, Eduard", 
+    "pk": 86, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "GLE", 
       "subjects": null, 
+      "name": "Glatz, Eduard", 
       "description": null
     }
   }, 
   {
-    "pk": "Graf, Mario", 
+    "pk": 87, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "GRF", 
       "subjects": null, 
+      "name": "Graf, Mario", 
       "description": null
     }
   }, 
   {
-    "pk": "Gr\u00e4ssle, Patrick", 
+    "pk": 88, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "GRS", 
       "subjects": null, 
+      "name": "Gr\u00e4ssle, Patrick", 
       "description": null
     }
   }, 
   {
-    "pk": "Gubler, Simon", 
+    "pk": 89, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "GUS", 
       "subjects": null, 
+      "name": "Gubler, Simon", 
       "description": null
     }
   }, 
   {
-    "pk": "Gysin, Hanspeter", 
+    "pk": 90, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "GYH", 
       "subjects": null, 
+      "name": "Gysin, Hanspeter", 
       "description": null
     }
   }, 
   {
-    "pk": "Hage, Gottfried", 
+    "pk": 102, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "HGO", 
       "subjects": null, 
+      "name": "Hage, Gottfried", 
       "description": null
     }
   }, 
   {
-    "pk": "Hardegger, Paul", 
+    "pk": 92, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "HAP", 
       "subjects": null, 
+      "name": "Hardegger, Paul", 
       "description": null
     }
   }, 
   {
-    "pk": "Hardy, Gabor", 
+    "pk": 93, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "HAR", 
       "subjects": null, 
+      "name": "Hardy, Gabor", 
       "description": null
     }
   }, 
   {
-    "pk": "Hartmann, Fabian", 
+    "pk": 101, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "HFA", 
       "subjects": null, 
+      "name": "Hartmann, Fabian", 
       "description": null
     }
   }, 
   {
-    "pk": "Hauert, Sibylle", 
+    "pk": 94, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "HAS", 
       "subjects": null, 
+      "name": "Hauert, Sibylle", 
       "description": null
     }
   }, 
   {
-    "pk": "Hauri, Marceline", 
+    "pk": 103, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "HMA", 
       "subjects": null, 
+      "name": "Hauri, Marceline", 
       "description": null
     }
   }, 
   {
-    "pk": "Hausammann, Anita", 
+    "pk": 91, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "HAN", 
       "subjects": null, 
+      "name": "Hausammann, Anita", 
       "description": null
     }
   }, 
   {
-    "pk": "Hegner, Robert", 
+    "pk": 110, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "HRO", 
       "subjects": null, 
+      "name": "Hegner, Robert", 
       "description": null
     }
   }, 
   {
-    "pk": "Heinzmann, Peter", 
+    "pk": 99, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "HEI", 
       "subjects": null, 
+      "name": "Heinzmann, Peter", 
       "description": null
     }
   }, 
   {
-    "pk": "Heipp, Gunnar", 
+    "pk": 98, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "HEG", 
       "subjects": null, 
+      "name": "Heipp, Gunnar", 
       "description": null
     }
   }, 
   {
-    "pk": "Heitz, Christoph", 
+    "pk": 96, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "HEC", 
       "subjects": null, 
+      "name": "Heitz, Christoph", 
       "description": null
     }
   }, 
   {
-    "pk": "Hendry, Flavio", 
+    "pk": 97, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "HEF", 
       "subjects": null, 
+      "name": "Hendry, Flavio", 
       "description": null
     }
   }, 
   {
-    "pk": "Henne, Markus", 
+    "pk": 100, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "HEN", 
       "subjects": null, 
+      "name": "Henne, Markus", 
       "description": null
     }
   }, 
   {
-    "pk": "Hermanns Stengele, Rita", 
+    "pk": 95, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "HEA", 
       "subjects": null, 
+      "name": "Hermanns Stengele, Rita", 
       "description": null
     }
   }, 
   {
-    "pk": "Hochstrasser, Heinz", 
+    "pk": 106, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "HOC", 
       "subjects": null, 
+      "name": "Hochstrasser, Heinz", 
       "description": null
     }
   }, 
   {
-    "pk": "Holenweg, Daniel", 
+    "pk": 108, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "HOL", 
       "subjects": null, 
+      "name": "Holenweg, Daniel", 
       "description": null
     }
   }, 
   {
-    "pk": "Holzer, Barbara", 
+    "pk": 105, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "HOB", 
       "subjects": null, 
+      "name": "Holzer, Barbara", 
       "description": null
     }
   }, 
   {
-    "pk": "Hoppe, Gudrun", 
+    "pk": 109, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "HOP", 
       "subjects": null, 
+      "name": "Hoppe, Gudrun", 
       "description": null
     }
   }, 
   {
-    "pk": "Horlacher, Thomas", 
+    "pk": 111, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "HTS", 
       "subjects": null, 
+      "name": "Horlacher, Thomas", 
       "description": null
     }
   }, 
   {
-    "pk": "Hubatka, Michael", 
+    "pk": 116, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "HUM", 
       "subjects": null, 
+      "name": "Hubatka, Michael", 
       "description": null
     }
   }, 
   {
-    "pk": "Huber, Marcel", 
+    "pk": 104, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "HML", 
       "subjects": null, 
+      "name": "Huber, Marcel", 
       "description": null
     }
   }, 
   {
-    "pk": "Huber, Markus", 
+    "pk": 112, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "HUB", 
       "subjects": null, 
+      "name": "Huber, Markus", 
       "description": null
     }
   }, 
   {
-    "pk": "Huber, Reto", 
+    "pk": 113, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "HUE", 
       "subjects": null, 
+      "name": "Huber, Reto", 
       "description": null
     }
   }, 
   {
-    "pk": "Hugenschmidt, Johannes", 
+    "pk": 114, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "HUG", 
       "subjects": null, 
+      "name": "Hugenschmidt, Johannes", 
       "description": null
     }
   }, 
   {
-    "pk": "Hunkeler, Josef", 
+    "pk": 115, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "HUJ", 
       "subjects": null, 
+      "name": "Hunkeler, Josef", 
       "description": null
     }
   }, 
   {
-    "pk": "Huser, Hansj\u00f6rg", 
+    "pk": 117, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "HUS", 
       "subjects": null, 
+      "name": "Huser, Hansj\u00f6rg", 
       "description": null
     }
   }, 
   {
-    "pk": "Iten, Peter", 
+    "pk": 118, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "ITP", 
       "subjects": null, 
+      "name": "Iten, Peter", 
       "description": null
     }
   }, 
   {
-    "pk": "Joller, Josef M.", 
+    "pk": 120, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "JOL", 
       "subjects": null, 
+      "name": "Joller, Josef M.", 
       "description": null
     }
   }, 
   {
-    "pk": "Jucker, J\u00fcrg", 
+    "pk": 121, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "JUJ", 
       "subjects": null, 
+      "name": "Jucker, J\u00fcrg", 
       "description": null
     }
   }, 
   {
-    "pk": "Jurt Massey, Andrea", 
+    "pk": 122, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "JUR", 
       "subjects": null, 
+      "name": "Jurt Massey, Andrea", 
       "description": null
     }
   }, 
   {
-    "pk": "J\u00e4ger, Peter", 
+    "pk": 119, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "JAE", 
       "subjects": null, 
+      "name": "J\u00e4ger, Peter", 
       "description": null
     }
   }, 
   {
-    "pk": "Kaiser, Regula", 
+    "pk": 126, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "KAI", 
       "subjects": null, 
+      "name": "Kaiser, Regula", 
       "description": null
     }
   }, 
   {
-    "pk": "Kamm, Lars", 
+    "pk": 123, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "KAA", 
       "subjects": null, 
+      "name": "Kamm, Lars", 
       "description": null
     }
   }, 
   {
-    "pk": "Kammhuber, Stefan", 
+    "pk": 145, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "KST", 
       "subjects": null, 
+      "name": "Kammhuber, Stefan", 
       "description": null
     }
   }, 
   {
-    "pk": "Karn, Susanne", 
+    "pk": 127, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "KAS", 
       "subjects": null, 
+      "name": "Karn, Susanne", 
       "description": null
     }
   }, 
   {
-    "pk": "Karrer, Hannes Georg", 
+    "pk": 125, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "KAH", 
       "subjects": null, 
+      "name": "Karrer, Hannes Georg", 
       "description": null
     }
   }, 
   {
-    "pk": "Keel, Guido", 
+    "pk": 132, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "KEG", 
       "subjects": null, 
+      "name": "Keel, Guido", 
       "description": null
     }
   }, 
   {
-    "pk": "Keller, Daniel", 
+    "pk": 131, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "KED", 
       "subjects": null, 
+      "name": "Keller, Daniel", 
       "description": null
     }
   }, 
   {
-    "pk": "Keller, Daniel F.", 
+    "pk": 129, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "KDA", 
       "subjects": null, 
+      "name": "Keller, Daniel F.", 
       "description": null
     }
   }, 
   {
-    "pk": "Keller, Martin", 
+    "pk": 139, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "KLL", 
       "subjects": null, 
+      "name": "Keller, Martin", 
       "description": null
     }
   }, 
   {
-    "pk": "Keller, Stefan F.", 
+    "pk": 135, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "KES", 
       "subjects": null, 
+      "name": "Keller, Stefan F.", 
       "description": null
     }
   }, 
   {
-    "pk": "Keller, Thomas", 
+    "pk": 133, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "KEL", 
       "subjects": null, 
+      "name": "Keller, Thomas", 
       "description": null
     }
   }, 
   {
-    "pk": "Kemper, Raimund", 
+    "pk": 130, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "KEA", 
       "subjects": null, 
+      "name": "Kemper, Raimund", 
       "description": null
     }
   }, 
   {
-    "pk": "Kenel, Albin", 
+    "pk": 134, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "KEN", 
       "subjects": null, 
+      "name": "Kenel, Albin", 
       "description": null
     }
   }, 
   {
-    "pk": "Kieffer, Marie-Louise", 
+    "pk": 137, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "KIM", 
       "subjects": null, 
+      "name": "Kieffer, Marie-Louise", 
       "description": null
     }
   }, 
   {
-    "pk": "Kleiner, Joachim", 
+    "pk": 138, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "KLE", 
       "subjects": null, 
+      "name": "Kleiner, Joachim", 
       "description": null
     }
   }, 
   {
-    "pk": "Kneub\u00fchler, Thomas", 
+    "pk": 140, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "KNT", 
       "subjects": null, 
+      "name": "Kneub\u00fchler, Thomas", 
       "description": null
     }
   }, 
   {
-    "pk": "Koch, Frank", 
+    "pk": 141, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "KOF", 
       "subjects": null, 
+      "name": "Koch, Frank", 
       "description": null
     }
   }, 
   {
-    "pk": "Koller-Hodac, Agathe", 
+    "pk": 107, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "HOD", 
       "subjects": null, 
+      "name": "Koller-Hodac, Agathe", 
       "description": null
     }
   }, 
   {
-    "pk": "Kopp, Thomas", 
+    "pk": 143, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "KOP", 
       "subjects": null, 
+      "name": "Kopp, Thomas", 
       "description": null
     }
   }, 
   {
-    "pk": "Kossmann, Beatrix", 
+    "pk": 128, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "KBE", 
       "subjects": null, 
+      "name": "Kossmann, Beatrix", 
       "description": null
     }
   }, 
   {
-    "pk": "Kottmann, Markus", 
+    "pk": 142, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "KOM", 
       "subjects": null, 
+      "name": "Kottmann, Markus", 
       "description": null
     }
   }, 
   {
-    "pk": "Kress, David", 
+    "pk": 144, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "KRD", 
       "subjects": null, 
+      "name": "Kress, David", 
       "description": null
     }
   }, 
   {
-    "pk": "Kulcsar, Klara", 
+    "pk": 146, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "KUL", 
       "subjects": null, 
+      "name": "Kulcsar, Klara", 
       "description": null
     }
   }, 
   {
-    "pk": "Kunz, Hansruedi", 
+    "pk": 136, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "KHR", 
       "subjects": null, 
+      "name": "Kunz, Hansruedi", 
       "description": null
     }
   }, 
   {
-    "pk": "Kunz, Stefan", 
+    "pk": 147, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "KUS", 
       "subjects": null, 
+      "name": "Kunz, Stefan", 
       "description": null
     }
   }, 
   {
-    "pk": "Kytzia, Susanne", 
+    "pk": 149, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "KYT", 
       "subjects": null, 
+      "name": "Kytzia, Susanne", 
       "description": null
     }
   }, 
   {
-    "pk": "K\u00e4mpf, Stephan", 
+    "pk": 124, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "KAE", 
       "subjects": null, 
+      "name": "K\u00e4mpf, Stephan", 
       "description": null
     }
   }, 
   {
-    "pk": "K\u00fcttel, Martin", 
+    "pk": 148, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "K\u00dcT", 
       "subjects": null, 
+      "name": "K\u00fcttel, Martin", 
       "description": null
     }
   }, 
   {
-    "pk": "Lang, Hans-Dieter", 
+    "pk": 150, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "LAH", 
       "subjects": null, 
+      "name": "Lang, Hans-Dieter", 
       "description": null
     }
   }, 
   {
-    "pk": "Lanz, Markus", 
+    "pk": 151, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "LAN", 
       "subjects": null, 
+      "name": "Lanz, Markus", 
       "description": null
     }
   }, 
   {
-    "pk": "Leonardo, Domenico", 
+    "pk": 152, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "LED", 
       "subjects": null, 
+      "name": "Leonardo, Domenico", 
       "description": null
     }
   }, 
   {
-    "pk": "Letsch, Thomas", 
+    "pk": 155, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "LET", 
       "subjects": null, 
+      "name": "Letsch, Thomas", 
       "description": null
     }
   }, 
   {
-    "pk": "Leuenberger, Rolf", 
+    "pk": 154, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "LER", 
       "subjects": null, 
+      "name": "Leuenberger, Rolf", 
       "description": null
     }
   }, 
   {
-    "pk": "Leutert, Fredy", 
+    "pk": 153, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "LEF", 
       "subjects": null, 
+      "name": "Leutert, Fredy", 
       "description": null
     }
   }, 
   {
-    "pk": "Liebi, Michael", 
+    "pk": 157, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "LII", 
       "subjects": null, 
+      "name": "Liebi, Michael", 
       "description": null
     }
   }, 
   {
-    "pk": "Lienhard, Andreas", 
+    "pk": 156, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "LIA", 
       "subjects": null, 
+      "name": "Lienhard, Andreas", 
       "description": null
     }
   }, 
   {
-    "pk": "L\u00f6berbauer, Anna", 
+    "pk": 158, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "L\u00d6B", 
       "subjects": null, 
+      "name": "L\u00f6berbauer, Anna", 
       "description": null
     }
   }, 
   {
-    "pk": "Marti, Christian", 
+    "pk": 165, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "MCH", 
       "subjects": null, 
+      "name": "Marti, Christian", 
       "description": null
     }
   }, 
   {
-    "pk": "Marti, Peter", 
+    "pk": 162, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "MAR", 
       "subjects": null, 
+      "name": "Marti, Peter", 
       "description": null
     }
   }, 
   {
-    "pk": "Martignoli, Stefan", 
+    "pk": 160, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "MAG", 
       "subjects": null, 
+      "name": "Martignoli, Stefan", 
       "description": null
     }
   }, 
   {
-    "pk": "Mathis, Heinz", 
+    "pk": 161, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "MAH", 
       "subjects": null, 
+      "name": "Mathis, Heinz", 
       "description": null
     }
   }, 
   {
-    "pk": "Matta, Thomas R.", 
+    "pk": 163, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "MAT", 
       "subjects": null, 
+      "name": "Matta, Thomas R.", 
       "description": null
     }
   }, 
   {
-    "pk": "Mauchle, Christoph", 
+    "pk": 159, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "MAC", 
       "subjects": null, 
+      "name": "Mauchle, Christoph", 
       "description": null
     }
   }, 
   {
-    "pk": "Maurhofer, Stefan", 
+    "pk": 164, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "MAU", 
       "subjects": null, 
+      "name": "Maurhofer, Stefan", 
       "description": null
     }
   }, 
   {
-    "pk": "Meier, J\u00fcrg", 
+    "pk": 166, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "MEI", 
       "subjects": null, 
+      "name": "Meier, J\u00fcrg", 
       "description": null
     }
   }, 
   {
-    "pk": "Meier, Urs", 
+    "pk": 175, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "MUR", 
       "subjects": null, 
+      "name": "Meier, Urs", 
       "description": null
     }
   }, 
   {
-    "pk": "Moetsch, Hans", 
+    "pk": 167, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "MOH", 
       "subjects": null, 
+      "name": "Moetsch, Hans", 
       "description": null
     }
   }, 
   {
-    "pk": "Mosimann-Nakanishi, Ikuko", 
+    "pk": 168, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "MOI", 
       "subjects": null, 
+      "name": "Mosimann-Nakanishi, Ikuko", 
       "description": null
     }
   }, 
   {
-    "pk": "Murbach, Rolf", 
+    "pk": 171, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "MUC", 
       "subjects": null, 
+      "name": "Murbach, Rolf", 
       "description": null
     }
   }, 
   {
-    "pk": "M\u00f6nnecke, Margit", 
+    "pk": 169, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "M\u00d6N", 
       "subjects": null, 
+      "name": "M\u00f6nnecke, Margit", 
       "description": null
     }
   }, 
   {
-    "pk": "M\u00fcller Boesch, Regula", 
+    "pk": 172, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "M\u00dcE", 
       "subjects": null, 
+      "name": "M\u00fcller Boesch, Regula", 
       "description": null
     }
   }, 
   {
-    "pk": "M\u00fcller Khan, Tina", 
+    "pk": 176, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "MUT", 
       "subjects": null, 
+      "name": "M\u00fcller Khan, Tina", 
       "description": null
     }
   }, 
   {
-    "pk": "M\u00fcller, Andreas", 
+    "pk": 170, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "MUA", 
       "subjects": null, 
+      "name": "M\u00fcller, Andreas", 
       "description": null
     }
   }, 
   {
-    "pk": "M\u00fcller, Klaus", 
+    "pk": 173, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "M\u00dcK", 
       "subjects": null, 
+      "name": "M\u00fcller, Klaus", 
       "description": null
     }
   }, 
   {
-    "pk": "M\u00fcller, Rosmarie", 
+    "pk": 174, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "M\u00dcO", 
       "subjects": null, 
+      "name": "M\u00fcller, Rosmarie", 
       "description": null
     }
   }, 
   {
-    "pk": "Neuenschwander, Thomas", 
+    "pk": 177, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "NET", 
       "subjects": null, 
+      "name": "Neuenschwander, Thomas", 
       "description": null
     }
   }, 
   {
-    "pk": "Nordborg, Henrik", 
+    "pk": 178, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "NOR", 
       "subjects": null, 
+      "name": "Nordborg, Henrik", 
       "description": null
     }
   }, 
   {
-    "pk": "Noser, Hans", 
+    "pk": 179, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "NOS", 
       "subjects": null, 
+      "name": "Noser, Hans", 
       "description": null
     }
   }, 
   {
-    "pk": "Nyffenegger, Brigitte", 
+    "pk": 180, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "NYF", 
       "subjects": null, 
+      "name": "Nyffenegger, Brigitte", 
       "description": null
     }
   }, 
   {
-    "pk": "Oesch, Thomas", 
+    "pk": 181, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "OES", 
       "subjects": null, 
+      "name": "Oesch, Thomas", 
       "description": null
     }
   }, 
   {
-    "pk": "Oricchio, Salvatore", 
+    "pk": 182, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "OSA", 
       "subjects": null, 
+      "name": "Oricchio, Salvatore", 
       "description": null
     }
   }, 
   {
-    "pk": "Osoegawa, Steffen", 
+    "pk": 183, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "OSS", 
       "subjects": null, 
+      "name": "Osoegawa, Steffen", 
       "description": null
     }
   }, 
   {
-    "pk": "PETER, Anita", 
+    "pk": 184, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "PEA", 
       "subjects": null, 
+      "name": "PETER, Anita", 
       "description": null
     }
   }, 
   {
-    "pk": "Peretti, Guillermo", 
+    "pk": 186, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "PEU", 
       "subjects": null, 
+      "name": "Peretti, Guillermo", 
       "description": null
     }
   }, 
   {
-    "pk": "Petschek, Peter", 
+    "pk": 185, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "PEP", 
       "subjects": null, 
+      "name": "Petschek, Peter", 
       "description": null
     }
   }, 
   {
-    "pk": "Pfyl, Markus", 
+    "pk": 188, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "PFM", 
       "subjects": null, 
+      "name": "Pfyl, Markus", 
       "description": null
     }
   }, 
   {
-    "pk": "Pf\u00e4ndler, Ulrich", 
+    "pk": 187, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "PFA", 
       "subjects": null, 
+      "name": "Pf\u00e4ndler, Ulrich", 
       "description": null
     }
   }, 
   {
-    "pk": "Pletscher, Hans Heinrich", 
+    "pk": 189, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "PLE", 
       "subjects": null, 
+      "name": "Pletscher, Hans Heinrich", 
       "description": null
     }
   }, 
   {
-    "pk": "Prechtl, Heiner", 
+    "pk": 190, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "PRE", 
       "subjects": null, 
+      "name": "Prechtl, Heiner", 
       "description": null
     }
   }, 
   {
-    "pk": "Putscher, Thomas", 
+    "pk": 191, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "PUT", 
       "subjects": null, 
+      "name": "Putscher, Thomas", 
       "description": null
     }
   }, 
   {
-    "pk": "Quinteros Araujo, Vicente Santiago", 
+    "pk": 192, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "QUS", 
       "subjects": null, 
+      "name": "Quinteros Araujo, Vicente Santiago", 
       "description": null
     }
   }, 
   {
-    "pk": "Ramagnano, Nicola", 
+    "pk": 201, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "RNI", 
       "subjects": null, 
+      "name": "Ramagnano, Nicola", 
       "description": null
     }
   }, 
   {
-    "pk": "Ramseier, Dieter", 
+    "pk": 193, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "RAD", 
       "subjects": null, 
+      "name": "Ramseier, Dieter", 
       "description": null
     }
   }, 
   {
-    "pk": "Ramseier, Hans Rudolf", 
+    "pk": 194, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "RAM", 
       "subjects": null, 
+      "name": "Ramseier, Hans Rudolf", 
       "description": null
     }
   }, 
   {
-    "pk": "Ranft, Bruno", 
+    "pk": 195, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "RAN", 
       "subjects": null, 
+      "name": "Ranft, Bruno", 
       "description": null
     }
   }, 
   {
-    "pk": "Raper, Paul", 
+    "pk": 196, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "RAP", 
       "subjects": null, 
+      "name": "Raper, Paul", 
       "description": null
     }
   }, 
   {
-    "pk": "Rey, Andr\u00e9", 
+    "pk": 197, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "REY", 
       "subjects": null, 
+      "name": "Rey, Andr\u00e9", 
       "description": null
     }
   }, 
   {
-    "pk": "Rieder, Joggi", 
+    "pk": 198, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "RIE", 
       "subjects": null, 
+      "name": "Rieder, Joggi", 
       "description": null
     }
   }, 
   {
-    "pk": "Rinkel, Andreas", 
+    "pk": 199, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "RIN", 
       "subjects": null, 
+      "name": "Rinkel, Andreas", 
       "description": null
     }
   }, 
   {
-    "pk": "Rommel, Matthias", 
+    "pk": 204, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "ROM", 
       "subjects": null, 
+      "name": "Rommel, Matthias", 
       "description": null
     }
   }, 
   {
-    "pk": "Rotach, Dominik", 
+    "pk": 202, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "ROD", 
       "subjects": null, 
+      "name": "Rotach, Dominik", 
       "description": null
     }
   }, 
   {
-    "pk": "Rudin, Hans", 
+    "pk": 207, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "RUD", 
       "subjects": null, 
+      "name": "Rudin, Hans", 
       "description": null
     }
   }, 
   {
-    "pk": "Ruggli, Sandro A.", 
+    "pk": 209, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "RUG", 
       "subjects": null, 
+      "name": "Ruggli, Sandro A.", 
       "description": null
     }
   }, 
   {
-    "pk": "Rutishauser, Paul", 
+    "pk": 211, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "RUT", 
       "subjects": null, 
+      "name": "Rutishauser, Paul", 
       "description": null
     }
   }, 
   {
-    "pk": "R\u00f6llin, Peter", 
+    "pk": 203, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "R\u00d6L", 
       "subjects": null, 
+      "name": "R\u00f6llin, Peter", 
       "description": null
     }
   }, 
   {
-    "pk": "R\u00fcegg, Christoph", 
+    "pk": 210, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "RUH", 
       "subjects": null, 
+      "name": "R\u00fcegg, Christoph", 
       "description": null
     }
   }, 
   {
-    "pk": "R\u00fcegg, Corina", 
+    "pk": 206, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "RUC", 
       "subjects": null, 
+      "name": "R\u00fcegg, Corina", 
       "description": null
     }
   }, 
   {
-    "pk": "R\u00fcegg, Michael", 
+    "pk": 200, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "RMI", 
       "subjects": null, 
+      "name": "R\u00fcegg, Michael", 
       "description": null
     }
   }, 
   {
-    "pk": "R\u00fcppel, Rita", 
+    "pk": 205, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "RRI", 
       "subjects": null, 
+      "name": "R\u00fcppel, Rita", 
       "description": null
     }
   }, 
   {
-    "pk": "R\u00fcttimann, Stefan", 
+    "pk": 208, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "RUE", 
       "subjects": null, 
+      "name": "R\u00fcttimann, Stefan", 
       "description": null
     }
   }, 
   {
-    "pk": "SWET, Test", 
+    "pk": 256, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "SWET", 
       "subjects": null, 
+      "name": "SWET, Test", 
       "description": null
     }
   }, 
   {
-    "pk": "Samaras, Maria", 
+    "pk": 214, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "SAM", 
       "subjects": null, 
+      "name": "Samaras, Maria", 
       "description": null
     }
   }, 
   {
-    "pk": "Schacher, Markus", 
+    "pk": 238, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "SMS", 
       "subjects": null, 
+      "name": "Schacher, Markus", 
       "description": null
     }
   }, 
   {
-    "pk": "Schaufelberger, Rainer", 
+    "pk": 224, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "SCR", 
       "subjects": null, 
+      "name": "Schaufelberger, Rainer", 
       "description": null
     }
   }, 
   {
-    "pk": "Schimrosczyk, Ulrike", 
+    "pk": 220, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "SCI", 
       "subjects": null, 
+      "name": "Schimrosczyk, Ulrike", 
       "description": null
     }
   }, 
   {
-    "pk": "Schlieper, Johann", 
+    "pk": 221, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "SCJ", 
       "subjects": null, 
+      "name": "Schlieper, Johann", 
       "description": null
     }
   }, 
   {
-    "pk": "Schmitt, Hans-Michael", 
+    "pk": 223, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "SCM", 
       "subjects": null, 
+      "name": "Schmitt, Hans-Michael", 
       "description": null
     }
   }, 
   {
-    "pk": "Schmucki, Josef", 
+    "pk": 233, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "SJO", 
       "subjects": null, 
+      "name": "Schmucki, Josef", 
       "description": null
     }
   }, 
   {
-    "pk": "Schneider, Andreas", 
+    "pk": 215, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "SAN", 
       "subjects": null, 
+      "name": "Schneider, Andreas", 
       "description": null
     }
   }, 
   {
-    "pk": "Schneider, Hansruedi", 
+    "pk": 219, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "SCH", 
       "subjects": null, 
+      "name": "Schneider, Hansruedi", 
       "description": null
     }
   }, 
   {
-    "pk": "Schneider, Michael", 
+    "pk": 236, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "SMI", 
       "subjects": null, 
+      "name": "Schneider, Michael", 
       "description": null
     }
   }, 
   {
-    "pk": "Schr\u00f6der, Petra", 
+    "pk": 217, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "SCD", 
       "subjects": null, 
+      "name": "Schr\u00f6der, Petra", 
       "description": null
     }
   }, 
   {
-    "pk": "Schuler, Adrian", 
+    "pk": 216, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "SCA", 
       "subjects": null, 
+      "name": "Schuler, Adrian", 
       "description": null
     }
   }, 
   {
-    "pk": "Schuster, Guido", 
+    "pk": 225, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "SCU", 
       "subjects": null, 
+      "name": "Schuster, Guido", 
       "description": null
     }
   }, 
   {
-    "pk": "Schweingruber, Lukas", 
+    "pk": 222, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "SCL", 
       "subjects": null, 
+      "name": "Schweingruber, Lukas", 
       "description": null
     }
   }, 
   {
-    "pk": "Schwendemann, Daniel", 
+    "pk": 226, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "SDL", 
       "subjects": null, 
+      "name": "Schwendemann, Daniel", 
       "description": null
     }
   }, 
   {
-    "pk": "Sch\u00e4llibaum, Ueli", 
+    "pk": 234, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "SLB", 
       "subjects": null, 
+      "name": "Sch\u00e4llibaum, Ueli", 
       "description": null
     }
   }, 
   {
-    "pk": "Sch\u00e4rer, Rolf", 
+    "pk": 212, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "SAE", 
       "subjects": null, 
+      "name": "Sch\u00e4rer, Rolf", 
       "description": null
     }
   }, 
   {
-    "pk": "Sch\u00f6ffel, Joachim", 
+    "pk": 218, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "SCF", 
       "subjects": null, 
+      "name": "Sch\u00f6ffel, Joachim", 
       "description": null
     }
   }, 
   {
-    "pk": "Seippel, Andr\u00e9", 
+    "pk": 227, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "SEI", 
       "subjects": null, 
+      "name": "Seippel, Andr\u00e9", 
       "description": null
     }
   }, 
   {
-    "pk": "Sidiropoulos, Paul", 
+    "pk": 231, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "SIP", 
       "subjects": null, 
+      "name": "Sidiropoulos, Paul", 
       "description": null
     }
   }, 
   {
-    "pk": "Siegrist, Dominik", 
+    "pk": 229, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "SID", 
       "subjects": null, 
+      "name": "Siegrist, Dominik", 
       "description": null
     }
   }, 
   {
-    "pk": "Signer, Ulrich", 
+    "pk": 232, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "SIU", 
       "subjects": null, 
+      "name": "Signer, Ulrich", 
       "description": null
     }
   }, 
   {
-    "pk": "Simeon, Alex", 
+    "pk": 230, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "SIM", 
       "subjects": null, 
+      "name": "Simeon, Alex", 
       "description": null
     }
   }, 
   {
-    "pk": "Slukan, Viktoria", 
+    "pk": 235, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "SLV", 
       "subjects": null, 
+      "name": "Slukan, Viktoria", 
       "description": null
     }
   }, 
   {
-    "pk": "Smajic, Jasmin", 
+    "pk": 237, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "SMJ", 
       "subjects": null, 
+      "name": "Smajic, Jasmin", 
       "description": null
     }
   }, 
   {
-    "pk": "Sommerlad, Peter", 
+    "pk": 240, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "SOM", 
       "subjects": null, 
+      "name": "Sommerlad, Peter", 
       "description": null
     }
   }, 
   {
-    "pk": "Sourlier, David", 
+    "pk": 239, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "SOD", 
       "subjects": null, 
+      "name": "Sourlier, David", 
       "description": null
     }
   }, 
   {
-    "pk": "Speerli, J\u00fcrg", 
+    "pk": 241, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "SPE", 
       "subjects": null, 
+      "name": "Speerli, J\u00fcrg", 
       "description": null
     }
   }, 
   {
-    "pk": "Sprenger, Walter", 
+    "pk": 242, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "SPR", 
       "subjects": null, 
+      "name": "Sprenger, Walter", 
       "description": null
     }
   }, 
   {
-    "pk": "Stadelmann, Rolf", 
+    "pk": 243, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "SRO", 
       "subjects": null, 
+      "name": "Stadelmann, Rolf", 
       "description": null
     }
   }, 
   {
-    "pk": "Stadelmann, Silvia", 
+    "pk": 251, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "STS", 
       "subjects": null, 
+      "name": "Stadelmann, Silvia", 
       "description": null
     }
   }, 
   {
-    "pk": "Stadelwieser, J\u00fcrg", 
+    "pk": 253, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "STW", 
       "subjects": null, 
+      "name": "Stadelwieser, J\u00fcrg", 
       "description": null
     }
   }, 
   {
-    "pk": "Stanger, Ren\u00e9", 
+    "pk": 250, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "STR", 
       "subjects": null, 
+      "name": "Stanger, Ren\u00e9", 
       "description": null
     }
   }, 
   {
-    "pk": "Steffen, Andreas", 
+    "pk": 228, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "SFF", 
       "subjects": null, 
+      "name": "Steffen, Andreas", 
       "description": null
     }
   }, 
   {
-    "pk": "Steiger, Marco", 
+    "pk": 244, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "STC", 
       "subjects": null, 
+      "name": "Steiger, Marco", 
       "description": null
     }
   }, 
   {
-    "pk": "Steiner, Lucas", 
+    "pk": 249, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "STL", 
       "subjects": null, 
+      "name": "Steiner, Lucas", 
       "description": null
     }
   }, 
   {
-    "pk": "Stettler, Beat", 
+    "pk": 246, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "STE", 
       "subjects": null, 
+      "name": "Stettler, Beat", 
       "description": null
     }
   }, 
   {
-    "pk": "Stocker, Mirko", 
+    "pk": 254, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "STX", 
       "subjects": null, 
+      "name": "Stocker, Mirko", 
       "description": null
     }
   }, 
   {
-    "pk": "Stoll, Jean-Marc", 
+    "pk": 248, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "STJ", 
       "subjects": null, 
+      "name": "Stoll, Jean-Marc", 
       "description": null
     }
   }, 
   {
-    "pk": "Stolze, Markus", 
+    "pk": 257, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "SZE", 
       "subjects": null, 
+      "name": "Stolze, Markus", 
       "description": null
     }
   }, 
   {
-    "pk": "Stoop, Ruedi", 
+    "pk": 247, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "STF", 
       "subjects": null, 
+      "name": "Stoop, Ruedi", 
       "description": null
     }
   }, 
   {
-    "pk": "Studer, Jens", 
+    "pk": 245, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "STD", 
       "subjects": null, 
+      "name": "Studer, Jens", 
       "description": null
     }
   }, 
   {
-    "pk": "Stutz, Daniel", 
+    "pk": 255, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "SUD", 
       "subjects": null, 
+      "name": "Stutz, Daniel", 
       "description": null
     }
   }, 
   {
-    "pk": "St\u00fcrmer, Sylvia", 
+    "pk": 252, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "STV", 
       "subjects": null, 
+      "name": "St\u00fcrmer, Sylvia", 
       "description": null
     }
   }, 
   {
-    "pk": "S\u00e4gesser, Kurt", 
+    "pk": 213, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "SAK", 
       "subjects": null, 
+      "name": "S\u00e4gesser, Kurt", 
       "description": null
     }
   }, 
   {
-    "pk": "Tietje, Olaf", 
+    "pk": 258, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "TIE", 
       "subjects": null, 
+      "name": "Tietje, Olaf", 
       "description": null
     }
   }, 
   {
-    "pk": "Tobler, Maja", 
+    "pk": 259, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "TOL", 
       "subjects": null, 
+      "name": "Tobler, Maja", 
       "description": null
     }
   }, 
   {
-    "pk": "Ulmann, Walter", 
+    "pk": 260, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "ULW", 
       "subjects": null, 
+      "name": "Ulmann, Walter", 
       "description": null
     }
   }, 
   {
-    "pk": "Unterer, Thomas", 
+    "pk": 261, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "UNT", 
       "subjects": null, 
+      "name": "Unterer, Thomas", 
       "description": null
     }
   }, 
   {
-    "pk": "Uster, Markus", 
+    "pk": 262, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "UST", 
       "subjects": null, 
+      "name": "Uster, Markus", 
       "description": null
     }
   }, 
   {
-    "pk": "Verhein-Jarren, Annette", 
+    "pk": 263, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "VER", 
       "subjects": null, 
+      "name": "Verhein-Jarren, Annette", 
       "description": null
     }
   }, 
   {
-    "pk": "V\u00f6geli, Nicole", 
+    "pk": 264, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "V\u00d6G", 
       "subjects": null, 
+      "name": "V\u00f6geli, Nicole", 
       "description": null
     }
   }, 
   {
-    "pk": "Wagner, Arno", 
+    "pk": 265, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "WAA", 
       "subjects": null, 
+      "name": "Wagner, Arno", 
       "description": null
     }
   }, 
   {
-    "pk": "Weber Inderbitzi, Michelle", 
+    "pk": 267, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "WEB", 
       "subjects": null, 
+      "name": "Weber Inderbitzi, Michelle", 
       "description": null
     }
   }, 
   {
-    "pk": "Wegmann, Simon", 
+    "pk": 270, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "WES", 
       "subjects": null, 
+      "name": "Wegmann, Simon", 
       "description": null
     }
   }, 
   {
-    "pk": "Weibel, Reto", 
+    "pk": 271, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "WET", 
       "subjects": null, 
+      "name": "Weibel, Reto", 
       "description": null
     }
   }, 
   {
-    "pk": "Weilenmann, Martin", 
+    "pk": 269, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "WEI", 
       "subjects": null, 
+      "name": "Weilenmann, Martin", 
       "description": null
     }
   }, 
   {
-    "pk": "Wenk, Felix", 
+    "pk": 268, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "WEF", 
       "subjects": null, 
+      "name": "Wenk, Felix", 
       "description": null
     }
   }, 
   {
-    "pk": "Widmer, Adolf Christian", 
+    "pk": 266, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "WAD", 
       "subjects": null, 
+      "name": "Widmer, Adolf Christian", 
       "description": null
     }
   }, 
   {
-    "pk": "Widmer, Ralph", 
+    "pk": 275, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "WRA", 
       "subjects": null, 
+      "name": "Widmer, Ralph", 
       "description": null
     }
   }, 
   {
-    "pk": "Willi, Roman", 
+    "pk": 274, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "WIR", 
       "subjects": null, 
+      "name": "Willi, Roman", 
       "description": null
     }
   }, 
   {
-    "pk": "Winzer, Thomas", 
+    "pk": 273, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "WIN", 
       "subjects": null, 
+      "name": "Winzer, Thomas", 
       "description": null
     }
   }, 
   {
-    "pk": "Wirz, Christian", 
+    "pk": 272, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "WIC", 
       "subjects": null, 
+      "name": "Wirz, Christian", 
       "description": null
     }
   }, 
   {
-    "pk": "Wolf W\u00fcst, Karin", 
+    "pk": 277, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "WUK", 
       "subjects": null, 
+      "name": "Wolf W\u00fcst, Karin", 
       "description": null
     }
   }, 
   {
-    "pk": "Wyrsch, Sigisbert", 
+    "pk": 279, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "WYR", 
       "subjects": null, 
+      "name": "Wyrsch, Sigisbert", 
       "description": null
     }
   }, 
   {
-    "pk": "W\u00fcrmli, Peter", 
+    "pk": 278, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "WUR", 
       "subjects": null, 
+      "name": "W\u00fcrmli, Peter", 
       "description": null
     }
   }, 
   {
-    "pk": "W\u00fcst, Theodor", 
+    "pk": 276, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "WUE", 
       "subjects": null, 
+      "name": "W\u00fcst, Theodor", 
       "description": null
     }
   }, 
   {
-    "pk": "Zbinden, Paul", 
+    "pk": 280, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "ZBP", 
       "subjects": null, 
+      "name": "Zbinden, Paul", 
       "description": null
     }
   }, 
   {
-    "pk": "Zgraggen, Bernhard", 
+    "pk": 281, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "ZGR", 
       "subjects": null, 
+      "name": "Zgraggen, Bernhard", 
       "description": null
     }
   }, 
   {
-    "pk": "Ziltener, Michael", 
+    "pk": 283, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "ZMI", 
       "subjects": null, 
+      "name": "Ziltener, Michael", 
       "description": null
     }
   }, 
   {
-    "pk": "Zimmermann, Martin", 
+    "pk": 282, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "ZIM", 
       "subjects": null, 
+      "name": "Zimmermann, Martin", 
       "description": null
     }
   }, 
   {
-    "pk": "Zweibr\u00fccken, Klaus", 
+    "pk": 285, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "ZWE", 
       "subjects": null, 
+      "name": "Zweibr\u00fccken, Klaus", 
       "description": null
     }
   }, 
   {
-    "pk": "Z\u00fcger, Alfred", 
+    "pk": 284, 
     "model": "front.lecturer", 
     "fields": {
       "abbreviation": "ZUA", 
       "subjects": null, 
+      "name": "Z\u00fcger, Alfred", 
       "description": null
     }
   }
