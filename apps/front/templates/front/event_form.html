@@ -2,7 +2,7 @@
 {% load url from future %}
 {% load tabs %}
 
-{% block title %}Event erfassen{% endblock %}
+{% block title %}Event {{ event|yesno:"bearbeiten,erfassen" }}{% endblock %}
 
 {% block navigation %}
     {% activetab 'navigation' 'events' %}

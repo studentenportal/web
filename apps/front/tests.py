@@ -87,6 +87,26 @@ class DocumentModelTest(unittest.TestCase):
         self.assertRaises(IntegrityError, dr.save)
 
 
+class QuoteModelTst(TestCase):
+    fixtures = ['testuser', 'lecturers']
+
+    def testQuote(self):
+        quote = "Dies ist ein längeres Zitat, das dazu dient, zu testen " + \
+            "ob man Zitate erfassen kann und ob die Länge des Zitats mehr " + \
+            "als 255 Zeichen enthalten darf. Damit kann man sicherstellen, " + \
+            "dass im Model kein CharField verwendet wurde. Denn wir wollen " + \
+            "ja nicht, dass längere Zitate hier keinen Platz haben :)"
+        before = datetime.datetime.now()
+        q = models.Quote()
+        q.author = models.User.objects.get()
+        q.lecturer = models.Lecturer.objects.all()[0]
+        q.quote = quote
+        q.comment = "Eine Bemerkung zum Kommentar"
+        q.save()
+        after = datetime.datetime.now()
+        self.assertTrue(before < q.date < after)
+
+
 class UserModelTest(unittest.TestCase):
     def setUp(self):
         self.john = User.objects.create(username='john')

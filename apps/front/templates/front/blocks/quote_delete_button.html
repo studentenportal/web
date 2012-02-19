@@ -1,0 +1,4 @@
+{% load url from future %}
+<p><a class="btn btn-danger" href="{% url 'quote_delete' quote.pk %}">
+    <i class="icon-trash icon-white"></i>{% if not small_button %} Zitat löschen{% endif %}
+</a></p>

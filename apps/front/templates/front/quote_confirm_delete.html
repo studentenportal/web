@@ -1,0 +1,31 @@
+{% extends 'front/base.html' %}
+{% load url from future %}
+{% load tabs %}
+
+{% block title %}Zitat löschen{% endblock %}
+
+{% block navigation %}
+    {% activetab 'navigation' 'quotes' %}
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+
+    <h1>Zitat löschen</h1>
+
+    <p>Möchtest du wirklich das folgende Zitat aus der Datenbank löschen?</p>
+
+    <ul>
+        <li><strong>Dozent</strong> {{ quote.lecturer }}</li>
+        <li><strong>Erfasst am</strong> {{ quote.date }}</li>
+        <li><strong>Zitat</strong> {{ quote.quote }}</li>
+        {% if quote.comment %}<li><strong>Bemerkung</strong> {{ quote.comment }}</li>{% endif %}
+    </ul>
+
+    <form method="post">{% csrf_token %}
+        <button type="submit" class="btn btn-danger">
+            <i class="icon-trash icon-white"></i> Ja, ich bin sicher.
+        </button>
+    </form>
+
+{% endblock %}

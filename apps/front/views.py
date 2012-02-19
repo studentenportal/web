@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import models as auth_models
 from django.contrib import messages
 from django.core.urlresolvers import reverse
+from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponseForbidden
 from django.views.generic import TemplateView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -89,6 +90,7 @@ class EventEdit(UpdateView):
 
 class EventDelete(DeleteView):
     model = models.Event
+    context_object_name = 'quote'
 
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
@@ -127,6 +129,11 @@ class Lecturer(DetailView):
     def dispatch(self, request, *args, **kwargs):
         return super(Lecturer, self).dispatch(request, *args, **kwargs)
 
+    def get_context_data(self, **kwargs):
+        context = super(Lecturer, self).get_context_data(**kwargs)
+        context['quotes'] = self.object.Quote.all()
+        return context
+
 
 class LecturerList(ListView):
     model = models.Lecturer
@@ -141,6 +148,72 @@ class LecturerList(ListView):
         context['lecturers'] = (context['object_list'][::2],
                                 context['object_list'][1::2])
         return context
+
+
+class QuoteList(ListView):
+    model = models.Quote
+    context_object_name = 'quotes'
+
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super(QuoteList, self).dispatch(request, *args, **kwargs)
+
+
+class QuoteAdd(CreateView):
+    model = models.Quote
+    form_class = forms.QuoteForm
+
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        try:
+            self.lecturer = models.Lecturer.objects.get(pk=kwargs.get('pk'))
+        except (ObjectDoesNotExist, ValueError):
+            self.lecturer = None
+        return super(QuoteAdd, self).dispatch(request, *args, **kwargs)
+
+    def get_form(self, form_class):
+        """Add the pk as first argument to the form."""
+        return form_class(self.kwargs.get('pk'), **self.get_form_kwargs())
+
+    def get_context_data(self, **kwargs):
+        context = super(QuoteAdd, self).get_context_data(**kwargs)
+        context['lecturer'] = self.lecturer
+        return context
+
+    def form_valid(self, form):
+        """Override the form_valid method of the ModelFormMixin to insert
+        value of author field. To do this, the form's save() method is
+        called with commit=False to be able to edit the new object before
+        actually saving it."""
+        self.object = form.save(commit=False)
+        self.object.author = self.request.user
+        self.object.save()
+        return super(QuoteAdd, self).form_valid(form)
+
+    def get_success_url(self):
+        """Redirect to quotes or lecturer page."""
+        messages.add_message(self.request, messages.SUCCESS,
+            u'Zitat wurde erfolgreich hinzugefügt.')
+        if self.lecturer:
+            return reverse('lecturer_detail', args=[self.lecturer.pk])
+        return reverse('quote_list')
+
+
+class QuoteDelete(DeleteView):
+    model = models.Quote
+
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        handler = super(QuoteDelete, self).dispatch(request, *args, **kwargs)
+        # Only allow deletion if current user is owner
+        if self.object.author != request.user:
+            return HttpResponseForbidden(u'Du darfst keine fremden Quotes löschen.')
+        return handler
+
+    def get_success_url(self):
+        messages.add_message(self.request, messages.SUCCESS,
+            u'Zitat wurde erfolgreich gelöscht.')
+        return reverse('quote_list')
 
 
 class DocumentCategories(ListView):

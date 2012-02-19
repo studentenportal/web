@@ -29,11 +29,12 @@
 
     <h3>Kontakt</h3>
     <ul>
-        <li>Büro: {{ lecturer.office }}</li>
-        <li>Email: {{ lecturer.email }}</li>
+        <li>Büro: {{ lecturer.office|default:"Unbekannt" }}</li>
+        <li>Email: {{ lecturer.email|default:"Unbekannt" }}</li>
     </ul>
 
-    <h3>Bewertungen</h3>
+
+    <h2>Bewertungen</h2>
     <ul>
         <li>Didaktisch: <span class="label label-important">{{ lecturer.avg_rating_d }}</span></li>
         <li>Menschlich: <span class="label label-success">{{ lecturer.avg_rating_m }}</span></li>
@@ -43,7 +44,36 @@
 
     <h2>Zitate</h2>
 
-    <p><a class="btn" href="#">
+    {% if quotes %}
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Zitat</th>
+                    <th>Bemerkung</th>
+                    <th>Eingetragen</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for quote in quotes %}
+                    <tr>
+                        <td>{{ quote.quote }}</td>
+                        <td>{{ quote.comment }}</td>
+                        <td>{{ quote.date|date:"d.m.Y" }}</td>
+                        <td>
+                            {% if quote.author = user %}
+                                {% include 'front/blocks/quote_delete_button.html' with small_button=1 %}
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p><em>Keine Zitate gefunden.</em></p>
+    {% endif %}
+
+    <p><a class="btn" href="{% url 'lecturer_quote_add' lecturer.pk %}">
         <i class="icon-plus-sign"></i> Zitat hinzufügen
     </a></p>
 

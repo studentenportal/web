@@ -26,20 +26,19 @@
     
     <div class="row">
         {% for i in 2|get_range %}
-        <div class="span4">
-            <ul class="unstyled">
+            <div class="span4">
                 {% for lecturer in lecturers|index:i %}
-                <div class="lecturer">
-                    <h4><a href="{% url 'lecturer_detail' lecturer.pk %}">{{ lecturer.name }} / {{ lecturer.abbreviation }}</a></h4>
-                    <p><span class="label label-important">{{ lecturer.avg_rating_d }}</span>
-                       <span class="label label-success">{{ lecturer.avg_rating_m }}</span>
-                       <span class="label label-warning">{{ lecturer.avg_rating_f }}</span></p>
-                    {% if lecturer.photo %}<li><img class="thumbnail quimby_search_image" src="{{ lecturer.photo }}"></li>{% endif %}
-                    {% if not lecturer.photo %}<li><img class="thumbnail quimby_search_image" src="http://placehold.it/120x160"></li>{% endif %}
-                </div>
+                    <div class="lecturer">
+                        <h4><a href="{% url 'lecturer_detail' lecturer.pk %}">{{ lecturer.name }} / {{ lecturer.abbreviation }}</a></h4>
+                        <p><span class="label label-important">{{ lecturer.avg_rating_d }}</span>
+                           <span class="label label-success">{{ lecturer.avg_rating_m }}</span>
+                           <span class="label label-warning">{{ lecturer.avg_rating_f }}</span></p>
+                        <a href="{% url 'lecturer_detail' lecturer.pk %}"><img class="thumbnail quimby_search_image" src="
+                            {% if lecturer.photo %}{{ lecturer.photo }}{% else %}http://placehold.it/120x160{% endif %}
+                        "></a>
+                    </div>
                 {% endfor %}
-            </ul>
-        </div>
+            </div>
         {% endfor %}
     </div>
 

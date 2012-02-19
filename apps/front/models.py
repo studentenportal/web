@@ -47,6 +47,18 @@ class Lecturer(models.Model):
         ordering = ['name']
 
 
+class Quote(models.Model):
+    """Lecturer quotes."""
+    author = models.ForeignKey(User, related_name='Quote')
+    lecturer = models.ForeignKey(Lecturer, verbose_name=u'Dozent', related_name='Quote')
+    date = models.DateTimeField(auto_now_add=True)
+    quote = models.TextField(u'Zitat')
+    comment = models.TextField(u'Bemerkung', default=u'', blank=True)
+
+    class Meta:
+        ordering = ['-date']
+
+
 class DocumentCategory(models.Model):
     """Categories (usually subjects) for the documents.
 

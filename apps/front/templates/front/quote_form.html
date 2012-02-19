@@ -29,10 +29,10 @@
         {% include 'lib/form_loop.html' %}
         <div class="form-actions">
             <button type="submit" class="btn btn-primary">Eintragen</button>
-            {% if event %}
-                <a href="{% url 'event_detail' event.pk %}" class="btn">Abbrechen TODO</a>
+            {% if lecturer %}
+                <a href="{% url 'lecturer_detail' lecturer.pk %}" class="btn">Abbrechen</a>
             {% else %}
-                <a href="{% url 'event_list' %}" class="btn">Abbrechen TODO</a>
+                <a href="{% url 'quote_list' %}" class="btn">Abbrechen</a>
             {% endif %}
         </div>
     </form>

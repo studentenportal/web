@@ -1,0 +1,39 @@
+{% extends 'front/base.html' %}
+{% load url from future %}
+{% load tabs %}
+
+{% block title %}Zitate{% endblock %}
+
+{% block navigation %}
+    {% activetab 'navigation' 'quotes' %}
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+
+    <h1>Zitate</h1>
+    
+    <p>Die neusten Zitate oder typische Eigenheiten von Dozenten.</p>
+
+    <p>Um alle Zitate eines bestimmten Dozenten zu sehen, einfach das jeweilige
+    Profil ansehen.</p>
+
+    {% if user.is_authenticated %}
+        <p><a class="btn" href="{% url 'quote_add' %}">
+            <i class="icon-plus-sign"></i> Zitat hinzufügen
+        </a></p>
+    {% endif %}
+
+    {% for quote in quotes %}
+        <h3>{{ quote.date }}</h3>
+        <p>{{ quote.comment }}</p>
+        <blockquote>
+            {{ quote.quote }}
+            <small><a href="{% url 'lecturer_detail' quote.lecturer.pk %}">{{ quote.lecturer }}</a></small>
+        </blockquote>
+        {% if quote.author = user %}
+            {% include 'front/blocks/quote_delete_button.html' %}
+        {% endif %}
+    {% endfor %}
+
+{% endblock %}

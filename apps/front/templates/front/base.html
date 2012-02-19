@@ -71,6 +71,9 @@
                         <li class="{% ifactivetab 'navigation' 'lecturers' %}active{% endifactivetab %}">
                             <a href="{% url 'lecturer_list' %}">Dozenten</a>
                         </li>
+                        <li class="{% ifactivetab 'navigation' 'quotes' %}active{% endifactivetab %}">
+                            <a href="{% url 'quote_list' %}">Zitate</a>
+                        </li>
                     </ul>
                 {% endblock %}
             </div>
