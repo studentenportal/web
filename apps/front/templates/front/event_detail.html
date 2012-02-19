@@ -17,7 +17,13 @@
 
     <h1>{{ event.summary }}</h1>
 
-    <p><em>Erfasst von: <a href="{% url 'user' event.author.pk event.author.username|slugify %}">{{ event.author.username }}</a></em></p>
+    <p><em>Erfasst von:
+        {% if event.author %}
+            <a href="{% url 'user' event.author.pk event.author.username|slugify %}">{{ event.author.username }}</a>
+        {% else %}
+            Gelöschter User
+        {% endif %}
+    </em></p>
     
     <p>{{ event.description }}</p>
 
