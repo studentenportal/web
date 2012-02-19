@@ -1,9 +1,9 @@
 from django_assets import Bundle, register
 
 scripts = Bundle(
+    'js/jquery-1.7.1.js',
     'js/studentenportal.js',
     'js/bootstrap.js',
-    'js/jquery.min.js',
     filters='jsmin',
     output='js/packed.js')
 

@@ -1,0 +1,39 @@
+{% extends 'front/base.html' %}
+{% load url from future %}
+{% load tabs %}
+
+{% block title %}Zitat hinzufügen{% endblock %}
+
+{% block navigation %}
+    {% if lecturer %}
+        {% activetab 'navigation' 'lecturers' %}
+    {% else %}
+        {% activetab 'navigation' 'quotes' %}
+    {% endif %}
+    {{ block.super }}
+{% endblock %}
+
+{% block breadcrumbs %}
+    {% if lecturer %}
+        <a href="{% url 'lecturer_detail' lecturer.pk %}">{{ lecturer.name }}</a> &raquo; Zitat hinzufügen
+    {% else %}
+        <a href="{% url 'quote_list' %}">Zitate</a> &raquo; Zitat hinzufügen
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+
+    <h1>Zitat hinzufügen</h1>
+
+    <form method="POST" class="form-horizontal">{% csrf_token %}
+        {% include 'lib/form_loop.html' %}
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Eintragen</button>
+            {% if event %}
+                <a href="{% url 'event_detail' event.pk %}" class="btn">Abbrechen TODO</a>
+            {% else %}
+                <a href="{% url 'event_list' %}" class="btn">Abbrechen TODO</a>
+            {% endif %}
+        </div>
+    </form>
+{% endblock %}
