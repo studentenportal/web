@@ -30,3 +30,9 @@ class HsrRegistrationForm(RegistrationForm):
         def __init__(self, *args, **kwargs):
             super(HsrRegistrationForm, self).__init__(*args, **kwargs)
             del self.fields['email']  # Remove email field
+
+        def clean_username(self):
+            data = self.cleaned_data.get('username')
+            if '@' in data:
+                raise forms.ValidationError('Bitte nur vorderen Teil der Mailadresse ohne "@" eintragen.')
+            return super(HsrRegistrationForm, self).clean_username()

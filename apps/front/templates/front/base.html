@@ -2,10 +2,12 @@
 {% load tabs %}
 {% load messagegroups %}
 {% load url from future %}
+<!DOCTYPE html>
 <html>
 
 <head>
     <title>HSR Studentenportal - {% block title %}Willkommen{% endblock %}</title>
+    <meta charset="UTF-8">
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>-->
     {% assets 'stylesheets' %}<link rel="stylesheet" href="{{ ASSET_URL }}" />{% endassets %}
@@ -20,7 +22,7 @@
                 <ul class="nav pull-right">
                     {% if not user.is_authenticated %}
                         <li><a href="{% url 'auth_login' %}">Login</a></li>
-                        <li><a href="{% url 'registration_register' %}">Registrieren</a></li>
+                        <li><a href="{% url 'register' %}">Registrieren</a></li>
                     {% else %}
                         <li class="dropdown" id="authmenu">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#authmenu">
