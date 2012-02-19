@@ -18,7 +18,11 @@
             <tr>
                 <td>{{ event.start_date }}</td>
                 <td><a href="{% url 'event_detail' event.pk %}"><strong>{{ event.summary }}</strong></a></td>
-                <td><a href="{% url 'user' event.author.pk event.author.username|slugify %}">{{ event.author.name }}</a></td>
+                {% if event.author %}
+                    <td><a href="{% url 'user' event.author.pk event.author.username|slugify %}">{{ event.author.name }}</a></td>
+                {% else %}
+                    <td>Gelöschter User</td>
+                {% endif %}
             </tr>
         {% endfor %}
     </tbody>

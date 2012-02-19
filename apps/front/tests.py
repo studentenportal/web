@@ -249,7 +249,7 @@ class LoginTest(TestCase):
 class GetRangeTest(unittest.TestCase):
     def testZero(self):
         r = templatetags.tags.get_range(0)
-        self.assertEqual(len(r), 0) 
+        self.assertEqual(len(r), 0)
 
     def testNegative(self):
         r = templatetags.tags.get_range(-5)
