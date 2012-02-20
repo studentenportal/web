@@ -1,3 +1,4 @@
+# encoding=utf8
 import os
 import random
 import datetime
@@ -14,12 +15,23 @@ class Lecturer(models.Model):
     and the filename should be <abbreviation>.jpg.
 
     """
-    name = models.CharField(max_length=255)
-    abbreviation = models.CharField(max_length=10, unique=True)
-    subjects = models.CharField(max_length=50, null=True, blank=True)
+    id = models.IntegerField(u'HSR ID', primary_key=True)
+    title = models.CharField(u'Titel', max_length=32, null=True, blank=True)
+    last_name = models.CharField(u'Name', max_length=255)
+    first_name = models.CharField(u'Vorname', max_length=255)
+    abbreviation = models.CharField(u'Kürzel', max_length=10, unique=True)
+    department = models.CharField(u'Abteilung', max_length=32, null=True, blank=True)
+    function = models.CharField(u'Funktion', max_length=32, null=True, blank=True)
+    main_area = models.CharField(u'Fachschwerpunkt', max_length=256, null=True, blank=True)
+    subjects = models.CharField(max_length=50, null=True, blank=True)  # todo add to frontend
     description = models.TextField(null=True, blank=True)
     email = models.EmailField(null=True, blank=True)
     office = models.CharField(max_length=20, null=True, blank=True)
+
+    def name(self):
+        fullname = '%s, %s' % (self.last_name, self.first_name)
+        parts = filter(None, [self.title, fullname])
+        return ' '.join(parts)
 
     def photo(self):
         path = os.path.join(settings.MEDIA_ROOT, 'lecturers',
@@ -41,10 +53,10 @@ class Lecturer(models.Model):
         return float(r)
 
     def __unicode__(self):
-        return self.name
+        return self.name()
 
     class Meta:
-        ordering = ['name']
+        ordering = ['last_name']
 
 
 class Quote(models.Model):

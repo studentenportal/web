@@ -13,24 +13,20 @@ from apps.front import templatetags
 
 ### MODEL TESTS ###
 
-class LecturerModelTest(unittest.TestCase):
-    def setUp(self):
-        self.lecturer = models.Lecturer.objects.create(
-                name='Jussuf Jolder',
-                abbreviation='jol',
-                subjects='Testsubject',
-                description='Some guy',
-                email='j.jolder@hsr.ch',
-                office='1.234')
+class LecturerModelTest(TestCase):
+    fixtures = ['testlecturer']
 
-    def tearDown(self):
-        self.lecturer.delete()
+    def setUp(self):
+        self.lecturer = models.Lecturer.objects.get()
 
     def testValidRatingsRange(self):
         """Rating must be between 1 and 6."""
         self.assertTrue(1.0 <= self.lecturer.avg_rating_d() <= 6.0)
         self.assertTrue(1.0 <= self.lecturer.avg_rating_m() <= 6.0)
         self.assertTrue(1.0 <= self.lecturer.avg_rating_f() <= 6.0)
+
+    def testName(self):
+        self.assertEqual(self.lecturer.name(), 'Prof. Dr. Krakaduku, David')
 
 
 class DocumentModelTest(unittest.TestCase):
@@ -88,7 +84,7 @@ class DocumentModelTest(unittest.TestCase):
 
 
 class QuoteModelTst(TestCase):
-    fixtures = ['testuser', 'lecturers']
+    fixtures = ['testuser', 'testlecturer']
 
     def testQuote(self):
         quote = "Dies ist ein längeres Zitat, das dazu dient, zu testen " + \
@@ -187,7 +183,7 @@ class LecturerListViewTest(TestCase):
         self.client.login(username='testuser', password='test')
         response = self.client.get('/dozenten/')
         self.assertContains(response, '<h1>Unsere Dozenten</h1>')
-        self.assertContains(response, 'Prof. Dr. Krakaduku / kra')
+        self.assertContains(response, 'Prof. Dr. Krakaduku, David / KRA')
 
 
 class LecturerDetailViewTest(TestCase):
@@ -201,7 +197,7 @@ class LecturerDetailViewTest(TestCase):
     def testDescription(self):
         self.client.login(username='testuser', password='test')
         response = self.client.get(self.url)
-        self.assertContains(response, '<h1>Prof. Dr. Krakaduku (kra)</h1>')
+        self.assertContains(response, '<h1>Prof. Dr. Krakaduku, David</h1>')
         self.assertContains(response, 'San Diego')
         self.assertContains(response, 'Quantenphysik, Mathematik für Mathematiker')
 
