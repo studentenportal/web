@@ -34,10 +34,12 @@ class Lecturer(models.Model):
         return ' '.join(parts)
 
     def photo(self):
-        path = os.path.join(settings.MEDIA_ROOT, 'lecturers',
-                '%s.jpg' % self.abbreviation.lower())
-        if os.path.exists(path):
-            return settings.MEDIA_URL + 'lecturers/%s.jpg' % self.abbreviation.lower()
+        """Try to see if a photo with the name <self.id>.jpg exists. If it
+        does, return the corresponding URL. If it doesn't, return None."""
+        path = os.path.join('lecturers', '%s.jpg' % self.id)
+        fullpath = os.path.join(settings.MEDIA_ROOT, path)
+        if os.path.exists(fullpath):
+            return settings.MEDIA_URL + path
         return None
 
     def avg_rating_d(self):
