@@ -10,13 +10,17 @@
     {{ block.super }}
 {% endblock %}
 
+{% block breadcrumbs %}
+    <a href="{% url 'documentcategory_list' %}">Zusammenfassungen</a> &raquo; {{ documentcategory.name }}
+{% endblock %}
+
 {% block content %}
 
-    <h1>Zusammenfassungen</h1>
+    <h1>Zusammenfassungen {{ documentcategory.name }}</h1>
     
     <p>Hier finden sich Zusammenfassungen des Unterrichtsstoffes und Lernhilfen für die Prüfungen.</p>
 
-    {% if object_list %}
+    {% if documents %}
         <table id="documents" class="table table-striped">
             <thead>
                 <tr>
@@ -25,7 +29,7 @@
                 </tr>
             </thead>
             <tbody>
-                {% for doc in object_list %}
+                {% for doc in documents %}
                     <tr>
                         <td>
                             <h4>{{ doc.name }}</h4>
@@ -42,7 +46,7 @@
             </tbody>
         </table>
     {% else %}
-    <div class="alert alert-info"><strong>Sorry.</strong> Leider gibt es in dieser Kategorie noch keine Uploads.</div>
+        <div class="alert alert-info"><strong>Sorry.</strong> Leider gibt es in dieser Kategorie noch keine Uploads.</div>
     {% endif %}
     
 {% endblock %}

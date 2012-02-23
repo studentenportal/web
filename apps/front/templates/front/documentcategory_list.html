@@ -16,6 +16,12 @@
     
     <p>Hier finden sich Zusammenfassungen des Unterrichtsstoffes und Lernhilfen für die Prüfungen.</p>
 
+    {% if user.is_authenticated %}
+        <p><a class="btn" href="{% url 'documentcategory_add' %}">
+            <i class="icon-plus-sign"></i> Modul hinzufügen
+        </a></p>
+    {% endif %}
+
     {% if object_list %}
         <table class="table table-striped">
             <thead>
@@ -27,7 +33,7 @@
             <tbody>
                 {% for category in object_list %}
                     <tr>
-                        <td><a href="{% url 'document_category' category.name|slugify %}">
+                        <td><a href="{% url 'document_list' category.name|slugify %}">
                             <strong>{{ category.name }}</strong>
                             {% if category.description %}{{ category.description }}{% endif %}
                         </td>

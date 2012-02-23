@@ -3,7 +3,8 @@
     "pk": 1, 
     "model": "front.documentcategory", 
     "fields": {
-      "name": "An1I"
+      "name": "An1I",
+      "description": "Analysis 1 für Informatiker"
     }
   }, 
   {

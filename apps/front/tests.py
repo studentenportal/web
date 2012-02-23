@@ -1,4 +1,4 @@
-# encoding=utf8
+# encoding=utf-8
 import datetime
 
 from django.test import TestCase
@@ -214,12 +214,58 @@ class ProfileViewTest(TestCase):
         self.assertEqual(response.status_code, 302)
 
 
-class DocumentsViewTest(TestCase):
+class DocumentcategoryListViewTest(TestCase):
+    fixtures = ['testdocs', 'testuser']
     taburl = '/zusammenfassungen/'
 
     def testTitle(self):
         response = self.client.get(self.taburl)
         self.assertContains(response, '<h1>Zusammenfassungen</h1>')
+
+    def testModuleName(self):
+        response = self.client.get(self.taburl)
+        self.assertContains(response, '<strong>An1I</strong>')
+        self.assertContains(response, 'Analysis 1 für Informatiker')
+
+    def testDocumentCount(self):
+        response = self.client.get(self.taburl)
+        self.assertContains(response, '<td>2</td>')
+
+    def testGuestAddButton(self):
+        response = self.client.get(self.taburl)
+        self.assertNotContains(response, 'Modul hinzufügen')
+
+    def testUserAddButton(self):
+        self.client.login(username='testuser', password='test')
+        response = self.client.get(self.taburl)
+        self.assertContains(response, 'Modul hinzufügen')
+
+
+class DocumentcategoryAddViewTest(TestCase):
+    fixtures = ['testuser']
+    taburl = '/zusammenfassungen/add/'
+
+    def setUp(self):
+        self.client.login(username='testuser', password='test')
+
+    def testLoginRequired(self):
+        self.client.logout()
+        response = self.client.get(self.taburl)
+        self.assertRedirects(response, '/accounts/login/?next=/zusammenfassungen/add/')
+
+    def testTitle(self):
+        response = self.client.get(self.taburl)
+        self.assertContains(response, 'Modul hinzufügen')
+
+    def testAdd(self):
+        data = {
+            'name': 'Prog2',
+            'description': 'Programmieren 2',
+        }
+        response1 = self.client.post(self.taburl, data)
+        self.assertRedirects(response1, '/zusammenfassungen/')
+        response2 = self.client.get('/zusammenfassungen/prog2/')
+        self.assertContains(response2, '<h1>Zusammenfassungen Prog2</h1>')
 
 
 class EventsViewTest(TestCase):

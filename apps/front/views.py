@@ -192,11 +192,36 @@ class QuoteDelete(LoginRequiredMixin, DeleteView):
         return reverse('quote_list')
 
 
-class DocumentCategories(ListView):
+class DocumentcategoryList(ListView):
     model = models.DocumentCategory
 
 
-class DocumentCategory(ListView):
-    def get_queryset(self):
-        category = self.kwargs.get('category')
-        return models.DocumentCategory.objects.get(name__iexact=category).Document.all()
+class DocumentcategoryAdd(LoginRequiredMixin, CreateView):
+    model = models.DocumentCategory
+
+    #def form_invalid(self, form):
+    #    print form.fields['name'].error_messages['required']
+
+    def get_success_url(self):
+        messages.add_message(self.request, messages.SUCCESS,
+            u'Modul "%s" wurde erfolgreich hinzugefügt.' % self.object.name)
+        return reverse('documentcategory_list')
+
+
+class DocumentcategoryEdit(LoginRequiredMixin, UpdateView):
+    model = models.DocumentCategory
+
+
+class DocumentcategoryDelete(LoginRequiredMixin, DeleteView):
+    model = models.DocumentCategory
+
+
+class DocumentList(TemplateView):
+    template_name = 'front/document_list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(DocumentList, self).get_context_data(**kwargs)
+        category = models.DocumentCategory.objects.get(name__iexact=self.kwargs.get('category'))
+        context['documentcategory'] = category
+        context['documents'] = category.Document.all()
+        return context

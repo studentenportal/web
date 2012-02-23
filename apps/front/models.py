@@ -1,4 +1,4 @@
-# encoding=utf8
+# encoding=utf-8
 import os
 import random
 import datetime
@@ -79,11 +79,16 @@ class DocumentCategory(models.Model):
 
     """
     # TODO prevent duplicate entries http://stackoverflow.com/questions/1857822/unique-model-field-in-django-and-case-sensitivity-postgres
-    name = models.CharField(max_length=32, unique=True)
-    description = models.CharField(max_length=255, null=True, blank=True)
+    name = models.CharField(u'Kürzel', max_length=32, unique=True,
+            help_text=u'z.B. "CompT1" oder "Prog3"')
+    description = models.CharField(u'Voller Name', max_length=255,
+            help_text=u'z.B. "Computertechnik 1" oder "Programmieren 3"')
 
     def __unicode__(self):
         return self.name
+
+    class Meta:
+        verbose_name = u'Modul'
 
 
 class Document(models.Model):

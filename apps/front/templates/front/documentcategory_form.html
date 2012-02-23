@@ -1,0 +1,31 @@
+{% extends 'front/base.html' %}
+{% load url from future %}
+{% load tabs %}
+
+{% block title %}Modul {{ event|yesno:"bearbeiten,hinzufügen" }}{% endblock %}
+
+{% block navigation %}
+    {% activetab 'navigation' 'documents' %}
+    {{ block.super }}
+{% endblock %}
+
+{% block breadcrumbs %}
+    <a href="{% url 'documentcategory_list' %}">Zusammenfassungen</a> &raquo; Modul {{ event|yesno:"bearbeiten,hinzufügen" }}
+{% endblock %}
+
+{% block content %}
+
+    <h1>Modul {{ event|yesno:"bearbeiten,hinzufügen" }}</h1>
+
+    <form method="POST" class="form-horizontal">{% csrf_token %}
+        {% include 'lib/form_loop.html' %}
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">{{ event|yesno:"Speichern,Eintragen" }}</button>
+            {% if event %}
+                {# TODO <a href="{% url 'event_detail' event.pk %}" class="btn">Abbrechen</a> #}
+            {% else %}
+                <a href="{% url 'documentcategory_list' %}" class="btn">Abbrechen</a>
+            {% endif %}
+        </div>
+    </form>
+{% endblock %}
