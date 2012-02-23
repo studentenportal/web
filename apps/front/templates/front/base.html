@@ -8,6 +8,7 @@
 <head>
     <title>HSR Studentenportal - {% block title %}Willkommen{% endblock %}</title>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>-->
     {% assets 'stylesheets' %}<link rel="stylesheet" href="{{ ASSET_URL }}" />{% endassets %}
@@ -17,7 +18,7 @@
 <body class="{% block bodyclass %}{% endblock %}">
     <div class="navbar navbar-fixed-top">
         <div class="navbar-inner">
-            <div class="container">
+            <div class="container-fluid">
                 <a class="brand" href="/">HSR Studentenportal</a>
                 <ul class="nav pull-right">
                     {% if not user.is_authenticated %}
@@ -39,11 +40,13 @@
             </div>
         </div>
     </div>
-    <div class="container">
-        <div class="span12" id="header">
-            <h1>Studentenportal 2.0</h1>
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="span12" id="header">
+                <h1>Studentenportal 2.0</h1>
+            </div>
         </div>
-        <div class="row">
+        <div class="row-fluid">
             <div class="span3" id="navigation">
                 {% block navigation %}
                     <ul class="nav nav-list">
@@ -83,8 +86,10 @@
                 {% block content %}{% endblock %}
             </div>
         </div>
-        <div class="span12" id="footer">
-            Footer. Powered by Django. Source on <a href="https://github.com/gwrtheyrn/studentenportal2">Github</a>.
+        <div class="row-fluid">
+            <div class="span12" id="footer">
+                Footer. Powered by Django. Source on <a href="https://github.com/gwrtheyrn/studentenportal2">Github</a>.
+            </div>
         </div>
     </div>
 </body>

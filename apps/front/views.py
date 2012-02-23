@@ -137,17 +137,11 @@ class Lecturer(DetailView):
 
 class LecturerList(ListView):
     model = models.Lecturer
+    context_object_name = 'lecturers'
 
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
         return super(LecturerList, self).dispatch(request, *args, **kwargs)
-
-    def get_context_data(self, **kwargs):
-        # TODO do this in the frontend
-        context = super(LecturerList, self).get_context_data(**kwargs)
-        context['lecturers'] = (context['object_list'][::2],
-                                context['object_list'][1::2])
-        return context
 
 
 class QuoteList(ListView):

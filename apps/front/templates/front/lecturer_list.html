@@ -24,22 +24,18 @@
 
     <p>Legende für Bewertungen: <span class="label label-important">didaktisch</span>, <span class="label label-success">menschlich</span>, <span class="label label-warning">fachlich</span></p>
     
-    <div class="row">
-        {% for i in 2|get_range %}
-            <div class="span4">
-                {% for lecturer in lecturers|index:i %}
-                    <div class="lecturer">
-                        <h4><a href="{% url 'lecturer_detail' lecturer.pk %}">{{ lecturer.name }} / {{ lecturer.abbreviation }}</a></h4>
-                        <p><span class="label label-important">{{ lecturer.avg_rating_d }}</span>
-                           <span class="label label-success">{{ lecturer.avg_rating_m }}</span>
-                           <span class="label label-warning">{{ lecturer.avg_rating_f }}</span></p>
-                        <a href="{% url 'lecturer_detail' lecturer.pk %}"><img class="thumbnail quimby_search_image" src="
-                            {% if lecturer.photo %}{{ lecturer.photo }}{% else %}http://placehold.it/120x160{% endif %}
-                        "></a>
-                    </div>
-                {% endfor %}
+    {% for lecturer in lecturers %}
+        {% if forloop.counter0|divisibleby:"3" %}<div class="row-fluid">{% endif %}
+            <div class="lecturer span4">
+                <h4><a href="{% url 'lecturer_detail' lecturer.pk %}">{{ lecturer.name }} / {{ lecturer.abbreviation }}</a></h4>
+                <p><span class="label label-important">{{ lecturer.avg_rating_d }}</span>
+                   <span class="label label-success">{{ lecturer.avg_rating_m }}</span>
+                   <span class="label label-warning">{{ lecturer.avg_rating_f }}</span></p>
+                <a href="{% url 'lecturer_detail' lecturer.pk %}"><img class="thumbnail quimby_search_image" src="
+                    {% if lecturer.photo %}{{ lecturer.photo }}{% else %}http://placehold.it/120x160{% endif %}
+                "></a>
             </div>
-        {% endfor %}
-    </div>
+        {% if forloop.counter|divisibleby:"3" %}</div>{% endif %}
+    {% endfor %}
 
 {% endblock %}
