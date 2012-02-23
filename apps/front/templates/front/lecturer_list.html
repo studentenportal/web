@@ -1,9 +1,10 @@
 {% extends 'front/base.html' %}
 {% load url from future %}
 {% load tabs %}
-{% load tags %}
 
 {% block title %}Dozenten{% endblock %}
+
+{% block bodyclass %}lecturer_list{% endblock %}
 
 {% block navigation %}
     {% activetab 'navigation' 'lecturers' %}

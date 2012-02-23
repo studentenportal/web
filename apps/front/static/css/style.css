@@ -56,6 +56,13 @@ form .fieldWrapper {
 }
 
 
+/* Specific pages */
+
+body.lecturer_list .lecturer .thumbnail {
+    display: inline-block;
+}
+
+
 /* General classes */
 
 .floatleft {
