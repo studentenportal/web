@@ -29,8 +29,7 @@ class Lecturer(models.Model):
     office = models.CharField(max_length=20, null=True, blank=True)
 
     def name(self):
-        fullname = '%s, %s' % (self.last_name, self.first_name)
-        parts = filter(None, [self.title, fullname])
+        parts = filter(None, [self.title, self.last_name, self.first_name])
         return ' '.join(parts)
 
     def photo(self):
@@ -55,7 +54,7 @@ class Lecturer(models.Model):
         return float(r)
 
     def __unicode__(self):
-        return self.name()
+        return '%s %s' % (self.last_name, self.first_name)
 
     class Meta:
         ordering = ['last_name']

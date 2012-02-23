@@ -26,7 +26,7 @@ class LecturerModelTest(TestCase):
         self.assertTrue(1.0 <= self.lecturer.avg_rating_f() <= 6.0)
 
     def testName(self):
-        self.assertEqual(self.lecturer.name(), 'Prof. Dr. Krakaduku, David')
+        self.assertEqual(self.lecturer.name(), 'Prof. Dr. Krakaduku David')
 
 
 class DocumentModelTest(unittest.TestCase):
@@ -183,7 +183,7 @@ class LecturerListViewTest(TestCase):
         self.client.login(username='testuser', password='test')
         response = self.client.get('/dozenten/')
         self.assertContains(response, '<h1>Unsere Dozenten</h1>')
-        self.assertContains(response, 'Prof. Dr. Krakaduku, David / KRA')
+        self.assertContains(response, 'Prof. Dr. Krakaduku David')
 
 
 class LecturerDetailViewTest(TestCase):
@@ -197,7 +197,7 @@ class LecturerDetailViewTest(TestCase):
     def testDescription(self):
         self.client.login(username='testuser', password='test')
         response = self.client.get(self.url)
-        self.assertContains(response, '<h1>Prof. Dr. Krakaduku, David</h1>')
+        self.assertContains(response, '<h1>Prof. Dr. Krakaduku David</h1>')
         self.assertContains(response, 'San Diego')
         self.assertContains(response, 'Quantenphysik, Mathematik für Mathematiker')
 

@@ -55,6 +55,14 @@ form .fieldWrapper {
     padding-bottom: 12px;
 }
 
+.label a {
+    color: white;
+}
+
+.label a:hover {
+    text-decoration: none;
+}
+
 
 /* Specific pages */
 

@@ -24,7 +24,7 @@
 
     <p>{{ lecturer.description|default:"Keine Beschreibung erfasst." }}</p>
 
-    <h2>Profil</h2>
+    <h2 id="profil">Profil</h2>
     <ul>
         <li>Kürzel: {{ lecturer.abbreviation }}</li>
         {% if lecturer.department %}<li>Abteilung: {{ lecturer.department }}</li>{% endif %}
@@ -35,7 +35,7 @@
         {% if lecturer.email %}<li>Email: {{ lecturer.email }}</li>{% endif %}
     </ul>
 
-    <h2>Bewertungen</h2>
+    <h2 id="bewertungen">Bewertungen</h2>
     <ul>
         <li>Didaktisch: <span class="label label-important">{{ lecturer.avg_rating_d }}</span></li>
         <li>Menschlich: <span class="label label-success">{{ lecturer.avg_rating_m }}</span></li>
@@ -43,7 +43,7 @@
     </ul>
 
 
-    <h2>Zitate</h2>
+    <h2 id="zitate">Zitate</h2>
 
     {% if quotes %}
         <table class="table table-striped">
