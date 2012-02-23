@@ -1,6 +1,5 @@
 # coding=utf-8
 import datetime
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth import models as auth_models
 from django.contrib import messages
 from django.db.models import Count
@@ -11,7 +10,7 @@ from django.views.generic import TemplateView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
-from django.utils.decorators import method_decorator
+from apps.front.mixins import LoginRequiredMixin
 from apps.front import forms
 from apps.front import models
 
@@ -20,13 +19,9 @@ class Home(TemplateView):
     template_name = 'front/home.html'
 
 
-class Profile(UpdateView):
+class Profile(LoginRequiredMixin, UpdateView):
     form_class = forms.ProfileForm
     template_name = 'front/profile_form.html'
-
-    @method_decorator(login_required)
-    def dispatch(self, request, *args, **kwargs):
-        return super(Profile, self).dispatch(request, *args, **kwargs)
 
     def get_object(self, queryset=None):
         """Gets the current user object."""
@@ -49,13 +44,9 @@ class Event(DetailView):
     context_object_name = 'event'
 
 
-class EventAdd(CreateView):
+class EventAdd(LoginRequiredMixin, CreateView):
     model = models.Event
     form_class = forms.EventForm
-
-    @method_decorator(login_required)
-    def dispatch(self, *args, **kwargs):
-        return super(EventAdd, self).dispatch(*args, **kwargs)
 
     def form_valid(self, form):
         """Override the form_valid method of the ModelFormMixin to insert
@@ -73,11 +64,10 @@ class EventAdd(CreateView):
         return reverse('event_detail', args=[self.object.pk])
 
 
-class EventEdit(UpdateView):
+class EventEdit(LoginRequiredMixin, UpdateView):
     model = models.Event
     form_class = forms.EventForm
 
-    @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
         handler = super(EventEdit, self).dispatch(request, *args, **kwargs)
         # Only allow editing if current user is owner
@@ -89,11 +79,10 @@ class EventEdit(UpdateView):
         return reverse('event_detail', args=[self.object.pk])
 
 
-class EventDelete(DeleteView):
+class EventDelete(LoginRequiredMixin, DeleteView):
     model = models.Event
     context_object_name = 'quote'
 
-    @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
         handler = super(EventDelete, self).dispatch(request, *args, **kwargs)
         # Only allow deletion if current user is owner
@@ -122,13 +111,9 @@ class EventList(TemplateView):
         return context
 
 
-class Lecturer(DetailView):
+class Lecturer(LoginRequiredMixin, DetailView):
     model = models.Lecturer
     context_object_name = 'lecturer'
-
-    @method_decorator(login_required)
-    def dispatch(self, request, *args, **kwargs):
-        return super(Lecturer, self).dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super(Lecturer, self).get_context_data(**kwargs)
@@ -136,13 +121,9 @@ class Lecturer(DetailView):
         return context
 
 
-class LecturerList(ListView):
+class LecturerList(LoginRequiredMixin, ListView):
     model = models.Lecturer
     context_object_name = 'lecturers'
-
-    @method_decorator(login_required)
-    def dispatch(self, request, *args, **kwargs):
-        return super(LecturerList, self).dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super(LecturerList, self).get_context_data(**kwargs)
@@ -151,20 +132,15 @@ class LecturerList(ListView):
         return context
 
 
-class QuoteList(ListView):
+class QuoteList(LoginRequiredMixin, ListView):
     model = models.Quote
     context_object_name = 'quotes'
 
-    @method_decorator(login_required)
-    def dispatch(self, request, *args, **kwargs):
-        return super(QuoteList, self).dispatch(request, *args, **kwargs)
 
-
-class QuoteAdd(CreateView):
+class QuoteAdd(LoginRequiredMixin, CreateView):
     model = models.Quote
     form_class = forms.QuoteForm
 
-    @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
         try:
             self.lecturer = models.Lecturer.objects.get(pk=kwargs.get('pk'))
@@ -200,10 +176,9 @@ class QuoteAdd(CreateView):
         return reverse('quote_list')
 
 
-class QuoteDelete(DeleteView):
+class QuoteDelete(LoginRequiredMixin, DeleteView):
     model = models.Quote
 
-    @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
         handler = super(QuoteDelete, self).dispatch(request, *args, **kwargs)
         # Only allow deletion if current user is owner
