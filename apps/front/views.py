@@ -3,6 +3,7 @@ import datetime
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import models as auth_models
 from django.contrib import messages
+from django.db.models import Count
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponseForbidden
@@ -142,6 +143,12 @@ class LecturerList(ListView):
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
         return super(LecturerList, self).dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(LecturerList, self).get_context_data(**kwargs)
+        quotecounts = models.Quote.objects.values_list('lecturer').annotate(Count('pk')).order_by()
+        context['quotecounts'] = dict(quotecounts)
+        return context
 
 
 class QuoteList(ListView):

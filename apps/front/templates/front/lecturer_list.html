@@ -1,6 +1,7 @@
 {% extends 'front/base.html' %}
 {% load url from future %}
 {% load tabs %}
+{% load tags %}
 
 {% block title %}Dozenten{% endblock %}
 
@@ -29,13 +30,15 @@
         {% if forloop.counter0|divisibleby:"3" %}<div class="row-fluid">{% endif %}
             <div class="lecturer span4">
                 <h4><a href="{% url 'lecturer_detail' lecturer.pk %}">{{ lecturer.name }} / {{ lecturer.abbreviation }}</a></h4>
-                <p><span class="label">{{ lecturer.Quote.count }} Zitat{{ lecturer.Quote.count|pluralize:"e" }}</span>
-                   <span class="label label-important">{{ lecturer.avg_rating_d }}</span>
-                   <span class="label label-success">{{ lecturer.avg_rating_m }}</span>
-                   <span class="label label-warning">{{ lecturer.avg_rating_f }}</span></p>
                 <a href="{% url 'lecturer_detail' lecturer.pk %}"><img class="thumbnail quimby_search_image" src="
                     {% if lecturer.photo %}{{ lecturer.photo }}{% else %}http://placehold.it/120x160{% endif %}
                 "></a>
+                {% with quotecounts|lookup:lecturer.pk|default:0 as quotecount %}
+                    <p><span class="label">{{ quotecount }} Zitat{{ quotecount|pluralize:"e" }}</span>
+                       <span class="label label-important">{{ lecturer.avg_rating_d }}</span>
+                       <span class="label label-success">{{ lecturer.avg_rating_m }}</span>
+                       <span class="label label-warning">{{ lecturer.avg_rating_f }}</span></p>
+               {% endwith %}
             </div>
         {% if forloop.counter|divisibleby:"3" %}</div>{% endif %}
     {% endfor %}

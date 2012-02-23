@@ -35,3 +35,10 @@ def get_range1(value):
 def index(value, arg):
     """Return specified index of subscriptable element."""
     return value[int(arg)]
+
+@register.filter
+def lookup(dict, index):
+    """Return index from dict."""
+    if index in dict:
+        return dict[index]
+    return ''
