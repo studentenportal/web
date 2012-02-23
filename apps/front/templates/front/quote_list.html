@@ -24,16 +24,35 @@
         </a></p>
     {% endif %}
 
-    {% for quote in quotes %}
-        <h3>{{ quote.date }}</h3>
-        <p>{{ quote.comment }}</p>
-        <blockquote>
-            {{ quote.quote }}
-            <small><a href="{% url 'lecturer_detail' quote.lecturer.pk %}">{{ quote.lecturer }}</a></small>
-        </blockquote>
-        {% if quote.author = user %}
-            {% include 'front/blocks/quote_delete_button.html' %}
-        {% endif %}
-    {% endfor %}
+    {% if quotes %}
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Eingetragen</th>
+                    <th>Dozent</th>
+                    <th>Zitat</th>
+                    <th>Bemerkung</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for quote in quotes %}
+                    <tr>
+                        <td>{{ quote.date|date:"d.m.Y H:i" }}</td>
+                        <td><a href="{% url 'lecturer_detail' quote.lecturer.pk %}">{{ quote.lecturer }}</a></td>
+                        <td>{{ quote.quote }}</td>
+                        <td>{{ quote.comment }}</td>
+                        <td>
+                            {% if quote.author = user %}
+                                {% include 'front/blocks/quote_delete_button.html' with small_button=1 %}
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p><em>Keine Zitate gefunden.</em></p>
+    {% endif %}
 
 {% endblock %}
