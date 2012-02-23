@@ -6,8 +6,12 @@
 {% block content %}
     <h1>Login</h1>
 
+    {% if request.GET.next %}
+        <br><div class="alert alert-error"><strong>Bitte einloggen!</strong> Die gewünschte Seite ist nur für registrierte Personen zugänglich.</div>
+    {% endif %}
+
     {% if form.errors %}
-        <div class="alert-message block-message error">Fehlerhafte Angaben. Bitte versuch es nochmals.</div>
+        <br><div class="alert alert-error">Fehlerhafte Angaben. Bitte versuch es nochmals.</div>
     {% endif %}
 
     <form method="post" action="{% url 'django.contrib.auth.views.login' %}">
