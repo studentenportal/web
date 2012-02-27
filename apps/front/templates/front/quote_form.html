@@ -28,11 +28,11 @@
     <form method="POST" class="form-horizontal">{% csrf_token %}
         {% include 'lib/form_loop.html' %}
         <div class="form-actions">
-            <button type="submit" class="btn btn-primary">Eintragen</button>
+            <button type="submit" class="btn btn-primary"><i class="icon-ok icon-white"></i> Eintragen</button>
             {% if lecturer %}
-                <a href="{% url 'lecturer_detail' lecturer.pk %}" class="btn">Abbrechen</a>
+                <a href="{% url 'lecturer_detail' lecturer.pk %}" class="btn"><i class="icon-remove"></i> Abbrechen</a>
             {% else %}
-                <a href="{% url 'quote_list' %}" class="btn">Abbrechen</a>
+                <a href="{% url 'quote_list' %}" class="btn"><i class="icon-remove"></i> Abbrechen</a>
             {% endif %}
         </div>
     </form>

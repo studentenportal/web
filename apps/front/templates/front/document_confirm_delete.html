@@ -1,0 +1,29 @@
+{% extends 'front/base.html' %}
+{% load url from future %}
+{% load tabs %}
+
+{% block title %}Zusammenfassung "{{ document.name }}" löschen{% endblock %}
+
+{% block navigation %}
+    {% activetab 'navigation' 'documents' %}
+    {{ block.super }}
+{% endblock %}
+
+{% block breadcrumbs %}
+    <a href="{% url 'documentcategory_list' %}">Zusammenfassungen</a> &raquo;
+    <a href="{% url 'document_list' documentcategory.name|slugify %}">{{ documentcategory.name }}</a> &raquo;
+    Zusammenfassung löschen
+{% endblock %}
+
+{% block content %}
+
+    <h1>Zusammenfassung "{{ document.name }}" löschen</h1>
+
+    <p>Möchtest du wirklich das Dokument "{{ document.name }}" aus der Datenbank löschen?</p>
+
+    <form method="post">{% csrf_token %}
+        <button type="submit" class="btn btn-danger"><i class="icon-trash icon-white"></i> Ja, ich bin sicher.</button>
+        <a href="{% url 'document_list' documentcategory.name|slugify %}" class="btn">Nein, abbrechen!</a>
+    </form>
+
+{% endblock %}

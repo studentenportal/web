@@ -12,18 +12,18 @@
 {% block breadcrumbs %}
     <a href="{% url 'documentcategory_list' %}">Zusammenfassungen</a> &raquo;
     <a href="{% url 'document_list' documentcategory.name|slugify %}">{{ documentcategory.name }}</a> &raquo;
-    Zusammenfassung {{ event|yesno:"bearbeiten,hinzufügen" }}
+    Zusammenfassung {{ document|yesno:"bearbeiten,hinzufügen" }}
 {% endblock %}
 
 {% block content %}
 
-    <h1>Zusammenfassung {{ documentcategory.name }} {{ event|yesno:"bearbeiten,hinzufügen" }}</h1>
+    <h1>Zusammenfassung {{ documentcategory.name }} {{ document|yesno:"bearbeiten,hinzufügen" }}</h1>
 
     <form method="POST" enctype="multipart/form-data" class="form-horizontal">{% csrf_token %}
         {% include 'lib/form_loop.html' %}
         <div class="form-actions">
-            <button type="submit" class="btn btn-primary">{{ event|yesno:"Speichern,Eintragen" }}</button>
-            <a href="{% url 'document_list' documentcategory.name|slugify %}" class="btn">Abbrechen</a>
+            <button type="submit" class="btn btn-primary"><i class="icon-ok icon-white"></i> {{ document|yesno:"Speichern,Eintragen" }}</button>
+            <a href="{% url 'document_list' documentcategory.name|slugify %}" class="btn"><i class="icon-remove"></i> Abbrechen</a>
         </div>
     </form>
 {% endblock %}

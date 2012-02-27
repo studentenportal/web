@@ -20,7 +20,8 @@
     <p>Möchtest du wirklich den Event "{{ event.summary }}" aus der Datenbank löschen?</p>
 
     <form method="post">{% csrf_token %}
-        <input type="submit" class="btn danger" value="Ja, ich bin sicher." />
+        <button type="submit" class="btn btn-danger"><i class="icon-trash icon-white"></i> Ja, ich bin sicher.</button>
+        <a href="{% url 'event_detail' event.pk %}" class="btn">Nein, abbrechen!</a>
     </form>
 
 {% endblock %}

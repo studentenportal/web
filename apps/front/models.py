@@ -97,11 +97,11 @@ class Document(models.Model):
     A document can have a description, categories, ratings, etc...
 
     """
-    name = models.CharField(max_length=64, unique=True)
-    description = models.CharField(max_length=255, blank=True)
-    document = models.FileField(upload_to='documents')
+    name = models.CharField(u'Titel', max_length=64, unique=True)
+    description = models.CharField(u'Beschreibung', max_length=255, blank=True)
+    document = models.FileField(u'Datei', upload_to='documents')
     uploader = models.ForeignKey(User, related_name=u'Document', null=True, on_delete=models.SET_NULL)
-    upload_date = models.DateTimeField(auto_now_add=True)
+    upload_date = models.DateTimeField(u'Uploaddatum', auto_now_add=True)
     category = models.ForeignKey(DocumentCategory, related_name=u'Document', null=True, on_delete=models.SET_NULL)
 
     def rating_exact(self):

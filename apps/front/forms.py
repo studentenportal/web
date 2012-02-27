@@ -58,8 +58,7 @@ class HsrRegistrationForm(RegistrationForm):
 class DocumentForm(forms.ModelForm):
     def clean_document(self):
         document = self.cleaned_data['document']
-        print document._size
-        if document._size > settings.MAX_UPLOAD_SIZE:
+        if document.size > settings.MAX_UPLOAD_SIZE:
             raise forms.ValidationError(u'Bitte Dateigrösse unter %s halten. Aktuelle Dateigrösse ist %s' %
                     (filesizeformat(settings.MAX_UPLOAD_SIZE), filesizeformat(document._size)))
         return document

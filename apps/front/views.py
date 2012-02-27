@@ -45,7 +45,6 @@ class User(DetailView):
 # Events {{{
 class Event(DetailView):
     model = models.Event
-    context_object_name = 'event'
 
 
 class EventAdd(LoginRequiredMixin, CreateView):
@@ -85,7 +84,6 @@ class EventEdit(LoginRequiredMixin, UpdateView):
 
 class EventDelete(LoginRequiredMixin, DeleteView):
     model = models.Event
-    context_object_name = 'quote'
 
     def dispatch(self, request, *args, **kwargs):
         handler = super(EventDelete, self).dispatch(request, *args, **kwargs)
@@ -215,14 +213,6 @@ class DocumentcategoryAdd(LoginRequiredMixin, CreateView):
         return reverse('documentcategory_list')
 
 
-class DocumentcategoryEdit(LoginRequiredMixin, UpdateView):
-    model = models.DocumentCategory
-
-
-class DocumentcategoryDelete(LoginRequiredMixin, DeleteView):
-    model = models.DocumentCategory
-
-
 class DocumentcategoryMixin(object):
     """Mixin that adds the current documentcategory object to the context.
     Provide the category slug in kwargs['category']."""
@@ -271,7 +261,27 @@ class DocumentEdit(LoginRequiredMixin, DocumentcategoryMixin, UpdateView):
     model = models.Document
     form_class = forms.DocumentForm
 
+    def dispatch(self, request, *args, **kwargs):
+        handler = super(DocumentEdit, self).dispatch(request, *args, **kwargs)
+        # Only allow editing if current user is owner
+        if self.object.uploader != request.user:
+            return HttpResponseForbidden(u'Du darfst keine fremden Uploads editieren.')
+        return handler
+
+    def get_success_url(self):
+        """Redirect to documentcategory page."""
+        messages.add_message(self.request, messages.SUCCESS,
+            u'Dokument wurde erfolgreich aktualisiert.')
+        return reverse('document_list', args=[self.category])
+
 
 class DocumentDelete(LoginRequiredMixin, DocumentcategoryMixin, DeleteView):
     model = models.Document
+
+    def get_success_url(self):
+        """Redirect to documentcategory page."""
+        messages.add_message(self.request, messages.SUCCESS,
+            u'Dokument wurde erfolgreich gelöscht.')
+        return reverse('document_list', args=[self.category])
+
 # }}}

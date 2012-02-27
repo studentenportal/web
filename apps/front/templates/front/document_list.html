@@ -60,9 +60,14 @@
                             ({{ doc.document.size|filesizeformat }})</td>
                         <td>
                             {% if doc.uploader = user %}
-                                <p><a class="btn btn-danger" href="{% url 'document_delete' documentcategory.name|slugify doc.pk %}">
-                                    <i class="icon-trash icon-white"></i>
-                                </a></p>
+                                <p>
+                                    <a class="btn" title="Edit" href="{% url 'document_edit' documentcategory.name|slugify doc.pk %}">
+                                        <i class="icon-pencil"></i>
+                                    </a>
+                                    <a class="btn btn-danger" title="Delete" href="{% url 'document_delete' documentcategory.name|slugify doc.pk %}">
+                                        <i class="icon-trash icon-white"></i>
+                                    </a>
+                                </p>
                             {% endif %}
                         </td>
                     </tr>
