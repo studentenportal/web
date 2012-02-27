@@ -10,6 +10,7 @@ from django.views.generic import TemplateView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
+from django.shortcuts import get_object_or_404
 from apps.front.mixins import LoginRequiredMixin
 from apps.front import forms
 from apps.front import models
@@ -19,6 +20,7 @@ class Home(TemplateView):
     template_name = 'front/home.html'
 
 
+# Auth stuff {{{
 class Profile(LoginRequiredMixin, UpdateView):
     form_class = forms.ProfileForm
     template_name = 'front/profile_form.html'
@@ -37,8 +39,10 @@ class Profile(LoginRequiredMixin, UpdateView):
 class User(DetailView):
     model = auth_models.User
     template_name = 'front/user_detail.html'
+# }}}
 
 
+# Events {{{
 class Event(DetailView):
     model = models.Event
     context_object_name = 'event'
@@ -109,8 +113,10 @@ class EventList(TemplateView):
                .filter(start_date__lt=datetime.date.today()) \
                .order_by('-start_date', 'start_time')
         return context
+# }}}
 
 
+# Lecturers {{{
 class Lecturer(LoginRequiredMixin, DetailView):
     model = models.Lecturer
     context_object_name = 'lecturer'
@@ -130,8 +136,10 @@ class LecturerList(LoginRequiredMixin, ListView):
         quotecounts = models.Quote.objects.values_list('lecturer').annotate(Count('pk')).order_by()
         context['quotecounts'] = dict(quotecounts)
         return context
+# }}}
 
 
+# Quotes {{{
 class QuoteList(LoginRequiredMixin, ListView):
     model = models.Quote
     context_object_name = 'quotes'
@@ -190,17 +198,16 @@ class QuoteDelete(LoginRequiredMixin, DeleteView):
         messages.add_message(self.request, messages.SUCCESS,
             u'Zitat wurde erfolgreich gelöscht.')
         return reverse('quote_list')
+# }}}
 
 
+# Documents {{{
 class DocumentcategoryList(ListView):
     model = models.DocumentCategory
 
 
 class DocumentcategoryAdd(LoginRequiredMixin, CreateView):
     model = models.DocumentCategory
-
-    #def form_invalid(self, form):
-    #    print form.fields['name'].error_messages['required']
 
     def get_success_url(self):
         messages.add_message(self.request, messages.SUCCESS,
@@ -216,12 +223,55 @@ class DocumentcategoryDelete(LoginRequiredMixin, DeleteView):
     model = models.DocumentCategory
 
 
-class DocumentList(TemplateView):
-    template_name = 'front/document_list.html'
+class DocumentcategoryMixin(object):
+    """Mixin that adds the current documentcategory object to the context.
+    Provide the category slug in kwargs['category']."""
+
+    def dispatch(self, request, *args, **kwargs):
+        self.category = get_object_or_404(models.DocumentCategory, name__iexact=kwargs['category'])
+        return super(DocumentcategoryMixin, self).dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
-        context = super(DocumentList, self).get_context_data(**kwargs)
-        category = models.DocumentCategory.objects.get(name__iexact=self.kwargs.get('category'))
-        context['documentcategory'] = category
-        context['documents'] = category.Document.all()
+        context = super(DocumentcategoryMixin, self).get_context_data(**kwargs)
+        context['documentcategory'] = self.category
         return context
+
+
+class DocumentList(DocumentcategoryMixin, ListView):
+    template_name = 'front/document_list.html'
+    context_object_name = 'documents'
+
+    def get_queryset(self):
+        return models.Document.objects.filter(category=self.category)
+
+
+class DocumentAdd(LoginRequiredMixin, DocumentcategoryMixin, CreateView):
+    model = models.Document
+    form_class = forms.DocumentForm
+
+    def form_valid(self, form):
+        """Override the form_valid method of the ModelFormMixin to insert
+        value of author and category field. To do this, the form's save()
+        method is called with commit=False to be able to edit the new
+        object before actually saving it."""
+        self.object = form.save(commit=False)
+        self.object.uploader = self.request.user
+        self.object.category = self.category
+        self.object.save()
+        return super(DocumentAdd, self).form_valid(form)
+
+    def get_success_url(self):
+        """Redirect to documentcategory page."""
+        messages.add_message(self.request, messages.SUCCESS,
+            u'Dokument wurde erfolgreich hinzugefügt.')
+        return reverse('document_list', args=[self.category])
+
+
+class DocumentEdit(LoginRequiredMixin, DocumentcategoryMixin, UpdateView):
+    model = models.Document
+    form_class = forms.DocumentForm
+
+
+class DocumentDelete(LoginRequiredMixin, DocumentcategoryMixin, DeleteView):
+    model = models.Document
+# }}}

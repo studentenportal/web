@@ -21,11 +21,7 @@
         {% include 'lib/form_loop.html' %}
         <div class="form-actions">
             <button type="submit" class="btn btn-primary">{{ event|yesno:"Speichern,Eintragen" }}</button>
-            {% if event %}
-                {# TODO <a href="{% url 'event_detail' event.pk %}" class="btn">Abbrechen</a> #}
-            {% else %}
-                <a href="{% url 'documentcategory_list' %}" class="btn">Abbrechen</a>
-            {% endif %}
+            <a href="{% url 'documentcategory_list' %}" class="btn">Abbrechen</a>
         </div>
     </form>
 {% endblock %}

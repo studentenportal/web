@@ -20,12 +20,28 @@
     
     <p>Hier finden sich Zusammenfassungen des Unterrichtsstoffes und Lernhilfen für die Prüfungen.</p>
 
+    {# No documents message #}
+    {% if not documents %}
+        <div class="alert alert-info"><strong>Sorry.</strong> Leider gibt es in dieser Kategorie noch keine Uploads.</div>
+    {% endif %}
+
+    {# Add button #}
+    {% if user.is_authenticated %}
+        <p><a class="btn" href="{% url 'document_add' documentcategory.name|slugify %}">
+            <i class="icon-plus-sign"></i> Zusammenfassung hinzufügen
+        </a></p>
+    {% endif %}
+
+    {# Document list #}
     {% if documents %}
         <table id="documents" class="table table-striped">
             <thead>
                 <tr>
                     <th>Name</th>
+                    <th>Uploader</th>
+                    <th>Datum</th>
                     <th>Download</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -34,19 +50,25 @@
                         <td>
                             <h4>{{ doc.name }}</h4>
                             {% if doc.description %}<p>{{ doc.description|urlize }}</p>{% endif %}
-                            <p class="uploaddata_details">
-                                Hochgeladen von
-                                <a href="{% url 'user' doc.uploader.pk doc.uploader.username|slugify %}">{{ doc.uploader.name }}</a>
-                                am {{ doc.upload_date }}
-                            </p>
                         </td>
-                        <td><a href="{{ doc.document.url }}" class="file-{{ doc.fileext }}">{{ doc.filename }}</a> ({{ doc.document.size|filesizeformat }})</td>
+                        <td><a href="{% url 'user' doc.uploader.pk doc.uploader.username|slugify %}">{{ doc.uploader.name }}</a></td>
+                        <td>{{ doc.upload_date|date:"d.m.Y" }}</td>
+                        <td>
+                            <a href="{{ doc.document.url }}" class="file-{{ doc.fileext }}" title="{{ doc.filename }}">
+                                {{ doc.filename|slice:":16" }}{% if doc.filename|length > 16 %}...{% endif %}
+                            </a> 
+                            ({{ doc.document.size|filesizeformat }})</td>
+                        <td>
+                            {% if doc.uploader = user %}
+                                <p><a class="btn btn-danger" href="{% url 'document_delete' documentcategory.name|slugify doc.pk %}">
+                                    <i class="icon-trash icon-white"></i>
+                                </a></p>
+                            {% endif %}
+                        </td>
                     </tr>
                 {% endfor %}
             </tbody>
         </table>
-    {% else %}
-        <div class="alert alert-info"><strong>Sorry.</strong> Leider gibt es in dieser Kategorie noch keine Uploads.</div>
     {% endif %}
     
 {% endblock %}

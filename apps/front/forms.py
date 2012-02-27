@@ -1,5 +1,8 @@
+# coding=utf-8
 from django import forms
+from django.conf import settings
 from django.contrib.auth import models as auth_models
+from django.template.defaultfilters import filesizeformat
 from registration.forms import RegistrationForm
 from apps.front import models
 
@@ -48,5 +51,19 @@ class HsrRegistrationForm(RegistrationForm):
         def clean_username(self):
             data = self.cleaned_data.get('username')
             if '@' in data:
-                raise forms.ValidationError('Bitte nur vorderen Teil der Mailadresse ohne "@" eintragen.')
+                raise forms.ValidationError(u'Bitte nur vorderen Teil der Mailadresse ohne "@" eintragen.')
             return super(HsrRegistrationForm, self).clean_username()
+
+
+class DocumentForm(forms.ModelForm):
+    def clean_document(self):
+        document = self.cleaned_data['document']
+        print document._size
+        if document._size > settings.MAX_UPLOAD_SIZE:
+            raise forms.ValidationError(u'Bitte Dateigrösse unter %s halten. Aktuelle Dateigrösse ist %s' %
+                    (filesizeformat(settings.MAX_UPLOAD_SIZE), filesizeformat(document._size)))
+        return document
+
+    class Meta:
+        model = models.Document
+        exclude = ('category', 'uploader')

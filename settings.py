@@ -128,6 +128,8 @@ MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
+MAX_UPLOAD_SIZE = 10485760  # 10MB
+
 INSTALLED_APPS = (
     # Builtin apps
     'django.contrib.auth',
