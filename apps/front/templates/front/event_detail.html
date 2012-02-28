@@ -15,7 +15,9 @@
 
 {% block content %}
 
-    <h1>{{ event.summary }}</h1>
+    <div class="page-header">
+        <h1>{{ event.summary }}</h1>
+    </div>
 
     <p><em>Erfasst von:
         {% if event.author %}

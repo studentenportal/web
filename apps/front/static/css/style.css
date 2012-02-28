@@ -1,25 +1,5 @@
 body {
-    padding-top: 40px;
-}
-
-#header {
-    text-align: center;
-    border-bottom: 2px solid blue;
-    padding: 20px 0;
-    margin: 0;
-}
-
-#navigation {
-    margin-top: 10px;
-}
-
-#content {
-    margin-top: 10px;
-}
-
-#footer {
-    border-top: 2px solid green;
-    margin: 0;
+    padding-top: 75px;
 }
 
 .lecturer img {

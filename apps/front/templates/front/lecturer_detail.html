@@ -15,7 +15,9 @@
 
 {% block content %}
 
-    <h1>{{ lecturer.name }}</h1>
+    <div class="page-header">
+        <h1>{{ lecturer.name }}</h1>
+    </div>
 
     <img class="thumbnail quimby_search_image floatright"
     {% if lecturer.photo %} src="{{ lecturer.photo }}"{% endif %}
