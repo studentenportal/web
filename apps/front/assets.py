@@ -11,6 +11,7 @@ stylesheets = Bundle(
     'css/style.css',
     'css/bootstrap.css',
     'css/bootstrap-responsive.css',
+    'css/responsive-overrides.css',
     filters='cssmin,cssrewrite',
     output='css/packed.css')
 
