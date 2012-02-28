@@ -17,7 +17,9 @@
 
 {% block content %}
 
-    <h1>Zusammenfassung {{ documentcategory.name }} {{ document|yesno:"bearbeiten,hinzufügen" }}</h1>
+    <div class="page-header">
+        <h1>Zusammenfassung {{ documentcategory.name }} {{ document|yesno:"bearbeiten,hinzufügen" }}</h1>
+    </div>
 
     <form method="POST" enctype="multipart/form-data" class="form-horizontal">{% csrf_token %}
         {% include 'lib/form_loop.html' %}
