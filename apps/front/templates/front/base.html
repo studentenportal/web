@@ -42,7 +42,7 @@
     </div>
     <div class="container-fluid">
         <div class="row-fluid">
-            <div class="span2" id="navigation">
+            <div class="span3" id="navigation">
                 {% block navigation %}
                     <div class="well" style="padding: 8px 0;">
                     <ul class="nav nav-list">
@@ -77,7 +77,7 @@
                     </div>
                 {% endblock %}
             </div>
-            <div class="span9" id="content">
+            <div class="span8" id="content">
                 {% render_messages messages %}
                 <section id="breadcrumbs">{% block breadcrumbs %}{% endblock %}</section>
                 {% block content %}{% endblock %}
