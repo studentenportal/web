@@ -8,9 +8,9 @@ scripts = Bundle(
     output='js/packed.js')
 
 stylesheets = Bundle(
+    'css/style.css',
     'css/bootstrap.css',
     'css/bootstrap-responsive.css',
-    'css/style.css',
     filters='cssmin,cssrewrite',
     output='css/packed.css')
 
