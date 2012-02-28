@@ -42,7 +42,7 @@ class QuoteForm(forms.ModelForm):
 class HsrRegistrationForm(RegistrationForm):
         """Subclass of RegistrationForm which does not require
         an e-mail address.
-        
+
         """
         def __init__(self, *args, **kwargs):
             super(HsrRegistrationForm, self).__init__(*args, **kwargs)

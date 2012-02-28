@@ -36,6 +36,17 @@
     </ul>
 
     <h2 id="bewertungen">Bewertungen</h2>
+
+    <p><strong>Didaktisch</strong></p>
+    <div id="lrating-d"></div> 
+
+    <p><strong>Menschlich</strong></p>
+    <div id="lrating-m"></div> 
+
+    <p><strong>Fachlich</strong></p>
+    <div id="lrating-f"></div> 
+
+    <br><br><br><br>
     <ul>
         <li>Didaktisch: <span class="label label-important">{{ lecturer.avg_rating_d }}</span></li>
         <li>Menschlich: <span class="label label-success">{{ lecturer.avg_rating_m }}</span></li>
@@ -44,6 +55,14 @@
 
 
     <h2 id="zitate">Zitate</h2>
+
+    {% if not quotes %}
+        <p><em>Keine Zitate gefunden.</em></p>
+    {% endif %}
+
+    <p><a class="btn" href="{% url 'lecturer_quote_add' lecturer.pk %}">
+        <i class="icon-plus-sign"></i> Zitat hinzufügen
+    </a></p>
 
     {% if quotes %}
         <table class="table table-striped">
@@ -70,13 +89,6 @@
                 {% endfor %}
             </tbody>
         </table>
-    {% else %}
-        <p><em>Keine Zitate gefunden.</em></p>
     {% endif %}
 
-    <p><a class="btn" href="{% url 'lecturer_quote_add' lecturer.pk %}">
-        <i class="icon-plus-sign"></i> Zitat hinzufügen
-    </a></p>
-
-    
 {% endblock %}
