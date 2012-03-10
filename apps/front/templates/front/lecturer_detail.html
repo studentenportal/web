@@ -4,6 +4,8 @@
 
 {% block title %}{{ lecturer.name }}{% endblock %}
 
+{% block bodyclass %}lecturer_detail{% endblock %}
+
 {% block navigation %}
     {% activetab 'navigation' 'lecturers' %}
     {{ block.super }}
@@ -37,23 +39,18 @@
         {% if lecturer.email %}<li>Email: {{ lecturer.email }}</li>{% endif %}
     </ul>
 
-    <h2 id="bewertungen">Bewertungen</h2>
 
-    <p><strong>Didaktisch</strong></p>
-    <div id="lrating-d"></div> 
+    <h2 id="bewerten">Bewerten</h2>
 
-    <p><strong>Menschlich</strong></p>
-    <div id="lrating-m"></div> 
-
-    <p><strong>Fachlich</strong></p>
-    <div id="lrating-f"></div> 
-
-    <br><br><br><br>
-    <ul>
-        <li>Didaktisch: <span class="label label-important">{{ lecturer.avg_rating_d }}</span></li>
-        <li>Menschlich: <span class="label label-success">{{ lecturer.avg_rating_m }}</span></li>
-        <li>Fachlich: <span class="label label-warning">{{ lecturer.avg_rating_f }}</span></li>
+    <ul id="rate">
+        <li><p>Didaktisch [<span id="lrating-d-val">{{ rating_d|default:0 }}</span>]</p>
+            <div id="lrating-d" data-rating="{{ rating_d|default:0 }}"></div></li>
+        <li><p>Menschlich [<span id="lrating-m-val">{{ rating_m|default:0 }}</span>]</p>
+            <div id="lrating-m" data-rating="{{ rating_m|default:0 }}"></div></li>
+        <li><p>Fachlich [<span id="lrating-f-val">{{ rating_f|default:0 }}</span>]</p>
+            <div id="lrating-f" data-rating="{{ rating_f|default:0 }}"></div></li>
     </ul>
+
 
 
     <h2 id="zitate">Zitate</h2>

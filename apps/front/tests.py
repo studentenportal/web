@@ -14,19 +14,62 @@ from apps.front import templatetags
 ### MODEL TESTS ###
 
 class LecturerModelTest(TestCase):
-    fixtures = ['testlecturer']
+    fixtures = ['testlecturer', 'testlratings']
 
     def setUp(self):
         self.lecturer = models.Lecturer.objects.get()
 
-    def testValidRatingsRange(self):
-        """Rating must be between 1 and 6."""
-        self.assertTrue(1.0 <= self.lecturer.avg_rating_d() <= 6.0)
-        self.assertTrue(1.0 <= self.lecturer.avg_rating_m() <= 6.0)
-        self.assertTrue(1.0 <= self.lecturer.avg_rating_f() <= 6.0)
+    def testRatings(self):
+        """Test whether ratings are calculated correctly."""
+        self.assertEqual(self.lecturer.avg_rating_d(), 7)
+        self.assertEqual(self.lecturer.avg_rating_m(), 10)
+        self.assertEqual(self.lecturer.avg_rating_f(), 0)
 
     def testName(self):
         self.assertEqual(self.lecturer.name(), 'Prof. Dr. Krakaduku David')
+
+
+class LecturerRatingModelTest(TestCase):
+    fixtures = ['testuser', 'testlecturer']
+
+    def tearDown(self):
+        for rating in models.LecturerRating.objects.all():
+            rating.delete()
+
+    def create_default_rating(self, category=u'd', rating=5):
+        """Helper function to create a default rating."""
+        user = models.User.objects.get()
+        lecturer = models.Lecturer.objects.get()
+        lr = models.LecturerRating(
+            user=user,
+            lecturer=lecturer,
+            category=category,
+            rating=rating)
+        lr.full_clean()
+        lr.save()
+
+    def testAddSimpleRating(self):
+        """Test whether a simple valid rating can be added."""
+        self.create_default_rating()
+        self.assertEqual(models.LecturerRating.objects.count(), 1)
+
+    def testAddInvalidCategory(self):
+        """Test whether only a valid category can be added."""
+        with self.assertRaises(ValidationError):
+            self.create_default_rating(category=u'x')
+
+    def testAddInvalidRating(self):
+        """Test whether invalid ratings raise validation errors."""
+        with self.assertRaises(ValidationError):
+            self.create_default_rating(rating=11)
+        with self.assertRaises(ValidationError):
+            self.create_default_rating(rating=0)
+
+    def testUniqueTogether(self):
+        """Test the unique_together constraint."""
+        self.create_default_rating()
+        with self.assertRaises(ValidationError):
+            self.create_default_rating(rating=6)
 
 
 class DocumentModelTest(unittest.TestCase):

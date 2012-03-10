@@ -37,9 +37,9 @@
                 "></a>
                 {% with quotecounts|lookup:lecturer.pk|default:0 as quotecount %}
                 <p><span class="label"><a href="{% url 'lecturer_detail' lecturer.pk %}#zitate">{{ quotecount }} Zitat{{ quotecount|pluralize:"e" }}</a></span>
-                       <span class="label label-important">{{ lecturer.avg_rating_d }}</span>
-                       <span class="label label-success">{{ lecturer.avg_rating_m }}</span>
-                       <span class="label label-warning">{{ lecturer.avg_rating_f }}</span></p>
+                       <span class="label label-important">{{ lecturer.avg_rating_d|default:'-' }}</span>
+                       <span class="label label-success">{{ lecturer.avg_rating_m|default:'-' }}</span>
+                       <span class="label label-warning">{{ lecturer.avg_rating_f|default:'-' }}</span></p>
                {% endwith %}
             </div>
         {% if forloop.counter|divisibleby:"3" %}</div>{% endif %}

@@ -50,25 +50,28 @@ body.lecturer_list .lecturer .thumbnail {
     display: inline-block;
 }
 
+body.lecturer_detail #rate li {
+    line-height: 24px;
+}
+
+body.lecturer_detail #rate li p {
+    display: inline-block;
+    width: 100px;
+}
+
+body.lecturer_detail #rate li div {
+    display: inline-block;
+}
+
+body.lecturer_detail #rate li div img {
+    vertical-align: middle;
+}
+
 
 /* General classes */
 
-.floatleft {
-    float: left;
-}
-
-.floatright {
-    float: right;
-}
-
-.clearleft {
-    clear: left;
-}
-
-.clearright {
-    clear: right;
-}
-
-.clearboth {
-    clear: both;
-}
+.floatleft { float: left; }
+.floatright { float: right; }
+.clearleft { clear: left; } 
+.clearright { clear: right; }
+.clearboth { clear: both; }
