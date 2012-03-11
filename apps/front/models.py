@@ -75,8 +75,8 @@ class LecturerRating(models.Model):
 
     user = models.ForeignKey(User, related_name=u'LecturerRating')
     lecturer = models.ForeignKey(Lecturer, related_name=u'LecturerRating')
-    category = models.CharField(max_length=1, choices=CATEGORY_CHOICES)
-    rating = models.PositiveSmallIntegerField(validators=[MaxValueValidator(10), MinValueValidator(1)])
+    category = models.CharField(max_length=1, choices=CATEGORY_CHOICES, db_index=True)
+    rating = models.PositiveSmallIntegerField(validators=[MaxValueValidator(10), MinValueValidator(1)], db_index=True)
 
     def __unicode__(self):
         return '%s %s%u' % (self.lecturer, self.category, self.rating)
