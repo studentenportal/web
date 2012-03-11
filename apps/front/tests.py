@@ -104,13 +104,14 @@ class DocumentModelTest(unittest.TestCase):
         self.assertTrue(isinstance(self.document.upload_date, datetime.datetime))
 
     def testRatingAverage(self):
+        """Test the document rating average calculation."""
         self.assertEqual(self.document.DocumentRating.count(), 2)
         self.assertEqual(self.document.rating(), 4)
         self.assertEqual(self.document.rating_exact(), 3.5)
 
     def testRatingValidation(self):
         dr = models.DocumentRating.objects.get(document=self.document, user=self.marc)
-        dr.rating = 6
+        dr.rating = 11
         self.assertRaises(ValidationError, dr.full_clean)
         dr.rating = 0
         self.assertRaises(ValidationError, dr.full_clean)
