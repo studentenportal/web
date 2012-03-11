@@ -27,7 +27,7 @@
                     <span class="icon-bar"></span>
                 </a>
                 <a class="brand" href="/">HSR Studentenportal</a>
-                <div class="nav-collapse collapse" style="height: 0px; ">
+                <div class="nav-collapse">
                     <ul class="nav pull-right">
                         {% if not user.is_authenticated %}
                             <li><a href="{% url 'auth_login' %}">Login</a></li>
