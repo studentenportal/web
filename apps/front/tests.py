@@ -224,7 +224,7 @@ class LecturerListViewTest(TestCase):
 
     def testContent(self):
         self.client.login(username='testuser', password='test')
-        response = self.client.get('/dozenten/')
+        response = self.client.get('/dozenten/k/')
         self.assertContains(response, '<h1>Unsere Dozenten</h1>')
         self.assertContains(response, 'Prof. Dr. Krakaduku David')
 
