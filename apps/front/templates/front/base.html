@@ -55,6 +55,7 @@
                 {% block navigation %}
                     <div class="well" style="padding: 8px 0;">
                     <ul class="nav nav-list">
+
                         <li class="nav-header">
                             Public
                         </li>
@@ -73,6 +74,7 @@
                         <li class="{% ifactivetab 'navigation' 'documents' %}active{% endifactivetab %}">
                             <a href="{% url 'documentcategory_list' %}"><i class="icon-list-alt {% ifactivetab 'navigation' 'documents' %}icon-white{% endifactivetab %}"></i> Zusammenfassungen</a>
                         </li>
+
                         <li class="nav-header">
                             Login-Bereich
                         </li>
@@ -82,6 +84,7 @@
                         <li class="{% ifactivetab 'navigation' 'quotes' %}active{% endifactivetab %}">
                             <a href="{% url 'quote_list' %}"><i class="icon-volume-up {% ifactivetab 'navigation' 'quotes' %}icon-white{% endifactivetab %}"></i> Zitate</a>
                         </li>
+
                     </ul>
                     </div>
                 {% endblock %}
@@ -95,7 +98,11 @@
         <div class="row-fluid">
             <hr/>
             <footer>
-                <p>Footer. Powered by Django. Source on <a href="https://github.com/gwrtheyrn/studentenportal2">Github</a>.</p>
+                Powered by <a href="http://www.vshsr.ch/">VSHSR</a>, <a href="http://gib-solutions.ch/">gib-Solutions AG</a>
+                and <a href="https://www.djangoproject.com/">Django</a>.
+                Sourcecode is on <a href="https://github.com/gwrtheyrn/studentenportal2">Github</a>, contributions are welcome.
+                Report issues <a href="https://github.com/gwrtheyrn/studentenportal2/issues">here</a>
+                or by emailing <a href="mailto:dbargen@hsr.ch">dbargen@hsr.ch</a>.
             </footer>
         </div>
     </div>

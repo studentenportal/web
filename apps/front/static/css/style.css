@@ -43,6 +43,11 @@ form .fieldWrapper {
     text-decoration: none;
 }
 
+footer {
+    color: grey;
+    font-style: italic;
+}
+
 
 /* Specific pages */
 
