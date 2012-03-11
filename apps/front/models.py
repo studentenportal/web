@@ -160,14 +160,9 @@ class DocumentRating(models.Model):
     Valid values are integers between 1 and 5.
 
     """
-    def validate_rating(value):
-        # TODO test... should it be staticmethod?
-        if value not in range(1, 6):
-            raise ValidationError(u'Rating must be between 1 and 5, not %s.' % value)
-
     user = models.ForeignKey(User, related_name=u'DocumentRating')
     document = models.ForeignKey(Document, related_name='DocumentRating')
-    rating = models.PositiveSmallIntegerField(validators=[validate_rating])
+    rating = models.PositiveSmallIntegerField(validators=[MaxValueValidator(10), MinValueValidator(1)])
 
     # Custom model validation
     def clean(self):

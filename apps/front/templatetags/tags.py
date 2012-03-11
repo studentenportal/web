@@ -36,6 +36,7 @@ def index(value, arg):
     """Return specified index of subscriptable element."""
     return value[int(arg)]
 
+
 @register.filter
 def lookup(dict, index):
     """Return index from dict."""

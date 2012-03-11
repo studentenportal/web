@@ -52,6 +52,9 @@
                         <td>
                             <h4>{{ doc.name }}</h4>
                             {% if doc.description %}<p>{{ doc.description|urlize }}</p>{% endif %}
+                            <div class="drating floatleft" data-readonly="{% if doc.uploader = user %}1{% else %}0{% endif %}"
+                                data-url="{% url 'document_rate' documentcategory.name|slugify doc.pk %}"
+                                data-rating="{{ ratings|lookup:doc.pk }}"></div>
                         </td>
                         <td><a href="{% url 'user' doc.uploader.pk doc.uploader.username|slugify %}">{{ doc.uploader.name }}</a></td>
                         <td>{{ doc.upload_date|date:"d.m.Y" }}</td>

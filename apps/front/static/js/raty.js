@@ -17,7 +17,7 @@ function submitScore(category) {
                 // Reset raty and show error message.
                 alert(errorThrown + ': ' + jqXHR.responseText);
                 $('#lrating-' + category).raty('cancel');
-            },
+            }
         });
     }
 }
@@ -48,6 +48,31 @@ $(document).ready(function() {
         click: submitScore('f'),
         start: function() {
             return $(this).attr('data-rating');
+        }
+    });
+    $('.drating').raty({
+        noRatedMsg: 'Du kannst deine eigenen Uploads nicht bewerten.',
+        click: function(score, evt) {
+            url = $(this).attr('data-url');
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: {'score': score},
+                error: function(jqXHR, textStatus, errorThrown) {
+                    // Couldn't complete ajax request.
+                    // Reset raty and show error message.
+                    alert(errorThrown + ': ' + jqXHR.responseText);
+                    $(this).raty('cancel');
+                }
+            });
+        },
+        start: function() {
+            return $(this).attr('data-rating');
+        }
+    });
+    $('.drating').each(function() {
+        if ($(this).attr('data-readonly') == 1) {
+            $(this).raty('readOnly', true);
         }
     });
 });
