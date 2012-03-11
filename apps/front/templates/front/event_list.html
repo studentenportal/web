@@ -26,7 +26,7 @@
     <h2>Kommende Veranstaltungen</h2>
 
     {% if not events_future %}
-        <p class="alert"><strong>Epic Fail:</strong> Es wurden keine zukünftigen Events gefunden.</p>
+        <p><em>Es wurden keine zukünftigen Events gefunden.</em></p>
     {% else %}
         {% with events_future as object_list %}
             {% include 'front/blocks/event_table.html' %}
@@ -36,7 +36,7 @@
     <h2>Vergangene Veranstaltungen</h2>
 
     {% if not events_past %}
-        <p class="alert"><strong>Epic Fail:</strong> Es wurden keine vergangenen Events gefunden.</p>
+        <p><em>Es wurden keine vergangenen Events gefunden.</em></p>
     {% else %}
         {% with events_past as object_list %}
             {% include 'front/blocks/event_table.html' %}
