@@ -85,3 +85,4 @@ body.lecturer_detail #rate li div img {
 .clearleft { clear: left; } 
 .clearright { clear: right; }
 .clearboth { clear: both; }
+.limitwidth { max-width: 700px; }

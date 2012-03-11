@@ -1,6 +1,8 @@
 {% extends 'front/base.html' %}
 {% load tabs %}
 
+{% block bodyclass %}home{% endblock %}
+
 {% block navigation %}
     {% activetab 'navigation' 'home' %}
     {{ block.super }}
@@ -16,7 +18,38 @@
         {% endif %}
     </div>
 
-    <p>Dieses Portal ist für alle Studenten der Hochschule Rapperswil gedacht. Hier
-    könnt ihr wertvolle Informationen für euer Studium bekommen, tägliche News
-    erfahren und euer Wissen mit anderen Studenten teilen.</p>
+    <section class="limitwidth">
+        <p>Dieses Portal ist für alle Studenten der <a href="http://hsr.ch/">Hochschule
+        Rapperswil</a> gedacht. Hier könnt ihr Informationen für euer Studium
+        bekommen, News zu Events und Ähnlichem erfahren und euer Wissen mit
+        anderen Studenten teilen.</p>
+
+        <h2>News</h2>
+
+        <p>Voraussichtlich wird am 14.03. das alte Studentenportal offline genommen
+        und durch diese Seite ersetzt werden. Vermutlich ist dies schon geschehen,
+        wenn du diese Zeilen lesen kannst.</p>
+
+        <h2>Mitmachen</h2>
+
+        <p>Dieses neue Studentenportal wurde entwickelt, weil die vorherige Seite
+        veraltet und voller Sicherheitslücken war. Die Entwicklung ist noch im Gange,
+        wenn du Python oder HTML/CSS kennst oder es gerne lernen möchtest, kannst du uns
+        gerne auf <a href="https://github.com/gwrtheyrn/studentenportal2/">Github</a> forken.</p>
+
+        <h2>Bugs und Ideen</h2>
+
+        <p>Wenn Fehler auftreten oder wenn du eine coole Idee fürs Studentenportal
+        hast, dann trage es auf <a href="https://github.com/gwrtheyrn/studentenportal2/issues">Github</a>
+        ein oder schreibe eine E-Mail an <a href="mailto:dbargen@hsr.ch">dbargen@hsr.ch</a>.
+        Die momentan geplanten Features findest du
+        <a href="https://github.com/gwrtheyrn/studentenportal2/issues?sort=created&direction=desc&state=open">hier</a>.</p>
+
+        <h2>Twitter</h2>
+
+        <p>Natürlich ist das Studentenportal auch auf Twitter vertreten:
+        <a href="https://twitter.com/studportal_hsr">@studportal_hsr</a>.</p>
+
+    </section>
+
 {% endblock %}
