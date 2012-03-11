@@ -36,7 +36,7 @@
         {% if lecturer.main_area %}<li>Fachschwerpunkt: {{ lecturer.main_area }}</li>{% endif %}
         {% if lecturer.subjects %}<li>Fächer: {{ lecturer.subjects }}</li>{% endif %}
         {% if lecturer.office %}<li>Büro: {{ lecturer.office }}</li>{% endif %}
-        {% if lecturer.email %}<li>Email: {{ lecturer.email }}</li>{% endif %}
+        {% if lecturer.email %}<li>Email: {{ lecturer.email|urlize }}</li>{% endif %}
     </ul>
 
 
