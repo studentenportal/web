@@ -2,27 +2,28 @@
 {% load url from future %}
 {% load tabs %}
 
-{% block title %}Profil von {{ object.name }}{% endblock %}
+{% block title %}Profil von {{ user.name }}{% endblock %}
 
 {% block content %}
 
     <div class="page-header">
-        <h1>{{ object.username }}</h1>
+        <h1>{{ user.username }}</h1>
     </div>
 
     <h3>Persönliche Informationen</h3>
     <ul class="unstyled">
-        {% if object.first_name %}<li><strong>Vorname:</strong> {{ object.first_name }}</li>{% endif %}
-        {% if object.last_name %}<li><strong>Name:</strong> {{ object.last_name }}</li>{% endif %}
-        <li><strong>E-Mail:</strong> {{ object.email }}</li>
+        {% if user.first_name %}<li><strong>Vorname:</strong> {{ user.first_name }}</li>{% endif %}
+        {% if user.last_name %}<li><strong>Name:</strong> {{ user.last_name }}</li>{% endif %}
+        <li><strong>E-Mail:</strong> {{ user.email }}</li>
     </ul>
 
     <h3>Statistiken</h3>
     <ul class="unstyled">
-        <li><strong>Events erfasst:</strong> {{ object.Event.count }}</li>
-        <li><strong>Zitate hinzugefügt:</strong> {{ object.Quote.count }}</li>
-        <li><strong>Zusammenfassungen hochgeladen:</strong> {{ object.Document.count }}</li>
-        <li><strong>Zusammenfassungen bewertet:</strong> {{ object.DocumentRating.count }}</li>
+        <li><strong>Events erfasst:</strong> {{ user.Event.count }}</li>
+        <li><strong>Zitate hinzugefügt:</strong> {{ user.Quote.count }}</li>
+        <li><strong>Dozenten bewertet:</strong> {{ lecturerratings }}</li>
+        <li><strong>Zusammenfassungen hochgeladen:</strong> {{ user.Document.count }}</li>
+        <li><strong>Zusammenfassungen bewertet:</strong> {{ user.DocumentRating.count }}</li>
     </ul>
 
 {% endblock %}

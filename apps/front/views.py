@@ -43,6 +43,13 @@ class Profile(LoginRequiredMixin, UpdateView):
 class User(DetailView):
     model = auth_models.User
     template_name = 'front/user_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(User, self).get_context_data(**kwargs)
+        user = self.get_object()
+        context['lecturerratings'] = user.LecturerRating. \
+                values_list('lecturer').distinct().count()
+        return context
 # }}}
 
 
