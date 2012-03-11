@@ -291,8 +291,9 @@ class DocumentList(DocumentcategoryMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super(DocumentList, self).get_context_data(**kwargs)
-        ratings = models.DocumentRating.objects.filter(user=self.request.user)
-        context['ratings'] = dict([(r.document.pk, r.rating) for r in ratings])
+        if self.request.user.is_authenticated():
+            ratings = models.DocumentRating.objects.filter(user=self.request.user)
+            context['ratings'] = dict([(r.document.pk, r.rating) for r in ratings])
         return context
 
 
