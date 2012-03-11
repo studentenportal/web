@@ -50,6 +50,11 @@ body.lecturer_list .lecturer .thumbnail {
     display: inline-block;
 }
 
+body.lecturer_list #letters {
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+
 
 /* General classes */
 

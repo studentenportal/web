@@ -25,8 +25,40 @@
     des Dozenten beschreiben und dürfen nicht bösartig oder verletzend sein!</p>
     <p>Falls sich ein Dozent durch ein Zitat angegriffen fühlt, wird dieses gelöscht.</p>
 
-
     <p>Legende für Bewertungen: <span class="label label-important">didaktisch</span>, <span class="label label-success">menschlich</span>, <span class="label label-warning">fachlich</span></p>
+
+    <hr>
+
+    <h3>Dozenten mit "{{ letter.upper }}"</h3>
+
+    <div class="btn-group" id="letters">
+        <a class="btn {% if letter = 'a' %}active{% endif %}" href="{% url 'lecturer_list_letter' 'a' %}">a</a>
+        <a class="btn {% if letter = 'b' %}active{% endif %}" href="{% url 'lecturer_list_letter' 'b' %}">b</a>
+        <a class="btn {% if letter = 'c' %}active{% endif %}" href="{% url 'lecturer_list_letter' 'c' %}">c</a>
+        <a class="btn {% if letter = 'd' %}active{% endif %}" href="{% url 'lecturer_list_letter' 'd' %}">d</a>
+        <a class="btn {% if letter = 'e' %}active{% endif %}" href="{% url 'lecturer_list_letter' 'e' %}">e</a>
+        <a class="btn {% if letter = 'f' %}active{% endif %}" href="{% url 'lecturer_list_letter' 'f' %}">f</a>
+        <a class="btn {% if letter = 'g' %}active{% endif %}" href="{% url 'lecturer_list_letter' 'g' %}">g</a>
+        <a class="btn {% if letter = 'h' %}active{% endif %}" href="{% url 'lecturer_list_letter' 'h' %}">h</a>
+        <a class="btn {% if letter = 'i' %}active{% endif %}" href="{% url 'lecturer_list_letter' 'i' %}">i</a>
+        <a class="btn {% if letter = 'j' %}active{% endif %}" href="{% url 'lecturer_list_letter' 'j' %}">j</a>
+        <a class="btn {% if letter = 'k' %}active{% endif %}" href="{% url 'lecturer_list_letter' 'k' %}">k</a>
+        <a class="btn {% if letter = 'l' %}active{% endif %}" href="{% url 'lecturer_list_letter' 'l' %}">l</a>
+        <a class="btn {% if letter = 'm' %}active{% endif %}" href="{% url 'lecturer_list_letter' 'm' %}">m</a>
+        <a class="btn {% if letter = 'n' %}active{% endif %}" href="{% url 'lecturer_list_letter' 'n' %}">n</a>
+        <a class="btn {% if letter = 'o' %}active{% endif %}" href="{% url 'lecturer_list_letter' 'o' %}">o</a>
+        <a class="btn {% if letter = 'p' %}active{% endif %}" href="{% url 'lecturer_list_letter' 'p' %}">p</a>
+        <a class="btn {% if letter = 'q' %}active{% endif %}" href="{% url 'lecturer_list_letter' 'q' %}">q</a>
+        <a class="btn {% if letter = 'r' %}active{% endif %}" href="{% url 'lecturer_list_letter' 'r' %}">r</a>
+        <a class="btn {% if letter = 's' %}active{% endif %}" href="{% url 'lecturer_list_letter' 's' %}">s</a>
+        <a class="btn {% if letter = 't' %}active{% endif %}" href="{% url 'lecturer_list_letter' 't' %}">t</a>
+        <a class="btn {% if letter = 'u' %}active{% endif %}" href="{% url 'lecturer_list_letter' 'u' %}">u</a>
+        <a class="btn {% if letter = 'v' %}active{% endif %}" href="{% url 'lecturer_list_letter' 'v' %}">v</a>
+        <a class="btn {% if letter = 'w' %}active{% endif %}" href="{% url 'lecturer_list_letter' 'w' %}">w</a>
+        <a class="btn {% if letter = 'x' %}active{% endif %}" href="{% url 'lecturer_list_letter' 'x' %}">x</a>
+        <a class="btn {% if letter = 'y' %}active{% endif %}" href="{% url 'lecturer_list_letter' 'y' %}">y</a>
+        <a class="btn {% if letter = 'z' %}active{% endif %}" href="{% url 'lecturer_list_letter' 'z' %}">z</a>
+    </div>
     
     {% for lecturer in lecturers %}
         {% if forloop.counter0|divisibleby:"3" %}<div class="row-fluid">{% endif %}
@@ -44,5 +76,9 @@
             </div>
         {% if forloop.counter|divisibleby:"3" %}</div>{% endif %}
     {% endfor %}
+
+    {% if not lecturers %}
+        <p><em>Keine passenden Dozenten gefunden.</em></p>
+    {% endif %}
 
 {% endblock %}

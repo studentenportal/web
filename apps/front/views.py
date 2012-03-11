@@ -129,10 +129,15 @@ class LecturerList(LoginRequiredMixin, ListView):
     model = models.Lecturer
     context_object_name = 'lecturers'
 
+    def get_queryset(self):
+        letter = self.kwargs.get('letter') or 'a'
+        return self.model.objects.filter(last_name__istartswith=letter)
+
     def get_context_data(self, **kwargs):
         context = super(LecturerList, self).get_context_data(**kwargs)
         quotecounts = models.Quote.objects.values_list('lecturer').annotate(Count('pk')).order_by()
         context['quotecounts'] = dict(quotecounts)
+        context['letter'] = self.kwargs.get('letter') or 'a'
         return context
 # }}}
 
