@@ -10,9 +10,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>-->
     {% assets 'stylesheets' %}<link rel="stylesheet" href="{{ ASSET_URL }}" />{% endassets %}
     {% assets 'scripts' %}<script src="{{ ASSET_URL }}"></script>{% endassets %}
+
+    {% block scripts %}{% endblock %}
+    {% block styles %}{% endblock %}
 </head>
 
 <body class="{% block bodyclass %}{% endblock %}">

@@ -4,12 +4,16 @@ from django.contrib.auth import models as auth_models
 from django.contrib import messages
 from django.db.models import Count
 from django.core.urlresolvers import reverse
-from django.core.exceptions import ObjectDoesNotExist
-from django.http import HttpResponseForbidden
-from django.views.generic import TemplateView
+from django.core.exceptions import ObjectDoesNotExist, ValidationError
+from django.http import HttpResponse
+from django.http import HttpResponseForbidden, HttpResponseServerError
+from django.views.decorators.csrf import csrf_exempt
+from django.views.generic import View, TemplateView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic.edit import SingleObjectMixin
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
+from django.utils.decorators import method_decorator
 from django.shortcuts import get_object_or_404
 from apps.front.mixins import LoginRequiredMixin
 from apps.front import forms
@@ -122,6 +126,12 @@ class Lecturer(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super(Lecturer, self).get_context_data(**kwargs)
         context['quotes'] = self.object.Quote.all()
+        # Get ratings for current user/lecturer and add them to the context
+        ratings = models.LecturerRating.objects.filter(
+            lecturer=self.get_object(), user=self.request.user)
+        ratings_dict = dict([(r.category, r.rating) for r in ratings])
+        for cat in ['d', 'm', 'f']:
+            context['rating_%c' % cat] = ratings_dict.get(cat)
         return context
 
 
@@ -139,6 +149,38 @@ class LecturerList(LoginRequiredMixin, ListView):
         context['quotecounts'] = dict(quotecounts)
         context['letter'] = self.kwargs.get('letter') or 'a'
         return context
+
+
+class LecturerRate(LoginRequiredMixin, SingleObjectMixin, View):
+    model = models.Lecturer
+
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super(LecturerRate, self).dispatch(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        """Create or update the lecturer rating."""
+        try:
+            category = request.POST['category']
+            score = request.POST['score']
+        except KeyError:
+            return HttpResponseServerError(u'Required argument missing')
+        params = {  # Prepare keyword-arguments that identify the rating object
+            'user': request.user,
+            'lecturer': self.get_object(),
+            'category': category
+        }
+        try:
+            rating = models.LecturerRating.objects.get(**params)
+        except ObjectDoesNotExist:
+            rating = models.LecturerRating(**params)
+        rating.rating = score
+        try:
+            rating.full_clean()  # validation
+        except ValidationError:
+            return HttpResponseServerError(u'Validierungsfehler')
+        rating.save()
+        return HttpResponse(u'Bewertung wurde aktualisiert.')
 # }}}
 
 

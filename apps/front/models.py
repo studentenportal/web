@@ -5,6 +5,7 @@ import datetime
 from django.conf import settings
 from django.db import models
 from django.core.exceptions import ValidationError
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.contrib.auth.models import User
 
 
@@ -41,23 +42,47 @@ class Lecturer(models.Model):
             return settings.MEDIA_URL + path
         return None
 
+    def _avg_rating(self, category):
+        """Calculate the average rating for the given category."""
+        qs = self.LecturerRating.filter(category=category)
+        if qs.exists():
+            total = sum([r.rating for r in qs])
+            return int(round(float(total) / qs.count()))
+        return 0
+
     def avg_rating_d(self):
-        r = '%u.%u' % (random.randint(1, 5), random.randint(0, 9))
-        return float(r)
+        return self._avg_rating(u'd')
 
     def avg_rating_m(self):
-        r = '%u.%u' % (random.randint(1, 5), random.randint(0, 9))
-        return float(r)
+        return self._avg_rating(u'm')
 
     def avg_rating_f(self):
-        r = '%u.%u' % (random.randint(1, 5), random.randint(0, 9))
-        return float(r)
+        return self._avg_rating(u'f')
 
     def __unicode__(self):
         return '%s %s' % (self.last_name, self.first_name)
 
     class Meta:
         ordering = ['last_name']
+
+
+class LecturerRating(models.Model):
+    """A lecturer rating. Max 1 per user, category and lecturer."""
+    CATEGORY_CHOICES = (
+        (u'd', 'Didaktisch'),
+        (u'm', 'Menschlich'),
+        (u'f', 'Fachlich'))
+
+    user = models.ForeignKey(User, related_name=u'LecturerRating')
+    lecturer = models.ForeignKey(Lecturer, related_name=u'LecturerRating')
+    category = models.CharField(max_length=1, choices=CATEGORY_CHOICES)
+    rating = models.PositiveSmallIntegerField(validators=[MaxValueValidator(10), MinValueValidator(1)])
+
+    def __unicode__(self):
+        return '%s %s%u' % (self.lecturer, self.category, self.rating)
+
+    class Meta:
+        unique_together = ('user', 'lecturer', 'category')
 
 
 class Quote(models.Model):
@@ -136,6 +161,7 @@ class DocumentRating(models.Model):
 
     """
     def validate_rating(value):
+        # TODO test... should it be staticmethod?
         if value not in range(1, 6):
             raise ValidationError(u'Rating must be between 1 and 5, not %s.' % value)
 
