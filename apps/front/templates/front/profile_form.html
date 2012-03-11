@@ -14,4 +14,6 @@
         <input type="submit" value="Änderungen speichern" class="btn btn-primary">
         <input type="hidden" name="next" value="{{ next }}">
     </form>
+
+    <p>Möchtest du dein Passwort ändern? Das kannst du <a href="{% url 'auth_password_change' %}">hier</a> tun.</p>
 {% endblock %}

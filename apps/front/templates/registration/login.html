@@ -34,10 +34,14 @@
                 </div>
             </div>
             
-            <div class="actions">
-                <input type="submit" value="login" class="btn primary">
+            <br>
+
+            <div class="clearfix">
+                <input type="submit" value="Login" class="btn btn-primary">
                 <input type="hidden" name="next" value="{{ next }}">
             </div>
         </fieldset>
     </form>
+
+    <p><a href="{% url 'auth_password_reset' %}">Passwort vergessen?</a></p>
 {% endblock %}
