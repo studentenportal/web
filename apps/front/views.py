@@ -160,6 +160,7 @@ class LecturerList(LoginRequiredMixin, ListView):
 
 class LecturerRate(LoginRequiredMixin, SingleObjectMixin, View):
     model = models.Lecturer
+    http_method_names = ['post']
 
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
@@ -288,6 +289,12 @@ class DocumentList(DocumentcategoryMixin, ListView):
     def get_queryset(self):
         return models.Document.objects.filter(category=self.category)
 
+    def get_context_data(self, **kwargs):
+        context = super(DocumentList, self).get_context_data(**kwargs)
+        ratings = models.DocumentRating.objects.filter(user=self.request.user)
+        context['ratings'] = dict([(r.document.pk, r.rating) for r in ratings])
+        return context
+
 
 class DocumentAdd(LoginRequiredMixin, DocumentcategoryMixin, CreateView):
     model = models.Document
@@ -338,4 +345,33 @@ class DocumentDelete(LoginRequiredMixin, DocumentcategoryMixin, DeleteView):
             u'Dokument wurde erfolgreich gelöscht.')
         return reverse('document_list', args=[self.category])
 
+
+class DocumentRate(LoginRequiredMixin, SingleObjectMixin, View):
+    model = models.Document
+    http_method_names = ['post']
+
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super(DocumentRate, self).dispatch(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        """Create or update the document rating."""
+        score = request.POST.get('score')
+        if not score:
+            return HttpResponseServerError(u'Required argument missing')
+        params = {  # Prepare keyword-arguments that identify the rating object
+            'user': request.user,
+            'document': self.get_object(),
+        }
+        try:
+            rating = models.DocumentRating.objects.get(**params)
+        except ObjectDoesNotExist:
+            rating = models.DocumentRating(**params)
+        rating.rating = score
+        try:
+            rating.full_clean()  # validation
+        except ValidationError:
+            return HttpResponseServerError(u'Validierungsfehler')
+        rating.save()
+        return HttpResponse(u'Bewertung wurde aktualisiert.')
 # }}}
