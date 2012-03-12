@@ -30,7 +30,7 @@ class LecturerModelTest(TestCase):
 
 
 class LecturerRatingModelTest(TestCase):
-    fixtures = ['testuser', 'testlecturer']
+    fixtures = ['testusers', 'testlecturer']
 
     def tearDown(self):
         for rating in models.LecturerRating.objects.all():
@@ -38,7 +38,7 @@ class LecturerRatingModelTest(TestCase):
 
     def create_default_rating(self, category=u'd', rating=5):
         """Helper function to create a default rating."""
-        user = models.User.objects.get()
+        user = models.User.objects.all()[0]
         lecturer = models.Lecturer.objects.get()
         lr = models.LecturerRating(
             user=user,
@@ -128,7 +128,7 @@ class DocumentModelTest(unittest.TestCase):
 
 
 class QuoteModelTst(TestCase):
-    fixtures = ['testuser', 'testlecturer']
+    fixtures = ['testusers', 'testlecturer']
 
     def testQuote(self):
         quote = "Dies ist ein längeres Zitat, das dazu dient, zu testen " + \
@@ -138,7 +138,7 @@ class QuoteModelTst(TestCase):
             "ja nicht, dass längere Zitate hier keinen Platz haben :)"
         before = datetime.datetime.now()
         q = models.Quote()
-        q.author = models.User.objects.get()
+        q.author = models.User.objects.all()[0]
         q.lecturer = models.Lecturer.objects.all()[0]
         q.quote = quote
         q.comment = "Eine Bemerkung zum Kommentar"
@@ -217,7 +217,7 @@ class HomeViewTest(TestCase):
 
 
 class LecturerListViewTest(TestCase):
-    fixtures = ['testuser', 'testlecturer']
+    fixtures = ['testusers', 'testlecturer']
 
     def testLoginRequired(self):
         response = self.client.get('/dozenten/')
@@ -231,7 +231,7 @@ class LecturerListViewTest(TestCase):
 
 
 class LecturerDetailViewTest(TestCase):
-    fixtures = ['testuser', 'testlecturer']
+    fixtures = ['testusers', 'testlecturer']
     url = '/dozenten/1/'
 
     def testLoginRequired(self):
@@ -259,7 +259,7 @@ class ProfileViewTest(TestCase):
 
 
 class DocumentcategoryListViewTest(TestCase):
-    fixtures = ['testdocs', 'testuser']
+    fixtures = ['testdocs', 'testusers']
     taburl = '/zusammenfassungen/'
 
     def testTitle(self):
@@ -286,7 +286,7 @@ class DocumentcategoryListViewTest(TestCase):
 
 
 class DocumentcategoryAddViewTest(TestCase):
-    fixtures = ['testuser']
+    fixtures = ['testusers']
     taburl = '/zusammenfassungen/add/'
 
     def setUp(self):
@@ -327,6 +327,12 @@ class LoginTest(TestCase):
         r = self.client.get(self.url)
         self.assertContains(r, '<h1>Login</h1>')
 
+
+class UserViewTest(TestCase):
+    fixtures = ['testusers']
+    # TODO implement
+    
+    
 # TODO registration test
 
 
