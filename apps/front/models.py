@@ -127,6 +127,7 @@ class Document(models.Model):
     uploader = models.ForeignKey(User, related_name=u'Document', null=True, on_delete=models.SET_NULL)
     upload_date = models.DateTimeField(u'Uploaddatum', auto_now_add=True)
     category = models.ForeignKey(DocumentCategory, related_name=u'Document', null=True, on_delete=models.SET_NULL)
+    downloadcount = models.IntegerField(default=0)
 
     def rating_exact(self):
         """Return exact rating average."""

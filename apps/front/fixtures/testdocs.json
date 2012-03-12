@@ -16,7 +16,8 @@
       "name": "Analysis 1 Theoriesammlung", 
       "uploader": 1, 
       "document": "documents/Analysis-Theoriesammlung.pdf", 
-      "description": "Dieses Dokument ist eine Zusammenfassung der Theorie aus dem AnI1-Skript auf 8 Seiten. Das Dokument ist in LaTeX gesetzt, Source ist hier: http://j.mp/fjtleh - Gute Erg\u00e4nzungen sind erw\u00fcnscht!"
+      "description": "Dieses Dokument ist eine Zusammenfassung der Theorie aus dem AnI1-Skript auf 8 Seiten. Das Dokument ist in LaTeX gesetzt, Source ist hier: http://j.mp/fjtleh - Gute Erg\u00e4nzungen sind erw\u00fcnscht!",
+      "downloadcount": 0
     }
   }, 
   {
@@ -26,9 +27,10 @@
       "category": 1, 
       "upload_date": "2011-12-18 01:49:48", 
       "name": "Formelsammlung Statistik", 
-      "uploader": 1, 
+      "uploader": 2, 
       "document": "documents/zf_6.doc", 
-      "description": "Formeln zu Varianz, Durchschnitt, Standartabweichung, Empirische Varianz, Spanne,..."
+      "description": "Formeln zu Varianz, Durchschnitt, Standartabweichung, Empirische Varianz, Spanne,...",
+      "downloadcount": 0
     }
   }, 
   {

@@ -301,6 +301,8 @@ class DocumentList(LoginRequiredMixin, DocumentcategoryMixin, ListView):
 class DocumentDownload(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         doc = get_object_or_404(models.Document, pk=self.kwargs.get('pk'))
+        doc.downloadcount += 1
+        doc.save()
         return sendfile(request, doc.document.path,
                attachment=True, attachment_filename=doc.filename())
 

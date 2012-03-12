@@ -284,7 +284,6 @@ class DocumentDownloadTest(TestCase):
             os.remove(self.filepath)
 
 
-
 class DocumentcategoryListViewTest(TestCase):
     fixtures = ['testdocs', 'testusers']
     taburl = '/zusammenfassungen/'
@@ -341,6 +340,46 @@ class DocumentcategoryAddViewTest(TestCase):
         self.assertRedirects(response1, '/zusammenfassungen/')
         response2 = self.client.get('/zusammenfassungen/prog2/')
         self.assertContains(response2, '<h1>Zusammenfassungen Prog2</h1>')
+
+
+class DocumentListView(TestCase):
+    fixtures = ['testdocs', 'testusers']
+    taburl = '/zusammenfassungen/an1i/'
+
+    def setUp(self):
+        self.client.login(username='testuser', password='test')
+        self.response = self.client.get(self.taburl)
+
+    def testTitle(self):
+        self.assertContains(self.response, '<h1>Zusammenfassungen An1I</h1>')
+
+    def testDocumentTitle(self):
+        self.assertContains(self.response, '<h4>Analysis 1 Theoriesammlung</h4>')
+
+    def testUploaderName(self):
+        self.assertContains(self.response, 'Another Guy')
+
+    def testDescription(self):
+        self.assertContains(self.response, 'Theorie aus dem AnI1-Skript auf 8 Seiten')
+
+    def testUploadDate(self):
+        self.assertContains(self.response, '18.12.2011')
+
+    def testEditButton(self):
+        self.assertContains(self.response, 'href="/zusammenfassungen/an1i/1/edit/"')
+        self.assertNotContains(self.response, 'href="/zusammenfassungen/an1i/2/edit/"')
+
+    def testDeleteButton(self):
+        self.assertContains(self.response, 'href="/zusammenfassungen/an1i/1/delete/"')
+        self.assertNotContains(self.response, 'href="/zusammenfassungen/an1i/2/delete/"')
+
+    def testDownloadCount(self):
+        response_before = self.client.get(self.taburl)
+        self.assertContains(response_before, '0 Downloads')
+        self.client.get(self.taburl + '1/')
+        self.client.get(self.taburl + '1/')
+        response_after = self.client.get(self.taburl)
+        self.assertContains(response_after, '2 Downloads')
 
 
 class EventsViewTest(TestCase):
