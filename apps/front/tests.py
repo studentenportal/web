@@ -258,6 +258,20 @@ class ProfileViewTest(TestCase):
         self.assertEqual(response.status_code, 302)
 
 
+class DocumentDownloadTest(TestCase):
+    fixtures = ['testdocs', 'testusers']
+    docurl = '/zusammenfassungen/an1i/1/'
+
+    def testLoginRequired(self):
+        response = self.client.get(self.docurl)
+        self.assertRedirects(response, '/accounts/login/?next=%s' % self.docurl)
+
+    def testDocumentServed(self):
+        self.client.login(username='testuser', password='test')
+        response = self.client.get(self.docurl)
+        self.assertEqual(response.status_code, 200)
+
+
 class DocumentcategoryListViewTest(TestCase):
     fixtures = ['testdocs', 'testusers']
     taburl = '/zusammenfassungen/'
@@ -347,8 +361,8 @@ class UserViewTest(TestCase):
         response = self.client.get('/users/2/testuser2/')
         self.assertContains(response, '<h1>Another Guy</h1>')
         self.assertContains(response, 'django-test2@studentenportal.ch')
-    
-    
+
+
 # TODO registration test
 
 
