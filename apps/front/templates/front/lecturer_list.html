@@ -31,7 +31,7 @@
 
     <p>Falls sich ein Dozent durch ein Zitat angegriffen fühlt, wird dieses gelöscht.</p>
 
-    <p>Legende für Bewertungen (1-10 Punkte): <span class="label label-important">didaktisch</span>, <span class="label label-success">menschlich</span>, <span class="label label-warning">fachlich</span></p>
+    <p>Legende für Bewertungen (1-10 Punkte): <span class="label label-important">didaktisch</span>, <span class="label label-success">menschlich</span>, <span class="label label-info">fachlich</span></p>
 
     <hr>
 
@@ -77,7 +77,7 @@
                 <p><span class="label"><a href="{% url 'lecturer_detail' lecturer.pk %}#zitate">{{ quotecount }} Zitat{{ quotecount|pluralize:"e" }}</a></span>
                        <span class="label label-important">{{ lecturer.avg_rating_d|default:'-' }}</span>
                        <span class="label label-success">{{ lecturer.avg_rating_m|default:'-' }}</span>
-                       <span class="label label-warning">{{ lecturer.avg_rating_f|default:'-' }}</span></p>
+                       <span class="label label-info">{{ lecturer.avg_rating_f|default:'-' }}</span></p>
                {% endwith %}
             </div>
         {% if forloop.counter|divisibleby:"3" %}</div>{% endif %}
