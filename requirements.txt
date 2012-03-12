@@ -1,5 +1,6 @@
 # Base system
-Django==1.4.0
+#Django==1.4.0
+-e svn+http://code.djangoproject.com/svn/django/trunk/#egg=django
 PIL
 
 # Useful/important apps
