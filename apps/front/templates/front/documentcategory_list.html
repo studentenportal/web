@@ -18,11 +18,9 @@
 
     <p>Hier finden sich Zusammenfassungen des Unterrichtsstoffes und Lernhilfen für die Prüfungen.</p>
 
-    {% if user.is_authenticated %}
-        <p><a class="btn" href="{% url 'documentcategory_add' %}">
-            <i class="icon-plus-sign"></i> Modul hinzufügen
-        </a></p>
-    {% endif %}
+    <p><a class="btn" href="{% url 'documentcategory_add' %}">
+        <i class="icon-plus-sign"></i> Modul hinzufügen
+    </a></p>
 
     {% if object_list %}
         <table class="table table-striped">

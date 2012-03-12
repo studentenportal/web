@@ -262,6 +262,14 @@ class DocumentcategoryListViewTest(TestCase):
     fixtures = ['testdocs', 'testusers']
     taburl = '/zusammenfassungen/'
 
+    def setUp(self):
+        self.client.login(username='testuser', password='test')
+
+    def testLoginRequired(self):
+        self.client.logout()
+        response = self.client.get(self.taburl)
+        self.assertRedirects(response, '/accounts/login/?next=%s' % self.taburl)
+
     def testTitle(self):
         response = self.client.get(self.taburl)
         self.assertContains(response, '<h1>Zusammenfassungen</h1>')
@@ -274,10 +282,6 @@ class DocumentcategoryListViewTest(TestCase):
     def testDocumentCount(self):
         response = self.client.get(self.taburl)
         self.assertContains(response, '<td>2</td>')
-
-    def testGuestAddButton(self):
-        response = self.client.get(self.taburl)
-        self.assertNotContains(response, 'Modul hinzufügen')
 
     def testUserAddButton(self):
         self.client.login(username='testuser', password='test')
@@ -295,7 +299,7 @@ class DocumentcategoryAddViewTest(TestCase):
     def testLoginRequired(self):
         self.client.logout()
         response = self.client.get(self.taburl)
-        self.assertRedirects(response, '/accounts/login/?next=/zusammenfassungen/add/')
+        self.assertRedirects(response, '/accounts/login/?next=%s' % self.taburl)
 
     def testTitle(self):
         response = self.client.get(self.taburl)
