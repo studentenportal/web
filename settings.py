@@ -138,8 +138,6 @@ INSTALLED_APPS = (
     #'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.admin',
-    'django.contrib.admindocs',
 
     # Third party apps
     'django_assets',
@@ -153,6 +151,10 @@ INSTALLED_APPS = (
 
     # Own apps
     'apps.front',
+
+    # Django admin (overrideable templates)
+    'django.contrib.admin',
+    'django.contrib.admindocs',
 )
 
 # A sample logging configuration. The only tangible logging
