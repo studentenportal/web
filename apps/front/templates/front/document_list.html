@@ -5,6 +5,8 @@
 
 {% block title %}Zusammenfassungen{% endblock %}
 
+{% block bodyclass %}document_list{% endblock %}
+
 {% block navigation %}
     {% activetab 'navigation' 'documents' %}
     {{ block.super }}
@@ -40,8 +42,6 @@
             <thead>
                 <tr>
                     <th>Name</th>
-                    <th>Uploader</th>
-                    <th>Datum</th>
                     <th>Download</th>
                     <th></th>
                 </tr>
@@ -50,20 +50,22 @@
                 {% for doc in documents %}
                     <tr>
                         <td>
-                            <h4>{{ doc.name }}</h4>
-                            {% if doc.description %}<p>{{ doc.description|urlize }}</p>{% endif %}
+                            <div class="titlerow">
+                                <h4>{{ doc.name }}</h4>
+                                <p>by <a href="{% url 'user' doc.uploader.pk doc.uploader.username|slugify %}">{{ doc.uploader.name }}</a></p>
+                            </div>
+                            <p>{% if doc.upload_date %}(<em>{{ doc.upload_date|date:"d.m.Y" }}</em>)
+                                {% endif %}{{ doc.description|urlize }}</p>
                             {% if user.is_authenticated %}
                                 <div class="drating floatleft" data-readonly="{% if doc.uploader = user %}1{% else %}0{% endif %}"
                                     data-url="{% url 'document_rate' documentcategory.name|slugify doc.pk %}"
                                     data-rating="{{ ratings|lookup:doc.pk }}"></div>
                             {% endif %}
                         </td>
-                        <td><a href="{% url 'user' doc.uploader.pk doc.uploader.username|slugify %}">{{ doc.uploader.name }}</a></td>
-                        <td>{{ doc.upload_date|date:"d.m.Y" }}</td>
                         <td>
                             <a href="{{ doc.document.url }}" class="file-{{ doc.fileext }}" title="{{ doc.filename }}">
                                 {{ doc.filename|slice:":16" }}{% if doc.filename|length > 16 %}...{% endif %}
-                            </a> 
+                            </a><br>
                             ({{ doc.document.size|filesizeformat }})</td>
                         <td>
                             {% if doc.uploader = user %}

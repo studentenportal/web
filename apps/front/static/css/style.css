@@ -77,6 +77,11 @@ body.lecturer_detail #rate li div img {
     vertical-align: middle;
 }
 
+body.document_list .titlerow h4,
+body.document_list .titlerow p {
+    display: inline-block;
+}
+
 
 /* General classes */
 
