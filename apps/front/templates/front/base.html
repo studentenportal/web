@@ -71,12 +71,12 @@
                         <!--<li class="{% ifactivetab 'navigation' 'suche' %}active{% endifactivetab %}">
                             <a href="#"><i class="icon-shopping-cart {% ifactivetab 'navigation' 'suche' %}icon-white{% endifactivetab %}"></i> Suche / Biete</a>
                         </li>-->
-                        <li class="{% ifactivetab 'navigation' 'documents' %}active{% endifactivetab %}">
-                            <a href="{% url 'documentcategory_list' %}"><i class="icon-list-alt {% ifactivetab 'navigation' 'documents' %}icon-white{% endifactivetab %}"></i> Zusammenfassungen</a>
-                        </li>
 
                         <li class="nav-header">
                             Member-Bereich
+                        </li>
+                        <li class="{% ifactivetab 'navigation' 'documents' %}active{% endifactivetab %}">
+                            <a href="{% url 'documentcategory_list' %}"><i class="icon-list-alt {% ifactivetab 'navigation' 'documents' %}icon-white{% endifactivetab %}"></i> Zusammenfassungen</a>
                         </li>
                         <li class="{% ifactivetab 'navigation' 'lecturers' %}active{% endifactivetab %}">
                             <a href="{% url 'lecturer_list' %}"><i class="icon-user {% ifactivetab 'navigation' 'lecturers' %}icon-white{% endifactivetab %}"></i> Dozenten</a>

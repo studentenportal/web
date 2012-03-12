@@ -255,7 +255,7 @@ class QuoteDelete(LoginRequiredMixin, DeleteView):
 
 
 # Documents {{{
-class DocumentcategoryList(ListView):
+class DocumentcategoryList(LoginRequiredMixin, ListView):
     model = models.DocumentCategory
 
 
@@ -282,7 +282,7 @@ class DocumentcategoryMixin(object):
         return context
 
 
-class DocumentList(DocumentcategoryMixin, ListView):
+class DocumentList(LoginRequiredMixin, DocumentcategoryMixin, ListView):
     template_name = 'front/document_list.html'
     context_object_name = 'documents'
 
