@@ -130,6 +130,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 MAX_UPLOAD_SIZE = 10485760  # 10MB
 
+SENDFILE_BACKEND = 'sendfile.backends.development'
+
 INSTALLED_APPS = (
     # Builtin apps
     'django.contrib.auth',

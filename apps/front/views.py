@@ -15,6 +15,7 @@ from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.utils.decorators import method_decorator
 from django.shortcuts import get_object_or_404
+from sendfile import sendfile
 from apps.front.mixins import LoginRequiredMixin
 from apps.front import forms
 from apps.front import models
@@ -295,6 +296,13 @@ class DocumentList(LoginRequiredMixin, DocumentcategoryMixin, ListView):
             ratings = models.DocumentRating.objects.filter(user=self.request.user)
             context['ratings'] = dict([(r.document.pk, r.rating) for r in ratings])
         return context
+
+
+class DocumentDownload(LoginRequiredMixin, View):
+    def get(self, request, *args, **kwargs):
+        doc = get_object_or_404(models.Document, pk=self.kwargs.get('pk'))
+        return sendfile(request, doc.document.path,
+               attachment=True, attachment_filename=doc.filename())
 
 
 class DocumentAdd(LoginRequiredMixin, DocumentcategoryMixin, CreateView):
