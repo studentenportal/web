@@ -330,7 +330,19 @@ class LoginTest(TestCase):
 
 class UserViewTest(TestCase):
     fixtures = ['testusers']
-    # TODO implement
+
+    def setUp(self):
+        self.client.login(username='testuser', password='test')
+
+    def testOwnUserView(self):
+        response = self.client.get('/users/1/testuser/')
+        self.assertContains(response, '<h1>testuser</h1>')
+        self.assertContains(response, 'django-test@studentenportal.ch')
+
+    def testOtherUserView(self):
+        response = self.client.get('/users/2/testuser2/')
+        self.assertContains(response, '<h1>Another Guy</h1>')
+        self.assertContains(response, 'django-test2@studentenportal.ch')
     
     
 # TODO registration test
