@@ -1,10 +1,12 @@
 # encoding=utf-8
 import datetime
+import os
 
 from django.test import TestCase
 from django.utils import unittest
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
+from django.conf import settings
 from django.db import IntegrityError
 
 from apps.front import models
@@ -261,6 +263,12 @@ class ProfileViewTest(TestCase):
 class DocumentDownloadTest(TestCase):
     fixtures = ['testdocs', 'testusers']
     docurl = '/zusammenfassungen/an1i/1/'
+    filepath = os.path.join(settings.MEDIA_ROOT, 'documents', 'Analysis-Theoriesammlung.pdf')
+
+    def setUp(self):
+        self.file_existed = os.path.exists(self.filepath)
+        if not self.file_existed:
+            open(self.filepath, 'w').close()
 
     def testLoginRequired(self):
         response = self.client.get(self.docurl)
@@ -270,6 +278,11 @@ class DocumentDownloadTest(TestCase):
         self.client.login(username='testuser', password='test')
         response = self.client.get(self.docurl)
         self.assertEqual(response.status_code, 200)
+
+    def tearDown(self):
+        if not self.file_existed:
+            os.remove(self.filepath)
+
 
 
 class DocumentcategoryListViewTest(TestCase):
