@@ -58,14 +58,15 @@ class HsrRegistrationForm(RegistrationForm):
 class DocumentForm(forms.ModelForm):
     def clean_document(self):
         document = self.cleaned_data['document']
-        if document.size > settings.MAX_UPLOAD_SIZE:
-            raise forms.ValidationError(u'Bitte Dateigrösse unter %s halten. Aktuelle Dateigrösse ist %s' %
-                    (filesizeformat(settings.MAX_UPLOAD_SIZE), filesizeformat(document._size)))
+        if hasattr(document, '_size'):
+            if document.size > settings.MAX_UPLOAD_SIZE:
+                raise forms.ValidationError(u'Bitte Dateigrösse unter %s halten. Aktuelle Dateigrösse ist %s' %
+                        (filesizeformat(settings.MAX_UPLOAD_SIZE), filesizeformat(document._size)))
         return document
 
     class Meta:
         model = models.Document
-        exclude = ('category', 'uploader')
+        exclude = ('category', 'uploader', 'downloadcount')
         widgets = {
             'description': forms.Textarea(),
         }
