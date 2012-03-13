@@ -63,11 +63,15 @@
                             {% endif %}
                         </td>
                         <td>
-                            <a href="{% url 'document_download' documentcategory.name|slugify doc.pk %}" class="file-{{ doc.fileext }}" title="{{ doc.filename }}">
-                                {{ doc.filename|slice:":16" }}{% if doc.filename|length > 16 %}...{% endif %}
-                            </a><br>
-                            ({{ doc.document.size|filesizeformat }})<br>
-                            {{ doc.downloadcount }} Download{{ doc.downloadcount|pluralize:"s" }}</td>
+                            {% if doc.exists %}
+                                <a href="{% url 'document_download' documentcategory.name|slugify doc.pk %}" class="file-{{ doc.fileext }}" title="{{ doc.filename }}">
+                                    {{ doc.filename|slice:":16" }}{% if doc.filename|length > 16 %}...{% endif %}
+                                </a><br>
+                                ({{ doc.document.size|filesizeformat }})<br>
+                            {% else %}
+                                <p><em>Datei nicht verfügbar</em></p>
+                            {% endif %}
+                            <p>{{ doc.downloadcount }} Download{{ doc.downloadcount|pluralize:"s" }}</p></td>
                         <td>
                             {% if doc.uploader = user %}
                                 <p>

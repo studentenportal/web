@@ -147,6 +147,10 @@ class Document(models.Model):
         """Return file extension by splitting at last occuring period."""
         return self.document.name.split('.')[-1]
 
+    def exists(self):
+        """Return whether or not the file exists on the harddrive."""
+        return os.path.exists(self.document.path)
+
     def __unicode__(self):
         return self.name
 
