@@ -263,12 +263,16 @@ class ProfileViewTest(TestCase):
 class DocumentDownloadTest(TestCase):
     fixtures = ['testdocs', 'testusers']
     docurl = '/zusammenfassungen/an1i/1/'
-    filepath = os.path.join(settings.MEDIA_ROOT, 'documents', 'Analysis-Theoriesammlung.pdf')
+    filepath1 = os.path.join(settings.MEDIA_ROOT, 'documents', 'Analysis-Theoriesammlung.pdf')
+    filepath2 = os.path.join(settings.MEDIA_ROOT, 'documents', 'zf_6.doc')
 
     def setUp(self):
-        self.file_existed = os.path.exists(self.filepath)
-        if not self.file_existed:
-            open(self.filepath, 'w').close()
+        self.file1_existed = os.path.exists(self.filepath1)
+        self.file2_existed = os.path.exists(self.filepath2)
+        if not self.file1_existed:
+            open(self.filepath1, 'w').close()
+        if not self.file2_existed:
+            open(self.filepath2, 'w').close()
 
     def testLoginRequired(self):
         response = self.client.get(self.docurl)
@@ -280,8 +284,10 @@ class DocumentDownloadTest(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def tearDown(self):
-        if not self.file_existed:
-            os.remove(self.filepath)
+        if not self.file1_existed:
+            os.remove(self.filepath1)
+        if not self.file2_existed:
+            os.remove(self.filepath2)
 
 
 class DocumentcategoryListViewTest(TestCase):
