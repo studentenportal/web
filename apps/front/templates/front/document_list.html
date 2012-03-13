@@ -67,7 +67,7 @@
                                 {{ doc.filename|slice:":16" }}{% if doc.filename|length > 16 %}...{% endif %}
                             </a><br>
                             ({{ doc.document.size|filesizeformat }})<br>
-                            {{ doc.downloadcount }} Downloads</td>
+                            {{ doc.downloadcount }} Download{{ doc.downloadcount|pluralize:"s" }}</td>
                         <td>
                             {% if doc.uploader = user %}
                                 <p>
