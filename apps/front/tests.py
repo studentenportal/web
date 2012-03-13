@@ -380,6 +380,10 @@ class DocumentListView(TestCase):
         self.assertNotContains(self.response, 'href="/zusammenfassungen/an1i/2/delete/"')
 
     def testDownloadCount(self):
+        filepath = os.path.join(settings.MEDIA_ROOT, 'documents', 'Analysis-Theoriesammlung.pdf')
+        file_existed = os.path.exists(filepath)
+        if not file_existed:
+            open(filepath, 'w').close()
         response0 = self.client.get(self.taburl)
         self.assertContains(response0, '<p>0 Downloads</p>')
         self.client.get(self.taburl + '1/')
@@ -388,6 +392,8 @@ class DocumentListView(TestCase):
         self.client.get(self.taburl + '1/')
         response2 = self.client.get(self.taburl)
         self.assertContains(response2, '<p>2 Downloads</p>')
+        if not file_existed:
+            os.remove(filepath)
 
 
 class EventsViewTest(TestCase):
