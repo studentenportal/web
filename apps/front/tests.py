@@ -380,12 +380,14 @@ class DocumentListView(TestCase):
         self.assertNotContains(self.response, 'href="/zusammenfassungen/an1i/2/delete/"')
 
     def testDownloadCount(self):
-        response_before = self.client.get(self.taburl)
-        self.assertContains(response_before, '0 Downloads')
+        response0 = self.client.get(self.taburl)
+        self.assertContains(response0, '<p>0 Downloads</p>')
         self.client.get(self.taburl + '1/')
+        response1 = self.client.get(self.taburl)
+        self.assertContains(response1, '<p>1 Download</p>')
         self.client.get(self.taburl + '1/')
-        response_after = self.client.get(self.taburl)
-        self.assertContains(response_after, '2 Downloads')
+        response2 = self.client.get(self.taburl)
+        self.assertContains(response2, '<p>2 Downloads</p>')
 
 
 class EventsViewTest(TestCase):
