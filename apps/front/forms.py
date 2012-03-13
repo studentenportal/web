@@ -66,3 +66,6 @@ class DocumentForm(forms.ModelForm):
     class Meta:
         model = models.Document
         exclude = ('category', 'uploader')
+        widgets = {
+            'description': forms.Textarea(),
+        }
