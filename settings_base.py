@@ -137,6 +137,7 @@ INSTALLED_APPS = (
     'messagegroups',
     'apps.tabs',
     'registration',
+    'django_extensions',
 
     # Own apps
     'apps.front',
