@@ -21,8 +21,8 @@ class Lecturer(models.Model):
     first_name = models.CharField(u'Vorname', max_length=255)
     abbreviation = models.CharField(u'Kürzel', max_length=10, unique=True)
     department = models.CharField(u'Abteilung', max_length=32, null=True, blank=True)
-    function = models.CharField(u'Funktion', max_length=32, null=True, blank=True)
-    main_area = models.CharField(u'Fachschwerpunkt', max_length=256, null=True, blank=True)
+    function = models.CharField(u'Funktion', max_length=255, null=True, blank=True)
+    main_area = models.CharField(u'Fachschwerpunkt', max_length=255, null=True, blank=True)
     subjects = models.CharField(max_length=50, null=True, blank=True)  # todo add to frontend
     description = models.TextField(null=True, blank=True)
     email = models.EmailField(null=True, blank=True)
