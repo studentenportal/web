@@ -16,7 +16,7 @@ from apps.front import templatetags
 ### MODEL TESTS ###
 
 class LecturerModelTest(TestCase):
-    fixtures = ['testlecturer', 'testlratings']
+    fixtures = ['testusers', 'testlecturer', 'testlratings']
 
     def setUp(self):
         self.lecturer = models.Lecturer.objects.get()
