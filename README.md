@@ -24,8 +24,9 @@ Um die Entwicklungsumgebung einzurichten:
  1. Repository clonen
  2. Python Virtualenv erstellen und aktivieren
  3. `pip install -r requirements.txt`
- 4. `python manage.py syncdb`
- 5. `python manage.py runserver`
+ 4. `pip install -r requirements_dev.txt`
+ 5. `python manage.py syncdb`
+ 6. `python manage.py runserver`
 
 
 Um die Tests auszuführen:

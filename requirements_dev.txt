@@ -1,0 +1,4 @@
+# Development
+django-debug-toolbar
+django-extensions
+South

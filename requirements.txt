@@ -5,25 +5,11 @@ PIL
 
 # Useful/important apps
 webassets==0.6
+jsmin
 -e git://github.com/FactorAG/django-messagegroups.git@v0.3#egg=messagegroups
 -e hg+https://bitbucket.org/ubernostrum/django-registration@fad7080fe76955e7d0d3c97bc468ea8360260a6b#egg=django_registration
 django-sendfile==0.3.0
 
-# Development
-django-debug-toolbar
-django-extensions
-South
-
 # Parsing
 BeautifulSoup==3.2.0
 requests==0.6.1
-
-# Testing
-django-jenkins==0.12.0
-coverage
-httplib2
-logilab-astng
-logilab-common
-pylint
-pyflakes
-pep8
