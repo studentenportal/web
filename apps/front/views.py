@@ -303,8 +303,11 @@ class DocumentDownload(LoginRequiredMixin, View):
         doc = get_object_or_404(models.Document, pk=self.kwargs.get('pk'))
         doc.downloadcount += 1
         doc.save()
+        filename = doc.filename()
+        filename = filename.replace(u'ä', u'ae').replace(u'ö', u'oe').replace(u'ü', u'ue')
+        filename = filename.replace(u'Ä', u'Ae').replace(u'Ö', u'Oe').replace(u'Ü', u'Ue')
         return sendfile(request, doc.document.path,
-               attachment=True, attachment_filename=doc.filename().encode('latin1', 'replace'))
+               attachment=True, attachment_filename=doc.filename().encode('us-ascii', 'replace'))
 
 
 class DocumentAdd(LoginRequiredMixin, DocumentcategoryMixin, CreateView):
