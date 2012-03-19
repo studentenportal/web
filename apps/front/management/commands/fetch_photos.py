@@ -1,5 +1,6 @@
 import requests
 import time
+import sys
 from BeautifulSoup import BeautifulSoup
 from cStringIO import StringIO
 from optparse import make_option
@@ -58,11 +59,19 @@ class Command(BaseCommand):
             dest='password', help='HSR password'),
         )
 
-    def printO(self, message):
-        self.stdout.write(message + '\n')
+    def printO(self, msg, newline=True):
+        """Print to stdout. This expects unicode strings!"""
+        encoding = self.stdout.encoding or sys.getdefaultencoding()
+        self.stdout.write(msg.encode(encoding, 'replace'))
+        if newline:
+            self.stdout.write('\n')
 
-    def printE(self, message):
-        self.stderr.write(message + '\n')
+    def printE(self, msg, newline=True):
+        """Print to stderr. This expects unicode strings!"""
+        encoding = self.stderr.encoding or sys.getdefaultencoding()
+        self.stderr.write(msg.encode(encoding, 'replace'))
+        if newline:
+            self.stdout.write('\n')
 
     def handle(self, **options):
         assert 'username' in options, '--user argument required'
