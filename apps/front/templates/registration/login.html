@@ -9,7 +9,8 @@
     </div>
 
     {% if request.GET.next %}
-        <br><div class="alert alert-error"><strong>Bitte einloggen!</strong> Die gewünschte Seite ist nur für registrierte Personen zugänglich.</div>
+        <br><div class="alert alert-error"><strong>Bitte einloggen!</strong> Die gewünschte Seite ist nur für registrierte Personen zugänglich. <a href="{% url 'register' %}">Registrieren?</a>
+        </div>
     {% endif %}
 
     {% if form.errors %}
@@ -43,5 +44,8 @@
         </fieldset>
     </form>
 
-    <p><a href="{% url 'auth_password_reset' %}">Passwort vergessen?</a></p>
+    <div class="others">
+        <a href="{% url 'register' %}">Registrieren?</a>
+        <a href="{% url 'auth_password_reset' %}">Passwort vergessen?</a>
+    </div>
 {% endblock %}
