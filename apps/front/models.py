@@ -113,6 +113,7 @@ class DocumentCategory(models.Model):
 
     class Meta:
         verbose_name = u'Modul'
+        ordering = ['name']
 
 
 class Document(models.Model):
