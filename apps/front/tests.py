@@ -262,9 +262,10 @@ class ProfileViewTest(TestCase):
 
 class DocumentDownloadTest(TestCase):
     fixtures = ['testdocs', 'testusers']
-    docurl = '/zusammenfassungen/an1i/1/'
+    docurl1 = '/zusammenfassungen/an1i/1/'
+    docurl2 = '/zusammenfassungen/an1i/2/'
     filepath1 = os.path.join(settings.MEDIA_ROOT, 'documents', 'Analysis-Theoriesammlung.pdf')
-    filepath2 = os.path.join(settings.MEDIA_ROOT, 'documents', 'zf_6.doc')
+    filepath2 = os.path.join(settings.MEDIA_ROOT, 'documents', 'zf_mit_ümläut_6.doc')
 
     def setUp(self):
         self.file1_existed = os.path.exists(self.filepath1)
@@ -275,12 +276,19 @@ class DocumentDownloadTest(TestCase):
             open(self.filepath2, 'w').close()
 
     def testLoginRequired(self):
-        response = self.client.get(self.docurl)
-        self.assertRedirects(response, '/accounts/login/?next=%s' % self.docurl)
+        response = self.client.get(self.docurl1)
+        self.assertRedirects(response, '/accounts/login/?next=%s' % self.docurl1)
 
     def testDocumentServed(self):
         self.client.login(username='testuser', password='test')
-        response = self.client.get(self.docurl)
+        response = self.client.get(self.docurl1)
+        self.assertEqual(response.status_code, 200)
+
+    def testUmlautDocumentServed(self):
+        """Test whether documents with umlauts in their filename
+        can be served."""
+        self.client.login(username='testuser', password='test')
+        response = self.client.get(self.docurl2)
         self.assertEqual(response.status_code, 200)
 
     def tearDown(self):
