@@ -41,9 +41,9 @@
         <table id="documents" class="table table-striped">
             <thead>
                 <tr>
-                    <th>Name</th>
-                    <th>Download</th>
-                    <th></th>
+                    <th class="name">Name</th>
+                    <th class="download">Download</th>
+                    <th class="admin"></th>
                 </tr>
             </thead>
             <tbody>
@@ -69,7 +69,7 @@
                         <td>
                             {% if doc.exists %}
                                 <a href="{% url 'document_download' documentcategory.name|slugify doc.pk %}" class="file-{{ doc.fileext }}" title="{{ doc.filename }}">
-                                    {{ doc.filename|truncatechars:20 }}
+                                    {{ doc.filename|truncatechars:30 }}
                                 </a><br>
                                 ({{ doc.document.size|filesizeformat }})<br>
                             {% else %}
