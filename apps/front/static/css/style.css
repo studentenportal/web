@@ -21,6 +21,16 @@ table#documents .drating {
     margin-right:1.5em;
 }
 
+table#documents th.name {
+    width:70%;
+}
+table#documents th.download {
+    width:20%;
+}
+table#documents th.admin {
+    width:10%;
+}
+
 ul.blacklist li {
     color: #404040;
 }
