@@ -35,6 +35,14 @@ form .fieldWrapper {
     padding-bottom: 12px;
 }
 
+.label {
+    display: inline-block;
+    *display: inline;/* for IE7*/
+    *zoom:1;/* for IE7*/
+    min-width: 1.2em;
+    line-height: 1em;
+    text-align: center;
+}
 .label a {
     color: white;
 }
@@ -67,6 +75,7 @@ body.lecturer_detail #rate li {
 
 body.lecturer_detail #rate li span.label {
     margin-right:0.5em;
+    
 }
 body.lecturer_detail #rate li p {
     display: inline-block;
