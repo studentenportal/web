@@ -54,12 +54,16 @@
                                 <h4>{{ doc.name }}</h4>
                                 <p>by <a href="{% url 'user' doc.uploader.pk doc.uploader.username|slugify %}">{{ doc.uploader.name }}</a></p>
                             </div>
-                            <p>{% if doc.upload_date %}(<em>{{ doc.upload_date|date:"d.m.Y" }}</em>)
-                                {% endif %}{{ doc.description|urlize }}</p>
+                            <p>
+                                {% if doc.upload_date %}
+                                    (<em>{{ doc.upload_date|date:"d.m.Y" }}</em>)
+                                {% endif %}
+                                {{ doc.description|urlize }}
+                            </p>
                             {% if user.is_authenticated %}
                                 <div class="drating floatleft" data-readonly="{% if doc.uploader = user %}1{% else %}0{% endif %}"
                                     data-url="{% url 'document_rate' documentcategory.name|slugify doc.pk %}"
-                                    data-rating="{{ ratings|lookup:doc.pk }}"></div>
+                                    data-rating="{{ doc.rating }}"></div> <span>{{ doc.rating_count }} Bewertung{{ doc.rating_count|pluralize:"en" }}</span>
                             {% endif %}
                         </td>
                         <td>
