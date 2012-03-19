@@ -80,7 +80,7 @@
                        <span class="label label-info">{{ lecturer.avg_rating_f|default:'-' }}</span></p>
                {% endwith %}
             </div>
-        {% if forloop.counter|divisibleby:"3" %}</div>{% endif %}
+        {% if forloop.counter|divisibleby:"4" %}</div>{% endif %}
     {% endfor %}
 
     {% if not lecturers %}
