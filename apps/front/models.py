@@ -92,6 +92,9 @@ class Quote(models.Model):
     quote = models.TextField(u'Zitat')
     comment = models.TextField(u'Bemerkung', default=u'', blank=True)
 
+    def __unicode__(self):
+        return u'[%s] %s...' % (self.lecturer, self.quote[:30])
+
     class Meta:
         ordering = ['-date']
 
