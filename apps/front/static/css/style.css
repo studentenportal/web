@@ -17,6 +17,9 @@ table#documents .uploaddata_details {
 table#documents .drating {
     margin-right:1em;
 }
+.others a {
+    margin-right:1.5em;
+}
 
 ul.blacklist li {
     color: #404040;
