@@ -134,12 +134,15 @@ class Document(models.Model):
         """Return exact rating average."""
         ratings = self.DocumentRating.values_list('rating', flat=True)
         total = sum(ratings)
-        return float(total) / len(ratings)
+        if len(ratings) > 0:
+            return float(total) / len(ratings)
+        else:
+            return 0
 
     def rating(self):
         """Return rounded rating average."""
         return int(round(self.rating_exact()))
-
+        
     def filename(self):
         """Return filename of uploaded file without directories."""
         return os.path.basename(self.document.name)
