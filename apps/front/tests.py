@@ -130,7 +130,7 @@ class DocumentModelTest(unittest.TestCase):
         self.assertRaises(IntegrityError, dr.save)
 
 
-class QuoteModelTst(TestCase):
+class QuoteModelTest(TestCase):
     fixtures = ['testusers', 'testlecturer']
 
     def testQuote(self):
@@ -357,7 +357,7 @@ class DocumentcategoryAddViewTest(TestCase):
         self.assertContains(response2, '<h1>Zusammenfassungen Prog2</h1>')
 
 
-class DocumentListView(TestCase):
+class DocumentListViewTest(TestCase):
     fixtures = ['testdocs', 'testusers']
     taburl = '/zusammenfassungen/an1i/'
 
@@ -413,29 +413,45 @@ class EventsViewTest(TestCase):
         self.assertContains(response, '<h1>Events</h1>')
 
 
+class QuoteViewTest(TestCase):
+    fixtures = ['testusers', 'testlecturer']
+
+    def setUp(self):
+        self.client.login(username='testuser', password='test')
+
+    def testGenericForm(self):
+        """Test the form that is shown if no lecturer is preselected."""
+        response = self.client.get('/zitate/add/')
+        self.assertContains(response, '<h1>Zitat hinzufügen</h1>')
+        self.assertContains(response, '<option value="" selected="selected">---------</option>')
+
+    def testPrefilledForm(self):
+        """Test the form that is shown if a lecturer is preselected."""
+        response = self.client.get('/zitate/1/add/')
+        self.assertContains(response, '<h1>Zitat hinzufügen</h1>')
+        self.assertContains(response, '<select name="lecturer" id="id_lecturer">')
+        self.assertContains(response, '<option value="1" selected="selected">Krakaduku David</option>')
+
+    def testFormSubmission(self):
+        """Test whether a quote submission gets saved correctly."""
+        response = self.client.post('/zitate/add/', {
+            'lecturer': '1',
+            'quote': 'ich bin der beste dozent von allen.',
+            'comment': 'etwas arrogant, nicht?',
+        })
+        self.assertRedirects(response, '/zitate/')
+        response2 = self.client.get('/zitate/')
+        self.assertContains(response2, '<td>ich bin der beste dozent von allen.</td>')
+        self.assertContains(response2, '<td>etwas arrogant, nicht?</td>')
+
+
+
 class LoginTest(TestCase):
     url = '/accounts/login/'
 
     def testTitle(self):
         r = self.client.get(self.url)
         self.assertContains(r, '<h1>Login</h1>')
-
-
-class UserViewTest(TestCase):
-    fixtures = ['testusers']
-
-    def setUp(self):
-        self.client.login(username='testuser', password='test')
-
-    def testOwnUserView(self):
-        response = self.client.get('/users/1/testuser/')
-        self.assertContains(response, '<h1>testuser</h1>')
-        self.assertContains(response, 'django-test@studentenportal.ch')
-
-    def testOtherUserView(self):
-        response = self.client.get('/users/2/testuser2/')
-        self.assertContains(response, '<h1>Another Guy</h1>')
-        self.assertContains(response, 'django-test2@studentenportal.ch')
 
 
 class RegistrationViewTest(TestCase):
@@ -459,6 +475,23 @@ class RegistrationViewTest(TestCase):
         self.assertTrue(User.objects.filter(username='testuser').exists())
         self.assertEqual(len(mail.outbox), 1)
         self.assertEqual(mail.outbox[0].subject, '[studentenportal.ch] Aktivierung')
+
+
+class UserViewTest(TestCase):
+    fixtures = ['testusers']
+
+    def setUp(self):
+        self.client.login(username='testuser', password='test')
+
+    def testOwnUserView(self):
+        response = self.client.get('/users/1/testuser/')
+        self.assertContains(response, '<h1>testuser</h1>')
+        self.assertContains(response, 'django-test@studentenportal.ch')
+
+    def testOtherUserView(self):
+        response = self.client.get('/users/2/testuser2/')
+        self.assertContains(response, '<h1>Another Guy</h1>')
+        self.assertContains(response, 'django-test2@studentenportal.ch')
 
 
 ### TEMPLATETAG TESTS ###
