@@ -63,7 +63,7 @@
                             {% if user.is_authenticated %}
                                 <div class="drating floatleft" data-readonly="{% if doc.uploader = user %}1{% else %}0{% endif %}"
                                     data-url="{% url 'document_rate' documentcategory.name|slugify doc.pk %}"
-                                    data-rating="{{ doc.rating }}"></div> <span>{{ doc.rating_count }} Bewertung{{ doc.rating_count|pluralize:"en" }}</span>
+                                    data-rating="{{ doc.rating }}"></div> <span>{{ doc.DocumentRating.count }} Bewertung{{ doc.DocumentRating.count|pluralize:"en" }}</span>
                             {% endif %}
                         </td>
                         <td>
