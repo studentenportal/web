@@ -69,7 +69,7 @@
                         <td>
                             {% if doc.exists %}
                                 <a href="{% url 'document_download' documentcategory.name|slugify doc.pk %}" class="file-{{ doc.fileext }}" title="{{ doc.filename }}">
-                                    {{ doc.filename|slice:":16" }}{% if doc.filename|length > 16 %}...{% endif %}
+                                    {{ doc.filename|truncatechars:20 }}
                                 </a><br>
                                 ({{ doc.document.size|filesizeformat }})<br>
                             {% else %}
