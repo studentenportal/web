@@ -1,6 +1,6 @@
 from settings_base import *
 
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 ASSETS_DEBUG = DEBUG
 
