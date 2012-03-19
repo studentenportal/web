@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+    <url>
+      <loc>http://studentenportal.ch/</loc>
+      <changefreq>weekly</changefreq>
+      <priority>1.00</priority>
+    </url>
+    <url>
+      <loc>http://studentenportal.ch/accounts/login/</loc>
+      <changefreq>weekly</changefreq>
+      <priority>0.80</priority>
+    </url>
+    <url>
+      <loc>http://studentenportal.ch/accounts/register/</loc>
+      <changefreq>weekly</changefreq>
+      <priority>0.80</priority>
+    </url>
+    <url>
+      <loc>http://studentenportal.ch/events/</loc>
+      <changefreq>daily</changefreq>
+      <priority>0.80</priority>
+    </url>
+    <url>
+      <loc>http://studentenportal.ch/tipps/</loc>
+      <changefreq>weekly</changefreq>
+      <priority>0.80</priority>
+    </url>
+    <url>
+      <loc>http://studentenportal.ch/zusammenfassungen/</loc>
+      <changefreq>weekly</changefreq>
+      <priority>0.80</priority>
+    </url>
+    <url>
+      <loc>http://studentenportal.ch/dozenten/</loc>
+      <changefreq>weekly</changefreq>
+      <priority>0.80</priority>
+    </url>
+    <url>
+      <loc>http://studentenportal.ch/zitate/</loc>
+      <changefreq>weekly</changefreq>
+      <priority>0.80</priority>
+    </url>
+</urlset>
