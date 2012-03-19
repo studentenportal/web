@@ -62,8 +62,12 @@ body.lecturer_list #letters {
 
 body.lecturer_detail #rate li {
     line-height: 24px;
+    list-style:none;
 }
 
+body.lecturer_detail #rate li span.label {
+    margin-right:0.5em;
+}
 body.lecturer_detail #rate li p {
     display: inline-block;
     width: 100px;
