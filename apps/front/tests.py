@@ -5,6 +5,7 @@ import os
 from django.test import TestCase
 from django.utils import unittest
 from django.contrib.auth.models import User
+from django.core import mail
 from django.core.exceptions import ValidationError
 from django.conf import settings
 from django.db import IntegrityError
@@ -437,7 +438,27 @@ class UserViewTest(TestCase):
         self.assertContains(response, 'django-test2@studentenportal.ch')
 
 
-# TODO registration test
+class RegistrationViewTest(TestCase):
+    registration_url = '/accounts/register/'
+
+    def testRegistrationPage(self):
+        response = self.client.get(self.registration_url)
+        self.assertContains(response, '<h1>Registrieren</h1>')
+        self.assertContains(response, 'Diese Registrierung ist Personen mit einer HSR-Email-Adresse vorbehalten')
+        self.assertContains(response, '<form')
+
+    def testRegistration(self):
+        """Test that a registration is successful and that an activation email
+        is sent."""
+        response = self.client.post(self.registration_url, {
+            'username': 'testuser',
+            'password1': 'testpass',
+            'password2': 'testpass',
+        })
+        self.assertRedirects(response, '/accounts/register/complete/')
+        self.assertTrue(User.objects.filter(username='testuser').exists())
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(mail.outbox[0].subject, '[studentenportal.ch] Aktivierung')
 
 
 ### TEMPLATETAG TESTS ###
