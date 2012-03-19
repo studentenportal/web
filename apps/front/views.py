@@ -304,7 +304,7 @@ class DocumentDownload(LoginRequiredMixin, View):
         doc.downloadcount += 1
         doc.save()
         return sendfile(request, doc.document.path,
-               attachment=True, attachment_filename=doc.filename())
+               attachment=True, attachment_filename=doc.filename().encode('latin1', 'replace'))
 
 
 class DocumentAdd(LoginRequiredMixin, DocumentcategoryMixin, CreateView):

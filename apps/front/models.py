@@ -148,7 +148,7 @@ class Document(models.Model):
         
     def filename(self):
         """Return filename of uploaded file without directories."""
-        return os.path.basename(self.document.name).encode('latin1', 'replace')
+        return os.path.basename(self.document.name)
 
     def fileext(self):
         """Return file extension by splitting at last occuring period."""
