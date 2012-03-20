@@ -67,8 +67,8 @@
     </div>
     
     {% for lecturer in lecturers %}
-        {% if forloop.counter0|divisibleby:"4" %}<div class="row-fluid">{% endif %}
-            <div class="lecturer span3">
+        {% if forloop.counter0|divisibleby:"5" %}<div class="row-fluid">{% endif %}
+            <div class="lecturer span2">
                 <h4><a href="{% url 'lecturer_detail' lecturer.pk %}">{{ lecturer.name }}</a></h4>
                 <a href="{% url 'lecturer_detail' lecturer.pk %}"><img class="thumbnail quimby_search_image" src="
                     {% if lecturer.photo %}{{ lecturer.photo }}{% else %}http://placehold.it/120x160{% endif %}
@@ -80,7 +80,7 @@
                        <span class="label label-info">{{ lecturer.avg_rating_f|default:'-' }}</span></p>
                {% endwith %}
             </div>
-        {% if forloop.counter|divisibleby:"4" %}</div>{% endif %}
+        {% if forloop.counter|divisibleby:"5" %}</div>{% endif %}
     {% endfor %}
 
     {% if not lecturers %}
