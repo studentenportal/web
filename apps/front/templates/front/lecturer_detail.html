@@ -68,8 +68,8 @@
         <p><em>Keine Zitate gefunden.</em></p>
     {% endif %}
 
-    <p><a class="btn" href="{% url 'lecturer_quote_add' lecturer.pk %}">
-        <i class="icon-plus-sign"></i> Zitat hinzufügen
+    <p><a class="btn btn-primary" href="{% url 'lecturer_quote_add' lecturer.pk %}">
+        <i class="icon-plus-sign icon-white"></i> Zitat hinzufügen
     </a></p>
 
     {% if quotes %}

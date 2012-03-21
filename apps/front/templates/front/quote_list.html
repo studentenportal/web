@@ -21,8 +21,8 @@
     Profil ansehen.</p>
 
     {% if user.is_authenticated %}
-        <p><a class="btn" href="{% url 'quote_add' %}">
-            <i class="icon-plus-sign"></i> Zitat hinzufügen
+        <p><a class="btn btn-primary" href="{% url 'quote_add' %}">
+            <i class="icon-plus-sign icon-white"></i> Zitat hinzufügen
         </a></p>
     {% endif %}
 
