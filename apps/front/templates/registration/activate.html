@@ -1,0 +1,17 @@
+{% extends 'front/base.html' %}
+{% load url from future %}
+
+{% block title %}Aktivierung {{ account|yesno:"erfolgreich,fehlgeschlagen" }}{% endblock %}
+
+{% block content %}
+    <div class="page-header">
+        <h1>Aktivierung {{ account|yesno:"erfolgreich,fehlgeschlagen" }}</h1>
+    </div>
+
+    {% if account %}
+        <p>Account erfolgreich aktiviert</p>
+    {% else %}
+        <p>Aktivierung fehlgeschlagen. Möglicherweise ist dein Account schon aktiv.</p>
+    {% endif %}
+
+{% endblock %}

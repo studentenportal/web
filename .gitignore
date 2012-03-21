@@ -2,6 +2,7 @@
 *.swp
 /static
 /media/documents
+/media/lecturers
 /reports
 db.sqlite
 apps/front/migrations/

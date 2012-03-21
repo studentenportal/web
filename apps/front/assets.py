@@ -6,14 +6,14 @@ scripts = Bundle(
     'js/bootstrap.js',
     'js/jquery.raty.min.js',
     'js/raty.js',
-    filters='jsmin',
+    #filters='jsmin',
     output='js/packed.js')
 
 stylesheets = Bundle(
     'css/style.css',
     'css/bootstrap.css',
     'css/bootstrap-responsive.css',
-    filters='cssmin,cssrewrite',
+    #filters='cssmin,cssrewrite',
     output='css/packed.css')
 
 register('scripts', scripts)

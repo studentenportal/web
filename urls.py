@@ -37,6 +37,7 @@ urlpatterns = patterns('apps.front.views',
 # Static pages
 urlpatterns += patterns('django.views.generic.simple',
     url(r'^tipps/$', 'direct_to_template', {'template': 'front/tips.html'}, name='tips'),
+    url(r'^sitemap\.xml$', 'direct_to_template', {'template': 'front/sitemap.xml'}, name='sitemap'),
 )
 
 # Auth pages

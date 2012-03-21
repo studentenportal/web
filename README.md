@@ -6,7 +6,7 @@ Es soll das alte Portal ablösen und in Sachen Ruhm und Ehre weit überholen.
 
 ![f\*ck yeah!](http://s3.amazonaws.com/kym-assets/entries/icons/original/000/001/987/fyeah.jpg)
 
- * Testinstanz: http://studentenportal.w00t.ws/
+ * Live-Instanz: http://studentenportal.ch/
  * Jenkins Buildserver: http://jenkins.w00t.ws/job/Studentenportal2/
 
 
@@ -51,7 +51,7 @@ Featurevorschläge sind willkommen! Momentan in etwa geplant:
 Fragen
 ------
 
-Bei Fragen, wende dich an dbargen@hsr.ch / https://twitter.com/dbrgn
+Bei Fragen wende dich an dbargen@hsr.ch oder https://twitter.com/studportal_hsr.
 
 
 Lizenz

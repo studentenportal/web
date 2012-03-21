@@ -5,6 +5,7 @@ import os
 from django.test import TestCase
 from django.utils import unittest
 from django.contrib.auth.models import User
+from django.core import mail
 from django.core.exceptions import ValidationError
 from django.conf import settings
 from django.db import IntegrityError
@@ -129,7 +130,7 @@ class DocumentModelTest(unittest.TestCase):
         self.assertRaises(IntegrityError, dr.save)
 
 
-class QuoteModelTst(TestCase):
+class QuoteModelTest(TestCase):
     fixtures = ['testusers', 'testlecturer']
 
     def testQuote(self):
@@ -262,9 +263,10 @@ class ProfileViewTest(TestCase):
 
 class DocumentDownloadTest(TestCase):
     fixtures = ['testdocs', 'testusers']
-    docurl = '/zusammenfassungen/an1i/1/'
+    docurl1 = '/zusammenfassungen/an1i/1/'
+    docurl2 = '/zusammenfassungen/an1i/2/'
     filepath1 = os.path.join(settings.MEDIA_ROOT, 'documents', 'Analysis-Theoriesammlung.pdf')
-    filepath2 = os.path.join(settings.MEDIA_ROOT, 'documents', 'zf_6.doc')
+    filepath2 = os.path.join(settings.MEDIA_ROOT, 'documents', 'zf_mit_ümläut_6.doc')
 
     def setUp(self):
         self.file1_existed = os.path.exists(self.filepath1)
@@ -275,12 +277,19 @@ class DocumentDownloadTest(TestCase):
             open(self.filepath2, 'w').close()
 
     def testLoginRequired(self):
-        response = self.client.get(self.docurl)
-        self.assertRedirects(response, '/accounts/login/?next=%s' % self.docurl)
+        response = self.client.get(self.docurl1)
+        self.assertRedirects(response, '/accounts/login/?next=%s' % self.docurl1)
 
     def testDocumentServed(self):
         self.client.login(username='testuser', password='test')
-        response = self.client.get(self.docurl)
+        response = self.client.get(self.docurl1)
+        self.assertEqual(response.status_code, 200)
+
+    def testUmlautDocumentServed(self):
+        """Test whether documents with umlauts in their filename
+        can be served."""
+        self.client.login(username='testuser', password='test')
+        response = self.client.get(self.docurl2)
         self.assertEqual(response.status_code, 200)
 
     def tearDown(self):
@@ -348,7 +357,7 @@ class DocumentcategoryAddViewTest(TestCase):
         self.assertContains(response2, '<h1>Zusammenfassungen Prog2</h1>')
 
 
-class DocumentListView(TestCase):
+class DocumentListViewTest(TestCase):
     fixtures = ['testdocs', 'testusers']
     taburl = '/zusammenfassungen/an1i/'
 
@@ -404,12 +413,68 @@ class EventsViewTest(TestCase):
         self.assertContains(response, '<h1>Events</h1>')
 
 
+class QuoteViewTest(TestCase):
+    fixtures = ['testusers', 'testlecturer']
+
+    def setUp(self):
+        self.client.login(username='testuser', password='test')
+
+    def testGenericForm(self):
+        """Test the form that is shown if no lecturer is preselected."""
+        response = self.client.get('/zitate/add/')
+        self.assertContains(response, '<h1>Zitat hinzufügen</h1>')
+        self.assertContains(response, '<option value="" selected="selected">---------</option>')
+
+    def testPrefilledForm(self):
+        """Test the form that is shown if a lecturer is preselected."""
+        response = self.client.get('/zitate/1/add/')
+        self.assertContains(response, '<h1>Zitat hinzufügen</h1>')
+        self.assertContains(response, '<select name="lecturer" id="id_lecturer">')
+        self.assertContains(response, '<option value="1" selected="selected">Krakaduku David</option>')
+
+    def testFormSubmission(self):
+        """Test whether a quote submission gets saved correctly."""
+        response = self.client.post('/zitate/add/', {
+            'lecturer': '1',
+            'quote': 'ich bin der beste dozent von allen.',
+            'comment': 'etwas arrogant, nicht?',
+        })
+        self.assertRedirects(response, '/zitate/')
+        response2 = self.client.get('/zitate/')
+        self.assertContains(response2, '<td>ich bin der beste dozent von allen.</td>')
+        self.assertContains(response2, '<td>etwas arrogant, nicht?</td>')
+
+
+
 class LoginTest(TestCase):
     url = '/accounts/login/'
 
     def testTitle(self):
         r = self.client.get(self.url)
         self.assertContains(r, '<h1>Login</h1>')
+
+
+class RegistrationViewTest(TestCase):
+    registration_url = '/accounts/register/'
+
+    def testRegistrationPage(self):
+        response = self.client.get(self.registration_url)
+        self.assertContains(response, '<h1>Registrieren</h1>')
+        self.assertContains(response, 'Diese Registrierung ist Personen mit einer HSR-Email-Adresse vorbehalten')
+        self.assertContains(response, '<form')
+
+    def testRegistration(self):
+        """Test that a registration is successful and that an activation email
+        is sent."""
+        response = self.client.post(self.registration_url, {
+            'username': 'testuser',
+            'password1': 'testpass',
+            'password2': 'testpass',
+        })
+        self.assertRedirects(response, '/accounts/register/complete/')
+        self.assertTrue(User.objects.filter(username='testuser').exists())
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(mail.outbox[0].subject, '[studentenportal.ch] Aktivierung')
 
 
 class UserViewTest(TestCase):
@@ -427,9 +492,6 @@ class UserViewTest(TestCase):
         response = self.client.get('/users/2/testuser2/')
         self.assertContains(response, '<h1>Another Guy</h1>')
         self.assertContains(response, 'django-test2@studentenportal.ch')
-
-
-# TODO registration test
 
 
 ### TEMPLATETAG TESTS ###

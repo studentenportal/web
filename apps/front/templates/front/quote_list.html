@@ -42,8 +42,8 @@
                     <tr>
                         <td>{{ quote.date|date:"d.m.Y H:i" }}</td>
                         <td><a href="{% url 'lecturer_detail' quote.lecturer.pk %}">{{ quote.lecturer }}</a></td>
-                        <td>{{ quote.quote }}</td>
-                        <td>{{ quote.comment }}</td>
+                        <td>{{ quote.quote|linebreaksbr }}</td>
+                        <td>{{ quote.comment|linebreaksbr }}</td>
                         <td>
                             {% if quote.author = user %}
                                 {% include 'front/blocks/quote_delete_button.html' with small_button=1 %}
