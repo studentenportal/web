@@ -70,7 +70,7 @@
                     <ul class="nav nav-list">
 
                         <li class="nav-header">
-                            Publik
+                            Öffentlich
                         </li>
                         <li class="{% ifactivetab 'navigation' 'home' %}active{% endifactivetab %}">
                             <a href="{% url 'home' %}"><i class="icon-home {% ifactivetab 'navigation' 'home' %}icon-white{% endifactivetab %}"></i> Home</a>
@@ -79,7 +79,7 @@
                             <a href="{% url 'event_list' %}"><i class="icon-calendar {% ifactivetab 'navigation' 'events' %}icon-white{% endifactivetab %}"></i> Events</a>
                         </li>
                         <li class="{% ifactivetab 'navigation' 'tipps' %}active{% endifactivetab %}">
-                            <a href="{% url 'tips' %}"><i class="icon-asterisk {% ifactivetab 'navigation' 'tipps' %}icon-white{% endifactivetab %}"></i> Tipps zum Studium</a>
+                            <a href="{% url 'tips' %}"><i class="icon-star {% ifactivetab 'navigation' 'tipps' %}icon-white{% endifactivetab %}"></i> Tipps zum Studium</a>
                         </li>
                         <!--<li class="{% ifactivetab 'navigation' 'suche' %}active{% endifactivetab %}">
                             <a href="#"><i class="icon-shopping-cart {% ifactivetab 'navigation' 'suche' %}icon-white{% endifactivetab %}"></i> Suche / Biete</a>
@@ -95,11 +95,11 @@
                             <a href="http://vshsr.ch"><i class="icon-bookmark"></i> VSHSR</a>
                         </li>
 
-                        {% if user.is_authenticated %}
 
-                            <li class="nav-header">
-                                Studentenbereich
-                            </li>
+                        <li class="nav-header">
+                            Studentenbereich
+                        </li>
+                        {% if user.is_authenticated %}
                             <li class="{% ifactivetab 'navigation' 'documents' %}active{% endifactivetab %}">
                                 <a href="{% url 'documentcategory_list' %}"><i class="icon-list-alt {% ifactivetab 'navigation' 'documents' %}icon-white{% endifactivetab %}"></i> Zusammenfassungen</a>
                             </li>
@@ -109,6 +109,14 @@
                             <li class="{% ifactivetab 'navigation' 'quotes' %}active{% endifactivetab %}">
                                 <a href="{% url 'quote_list' %}"><i class="icon-volume-up {% ifactivetab 'navigation' 'quotes' %}icon-white{% endifactivetab %}"></i> Zitate</a>
                             </li>
+                        {% else %}
+                            <li class="{% ifactivetab 'navigation' 'login' %}active{% endifactivetab %}">
+                                <a href="{% url 'auth_login' %}"><i class="icon-user {% ifactivetab 'navigation' 'lecturers' %}icon-white{% endifactivetab %}"></i> Login</a>
+                            </li>
+                            <li class="{% ifactivetab 'navigation' 'register' %}active{% endifactivetab %}">
+                                <a href="{% url 'register' %}"><i class="icon-asterisk {% ifactivetab 'navigation' 'lecturers' %}icon-white{% endifactivetab %}"></i> Registrieren</a>
+                            </li>
+                        
                         {% endif %}
                     </ul>
                     </div>
