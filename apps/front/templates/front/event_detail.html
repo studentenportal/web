@@ -27,7 +27,7 @@
         {% endif %}
     </em></p>
     
-    <p>{{ event.description }}</p>
+    {{ event.description|linebreaks }}
 
     <ul class="blacklist unstyled">
         <li><strong>Start:</strong> {{ event.start_date }} {{ event.start_time|time:"H:i" }}</li>
