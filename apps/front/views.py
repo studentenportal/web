@@ -1,5 +1,6 @@
 # coding=utf-8
 import datetime
+import unicodedata
 from django.contrib.auth import models as auth_models
 from django.contrib import messages
 from django.db.models import Count
@@ -305,11 +306,9 @@ class DocumentDownload(LoginRequiredMixin, View):
         doc = get_object_or_404(models.Document, pk=self.kwargs.get('pk'))
         doc.downloadcount += 1
         doc.save()
-        filename = doc.filename()
-        filename = filename.replace(u'ä', u'ae').replace(u'ö', u'oe').replace(u'ü', u'ue')
-        filename = filename.replace(u'Ä', u'Ae').replace(u'Ö', u'Oe').replace(u'Ü', u'Ue')
+        filename = unicodedata.normalize('NFKD', doc.original_filename).encode('us-ascii', 'ignore')
         return sendfile(request, doc.document.path,
-               attachment=True, attachment_filename=filename.encode('us-ascii', 'replace'))
+               attachment=True, attachment_filename=filename)
 
 
 class DocumentAdd(LoginRequiredMixin, DocumentcategoryMixin, CreateView):

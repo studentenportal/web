@@ -266,7 +266,7 @@ class DocumentDownloadTest(TestCase):
     docurl1 = '/zusammenfassungen/an1i/1/'
     docurl2 = '/zusammenfassungen/an1i/2/'
     filepath1 = os.path.join(settings.MEDIA_ROOT, 'documents', 'Analysis-Theoriesammlung.pdf')
-    filepath2 = os.path.join(settings.MEDIA_ROOT, 'documents', 'zf_mit_ümläut_6.doc')
+    filepath2 = os.path.join(settings.MEDIA_ROOT, 'documents', 'zf_mit_umlaut_6.doc')
 
     def setUp(self):
         self.file1_existed = os.path.exists(self.filepath1)
@@ -286,7 +286,7 @@ class DocumentDownloadTest(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def testUmlautDocumentServed(self):
-        """Test whether documents with umlauts in their filename
+        """Test whether documents with umlauts in their original filename
         can be served."""
         self.client.login(username='testuser', password='test')
         response = self.client.get(self.docurl2)

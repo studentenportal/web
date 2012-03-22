@@ -6,6 +6,7 @@ from django.db import models
 from django.core.exceptions import ValidationError
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.contrib.auth.models import User
+from django.template.defaultfilters import slugify
 
 
 class Lecturer(models.Model):
@@ -125,9 +126,17 @@ class Document(models.Model):
     A document can have a description, categories, ratings, etc...
 
     """
+    def document_file_name(instance, filename):
+        """Where to put a newly uploaded document. Also, store original filename."""
+        ext = os.path.splitext(filename)[1]
+        timestamp = datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
+        instance.original_filename = filename
+        return '/'.join(['documents', slugify(instance.category.name), '%s%s' % (timestamp, ext)])
+
     name = models.CharField(u'Titel', max_length=64, unique=True)
     description = models.CharField(u'Beschreibung', max_length=255, blank=True)
-    document = models.FileField(u'Datei', upload_to='documents')
+    document = models.FileField(u'Datei', upload_to=document_file_name)
+    original_filename = models.CharField(u'Originaler Dateiname', max_length=255, blank=True)
     uploader = models.ForeignKey(User, related_name=u'Document', null=True, on_delete=models.SET_NULL)
     upload_date = models.DateTimeField(u'Uploaddatum', auto_now_add=True)
     category = models.ForeignKey(DocumentCategory, related_name=u'Document', null=True, on_delete=models.SET_NULL)
@@ -152,7 +161,7 @@ class Document(models.Model):
 
     def fileext(self):
         """Return file extension by splitting at last occuring period."""
-        return self.document.name.split('.')[-1]
+        return os.path.splitext(self.document.name)[1]
 
     def exists(self):
         """Return whether or not the file exists on the harddrive."""
@@ -163,6 +172,7 @@ class Document(models.Model):
 
     class Meta:
         ordering = ('-upload_date',)
+        get_latest_by = 'upload_date'
 
 
 class DocumentRating(models.Model):
