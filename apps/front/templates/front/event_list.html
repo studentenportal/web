@@ -18,8 +18,8 @@
     <p>Hier können Termine rund ums Studentenleben gepostet werden, wie zB Bars, Vereinsveranstaltungen etc...</p>
 
     {% if user.is_authenticated %}
-        <p><a class="btn" href="{% url 'event_add' %}">
-            <i class="icon-plus-sign"></i> Event hinzufügen
+        <p><a class="btn btn-primary" href="{% url 'event_add' %}">
+            <i class="icon-plus-sign icon-white"></i> Event hinzufügen
         </a></p>
     {% endif %}
 

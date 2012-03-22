@@ -1,7 +1,14 @@
 body {
     padding-top: 75px;
 }
+.nav li {
+  padding:0
+}
 
+.nav li a {
+  display:block;
+  padding: 4px 10px 4px;
+}
 .lecturer img {
     width: 120px;
     height: 160px;

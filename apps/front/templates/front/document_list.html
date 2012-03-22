@@ -31,8 +31,8 @@
 
     {# Add button #}
     {% if user.is_authenticated %}
-        <p><a class="btn" href="{% url 'document_add' documentcategory.name|slugify %}">
-            <i class="icon-plus-sign"></i> Zusammenfassung hinzufügen
+        <p><a class="btn btn-primary" href="{% url 'document_add' documentcategory.name|slugify %}">
+            <i class="icon-plus-sign icon-white"></i> Zusammenfassung hinzufügen
         </a></p>
     {% endif %}
 
