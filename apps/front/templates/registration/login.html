@@ -1,7 +1,13 @@
 {% extends 'front/base.html' %}
 {% load url from future %}
+{% load tabs %}
 
 {% block title %}Login{% endblock %}
+
+{% block navigation %}
+    {% activetab 'navigation' 'login' %}
+    {{ block.super }}
+{% endblock %}
 
 {% block content %}
     <div class="page-header">
