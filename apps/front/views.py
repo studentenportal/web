@@ -197,6 +197,8 @@ class LecturerRate(LoginRequiredMixin, SingleObjectMixin, View):
 class QuoteList(LoginRequiredMixin, ListView):
     model = models.Quote
     context_object_name = 'quotes'
+    
+    paginate_by = 50
 
 
 class QuoteAdd(LoginRequiredMixin, CreateView):
