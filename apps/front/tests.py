@@ -2,7 +2,7 @@
 import datetime
 import os
 
-from django.test import TestCase
+from django.test import TestCase, SimpleTestCase
 from django.utils import unittest
 from django.contrib.auth.models import User
 from django.core import mail
@@ -496,7 +496,7 @@ class UserViewTest(TestCase):
 
 ### TEMPLATETAG TESTS ###
 
-class GetRangeTest(unittest.TestCase):
+class GetRangeTest(SimpleTestCase):
     def testZero(self):
         r = templatetags.tags.get_range(0)
         self.assertEqual(len(r), 0)
@@ -512,7 +512,7 @@ class GetRangeTest(unittest.TestCase):
         self.assertEqual(r[4], 4)
 
 
-class GetRange1Test(unittest.TestCase):
+class GetRange1Test(SimpleTestCase):
     def testZero(self):
         r = templatetags.tags.get_range1(0)
         self.assertEqual(len(r), 0)
