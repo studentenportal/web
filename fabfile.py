@@ -20,5 +20,7 @@ def deploy():
     code_dir = '/var/www/studentenportal'
     with cd(code_dir):
         sudo('git pull', user='django')
-        sudo('VIRTUAL/bin/python manage.py collectstatic --noinput --settings=settings_prod', user='django')
+        sudo('VIRTUAL/bin/pip install -r requirements.txt -U --no-deps', user='django')
+        sudo('VIRTUAL/bin/pip install -r requirements_prod.txt -U --no-deps', user='django')
+        sudo('VIRTUAL/bin/python manage.py collectstatic --noinput --clear --settings=settings_prod', user='django')
         sudo('/etc/init.d/supervisor restart')
