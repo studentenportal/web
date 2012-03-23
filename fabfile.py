@@ -10,13 +10,14 @@ def test():
     if result.failed and not confirm("Tests failed. Continue anyway?"):
         abort("Aborting at user request.")
 
-def prepare_deploy():
+def push():
     """Do everything needed before deployment."""
     test()
+    local('git push')
 
 def deploy():
     """Prepare & run deployment."""
-    prepare_deploy()
+    test()
     code_dir = '/var/www/studentenportal'
     with cd(code_dir):
         sudo('git pull', user='django')
