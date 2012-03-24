@@ -5,7 +5,8 @@ from django.core.management.base import NoArgsCommand
 from apps.front.models import DocumentCategory
 
 
-blacklist = ['3D-Vis']
+blacklist = ['3D-Vis', 'DigT1', 'DigT2', 'MaTechM1',
+             'MaTechM2', 'ElMasch', 'StReiseR']
 
 class Command(NoArgsCommand):
     help = 'Fetch module descriptions and write them to the database.'
