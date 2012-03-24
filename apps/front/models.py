@@ -87,7 +87,7 @@ class LecturerRating(models.Model):
 
 class Quote(models.Model):
     """Lecturer quotes."""
-    author = models.ForeignKey(User, related_name='Quote')
+    author = models.ForeignKey(User, related_name='Quote', on_delete=models.SET_NULL)
     lecturer = models.ForeignKey(Lecturer, verbose_name=u'Dozent', related_name='Quote')
     date = models.DateTimeField(auto_now_add=True)
     quote = models.TextField(u'Zitat')
@@ -139,7 +139,7 @@ class Document(models.Model):
     original_filename = models.CharField(u'Originaler Dateiname', max_length=255, blank=True)
     uploader = models.ForeignKey(User, related_name=u'Document', null=True, on_delete=models.SET_NULL)
     upload_date = models.DateTimeField(u'Uploaddatum', auto_now_add=True)
-    category = models.ForeignKey(DocumentCategory, related_name=u'Document', null=True, on_delete=models.SET_NULL)
+    category = models.ForeignKey(DocumentCategory, related_name=u'Document', null=True, on_delete=models.PROTECT)
     downloadcount = models.IntegerField(default=0)
 
     def rating_exact(self):
@@ -205,7 +205,7 @@ class Event(models.Model):
     """
     summary = models.CharField(u'Titel', max_length=64)
     description = models.TextField(u'Beschreibung')
-    author = models.ForeignKey(User, related_name='Event')
+    author = models.ForeignKey(User, related_name='Event', on_delete=models.SET_NULL)
     start_date = models.DateField(u'Startdatum',
         help_text=u'Format: dd.mm.YYYY')
     start_time = models.TimeField(u'Startzeit', null=True, blank=True,
