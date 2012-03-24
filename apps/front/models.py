@@ -134,7 +134,7 @@ class Document(models.Model):
         return '/'.join(['documents', slugify(instance.category.name), '%s%s' % (timestamp, ext)])
 
     name = models.CharField(u'Titel', max_length=64, unique=True)
-    description = models.CharField(u'Beschreibung', max_length=255, blank=True)
+    description = models.TextField(u'Beschreibung', blank=True)
     document = models.FileField(u'Datei', upload_to=document_file_name)
     original_filename = models.CharField(u'Originaler Dateiname', max_length=255, blank=True)
     uploader = models.ForeignKey(User, related_name=u'Document', null=True, on_delete=models.SET_NULL)
