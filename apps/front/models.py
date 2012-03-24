@@ -133,7 +133,7 @@ class Document(models.Model):
         instance.original_filename = filename
         return '/'.join(['documents', slugify(instance.category.name), '%s%s' % (timestamp, ext)])
 
-    name = models.CharField(u'Titel', max_length=64, unique=True)
+    name = models.CharField(u'Titel', max_length=100)
     description = models.TextField(u'Beschreibung', blank=True)
     document = models.FileField(u'Datei', upload_to=document_file_name)
     original_filename = models.CharField(u'Originaler Dateiname', max_length=255, blank=True)
