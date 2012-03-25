@@ -119,7 +119,7 @@ body.document_list .titlerow p {
 }
 
 body.documentcategory_list tr.empty a {
-    color: #BCD9E8;
+    opacity: 0.4;
 }
 
 
