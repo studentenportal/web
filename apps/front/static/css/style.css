@@ -118,6 +118,10 @@ body.document_list .titlerow p {
     display: inline-block;
 }
 
+body.documentcategory_list tr.empty a {
+    color: #BCD9E8;
+}
+
 
 /* General classes */
 

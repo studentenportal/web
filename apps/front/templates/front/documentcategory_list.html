@@ -5,6 +5,8 @@
 
 {% block title %}Zusammenfassungen{% endblock %}
 
+{% block bodyclass %}documentcategory_list{% endblock %}
+
 {% block navigation %}
     {% activetab 'navigation' 'documents' %}
     {{ block.super }}
@@ -32,7 +34,7 @@
             </thead>
             <tbody>
                 {% for category in object_list %}
-                    <tr>
+                    <tr {% if category.Document.count == 0 %}class="empty"{% endif %}>
                         <td><a href="{% url 'document_list' category.name|slugify %}">
                             <strong>{{ category.name }}</strong>
                             {% if category.description %}{{ category.description }}{% endif %}
