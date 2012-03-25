@@ -52,7 +52,9 @@
                         <td>
                             <div class="titlerow">
                                 <h4>{{ doc.name }}</h4>
-                                <p>by <a href="{% url 'user' doc.uploader.pk doc.uploader.username|slugify %}">{{ doc.uploader.name }}</a></p>
+                                {% if doc.uploader %}
+                                    <p>von <a href="{% url 'user' doc.uploader.pk doc.uploader.username|slugify %}">{{ doc.uploader.name }}</a></p>
+                                {% endif %}
                             </div>
                             <p>
                                 {% if doc.upload_date %}

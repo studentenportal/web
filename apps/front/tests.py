@@ -2,7 +2,7 @@
 import datetime
 import os
 
-from django.test import TestCase, SimpleTestCase
+from django.test import TestCase, SimpleTestCase, TransactionTestCase
 from django.utils import unittest
 from django.contrib.auth.models import User
 from django.core import mail
@@ -75,7 +75,7 @@ class LecturerRatingModelTest(TestCase):
             self.create_default_rating(rating=6)
 
 
-class DocumentModelTest(unittest.TestCase):
+class DocumentModelTest(TransactionTestCase):
     def setUp(self):
         self.john = User.objects.create_user('john', 'john@example.com', 'johnpasswd')
         self.marc = User.objects.create_user('marc', 'marc@example.com', 'marcpasswd')
@@ -89,13 +89,6 @@ class DocumentModelTest(unittest.TestCase):
                 uploader=self.john)
         self.document.DocumentRating.create(user=self.marc, rating=5)
         self.document.DocumentRating.create(user=self.pete, rating=2)
-
-    def tearDown(self):
-        # Remove all created objects
-        self.john.delete()
-        self.marc.delete()
-        self.pete.delete()
-        self.document.delete()
 
     def testBasicProperties(self):
         self.assertEqual(self.document.name, 'Analysis 1 Theoriesammlung')
@@ -129,6 +122,15 @@ class DocumentModelTest(unittest.TestCase):
         dr = models.DocumentRating(document=self.document, user=self.marc)
         self.assertRaises(IntegrityError, dr.save)
 
+    def testNullValueUploader(self):
+        d = models.Document()
+        d.name = 'spam'
+        d.description = 'ham'
+        try:
+            d.save()
+        except IntegrityError:
+            self.fail("A document with no uploader should not throw an IntegrityError.")
+
 
 class QuoteModelTest(TestCase):
     fixtures = ['testusers', 'testlecturer']
@@ -149,19 +151,23 @@ class QuoteModelTest(TestCase):
         after = datetime.datetime.now()
         self.assertTrue(before < q.date < after)
 
+    def testNullValueAuthor(self):
+        q = models.Quote()
+        q.lecturer = models.Lecturer.objects.all()[0]
+        q.quote = 'spam'
+        q.comment = 'ham'
+        try:
+            q.save()
+        except IntegrityError:
+            self.fail("A quote with no author should not throw an IntegrityError.")
 
-class UserModelTest(unittest.TestCase):
+
+class UserModelTest(TransactionTestCase):
     def setUp(self):
         self.john = User.objects.create(username='john')
         self.marc = User.objects.create(username='marc', first_name=u'Marc')
         self.pete = User.objects.create(username='pete', last_name=u'Peterson')
         self.mike = User.objects.create(username='mike', first_name=u'Mike', last_name=u'Müller')
-
-    def tearDown(self):
-        self.john.delete()
-        self.marc.delete()
-        self.pete.delete()
-        self.mike.delete()
 
     def testName(self):
         """Test whether the custom name function returns the correct string."""
@@ -171,35 +177,33 @@ class UserModelTest(unittest.TestCase):
         self.assertEqual(self.mike.name(), u'Mike Müller')
 
 
-class EventModelTest(unittest.TestCase):
-    def setUp(self):
-        self.mike = User.objects.create(username='mike', first_name=u'Mike', last_name=u'Müller')
-
-    def tearDown(self):
-        self.mike.delete()
-
+class EventModelTest(TestCase):
+    fixtures = ['testusers']
+    
     def testDateTimeEvent(self):
+        user = User.objects.get(username='testuser')
         event = models.Event.objects.create(
             summary='Testbar',
             description=u'This is a bar where people drink and party to \
                           test the studentenportal event feature.',
-            author=self.mike,
+            author=user,
             start_date=datetime.date(day=1, month=9, year=2010),
             start_time=datetime.time(hour=19, minute=30),
             end_time=datetime.time(hour=23, minute=59))
 
         self.assertEqual(event.summary, 'Testbar')
         self.assertIsNone(event.end_date)
-        self.assertEqual(event.author.username, 'mike')
+        self.assertEqual(event.author.username, 'testuser')
         self.assertTrue(event.is_over())
         self.assertIsNone(event.days_until())
 
     def testAllDayEvent(self):
+        user = User.objects.get(username='testuser')
         start_date = datetime.date.today() + datetime.timedelta(days=365)
         event = models.Event.objects.create(
             summary='In a year',
             description='This happens in a year from now.',
-            author=self.mike,
+            author=user,
             start_date=start_date,
             end_date=start_date + datetime.timedelta(days=1))
 
@@ -209,6 +213,19 @@ class EventModelTest(unittest.TestCase):
         self.assertFalse(event.is_over())
         self.assertTrue(event.all_day())
         self.assertEqual(event.days_until(), 365)
+
+    def testNullValueAuthor(self):
+        event = models.Event()
+        event.summary='Testbar'
+        event.description=u'Dies ist eine bar deren autor nicht mehr existiert.'
+        event.author=None
+        event.start_date=datetime.date(day=1, month=9, year=2010)
+        event.start_time=datetime.time(hour=19, minute=30)
+        event.end_time=datetime.time(hour=23, minute=59)
+        try:
+            event.save()
+        except IntegrityError:
+            self.fail("An event with no author should not throw an IntegrityError.")
 
 
 ### VIEW TESTS ###
@@ -404,16 +421,84 @@ class DocumentListViewTest(TestCase):
         if not file_existed:
             os.remove(filepath)
 
+    def testNullValueUploader(self):
+        """Test whether a document without an uploader does not raise an error."""
+        models.DocumentCategory.objects.create(
+            id=123, name='test', description='spam ham bacon')
+        models.Document.objects.create(
+            name='Analysis 1 Theoriesammlung',
+            description='Dieses Dokument ist eine Zusammenfassung der \
+                Theorie aus dem AnI1-Skript auf 8 Seiten. Das Dokument ist \
+                in LaTeX gesetzt, Source ist hier: http://j.mp/fjtleh - \
+                Gute Ergänzungen sind erwünscht!',
+            document='zf.pdf',
+            original_filename='zf.pdf',
+            category_id=123,
+            uploader=None)
+        response = self.client.get('/zusammenfassungen/test/')
+        self.assertContains(response, 'Analysis 1 Theoriesammlung')
+        self.assertContains(response, 'Dieses Dokument ist eine Zusammenfassung der')
+
 
 class EventsViewTest(TestCase):
     taburl = '/events/'
 
+    def setUp(self):
+        self.response = self.client.get(self.taburl)
+
     def testTitle(self):
+        self.assertContains(self.response, '<h1>Events</h1>')
+
+    def testContent(self):
+        self.assertContains(self.response, '<h2>Kommende Veranstaltungen</h2>')
+        self.assertContains(self.response, '<h2>Vergangene Veranstaltungen</h2>')
+
+    def testNullAuthor(self):
+        models.Event.objects.create(
+            summary='Testbar',
+            description=u'This is a bar where people drink and party to \
+                          test the studentenportal event feature.',
+            author=None,
+            start_date=datetime.date(day=1, month=9, year=2010),
+            start_time=datetime.time(hour=19, minute=30),
+            end_time=datetime.time(hour=23, minute=59))
         response = self.client.get(self.taburl)
-        self.assertContains(response, '<h1>Events</h1>')
+        self.assertEqual(response.status_code, 200)
 
 
-class QuoteViewTest(TestCase):
+class EventDetailViewTest(TestCase):
+    fixtures = ['testusers']
+
+    def setUp(self):
+        self.user = models.User.objects.get(pk=1)
+        self.event = models.Event.objects.create(
+            id=1,
+            summary='Testbar',
+            description=u'This is a bar where people drink and party to \
+                          test the studentenportal event feature.',
+            author=self.user,
+            start_date=datetime.date(day=1, month=9, year=2010),
+            start_time=datetime.time(hour=19, minute=30),
+            end_time=datetime.time(hour=23, minute=59))
+
+    def tearDown(self):
+        self.event.delete()
+
+    def testTitle(self):
+        response = self.client.get('/events/1/')
+        self.assertContains(response, '<h1>Testbar</h1>')
+
+    def testContent(self):
+        response = self.client.get('/events/1/')
+        self.assertContains(response, '<p>This is a bar where people drink and party \
+                        to test the studentenportal event feature.</p>', html=True)
+        self.assertContains(response, '<strong>Start:</strong>')
+        self.assertContains(response, '1. September 2010 19:30')
+        self.assertContains(response, '<strong>Ende:</strong>')
+        self.assertContains(response, '1. September 2010 23:59')
+
+
+class QuoteAddViewTest(TestCase):
     fixtures = ['testusers', 'testlecturer']
 
     def setUp(self):
@@ -443,6 +528,38 @@ class QuoteViewTest(TestCase):
         response2 = self.client.get('/zitate/')
         self.assertContains(response2, '<td>ich bin der beste dozent von allen.</td>')
         self.assertContains(response2, '<td>etwas arrogant, nicht?</td>')
+
+
+class QuoteViewTest(TestCase):
+    fixtures = ['testusers', 'testlecturer']
+
+    def setUp(self):
+        self.client.login(username='testuser', password='test')
+        self.response = self.client.get('/zitate/')
+
+    def testTitle(self):
+        self.assertContains(self.response, '<h1>Zitate</h1>')
+
+    def testQuoteInList(self):
+        """Test whether an added quote shows up in the list."""
+        models.Quote.objects.create(
+            lecturer=models.Lecturer.objects.all()[0],
+            author_id=1,
+            quote='spam',
+            comment='ham')
+        response = self.client.get('/zitate/')
+        self.assertContains(response, 'spam')
+        self.assertContains(response, 'ham')
+
+    def testNullValueAuthor(self):
+        """Test whether a quote without an author does not raise an error."""
+        models.Quote.objects.create(
+            lecturer=models.Lecturer.objects.all()[0],
+            quote='spam',
+            comment='ham')
+        response = self.client.get('/zitate/')
+        self.assertContains(response, 'spam')
+        self.assertContains(response, 'ham')
 
 
 
