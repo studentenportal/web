@@ -7,10 +7,13 @@ class QuoteAdmin(admin.ModelAdmin):
 class DocumentCategoryAdmin(admin.ModelAdmin):
     list_display = ('name', 'id', 'description')
 
+class DocumentAdmin(admin.ModelAdmin):
+    list_filter = ('category', 'uploader')
+
 admin.site.register(models.Lecturer)
 admin.site.register(models.LecturerRating)
 admin.site.register(models.Quote, QuoteAdmin)
-admin.site.register(models.Document)
+admin.site.register(models.Document, DocumentAdmin)
 admin.site.register(models.DocumentCategory, DocumentCategoryAdmin)
 admin.site.register(models.DocumentRating)
 admin.site.register(models.Event)
