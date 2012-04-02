@@ -42,7 +42,7 @@ class Profile(LoginRequiredMixin, UpdateView):
         return reverse('profile')
 
 
-class User(DetailView):
+class User(LoginRequiredMixin, DetailView):
     model = auth_models.User
     template_name = 'front/user_detail.html'
 
