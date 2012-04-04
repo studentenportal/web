@@ -2,7 +2,7 @@
 {% load url from future %}
 {% load tabs %}
 
-{% block title %}Zusammenfassung {{ documentcategory.name }} {{ document|yesno:"bearbeiten,hinzufügen" }}{% endblock %}
+{% block title %}Dokument {{ documentcategory.name }} {{ document|yesno:"bearbeiten,hinzufügen" }}{% endblock %}
 
 {% block navigation %}
     {% activetab 'navigation' 'documents' %}
@@ -10,15 +10,15 @@
 {% endblock %}
 
 {% block breadcrumbs %}
-    <a href="{% url 'documentcategory_list' %}">Zusammenfassungen</a> &raquo;
+    <a href="{% url 'documentcategory_list' %}">Dokumente</a> &raquo;
     <a href="{% url 'document_list' documentcategory.name|slugify %}">{{ documentcategory.name }}</a> &raquo;
-    Zusammenfassung {{ document|yesno:"bearbeiten,hinzufügen" }}
+    Dokument {{ document|yesno:"bearbeiten,hinzufügen" }}
 {% endblock %}
 
 {% block content %}
 
     <div class="page-header">
-        <h1>Zusammenfassung {{ documentcategory.name }} {{ document|yesno:"bearbeiten,hinzufügen" }}</h1>
+        <h1>Dokument {{ documentcategory.name }} {{ document|yesno:"bearbeiten,hinzufügen" }}</h1>
     </div>
 
     <form method="POST" enctype="multipart/form-data" class="form-horizontal">{% csrf_token %}

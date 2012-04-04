@@ -15,7 +15,8 @@ from django.views.generic.edit import SingleObjectMixin
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.utils.decorators import method_decorator
-from django.shortcuts import get_object_or_404
+from django.shortcuts import redirect, get_object_or_404
+from django.template.defaultfilters import slugify
 from sendfile import sendfile
 from apps.front.mixins import LoginRequiredMixin
 from apps.front import forms
@@ -303,7 +304,16 @@ class DocumentList(DocumentcategoryMixin, ListView):
 
 class DocumentDownload(View):
     def get(self, request, *args, **kwargs):
+        # Get document or raise HTTP404
         doc = get_object_or_404(models.Document, pk=self.kwargs.get('pk'))
+        # If document isn't a summary, require login
+        if doc.dtype != doc.DTypes.SUMMARY:
+            if not self.request.user.is_authenticated():
+                return redirect('%s?next=%s' % (
+                        reverse('auth_login'),
+                        reverse('document_list', kwargs={'category': slugify(doc.category.name)})
+                    ))
+        # Increase downloadcount, serve file
         doc.downloadcount += 1
         doc.save()
         filename = unicodedata.normalize('NFKD', doc.original_filename).encode('us-ascii', 'ignore')

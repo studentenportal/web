@@ -82,6 +82,7 @@ class DocumentModelTest(TransactionTestCase):
         self.pete = User.objects.create_user('pete', 'pete@example.com', 'petepasswd')
         self.document = models.Document.objects.create(
                 name='Analysis 1 Theoriesammlung',
+                dtype=models.Document.DTypes.SUMMARY,
                 description='Dieses Dokument ist eine Zusammenfassung der \
                     Theorie aus dem AnI1-Skript auf 8 Seiten. Das Dokument ist \
                     in LaTeX gesetzt, Source ist hier: http://j.mp/fjtleh - \
@@ -93,6 +94,7 @@ class DocumentModelTest(TransactionTestCase):
     def testBasicProperties(self):
         self.assertEqual(self.document.name, 'Analysis 1 Theoriesammlung')
         self.assertTrue(self.document.description.startswith('Dieses Dokument'))
+        self.assertEqual(self.document.dtype, models.Document.DTypes.SUMMARY)
         self.assertTrue(isinstance(self.document.uploader, User))
 
     def testUploadDate(self):
@@ -126,6 +128,7 @@ class DocumentModelTest(TransactionTestCase):
         d = models.Document()
         d.name = 'spam'
         d.description = 'ham'
+        d.dtype = models.Document.DTypes.SUMMARY
         try:
             d.save()
         except IntegrityError:
@@ -280,21 +283,37 @@ class ProfileViewTest(TestCase):
 
 class DocumentDownloadTest(TestCase):
     fixtures = ['testdocs', 'testusers']
-    docurl1 = '/zusammenfassungen/an1i/1/'
-    docurl2 = '/zusammenfassungen/an1i/2/'
+    basepath = '/dokumente/an1i/'
+    docurl1 = basepath + '1/'
+    docurl2 = basepath + '2/'
+    docurl3 = basepath + '3/'
     filepath1 = os.path.join(settings.MEDIA_ROOT, 'documents', 'Analysis-Theoriesammlung.pdf')
-    filepath2 = os.path.join(settings.MEDIA_ROOT, 'documents', 'zf_mit_umlaut_6.doc')
+    filepath23 = os.path.join(settings.MEDIA_ROOT, 'documents', 'zf_mit_umlaut_6.doc')
 
     def setUp(self):
         self.file1_existed = os.path.exists(self.filepath1)
-        self.file2_existed = os.path.exists(self.filepath2)
+        self.file2_existed = os.path.exists(self.filepath23)
         if not self.file1_existed:
             open(self.filepath1, 'w').close()
         if not self.file2_existed:
-            open(self.filepath2, 'w').close()
+            open(self.filepath23, 'w').close()
 
-    def testDocumentServed(self):
+    def testSummaryServed(self):
+        """Assert that the summaries get served, even without login."""
         response = self.client.get(self.docurl1)
+        self.assertEqual(response.status_code, 200)
+        response = self.client.get(self.docurl2)
+        self.assertEqual(response.status_code, 200)
+
+    def testExamRequireLogin(self):
+        """Assert that the exams require login."""
+        response = self.client.get(self.docurl3)
+        self.assertRedirects(response, '/accounts/login/?next=%s' % self.basepath)
+
+    def testExamServed(self):
+        """Assert that the exams get served when logged in."""
+        self.client.login(username='testuser', password='test')
+        response = self.client.get(self.docurl3)
         self.assertEqual(response.status_code, 200)
 
     def testUmlautDocumentServed(self):
@@ -307,27 +326,32 @@ class DocumentDownloadTest(TestCase):
         if not self.file1_existed:
             os.remove(self.filepath1)
         if not self.file2_existed:
-            os.remove(self.filepath2)
+            os.remove(self.filepath23)
 
 
 class DocumentcategoryListViewTest(TestCase):
     fixtures = ['testdocs', 'testusers']
-    taburl = '/zusammenfassungen/'
+    taburl = '/dokumente/'
 
     def testTitle(self):
         response = self.client.get(self.taburl)
-        self.assertContains(response, '<h1>Zusammenfassungen</h1>')
+        self.assertContains(response, '<h1>Dokumente</h1>')
 
     def testModuleName(self):
+        """Test whether the module An1I appears in the list."""
         response = self.client.get(self.taburl)
         self.assertContains(response, '<strong>An1I</strong>')
         self.assertContains(response, 'Analysis 1 für Informatiker')
 
     def testDocumentCount(self):
+        """Test whether the downloadcount appears in the list."""
         response = self.client.get(self.taburl)
         self.assertContains(response, '<td>2</td>')
 
     def testUserAddButton(self):
+        """Test whether the add button is shown when and only when the user is logged in."""
+        response = self.client.get(self.taburl)
+        self.assertNotContains(response, 'Modul hinzufügen')
         self.client.login(username='testuser', password='test')
         response = self.client.get(self.taburl)
         self.assertContains(response, 'Modul hinzufügen')
@@ -335,7 +359,7 @@ class DocumentcategoryListViewTest(TestCase):
 
 class DocumentcategoryAddViewTest(TestCase):
     fixtures = ['testusers']
-    taburl = '/zusammenfassungen/add/'
+    taburl = '/dokumente/add/'
 
     def setUp(self):
         self.client.login(username='testuser', password='test')
@@ -355,23 +379,23 @@ class DocumentcategoryAddViewTest(TestCase):
             'description': 'Programmieren 2',
         }
         response1 = self.client.post(self.taburl, data)
-        self.assertRedirects(response1, '/zusammenfassungen/')
-        response2 = self.client.get('/zusammenfassungen/prog2/')
-        self.assertContains(response2, '<h1>Zusammenfassungen Prog2</h1>')
+        self.assertRedirects(response1, '/dokumente/')
+        response2 = self.client.get('/dokumente/prog2/')
+        self.assertContains(response2, '<h1>Dokumente Prog2</h1>')
 
 
 class DocumentListViewTest(TestCase):
     fixtures = ['testdocs', 'testusers']
-    taburl = '/zusammenfassungen/an1i/'
+    taburl = '/dokumente/an1i/'
 
     def setUp(self):
         self.response = self.client.get(self.taburl)
 
     def testTitle(self):
-        self.assertContains(self.response, '<h1>Zusammenfassungen An1I</h1>')
+        self.assertContains(self.response, '<h1>Dokumente An1I</h1>')
 
     def testDocumentTitle(self):
-        self.assertContains(self.response, '<h4>Analysis 1 Theoriesammlung</h4>')
+        self.assertContains(self.response, '<h4><span class="label label-success">Zusammenfassung</span> Analysis 1 Theoriesammlung</h4>')
 
     def testUploaderName(self):
         self.assertContains(self.response, 'Another Guy')
@@ -383,24 +407,24 @@ class DocumentListViewTest(TestCase):
         self.assertContains(self.response, '18.12.2011')
 
     def testEditButtonLoggedOut(self):
-        self.assertNotContains(self.response, 'href="/zusammenfassungen/an1i/1/edit/"')
-        self.assertNotContains(self.response, 'href="/zusammenfassungen/an1i/2/edit/"')
+        self.assertNotContains(self.response, 'href="/dokumente/an1i/1/edit/"')
+        self.assertNotContains(self.response, 'href="/dokumente/an1i/2/edit/"')
 
     def testEditButtonLoggedIn(self):
         self.client.login(username='testuser', password='test')
         response = self.client.get(self.taburl)
-        self.assertContains(response, 'href="/zusammenfassungen/an1i/1/edit/"')
-        self.assertNotContains(response, 'href="/zusammenfassungen/an1i/2/edit/"')
+        self.assertContains(response, 'href="/dokumente/an1i/1/edit/"')
+        self.assertNotContains(response, 'href="/dokumente/an1i/2/edit/"')
 
     def testDeleteButtonLoggedOut(self):
-        self.assertNotContains(self.response, 'href="/zusammenfassungen/an1i/1/delete/"')
-        self.assertNotContains(self.response, 'href="/zusammenfassungen/an1i/2/delete/"')
+        self.assertNotContains(self.response, 'href="/dokumente/an1i/1/delete/"')
+        self.assertNotContains(self.response, 'href="/dokumente/an1i/2/delete/"')
 
     def testDeleteButtonLoggedIn(self):
         self.client.login(username='testuser', password='test')
         response = self.client.get(self.taburl)
-        self.assertContains(response, 'href="/zusammenfassungen/an1i/1/delete/"')
-        self.assertNotContains(response, 'href="/zusammenfassungen/an1i/2/delete/"')
+        self.assertContains(response, 'href="/dokumente/an1i/1/delete/"')
+        self.assertNotContains(response, 'href="/dokumente/an1i/2/delete/"')
 
     def testDownloadCount(self):
         filepath = os.path.join(settings.MEDIA_ROOT, 'documents', 'Analysis-Theoriesammlung.pdf')
@@ -429,10 +453,11 @@ class DocumentListViewTest(TestCase):
                 in LaTeX gesetzt, Source ist hier: http://j.mp/fjtleh - \
                 Gute Ergänzungen sind erwünscht!',
             document='zf.pdf',
+            dtype=models.Document.DTypes.SUMMARY,
             original_filename='zf.pdf',
             category_id=123,
             uploader=None)
-        response = self.client.get('/zusammenfassungen/test/')
+        response = self.client.get('/dokumente/test/')
         self.assertContains(response, 'Analysis 1 Theoriesammlung')
         self.assertContains(response, 'Dieses Dokument ist eine Zusammenfassung der')
 

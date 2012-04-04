@@ -3,7 +3,7 @@
 {% load tabs %}
 {% load tags %}
 
-{% block title %}Zusammenfassungen{% endblock %}
+{% block title %}Dokumente{% endblock %}
 
 {% block bodyclass %}document_list{% endblock %}
 
@@ -13,16 +13,16 @@
 {% endblock %}
 
 {% block breadcrumbs %}
-    <a href="{% url 'documentcategory_list' %}">Zusammenfassungen</a> &raquo; {{ documentcategory.name }}
+    <a href="{% url 'documentcategory_list' %}">Dokumente</a> &raquo; {{ documentcategory.name }}
 {% endblock %}
 
 {% block content %}
 
     <div class="page-header">
-        <h1>Zusammenfassungen {{ documentcategory.name }}</h1>
+        <h1>Dokumente {{ documentcategory.name }}</h1>
     </div>
 
-    <p>Hier finden sich Zusammenfassungen des Unterrichtsstoffes und Lernhilfen für die Prüfungen.</p>
+    <p>Hier finden sich alte Prüfungen, Zusammenfassungen des Unterrichtsstoffes und Lernhilfen für die Prüfungen.</p>
 
     {# No documents message #}
     {% if not documents %}
@@ -32,7 +32,7 @@
     {# Add button #}
     {% if user.is_authenticated %}
         <p><a class="btn btn-primary" href="{% url 'document_add' documentcategory.name|slugify %}">
-            <i class="icon-plus-sign icon-white"></i> Zusammenfassung hinzufügen
+            <i class="icon-plus-sign icon-white"></i> Dokument hinzufügen
         </a></p>
     {% endif %}
 
@@ -51,7 +51,7 @@
                     <tr>
                         <td>
                             <div class="titlerow">
-                                <h4>{{ doc.name }}</h4>
+                                <h4><span class="label label-{% if doc.dtype = 1 %}success{% else %}important{% endif %}">{{ doc.get_dtype_display }}</span> {{ doc.name }}</h4>
                                 {% if doc.uploader %}
                                     <p>von <a href="{% url 'user' doc.uploader.pk doc.uploader.username|slugify %}">{{ doc.uploader.name }}</a></p>
                                 {% endif %}

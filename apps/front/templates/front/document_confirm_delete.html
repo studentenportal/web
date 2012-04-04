@@ -2,7 +2,7 @@
 {% load url from future %}
 {% load tabs %}
 
-{% block title %}Zusammenfassung "{{ document.name }}" löschen{% endblock %}
+{% block title %}Dokument "{{ document.name }}" löschen{% endblock %}
 
 {% block navigation %}
     {% activetab 'navigation' 'documents' %}
@@ -10,15 +10,15 @@
 {% endblock %}
 
 {% block breadcrumbs %}
-    <a href="{% url 'documentcategory_list' %}">Zusammenfassungen</a> &raquo;
+    <a href="{% url 'documentcategory_list' %}">Dokumente</a> &raquo;
     <a href="{% url 'document_list' documentcategory.name|slugify %}">{{ documentcategory.name }}</a> &raquo;
-    Zusammenfassung löschen
+    Dokument löschen
 {% endblock %}
 
 {% block content %}
 
     <div class="page-header">
-        <h1>Zusammenfassung "{{ document.name }}" löschen</h1>
+        <h1>Dokument "{{ document.name }}" löschen</h1>
     </div>
 
     <p>Möchtest du wirklich das Dokument "{{ document.name }}" aus der Datenbank löschen?</p>

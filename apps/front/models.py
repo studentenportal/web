@@ -112,6 +112,14 @@ class DocumentCategory(models.Model):
     description = models.CharField(u'Voller Name', max_length=255,
             help_text=u'z.B. "Computertechnik 1" oder "Programmieren 3"')
 
+    @property
+    def summary_count(self):
+        return self.Document.filter(dtype=Document.DTypes.SUMMARY).count()
+
+    @property
+    def exam_count(self):
+        return self.Document.filter(dtype=Document.DTypes.EXAM).count()
+
     def __unicode__(self):
         return self.name
 
@@ -126,6 +134,11 @@ class Document(models.Model):
     A document can have a description, categories, ratings, etc...
 
     """
+    class DTypes(object):
+        """Enum-style document type class."""
+        SUMMARY=1
+        EXAM=2
+
     def document_file_name(instance, filename):
         """Where to put a newly uploaded document. Also, store original filename."""
         ext = os.path.splitext(filename)[1]
@@ -135,6 +148,9 @@ class Document(models.Model):
 
     name = models.CharField(u'Titel', max_length=100)
     description = models.TextField(u'Beschreibung', blank=True)
+    dtype = models.PositiveSmallIntegerField(u'Typ', choices=(
+        (DTypes.SUMMARY, u'Zusammenfassung'),
+        (DTypes.EXAM, u'Prüfung')))
     document = models.FileField(u'Datei', upload_to=document_file_name)
     original_filename = models.CharField(u'Originaler Dateiname', max_length=255, blank=True)
     uploader = models.ForeignKey(User, related_name=u'Document', null=True, on_delete=models.SET_NULL)
