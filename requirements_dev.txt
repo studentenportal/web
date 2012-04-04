@@ -1,3 +1,4 @@
 # Development
 django-debug-toolbar
 South
+fabric
