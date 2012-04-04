@@ -293,19 +293,13 @@ class DocumentDownloadTest(TestCase):
         if not self.file2_existed:
             open(self.filepath2, 'w').close()
 
-    def testLoginRequired(self):
-        response = self.client.get(self.docurl1)
-        self.assertRedirects(response, '/accounts/login/?next=%s' % self.docurl1)
-
     def testDocumentServed(self):
-        self.client.login(username='testuser', password='test')
         response = self.client.get(self.docurl1)
         self.assertEqual(response.status_code, 200)
 
     def testUmlautDocumentServed(self):
         """Test whether documents with umlauts in their original filename
         can be served."""
-        self.client.login(username='testuser', password='test')
         response = self.client.get(self.docurl2)
         self.assertEqual(response.status_code, 200)
 
@@ -319,14 +313,6 @@ class DocumentDownloadTest(TestCase):
 class DocumentcategoryListViewTest(TestCase):
     fixtures = ['testdocs', 'testusers']
     taburl = '/zusammenfassungen/'
-
-    def setUp(self):
-        self.client.login(username='testuser', password='test')
-
-    def testLoginRequired(self):
-        self.client.logout()
-        response = self.client.get(self.taburl)
-        self.assertRedirects(response, '/accounts/login/?next=%s' % self.taburl)
 
     def testTitle(self):
         response = self.client.get(self.taburl)
@@ -379,7 +365,6 @@ class DocumentListViewTest(TestCase):
     taburl = '/zusammenfassungen/an1i/'
 
     def setUp(self):
-        self.client.login(username='testuser', password='test')
         self.response = self.client.get(self.taburl)
 
     def testTitle(self):
@@ -397,13 +382,25 @@ class DocumentListViewTest(TestCase):
     def testUploadDate(self):
         self.assertContains(self.response, '18.12.2011')
 
-    def testEditButton(self):
-        self.assertContains(self.response, 'href="/zusammenfassungen/an1i/1/edit/"')
+    def testEditButtonLoggedOut(self):
+        self.assertNotContains(self.response, 'href="/zusammenfassungen/an1i/1/edit/"')
         self.assertNotContains(self.response, 'href="/zusammenfassungen/an1i/2/edit/"')
 
-    def testDeleteButton(self):
-        self.assertContains(self.response, 'href="/zusammenfassungen/an1i/1/delete/"')
+    def testEditButtonLoggedIn(self):
+        self.client.login(username='testuser', password='test')
+        response = self.client.get(self.taburl)
+        self.assertContains(response, 'href="/zusammenfassungen/an1i/1/edit/"')
+        self.assertNotContains(response, 'href="/zusammenfassungen/an1i/2/edit/"')
+
+    def testDeleteButtonLoggedOut(self):
+        self.assertNotContains(self.response, 'href="/zusammenfassungen/an1i/1/delete/"')
         self.assertNotContains(self.response, 'href="/zusammenfassungen/an1i/2/delete/"')
+
+    def testDeleteButtonLoggedIn(self):
+        self.client.login(username='testuser', password='test')
+        response = self.client.get(self.taburl)
+        self.assertContains(response, 'href="/zusammenfassungen/an1i/1/delete/"')
+        self.assertNotContains(response, 'href="/zusammenfassungen/an1i/2/delete/"')
 
     def testDownloadCount(self):
         filepath = os.path.join(settings.MEDIA_ROOT, 'documents', 'Analysis-Theoriesammlung.pdf')

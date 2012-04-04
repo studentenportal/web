@@ -259,7 +259,7 @@ class QuoteDelete(LoginRequiredMixin, DeleteView):
 
 
 # Documents {{{
-class DocumentcategoryList(LoginRequiredMixin, ListView):
+class DocumentcategoryList(ListView):
     model = models.DocumentCategory
 
 
@@ -286,7 +286,7 @@ class DocumentcategoryMixin(object):
         return context
 
 
-class DocumentList(LoginRequiredMixin, DocumentcategoryMixin, ListView):
+class DocumentList(DocumentcategoryMixin, ListView):
     template_name = 'front/document_list.html'
     context_object_name = 'documents'
 
@@ -301,7 +301,7 @@ class DocumentList(LoginRequiredMixin, DocumentcategoryMixin, ListView):
         return context
 
 
-class DocumentDownload(LoginRequiredMixin, View):
+class DocumentDownload(View):
     def get(self, request, *args, **kwargs):
         doc = get_object_or_404(models.Document, pk=self.kwargs.get('pk'))
         doc.downloadcount += 1
