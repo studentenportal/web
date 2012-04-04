@@ -151,7 +151,7 @@ class Document(models.Model):
     dtype = models.PositiveSmallIntegerField(u'Typ', choices=(
         (DTypes.SUMMARY, u'Zusammenfassung'),
         (DTypes.EXAM, u'Prüfung')))
-    document = models.FileField(u'Datei', upload_to=document_file_name)
+    document = models.FileField(u'Datei', upload_to=document_file_name, help_text=u'(Max. 10MB)')
     original_filename = models.CharField(u'Originaler Dateiname', max_length=255, blank=True)
     uploader = models.ForeignKey(User, related_name=u'Document', null=True, on_delete=models.SET_NULL)
     upload_date = models.DateTimeField(u'Uploaddatum', auto_now_add=True)
