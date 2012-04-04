@@ -26,17 +26,7 @@
       <priority>0.80</priority>
     </url>
     <url>
-      <loc>http://studentenportal.ch/zusammenfassungen/</loc>
-      <changefreq>weekly</changefreq>
-      <priority>0.80</priority>
-    </url>
-    <url>
-      <loc>http://studentenportal.ch/dozenten/</loc>
-      <changefreq>weekly</changefreq>
-      <priority>0.80</priority>
-    </url>
-    <url>
-      <loc>http://studentenportal.ch/zitate/</loc>
+      <loc>http://studentenportal.ch/dokumente/</loc>
       <changefreq>weekly</changefreq>
       <priority>0.80</priority>
     </url>
