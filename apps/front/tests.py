@@ -153,6 +153,7 @@ class QuoteModelTest(TestCase):
         q.save()
         after = datetime.datetime.now()
         self.assertTrue(before < q.date < after)
+        self.assertTrue(q.date_available())
 
     def testNullValueAuthor(self):
         q = models.Quote()
@@ -163,6 +164,16 @@ class QuoteModelTest(TestCase):
             q.save()
         except IntegrityError:
             self.fail("A quote with no author should not throw an IntegrityError.")
+
+    def test1970Quote(self):
+        """Check whether a quote from 1970-1-1 is marked as date_available=False."""
+        q = models.Quote()
+        q.lecturer = models.Lecturer.objects.all()[0]
+        q.author = models.User.objects.all()[0]
+        q.quote = 'spam'
+        q.comment = 'ham'
+        q.date = datetime.datetime(1970, 1, 1)
+        self.assertFalse(q.date_available())
 
 
 class UserModelTest(TransactionTestCase):

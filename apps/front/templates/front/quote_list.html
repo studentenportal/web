@@ -47,7 +47,7 @@
             <tbody>
                 {% for quote in quotes %}
                     <tr>
-                        <td>{{ quote.date|date:"d.m.Y H:i" }}</td>
+                        <td>{% if not quote.date_available %}-{% else %}{{ quote.date|date:"d.m.Y H:i" }}{% endif %}</td>
                         <td><a href="{% url 'lecturer_detail' quote.lecturer.pk %}">{{ quote.lecturer }}</a></td>
                         <td>{{ quote.quote|linebreaksbr }}</td>
                         <td>{{ quote.comment|linebreaksbr }}</td>

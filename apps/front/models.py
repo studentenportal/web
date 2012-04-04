@@ -93,6 +93,9 @@ class Quote(models.Model):
     quote = models.TextField(u'Zitat')
     comment = models.TextField(u'Bemerkung', default=u'', blank=True)
 
+    def date_available(self):
+        return self.date != datetime.datetime(1970, 1, 1)
+
     def __unicode__(self):
         return u'[%s] %s...' % (self.lecturer, self.quote[:30])
 
