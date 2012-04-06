@@ -1,0 +1,72 @@
+{% extends 'front/base.html' %}
+{% load url from future %}
+{% load tabs %}
+{% load macros %}
+
+{% block title %}Statistiken{% endblock %}
+
+{% block bodyclass %}stats{% endblock %}
+
+{% block navigation %}
+    {% activetab 'navigation' 'stats' %}
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+
+    <div class="page-header">
+        <h1>Statistiken</h1>
+    </div>
+
+    <h2>Dozenten</h2>
+
+    {% macro lecturer_toprow lecturer %}
+        <tr>
+            <th><i class="icon-plus-sign"></i> Top</th>
+            <td><a href="{% url 'lecturer_detail' lecturer.pk %}">{{ lecturer.name }}</a></td>
+        </tr>
+    {% endmacro %}
+
+    {% macro lecturer_floprow lecturer %}
+        <tr>
+            <th><i class="icon-minus-sign"></i> Flop</th>
+            <td><a href="{% url 'lecturer_detail' lecturer.pk %}">{{ lecturer.name }}</a></td>
+        </tr>
+    {% endmacro %}
+
+    {% macro lecturer_top lecturer %}
+        <li>Top: <a href="{% url 'lecturer_detail' lecturer.pk %}">{{ lecturer.name }}</a></li>
+    {% endmacro %}
+
+    {% macro lecturer_flop lecturer %}
+        <li>Flop: <a href="{% url 'lecturer_detail' lecturer.pk %}">{{ lecturer.name }}</a></li>
+    {% endmacro %}
+
+    <h3>Didaktisch</h3>
+    <ul>
+        {% usemacro lecturer_top lecturer_top_d %}
+        {% usemacro lecturer_flop lecturer_flop_d %}
+    </ul>
+
+    <h3>Menschlich</h3>
+    <ul>
+        {% usemacro lecturer_top lecturer_top_m %}
+        {% usemacro lecturer_flop lecturer_flop_m %}
+    </ul>
+
+    <h3>Fachlich</h3>
+    <ul>
+        {% usemacro lecturer_top lecturer_top_f %}
+        {% usemacro lecturer_flop lecturer_flop_f %}
+    </ul>
+
+    <hr>
+    <h2>Studenten</h2>
+
+    <ul>
+        <li>Meiste Dozenten bewertet: <a href="{% url 'user' user_topratings.pk user_topratings.username %}">{{ user_topratings.name }}</a> ({{ user_topratings.ratings_count }})</li>
+        <li>Meiste Dokumente hochgeladen: <a href="{% url 'user' user_topuploads.pk user_topuploads.username %}">{{ user_topuploads.name }}</a> ({{ user_topuploads.uploads_count }})</li>
+        <li>Meiste Events eingetragen: <a href="{% url 'user' user_topevents.pk user_topevents.username %}">{{ user_topevents.name }}</a> ({{ user_topevents.events_count }})</li>
+    </ul>
+
+{% endblock %}

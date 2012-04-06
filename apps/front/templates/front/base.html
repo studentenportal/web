@@ -109,6 +109,9 @@
                             <li class="{% ifactivetab 'navigation' 'quotes' %}active{% endifactivetab %}">
                                 <a href="{% url 'quote_list' %}"><i class="icon-volume-up {% ifactivetab 'navigation' 'quotes' %}icon-white{% endifactivetab %}"></i> Zitate ({{ quotecount }})</a>
                             </li>
+                            <li class="{% ifactivetab 'navigation' 'stats' %}active{% endifactivetab %}">
+                                <a href="{% url 'stats' %}"><i class="icon-signal {% ifactivetab 'navigation' 'stats' %}icon-white{% endifactivetab %}"></i> Statistiken</a>
+                            </li>
                         {% else %}
                             <li class="{% ifactivetab 'navigation' 'login' %}active{% endifactivetab %}">
                                 <a href="{% url 'auth_login' %}"><i class="icon-user {% ifactivetab 'navigation' 'lecturers' %}icon-white{% endifactivetab %}"></i> Login</a>

@@ -32,6 +32,7 @@ urlpatterns = patterns('apps.front.views',
     url(r'^dokumente/(?P<category>[^\/]+)/(?P<pk>\d+)/delete/$', views.DocumentDelete.as_view(), name='document_delete'),
     url(r'^dokumente/(?P<category>[^\/]+)/(?P<pk>\d+)/rate/$', views.DocumentRate.as_view(), name='document_rate'),
     url(r'^users/(?P<pk>\d+)/(?P<username>[^\/]+)/$', views.User.as_view(), name='user'),
+    url(r'^statistiken/$', views.Stats.as_view(), name='stats'),
 )
 
 # Static pages

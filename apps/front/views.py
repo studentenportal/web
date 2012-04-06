@@ -400,3 +400,33 @@ class DocumentRate(LoginRequiredMixin, SingleObjectMixin, View):
         rating.save()
         return HttpResponse(u'Bewertung wurde aktualisiert.')
 # }}}
+
+
+# Stats {{{ 
+class Stats(TemplateView):
+    template_name = 'front/stats.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(Stats, self).get_context_data(**kwargs)
+
+        # Lecturers
+        base_query = "SELECT lecturer_id AS id \
+                      FROM front_lecturerrating \
+                      WHERE category = '%c' \
+                      GROUP BY lecturer_id"
+        base_query_top = base_query + " ORDER BY AVG(rating) DESC, COUNT(id) DESC"
+        base_query_flop = base_query + " ORDER BY AVG(rating) ASC, COUNT(id) DESC"
+        context['lecturer_top_d'] = models.Lecturer.objects.raw(base_query_top % 'd')[0]
+        context['lecturer_top_m'] = models.Lecturer.objects.raw(base_query_top % 'm')[0]
+        context['lecturer_top_f'] = models.Lecturer.objects.raw(base_query_top % 'f')[0]
+        context['lecturer_flop_d'] = models.Lecturer.objects.raw(base_query_flop % 'd')[0]
+        context['lecturer_flop_m'] = models.Lecturer.objects.raw(base_query_flop % 'm')[0]
+        context['lecturer_flop_f'] = models.Lecturer.objects.raw(base_query_flop % 'f')[0]
+
+        # Users
+        context['user_topratings'] = models.User.objects.annotate(ratings_count=Count('LecturerRating')).order_by('-ratings_count')[0]
+        context['user_topuploads'] = models.User.objects.exclude(username=u'spimport').annotate(uploads_count=Count('Document')).order_by('-uploads_count')[0]
+        context['user_topevents'] = models.User.objects.annotate(events_count=Count('Event')).order_by('-events_count')[0]
+
+        return context
+# }}} 
