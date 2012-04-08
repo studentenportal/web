@@ -3,7 +3,6 @@ import datetime
 import os
 
 from django.test import TestCase, SimpleTestCase, TransactionTestCase
-from django.utils import unittest
 from django.contrib.auth.models import User
 from django.core import mail
 from django.core.exceptions import ValidationError
@@ -642,6 +641,20 @@ class UserViewTest(TestCase):
         response = self.client.get('/users/2/testuser2/')
         self.assertContains(response, '<h1>Another Guy</h1>')
         self.assertContains(response, 'django-test2@studentenportal.ch')
+
+
+class StatsViewTest(TestCase):
+    fixtures = ['testusers', 'testlecturer', 'testlratings']
+    taburl = '/statistiken/'
+
+    def testLoginRequired(self):
+        response = self.client.get(self.taburl)
+        self.assertRedirects(response, '/accounts/login/?next=/statistiken/')
+
+    def testTitle(self):
+        self.client.login(username='testuser', password='test')
+        response = self.client.get(self.taburl)
+        self.assertContains(response, '<h1>Statistiken</h1>')
 
 
 ### TEMPLATETAG TESTS ###

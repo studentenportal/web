@@ -20,26 +20,12 @@
 
     <h2>Dozenten</h2>
 
-    {% macro lecturer_toprow lecturer %}
-        <tr>
-            <th><i class="icon-plus-sign"></i> Top</th>
-            <td><a href="{% url 'lecturer_detail' lecturer.pk %}">{{ lecturer.name }}</a></td>
-        </tr>
-    {% endmacro %}
-
-    {% macro lecturer_floprow lecturer %}
-        <tr>
-            <th><i class="icon-minus-sign"></i> Flop</th>
-            <td><a href="{% url 'lecturer_detail' lecturer.pk %}">{{ lecturer.name }}</a></td>
-        </tr>
-    {% endmacro %}
-
     {% macro lecturer_top lecturer %}
-        <li>Top: <a href="{% url 'lecturer_detail' lecturer.pk %}">{{ lecturer.name }}</a></li>
+        <li>Top: {% if lecturer %}<a href="{% url 'lecturer_detail' lecturer.pk %}">{{ lecturer.name }}</a>{% else %}-{% endif %}</li>
     {% endmacro %}
 
     {% macro lecturer_flop lecturer %}
-        <li>Flop: <a href="{% url 'lecturer_detail' lecturer.pk %}">{{ lecturer.name }}</a></li>
+        <li>Flop: {% if lecturer %}<a href="{% url 'lecturer_detail' lecturer.pk %}">{{ lecturer.name }}</a>{% else %}-{% endif %}</li>
     {% endmacro %}
 
     <h3>Didaktisch</h3>
@@ -64,9 +50,9 @@
     <h2>Studenten</h2>
 
     <ul>
-        <li>Meiste Dozenten bewertet: <a href="{% url 'user' user_topratings.pk user_topratings.username %}">{{ user_topratings.name }}</a> ({{ user_topratings.ratings_count }})</li>
-        <li>Meiste Dokumente hochgeladen: <a href="{% url 'user' user_topuploads.pk user_topuploads.username %}">{{ user_topuploads.name }}</a> ({{ user_topuploads.uploads_count }})</li>
-        <li>Meiste Events eingetragen: <a href="{% url 'user' user_topevents.pk user_topevents.username %}">{{ user_topevents.name }}</a> ({{ user_topevents.events_count }})</li>
+        <li>Meiste Dozenten bewertet: {% if user_topratings %}<a href="{% url 'user' user_topratings.pk user_topratings.username %}">{{ user_topratings.name }}</a> ({{ user_topratings.ratings_count }}){% else %}-{% endif %}</li>
+        <li>Meiste Dokumente hochgeladen: {% if user_topuploads %}<a href="{% url 'user' user_topuploads.pk user_topuploads.username %}">{{ user_topuploads.name }}</a> ({{ user_topuploads.uploads_count }}){% else %}-{% endif %}</li>
+        <li>Meiste Events eingetragen: {% if user_topevents %}<a href="{% url 'user' user_topevents.pk user_topevents.username %}">{{ user_topevents.name }}</a> ({{ user_topevents.events_count }}){% else %}-{% endif %}</li>
     </ul>
 
 {% endblock %}

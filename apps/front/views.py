@@ -403,7 +403,7 @@ class DocumentRate(LoginRequiredMixin, SingleObjectMixin, View):
 
 
 # Stats {{{ 
-class Stats(TemplateView):
+class Stats(LoginRequiredMixin, TemplateView):
     template_name = 'front/stats.html'
 
     def get_context_data(self, **kwargs):
@@ -416,17 +416,22 @@ class Stats(TemplateView):
                       GROUP BY lecturer_id"
         base_query_top = base_query + " ORDER BY AVG(rating) DESC, COUNT(id) DESC"
         base_query_flop = base_query + " ORDER BY AVG(rating) ASC, COUNT(id) DESC"
-        context['lecturer_top_d'] = models.Lecturer.objects.raw(base_query_top % 'd')[0]
-        context['lecturer_top_m'] = models.Lecturer.objects.raw(base_query_top % 'm')[0]
-        context['lecturer_top_f'] = models.Lecturer.objects.raw(base_query_top % 'f')[0]
-        context['lecturer_flop_d'] = models.Lecturer.objects.raw(base_query_flop % 'd')[0]
-        context['lecturer_flop_m'] = models.Lecturer.objects.raw(base_query_flop % 'm')[0]
-        context['lecturer_flop_f'] = models.Lecturer.objects.raw(base_query_flop % 'f')[0]
+        def fetchfirst(queryset):
+            try:
+                return queryset[0]
+            except IndexError:
+                return None
+        context['lecturer_top_d'] = fetchfirst(models.Lecturer.objects.raw(base_query_top % 'd'))
+        context['lecturer_top_m'] = fetchfirst(models.Lecturer.objects.raw(base_query_top % 'm'))
+        context['lecturer_top_f'] = fetchfirst(models.Lecturer.objects.raw(base_query_top % 'f'))
+        context['lecturer_flop_d'] = fetchfirst(models.Lecturer.objects.raw(base_query_flop % 'd'))
+        context['lecturer_flop_m'] = fetchfirst(models.Lecturer.objects.raw(base_query_flop % 'm'))
+        context['lecturer_flop_f'] = fetchfirst(models.Lecturer.objects.raw(base_query_flop % 'f'))
 
         # Users
-        context['user_topratings'] = models.User.objects.annotate(ratings_count=Count('LecturerRating')).order_by('-ratings_count')[0]
-        context['user_topuploads'] = models.User.objects.exclude(username=u'spimport').annotate(uploads_count=Count('Document')).order_by('-uploads_count')[0]
-        context['user_topevents'] = models.User.objects.annotate(events_count=Count('Event')).order_by('-events_count')[0]
+        context['user_topratings'] = fetchfirst(models.User.objects.annotate(ratings_count=Count('LecturerRating')).order_by('-ratings_count'))
+        context['user_topuploads'] = fetchfirst(models.User.objects.exclude(username=u'spimport').annotate(uploads_count=Count('Document')).order_by('-uploads_count'))
+        context['user_topevents'] = fetchfirst(models.User.objects.annotate(events_count=Count('Event')).order_by('-events_count'))
 
         return context
 # }}} 
