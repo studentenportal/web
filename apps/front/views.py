@@ -416,17 +416,26 @@ class Stats(LoginRequiredMixin, TemplateView):
                       GROUP BY lecturer_id"
         base_query_top = base_query + " ORDER BY AVG(rating) DESC, COUNT(id) DESC"
         base_query_flop = base_query + " ORDER BY AVG(rating) ASC, COUNT(id) DESC"
+
         def fetchfirst(queryset):
             try:
                 return queryset[0]
             except IndexError:
                 return None
+
         context['lecturer_top_d'] = fetchfirst(models.Lecturer.objects.raw(base_query_top % 'd'))
         context['lecturer_top_m'] = fetchfirst(models.Lecturer.objects.raw(base_query_top % 'm'))
         context['lecturer_top_f'] = fetchfirst(models.Lecturer.objects.raw(base_query_top % 'f'))
         context['lecturer_flop_d'] = fetchfirst(models.Lecturer.objects.raw(base_query_flop % 'd'))
         context['lecturer_flop_m'] = fetchfirst(models.Lecturer.objects.raw(base_query_flop % 'm'))
         context['lecturer_flop_f'] = fetchfirst(models.Lecturer.objects.raw(base_query_flop % 'f'))
+
+        query_quotes = "SELECT lecturer_id AS id, sum(lecturer_id) as quotes_count \
+					  FROM front_quote \
+					  GROUP BY lecturer_id \
+					  ORDER BY sum(lecturer_id) DESC, lecturer_id ASC"
+
+        context['lecturer_quotes'] = fetchfirst(models.Lecturer.objects.raw(query_quotes))
 
         # Users
         context['user_topratings'] = fetchfirst(models.User.objects.annotate(ratings_count=Count('LecturerRating')).order_by('-ratings_count'))
