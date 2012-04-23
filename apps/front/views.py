@@ -422,7 +422,7 @@ class Stats(LoginRequiredMixin, TemplateView):
                 return queryset[0]
             except IndexError:
                 return None
-	
+
         context['lecturer_top_d'] = fetchfirst(models.Lecturer.objects.raw(base_query_top % 'd'))
         context['lecturer_top_m'] = fetchfirst(models.Lecturer.objects.raw(base_query_top % 'm'))
         context['lecturer_top_f'] = fetchfirst(models.Lecturer.objects.raw(base_query_top % 'f'))

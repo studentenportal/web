@@ -48,9 +48,9 @@
 
     <h3>Meiste Zitate</h3>
     <ol>
-	{% for lecturer in lecturer_quotes %}
+    {% for lecturer in lecturer_quotes %}
         {% if lecturer.quotes_count > 0 %}<li><a href="{% url 'lecturer_detail' lecturer.pk %}">{{ lecturer.name }}</a> ({{ lecturer.quotes_count }})</li>{% endif %}
-	{% endfor %}
+    {% endfor %}
     </ol>
 
     <hr>
