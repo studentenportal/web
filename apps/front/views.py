@@ -422,7 +422,7 @@ class Stats(LoginRequiredMixin, TemplateView):
                 return queryset[0]
             except IndexError:
                 return None
-
+	
         context['lecturer_top_d'] = fetchfirst(models.Lecturer.objects.raw(base_query_top % 'd'))
         context['lecturer_top_m'] = fetchfirst(models.Lecturer.objects.raw(base_query_top % 'm'))
         context['lecturer_top_f'] = fetchfirst(models.Lecturer.objects.raw(base_query_top % 'f'))
@@ -430,12 +430,7 @@ class Stats(LoginRequiredMixin, TemplateView):
         context['lecturer_flop_m'] = fetchfirst(models.Lecturer.objects.raw(base_query_flop % 'm'))
         context['lecturer_flop_f'] = fetchfirst(models.Lecturer.objects.raw(base_query_flop % 'f'))
 
-        query_quotes = "SELECT lecturer_id AS id, sum(lecturer_id) as quotes_count \
-					  FROM front_quote \
-					  GROUP BY lecturer_id \
-					  ORDER BY sum(lecturer_id) DESC, lecturer_id ASC"
-
-        context['lecturer_quotes'] = fetchfirst(models.Lecturer.objects.raw(query_quotes))
+        context['lecturer_quotes'] = models.Lecturer.objects.annotate(quotes_count=Count('Quote')).order_by('-quotes_count')[:3]
 
         # Users
         context['user_topratings'] = fetchfirst(models.User.objects.annotate(ratings_count=Count('LecturerRating')).order_by('-ratings_count'))

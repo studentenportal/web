@@ -47,9 +47,11 @@
     </ul>
 
     <h3>Meiste Zitate</h3>
-    <ul>
-        <li>{% if lecturer_quotes %}<a href="{% url 'lecturer_detail' lecturer_quotes.pk %}">{{ lecturer_quotes.name }}</a> ({{ lecturer_quotes.quotes_count }}){% else %}-{% endif %}</li>
-    </ul>
+    <ol>
+	{% for lecturer in lecturer_quotes %}
+        {% if lecturer.quotes_count > 0 %}<li><a href="{% url 'lecturer_detail' lecturer.pk %}">{{ lecturer.name }}</a> ({{ lecturer.quotes_count }})</li>{% endif %}
+	{% endfor %}
+    </ol>
 
     <hr>
     <h2>Studenten</h2>
