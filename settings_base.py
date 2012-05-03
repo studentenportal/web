@@ -174,6 +174,7 @@ LOGGING = {
 }
 
 LOGIN_REDIRECT_URL = '/'
+AUTHENTICATION_BACKENDS = ('backends.CaseInsensitiveModelBackend',)
 
 # Registration
 ACCOUNT_ACTIVATION_DAYS = 7

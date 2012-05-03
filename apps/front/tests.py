@@ -596,11 +596,25 @@ class QuoteViewTest(TestCase):
 
 
 class LoginTest(TestCase):
+    fixtures = ['testusers']
     url = '/accounts/login/'
 
     def testTitle(self):
         r = self.client.get(self.url)
         self.assertContains(r, '<h1>Login</h1>')
+
+    def testLogin(self):
+        r1 = self.client.get('/zitate/')
+        self.assertEqual(r1.status_code, 302)
+        self.client.login(username='testuser', password='test')
+        r2 = self.client.get('/zitate/')
+        self.assertEqual(r2.status_code, 200)
+
+    def testCaseInsensitveLogin(self):
+        r1 = self.client.post(self.url, {'username': 'testuser', 'password': 'test'})
+        self.assertEqual(r1.status_code, 302)
+        r2 = self.client.post(self.url, {'username': 'Testuser', 'password': 'test'})
+        self.assertEqual(r2.status_code, 302)
 
 
 class RegistrationViewTest(TestCase):
