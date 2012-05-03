@@ -2,6 +2,7 @@ import re
 import csv
 import requests
 import sys
+import getpass
 from BeautifulSoup import BeautifulSoup
 from StringIO import StringIO
 from collections import namedtuple
@@ -108,8 +109,9 @@ class Command(BaseCommand):
     def handle(self, **options):
         assert 'username' in options, '--user argument required'
         assert options['username'], '--user argument required'
-        assert 'password' in options, '--pass argument required'
-        assert options['password'], '--pass argument required'
+
+        if not ('password' in options and options['password']):
+            options['password'] = getpass.getpass('HSR Password: ').strip()
 
         # Initialize counters
         parsed_count = 0

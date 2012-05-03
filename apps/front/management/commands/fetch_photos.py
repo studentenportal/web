@@ -1,6 +1,7 @@
 import requests
 import time
 import sys
+import getpass
 from BeautifulSoup import BeautifulSoup
 from cStringIO import StringIO
 from optparse import make_option
@@ -76,8 +77,9 @@ class Command(BaseCommand):
     def handle(self, **options):
         assert 'username' in options, '--user argument required'
         assert options['username'], '--user argument required'
-        assert 'password' in options, '--pass argument required'
-        assert options['password'], '--pass argument required'
+
+        if not ('password' in options and options['password']):
+            options['password'] = getpass.getpass('HSR Password: ').strip()
 
         # Initialize counters
         processed_count = 0
