@@ -150,7 +150,8 @@ class Document(models.Model):
         return '/'.join(['documents', slugify(instance.category.name), '%s%s' % (timestamp, ext)])
 
     name = models.CharField(u'Titel', max_length=100)
-    description = models.TextField(u'Beschreibung', blank=True)
+    description = models.CharField(u'Beschreibung', blank=True, max_length=500,
+        help_text='(Max. 500 Zeichen)')
     dtype = models.PositiveSmallIntegerField(u'Typ', choices=(
         (DTypes.SUMMARY, u'Zusammenfassung'),
         (DTypes.EXAM, u'Prüfung')))
