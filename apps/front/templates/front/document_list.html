@@ -60,7 +60,7 @@
                                 {% if doc.upload_date %}
                                     (<em>{{ doc.upload_date|date:"d.m.Y" }}</em>)
                                 {% endif %}
-                                {{ doc.description|urlize }}
+                                {{ doc.description|urlizetrunc:50 }}
                             </p>
                             {% if user.is_authenticated %}
                                 <div class="drating floatleft" data-readonly="{% if doc.uploader = user %}1{% else %}0{% endif %}"
