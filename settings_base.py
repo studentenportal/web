@@ -127,6 +127,8 @@ MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
 MAX_UPLOAD_SIZE = 10485760  # 10MB
 
+AUTH_PROFILE_MODULE = 'front.UserProfile'
+
 INSTALLED_APPS = (
     # Builtin apps
     'django.contrib.auth',

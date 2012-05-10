@@ -7,6 +7,7 @@ from django.core.exceptions import ValidationError
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
+from django.db.models.signals import post_save
 
 
 class Lecturer(models.Model):
@@ -255,6 +256,16 @@ class Event(models.Model):
         return '%s %s' % (self.start_date, self.summary)
 
 
+class UserProfile(models.Model):
+    """A user profile."""
+    user = models.OneToOneField(User)
+    twitter = models.CharField(u'Twitter Benutzername', max_length=24)
+    flattr = models.CharField(u'Flattr Benutzername', max_length=128,
+            help_text=u'Durch das Angeben eines <a href="https://flattr.com/">Flattr</a> \
+            Benutzernamens wird bei deinen hochgeladenen Zusammenfassungen ein \
+            Button für Mikrospenden angezeigt.')
+
+
 def name(self):
     """Return either full user first and last name or the username, if no
     further data is found."""
@@ -263,3 +274,8 @@ def name(self):
     return self.username
 User.add_to_class('name', name)
 
+
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        UserProfile.objects.create(user=instance)
+post_save.connect(create_user_profile, sender=User)

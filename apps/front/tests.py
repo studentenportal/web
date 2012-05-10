@@ -5,7 +5,7 @@ import os
 from django.test import TestCase, SimpleTestCase, TransactionTestCase
 from django.contrib.auth.models import User
 from django.core import mail
-from django.core.exceptions import ValidationError
+from django.core.exceptions import ValidationError, ObjectDoesNotExist
 from django.conf import settings
 from django.db import IntegrityError
 
@@ -188,6 +188,14 @@ class UserModelTest(TransactionTestCase):
         self.assertEqual(self.marc.name(), u'Marc')
         self.assertEqual(self.pete.name(), u'Peterson')
         self.assertEqual(self.mike.name(), u'Mike Müller')
+
+    def testUserProfileCreation(self):
+        """Test whether a user profile is created when a user is created."""
+        u = User.objects.create_user("profiletester", "pt@example.com", "pwd")
+        try:
+            u.get_profile()
+        except ObjectDoesNotExist:
+            self.fail("Userprofile was not automatically created for a new user.")
 
 
 class EventModelTest(TestCase):

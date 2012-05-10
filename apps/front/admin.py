@@ -10,6 +10,7 @@ class DocumentCategoryAdmin(admin.ModelAdmin):
 class DocumentAdmin(admin.ModelAdmin):
     list_filter = ('category', 'uploader')
 
+admin.site.register(models.UserProfile)
 admin.site.register(models.Lecturer)
 admin.site.register(models.LecturerRating)
 admin.site.register(models.Quote, QuoteAdmin)
