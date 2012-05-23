@@ -13,3 +13,7 @@ django-sendfile==0.3.0
 # Parsing
 BeautifulSoup==3.2.0
 requests==0.6.1
+
+# Development
+django-debug-toolbar
+South
