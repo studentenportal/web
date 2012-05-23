@@ -1,9 +1,0 @@
-# Testing
-django-jenkins==0.12.0
-coverage
-httplib2
-logilab-astng
-logilab-common
-pylint
-pyflakes
-pep8

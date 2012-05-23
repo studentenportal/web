@@ -1,13 +1,15 @@
 Studentenportal 2.0
 ===================
 
+[![Build Status](https://secure.travis-ci.org/gwrtheyrn/studentenportal2.png?branch=master)](http://travis-ci.org/gwrtheyrn/studentenportal2)
+
 Dies ist ein re-launch des [HSR Studentenportals](http://studentenportal.ch).
 Es soll das alte Portal ablösen und in Sachen Ruhm und Ehre weit überholen.
 
 ![f\*ck yeah!](http://s3.amazonaws.com/kym-assets/entries/icons/original/000/001/987/fyeah.jpg)
 
  * Live-Instanz: http://studentenportal.ch/
- * Jenkins Buildserver: http://jenkins.w00t.ws/job/Studentenportal2/
+ * Travis Buildserver: http://travis-ci.org/gwrtheyrn/studentenportal2
 
 
 Technologie
@@ -24,9 +26,8 @@ Um die Entwicklungsumgebung einzurichten:
  1. Repository clonen
  2. Python Virtualenv erstellen und aktivieren
  3. `pip install -r requirements.txt`
- 4. `pip install -r requirements_dev.txt`
- 5. `python manage.py syncdb`
- 6. `python manage.py runserver`
+ 4. `python manage.py syncdb`
+ 5. `python manage.py runserver`
 
 
 Um die Tests auszuführen:
@@ -51,7 +52,7 @@ Featurevorschläge sind willkommen! Momentan in etwa geplant:
 Fragen
 ------
 
-Bei Fragen wende dich an dbargen@hsr.ch oder https://twitter.com/studportal_hsr.
+Bei Fragen wende dich an dbargen@hsr.ch oder https://twitter.com/studportal\_hsr.
 
 
 Lizenz
