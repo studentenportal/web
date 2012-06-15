@@ -198,6 +198,19 @@ class UserModelTest(TransactionTestCase):
             self.fail("Userprofile was not automatically created for a new user.")
 
 
+class UserProfileModelTest(TestCase):
+    def setUp(self):
+        self.john = User.objects.create(username='john')
+
+    def testData(self):
+        profile = self.john.get_profile()
+        profile.twitter = 'twjohn'
+        profile.flattr = 'fljohn'
+        profile.save()
+        self.assertEqual('twjohn', self.john.get_profile().twitter)
+        self.assertEqual('fljohn', self.john.get_profile().flattr)
+
+
 class EventModelTest(TestCase):
     fixtures = ['testusers']
     
@@ -663,6 +676,30 @@ class UserViewTest(TestCase):
         response = self.client.get('/users/2/testuser2/')
         self.assertContains(response, '<h1>Another Guy</h1>')
         self.assertContains(response, 'django-test2@studentenportal.ch')
+
+
+class UserProfileViewTest(TestCase):
+    fixtures = ['testusers']
+
+    def setUp(self):
+        self.client.login(username='testuser', password='test')
+
+    def testFormSubmission(self):
+        """Test whether a profile form submission gets saved correctly."""
+        response = self.client.post('/profil/', {
+            'email': 'test@example.com',
+            'first_name': 'John',
+            'last_name': 'Doe',
+            'twitter': 'jdoe',
+            'flattr': 'johndoe',
+        })
+        self.assertRedirects(response, '/profil/')
+        user = User.objects.get(username='testuser')
+        self.assertEqual('test@example.com', user.email)
+        self.assertEqual('John', user.first_name)
+        self.assertEqual('Doe', user.last_name)
+        self.assertEqual('jdoe', user.get_profile().twitter)
+        self.assertEqual('johndoe', user.get_profile().flattr)
 
 
 class StatsViewTest(TestCase):
