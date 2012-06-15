@@ -8,10 +8,25 @@ from apps.front import models
 
 
 class ProfileForm(forms.ModelForm):
-    #username = forms.CharField(label=u'E-Mail', required=True)
+    twitter = forms.CharField(max_length=24, required=False)
+    flattr = forms.CharField(max_length=128, required=False)
+
+    def __init__(self, *args, **kwargs):
+        super(ProfileForm, self).__init__(*args, **kwargs)
+        self.fields['email'].required = True
+        self.userprofile = self.instance.get_profile()
+        self.fields['twitter'].initial = self.userprofile.twitter
+        self.fields['flattr'].initial = self.userprofile.flattr
+
+    def save(self, *args, **kwargs):
+        super(ProfileForm, self).save(*args, **kwargs)
+        self.userprofile.twitter = self.cleaned_data.get('twitter')
+        self.userprofile.flattr = self.cleaned_data.get('flattr')
+        self.userprofile.save()
+
     class Meta:
         model = auth_models.User
-        fields = ('first_name', 'last_name', 'email')
+        fields = ('email', 'first_name', 'last_name', 'twitter', 'flattr')
 
 
 class PasswordForm(forms.Form):

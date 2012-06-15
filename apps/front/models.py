@@ -8,6 +8,7 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
 from django.db.models.signals import post_save
+from django.utils.safestring import mark_safe
 
 
 class Lecturer(models.Model):
@@ -259,11 +260,11 @@ class Event(models.Model):
 class UserProfile(models.Model):
     """A user profile."""
     user = models.OneToOneField(User)
-    twitter = models.CharField(u'Twitter Benutzername', max_length=24)
-    flattr = models.CharField(u'Flattr Benutzername', max_length=128,
-            help_text=u'Durch das Angeben eines <a href="https://flattr.com/">Flattr</a> \
-            Benutzernamens wird bei deinen hochgeladenen Zusammenfassungen ein \
-            Button für Mikrospenden angezeigt.')
+    twitter = models.CharField(u'Twitter Benutzername', max_length=24, blank=True)
+    flattr = models.CharField(u'Flattr Benutzername', max_length=128, blank=True,
+            help_text=mark_safe(u'Falls angegeben, wird bei deinen \
+            Zusammenfassungen jeweils ein \
+            <a href="https://flattr.com/">Flattr</a> Button angezeigt.'))
 
 
 def name(self):
