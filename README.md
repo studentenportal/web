@@ -36,6 +36,11 @@ Um die Tests auszuführen:
  2. `python manage.py test front`
 
 
+Hinweis: Das Ganze sollte mit der Standard-SQLite-Datenbank funktionieren, es
+ist jedoch empfehlenswert direkt eine PostgreSQL Datenbank zu verwenden, da
+zwischen den beiden Systemen doch gewisse Unterschiede bestehen...
+
+
 Features
 --------
 
