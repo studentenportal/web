@@ -266,6 +266,9 @@ class UserProfile(models.Model):
             Zusammenfassungen jeweils ein \
             <a href="https://flattr.com/">Flattr</a> Button angezeigt.'))
 
+    def __unicode__(self):
+        return u'Profile for %s' % self.user.username
+
 
 def name(self):
     """Return either full user first and last name or the username, if no
