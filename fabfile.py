@@ -6,7 +6,8 @@ env.hosts = ['dbargen@studentenportal.ch']
 def test():
     """Run django tests."""
     with settings(warn_only=True):
-        result = local('./manage.py test front')
+        local('./manage.py collectstatic --noinput --link')
+        result = local('./manage.py test front --failfast')
     if result.failed and not confirm("Tests failed. Continue anyway?"):
         abort("Aborting at user request.")
 
