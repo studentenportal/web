@@ -270,6 +270,9 @@ class UserProfile(models.Model):
         return u'Profile for %s' % self.user.username
 
 
+User.profile = property(lambda u: UserProfile.objects.get_or_create(user=u)[0])
+
+
 def name(self):
     """Return either full user first and last name or the username, if no
     further data is found."""

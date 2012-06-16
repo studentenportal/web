@@ -14,7 +14,7 @@ class ProfileForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(ProfileForm, self).__init__(*args, **kwargs)
         self.fields['email'].required = True
-        self.userprofile = self.instance.get_profile()
+        self.userprofile = self.instance.profile
         self.fields['twitter'].initial = self.userprofile.twitter
         self.fields['flattr'].initial = self.userprofile.flattr
 

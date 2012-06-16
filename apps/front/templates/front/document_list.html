@@ -84,12 +84,12 @@
                                 <p><em>Datei nicht verfügbar</em></p>
                             {% endif %}
                             <p>{{ doc.downloadcount }} Download{{ doc.downloadcount|pluralize:"s" }}</p>
-                            {% if doc.uploader.get_profile.flattr %}
+                            {% if doc.uploader.profile.flattr %}
                             <p><a class="FlattrButton"
                                 href="{% url 'document_download' documentcategory.name|slugify doc.pk %}"
                                 title="{{ doc.name }}"
                                 data-flattr-button="compact"
-                                data-flattr-uid="{{ doc.uploader.get_profile.flattr }}"
+                                data-flattr-uid="{{ doc.uploader.profile.flattr }}"
                             >{{ doc.description }}</a></p>
                             {% endif %}
                         </td>
