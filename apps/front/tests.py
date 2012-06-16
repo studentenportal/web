@@ -210,6 +210,9 @@ class UserProfileModelTest(TestCase):
         self.assertEqual('twjohn', self.john.get_profile().twitter)
         self.assertEqual('fljohn', self.john.get_profile().flattr)
 
+    def testProperty(self):
+        self.assertEqual(self.john.get_profile(), self.john.profile)
+
 
 class EventModelTest(TestCase):
     fixtures = ['testusers']
