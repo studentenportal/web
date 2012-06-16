@@ -1,11 +1,17 @@
 {% extends 'front/base.html' %}
 {% load url from future %}
+{% load assets %}
 {% load tabs %}
 {% load tags %}
 
 {% block title %}Dokumente{% endblock %}
 
 {% block bodyclass %}document_list{% endblock %}
+
+{% block scripts %}
+    {{ block.super }}
+    {% assets 'flattr_js' %}<script src="{{ ASSET_URL }}"></script>{% endassets %}
+{% endblock %}
 
 {% block navigation %}
     {% activetab 'navigation' 'documents' %}
@@ -77,7 +83,16 @@
                             {% else %}
                                 <p><em>Datei nicht verfügbar</em></p>
                             {% endif %}
-                            <p>{{ doc.downloadcount }} Download{{ doc.downloadcount|pluralize:"s" }}</p></td>
+                            <p>{{ doc.downloadcount }} Download{{ doc.downloadcount|pluralize:"s" }}</p>
+                            {% if doc.uploader.get_profile.flattr %}
+                            <p><a class="FlattrButton"
+                                href="{% url 'document_download' documentcategory.name|slugify doc.pk %}"
+                                title="{{ doc.name }}"
+                                data-flattr-button="compact"
+                                data-flattr-uid="{{ doc.uploader.get_profile.flattr }}"
+                            >{{ doc.description }}</a></p>
+                            {% endif %}
+                        </td>
                         <td>
                             {% if doc.uploader = user %}
                                 <p>

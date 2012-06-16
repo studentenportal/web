@@ -16,5 +16,11 @@ stylesheets = Bundle(
     #filters='cssmin,cssrewrite',
     output='css/packed.css')
 
+flattr_js = Bundle(
+    'js/flattr_loader.js',
+    filters='jsmin',
+    output='js/flattr_loader.min.js')
+
 register('scripts', scripts)
 register('stylesheets', stylesheets)
+register('flattr_js', flattr_js)
