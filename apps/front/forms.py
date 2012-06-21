@@ -8,8 +8,8 @@ from apps.front import models
 
 
 class ProfileForm(forms.ModelForm):
-    twitter = forms.CharField(max_length=24, required=False)
-    flattr = forms.CharField(max_length=128, required=False)
+    twitter = forms.CharField(label=u'Twitter Benutzername', max_length=24, required=False)
+    flattr = forms.CharField(label=u'Flattr Benutzername', max_length=128, required=False)
 
     def __init__(self, *args, **kwargs):
         super(ProfileForm, self).__init__(*args, **kwargs)

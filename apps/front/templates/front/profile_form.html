@@ -7,6 +7,15 @@
         <h1>Benutzerprofil bearbeiten</h1>
     </div>
 
+    <p>Hier kannst du deine Profildaten bearbeiten. Vorname und Nachname sind
+    freiwillig, werden aber häufig anstelle des Benutzernamens angezeigt,
+    sofern vorhanden. Der Twitter-Benutzername wird zB benutzt, um alle Tweets
+    von HSR-Studenten auflisten zu können. Falls angegeben, wird dein <a
+    href="https://flattr.com/">Flattr</a>- Benutzername verwendet um bei
+    deinen Zusammenfassungen jeweils einen Spende-Button anzuzeigen.</p>
+
+    <br>
+
     <form method="post" action="{% url 'profile' %}">
         {% csrf_token %}
         {% include 'lib/form_loop.html' %}
