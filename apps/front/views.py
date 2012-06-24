@@ -413,7 +413,7 @@ class Stats(LoginRequiredMixin, TemplateView):
         base_query = "SELECT lecturer_id AS id \
                       FROM front_lecturerrating \
                       WHERE category = '%c' \
-                      GROUP BY lecturer_id"
+                      GROUP BY lecturer_id HAVING COUNT(id) > 5"
         base_query_top = base_query + " ORDER BY AVG(rating) DESC, COUNT(id) DESC"
         base_query_flop = base_query + " ORDER BY AVG(rating) ASC, COUNT(id) DESC"
 
