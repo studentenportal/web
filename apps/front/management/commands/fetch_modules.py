@@ -6,7 +6,7 @@ from apps.front.models import DocumentCategory
 
 
 blacklist = ['3D-Vis', 'DigT1', 'DigT2', 'MaTechM1',
-             'MaTechM2', 'ElMasch', 'StReiseR']
+             'MaTechM2', 'ElMasch', 'StReiseR', 'SE2P']
 
 class Command(NoArgsCommand):
     help = 'Fetch module descriptions and write them to the database.'
