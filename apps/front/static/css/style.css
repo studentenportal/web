@@ -79,6 +79,10 @@ footer {
     font-style: italic;
 }
 
+.ui-widget {
+    font-size: 8.5pt;
+}
+
 
 /* Specific pages */
 

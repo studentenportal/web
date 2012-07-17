@@ -7,6 +7,7 @@ scripts = Bundle(
     'js/jquery.raty.min.js',
     'js/studentenportal.js',
     'js/raty.js',
+    'js/jquery-ui-1.8.21.custom.min.js',
     output='js/packed.js')
 
 
@@ -17,9 +18,10 @@ flattr_js = Bundle(
 
 
 stylesheets = Bundle(
-    'css/style.css',
+    'css/smoothness/jquery-ui-1.8.21.custom.css',
     'css/bootstrap.css',
     'css/bootstrap-responsive.css',
+    'css/style.css',
     #filters='cssmin,cssrewrite',
     output='css/packed.css')
 
