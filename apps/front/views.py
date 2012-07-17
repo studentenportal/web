@@ -433,9 +433,23 @@ class Stats(LoginRequiredMixin, TemplateView):
         context['lecturer_quotes'] = models.Lecturer.objects.annotate(quotes_count=Count('Quote')).order_by('-quotes_count')[:3]
 
         # Users
-        context['user_topratings'] = fetchfirst(models.User.objects.annotate(ratings_count=Count('LecturerRating')).order_by('-ratings_count'))
-        context['user_topuploads'] = fetchfirst(models.User.objects.exclude(username=u'spimport').annotate(uploads_count=Count('Document')).order_by('-uploads_count'))
-        context['user_topevents'] = fetchfirst(models.User.objects.annotate(events_count=Count('Event')).order_by('-events_count'))
+        context['user_topratings'] = fetchfirst(
+                models.User.objects.raw('''
+                        SELECT u.id AS id, COUNT(DISTINCT lr.lecturer_id) AS lrcount
+                        FROM auth_user u
+                        JOIN front_lecturerrating lr
+                            ON u.id = lr.user_id
+                        GROUP BY u.id
+                        ORDER BY lrcount DESC'''))
+        context['user_topuploads'] = fetchfirst(
+                models.User.objects \
+                        .exclude(username=u'spimport') \
+                        .annotate(uploads_count=Count('Document')) \
+                        .order_by('-uploads_count'))
+        context['user_topevents'] = fetchfirst(
+                models.User.objects \
+                        .annotate(events_count=Count('Event')) \
+                        .order_by('-events_count'))
 
         return context
 # }}} 
