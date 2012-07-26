@@ -27,13 +27,19 @@ Um die Entwicklungsumgebung einzurichten:
  2. Python Virtualenv erstellen und aktivieren
  3. `pip install -r requirements.txt`
  4. `python manage.py syncdb`
- 5. `python manage.py runserver`
+ 5. `python manage.py migrate`
+ 6. `python manage.py runserver`
 
 
 Um die Tests auszuführen:
 
  1. `python manage.py collectstatic`
  2. `python manage.py test front`
+
+
+Falls ein Datenbankfehler auftritt, weil das Schema sich geändert hat:
+
+ 1. `python manage.py migrate`
 
 
 Hinweis: Das Ganze sollte mit der Standard-SQLite-Datenbank funktionieren, es
