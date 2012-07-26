@@ -144,6 +144,8 @@ INSTALLED_APPS = (
     'registration',
     'django_extensions',
     'south',
+    'tastypie',
+    'tastytools',
 
     # Own apps
     'apps.front',

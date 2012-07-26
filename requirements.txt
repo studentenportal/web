@@ -15,6 +15,12 @@ django-sendfile==0.3.0
 BeautifulSoup==3.2.0
 requests==0.6.1
 
+# API
+django-tastypie==0.9.11
+lxml==2.3.4
+PyYAML==3.10
+-e git://github.com/juanique/django-tastytools.git@cb7efbc54b3d14756682687311d6677b37fcba24#egg=django_tastytools
+
 # Development
 django-debug-toolbar
 South

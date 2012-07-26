@@ -1,8 +1,9 @@
+from registration.views import register
 from django.conf.urls.defaults import patterns, include, url
 from django.conf import settings
 from django.contrib import admin
-from registration.views import register
 from apps.front import views
+from apps.front.api.tools import api
 
 admin.autodiscover()
 
@@ -51,6 +52,11 @@ urlpatterns += patterns('',
 urlpatterns += patterns('',
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^admin/', include(admin.site.urls)),
+)
+
+# API
+urlpatterns += patterns('',
+    url(r'^api/', include(api.urls)),
 )
 
 
