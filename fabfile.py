@@ -23,6 +23,8 @@ def deploy_untested():
         sudo('git pull', user='django')
         sudo('VIRTUAL/bin/pip install -r requirements.txt', user='django')
         sudo('VIRTUAL/bin/pip install -r requirements_prod.txt', user='django')
+        sudo('VIRTUAL/bin/python manage.py syncdb --noinput --settings=settings_prod', user='django')
+        sudo('VIRTUAL/bin/python manage.py migrate --noinput --settings=settings_prod', user='django')
         sudo('VIRTUAL/bin/python manage.py collectstatic --noinput --clear --settings=settings_prod', user='django')
         sudo('/etc/init.d/supervisor restart')
 

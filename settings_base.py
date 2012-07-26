@@ -143,6 +143,7 @@ INSTALLED_APPS = (
     'apps.tabs',
     'registration',
     'django_extensions',
+    'south',
 
     # Own apps
     'apps.front',
