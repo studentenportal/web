@@ -154,6 +154,7 @@ class Document(models.Model):
     name = models.CharField(u'Titel', max_length=100)
     description = models.CharField(u'Beschreibung', blank=True, max_length=500,
         help_text='(Max. 500 Zeichen)')
+    category = models.ForeignKey(DocumentCategory, verbose_name=u'Modul', related_name=u'Document', null=True, on_delete=models.PROTECT)
     dtype = models.PositiveSmallIntegerField(u'Typ', choices=(
         (DTypes.SUMMARY, u'Zusammenfassung'),
         (DTypes.EXAM, u'Prüfung')))
@@ -161,7 +162,6 @@ class Document(models.Model):
     original_filename = models.CharField(u'Originaler Dateiname', max_length=255, blank=True)
     uploader = models.ForeignKey(User, related_name=u'Document', null=True, on_delete=models.SET_NULL)
     upload_date = models.DateTimeField(u'Uploaddatum', auto_now_add=True)
-    category = models.ForeignKey(DocumentCategory, related_name=u'Document', null=True, on_delete=models.PROTECT)
     downloadcount = models.IntegerField(default=0)
 
     def rating_exact(self):
