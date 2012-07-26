@@ -39,7 +39,8 @@ Um die Tests auszuführen:
 
 Falls ein Datenbankfehler auftritt, weil das Schema sich geändert hat:
 
- 1. `python manage.py migrate`
+ 1. `python manage.py syncdb`
+ 2. `python manage.py migrate`
 
 
 Hinweis: Das Ganze sollte mit der Standard-SQLite-Datenbank funktionieren, es

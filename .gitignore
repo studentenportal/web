@@ -5,5 +5,4 @@
 /media/lecturers
 /reports
 db.sqlite
-apps/front/migrations/
 venv/
