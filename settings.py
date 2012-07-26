@@ -18,6 +18,17 @@ INSTALLED_APPS += (
     'south',
 )
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': 'studentenportal',
+        'USER': 'studentenportal',
+        'PASSWORD': 'studentenportal',
+        'HOST': '',  # Set to empty string for localhost.
+        'PORT': '',  # Set to empty string for default.
+    }
+}
+
 ### DEBUG TOOLBAR ###
 
 def local_network_debug(request):

@@ -1,5 +1,4 @@
 # Production server
 gunicorn==0.14.2
-psycopg2==2.4.4
 cssmin
 jsmin

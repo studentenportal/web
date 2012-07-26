@@ -2,6 +2,7 @@
 Django==1.4
 PIL
 django-extensions
+psycopg2==2.4.4
 
 # Useful/important apps
 webassets==0.6

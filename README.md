@@ -25,10 +25,13 @@ Um die Entwicklungsumgebung einzurichten:
 
  1. Repository clonen
  2. Python Virtualenv erstellen und aktivieren
- 3. `pip install -r requirements.txt`
- 4. `python manage.py syncdb`
- 5. `python manage.py migrate`
- 6. `python manage.py runserver`
+ 3. PostgreSQL installieren
+ 4. `createuser -P -d -e -E -s studentenportal` (Passwort "studentenportal")
+ 5. `createdb -E UTF-8 -O studentenportal -U studentenportal`
+ 6. `pip install -r requirements.txt`
+ 7. `python manage.py syncdb`
+ 8. `python manage.py migrate`
+ 9. `python manage.py runserver`
 
 
 Um die Tests auszuführen:
@@ -41,11 +44,6 @@ Falls ein Datenbankfehler auftritt, weil das Schema sich geändert hat:
 
  1. `python manage.py syncdb`
  2. `python manage.py migrate`
-
-
-Hinweis: Das Ganze sollte mit der Standard-SQLite-Datenbank funktionieren, es
-ist jedoch empfehlenswert direkt eine PostgreSQL Datenbank zu verwenden, da
-zwischen den beiden Systemen doch gewisse Unterschiede bestehen...
 
 
 Features
