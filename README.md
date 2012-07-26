@@ -21,6 +21,13 @@ Das neue Studentenportal wird mit Django/Python geschrieben.
 Development
 -----------
 
+Requirements:
+
+ - Python >= 2.7
+ - PostgreSQL >= 9.1
+ - PostgreSQL Contrib Pakete (Debian: `postgresql-contrib-9.1`)
+
+
 Um die Entwicklungsumgebung einzurichten:
 
  1. Repository clonen
