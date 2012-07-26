@@ -9,7 +9,7 @@ from django.core.exceptions import ValidationError, ObjectDoesNotExist
 from django.conf import settings
 from django.db import IntegrityError
 
-from apps.front import models
+from apps.front import models, forms
 from apps.front import templatetags
 
 
@@ -416,6 +416,24 @@ class DocumentcategoryAddViewTest(TestCase):
         self.assertRedirects(response1, '/dokumente/')
         response2 = self.client.get('/dokumente/prog2/')
         self.assertContains(response2, '<h1>Dokumente Prog2</h1>')
+
+    def testAddInvalid(self):
+        dc_form = forms.DocumentCategoryForm({'name': 'MöKomÄP', 'description': 'MoKomAP with invalid name'})
+        self.assertFalse(dc_form.is_valid())
+        dc_form = forms.DocumentCategoryForm({'name': 'MoKomAP', 'description': 'MoKomAP with valid name'})
+        self.assertTrue(dc_form.is_valid())
+
+    def testAddDuplicate(self):
+        """Test whether DocumentCategory name field is unique"""
+        models.DocumentCategory.objects.create(name='test', description='Test category')
+        dc_form = forms.DocumentCategoryForm({'name': 'test', 'description': 'Another test category'})
+        self.assertFalse(dc_form.is_valid())
+
+    def testAddInsensitiveDuplicate(self):
+        """Test whether DocumentCategory name field is unique in any case"""
+        models.DocumentCategory.objects.create(name='test', description='Test category')
+        dc_form = forms.DocumentCategoryForm({'name': 'Test', 'description': 'Another test category'})
+        self.assertFalse(dc_form.is_valid())
 
 
 class DocumentListViewTest(TestCase):

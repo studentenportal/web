@@ -9,6 +9,7 @@ from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
 from django.db.models.signals import post_save
 from django.utils.safestring import mark_safe
+from apps.front import fields
 
 
 class Lecturer(models.Model):
@@ -111,8 +112,7 @@ class DocumentCategory(models.Model):
     A document can have several categories.
 
     """
-    # TODO prevent duplicate entries http://stackoverflow.com/questions/1857822/unique-model-field-in-django-and-case-sensitivity-postgres
-    name = models.SlugField(u'Kürzel', max_length=32, unique=True,
+    name = fields.CaseInsensitiveSlugField(u'Kürzel', max_length=32, unique=True,
             help_text=u'z.B. "CompT1" oder "Prog3"')
     description = models.CharField(u'Voller Name', max_length=255,
             help_text=u'z.B. "Computertechnik 1" oder "Programmieren 3"')

@@ -25,13 +25,18 @@ Um die Entwicklungsumgebung einzurichten:
 
  1. Repository clonen
  2. Python Virtualenv erstellen und aktivieren
- 3. PostgreSQL installieren
+ 3. `psql -d template1 -c 'CREATE EXTENSION citext;'`
  4. `createuser -P -d -e -E -s studentenportal` (Passwort "studentenportal")
- 5. `createdb -E UTF-8 -O studentenportal -U studentenportal`
+ 5. `createdb -O studentenportal -U studentenportal`
  6. `pip install -r requirements.txt`
  7. `python manage.py syncdb`
  8. `python manage.py migrate`
  9. `python manage.py runserver`
+
+
+Falls die Datenbank bereits existiert:
+
+ 1. `psql -d studentenportal -c 'CREATE EXTENSION citext;'`
 
 
 Um die Tests auszuführen:
@@ -49,14 +54,9 @@ Falls ein Datenbankfehler auftritt, weil das Schema sich geändert hat:
 Features
 --------
 
-Featurevorschläge sind willkommen! Momentan in etwa geplant:
-
- * Zusammenfassungen, Formelsammlungen
- * Dozentenbewertungen
- * Dozentenzitate
- * Twitterintegration (wie genau ist noch unklar)
- * Modul-Reviews
- * Ev. eine Linksammlung
+Featurevorschläge sind willkommen! Aktuell geplante Features und Featurewünsche
+können auf https://studentenportal.uservoice.com/ eingesehen, erstellt und
+upvoted werden.
 
 
 Fragen

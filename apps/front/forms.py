@@ -70,6 +70,11 @@ class HsrRegistrationForm(RegistrationForm):
             return super(HsrRegistrationForm, self).clean_username()
 
 
+class DocumentCategoryForm(forms.ModelForm):
+    class Meta:
+        model = models.DocumentCategory
+
+
 class DocumentForm(forms.ModelForm):
     def clean_document(self):
         document = self.cleaned_data['document']

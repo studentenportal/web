@@ -266,6 +266,7 @@ class DocumentcategoryList(ListView):
 
 class DocumentcategoryAdd(LoginRequiredMixin, CreateView):
     model = models.DocumentCategory
+    form_class = forms.DocumentCategoryForm
 
     def get_success_url(self):
         messages.add_message(self.request, messages.SUCCESS,
