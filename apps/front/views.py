@@ -324,7 +324,10 @@ class DocumentDownload(View):
 
 class DocumentAdd(LoginRequiredMixin, DocumentcategoryMixin, CreateView):
     model = models.Document
-    form_class = forms.DocumentForm
+    form_class = forms.DocumentAddForm
+
+    def __init__(self, *args, **kwargs):
+        super(DocumentAdd, self).__init__(*args, **kwargs)
 
     def form_valid(self, form):
         """Override the form_valid method of the ModelFormMixin to insert
@@ -346,7 +349,7 @@ class DocumentAdd(LoginRequiredMixin, DocumentcategoryMixin, CreateView):
 
 class DocumentEdit(LoginRequiredMixin, DocumentcategoryMixin, UpdateView):
     model = models.Document
-    form_class = forms.DocumentForm
+    form_class = forms.DocumentEditForm
 
     def dispatch(self, request, *args, **kwargs):
         handler = super(DocumentEdit, self).dispatch(request, *args, **kwargs)
