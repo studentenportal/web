@@ -153,7 +153,9 @@ class Document(models.Model):
 
     name = models.CharField(u'Titel', max_length=100)
     description = models.CharField(u'Beschreibung', blank=True, max_length=500,
-        help_text='(Max. 500 Zeichen)')
+        help_text=u'(Max. 500 Zeichen)')
+    url = models.URLField(u'URL', null=True, blank=True,
+        help_text=u'z.B. Link zu Github Repository')
     category = models.ForeignKey(DocumentCategory, verbose_name=u'Modul', related_name=u'Document', null=True, on_delete=models.PROTECT)
     dtype = models.PositiveSmallIntegerField(u'Typ', choices=(
         (DTypes.SUMMARY, u'Zusammenfassung'),

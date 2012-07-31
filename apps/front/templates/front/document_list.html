@@ -68,6 +68,9 @@
                                 {% endif %}
                                 {{ doc.description|urlizetrunc:50 }}
                             </p>
+                            {% if doc.url %}
+                                <p>{{ doc.url|urlizetrunc:70 }}</p>
+                            {% endif %}
                             {% if user.is_authenticated %}
                                 <div class="drating floatleft" data-readonly="{% if doc.uploader = user %}1{% else %}0{% endif %}"
                                     data-url="{% url 'document_rate' documentcategory.name|slugify doc.pk %}"
