@@ -57,7 +57,7 @@
     <h2>Studenten</h2>
 
     <ul>
-        <li>Meiste Dozenten bewertet: {% if user_topratings %}<a href="{% url 'user' user_topratings.pk user_topratings.username %}">{{ user_topratings.name }}</a> ({{ user_topratings.ratings_count }}){% else %}-{% endif %}</li>
+        <li>Meiste Dozenten bewertet: {% if user_topratings %}<a href="{% url 'user' user_topratings.pk user_topratings.username %}">{{ user_topratings.name }}</a> ({{ user_topratings.lrcount }}){% else %}-{% endif %}</li>
         <li>Meiste Dokumente hochgeladen: {% if user_topuploads %}<a href="{% url 'user' user_topuploads.pk user_topuploads.username %}">{{ user_topuploads.name }}</a> ({{ user_topuploads.uploads_count }}){% else %}-{% endif %}</li>
         <li>Meiste Events eingetragen: {% if user_topevents %}<a href="{% url 'user' user_topevents.pk user_topevents.username %}">{{ user_topevents.name }}</a> ({{ user_topevents.events_count }}){% else %}-{% endif %}</li>
     </ul>
