@@ -53,7 +53,9 @@ $(document).ready(function() {
     $('.drating').raty({
         noRatedMsg: 'Du kannst deine eigenen Uploads nicht bewerten.',
         click: function(score, evt) {
-            url = $(this).attr('data-url');
+            var rating_div = $(this);
+            var url = rating_div.attr('data-url');
+            var summary_url = rating_div.attr('data-summary-url')
             $.ajax({
                 type: 'POST',
                 url: url,
@@ -62,7 +64,12 @@ $(document).ready(function() {
                     // Couldn't complete ajax request.
                     // Reset raty and show error message.
                     alert(errorThrown + ': ' + jqXHR.responseText);
-                    $(this).raty('cancel');
+                    rating_div.raty('cancel');
+                },
+                success: function(data, textStatus, jqXHR) {
+                    // Update average rating etc...
+                    var summary_span = rating_div.siblings('.rating_summary')
+                    summary_span.load(summary_url)
                 }
             });
         },

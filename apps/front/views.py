@@ -7,7 +7,7 @@ from django.db.models import Count
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ObjectDoesNotExist, ValidationError
 from django.http import HttpResponse
-from django.http import HttpResponseForbidden, HttpResponseServerError
+from django.http import HttpResponseForbidden, HttpResponseServerError, HttpResponseBadRequest
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import View, TemplateView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -15,7 +15,8 @@ from django.views.generic.edit import SingleObjectMixin
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.utils.decorators import method_decorator
-from django.shortcuts import redirect, get_object_or_404
+from django.shortcuts import redirect, get_object_or_404, render
+from django.template import Context, Template
 from django.template.defaultfilters import slugify
 from sendfile import sendfile
 from apps.front.mixins import LoginRequiredMixin
@@ -403,6 +404,18 @@ class DocumentRate(LoginRequiredMixin, SingleObjectMixin, View):
             return HttpResponseServerError(u'Validierungsfehler')
         rating.save()
         return HttpResponse(u'Bewertung wurde aktualisiert.')
+
+
+def document_rating(request, category, pk):
+    """AJAX view that returns the document_rating_summary block. This is used
+    to update the text after changing a rating via JavaScript."""
+    if not request.is_ajax():
+        return HttpResponseBadRequest(u'XMLHttpRequest expected.')
+    if not request.user.is_authenticated():
+        return HttpResponseForbidden(u'Login required')
+    template = 'front/blocks/document_rating_summary.html'
+    context = {'doc': get_object_or_404(models.Document, pk=pk, category__name=category)}
+    return render(request, template, context, content_type='text/plain')
 # }}}
 
 

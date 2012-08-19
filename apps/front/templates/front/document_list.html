@@ -74,9 +74,10 @@
                             {% if user.is_authenticated %}
                                 <div class="drating floatleft" data-readonly="{% if doc.uploader = user %}1{% else %}0{% endif %}"
                                     data-url="{% url 'document_rate' documentcategory.name|slugify doc.pk %}"
+                                    data-summary-url="{% url 'document_rating_ajax' documentcategory.name|slugify doc.pk %}"
                                     data-rating="{{ ratings|lookup:doc.pk }}"></div>
                             {% endif %}
-                            <span>{{ doc.DocumentRating.count }} Bewertung{{ doc.DocumentRating.count|pluralize:"en" }}{% if doc.DocumentRating.count %} (Durchschnitt {{ doc.rating }}/10){% endif %}</span>
+                            <span class="rating_summary">{% include 'front/blocks/document_rating_summary.html' %}</span>
                         </td>
                         <td>
                             {% if doc.exists %}
