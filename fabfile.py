@@ -32,3 +32,8 @@ def deploy():
     """Prepare, test & run deployment."""
     test()
     deploy_untested()
+
+def publish():
+    """Test, push & deploy."""
+    push()
+    deploy_untested()
