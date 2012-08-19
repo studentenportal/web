@@ -74,8 +74,9 @@
                             {% if user.is_authenticated %}
                                 <div class="drating floatleft" data-readonly="{% if doc.uploader = user %}1{% else %}0{% endif %}"
                                     data-url="{% url 'document_rate' documentcategory.name|slugify doc.pk %}"
-                                    data-rating="{{ ratings|lookup:doc.pk }}"></div> <span>{{ doc.DocumentRating.count }} Bewertung{{ doc.DocumentRating.count|pluralize:"en" }}</span>
+                                    data-rating="{{ ratings|lookup:doc.pk }}"></div>
                             {% endif %}
+                            <span>{{ doc.DocumentRating.count }} Bewertung{{ doc.DocumentRating.count|pluralize:"en" }}{% if doc.DocumentRating.count %} (Durchschnitt {{ doc.rating }}/10){% endif %}</span>
                         </td>
                         <td>
                             {% if doc.exists %}
