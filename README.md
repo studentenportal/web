@@ -69,7 +69,7 @@ upvoted werden.
 Fragen
 ------
 
-Bei Fragen wende dich an dbargen@hsr.ch oder https://twitter.com/studportal\_hsr.
+Bei Fragen wende dich an dbargen@hsr.ch oder https://twitter.com/studportal_hsr.
 
 
 Lizenz
