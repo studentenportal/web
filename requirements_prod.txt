@@ -1,4 +1,4 @@
 # Production server
 gunicorn==0.14.2
-cssmin
-jsmin
+cssmin==0.1.4
+jsmin==2.0.2
