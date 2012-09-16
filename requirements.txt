@@ -21,6 +21,9 @@ lxml==2.3.4
 PyYAML==3.10
 -e git://github.com/juanique/django-tastytools.git@cb7efbc54b3d14756682687311d6677b37fcba24#egg=django_tastytools
 
+# Calendar
+vobject==0.8.1c
+
 # Development
 django-debug-toolbar
 South

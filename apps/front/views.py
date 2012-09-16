@@ -16,9 +16,9 @@ from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.utils.decorators import method_decorator
 from django.shortcuts import redirect, get_object_or_404, render
-from django.template import Context, Template
 from django.template.defaultfilters import slugify
 from sendfile import sendfile
+import vobject
 from apps.front.mixins import LoginRequiredMixin
 from apps.front import forms
 from apps.front import models
@@ -126,6 +126,33 @@ class EventList(TemplateView):
                .filter(start_date__lt=datetime.date.today()) \
                .order_by('-start_date', 'start_time')
         return context
+
+class EventCalendar(View):
+
+    http_method_names = ['get', 'head', 'options']
+
+    def get(self, request, *args, **kwargs):
+        cal = vobject.iCalendar()
+        for event in models.Event.objects.all():
+            vevent = cal.add('vevent')
+            vevent.add('summary').value = event.summary
+            vevent.add('description').value = event.description
+            if event.start_time:
+                dtstart = datetime.datetime.combine(event.start_date, event.start_time)
+            else:
+                dtstart = event.start_date
+            vevent.add('dtstart').value = dtstart
+            if event.end_date or event.end_time:
+                if not event.end_date:
+                    dtend = datetime.datetime.combine(event.start_date, event.end_time)
+                elif event.end_time:
+                    dtend = datetime.datetime.combine(event.end_date, event.end_time)
+                else:
+                    dtend = event.end_date
+                vevent.add('dtend').value = dtend
+            if event.author:
+                vevent.add('comment').value = 'Erfasst von %s' % event.author.name()
+        return HttpResponse(cal.serialize(), content_type='text/calendar')
 # }}}
 
 
