@@ -133,6 +133,7 @@ class EventCalendar(View):
 
     def get(self, request, *args, **kwargs):
         cal = vobject.iCalendar()
+        cal.add('x-wr-calname').value = 'Studentenportal Events'
         for event in models.Event.objects.all():
             vevent = cal.add('vevent')
             vevent.add('summary').value = event.summary
