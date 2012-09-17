@@ -14,14 +14,19 @@
     <div class="page-header">
         <h1>Events</h1>
     </div>
-    
+
     <p>Hier können Termine rund ums Studentenleben gepostet werden, wie zB Bars, Vereinsveranstaltungen etc...</p>
 
-    {% if user.is_authenticated %}
-        <p><a class="btn btn-primary" href="{% url 'event_add' %}">
-            <i class="icon-plus-sign icon-white"></i> Event hinzufügen
-        </a></p>
-    {% endif %}
+    <p>
+        {% if user.is_authenticated %}
+            <a class="btn btn-primary" href="{% url 'event_add' %}">
+                <i class="icon-plus-sign icon-white"></i> Event hinzufügen
+            </a>
+        {% endif %}
+        <a class="btn" href="{% url 'event_calendar' %}">
+            <i class="icon-calendar"></i> Events abonnieren
+        </a>
+    </p>
 
     <h2>Kommende Veranstaltungen</h2>
 
@@ -42,7 +47,5 @@
             {% include 'front/blocks/event_table.html' %}
         {% endwith %}
     {% endif %}
-
-    <p>Export: <a href="{% url 'event_calendar' %}">iCalendar</a></p>
 
 {% endblock %}
