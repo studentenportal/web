@@ -1,6 +1,7 @@
 # coding=utf-8
 import datetime
 import unicodedata
+from urlparse import urlsplit, urlunsplit
 from django.contrib.auth import models as auth_models
 from django.contrib import messages
 from django.db.models import Count
@@ -125,6 +126,8 @@ class EventList(TemplateView):
         context['events_past'] = model.objects \
                .filter(start_date__lt=datetime.date.today()) \
                .order_by('-start_date', 'start_time')
+        http_url = self.request.build_absolute_uri(reverse('event_calendar'))
+        context['webcal_url'] = urlunsplit(urlsplit(http_url)._replace(scheme='webcal'))
         return context
 
 class EventCalendar(View):
