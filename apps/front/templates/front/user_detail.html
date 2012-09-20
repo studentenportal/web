@@ -21,9 +21,10 @@
     <ul class="unstyled">
         <li><strong>Events erfasst:</strong> {{ object.Event.count }}</li>
         <li><strong>Zitate hinzugefügt:</strong> {{ object.Quote.count }}</li>
+        <li><strong>Zitate bewertet:</strong> {{ object.QuoteVote.count }}</li>
         <li><strong>Dozenten bewertet:</strong> {{ lecturerratings }}</li>
-        <li><strong>Zusammenfassungen hochgeladen:</strong> {{ object.Document.count }}</li>
-        <li><strong>Zusammenfassungen bewertet:</strong> {{ object.DocumentRating.count }}</li>
+        <li><strong>Dokumente hochgeladen:</strong> {{ object.Document.count }}</li>
+        <li><strong>Dokumente bewertet:</strong> {{ object.DocumentRating.count }}</li>
     </ul>
 
 {% endblock %}
