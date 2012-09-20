@@ -99,11 +99,30 @@ class Quote(models.Model):
     def date_available(self):
         return self.date != datetime.datetime(1970, 1, 1)
 
+    def vote_sum(self):
+        """Add up and return all votes for this quote."""
+        up = self.QuoteVote.filter(vote=True).count()
+        down = self.QuoteVote.filter(vote=False).count()
+        return up - down
+
     def __unicode__(self):
         return u'[%s] %s...' % (self.lecturer, self.quote[:30])
 
     class Meta:
         ordering = ['-date']
+
+
+class QuoteVote(models.Model):
+    """Lecturer quotes."""
+    user = models.ForeignKey(User, related_name='QuoteVote')
+    quote = models.ForeignKey(Quote, related_name='QuoteVote')
+    vote = models.BooleanField(help_text='True = upvote, False = downvote')
+
+    def __unicode__(self):
+        return 'User %s votes %s quote %s' % (self.user.username, 'up' if self.vote else 'down', self.quote.pk)
+
+    class Meta:
+        unique_together = ('user', 'quote')
 
 
 class DocumentCategory(models.Model):

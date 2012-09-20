@@ -235,6 +235,20 @@ class QuoteList(LoginRequiredMixin, ListView):
     
     paginate_by = 50
 
+    def get_context_data(self, **kwargs):
+        if self.request.user.is_authenticated():
+            for quote in self.object_list:
+                try:
+                    vote = models.QuoteVote.objects.get(quote=quote, user=self.request.user)
+                except models.QuoteVote.DoesNotExist:
+                    pass
+                else:
+                    if vote.vote is True:
+                        quote.voted_up = True
+                    else:
+                        quote.voted_down = True
+        return super(QuoteList, self).get_context_data(**kwargs)
+
 
 class QuoteAdd(LoginRequiredMixin, CreateView):
     model = models.Quote

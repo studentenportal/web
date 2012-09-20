@@ -54,9 +54,9 @@
                     <tr>
                         <td>
                             <div class="votebuttons">
-                                <div class="upvote"></div>
-                                {{ quote.vote_summary|default:0 }}
-                                <div class="downvote"></div>
+                                <div class="upvote{% if quote.voted_up %} active{% endif %}"></div>
+                                {{ quote.vote_sum|default:0 }}
+                                <div class="downvote{% if quote.voted_down %} active{% endif %}"></div>
                             </div>
                         </td>
                         <td>{% if not quote.date_available %}-{% else %}{{ quote.date|date:"d.m.Y H:i" }}{% endif %}</td>
