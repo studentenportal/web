@@ -14,41 +14,70 @@ from apps.front.models import Lecturer
 class UnterrichtWebsite(object):
     """Class to coordinate access to unterricht.hsr.ch."""
     base_url = u'https://unterricht.hsr.ch/'
+    login_url = u'https://adfs.hsr.ch/adfs/ls/?wa=wsignin1.0&wtrealm=https%3a%2f%2funterricht.hsr.ch%3a443%2f&wctx=https%3a%2f%2funterricht.hsr.ch%2f'
+    headers = {
+        'Accept': 'Accept:text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+        'Accept-Language': 'en-US,en;q=0.8,de-CH;q=0.6,de;q=0.4',
+        'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.1 (KHTML, like Gecko) Chrome/21.0.1180.89 Safari/537.1',
+    }
 
     def __init__(self):
         """Initialize requests session."""
-        self.s = requests.session()
+        self.s = requests.session(headers=self.headers)
 
     def logged_in(self):
-        return 'unterricht.hsr.ch' in self.s.cookies._cookies
+        if not 'adfs.hsr.ch' in self.s.cookies._cookies:
+            return False
+        if not '/adfs/ls' in self.s.cookies._cookies['adfs.hsr.ch']:
+            return False
+        return 'MSISAuthenticated' in self.s.cookies._cookies['adfs.hsr.ch']['/adfs/ls']
 
     def login(self, username, password):
         """Login to the internal part of the HSR site."""
         if self.logged_in():
             return
+
         # Get state data
-        login_page = self.s.get(self.base_url + 'Login.aspx')
+        login_page = self.s.get(self.login_url)
         soup = BeautifulSoup(login_page.content)
         viewstate = soup.find('input', {'id': '__VIEWSTATE'})['value']
         eventvalidation = soup.find('input', {'id': '__EVENTVALIDATION'})['value']
-        # Log in
+        db = soup.find('input', {'name': '__db'})['value']
+        # Log in to ADFS
         data = {
             '__VIEWSTATE': viewstate,
             '__EVENTVALIDATION': eventvalidation,
-            'tbUserName': username,
-            'tbPassword': password,
-            'btnLogin': 'Login',
+            '__db': db,
+            'ctl00$ContentPlaceHolder1$UsernameTextBox': username,
+            'ctl00$ContentPlaceHolder1$PasswordTextBox': password,
+            'ctl00$ContentPlaceHolder1$SubmitButton': 'Sign In',
         }
-        self.s.post(self.base_url + 'Login.aspx', data=data)
+        login_response = self.s.post(self.login_url, data=data)
+
+        # Get state data again
+        soup = BeautifulSoup(login_response.content)
+        data = {
+            'wa': soup.find('input', {'name': 'wa'})['value'],
+            'wresult': soup.find('input', {'name': 'wresult'})['value'],
+            'wctx': soup.find('input', {'name': 'wctx'})['value'],
+        }
+        # POST auth data to unterricht.hsr.ch
+        self.s.post(self.base_url, data=data)
+
 
     def get_person_photo(self, person_id):
         """Fetch the lecturer photos from the Klassenspiegel."""
         assert self.logged_in(), 'Not logged in. Please call login().'
-        r = self.s.get(self.base_url + 'KlassenspiegelImages/%u.jpg' % person_id)
-        if r.status_code == 404:
-            return None
-        r.raise_for_status()  # Raise exception if request fails
-        return StringIO(r.content)
+        r = self.s.get('https://unterricht.hsr.ch/Content/PersonImage/mkempf')
+        print r.content
+        resp = r
+        import pdb; pdb.set_trace()
+        assert False
+        #r = self.s.get(self.base_url + 'KlassenspiegelImages/%u.jpg' % person_id)
+        #if r.status_code == 404:
+        #    return None
+        #r.raise_for_status()  # Raise exception if request fails
+        #return StringIO(r.content)
 
 
 class Command(BaseCommand):
