@@ -28,11 +28,13 @@
 
     {% if quotes %}
     
-    <ul class="nav btn-group">
-        {% for page in paginator.page_range %}
-            <li class="btn {% if page_obj.number == page %}active{% endif %}"><a href="?page={{ page }}">{{ page }}</a></li>
-        {% endfor %}
-    </ul>
+        {% if paginator.has_pages %}
+            <ul class="nav btn-group">
+                {% for page in paginator.page_range %}
+                    <li class="btn {% if page_obj.number == page %}active{% endif %}"><a href="?page={{ page }}">{{ page }}</a></li>
+                {% endfor %}
+            </ul>
+        {% endif %}
     
         <table class="table table-striped">
             <thead>
