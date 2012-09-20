@@ -82,6 +82,7 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'dajaxice.finders.DajaxiceFinder',
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
@@ -92,7 +93,7 @@ SECRET_KEY = 'pkt^ru250#k_r#*_d5c8^tpb!1vmd!@qhy@$y017$+8x9t%msc'
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
-#     'django.template.loaders.eggs.Loader',
+    'django.template.loaders.eggs.Loader',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -146,6 +147,7 @@ INSTALLED_APPS = (
     'south',
     'tastypie',
     'tastytools',
+    'dajaxice',
 
     # Own apps
     'apps.front',

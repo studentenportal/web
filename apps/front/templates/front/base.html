@@ -1,6 +1,7 @@
 {% load assets %}
 {% load tabs %}
 {% load messagegroups %}
+{% load dajaxice_templatetags %}
 {% load url from future %}
 <!DOCTYPE html>
 <html>
@@ -14,6 +15,8 @@
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     {% assets 'stylesheets' %}<link rel="stylesheet" href="{{ ASSET_URL }}" />{% endassets %}
     {% assets 'scripts' %}<script src="{{ ASSET_URL }}"></script>{% endassets %}
+
+    {% dajaxice_js_import %}
 
     {% block scripts %}{% endblock %}
     {% block styles %}{% endblock %}
