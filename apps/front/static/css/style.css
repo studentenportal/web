@@ -129,6 +129,39 @@ body.documentcategory_list tr.empty a {
     opacity: 0.4;
 }
 
+body.quote_list .votebuttons {
+    text-align: center;
+    width: 20px;
+}
+body.quote_list .votebuttons div {
+    height: 8px;
+    width: 15px;
+    margin: 0px auto;
+    background-image: url('/static/img/vote_sprites.png');
+}
+body.quote_list .votebuttons div:hover {
+    cursor: pointer;
+    cursor: hand;
+}
+body.quote_list .upvote {
+    background-position: 0 0;
+}
+body.quote_list .upvote:hover {
+    background-position: 32px 0;
+}
+body.quote_list .upvote.active {
+    background-position: 15px 0;
+}
+body.quote_list .downvote {
+    background-position: 0 8px;
+}
+body.quote_list .downvote:hover {
+    background-position: 32px 8px;
+}
+body.quote_list .downvote.active {
+    background-position: 15px 8px;
+}
+
 
 /* General classes */
 

@@ -4,6 +4,8 @@
 
 {% block title %}Zitate{% endblock %}
 
+{% block bodyclass %}quote_list{% endblock %}
+
 {% block navigation %}
     {% activetab 'navigation' 'quotes' %}
     {{ block.super }}
@@ -39,6 +41,7 @@
         <table class="table table-striped">
             <thead>
                 <tr>
+                    <th>Vote</th>
                     <th>Eingetragen</th>
                     <th>Dozent</th>
                     <th>Zitat</th>
@@ -49,6 +52,13 @@
             <tbody>
                 {% for quote in quotes %}
                     <tr>
+                        <td>
+                            <div class="votebuttons">
+                                <div class="upvote"></div>
+                                {{ quote.vote_summary|default:0 }}
+                                <div class="downvote"></div>
+                            </div>
+                        </td>
                         <td>{% if not quote.date_available %}-{% else %}{{ quote.date|date:"d.m.Y H:i" }}{% endif %}</td>
                         <td><a href="{% url 'lecturer_detail' quote.lecturer.pk %}">{{ quote.lecturer }}</a></td>
                         <td>{{ quote.quote|linebreaksbr }}</td>
