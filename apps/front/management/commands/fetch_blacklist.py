@@ -6,7 +6,7 @@ from django.core.management.base import BaseCommand
 
 
 class Command(BaseCommand):
-    help = 'Fetch lecturers photos and write them to the file storage.'
+    help = '[NOT FINISHED] Fetch list of lecturers, add them to a blacklist.'
     option_list = BaseCommand.option_list + (
         make_option('--user',
             dest='username', help='HSR username'),
