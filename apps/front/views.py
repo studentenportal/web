@@ -513,6 +513,12 @@ class Stats(LoginRequiredMixin, TemplateView):
                 models.User.objects \
                         .annotate(events_count=Count('Event')) \
                         .order_by('-events_count'))
+        context['user_topquotes'] = fetchfirst(
+                models.User.objects \
+                        .exclude(username=u'spimport') \
+                        .annotate(quotes_count=Count('Quote')) \
+                        .order_by('-quotes_count'))
+
 
         return context
 # }}} 
