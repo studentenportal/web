@@ -8,6 +8,7 @@ scripts = Bundle(
     'js/studentenportal.js',
     'js/raty.js',
     'js/jquery-ui-1.8.21.custom.min.js',
+    'js/quote_votes.js',
     output='js/packed.js')
 
 

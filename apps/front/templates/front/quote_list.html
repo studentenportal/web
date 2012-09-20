@@ -53,9 +53,9 @@
                 {% for quote in quotes %}
                     <tr>
                         <td>
-                            <div class="votebuttons">
+                            <div class="votebuttons" data-quote-pk="{{ quote.pk }}">
                                 <div class="upvote{% if quote.voted_up %} active{% endif %}"></div>
-                                {{ quote.vote_sum|default:0 }}
+                                <span class="vote_sum">{{ quote.vote_sum|default:0 }}</span>
                                 <div class="downvote{% if quote.voted_down %} active{% endif %}"></div>
                             </div>
                         </td>
