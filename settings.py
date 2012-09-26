@@ -34,7 +34,7 @@ def local_network_debug(request):
     """Returns True if IP is internal and DEBUG = True."""
     return DEBUG and request.META['REMOTE_ADDR'].startswith(('127.0.0', '192.168.1', '192.168.2'))
 
-DEBUG_TOOLBAR_PANELS = ( 
+DEBUG_TOOLBAR_PANELS = (
     'debug_toolbar.panels.version.VersionDebugPanel',
     'debug_toolbar.panels.timer.TimerDebugPanel',
     'debug_toolbar.panels.settings_vars.SettingsVarsDebugPanel',
@@ -45,7 +45,7 @@ DEBUG_TOOLBAR_PANELS = (
     'debug_toolbar.panels.signals.SignalDebugPanel',
     'debug_toolbar.panels.logger.LoggingPanel',
 )
-DEBUG_TOOLBAR_CONFIG = { 
+DEBUG_TOOLBAR_CONFIG = {
     'INTERCEPT_REDIRECTS': False,
     'SHOW_TOOLBAR_CALLBACK': local_network_debug,
 }
