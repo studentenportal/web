@@ -2,10 +2,33 @@
 {% load url from future %}
 {% load tabs %}
 {% load tags %}
+{% load compress %}
 
 {% block title %}Dozenten{% endblock %}
 
 {% block bodyclass %}lecturer_list{% endblock %}
+
+{% block scripts %}
+    {{ block.super }}
+    {% compress js %}
+        <script src="{{ STATIC_URL }}js/jquery.lazyload.js"></script>
+        <script src="{{ STATIC_URL }}js/list.js"></script>
+
+        <script>
+            $(function() {
+                $("img.lazy").lazyload({ threshold : 200 });
+
+
+                var options = {
+                    valueNames: ['name']
+                };
+
+                var contactList = new List('lecturers', options);
+            });
+        </script>
+
+    {% endcompress %}
+{% endblock %}
 
 {% block navigation %}
     {% activetab 'navigation' 'lecturers' %}
@@ -22,10 +45,10 @@
     Tricks zum Umgang mit ihnen und zu den Vorlesungen zu geben.</p>
 
     <p>Da die Personeninfos von der HSR-Website kommen, können wir Dozenten von normalen Angestellten
-    und Assistenten nicht automatisiert unterscheiden. Vielleicht bauen wir später ein 
+    und Assistenten nicht automatisiert unterscheiden. Vielleicht bauen wir später ein
     Kategorie-System ein, für den Moment müsst ihr aber damit leben.</p>
 
-    <p>Neben den Bewertungen können auch Zitate aus dem Unterricht hinzugefügt werden. Wichtig: 
+    <p>Neben den Bewertungen können auch Zitate aus dem Unterricht hinzugefügt werden. Wichtig:
     Die Zitate sollten witzig sein und eine versehentliche Bemerkung oder eine typische Eigenschaft
     des Dozenten beschreiben und dürfen nicht bösartig oder ehrverletzend sein!</p>
 
@@ -35,53 +58,32 @@
 
     <hr>
 
-    <h3>Dozenten mit "{{ letter.upper }}"</h3>
+    <div id="lecturers">
+        <div class="input input-append">
+            <input class="search" placeholder="Dozent suchen...">
+            <span class="add-on"><i class="icon-search"></i></span>
+        </div>
 
-    <div class="btn-group" id="letters">
-        <a class="btn {% if letter = 'a' %}active{% endif %}" href="{% url 'lecturer_list_letter' 'a' %}">a</a>
-        <a class="btn {% if letter = 'b' %}active{% endif %}" href="{% url 'lecturer_list_letter' 'b' %}">b</a>
-        <a class="btn {% if letter = 'c' %}active{% endif %}" href="{% url 'lecturer_list_letter' 'c' %}">c</a>
-        <a class="btn {% if letter = 'd' %}active{% endif %}" href="{% url 'lecturer_list_letter' 'd' %}">d</a>
-        <a class="btn {% if letter = 'e' %}active{% endif %}" href="{% url 'lecturer_list_letter' 'e' %}">e</a>
-        <a class="btn {% if letter = 'f' %}active{% endif %}" href="{% url 'lecturer_list_letter' 'f' %}">f</a>
-        <a class="btn {% if letter = 'g' %}active{% endif %}" href="{% url 'lecturer_list_letter' 'g' %}">g</a>
-        <a class="btn {% if letter = 'h' %}active{% endif %}" href="{% url 'lecturer_list_letter' 'h' %}">h</a>
-        <a class="btn {% if letter = 'i' %}active{% endif %}" href="{% url 'lecturer_list_letter' 'i' %}">i</a>
-        <a class="btn {% if letter = 'j' %}active{% endif %}" href="{% url 'lecturer_list_letter' 'j' %}">j</a>
-        <a class="btn {% if letter = 'k' %}active{% endif %}" href="{% url 'lecturer_list_letter' 'k' %}">k</a>
-        <a class="btn {% if letter = 'l' %}active{% endif %}" href="{% url 'lecturer_list_letter' 'l' %}">l</a>
-        <a class="btn {% if letter = 'm' %}active{% endif %}" href="{% url 'lecturer_list_letter' 'm' %}">m</a>
-        <a class="btn {% if letter = 'n' %}active{% endif %}" href="{% url 'lecturer_list_letter' 'n' %}">n</a>
-        <a class="btn {% if letter = 'o' %}active{% endif %}" href="{% url 'lecturer_list_letter' 'o' %}">o</a>
-        <a class="btn {% if letter = 'p' %}active{% endif %}" href="{% url 'lecturer_list_letter' 'p' %}">p</a>
-        <a class="btn {% if letter = 'q' %}active{% endif %}" href="{% url 'lecturer_list_letter' 'q' %}">q</a>
-        <a class="btn {% if letter = 'r' %}active{% endif %}" href="{% url 'lecturer_list_letter' 'r' %}">r</a>
-        <a class="btn {% if letter = 's' %}active{% endif %}" href="{% url 'lecturer_list_letter' 's' %}">s</a>
-        <a class="btn {% if letter = 't' %}active{% endif %}" href="{% url 'lecturer_list_letter' 't' %}">t</a>
-        <a class="btn {% if letter = 'u' %}active{% endif %}" href="{% url 'lecturer_list_letter' 'u' %}">u</a>
-        <a class="btn {% if letter = 'v' %}active{% endif %}" href="{% url 'lecturer_list_letter' 'v' %}">v</a>
-        <a class="btn {% if letter = 'w' %}active{% endif %}" href="{% url 'lecturer_list_letter' 'w' %}">w</a>
-        <a class="btn {% if letter = 'x' %}active{% endif %}" href="{% url 'lecturer_list_letter' 'x' %}">x</a>
-        <a class="btn {% if letter = 'y' %}active{% endif %}" href="{% url 'lecturer_list_letter' 'y' %}">y</a>
-        <a class="btn {% if letter = 'z' %}active{% endif %}" href="{% url 'lecturer_list_letter' 'z' %}">z</a>
+        <div class="list">
+            {% for lecturer in lecturers %}
+                <div>
+                    <h4><a href="{% url 'lecturer_detail' lecturer.pk %}" class="name">{{ lecturer.name }}</a></h4>
+                    <a href="{% url 'lecturer_detail' lecturer.pk %}">
+
+                        <img class="thumbnail quimby_search_image lazy" src="{{ STATIC_URL }}img/120x160.gif"
+                            {% if lecturer.photo %}data-original="{{ lecturer.photo }}"{% endif %}
+                        /></a>
+                    {% with quotecounts|lookup:lecturer.pk|default:0 as quotecount %}
+                    <p><span class="label"><a href="{% url 'lecturer_detail' lecturer.pk %}#zitate">{{ quotecount }} Zitat{{ quotecount|pluralize:"e" }}</a></span>
+                           <span class="label label-important">{{ lecturer.avg_rating_d|default:'-' }}</span>
+                           <span class="label label-success">{{ lecturer.avg_rating_m|default:'-' }}</span>
+                           <span class="label label-info">{{ lecturer.avg_rating_f|default:'-' }}</span></p>
+                   {% endwith %}
+                </div>
+
+            {% endfor %}
+        </div>
     </div>
-    
-    {% for lecturer in lecturers %}
-        {% if forloop.counter0|divisibleby:"4" %}<div class="row-fluid">{% endif %}
-            <div class="lecturer span3">
-                <h4><a href="{% url 'lecturer_detail' lecturer.pk %}">{{ lecturer.name }}</a></h4>
-                <a href="{% url 'lecturer_detail' lecturer.pk %}"><img class="thumbnail quimby_search_image" src="
-                    {% if lecturer.photo %}{{ lecturer.photo }}{% else %}http://placehold.it/120x160{% endif %}
-                "></a>
-                {% with quotecounts|lookup:lecturer.pk|default:0 as quotecount %}
-                <p><span class="label"><a href="{% url 'lecturer_detail' lecturer.pk %}#zitate">{{ quotecount }} Zitat{{ quotecount|pluralize:"e" }}</a></span>
-                       <span class="label label-important">{{ lecturer.avg_rating_d|default:'-' }}</span>
-                       <span class="label label-success">{{ lecturer.avg_rating_m|default:'-' }}</span>
-                       <span class="label label-info">{{ lecturer.avg_rating_f|default:'-' }}</span></p>
-               {% endwith %}
-            </div>
-        {% if forloop.counter|divisibleby:"4" %}</div>{% endif %}
-    {% endfor %}
 
     {% if not lecturers %}
         <p><em>Keine passenden Dozenten gefunden.</em></p>

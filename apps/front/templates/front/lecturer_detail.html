@@ -23,7 +23,7 @@
 
     <img class="thumbnail quimby_search_image floatright"
     {% if lecturer.photo %} src="{{ lecturer.photo }}"{% endif %}
-    {% if not lecturer.photo %} src="http://placehold.it/120x160"{% endif %}
+    {% if not lecturer.photo %} src="{{ STATIC_URL }}img/120x160.gif"{% endif %}
     width="120" height="160">
 
     <p>{{ lecturer.description|default:"Keine Beschreibung erfasst." }}</p>
