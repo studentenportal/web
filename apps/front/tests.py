@@ -377,11 +377,6 @@ class DocumentcategoryListViewTest(TestCase):
         self.assertContains(response, '<strong>An1I</strong>')
         self.assertContains(response, 'Analysis 1 für Informatiker')
 
-    def testDocumentCount(self):
-        """Test whether the downloadcount appears in the list."""
-        response = self.client.get(self.taburl)
-        self.assertContains(response, '<td>2</td>')
-
     def testUserAddButton(self):
         """Test whether the add button is shown when and only when the user is logged in."""
         response = self.client.get(self.taburl)
