@@ -2,10 +2,29 @@
 {% load url from future %}
 {% load tabs %}
 {% load tags %}
+{% load compress %}
 
 {% block title %}Dokumente{% endblock %}
 
 {% block bodyclass %}documentcategory_list{% endblock %}
+
+{% block scripts %}
+    {{ block.super }}
+    {% compress js %}
+        <script src="{{ STATIC_URL }}js/list.js"></script>
+
+        <script>
+            $(function() {
+                var options = {
+                    valueNames: ['name', 'summary_count', 'exam_count']
+                };
+
+                var contactList = new List('modules', options);
+            });
+        </script>
+
+    {% endcompress %}
+{% endblock %}
 
 {% block navigation %}
     {% activetab 'navigation' 'documents' %}
@@ -27,29 +46,37 @@
     {% endif %}
 
     {% if object_list %}
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Modul</th>
-                    <th>Anz. Zusammenfassungen</th>
-                    <th>Anz. Prüfungen</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for category in object_list %}
-                    <tr {% if category.Document.count == 0 %}class="empty"{% endif %}>
-                        <td><a href="{% url 'document_list' category.name|slugify %}">
-                            <strong>{{ category.name }}</strong>
-                            {% if category.description %}{{ category.description }}{% endif %}
-                        </td>
-                        <td>{{ category.summary_count }}</td>
-                        <td>{{ category.exam_count }}</td>
+        <div id="modules">
+            <div class="input input-append">
+                <input class="search" placeholder="Modul suchen...">
+                <span class="add-on"><i class="icon-search"></i></span>
+            </div>
+
+
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th class="sort asc" data-sort="name">Modul</th>
+                        <th class="sort" data-sort="summary_count">Anz. Zusammenfassungen</th>
+                        <th class="sort" data-sort="exam_count">Anz. Prüfungen</th>
                     </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+
+                </thead>
+                <tbody class="list">
+                    {% for category in object_list %}
+                        <tr {% if category.Document.count == 0 %}class="empty"{% endif %}>
+                            <td class="name"><a href="{% url 'document_list' category.name|slugify %}">
+                                <strong>{{ category.name }}</strong>
+                                {% if category.description %}{{ category.description }}{% endif %}
+                            </td>
+                            <td class="summary_count">{{ category.summary_count }}</td>
+                            <td class="exam_count">{{ category.exam_count }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     {% else %}
         <p><em>Momentan keine Dokumente vorhanden.</em></p>
     {% endif %}
-
 {% endblock %}
