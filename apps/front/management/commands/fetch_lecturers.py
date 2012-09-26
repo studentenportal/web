@@ -26,7 +26,8 @@ class HsrWebsite(object):
         self.s = requests.session()
 
     def logged_in(self):
-        return 'www.hsr.ch' in self.s.cookies._cookies
+        return '.hsr.ch' in self.s.cookies._cookies \
+                or 'www.hsr.ch' in self.s.cookies._cookies
 
     def login(self, username, password):
         """Login to the internal part of the HSR site."""
