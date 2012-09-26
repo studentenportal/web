@@ -1,6 +1,6 @@
 {% extends 'front/base.html' %}
 {% load url from future %}
-{% load assets %}
+{% load compress %}
 {% load tabs %}
 {% load tags %}
 
@@ -10,7 +10,13 @@
 
 {% block scripts %}
     {{ block.super }}
-    {% assets 'flattr_js' %}<script src="{{ ASSET_URL }}"></script>{% endassets %}
+
+    {% compress js %}
+
+    <script src="{{ STATIC_URL }}js/flattr_loader.js"></script>
+
+    {% endcompress %}
+
 {% endblock %}
 
 {% block navigation %}

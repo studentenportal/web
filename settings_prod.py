@@ -3,7 +3,7 @@ from settings_base import *
 
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
-ASSETS_DEBUG = DEBUG
+COMPRESS_ENABLED = not DEBUG
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 DEFAULT_FROM_EMAIL = 'Studentenportal <noreply@studentenportal.ch>'
@@ -11,6 +11,8 @@ DEFAULT_FROM_EMAIL = 'Studentenportal <noreply@studentenportal.ch>'
 SENDFILE_BACKEND = 'sendfile.backends.nginx'
 SENDFILE_ROOT = os.path.join(MEDIA_ROOT, 'documents')
 SENDFILE_URL = MEDIA_URL + 'documents/'
+
+COMPRESS_OFFLINE = True
 
 DATABASES = {
     'default': {

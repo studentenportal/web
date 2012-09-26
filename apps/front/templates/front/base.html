@@ -1,4 +1,4 @@
-{% load assets %}
+{% load compress %}
 {% load tabs %}
 {% load messagegroups %}
 {% load dajaxice_templatetags %}
@@ -13,13 +13,43 @@
     <meta name="google-site-verification" content="v1kUQC8l0I-hI9W3O6DeWyUz4zdiliepOwUAP7tkZYE" />
     <link rel="shortcut icon" href="/static/img/favicon.ico" />
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-    {% assets 'stylesheets' %}<link rel="stylesheet" href="{{ ASSET_URL }}" />{% endassets %}
-    {% assets 'scripts' %}<script src="{{ ASSET_URL }}"></script>{% endassets %}
 
     {% dajaxice_js_import %}
 
-    {% block scripts %}{% endblock %}
-    {% block styles %}{% endblock %}
+    {% block scripts %}
+
+        {% compress js %}
+
+        <!-- Libraries -->
+        <script src="{{ STATIC_URL }}js/jquery-1.7.1.js"></script>
+        <script src="{{ STATIC_URL }}js/bootstrap.js"></script>
+        <script src="{{ STATIC_URL }}js/jquery.raty.min.js"></script>
+        <script src="{{ STATIC_URL }}js/jquery-ui-1.8.21.custom.min.js"></script>
+
+        <!-- Custom scripts -->
+        <script src="{{ STATIC_URL }}js/studentenportal.js"></script>
+        <script src="{{ STATIC_URL }}js/raty.js"></script>
+        <script src="{{ STATIC_URL }}js/quote_votes.js"></script>
+        
+        {% endcompress %}
+
+    {% endblock %}
+
+    {% block styles %}
+
+        {% compress css %}
+
+        <!-- Libraries -->
+        <link rel="stylesheet" href="{{ STATIC_URL }}css/smoothness/jquery-ui-1.8.21.custom.css">
+        <link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap.css">
+        <link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap-responsive.css">
+
+        <!-- Custom styles -->
+        <link rel="stylesheet" href="{{ STATIC_URL }}css/style.css">
+
+        {% endcompress %}
+
+    {% endblock %}
     
     <script type="text/javascript">
         var _gaq = _gaq || [];

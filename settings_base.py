@@ -82,9 +82,19 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'compressor.finders.CompressorFinder',
     'dajaxice.finders.DajaxiceFinder',
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
+
+COMPRESS_CSS_FILTERS = [
+    'compressor.filters.css_default.CssAbsoluteFilter',
+    'compressor.filters.cssmin.CSSMinFilter',
+]
+
+COMPRESS_JS_FILTERS = [
+    'compressor.filters.jsmin.JSMinFilter',
+]
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'pkt^ru250#k_r#*_d5c8^tpb!1vmd!@qhy@$y017$+8x9t%msc'
@@ -139,7 +149,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 
     # Third party apps
-    'django_assets',
+    'compressor',
     'messagegroups',
     'apps.tabs',
     'registration',
