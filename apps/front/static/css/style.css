@@ -12,14 +12,18 @@
   display: block;
   padding: 4px 10px 4px;
 }
-.lecturer img {
+
+
+#lecturers .list div {
+    margin-bottom: 20px;
+    min-width: 200px;
+    float: left;
+}
+#lecturers .list div img {
     width: 120px;
     height: 160px;
 }
 
-.lecturer {
-    margin-bottom: 20px;
-}
 
 table#documents .uploaddata_details {
     font-style: italic;
@@ -204,6 +208,7 @@ a.thumbnail:hover {
     border-color: #0381E2;
 }
 
+.lecturer_list #lecturers,
 .documentcategory_list #modules {
     margin-top:3em;
 }
