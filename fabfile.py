@@ -26,6 +26,7 @@ def deploy_untested():
         sudo('VIRTUAL/bin/python manage.py syncdb --noinput --settings=settings_prod', user='django')
         sudo('VIRTUAL/bin/python manage.py migrate --noinput --settings=settings_prod', user='django')
         sudo('VIRTUAL/bin/python manage.py collectstatic --noinput --clear --settings=settings_prod', user='django')
+        sudo('VIRTUAL/bin/python manage.py compress --settings=settings_prod', user='django')
         sudo('/etc/init.d/supervisor restart')
 
 def deploy():
