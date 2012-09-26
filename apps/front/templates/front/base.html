@@ -16,25 +16,6 @@
 
     {% dajaxice_js_import %}
 
-    {% block scripts %}
-
-        {% compress js %}
-
-        <!-- Libraries -->
-        <script src="{{ STATIC_URL }}js/jquery-1.7.1.js"></script>
-        <script src="{{ STATIC_URL }}js/bootstrap.js"></script>
-        <script src="{{ STATIC_URL }}js/jquery.raty.min.js"></script>
-        <script src="{{ STATIC_URL }}js/jquery-ui-1.8.21.custom.min.js"></script>
-
-        <!-- Custom scripts -->
-        <script src="{{ STATIC_URL }}js/studentenportal.js"></script>
-        <script src="{{ STATIC_URL }}js/raty.js"></script>
-        <script src="{{ STATIC_URL }}js/quote_votes.js"></script>
-        
-        {% endcompress %}
-
-    {% endblock %}
-
     {% block styles %}
 
         {% compress css %}
@@ -173,14 +154,34 @@
         </div>
     </div>
 
-    <!-- Uservoice JS -->
-    <script type="text/javascript">
-      var uvOptions = {};
-      (function() {
-        var uv = document.createElement('script'); uv.type = 'text/javascript'; uv.async = true;
-        uv.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'widget.uservoice.com/I93opsFo0o2zQMMePx8Jnw.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(uv, s);
-      })();
-    </script>
 
+    {% block scripts %}
+
+        {% compress js %}
+
+        <!-- Libraries -->
+        <script src="{{ STATIC_URL }}js/jquery-1.7.1.js"></script>
+        <script src="{{ STATIC_URL }}js/bootstrap.js"></script>
+        <script src="{{ STATIC_URL }}js/jquery.raty.min.js"></script>
+        <script src="{{ STATIC_URL }}js/jquery-ui-1.8.21.custom.min.js"></script>
+
+        <!-- Custom scripts -->
+        <script src="{{ STATIC_URL }}js/studentenportal.js"></script>
+        <script src="{{ STATIC_URL }}js/raty.js"></script>
+        <script src="{{ STATIC_URL }}js/quote_votes.js"></script>
+
+        <!-- Uservoice JS -->
+        <script type="text/javascript">
+          var uvOptions = {};
+          (function() {
+            var uv = document.createElement('script'); uv.type = 'text/javascript'; uv.async = true;
+            uv.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'widget.uservoice.com/I93opsFo0o2zQMMePx8Jnw.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(uv, s);
+          })();
+        </script>
+        
+        {% endcompress %}
+
+    {% endblock %}
+    
 </body>
