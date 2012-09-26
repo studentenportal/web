@@ -225,24 +225,24 @@ class LecturerRate(LoginRequiredMixin, SingleObjectMixin, View):
 
 # Quotes {{{
 class QuoteList(LoginRequiredMixin, ListView):
-    model = models.Quote
     context_object_name = 'quotes'
-
     paginate_by = 50
 
-    def get_context_data(self, **kwargs):
-        if self.request.user.is_authenticated():
-            for quote in self.object_list:
-                try:
-                    vote = models.QuoteVote.objects.get(quote=quote, user=self.request.user)
-                except models.QuoteVote.DoesNotExist:
-                    pass
-                else:
-                    if vote.vote is True:
-                        quote.voted_up = True
-                    else:
-                        quote.voted_down = True
-        return super(QuoteList, self).get_context_data(**kwargs)
+    def get_queryset(self):
+        vote_base_query = "SELECT EXISTS (SELECT id \
+                           FROM front_quotevote \
+                           WHERE front_quotevote.quote_id = front_quote.id \
+                           AND vote = '%s' \
+                           AND user_id = %u)"
+        count_base_query = "SELECT COUNT(*) \
+                            FROM front_quotevote \
+                            WHERE front_quotevote.quote_id = front_quote.id AND vote = '%s'"
+        return models.Quote.objects.all().extra(select={
+                'voted_up': vote_base_query % ('t', self.request.user.pk),
+                'voted_down': vote_base_query % ('f', self.request.user.pk),
+                'upvote_count': count_base_query % 't',
+                'downvote_count': count_base_query % 'f',
+            },)
 
 
 class QuoteAdd(LoginRequiredMixin, CreateView):

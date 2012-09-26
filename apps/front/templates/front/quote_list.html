@@ -1,6 +1,7 @@
 {% extends 'front/base.html' %}
 {% load url from future %}
 {% load tabs %}
+{% load math %}
 
 {% block title %}Zitate{% endblock %}
 
@@ -29,15 +30,15 @@
     {% endif %}
 
     {% if quotes %}
-    
-        {% if paginator.has_pages %}
+
+        {% if paginator.num_pages > 1 %}
             <ul class="nav btn-group">
                 {% for page in paginator.page_range %}
                     <li class="btn {% if page_obj.number == page %}active{% endif %}"><a href="?page={{ page }}">{{ page }}</a></li>
                 {% endfor %}
             </ul>
         {% endif %}
-    
+
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -55,16 +56,17 @@
                         <td>
                             <div class="votebuttons" data-quote-pk="{{ quote.pk }}">
                                 <div class="upvote{% if quote.voted_up %} active{% endif %}"></div>
-                                <span class="vote_sum">{{ quote.vote_sum|default:0 }}</span>
+                                <span class="vote_sum">{{ quote.upvote_count|sub:quote.downvote_count }}</span>
                                 <div class="downvote{% if quote.voted_down %} active{% endif %}"></div>
                             </div>
                         </td>
                         <td>{% if not quote.date_available %}-{% else %}{{ quote.date|date:"d.m.Y H:i" }}{% endif %}</td>
-                        <td><a href="{% url 'lecturer_detail' quote.lecturer.pk %}">{{ quote.lecturer }}</a></td>
+                        {# TODO get rid of {{ lecturer.name }} by join in main query #}
+                        <td><a href="{% url 'lecturer_detail' quote.lecturer_id %}">{{ quote.lecturer.name }}</a></td>
                         <td>{{ quote.quote|linebreaksbr }}</td>
                         <td>{{ quote.comment|linebreaksbr }}</td>
                         <td>
-                            {% if quote.author = user %}
+                            {% if quote.author_id = user.pk %}
                                 {% include 'front/blocks/quote_delete_button.html' with small_button=1 %}
                             {% endif %}
                         </td>
