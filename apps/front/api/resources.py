@@ -67,6 +67,19 @@ class QuotesResource(ModelResource):
         return None
 
 
+class QuoteVotesResource(ModelResource):
+    user = fields.ToOneField(UsersResource, 'user')
+    quote = fields.ToOneField(QuotesResource, 'quote')
+
+    class Meta(BaseMeta):
+        queryset = models.QuoteVote.objects.all()
+        filtering = {
+            'user': ALL_WITH_RELATIONS,
+            'quote': ALL_WITH_RELATIONS,
+            'vote': ALL,
+        }
+
+
 class DocumentCategoriesResource(ModelResource):
     documents = fields.ToManyField('apps.front.api.resources.DocumentsResource', 'Document')
     summary_count = fields.IntegerField(readonly=True, attribute='summary_count')
