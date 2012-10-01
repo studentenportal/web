@@ -71,11 +71,11 @@ erstellen).
 
  * Events: `python manage.py loaddata events`
 
-Bei den Dozenten kann man gleich mit echten Daten arbeiten. Die Daten werden
-direkt von der HSR Website bezogen. Man braucht dafür ein funktionierendes HSR
-Login.
+Bei anderen Daten (zB bei den Dozenten) kann man gleich mit echten Daten
+arbeiten. Die Daten werden direkt von der HSR Website bezogen. Man braucht
+dafür ein funktionierendes HSR Login.
 
-    python manage.py fetch_lecturers --user=<hsr-username> --pass=<hsr-passwd>
+ * Dozenten: `python manage.py fetch_lecturers --user=<hsr-username> --pass=<hsr-passwd>`
 
 
 Features
