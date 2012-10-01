@@ -57,6 +57,12 @@ Falls ein Datenbankfehler auftritt, weil das Schema sich geändert hat:
  1. `python manage.py syncdb`
  2. `python manage.py migrate`
 
+Es gibt einige Files mit Testdaten. Voraussetzung dafür sind zwei Benutzer mit
+den Primärschlüsseln 1 und 2 (am besten mit `python manage.py createsuperuser`
+erstellen).
+
+ * Events: `python manage.py loaddata events`
+
 
 Features
 --------

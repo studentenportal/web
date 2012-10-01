@@ -1,0 +1,41 @@
+[
+  {
+    "pk": 1, 
+    "model": "front.event", 
+    "fields": {
+      "description": "Eine Bar mit Bier!", 
+      "end_date": "2015-11-15", 
+      "author": 2, 
+      "start_time": "18:00:00", 
+      "summary": "Bier-Bar", 
+      "end_time": "23:00:00", 
+      "start_date": "2015-11-15"
+    }
+  }, 
+  {
+    "pk": 2, 
+    "model": "front.event", 
+    "fields": {
+      "description": "Der erste Tag der neuen.HSR Studenten.\r\n\r\nSiehe http://hsr.ch/", 
+      "end_date": null, 
+      "author": 2, 
+      "start_time": "10:00:00", 
+      "summary": "Einf\u00fchrungstag", 
+      "end_time": "12:00:00", 
+      "start_date": "2012-09-17"
+    }
+  }, 
+  {
+    "pk": 3, 
+    "model": "front.event", 
+    "fields": {
+      "description": "Dauert zwei ganze Tage.", 
+      "end_date": "2012-09-26", 
+      "author": 2, 
+      "start_time": null, 
+      "summary": "Zweit\u00e4giger Event", 
+      "end_time": null, 
+      "start_date": "2012-09-25"
+    }
+  }
+]
