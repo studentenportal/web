@@ -57,11 +57,25 @@ Falls ein Datenbankfehler auftritt, weil das Schema sich geändert hat:
  1. `python manage.py syncdb`
  2. `python manage.py migrate`
 
-Es gibt einige Files mit Testdaten. Voraussetzung dafür sind zwei Benutzer mit
-den Primärschlüsseln 1 und 2 (am besten mit `python manage.py createsuperuser`
+
+Testdaten
+---------
+
+Testdaten können am einfachsten via django-admin
+(`http://localhost:8000/admin`) angelegt werden.
+
+Es gibt aber auch einige Files mit Testdaten im Verzeichnis
+`apps/front/fixtures/`. Voraussetzung dafür sind zwei Benutzer mit den
+Primärschlüsseln 1 und 2 (am besten mit `python manage.py createsuperuser`
 erstellen).
 
  * Events: `python manage.py loaddata events`
+
+Bei den Dozenten kann man gleich mit echten Daten arbeiten. Die Daten werden
+direkt von der HSR Website bezogen. Man braucht dafür ein funktionierendes HSR
+Login.
+
+    python manage.py fetch_lecturers --user=<hsr-username> --pass=<hsr-passwd>
 
 
 Features
