@@ -30,10 +30,10 @@
     {{ event.description|urlize|linebreaks }}
 
     <ul class="blacklist unstyled">
-        <li><strong>Start:</strong> {{ event.start_date }} {{ event.start_time|time:"H:i" }}</li>
+        <li><strong>Start:</strong> {{ event.start_date|date:"D, d. F Y" }} {{ event.start_time|time:"H:i" }}</li>
         {% if event.end_date or event.end_time %}
             <li><strong>Ende:</strong>
-                {% if event.end_date %}{{ event.end_date }} {{ event.end_time|time:"H:i" }}{% endif %}
+                {% if event.end_date %}{{ event.end_date|date:"D, d. F Y" }} {{ event.end_time|time:"H:i" }}{% endif %}
                 {% if not event.end_date %}{{ event.start_date }} {{ event.end_time|time:"H:i" }}{% endif %}
             </li>
         {% endif %}

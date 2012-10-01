@@ -16,7 +16,7 @@
     <tbody>
         {% for event in object_list %}
             <tr>
-                <td>{{ event.start_date }}</td>
+                <td class="datecol">{{ event.start_date|date:"D, d. F Y" }}</td>
                 <td><a href="{% url 'event_detail' event.pk %}"><strong>{{ event.summary }}</strong></a></td>
                 {% if event.author %}
                     <td><a href="{% url 'user' event.author.pk event.author.username|slugify %}">{{ event.author.name }}</a></td>
