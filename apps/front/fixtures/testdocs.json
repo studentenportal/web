@@ -13,6 +13,7 @@
     "fields": {
       "category": 1, 
       "upload_date": "2011-12-18 01:28:52", 
+      "change_date": "2011-12-18 01:28:52", 
       "name": "Analysis 1 Theoriesammlung", 
       "uploader": 1, 
       "dtype": 1, 
@@ -28,6 +29,7 @@
     "fields": {
       "category": 1, 
       "upload_date": "2011-12-18 01:49:48", 
+      "change_date": "2011-12-18 01:28:52", 
       "name": "Formelsammlung Statistik", 
       "uploader": 2, 
       "dtype": 1, 
@@ -43,6 +45,7 @@
     "fields": {
       "category": 1, 
       "upload_date": "2011-12-18 02:29:48", 
+      "change_date": "2011-12-18 01:28:52", 
       "name": "Prüfung Statistik", 
       "uploader": 1, 
       "dtype": 2, 
