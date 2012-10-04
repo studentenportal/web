@@ -183,7 +183,7 @@ class Document(models.Model):
     original_filename = models.CharField(u'Originaler Dateiname', max_length=255, blank=True)
     uploader = models.ForeignKey(User, related_name=u'Document', null=True, on_delete=models.SET_NULL)
     upload_date = models.DateTimeField(u'Uploaddatum', auto_now_add=True)
-    change_date = models.DateTimeField(u'Änderungsdatum', auto_now=True)
+    change_date = models.DateTimeField(u'Letztes Änderungsdatum', auto_now=True)
     downloadcount = models.IntegerField(default=0)
 
     def rating_exact(self):
@@ -215,8 +215,8 @@ class Document(models.Model):
         return self.name
 
     class Meta:
-        ordering = ('-upload_date',)
-        get_latest_by = 'upload_date'
+        ordering = ('-change_date',)
+        get_latest_by = 'change_date'
 
 
 class DocumentRating(models.Model):

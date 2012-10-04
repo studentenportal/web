@@ -69,8 +69,8 @@
                                 {% endif %}
                             </div>
                             <p>
-                                {% if doc.upload_date %}
-                                    (<em>{{ doc.upload_date|date:"d.m.Y" }}</em>)
+                                {% if doc.change_date %}
+                                    (<em>{{ doc.change_date|date:"d.m.Y" }}</em>)
                                 {% endif %}
                                 {{ doc.description|urlizetrunc:50 }}
                             </p>
