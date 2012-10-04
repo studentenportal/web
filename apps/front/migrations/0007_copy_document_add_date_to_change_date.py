@@ -3,15 +3,13 @@ import datetime
 from south.db import db
 from south.v2 import DataMigration
 from django.db import models
+from django.db.models import F
 
 class Migration(DataMigration):
 
     def forwards(self, orm):
         """Copy upload_date to change_date if change_date is null."""
-        for document in orm.Document.objects.all():
-            if document.change_date is None:
-                document.change_date = document.upload_date
-                document.save()
+        orm.Document.objects.filter(change_date__isnull=True).update(change_date=F('upload_date'))
 
 
     def backwards(self, orm):
