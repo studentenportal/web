@@ -45,13 +45,17 @@ class Lecturer(models.Model):
             return settings.MEDIA_URL + path
         return None
 
+    # TODO rename to _rating_avg
     def _avg_rating(self, category):
         """Calculate the average rating for the given category."""
         qs = self.LecturerRating.filter(category=category)
         if qs.exists():
-            total = sum([r.rating for r in qs])
-            return int(round(float(total) / qs.count()))
+            ratings = qs.values_list('rating', flat=True)
+            return int(round(float(sum(ratings)) / len(ratings)))
         return 0
+
+    def _rating_count(self, category):
+        return self.LecturerRating.filter(category=category).count()
 
     def avg_rating_d(self):
         return self._avg_rating(u'd')
@@ -61,6 +65,15 @@ class Lecturer(models.Model):
 
     def avg_rating_f(self):
         return self._avg_rating(u'f')
+
+    def rating_count_d(self):
+        return self._rating_count(u'd')
+
+    def rating_count_m(self):
+        return self._rating_count(u'm')
+
+    def rating_count_f(self):
+        return self._rating_count(u'f')
 
     def __unicode__(self):
         return '%s %s' % (self.last_name, self.first_name)

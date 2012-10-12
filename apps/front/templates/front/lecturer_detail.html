@@ -18,7 +18,7 @@
 {% block content %}
 
     <div class="page-header">
-        <h1>{{ lecturer.name }}</h1>
+        <h1 class="lecturer_name" data-lecturer-pk="{{ lecturer.pk }}" >{{ lecturer.name }}</h1>
     </div>
 
     <img class="thumbnail quimby_search_image floatright"
@@ -44,17 +44,23 @@
 
     <ul id="rate">
         <li>
-            <span class="label label-important">{{ lecturer.avg_rating_d|default:'-' }}</span>
+        <span class="label label-important lrating-d-avg" title="{{ lecturer.rating_count_d }} Bewertung{{ lecturer.rating_count_d|pluralize:"en" }}">
+                {{ lecturer.avg_rating_d|default:'-' }}
+            </span>
             <p>Didaktisch</p>
             <div id="lrating-d" data-rating="{{ rating_d|default:0 }}"></div>
         </li>
         <li>
-            <span class="label label-success">{{ lecturer.avg_rating_m|default:'-' }}</span>
+        <span class="label label-success lrating-m-avg" title="{{ lecturer.rating_count_m }} Bewertung{{ lecturer.rating_count_m|pluralize:"en" }}">
+                {{ lecturer.avg_rating_m|default:'-' }}
+            </span>
             <p>Menschlich</p>
             <div id="lrating-m" data-rating="{{ rating_m|default:0 }}"></div>
         </li>
         <li>
-            <span class="label label-info">{{ lecturer.avg_rating_f|default:'-' }}</span>
+            <span class="label label-info lrating-f-avg" title="{{ lecturer.rating_count_f }} Bewertung{{ lecturer.rating_count_f|pluralize:"en" }}">
+                {{ lecturer.avg_rating_f|default:'-' }}
+            </span>
             <p>Fachlich</p>
             <div id="lrating-f" data-rating="{{ rating_f|default:0 }}"></div>
         </li>

@@ -4,25 +4,24 @@ $.fn.raty.defaults.hintList = [1,2,3,4,5,6,7,8,9,10]
 
 function submitScore(category) {
     return function(score, evt) {
-        url = document.URL + 'rate/';
-        $.ajax({
-            type: 'POST',
-            url: url,
-            data: {'score': score, 'category': category},
-            success: function(data, textStatus, jqXHR) {
-                $('#lrating-' + category + '-val').text(score);
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                // Couldn't complete ajax request.
-                // Reset raty and show error message.
-                alert(errorThrown + ': ' + jqXHR.responseText);
-                $('#lrating-' + category).raty('cancel');
+        var lecturer_pk = $('h1.lecturer_name').attr('data-lecturer-pk');
+        Dajaxice.apps.front.rate_lecturer(
+            lecturerRatingCallback, {
+                'lecturer_pk': lecturer_pk, 'category': category, 'score': score
             }
-        });
+        );
     }
 }
 
+function lecturerRatingCallback(data) {
+    $('.lrating-' + data.category + '-avg').text(data.rating_avg);
+    var rating_count_text = data.rating_count == 1 ? ' Bewertung' : ' Bewertungen';
+    $('.lrating-' + data.category + '-avg').attr('title', data.rating_count + rating_count_text);
+}
+
 $(document).ready(function() {
+
+    // Lecturer ratings
     $('#lrating-d').raty({
         starHalf: 'star-half-red.png',
         starOff: 'star-off-red.png',
@@ -50,6 +49,9 @@ $(document).ready(function() {
             return $(this).attr('data-rating');
         }
     });
+
+
+    // Document ratings
     $('.drating').raty({
         noRatedMsg: 'Du kannst deine eigenen Uploads nicht bewerten.',
         click: function(score, evt) {

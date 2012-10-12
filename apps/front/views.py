@@ -129,6 +129,7 @@ class EventList(TemplateView):
         context['webcal_url'] = urlunsplit(urlsplit(http_url)._replace(scheme='webcal'))
         return context
 
+
 class EventCalendar(View):
 
     http_method_names = ['get', 'head', 'options']
@@ -193,39 +194,6 @@ class LecturerList(LoginRequiredMixin, ListView):
         quotecounts = models.Quote.objects.values_list('lecturer').annotate(Count('pk')).order_by()
         context['quotecounts'] = dict(quotecounts)
         return context
-
-
-class LecturerRate(LoginRequiredMixin, SingleObjectMixin, View):
-    model = models.Lecturer
-    http_method_names = ['post']
-
-    @method_decorator(csrf_exempt)
-    def dispatch(self, request, *args, **kwargs):
-        return super(LecturerRate, self).dispatch(request, *args, **kwargs)
-
-    def post(self, request, *args, **kwargs):
-        """Create or update the lecturer rating."""
-        try:
-            category = request.POST['category']
-            score = request.POST['score']
-        except KeyError:
-            return HttpResponseServerError(u'Required argument missing')
-        params = {  # Prepare keyword-arguments that identify the rating object
-            'user': request.user,
-            'lecturer': self.get_object(),
-            'category': category
-        }
-        try:
-            rating = models.LecturerRating.objects.get(**params)
-        except ObjectDoesNotExist:
-            rating = models.LecturerRating(**params)
-        rating.rating = score
-        try:
-            rating.full_clean()  # validation
-        except ValidationError:
-            return HttpResponseServerError(u'Validierungsfehler')
-        rating.save()
-        return HttpResponse(u'Bewertung wurde aktualisiert.')
 # }}}
 
 
@@ -496,20 +464,19 @@ class Stats(LoginRequiredMixin, TemplateView):
                         GROUP BY u.id
                         ORDER BY lrcount DESC'''))
         context['user_topuploads'] = fetchfirst(
-                models.User.objects \
-                        .exclude(username=u'spimport') \
-                        .annotate(uploads_count=Count('Document')) \
+                models.User.objects
+                        .exclude(username=u'spimport')
+                        .annotate(uploads_count=Count('Document'))
                         .order_by('-uploads_count'))
         context['user_topevents'] = fetchfirst(
-                models.User.objects \
-                        .annotate(events_count=Count('Event')) \
+                models.User.objects
+                        .annotate(events_count=Count('Event'))
                         .order_by('-events_count'))
         context['user_topquotes'] = fetchfirst(
-                models.User.objects \
-                        .exclude(username=u'spimport') \
-                        .annotate(quotes_count=Count('Quote')) \
+                models.User.objects
+                        .exclude(username=u'spimport')
+                        .annotate(quotes_count=Count('Quote'))
                         .order_by('-quotes_count'))
-
 
         return context
 # }}}

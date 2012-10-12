@@ -23,5 +23,5 @@ function quote_vote_callback(data) {
         wrapper.children('.downvote').removeClass('active');
     }
     wrapper.children('.vote_sum').text(data.vote_sum);
-    wrapper.attr('title', data.vote_count + ' total votes');
+    wrapper.attr('title', data.vote_count + ' Votes');
 }
