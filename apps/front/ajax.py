@@ -11,4 +11,9 @@ def vote_quote(request, vote, quote_pk):
         vote_obj.save()
     elif vote == 'remove':
         models.QuoteVote.objects.get(user=request.user, quote=quote).delete()
-    return simplejson.dumps({'quote_pk': quote_pk, 'vote': vote, 'vote_sum': quote.vote_sum()})
+    return simplejson.dumps({
+        'quote_pk': quote_pk,
+        'vote': vote,
+        'vote_count': quote.QuoteVote.count(),
+        'vote_sum': quote.vote_sum()
+    })
