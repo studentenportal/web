@@ -298,7 +298,7 @@ class LecturerDetailViewTest(TestCase):
     def testDescription(self):
         self.client.login(username='testuser', password='test')
         response = self.client.get(self.url)
-        self.assertContains(response, '<h1>Prof. Dr. Krakaduku David</h1>')
+        self.assertContains(response, '<h1 class="lecturer-name" data-lecturer-pk="1">Prof. Dr. Krakaduku David</h1>')
         self.assertContains(response, 'San Diego')
         self.assertContains(response, 'Quantenphysik, Mathematik für Mathematiker')
 
