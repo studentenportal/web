@@ -9,9 +9,8 @@ psycopg2==2.4.4
 -e hg+https://bitbucket.org/ubernostrum/django-registration@fad7080fe76955e7d0d3c97bc468ea8360260a6b#egg=django_registration
 django-sendfile==0.3.0
 django-dajaxice==0.5.2
-
-# Compressor
 django-compressor==1.2
+django-mathfilters==0.1.2
 
 # Parsing
 BeautifulSoup==3.2.0

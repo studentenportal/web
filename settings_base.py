@@ -158,6 +158,7 @@ INSTALLED_APPS = (
     'tastypie',
     'tastytools',
     'dajaxice',
+    'mathfilters',
 
     # Own apps
     'apps.front',
