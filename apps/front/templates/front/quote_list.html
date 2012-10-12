@@ -1,7 +1,6 @@
 {% extends 'front/base.html' %}
 {% load url from future %}
 {% load tabs %}
-{% load math %}
 
 {% block title %}Zitate{% endblock %}
 
@@ -54,11 +53,7 @@
                 {% for quote in quotes %}
                     <tr>
                         <td>
-                            <div class="votebuttons" data-quote-pk="{{ quote.pk }}">
-                                <div class="upvote{% if quote.voted_up %} active{% endif %}"></div>
-                                <span class="vote_sum">{{ quote.upvote_count|sub:quote.downvote_count }}</span>
-                                <div class="downvote{% if quote.voted_down %} active{% endif %}"></div>
-                            </div>
+                            {% include 'front/blocks/vote_buttons.html' %}
                         </td>
                         <td>{% if not quote.date_available %}-{% else %}{{ quote.date|date:"d.m.Y H:i" }}{% endif %}</td>
                         {# TODO get rid of {{ lecturer.name }} by join in main query #}

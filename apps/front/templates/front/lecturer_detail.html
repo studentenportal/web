@@ -85,6 +85,9 @@
             <tbody>
                 {% for quote in quotes %}
                     <tr>
+                        <td>
+                            {% include 'front/blocks/vote_buttons.html' %}
+                        </td>
                         <td>{{ quote.quote }}</td>
                         <td>{{ quote.comment }}</td>
                         <td>{% if not quote.date_available %}-{% else %}{{ quote.date|date:"d.m.Y H:i" }}{% endif %}</td>

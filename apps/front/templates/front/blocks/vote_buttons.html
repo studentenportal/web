@@ -1,0 +1,7 @@
+{% load math %}
+
+<div class="votebuttons" data-quote-pk="{{ quote.pk }}">
+    <div class="upvote{% if quote.voted_up %} active{% endif %}"></div>
+    <span class="vote_sum">{{ quote.upvote_count|sub:quote.downvote_count }}</span>
+    <div class="downvote{% if quote.voted_down %} active{% endif %}"></div>
+</div>

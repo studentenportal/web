@@ -21,8 +21,7 @@ from django.template.defaultfilters import slugify
 from sendfile import sendfile
 import vobject
 from apps.front.mixins import LoginRequiredMixin
-from apps.front import forms
-from apps.front import models
+from apps.front import forms, models, helpers
 
 
 class Home(TemplateView):
@@ -168,13 +167,20 @@ class Lecturer(LoginRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(Lecturer, self).get_context_data(**kwargs)
-        context['quotes'] = self.object.Quote.all()
-        # Get ratings for current user/lecturer and add them to the context
+
+        # Quotes / QuoteVotes
+        context['quotes'] = helpers.extend_quotes_with_votes(
+            self.object.Quote.all(),
+            self.request.user.pk
+        )
+
+        # Ratings
         ratings = models.LecturerRating.objects.filter(
             lecturer=self.get_object(), user=self.request.user)
         ratings_dict = dict([(r.category, r.rating) for r in ratings])
         for cat in ['d', 'm', 'f']:
             context['rating_%c' % cat] = ratings_dict.get(cat)
+
         return context
 
 
@@ -229,20 +235,10 @@ class QuoteList(LoginRequiredMixin, ListView):
     paginate_by = 50
 
     def get_queryset(self):
-        vote_base_query = "SELECT EXISTS (SELECT id \
-                           FROM front_quotevote \
-                           WHERE front_quotevote.quote_id = front_quote.id \
-                           AND vote = '%s' \
-                           AND user_id = %u)"
-        count_base_query = "SELECT COUNT(*) \
-                            FROM front_quotevote \
-                            WHERE front_quotevote.quote_id = front_quote.id AND vote = '%s'"
-        return models.Quote.objects.all().extra(select={
-                'voted_up': vote_base_query % ('t', self.request.user.pk),
-                'voted_down': vote_base_query % ('f', self.request.user.pk),
-                'upvote_count': count_base_query % 't',
-                'downvote_count': count_base_query % 'f',
-            },)
+        return helpers.extend_quotes_with_votes(
+            models.Quote.objects.all(),
+            self.request.user.pk
+        )
 
 
 class QuoteAdd(LoginRequiredMixin, CreateView):
