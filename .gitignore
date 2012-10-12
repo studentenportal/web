@@ -4,5 +4,6 @@
 /media/documents
 /media/lecturers
 /reports
+/build/
 db.sqlite
 venv/
