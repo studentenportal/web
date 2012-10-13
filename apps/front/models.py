@@ -1,4 +1,5 @@
 # encoding=utf-8
+import re
 import os
 import datetime
 from django.conf import settings
@@ -41,9 +42,21 @@ class Lecturer(models.Model):
         does, return the corresponding URL. If it doesn't, return None."""
         path = os.path.join('lecturers', '%s.jpg' % self.id)
         fullpath = os.path.join(settings.MEDIA_ROOT, path)
+        return path if os.path.exists(fullpath) else None
+
+    def oldphotos(self):
+        """Try to see whether there are more pictures in the folder
+        ``lecturers/old/<self.id>/``..."""
+        path = os.path.join('lecturers', 'old', str(self.id))
+        fullpath = os.path.join(settings.MEDIA_ROOT, path)
+        oldphotos = []
         if os.path.exists(fullpath):
-            return settings.MEDIA_URL + path
-        return None
+            for filename in os.listdir(fullpath):
+                if re.match(r'^[0-9]+\.jpg$', filename):
+                    filepath = os.path.join(path, filename)
+                    oldphotos.append(filepath)
+        print oldphotos
+        return oldphotos
 
     # TODO rename to _rating_avg
     def _avg_rating(self, category):

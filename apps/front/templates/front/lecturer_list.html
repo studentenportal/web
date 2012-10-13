@@ -3,6 +3,7 @@
 {% load tabs %}
 {% load tags %}
 {% load compress %}
+{% load thumbnail %}
 
 {% block title %}Dozenten{% endblock %}
 
@@ -13,11 +14,9 @@
     {% compress js %}
         <script src="{{ STATIC_URL }}js/jquery.lazyload.js"></script>
         <script src="{{ STATIC_URL }}js/list.js"></script>
-
         <script>
             $(function() {
                 $("img.lazy").lazyload({ threshold : 200 });
-
 
                 var options = {
                     valueNames: ['name'],
@@ -27,7 +26,6 @@
                 var contactList = new List('lecturers', options);
             });
         </script>
-
     {% endcompress %}
 {% endblock %}
 
@@ -71,8 +69,8 @@
                     <h4><a href="{% url 'lecturer_detail' lecturer.pk %}" class="name">{{ lecturer.name }}</a></h4>
                     <a href="{% url 'lecturer_detail' lecturer.pk %}">
 
-                        <img class="thumbnail quimby_search_image lazy" src="{{ STATIC_URL }}img/120x160.gif"
-                            {% if lecturer.photo %}data-original="{{ lecturer.photo }}"{% endif %}
+                        <img class="thumbnail lazy" src="{{ STATIC_URL }}img/120x160.gif"
+                            {% if lecturer.photo %}data-original="{% thumbnail lecturer.photo 120x160 crop %}"{% endif %}
                         /></a>
                     {% with quotecounts|lookup:lecturer.pk|default:0 as quotecount %}
                     <p><span class="label"><a href="{% url 'lecturer_detail' lecturer.pk %}#zitate">{{ quotecount }} Zitat{{ quotecount|pluralize:"e" }}</a></span>

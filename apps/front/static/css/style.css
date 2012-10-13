@@ -124,6 +124,17 @@ body.lecturer_detail #rate li div img {
     vertical-align: middle;
 }
 
+body.lecturer_detail div.oldphotos {
+    margin: 10px 4px 0;
+}
+
+body.lecturer_detail div.oldphotos img {
+    float: left;
+    margin-right: 5px;
+    cursor: pointer;
+    cursor: hand;
+}
+
 body.document_list .titlerow h4,
 body.document_list .titlerow p {
     display: inline-block;

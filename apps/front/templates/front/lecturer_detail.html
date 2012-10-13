@@ -1,6 +1,8 @@
 {% extends 'front/base.html' %}
 {% load url from future %}
 {% load tabs %}
+{% load thumbnail %}
+{% load compress %}
 
 {% block title %}{{ lecturer.name }}{% endblock %}
 
@@ -15,16 +17,54 @@
     <a href="{% url 'lecturer_list' %}">Dozenten</a> &raquo; {{ lecturer.name }}
 {% endblock %}
 
+{% block scripts %}
+    {{ block.super }} 
+    {% compress js %}
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $('.oldphotos img').click(function() {
+                    var path = $(this).attr('data-path');
+                    $('.pictures>img.thumbnail').addClass('hidden');
+                    $('.pictures>img.thumbnail[data-path="' + path + '"]').removeClass('hidden');
+                });
+            });
+        </script>
+    {% endcompress %}
+{% endblock %}
+
 {% block content %}
 
     <div class="page-header">
         <h1 class="lecturer-name" data-lecturer-pk="{{ lecturer.pk }}">{{ lecturer.name }}</h1>
     </div>
 
-    <img class="thumbnail quimby_search_image floatright"
-    {% if lecturer.photo %} src="{{ lecturer.photo }}"{% endif %}
-    {% if not lecturer.photo %} src="{{ STATIC_URL }}img/120x160.gif"{% endif %}
-    width="120" height="160">
+    <div class="pictures floatright">
+
+        {# Main lecturer picture #}
+        <img class="thumbnail" data-path="{{ lecturer.photo|default:'' }}"
+        {% if lecturer.photo %} src="{% thumbnail lecturer.photo 120x160 crop %}"{% endif %}
+        {% if not lecturer.photo %} src="{{ STATIC_URL }}img/120x160.gif"{% endif %}
+        width="120" height="160">
+
+        {# Old lecturer pictures (initially hidden) #}
+        {% for photo in lecturer.oldphotos %}
+            <img class="thumbnail hidden" data-path="{{ photo }}"
+            src="{% thumbnail photo 120x160 crop %}" width="120" height="160">
+        {% endfor %}
+
+        {# Small thumbnails #}
+        {% if lecturer.oldphotos %}
+            <div class="oldphotos">
+                <img class="floatright" data-path="{{ lecturer.photo }}"
+                src="{% thumbnail lecturer.photo 36x36 crop %}">
+                {% for photo in lecturer.oldphotos %}
+                    <img class="floatright" data-path="{{ photo }}"
+                    src="{% thumbnail photo 36x36 crop %}" width="36" height="36">
+                {% endfor %}
+            </div>
+        {% endif %}
+
+    </div>
 
     <p>{{ lecturer.description|default:"Keine Beschreibung erfasst." }}</p>
 
