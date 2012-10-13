@@ -11,6 +11,7 @@ django-sendfile==0.3.0
 django-dajaxice==0.5.2
 django-compressor==1.2
 django-mathfilters==0.1.2
+easy-thumbnails==1.1
 
 # Parsing
 BeautifulSoup==3.2.0

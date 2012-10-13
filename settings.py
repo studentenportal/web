@@ -3,6 +3,7 @@ from settings_base import *
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
+THUMBNAIL_DEBUG = DEBUG
 COMPRESS_ENABLED = not DEBUG
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

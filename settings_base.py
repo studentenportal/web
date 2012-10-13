@@ -159,6 +159,7 @@ INSTALLED_APPS = (
     'tastytools',
     'dajaxice',
     'mathfilters',
+    'easy_thumbnails',
 
     # Own apps
     'apps.front',
