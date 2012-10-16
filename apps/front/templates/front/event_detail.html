@@ -34,7 +34,7 @@
         {% if event.end_date or event.end_time %}
             <li><strong>Ende:</strong>
                 {% if event.end_date %}{{ event.end_date|date:"D, d. F Y" }} {{ event.end_time|time:"H:i" }}{% endif %}
-                {% if not event.end_date %}{{ event.start_date }} {{ event.end_time|time:"H:i" }}{% endif %}
+                {% if not event.end_date %}{{ event.start_date|date:"D, d. F Y" }} {{ event.end_time|time:"H:i" }}{% endif %}
             </li>
         {% endif %}
     </ul>
