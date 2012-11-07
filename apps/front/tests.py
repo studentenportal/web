@@ -491,7 +491,8 @@ class DocumentListViewTest(TestCase):
         self.assertContains(response1, '<p>1 Download</p>')
         self.client.get(self.taburl + '1/')
         response2 = self.client.get(self.taburl)
-        self.assertContains(response2, '<p>2 Downloads</p>')
+        # Downloadcount shouldn't increase, as request was done from the same IP
+        self.assertContains(response2, '<p>1 Download</p>')
         if not file_existed:
             os.remove(filepath)
 
