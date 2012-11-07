@@ -320,9 +320,10 @@ class DocumentDownload(View):
                         reverse('auth_login'),
                         reverse('document_list', kwargs={'category': slugify(doc.category.name)})
                     ))
-        # Increase downloadcount, serve file
-        doc.downloadcount += 1
-        doc.save()
+        # Log download
+        ip = helpers.get_client_ip(request)
+        models.DocumentDownload.objects.create(document=doc, ip=ip)
+        # Serve file
         filename = unicodedata.normalize('NFKD', doc.original_filename).encode('us-ascii', 'ignore')
         return sendfile(request, doc.document.path,
                attachment=True, attachment_filename=filename)

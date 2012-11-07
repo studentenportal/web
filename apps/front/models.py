@@ -55,7 +55,6 @@ class Lecturer(models.Model):
                 if re.match(r'^[0-9]+\.jpg$', filename):
                     filepath = os.path.join(path, filename)
                     oldphotos.append(filepath)
-        print oldphotos
         return oldphotos
 
     # TODO rename to _rating_avg
@@ -210,7 +209,6 @@ class Document(models.Model):
     uploader = models.ForeignKey(User, related_name=u'Document', null=True, on_delete=models.SET_NULL)
     upload_date = models.DateTimeField(u'Uploaddatum', auto_now_add=True)
     change_date = models.DateTimeField(u'Letztes Änderungsdatum', auto_now=True)
-    downloadcount = models.IntegerField(default=0)
 
     def rating_exact(self):
         """Return exact rating average."""
@@ -237,12 +235,23 @@ class Document(models.Model):
         """Return whether or not the file exists on the harddrive."""
         return os.path.exists(self.document.path)
 
+    def downloadcount(self):
+        """Return the download count."""
+        return self.DocumentDownload.count()
+
     def __unicode__(self):
         return self.name
 
     class Meta:
         ordering = ('-change_date',)
         get_latest_by = 'change_date'
+
+
+class DocumentDownload(models.Model):
+    """Tracks a download of a document."""
+    document = models.ForeignKey(Document, related_name=u'DocumentDownload')
+    timestamp = models.DateTimeField(auto_now_add=True, editable=False)
+    ip = models.GenericIPAddressField(unpack_ipv4=True, editable=False)
 
 
 class DocumentRating(models.Model):

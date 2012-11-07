@@ -1,5 +1,6 @@
 """Helper functions."""
 
+
 def extend_quotes_with_votes(quotes, user_pk):
     """Extends a quote queryset with quote votes (using an extra()-query)."""
 
@@ -20,3 +21,13 @@ def extend_quotes_with_votes(quotes, user_pk):
         'upvote_count': count_base_query % 't',
         'downvote_count': count_base_query % 'f',
     },)
+
+
+def get_client_ip(request):
+    """Returns the remote IP address of a request."""
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[-1].strip()
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    return ip
