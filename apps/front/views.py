@@ -322,7 +322,10 @@ class DocumentDownload(View):
                     ))
         # Log download
         ip = helpers.get_client_ip(request)
-        models.DocumentDownload.objects.create(document=doc, ip=ip)
+        timerange = datetime.datetime.now() - datetime.timedelta(1)
+        filters = {'document': doc, 'ip': ip, 'timestamp__gt': timerange}
+        if not models.DocumentDownload.objects.filter(**filters).exists():
+            models.DocumentDownload.objects.create(document=doc, ip=ip)
         # Serve file
         filename = unicodedata.normalize('NFKD', doc.original_filename).encode('us-ascii', 'ignore')
         return sendfile(request, doc.document.path,

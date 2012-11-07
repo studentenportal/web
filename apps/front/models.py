@@ -249,7 +249,8 @@ class Document(models.Model):
 
 class DocumentDownload(models.Model):
     """Tracks a download of a document."""
-    document = models.ForeignKey(Document, related_name=u'DocumentDownload')
+    # TODO django 1.5: index_together on document/timestamp/ip
+    document = models.ForeignKey(Document, related_name=u'DocumentDownload', db_index=True)
     timestamp = models.DateTimeField(auto_now_add=True, editable=False)
     ip = models.GenericIPAddressField(unpack_ipv4=True, editable=False, db_index=True)
 
