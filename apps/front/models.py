@@ -251,7 +251,7 @@ class DocumentDownload(models.Model):
     """Tracks a download of a document."""
     document = models.ForeignKey(Document, related_name=u'DocumentDownload')
     timestamp = models.DateTimeField(auto_now_add=True, editable=False)
-    ip = models.GenericIPAddressField(unpack_ipv4=True, editable=False)
+    ip = models.GenericIPAddressField(unpack_ipv4=True, editable=False, db_index=True)
 
 
 class DocumentRating(models.Model):
