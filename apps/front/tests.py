@@ -133,6 +133,12 @@ class DocumentModelTest(TransactionTestCase):
         except IntegrityError:
             self.fail("A document with no uploader should not throw an IntegrityError.")
 
+    def testDownloadCount(self):
+        models.DocumentDownload.objects.create(document=self.document, ip='127.0.0.1')
+        models.DocumentDownload.objects.create(document=self.document, ip='192.168.1.2')
+        models.DocumentDownload.objects.create(document=self.document, ip='2001::8a2e:7334')
+        self.assertEqual(3, self.document.downloadcount())
+
 
 class QuoteModelTest(TestCase):
     fixtures = ['testusers', 'testlecturer']
