@@ -1,31 +1,31 @@
 # Base system
-Django==1.4
+Django==1.4.2
 PIL
 django-extensions
-psycopg2==2.4.4
+psycopg2==2.4.5
 
 # Useful/important apps
--e git://github.com/FactorAG/django-messagegroups.git@v0.3#egg=messagegroups
+django-messagegroups==0.3.0
 -e hg+https://bitbucket.org/ubernostrum/django-registration@fad7080fe76955e7d0d3c97bc468ea8360260a6b#egg=django_registration
-django-sendfile==0.3.0
+django-sendfile==0.3.1
 django-dajaxice==0.5.2
 django-compressor==1.2
 django-mathfilters==0.1.2
 easy-thumbnails==1.1
+South==0.7.6
 
 # Parsing
-BeautifulSoup==3.2.0
-requests==0.6.1
+BeautifulSoup==3.2.1
+requests==0.14.2
 
 # API
 django-tastypie==0.9.11
 lxml==2.3.4
 PyYAML==3.10
--e git://github.com/juanique/django-tastytools.git@cb7efbc54b3d14756682687311d6677b37fcba24#egg=django_tastytools
+-e git+https://github.com/juanique/django-tastytools.git@39370d0d08a7e2eafcd83a9129b778226f0806b5#egg=django_tastytools-dev
 
 # Calendar
 vobject==0.8.1c
 
 # Development
 django-debug-toolbar
-South
