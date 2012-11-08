@@ -28,6 +28,10 @@ Features
  - Unterrichtszitate
  - Flattr Integration
 
+Featurevorschläge sind willkommen! Aktuell geplante Features und Featurewünsche
+können auf https://github.com/gwrtheyrn/studentenportal2/issues eingesehen und
+erstellt werden.
+
 
 Development
 -----------
@@ -87,14 +91,6 @@ arbeiten. Die Daten werden direkt von der HSR Website bezogen. Man braucht
 dafür ein funktionierendes HSR Login.
 
  * Dozenten: `python manage.py fetch_lecturers --user=<hsr-username> --pass=<hsr-passwd>`
-
-
-Features
---------
-
-Featurevorschläge sind willkommen! Aktuell geplante Features und Featurewünsche
-können auf https://github.com/gwrtheyrn/studentenportal2/issues eingesehen und
-erstellt werden.
 
 
 Fragen
