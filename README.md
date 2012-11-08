@@ -4,7 +4,8 @@ Studentenportal 2.0
 [![Build Status](https://secure.travis-ci.org/gwrtheyrn/studentenportal2.png?branch=master)](http://travis-ci.org/gwrtheyrn/studentenportal2)
 
 Dies ist ein re-launch des [HSR Studentenportals](http://studentenportal.ch).
-Es soll das alte Portal ablösen und in Sachen Ruhm und Ehre weit überholen.
+Es hat das alte Portal im Frühling 2012 abgelöst und soll es in Sachen Ruhm und
+Ehre weit überholen.
 
 ![f\*ck yeah!](http://s3.amazonaws.com/kym-assets/entries/icons/original/000/001/987/fyeah.jpg)
 
@@ -16,6 +17,16 @@ Technologie
 -----------
 
 Das neue Studentenportal wird mit Django/Python geschrieben.
+
+
+Features
+--------
+
+ - Upload und Bewertung von Zusammenfassungen, alten Prüfungen etc
+ - Events mit iCal Export
+ - Faire Dozentenbewertungen
+ - Unterrichtszitate
+ - Flattr Integration
 
 
 Development
@@ -82,8 +93,8 @@ Features
 --------
 
 Featurevorschläge sind willkommen! Aktuell geplante Features und Featurewünsche
-können auf https://studentenportal.uservoice.com/ eingesehen, erstellt und
-upvoted werden.
+können auf https://github.com/gwrtheyrn/studentenportal2/issues eingesehen und
+erstellt werden.
 
 
 Fragen
@@ -95,4 +106,5 @@ Bei Fragen wende dich an dbargen@hsr.ch oder https://twitter.com/studportal_hsr.
 Lizenz
 ------
 
-Der Code wird unter der [AGPLv3](http://www.gnu.org/licenses/agpl-3.0.html) veröffentlicht.
+Der Code wird unter der [AGPLv3](http://www.gnu.org/licenses/agpl-3.0.html)
+veröffentlicht.
