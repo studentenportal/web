@@ -328,8 +328,7 @@ class DocumentDownload(View):
             models.DocumentDownload.objects.create(document=doc, ip=ip)
         # Serve file
         filename = unicodedata.normalize('NFKD', doc.original_filename).encode('us-ascii', 'ignore')
-        return sendfile(request, doc.document.path,
-               attachment=True, attachment_filename=filename)
+        return sendfile(request, doc.document.path, attachment_filename=filename)
 
 
 class DocumentAdd(LoginRequiredMixin, DocumentcategoryMixin, CreateView):
