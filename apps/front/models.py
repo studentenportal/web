@@ -160,6 +160,8 @@ class DocumentCategory(models.Model):
             help_text=u'z.B. "CompT1" oder "Prog3"')
     description = models.CharField(u'Voller Name', max_length=255,
             help_text=u'z.B. "Computertechnik 1" oder "Programmieren 3"')
+    is_module = models.BooleanField(default=True, verbose_name=u'Unterrichtsmodul',
+            help_text='Ob diese Kategorie ein Unterrichtsmodul ist oder nicht.')
 
     @property
     def summary_count(self):
