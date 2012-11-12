@@ -279,6 +279,54 @@ class DocumentRating(models.Model):
         unique_together = ('user', 'document')
 
 
+class ModuleReview(models.Model):
+    """Review of a module."""
+    SEMESTER_CHOICES = (
+        (u'h', u'Herbstsemester'),
+        (u'f', u'Frühlingssemester'))
+    TOPIC_RATINGS = (
+        (1, u'Sehr Langweilig'),
+        (2, u'Langweilig'),
+        (3, u'Normal'),
+        (4, u'Interessant'),
+        (5, u'Sehr Interessant'))
+    UNDERSTANDABILITY_RATINGS = (
+        (1, u'Katastrophal'),
+        (2, u'Unverständlich'),
+        (3, u'Normal'),
+        (4, u'Verständlich'),
+        (5, u'Genial'))
+    EFFORT_RATINGS = (
+        (1, u'Sehr Hoch'),
+        (2, u'Hoch'),
+        (3, u'Normal'),
+        (4, u'Gering'),
+        (5, u'Sehr Gering'))
+    DIFFICULTY_RATINGS = (
+        (1, u'Sehr Schwierig'),
+        (2, u'Schwierig'),
+        (3, u'Normal'),
+        (4, u'Einfach'),
+        (5, u'Sehr Einfach'))
+
+    Module = models.ForeignKey(DocumentCategory, related_name=u'ModuleReview')
+    Lecturer = models.ForeignKey(Lecturer, related_name=u'ModuleReview')
+    semester = models.CharField(u'Semester', max_length=1, choices=SEMESTER_CHOICES)
+    year = models.PositiveIntegerField(u'Jahr')
+    topic = models.SmallIntegerField(u'Thematik', choices=TOPIC_RATINGS,
+            help_text=u'Wie interessant war die Thematik?')
+    understandability = models.SmallIntegerField(u'Verständlichkeit', choices=UNDERSTANDABILITY_RATINGS,
+            help_text=u'Wie verständlich war der Unterricht?')
+    effort = models.SmallIntegerField(u'Aufwand', choices=EFFORT_RATINGS,
+            help_text=u'Wie aufwändig war das Modul?')
+    difficulty_module = models.SmallIntegerField(u'Schwierigkeit Modul', choices=DIFFICULTY_RATINGS,
+            help_text=u'Wie schwierig war das Modul inhaltlich?')
+    difficulty_exam = models.SmallIntegerField(u'Schwierigkeit Prüfung', choices=DIFFICULTY_RATINGS,
+            help_text=u'Wie schwierig war die Prüfung?')
+    comment = models.TextField(u'Allgemeines Feedback', blank=True, null=True,
+            help_text=u'Allgemeines Feedback zum Modul.')
+
+
 class Event(models.Model):
     """An event.
 
