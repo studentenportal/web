@@ -1,5 +1,9 @@
 # coding=utf-8
 from settings_base import *
+import os
+
+# Helper function
+env = os.environ.get
 
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
@@ -16,12 +20,12 @@ COMPRESS_OFFLINE = True
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',  # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'studentenportal',       # Or path to database file if using sqlite3.
-        'USER': 'django',                # Not used with sqlite3.
-        'PASSWORD': '',                  # Not used with sqlite3.
-        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
-        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': env('DB_NAME', 'studentenportal'),
+        'USER': env('DB_USER', 'django'),
+        'PASSWORD': env('DB_PASSWORD', ''),
+        'HOST': env('DB_HOST', ''),  # Set to empty string for localhost. Not used with sqlite3.
+        'PORT': env('DB_PORT', ''),  # Set to empty string for default. Not used with sqlite3.
     }
 }
 
