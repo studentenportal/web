@@ -22,7 +22,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': env('DB_NAME', 'studentenportal'),
-        'USER': env('DB_USER', 'django'),
+        'USER': env('DB_USER', 'studentenportal'),
         'PASSWORD': env('DB_PASSWORD', ''),
         'HOST': env('DB_HOST', ''),  # Set to empty string for localhost. Not used with sqlite3.
         'PORT': env('DB_PORT', ''),  # Set to empty string for default. Not used with sqlite3.
