@@ -29,5 +29,5 @@ DATABASES = {
     }
 }
 
-INSTALLED_APPS += ('gunicorn',)
+INSTALLED_APPS += ('gunicorn', 'raven.contrib.django')
 SENTRY_DSN = env('SENTRY_DSN')

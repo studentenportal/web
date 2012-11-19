@@ -160,7 +160,6 @@ INSTALLED_APPS = (
     'dajaxice',
     'mathfilters',
     'easy_thumbnails',
-    'raven.contrib.django',
 
     # Own apps
     'apps.front',
