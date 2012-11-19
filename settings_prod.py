@@ -30,3 +30,4 @@ DATABASES = {
 }
 
 INSTALLED_APPS += ('gunicorn',)
+SENTRY_DSN = env.get('SENTRY_DSN')
