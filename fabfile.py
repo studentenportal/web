@@ -1,4 +1,4 @@
-from fabric.api import settings, abort, local, cd, sudo, env
+from fabric.api import settings, abort, local, cd, sudo, env, prefix
 from fabric.contrib.console import confirm
 
 env.hosts = ['dbargen@studentenportal.ch']
@@ -20,14 +20,15 @@ def deploy_untested():
     """Prepare & run deployment without testing."""
     code_dir = '/var/www/studentenportal'
     with cd(code_dir):
-        sudo('git pull', user='django')
-        sudo('VIRTUAL/bin/pip install -r requirements.txt', user='django')
-        sudo('VIRTUAL/bin/pip install -r requirements_prod.txt', user='django')
-        sudo('VIRTUAL/bin/python manage.py syncdb --noinput --settings=settings_prod', user='django')
-        sudo('VIRTUAL/bin/python manage.py migrate --noinput --settings=settings_prod', user='django')
-        sudo('VIRTUAL/bin/python manage.py collectstatic --noinput --clear --settings=settings_prod', user='django')
-        sudo('VIRTUAL/bin/python manage.py compress --settings=settings_prod', user='django')
-        sudo('/etc/init.d/supervisor restart')
+        with prefix('source /var/www/studentenportal/env'):
+            sudo('git pull', user='django')
+            sudo('VIRTUAL/bin/pip install -r requirements.txt', user='django')
+            sudo('VIRTUAL/bin/pip install -r requirements_prod.txt', user='django')
+            sudo('VIRTUAL/bin/python manage.py syncdb --noinput --settings=settings_prod', user='django')
+            sudo('VIRTUAL/bin/python manage.py migrate --noinput --settings=settings_prod', user='django')
+            sudo('VIRTUAL/bin/python manage.py collectstatic --noinput --clear --settings=settings_prod', user='django')
+            sudo('VIRTUAL/bin/python manage.py compress --settings=settings_prod', user='django')
+            sudo('/etc/init.d/supervisor restart')
 
 def deploy():
     """Prepare, test & run deployment."""
