@@ -1,7 +1,7 @@
 Studentenportal 2.0
 ===================
 
-[![Build Status](https://secure.travis-ci.org/gwrtheyrn/studentenportal2.png?branch=master)](http://travis-ci.org/gwrtheyrn/studentenportal2)
+[![Build Status](https://secure.travis-ci.org/dbrgn/studentenportal2.png?branch=master)](http://travis-ci.org/dbrgn/studentenportal2)
 
 Dies ist ein re-launch des [HSR Studentenportals](http://studentenportal.ch).
 Es hat das alte Portal im Frühling 2012 abgelöst und soll es in Sachen Ruhm und
@@ -10,7 +10,7 @@ Ehre weit überholen.
 ![f\*ck yeah!](http://s3.amazonaws.com/kym-assets/entries/icons/original/000/001/987/fyeah.jpg)
 
  * Live-Instanz: http://studentenportal.ch/
- * Travis Buildserver: http://travis-ci.org/gwrtheyrn/studentenportal2
+ * Travis Buildserver: http://travis-ci.org/dbrgn/studentenportal2
 
 
 Technologie
