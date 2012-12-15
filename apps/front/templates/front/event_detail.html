@@ -1,6 +1,9 @@
 {% extends 'front/base.html' %}
 {% load url from future %}
 {% load tabs %}
+{% load thumbnail %}
+
+{% block bodyclass %}event_detail{% endblock %}
 
 {% block title %}{{ event.summary }}{% endblock %}
 
@@ -38,6 +41,12 @@
             </li>
         {% endif %}
     </ul>
+
+    {% if event.picture %}
+        <div id="event_picture">
+            <img src="{% thumbnail event.picture 600x500 %}" alt="Bild/Flyer zu {{ event.summary }}">
+        </div>
+    {% endif %}
 
     {% if event.author = user %}
     <p>

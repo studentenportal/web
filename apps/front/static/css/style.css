@@ -144,6 +144,10 @@ body.documentcategory_list tr.empty a {
     opacity: 0.4;
 }
 
+body.event_detail #event_picture {
+    margin: 20px 0;
+}
+
 
 /* Vote buttons */
 

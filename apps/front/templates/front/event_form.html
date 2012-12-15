@@ -19,7 +19,7 @@
         <h1>Event {{ event|yesno:"bearbeiten,erfassen" }}</h1>
     </div>
 
-    <form method="POST" class="form-horizontal">{% csrf_token %}
+    <form method="POST" enctype="multipart/form-data" class="form-horizontal">{% csrf_token %}
         {% include 'lib/form_loop.html' %}
         <div class="form-actions">
             <button type="submit" class="btn btn-primary"><i class="icon-ok icon-white"></i> {{ event|yesno:"Speichern,Eintragen" }}</button>

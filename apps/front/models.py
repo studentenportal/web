@@ -339,8 +339,14 @@ class Event(models.Model):
     If end_date is null, then assume end_date = start_date.
 
     """
+
+    def picture_file_name(instance, filename):
+        """Where to put a newly uploaded picture."""
+        return '/'.join(['event_pictures', str(instance.start_date.year), filename])
+
     summary = models.CharField(u'Titel', max_length=64)
     description = models.TextField(u'Beschreibung')
+    picture = models.ImageField(u'Bild/Flyer', upload_to=picture_file_name, help_text=u'(Max. 10MB)', null=True, blank=True)
     author = models.ForeignKey(User, related_name='Event', null=True, on_delete=models.SET_NULL)
     start_date = models.DateField(u'Startdatum',
         help_text=u'Format: dd.mm.YYYY')
