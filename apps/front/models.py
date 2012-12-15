@@ -210,7 +210,7 @@ class Document(models.Model):
     original_filename = models.CharField(u'Originaler Dateiname', max_length=255, blank=True)
     uploader = models.ForeignKey(User, related_name=u'Document', null=True, on_delete=models.SET_NULL)
     upload_date = models.DateTimeField(u'Uploaddatum', auto_now_add=True)
-    change_date = models.DateTimeField(u'Letztes Änderungsdatum', auto_now=True)
+    change_date = models.DateTimeField(u'Letztes Änderungsdatum')
 
     def rating_exact(self):
         """Return exact rating average."""

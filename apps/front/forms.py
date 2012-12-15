@@ -1,4 +1,5 @@
 # coding=utf-8
+from datetime import datetime
 from django import forms
 from django.conf import settings
 from django.contrib.auth import models as auth_models
@@ -85,13 +86,20 @@ class DocumentEditForm(forms.ModelForm):
                         (filesizeformat(settings.MAX_UPLOAD_SIZE), filesizeformat(document._size)))
         return document
 
+    def save(self, *args, **kwargs):
+        """Override save method, set change_date to now if the entry is new or pdf is updated."""
+        if self.instance.change_date is None or 'document' in self.changed_data:
+            self.instance.change_date = datetime.now()
+        return super(DocumentEditForm, self).save(*args, **kwargs)
+
     class Meta:
         model = models.Document
-        exclude = ('uploader', 'downloadcount', 'original_filename')
+        exclude = ('uploader', 'downloadcount', 'original_filename', 'change_date')
         widgets = {
             'description': forms.Textarea(),
         }
 
+
 class DocumentAddForm(DocumentEditForm):
     class Meta(DocumentEditForm.Meta):
-        exclude = ('uploader', 'downloadcount', 'original_filename', 'category')
+        exclude = ('uploader', 'downloadcount', 'original_filename', 'category', 'change_date')
