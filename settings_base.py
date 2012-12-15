@@ -93,7 +93,7 @@ COMPRESS_CSS_FILTERS = [
 ]
 
 COMPRESS_JS_FILTERS = [
-    #'compressor.filters.jsmin.JSMinFilter',
+    'compressor.filters.jsmin.JSMinFilter',
 ]
 
 # Make this unique, and don't share it with anybody.
