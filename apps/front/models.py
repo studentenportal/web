@@ -1,7 +1,7 @@
 # encoding=utf-8
 import re
 import os
-import datetime
+from datetime import date, datetime
 from django.conf import settings
 from django.db import models
 from django.core.exceptions import ValidationError
@@ -122,7 +122,7 @@ class Quote(models.Model):
     comment = models.TextField(u'Bemerkung', default=u'', blank=True)
 
     def date_available(self):
-        return self.date != datetime.datetime(1970, 1, 1)
+        return self.date != datetime(1970, 1, 1)
 
     def vote_sum(self):
         """Add up and return all votes for this quote."""
@@ -193,7 +193,7 @@ class Document(models.Model):
     def document_file_name(instance, filename):
         """Where to put a newly uploaded document. Also, store original filename."""
         ext = os.path.splitext(filename)[1]
-        timestamp = datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
+        timestamp = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
         instance.original_filename = filename
         return '/'.join(['documents', slugify(instance.category.name), '%s%s' % (timestamp, ext)])
 
@@ -240,6 +240,12 @@ class Document(models.Model):
     def downloadcount(self):
         """Return the download count."""
         return self.DocumentDownload.count()
+
+    def save(self, *args, **kwargs):
+        """Override save method to automatically set change_date at creation."""
+        if not self.change_date:
+            self.change_date = datetime.now()
+        return super(Document, self).save(*args, **kwargs)
 
     def __unicode__(self):
         return self.name
@@ -348,7 +354,7 @@ class Event(models.Model):
     def is_over(self):
         """Return whether the start_date has already passed or not.
         On the start_date day itself, is_over() will return False."""
-        delta = self.start_date - datetime.date.today()
+        delta = self.start_date - date.today()
         return delta.days < 0
 
     def all_day(self):
@@ -358,7 +364,7 @@ class Event(models.Model):
 
     def days_until(self):
         """Return how many days are left until the day of the event."""
-        delta = self.start_date - datetime.date.today()
+        delta = self.start_date - date.today()
         return delta.days if delta.days > 0 else None
 
     def __unicode__(self):

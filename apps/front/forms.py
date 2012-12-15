@@ -87,8 +87,8 @@ class DocumentEditForm(forms.ModelForm):
         return document
 
     def save(self, *args, **kwargs):
-        """Override save method, set change_date to now if the entry is new or pdf is updated."""
-        if self.instance.change_date is None or 'document' in self.changed_data:
+        """Override save method, set change_date to now only if pdf is actually updated."""
+        if 'document' in self.changed_data:
             self.instance.change_date = datetime.now()
         return super(DocumentEditForm, self).save(*args, **kwargs)
 
