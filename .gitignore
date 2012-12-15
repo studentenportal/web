@@ -1,8 +1,7 @@
 *.pyc
 *.swp
 /static
-/media/documents
-/media/lecturers
+/media
 /reports
 /build/
 db.sqlite

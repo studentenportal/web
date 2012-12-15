@@ -555,7 +555,9 @@ class EventDetailViewTest(TestCase):
             author=self.user,
             start_date=datetime.date(day=1, month=9, year=2010),
             start_time=datetime.time(hour=19, minute=30),
-            end_time=datetime.time(hour=23, minute=59))
+            end_time=datetime.time(hour=23, minute=59),
+            location=u'Gebäude 13',
+            url=u'http://hsr.ch/')
 
     def tearDown(self):
         self.event.delete()
@@ -572,6 +574,10 @@ class EventDetailViewTest(TestCase):
         self.assertContains(response, '1. September 2010 19:30')
         self.assertContains(response, '<strong>Ende:</strong>')
         self.assertContains(response, '1. September 2010 23:59')
+        self.assertContains(response, '<strong>Ort:</strong>')
+        self.assertContains(response, 'Gebäude 13')
+        self.assertContains(response, '<strong>Website:</strong>')
+        self.assertContains(response, 'http://hsr.ch/')
 
 
 class QuoteAddViewTest(TestCase):

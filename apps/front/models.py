@@ -344,18 +344,23 @@ class Event(models.Model):
         """Where to put a newly uploaded picture."""
         return '/'.join(['event_pictures', str(instance.start_date.year), filename])
 
+    author = models.ForeignKey(User, related_name='Event', null=True, on_delete=models.SET_NULL)
     summary = models.CharField(u'Titel', max_length=64)
     description = models.TextField(u'Beschreibung')
-    picture = models.ImageField(u'Bild/Flyer', upload_to=picture_file_name, help_text=u'(Max. 10MB)', null=True, blank=True)
-    author = models.ForeignKey(User, related_name='Event', null=True, on_delete=models.SET_NULL)
     start_date = models.DateField(u'Startdatum',
-        help_text=u'Format: dd.mm.YYYY')
+            help_text=u'Format: dd.mm.YYYY')
     start_time = models.TimeField(u'Startzeit', null=True, blank=True,
-        help_text=u'Format: hh:mm')
+            help_text=u'Format: hh:mm')
     end_date = models.DateField(u'Enddatum', null=True, blank=True,
-        help_text=u'Format: dd.mm.YYYY')
+            help_text=u'Format: dd.mm.YYYY')
     end_time = models.TimeField(u'Endzeit', null=True, blank=True,
-        help_text=u'Format: hh:mm')
+            help_text=u'Format: hh:mm')
+    location = models.CharField(u'Ort', max_length=80, null=True, blank=True,
+            help_text=u'Veranstaltungsort, zB "Gebäude 3" oder "Bären Rapperswil"')
+    url = models.URLField(u'URL', null=True, blank=True,
+            help_text=u'URL zu Veranstaltungs-Website')
+    picture = models.ImageField(u'Bild/Flyer', upload_to=picture_file_name, null=True, blank=True,
+            help_text=u'Bild oder Flyer')
 
     def is_over(self):
         """Return whether the start_date has already passed or not.

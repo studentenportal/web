@@ -40,6 +40,8 @@
                 {% if not event.end_date %}{{ event.start_date|date:"D, d. F Y" }} {{ event.end_time|time:"H:i" }}{% endif %}
             </li>
         {% endif %}
+        {% if event.location %}<li><strong>Ort:</strong> {{ event.location }}</li>{% endif %}
+        {% if event.url %}<li><strong>Website:</strong> {{ event.url|urlize }}</li>{% endif %}
     </ul>
 
     {% if event.picture %}
