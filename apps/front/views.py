@@ -328,7 +328,7 @@ class DocumentDownload(View):
             models.DocumentDownload.objects.create(document=doc, ip=ip)
         # Serve file
         filename = unicodedata.normalize('NFKD', doc.original_filename).encode('us-ascii', 'ignore')
-        attachment = not filename.endswith('.pdf')
+        attachment = not filename.lower().endswith('.pdf')
         return sendfile(request, doc.document.path,
                 attachment=attachment, attachment_filename=filename)
 
