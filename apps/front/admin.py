@@ -13,9 +13,11 @@ class DocumentCategoryAdmin(admin.ModelAdmin):
 
 class DocumentAdmin(admin.ModelAdmin):
     list_filter = ('category', 'uploader')
+    search_fields = ('name', 'description')
 
 class UserAdmin(UserAdmin):
     inlines = UserAdmin.inlines + [ApiKeyInline]
+    search_fields = ('username', 'first_name', 'last_name', 'email')
 
 admin.site.register(models.UserProfile)
 admin.site.register(models.Lecturer)
