@@ -63,7 +63,7 @@
                     <tr>
                         <td>
                             <div class="titlerow">
-                                <h4><span class="label label-{% if doc.dtype = 1 %}success{% else %}important{% endif %}">{{ doc.get_dtype_display }}</span> {{ doc.name }}</h4>
+                                <h4><span class="label label-{% if doc.dtype = 1 %}success{% elif doc.dtype = 2 %}important{% else %}info{% endif %}">{{ doc.get_dtype_display }}</span> {{ doc.name }}</h4>
                                 {% if doc.uploader %}
                                     <p>von <a href="{% url 'user' doc.uploader.pk doc.uploader.username|slugify %}">{{ doc.uploader.name }}</a></p>
                                 {% endif %}

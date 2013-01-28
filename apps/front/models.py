@@ -171,6 +171,11 @@ class DocumentCategory(models.Model):
     def exam_count(self):
         return self.Document.filter(dtype=Document.DTypes.EXAM).count()
 
+    @property
+    def other_count(self):
+        excludes = [Document.DTypes.EXAM, Document.DTypes.SUMMARY]
+        return self.Document.exclude(dtype__in=excludes).count()
+
     def __unicode__(self):
         return self.name
 
@@ -189,6 +194,8 @@ class Document(models.Model):
         """Enum-style document type class."""
         SUMMARY=1
         EXAM=2
+        SOFTWARE=3
+        LEARNING_AID=4
 
     def document_file_name(instance, filename):
         """Where to put a newly uploaded document. Also, store original filename."""
@@ -205,7 +212,10 @@ class Document(models.Model):
     category = models.ForeignKey(DocumentCategory, verbose_name=u'Modul', related_name=u'Document', null=True, on_delete=models.PROTECT)
     dtype = models.PositiveSmallIntegerField(u'Typ', choices=(
         (DTypes.SUMMARY, u'Zusammenfassung'),
-        (DTypes.EXAM, u'Prüfung')))
+        (DTypes.EXAM, u'Prüfung'),
+        (DTypes.SOFTWARE, u'Software'),
+        (DTypes.LEARNING_AID, u'Lernhilfe'),
+        ))
     document = models.FileField(u'Datei', upload_to=document_file_name, help_text=u'(Max. 10MB)')
     original_filename = models.CharField(u'Originaler Dateiname', max_length=255, blank=True)
     uploader = models.ForeignKey(User, related_name=u'Document', null=True, on_delete=models.SET_NULL)

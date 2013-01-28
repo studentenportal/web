@@ -16,7 +16,7 @@
         <script>
             $(function() {
                 var options = {
-                    valueNames: ['name', 'summary_count', 'exam_count'],
+                    valueNames: ['name', 'summary_count', 'exam_count', 'other_count'],
                     page: 9001
                 };
 
@@ -58,8 +58,9 @@
                 <thead>
                     <tr>
                         <th class="sort asc" data-sort="name">Modul</th>
-                        <th class="sort" data-sort="summary_count">Anz. Zusammenfassungen</th>
-                        <th class="sort" data-sort="exam_count">Anz. Prüfungen</th>
+                        <th class="sort" data-sort="summary_count">Zusammenfassungen</th>
+                        <th class="sort" data-sort="exam_count">Prüfungen</th>
+                        <th class="sort" data-sort="other_count">Andere</th>
                     </tr>
 
                 </thead>
@@ -72,6 +73,7 @@
                             </td>
                             <td class="summary_count">{{ category.summary_count }}</td>
                             <td class="exam_count">{{ category.exam_count }}</td>
+                            <td class="other_count">{{ category.other_count }}</td>
                         </tr>
                     {% endfor %}
                 </tbody>

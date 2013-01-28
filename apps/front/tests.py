@@ -373,23 +373,30 @@ class DocumentcategoryListViewTest(TestCase):
     fixtures = ['testdocs', 'testusers']
     taburl = '/dokumente/'
 
+    def setUp(self):
+        self.response = self.client.get(self.taburl)
+
     def testTitle(self):
-        response = self.client.get(self.taburl)
-        self.assertContains(response, '<h1>Dokumente</h1>')
+        self.assertContains(self.response, '<h1>Dokumente</h1>')
 
     def testModuleName(self):
         """Test whether the module An1I appears in the list."""
-        response = self.client.get(self.taburl)
-        self.assertContains(response, '<strong>An1I</strong>')
-        self.assertContains(response, 'Analysis 1 für Informatiker')
+        self.assertContains(self.response, '<strong>An1I</strong>')
+        self.assertContains(self.response, 'Analysis 1 für Informatiker')
 
     def testUserAddButton(self):
         """Test whether the add button is shown when and only when the user is logged in."""
-        response = self.client.get(self.taburl)
-        self.assertNotContains(response, 'Modul hinzufügen')
+        response1 = self.client.get(self.taburl)
+        self.assertNotContains(response1, 'Modul hinzufügen')
         self.client.login(username='testuser', password='test')
-        response = self.client.get(self.taburl)
-        self.assertContains(response, 'Modul hinzufügen')
+        response2 = self.client.get(self.taburl)
+        self.assertContains(response2, 'Modul hinzufügen')
+
+    def testCounts(self):
+        """Test whether the category counts are correct."""
+        self.assertContains(self.response, '<td class="summary_count">2</td>')
+        self.assertContains(self.response, '<td class="exam_count">1</td>')
+        self.assertContains(self.response, '<td class="other_count">2</td>')
 
 
 class DocumentcategoryAddViewTest(TestCase):
