@@ -96,9 +96,6 @@ COMPRESS_JS_FILTERS = [
     'compressor.filters.jsmin.JSMinFilter',
 ]
 
-# Make this unique, and don't share it with anybody.
-SECRET_KEY = 'pkt^ru250#k_r#*_d5c8^tpb!1vmd!@qhy@$y017$+8x9t%msc'
-
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',

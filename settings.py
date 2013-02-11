@@ -29,6 +29,8 @@ DATABASES = {
     }
 }
 
+SECRET_KEY = 'TESTING'
+
 ### DEBUG TOOLBAR ###
 
 def local_network_debug(request):

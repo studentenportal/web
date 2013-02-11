@@ -29,5 +29,9 @@ DATABASES = {
     }
 }
 
+SECRET_KEY = env('SECRET_KEY')
+if SECRET_KEY is None:
+    raise EnvironmentError('Missing SECRET_KEY env variable')
+
 INSTALLED_APPS += ('gunicorn', 'raven.contrib.django')
 SENTRY_DSN = env('SENTRY_DSN')
