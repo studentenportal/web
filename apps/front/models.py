@@ -1,4 +1,4 @@
-# encoding=utf-8
+# -*- coding: utf-8 -*-
 import re
 import os
 from datetime import date, datetime
@@ -10,6 +10,7 @@ from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
 from django.db.models.signals import post_save
 from django.utils.safestring import mark_safe
+from model_utils import Choices
 from apps.front import fields
 
 
@@ -197,6 +198,15 @@ class Document(models.Model):
         SOFTWARE=3
         LEARNING_AID=4
 
+    LICENSES=Choices(
+        (1, 'pd', 'Public Domain'),
+        (2, 'cc3_by', 'CC BY 3.0'),
+        (3, 'cc3_by_sa', 'CC BY-SA 3.0'),
+        (4, 'cc3_by_nc', 'CC BY-NC 3.0'),
+        (5, 'cc3_by_nc_sa', 'CC BY-NC-SA 3.0'),
+    )
+    CC_LICENSES={2: 'by', 3: 'by-sa', 4: 'by-nc', 5: 'by-nc-sa'}
+
     def document_file_name(instance, filename):
         """Where to put a newly uploaded document. Also, store original filename."""
         ext = os.path.splitext(filename)[1]
@@ -221,6 +231,10 @@ class Document(models.Model):
     uploader = models.ForeignKey(User, related_name=u'Document', null=True, on_delete=models.SET_NULL)
     upload_date = models.DateTimeField(u'Uploaddatum', auto_now_add=True)
     change_date = models.DateTimeField(u'Letztes Änderungsdatum')
+    license = models.PositiveSmallIntegerField(u'Lizenz', choices=LICENSES, null=True, blank=True,
+        help_text=mark_safe('Lizenz, siehe <a href="http://creativecommons.org/choose/?lang=de">' + 
+            'http://creativecommons.org/choose/?lang=de</a> um eine passende Lizenz auszuwählen.' +
+            '<br>Empfohlen: CC BY-SA-NC 3.0'))
 
     def rating_exact(self):
         """Return exact rating average."""
