@@ -135,6 +135,7 @@ class Quote(models.Model):
 
     class Meta:
         ordering = ['-date']
+        get_latest_by = 'date'
 
 
 class QuoteVote(models.Model):
