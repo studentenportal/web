@@ -341,7 +341,6 @@ class LecturerDetailViewTest(TestCase):
         self.client.login(username='testuser', password='test')
         response = self.client.get(self.url)
         self.assertContains(response, '<h1 class="lecturer-name" data-lecturer-pk="1">Prof. Dr. Krakaduku David</h1>')
-        #self.assertContains(response, 'San Diego')  # TODO reenable after adding description
         self.assertContains(response, 'Quantenphysik, Mathematik für Mathematiker')
 
     def testContact(self):

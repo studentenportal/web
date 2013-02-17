@@ -30,7 +30,6 @@ class Lecturer(models.Model):
     function = models.CharField(u'Funktion', max_length=255, null=True, blank=True)
     main_area = models.CharField(u'Fachschwerpunkt', max_length=255, null=True, blank=True)
     subjects = models.CharField(max_length=50, null=True, blank=True)  # todo add to frontend
-    description = models.TextField(null=True, blank=True)
     email = models.EmailField(null=True, blank=True)
     office = models.CharField(max_length=20, null=True, blank=True)
 
