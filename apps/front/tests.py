@@ -659,6 +659,16 @@ class QuoteAddViewTest(TestCase):
         self.assertContains(response2, '<td>ich bin der beste dozent von allen.</td>')
         self.assertContains(response2, '<td>etwas arrogant, nicht?</td>')
 
+    def testAutoUpvote(self):
+        """Test whether the added quote was automatically upvoted."""
+        response = self.client.post('/zitate/add/', {
+            'pk': 9000,
+            'lecturer': '1',
+            'quote': 'ich bin der töllscht!',
+        })
+        quote = models.Quote.objects.get(lecturer=1, quote='ich bin der töllscht!')
+        assert quote.vote_sum() == 1, "Quote wasn't automatically upvoted..."
+
 
 class QuoteViewTest(TestCase):
     fixtures = ['testusers', 'testlecturer']
@@ -690,7 +700,6 @@ class QuoteViewTest(TestCase):
         response = self.client.get('/zitate/')
         self.assertContains(response, 'spam')
         self.assertContains(response, 'ham')
-
 
 
 class LoginTest(TestCase):

@@ -233,10 +233,16 @@ class QuoteAdd(LoginRequiredMixin, CreateView):
         """Override the form_valid method of the ModelFormMixin to insert
         value of author field. To do this, the form's save() method is
         called with commit=False to be able to edit the new object before
-        actually saving it."""
+        actually saving it. Additionally, directly upvote the quote."""
         self.object = form.save(commit=False)
+        is_edit = self.object.pk is not None
         self.object.author = self.request.user
         self.object.save()
+        if not is_edit:
+            # Automatically upvote own quote
+            models.QuoteVote.objects.create(
+                user=self.request.user, quote=self.object, vote=True,
+            )
         return super(QuoteAdd, self).form_valid(form)
 
     def get_success_url(self):
