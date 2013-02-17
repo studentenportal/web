@@ -205,7 +205,6 @@ class Document(models.Model):
         (4, 'cc3_by_nc', 'CC BY-NC 3.0'),
         (5, 'cc3_by_nc_sa', 'CC BY-NC-SA 3.0'),
     )
-    CC_LICENSES={2: 'by', 3: 'by-sa', 4: 'by-nc', 5: 'by-nc-sa'}
 
     def document_file_name(instance, filename):
         """Where to put a newly uploaded document. Also, store original filename."""
@@ -264,6 +263,21 @@ class Document(models.Model):
     def downloadcount(self):
         """Return the download count."""
         return self.DocumentDownload.count()
+
+    def license_details(self):
+        """Return the URL to the license and the appropriate license icon."""
+        CC_LICENSES={2: 'by', 3: 'by-sa', 4: 'by-nc', 5: 'by-nc-sa'}
+        if self.license in CC_LICENSES.keys():
+            url_template = 'http://creativecommons.org/licenses/{0}/3.0/deed.de'
+            icon_template = 'http://i.creativecommons.org/l/{0}/3.0/80x15.png'
+            url = url_template.format(CC_LICENSES.get(self.license))
+            icon = icon_template.format(CC_LICENSES.get(self.license))
+        elif self.license == 1:
+            url = 'http://creativecommons.org/publicdomain/zero/1.0/deed.de'
+            icon = 'http://i.creativecommons.org/p/zero/1.0/80x15.png'
+        else:
+            url = icon = None
+        return {'url': url, 'icon': icon, 'name': self.get_license_display()}
 
     def save(self, *args, **kwargs):
         """Override save method to automatically set change_date at creation."""

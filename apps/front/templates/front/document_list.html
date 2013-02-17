@@ -67,6 +67,17 @@
                                     <span class="label label-{% if doc.dtype = 1 %}success{% elif doc.dtype = 2 %}important{% else %}info{% endif %}">
                                         {{ doc.get_dtype_display }}
                                     </span>
+                                    {% with doc.license_details as license %}
+                                        {% if license.name and doc.dtype != 2 %}
+                                            <a rel="license" href="{{ license.url }}"
+                                                {% if doc.license == 1 %}
+                                                    title="Veröffentlicht als {{ license.name }}"
+                                                {% else %}
+                                                    title="Veröffentlicht unter der {{ license.name }} Lizenz"
+                                                {% endif %}
+                                            ><span class="label">{{ license.name }}</span></a>
+                                        {% endif %}
+                                    {% endwith %}
                                     <span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">{{ doc.name }}</span>
                                 </h4>
                                 {% if doc.uploader %}
@@ -78,23 +89,10 @@
                                 {% if doc.change_date %}
                                     (<em>{{ doc.change_date|date:"d.m.Y" }}</em>)
                                 {% endif %}
-
                                 {{ doc.description|urlizetrunc:50 }}
                             </p>
 
-                            {% if doc.license in doc.CC_LICENSES.keys or doc.url %}<p>{% endif %}
-                            {% if doc.license in doc.CC_LICENSES.keys %}
-                                {% for id, license in doc.CC_LICENSES.items %}{% if id == doc.license %}
-                                    <a rel="license" href="http://creativecommons.org/licenses/{{ license }}/3.0/deed.de">
-                                        <img alt="{{ doc.get_license_display }}"
-                                             title="{{ doc.get_license_display }}"
-                                             src="http://i.creativecommons.org/l/{{ license }}/3.0/80x15.png"
-                                        ></img>
-                                    </a>
-                                {% endif %}{% endfor %}
-                            {% endif %}
-                            {% if doc.url %}{{ doc.url|urlizetrunc:70 }}{% endif %}
-                            {% if doc.license in doc.CC_LICENSES.keys or doc.url %}</p>{% endif %}
+                            {% if doc.url %}<p>{{ doc.url|urlizetrunc:70 }}</p>{% endif %}
 
                             {% if user.is_authenticated %}
                                 <div class="drating floatleft" data-readonly="{% if doc.uploader = user %}1{% else %}0{% endif %}"

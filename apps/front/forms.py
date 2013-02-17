@@ -78,6 +78,7 @@ class DocumentCategoryForm(forms.ModelForm):
 
 
 class DocumentEditForm(forms.ModelForm):
+
     def clean_document(self):
         document = self.cleaned_data['document']
         if hasattr(document, '_size'):
@@ -94,7 +95,7 @@ class DocumentEditForm(forms.ModelForm):
 
     class Meta:
         model = models.Document
-        exclude = ('uploader', 'downloadcount', 'original_filename', 'change_date')
+        fields = ('name', 'description', 'url', 'category', 'dtype', 'document', 'license')
         widgets = {
             'description': forms.Textarea(),
         }
