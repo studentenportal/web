@@ -1,6 +1,7 @@
-# encoding=utf-8
+# -*- coding: utf-8 -*-
 import datetime
 import os
+import re
 
 from django.test import TestCase, SimpleTestCase, TransactionTestCase
 from django.contrib.auth.models import User
@@ -8,6 +9,8 @@ from django.core import mail
 from django.core.exceptions import ValidationError, ObjectDoesNotExist
 from django.conf import settings
 from django.db import IntegrityError
+
+from BeautifulSoup import BeautifulSoup
 
 from apps.front import models, forms
 from apps.front import templatetags
@@ -138,6 +141,39 @@ class DocumentModelTest(TransactionTestCase):
         models.DocumentDownload.objects.create(document=self.document, ip='192.168.1.2')
         models.DocumentDownload.objects.create(document=self.document, ip='2001::8a2e:7334')
         self.assertEqual(3, self.document.downloadcount())
+
+    def testLicenseDetailsCC(self):
+        """Test the details of a CC license."""
+        summary = models.Document.DTypes.SUMMARY
+        doc1 = models.Document.objects.create(name='CC-BY doc', dtype=summary,
+                license=models.Document.LICENSES.cc3_by)
+        doc2 = models.Document.objects.create(name='CC-BY-NC-SA doc', dtype=summary,
+                license=models.Document.LICENSES.cc3_by_nc_sa)
+        self.assertEqual('CC BY 3.0', doc1.get_license_display())
+        self.assertEqual('CC BY-NC-SA 3.0', doc2.get_license_display())
+        details1 = doc1.license_details()
+        details2 = doc2.license_details()
+        self.assertEqual('http://creativecommons.org/licenses/by/3.0/deed.de', details1['url'])
+        self.assertEqual('http://i.creativecommons.org/l/by/3.0/80x15.png', details1['icon'])
+        self.assertEqual('http://creativecommons.org/licenses/by-nc-sa/3.0/deed.de', details2['url'])
+        self.assertEqual('http://i.creativecommons.org/l/by-nc-sa/3.0/80x15.png', details2['icon'])
+
+    def testLicenseDetailsPD(self):
+        """Test the details of a PD (CC0) license."""
+        doc = models.Document.objects.create(name='PD doc', dtype=models.Document.DTypes.SUMMARY,
+                license=models.Document.LICENSES.pd)
+        details = doc.license_details()
+        self.assertEqual('Public Domain', doc.get_license_display())
+        self.assertEqual('http://creativecommons.org/publicdomain/zero/1.0/deed.de', details['url'])
+        self.assertEqual('http://i.creativecommons.org/p/zero/1.0/80x15.png', details['icon'])
+
+    def testLicenseDetailsNone(self):
+        """Test the details of a document without a license."""
+        doc = models.Document.objects.create(name='PD doc', dtype=models.Document.DTypes.SUMMARY)
+        details = doc.license_details()
+        self.assertIsNone(doc.get_license_display())
+        self.assertIsNone(details['url'])
+        self.assertIsNone(details['icon'])
 
 
 class QuoteModelTest(TestCase):
@@ -455,7 +491,13 @@ class DocumentListViewTest(TestCase):
         self.assertContains(self.response, '<h1>Dokumente An1I</h1>')
 
     def testDocumentTitle(self):
-        self.assertContains(self.response, '<h4><span class="label label-success">Zusammenfassung</span> Analysis 1 Theoriesammlung</h4>')
+        soup = BeautifulSoup(self.response.content)
+        h4 = soup.find('span', text='Analysis 1 Theoriesammlung').findParent('h4').prettify()
+        self.assertIn('<span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">', h4)
+        self.assertIn('<span class="label label-success">\n Zusammenfassung\n</span>', h4)
+        self.assertIn('<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.de" ' + \
+                      'title="Veröffentlicht unter der CC BY-NC-SA 3.0 Lizenz">', h4)
+        self.assertIn('<span class="label">\n  CC BY-NC-SA 3.0\n </span>', h4)
 
     def testUploaderName(self):
         self.assertContains(self.response, 'Another Guy')

@@ -19,7 +19,8 @@
       "dtype": 1,
       "document": "documents/Analysis-Theoriesammlung.pdf",
       "original_filename": "documents/Analysis-Theoriesammlung.pdf",
-      "description": "Dieses Dokument ist eine Zusammenfassung der Theorie aus dem AnI1-Skript auf 8 Seiten. Das Dokument ist in LaTeX gesetzt, Source ist hier: http://j.mp/fjtleh - Gute Erg\u00e4nzungen sind erw\u00fcnscht!"
+      "description": "Dieses Dokument ist eine Zusammenfassung der Theorie aus dem AnI1-Skript auf 8 Seiten. Das Dokument ist in LaTeX gesetzt, Source ist hier: http://j.mp/fjtleh - Gute Erg\u00e4nzungen sind erw\u00fcnscht!",
+      "license": 5
     }
   },
   {
@@ -34,7 +35,8 @@
       "dtype": 1,
       "document": "documents/zf_mit_umlaut_6.doc",
       "original_filename": "documents/zf_mit_ümläut_6.doc",
-      "description": "Formeln zu Varianz, Durchschnitt, Standartabweichung, Empirische Varianz, Spanne,..."
+      "description": "Formeln zu Varianz, Durchschnitt, Standartabweichung, Empirische Varianz, Spanne,...",
+      "license": 3
     }
   },
   {
@@ -49,7 +51,8 @@
       "dtype": 2,
       "document": "documents/zf_mit_umlaut_6.doc",
       "original_filename": "documents/zf_mit_ümläut_6.doc",
-      "description": "Prüfung 2011"
+      "description": "Prüfung 2011",
+      "license": 1
     }
   },
   {
@@ -64,7 +67,8 @@
       "dtype": 3,
       "document": "documents/program_ti89.zip",
       "original_filename": "documents/program_ti89.zip",
-      "description": ""
+      "description": "",
+      "license": null
     }
   },
   {
@@ -79,7 +83,8 @@
       "dtype": 4,
       "document": "documents/repetition_an1i.pdf",
       "original_filename": "documents/repetition_an1i.pdf",
-      "description": "Repetitionsfragen zu Analysis 1."
+      "description": "Repetitionsfragen zu Analysis 1.",
+      "license": null
     }
   },
   {
