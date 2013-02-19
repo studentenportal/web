@@ -140,7 +140,7 @@ class Command(BaseCommand):
             lecturers_with_same_abbrev = Lecturer.objects.filter(abbreviation=p.initialen)
             if lecturers_with_same_abbrev.exists():
                 self.printO(u'WARNING: Added an index to pre-existing abbreviation ' + p.initialen)
-                p.initialen = p.initialen + lecturers_with_same_abbrev.count()
+                p.initialen = u'%s%s' % (p.initialen, lecturers_with_same_abbrev.count())
             hsr_id = hsr.get_person_id(p.vorname, p.name, p.raum)
             l, created = Lecturer.objects.get_or_create(pk=hsr_id)
             added_count += int(created)
