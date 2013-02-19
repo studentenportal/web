@@ -1,9 +1,14 @@
-# coding=utf-8
-from settings_base import *
+# -*- coding: utf-8 -*-
+
 import os
 
-# Helper function
+from django.core.exceptions import ImproperlyConfigured
+
+from settings_base import *
+
+
 env = os.environ.get
+
 
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
@@ -31,7 +36,7 @@ DATABASES = {
 
 SECRET_KEY = env('SECRET_KEY')
 if SECRET_KEY is None:
-    raise EnvironmentError('Missing SECRET_KEY env variable')
+    raise ImproperlyConfigured('Missing SECRET_KEY env variable')
 
 INSTALLED_APPS += ('gunicorn', 'raven.contrib.django')
 SENTRY_DSN = env('SENTRY_DSN')
