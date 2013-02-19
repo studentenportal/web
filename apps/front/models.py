@@ -11,7 +11,7 @@ from django.template.defaultfilters import slugify
 from django.db.models.signals import post_save
 from django.utils.safestring import mark_safe
 from model_utils import Choices
-from apps.front import fields
+from apps.front import fields, managers
 
 
 class Lecturer(models.Model):
@@ -32,6 +32,9 @@ class Lecturer(models.Model):
     subjects = models.CharField(max_length=50, null=True, blank=True)  # todo add to frontend
     email = models.EmailField(null=True, blank=True)
     office = models.CharField(max_length=20, null=True, blank=True)
+
+    objects = models.Manager();
+    real_objects = managers.RealLecturerManager()
 
     def name(self):
         parts = filter(None, [self.title, self.last_name, self.first_name])

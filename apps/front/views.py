@@ -186,7 +186,7 @@ class Lecturer(LoginRequiredMixin, DetailView):
 
 
 class LecturerList(LoginRequiredMixin, ListView):
-    model = models.Lecturer
+    queryset = models.Lecturer.real_objects.all()
     context_object_name = 'lecturers'
 
     def get_context_data(self, **kwargs):
