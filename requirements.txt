@@ -1,5 +1,5 @@
 # Base system
-Django==1.4.3
+Django==1.4.4
 PIL
 django-extensions
 psycopg2==2.4.6
