@@ -8,6 +8,7 @@ from StringIO import StringIO
 from collections import namedtuple
 from optparse import make_option
 from django.core.management.base import BaseCommand
+from django.core.exceptions import ObjectDoesNotExist
 from apps.front.models import Lecturer
 
 
@@ -140,12 +141,17 @@ class Command(BaseCommand):
             hsr_id = hsr.get_person_id(p.vorname, p.name, p.raum)
             l, created = Lecturer.objects.get_or_create(pk=hsr_id)
             added_count += int(created)
-            lecturers_with_same_abbrev = Lecturer.objects.filter(abbreviation=p.initialen)
-            if lecturers_with_same_abbrev.exists():
-                self.printO(u'WARNING: Added an index to pre-existing abbreviation ' + p.initialen)
-                l.abbreviation = u'%s%s' % (p.initialen, lecturers_with_same_abbrev.count())
-            else:
+            try:
+                others = Lecturer.objects.get(abbreviation=p.initialen)
+            except ObjectDoesNotExist:
                 l.abbreviation = p.initialen
+            else:
+                if others.pk != hsr_id:
+                    self.printO(u'WARNING: Added an index to pre-existing abbreviation %s'
+                                                                                  % p.initialen)
+                    l.abbreviation = u'%s2' % p.initialen
+                    else:
+                        l.abbreviation = p.initialen
             l.title = p.titel
             l.first_name = p.vorname
             l.last_name = p.name
