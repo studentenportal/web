@@ -22,7 +22,7 @@ class LecturerModelTest(TestCase):
     fixtures = ['testusers', 'testlecturer', 'testlratings']
 
     def setUp(self):
-        self.lecturer = models.Lecturer.objects.get()
+        self.lecturer = models.Lecturer.objects.get(pk=1)
 
     def testRatings(self):
         """Test whether ratings are calculated correctly."""
@@ -33,6 +33,15 @@ class LecturerModelTest(TestCase):
     def testName(self):
         self.assertEqual(self.lecturer.name(), 'Prof. Dr. Krakaduku David')
 
+    def testManager(self):
+        all_lecturers = models.Lecturer.objects.all()
+        real_lecturers = models.Lecturer.real_objects.all()
+        self.assertIn(1, all_lecturers.values_list('pk', flat=True))
+        self.assertIn(2, all_lecturers.values_list('pk', flat=True))
+        self.assertIn(3, all_lecturers.values_list('pk', flat=True))
+        self.assertIn(1, real_lecturers.values_list('pk', flat=True))
+        self.assertNotIn(2, real_lecturers.values_list('pk', flat=True))
+        self.assertNotIn(3, real_lecturers.values_list('pk', flat=True))
 
 class LecturerRatingModelTest(TestCase):
     fixtures = ['testusers', 'testlecturer']
@@ -44,7 +53,7 @@ class LecturerRatingModelTest(TestCase):
     def create_default_rating(self, category=u'd', rating=5):
         """Helper function to create a default rating."""
         user = models.User.objects.all()[0]
-        lecturer = models.Lecturer.objects.get()
+        lecturer = models.Lecturer.objects.get(pk=1)
         lr = models.LecturerRating(
             user=user,
             lecturer=lecturer,
