@@ -94,12 +94,10 @@ class Command(BaseCommand):
             dest='password', help='HSR password'),
         )
 
-    def printO(self, msg, newline=True):
+    def printO(self, msg):
         """Print to stdout. This expects unicode strings!"""
         encoding = self.stdout.encoding or sys.getdefaultencoding()
         self.stdout.write(msg.encode(encoding, 'replace'))
-        if newline:
-            self.stdout.write('\n')
 
     def printE(self, msg, newline=True):
         """Print to stderr. This expects unicode strings!"""
@@ -150,8 +148,8 @@ class Command(BaseCommand):
                     self.printO(u'WARNING: Added an index to pre-existing abbreviation %s'
                                                                                   % p.initialen)
                     l.abbreviation = u'%s2' % p.initialen
-                    else:
-                        l.abbreviation = p.initialen
+                else:
+                    l.abbreviation = p.initialen
             l.title = p.titel
             l.first_name = p.vorname
             l.last_name = p.name
