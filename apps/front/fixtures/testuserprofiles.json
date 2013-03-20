@@ -1,0 +1,20 @@
+[
+  {
+    "pk": 2, 
+    "model": "front.userprofile", 
+    "fields": {
+      "twitter": "", 
+      "user": 1, 
+      "flattr": ""
+    }
+  }, 
+  {
+    "pk": 1, 
+    "model": "front.userprofile", 
+    "fields": {
+      "twitter": "dbrgn", 
+      "user": 2, 
+      "flattr": "gwrtheyrn"
+    }
+  }
+]

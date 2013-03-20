@@ -34,5 +34,23 @@
       "email": "django-test2@studentenportal.ch", 
       "date_joined": "2012-02-10 02:22:56"
     }
+  },
+  {
+    "pk": 2, 
+    "model": "front.userprofile", 
+    "fields": {
+      "user": 1, 
+      "twitter": "", 
+      "flattr": ""
+    }
+  }, 
+  {
+    "pk": 1, 
+    "model": "front.userprofile", 
+    "fields": {
+      "user": 2, 
+      "twitter": "dbrgn", 
+      "flattr": "gwrtheyrn"
+    }
   }
 ]

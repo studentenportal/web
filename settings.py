@@ -11,7 +11,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 SENDFILE_BACKEND = 'sendfile.backends.development'
 
 MIDDLEWARE_CLASSES += (
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
+        #    'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
 
 INSTALLED_APPS += (

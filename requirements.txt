@@ -25,6 +25,11 @@ lxml==2.3.4
 PyYAML==3.10
 -e git+https://github.com/juanique/django-tastytools.git@39370d0d08a7e2eafcd83a9129b778226f0806b5#egg=django_tastytools-dev
 
+# New API
+djangorestframework==2.2.1
+django-oauth-plus==2.0
+oauth2==1.5.211
+
 # Calendar
 vobject==0.8.1c
 
