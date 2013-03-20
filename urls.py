@@ -5,7 +5,6 @@ from django.conf import settings
 from django.views.generic import TemplateView
 from django.contrib import admin
 from apps.front import views
-from apps.front.api.tools import api
 
 admin.autodiscover()
 dajaxice_autodiscover()
@@ -61,12 +60,6 @@ urlpatterns += patterns('',
 urlpatterns += patterns('',
     url(dajaxice_config.dajaxice_url, include('dajaxice.urls')),
 )
-
-# API
-urlpatterns += patterns('',
-    url(r'^api/', include(api.urls)),
-)
-
 
 if settings.DEBUG:
     urlpatterns += patterns('django.views.static',

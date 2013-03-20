@@ -154,8 +154,6 @@ INSTALLED_APPS = (
     'registration',
     'django_extensions',
     'south',
-    'tastypie',
-    'tastytools',
     'dajaxice',
     'mathfilters',
     'easy_thumbnails',

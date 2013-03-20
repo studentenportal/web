@@ -19,12 +19,6 @@ easy-thumbnails==1.2
 BeautifulSoup==3.2.1
 requests==0.14.2
 
-# API
-django-tastypie==0.9.14
-lxml==2.3.4
-PyYAML==3.10
--e git+https://github.com/juanique/django-tastytools.git@39370d0d08a7e2eafcd83a9129b778226f0806b5#egg=django_tastytools-dev
-
 # Calendar
 vobject==0.8.1c
 
