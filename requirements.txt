@@ -1,26 +1,26 @@
 # Base system
-Django==1.4.4
+Django==1.5
 PIL
 django-extensions
 psycopg2==2.4.6
+South==0.7.6
 
 # Useful/important apps
 django-messagegroups==0.3.0
-django-registration==0.8
+https://bitbucket.org/trapeze/django-registration/get/aaf18ed09852.zip
 django-sendfile==0.3.1
 django-dajaxice==0.5.4
 django-model-utils==1.2.0
 -e git://github.com/jezdez/django_compressor.git@48d9e4bef96be431c7b17705aece166ca7a313fc#egg=django_compressor
 django-mathfilters==0.1.3
-easy-thumbnails==1.1
-South==0.7.6
+easy-thumbnails==1.2
 
 # Parsing
 BeautifulSoup==3.2.1
 requests==0.14.2
 
 # API
-django-tastypie==0.9.11
+django-tastypie==0.9.14
 lxml==2.3.4
 PyYAML==3.10
 -e git+https://github.com/juanique/django-tastytools.git@39370d0d08a7e2eafcd83a9129b778226f0806b5#egg=django_tastytools-dev

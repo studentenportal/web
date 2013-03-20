@@ -470,9 +470,9 @@ class DocumentcategoryAddViewTest(TestCase):
         self.assertContains(response2, '<h1>Dokumente Prog2</h1>')
 
     def testAddInvalid(self):
-        dc_form = forms.DocumentCategoryForm({'name': 'MöKomÄP', 'description': 'MoKomAP with invalid name'})
+        dc_form = forms.DocumentCategoryForm({'name': u'MöKomÄP', 'description': u'MoKomAP with invalid name'})
         self.assertFalse(dc_form.is_valid())
-        dc_form = forms.DocumentCategoryForm({'name': 'MoKomAP', 'description': 'MoKomAP with valid name'})
+        dc_form = forms.DocumentCategoryForm({'name': u'MoKomAP', 'description': u'MoKomAP with valid name'})
         self.assertTrue(dc_form.is_valid())
 
     def testAddDuplicate(self):
@@ -653,7 +653,7 @@ class QuoteAddViewTest(TestCase):
         """Test the form that is shown if a lecturer is preselected."""
         response = self.client.get('/zitate/1/add/')
         self.assertContains(response, '<h1>Zitat hinzufügen</h1>')
-        self.assertContains(response, '<select name="lecturer" id="id_lecturer">')
+        self.assertContains(response, '<select id="id_lecturer" name="lecturer">')
         self.assertContains(response, '<option value="1" selected="selected">Krakaduku David</option>')
 
     def testFormSubmission(self):

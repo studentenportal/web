@@ -1,7 +1,8 @@
 from registration.views import register
 from dajaxice.core import dajaxice_autodiscover, dajaxice_config
-from django.conf.urls.defaults import patterns, include, url
+from django.conf.urls import patterns, include, url
 from django.conf import settings
+from django.views.generic import TemplateView
 from django.contrib import admin
 from apps.front import views
 from apps.front.api.tools import api
@@ -39,9 +40,9 @@ urlpatterns = patterns('apps.front.views',
 )
 
 # Static pages
-urlpatterns += patterns('django.views.generic.simple',
-    url(r'^tipps/$', 'direct_to_template', {'template': 'front/tips.html'}, name='tips'),
-    url(r'^sitemap\.xml$', 'direct_to_template', {'template': 'front/sitemap.xml'}, name='sitemap'),
+urlpatterns += patterns('',
+    url(r'^tipps/$', TemplateView.as_view(template_name='front/tips.html'), name='tips'),
+    url(r'^sitemap\.xml$', TemplateView.as_view(template_name='front/sitemap.xml'), name='sitemap'),
 )
 
 # Auth pages

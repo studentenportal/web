@@ -14,6 +14,8 @@ DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 COMPRESS_ENABLED = not DEBUG
 
+ALLOWED_HOSTS = ['studentenportal.ch', 'www.studentenportal.ch']
+
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 DEFAULT_FROM_EMAIL = 'Studentenportal <noreply@studentenportal.ch>'
 
