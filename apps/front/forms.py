@@ -2,31 +2,15 @@
 from datetime import datetime
 from django import forms
 from django.conf import settings
-from django.contrib.auth import models as auth_models
+from django.contrib.auth import get_user_model
 from django.template.defaultfilters import filesizeformat
 from registration.forms import RegistrationForm
 from apps.front import models
 
 
 class ProfileForm(forms.ModelForm):
-    twitter = forms.CharField(label=u'Twitter Benutzername', max_length=24, required=False)
-    flattr = forms.CharField(label=u'Flattr Benutzername', max_length=128, required=False)
-
-    def __init__(self, *args, **kwargs):
-        super(ProfileForm, self).__init__(*args, **kwargs)
-        self.fields['email'].required = True
-        self.userprofile = self.instance.profile
-        self.fields['twitter'].initial = self.userprofile.twitter
-        self.fields['flattr'].initial = self.userprofile.flattr
-
-    def save(self, *args, **kwargs):
-        super(ProfileForm, self).save(*args, **kwargs)
-        self.userprofile.twitter = self.cleaned_data.get('twitter')
-        self.userprofile.flattr = self.cleaned_data.get('flattr')
-        self.userprofile.save()
-
     class Meta:
-        model = auth_models.User
+        model = get_user_model()
         fields = ('email', 'first_name', 'last_name', 'twitter', 'flattr')
 
 

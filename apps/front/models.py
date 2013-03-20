@@ -6,12 +6,27 @@ from django.conf import settings
 from django.db import models
 from django.core.exceptions import ValidationError
 from django.core.validators import MaxValueValidator, MinValueValidator
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
 from django.template.defaultfilters import slugify
 from django.db.models.signals import post_save
 from django.utils.safestring import mark_safe
 from model_utils import Choices
 from apps.front import fields, managers
+
+
+class User(AbstractUser):
+    """The user model."""
+    twitter = models.CharField(u'Twitter Benutzername', max_length=24, blank=True)
+    flattr = models.CharField(u'Flattr Benutzername', max_length=128, blank=True,
+            help_text=mark_safe(u'Falls angegeben, wird bei deinen Zusammenfassungen jeweils ein '
+            '<a href="https://flattr.com/">Flattr</a> Button angezeigt.'))
+
+    def name(self):
+        """Return either full user first and last name or the username, if no
+        further data is found."""
+        if self.first_name or self.last_name:
+            return ' '.join(filter(None, [self.first_name, self.last_name]))
+        return self.username
 
 
 class Lecturer(models.Model):
@@ -104,7 +119,7 @@ class LecturerRating(models.Model):
         (u'm', 'Menschlich'),
         (u'f', 'Fachlich'))
 
-    user = models.ForeignKey(User, related_name=u'LecturerRating')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name=u'LecturerRating')
     lecturer = models.ForeignKey(Lecturer, related_name=u'LecturerRating')
     category = models.CharField(max_length=1, choices=CATEGORY_CHOICES, db_index=True)
     rating = models.PositiveSmallIntegerField(validators=[MaxValueValidator(10), MinValueValidator(1)], db_index=True)
@@ -118,7 +133,7 @@ class LecturerRating(models.Model):
 
 class Quote(models.Model):
     """Lecturer quotes."""
-    author = models.ForeignKey(User, related_name='Quote', null=True, on_delete=models.SET_NULL)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='Quote', null=True, on_delete=models.SET_NULL)
     lecturer = models.ForeignKey(Lecturer, verbose_name=u'Dozent', related_name='Quote')
     date = models.DateTimeField(auto_now_add=True)
     quote = models.TextField(u'Zitat')
@@ -143,7 +158,7 @@ class Quote(models.Model):
 
 class QuoteVote(models.Model):
     """Lecturer quotes."""
-    user = models.ForeignKey(User, related_name='QuoteVote')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='QuoteVote')
     quote = models.ForeignKey(Quote, related_name='QuoteVote')
     vote = models.BooleanField(help_text='True = upvote, False = downvote')
 
@@ -230,7 +245,7 @@ class Document(models.Model):
         ))
     document = models.FileField(u'Datei', upload_to=document_file_name, help_text=u'(Max. 10MB)')
     original_filename = models.CharField(u'Originaler Dateiname', max_length=255, blank=True)
-    uploader = models.ForeignKey(User, related_name=u'Document', null=True, on_delete=models.SET_NULL)
+    uploader = models.ForeignKey(settings.AUTH_USER_MODEL, related_name=u'Document', null=True, on_delete=models.SET_NULL)
     upload_date = models.DateTimeField(u'Uploaddatum', auto_now_add=True)
     change_date = models.DateTimeField(u'Letztes Änderungsdatum')
     license = models.PositiveSmallIntegerField(u'Lizenz', choices=LICENSES, null=True, blank=True,
@@ -310,7 +325,7 @@ class DocumentRating(models.Model):
     Valid values are integers between 1 and 5.
 
     """
-    user = models.ForeignKey(User, related_name=u'DocumentRating')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name=u'DocumentRating')
     document = models.ForeignKey(Document, related_name='DocumentRating')
     rating = models.PositiveSmallIntegerField(validators=[MaxValueValidator(10), MinValueValidator(1)])
 
@@ -385,7 +400,7 @@ class Event(models.Model):
         """Where to put a newly uploaded picture."""
         return '/'.join(['event_pictures', str(instance.start_date.year), filename])
 
-    author = models.ForeignKey(User, related_name='Event', null=True, on_delete=models.SET_NULL)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='Event', null=True, on_delete=models.SET_NULL)
     summary = models.CharField(u'Titel', max_length=64)
     description = models.TextField(u'Beschreibung')
     start_date = models.DateField(u'Startdatum',
@@ -421,34 +436,3 @@ class Event(models.Model):
 
     def __unicode__(self):
         return '%s %s' % (self.start_date, self.summary)
-
-
-class UserProfile(models.Model):
-    """A user profile."""
-    user = models.OneToOneField(User)
-    twitter = models.CharField(u'Twitter Benutzername', max_length=24, blank=True)
-    flattr = models.CharField(u'Flattr Benutzername', max_length=128, blank=True,
-            help_text=mark_safe(u'Falls angegeben, wird bei deinen \
-            Zusammenfassungen jeweils ein \
-            <a href="https://flattr.com/">Flattr</a> Button angezeigt.'))
-
-    def __unicode__(self):
-        return u'Profile for %s' % self.user.username
-
-
-User.profile = property(lambda u: UserProfile.objects.get_or_create(user=u)[0])
-
-
-def name(self):
-    """Return either full user first and last name or the username, if no
-    further data is found."""
-    if self.first_name or self.last_name:
-        return ' '.join(filter(None, [self.first_name, self.last_name]))
-    return self.username
-User.add_to_class('name', name)
-
-
-def create_user_profile(sender, instance, created, **kwargs):
-    if created:
-        UserProfile.objects.create(user=instance)
-post_save.connect(create_user_profile, sender=User)

@@ -13,6 +13,6 @@ class HsrEmailBackend(DefaultBackend):
         return HsrRegistrationForm
 
     def register(self, request, **kwargs):
-        username = kwargs['username']
+        username = kwargs['username'].lower()
         kwargs['email'] = '%s@hsr.ch' % username
         return super(HsrEmailBackend, self).register(request, **kwargs)

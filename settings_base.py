@@ -137,7 +137,7 @@ MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
 MAX_UPLOAD_SIZE = 10485760  # 10MB
 
-AUTH_PROFILE_MODULE = 'front.UserProfile'
+AUTH_USER_MODEL = 'front.User'
 
 INSTALLED_APPS = (
     # Builtin apps
@@ -201,3 +201,6 @@ AUTHENTICATION_BACKENDS = ('backends.CaseInsensitiveModelBackend',)
 # Registration
 ACCOUNT_ACTIVATION_DAYS = 7
 REGISTRATION_OPEN = True
+
+# South
+SOUTH_TESTS_MIGRATE = False

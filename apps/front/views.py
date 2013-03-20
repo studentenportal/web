@@ -2,7 +2,7 @@
 import datetime
 import unicodedata
 from urlparse import urlsplit, urlunsplit
-from django.contrib.auth import models as auth_models
+from django.contrib.auth import get_user_model
 from django.contrib import messages
 from django.db.models import Count
 from django.core.urlresolvers import reverse
@@ -45,7 +45,7 @@ class Profile(LoginRequiredMixin, UpdateView):
 
 
 class User(LoginRequiredMixin, DetailView):
-    model = auth_models.User
+    model = get_user_model()
     template_name = 'front/user_detail.html'
 
     def get_context_data(self, **kwargs):
@@ -469,7 +469,7 @@ class Stats(LoginRequiredMixin, TemplateView):
         context['user_topratings'] = fetchfirst(
                 models.User.objects.raw('''
                         SELECT u.id AS id, COUNT(DISTINCT lr.lecturer_id) AS lrcount
-                        FROM auth_user u
+                        FROM front_user u
                         JOIN front_lecturerrating lr
                             ON u.id = lr.user_id
                         GROUP BY u.id

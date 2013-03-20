@@ -4,9 +4,9 @@ import os
 import re
 
 from django.test import TestCase, SimpleTestCase, TransactionTestCase
-from django.contrib.auth.models import User
 from django.core import mail
 from django.core.exceptions import ValidationError, ObjectDoesNotExist
+from django.contrib.auth import get_user_model
 from django.conf import settings
 from django.db import IntegrityError
 
@@ -14,6 +14,9 @@ from BeautifulSoup import BeautifulSoup
 
 from apps.front import models, forms
 from apps.front import templatetags
+
+
+User = get_user_model()
 
 
 ### MODEL TESTS ###
@@ -52,7 +55,7 @@ class LecturerRatingModelTest(TestCase):
 
     def create_default_rating(self, category=u'd', rating=5):
         """Helper function to create a default rating."""
-        user = models.User.objects.all()[0]
+        user = User.objects.all()[0]
         lecturer = models.Lecturer.objects.get(pk=1)
         lr = models.LecturerRating(
             user=user,
@@ -196,7 +199,7 @@ class QuoteModelTest(TestCase):
             "ja nicht, dass längere Zitate hier keinen Platz haben :)"
         before = datetime.datetime.now()
         q = models.Quote()
-        q.author = models.User.objects.all()[0]
+        q.author = User.objects.all()[0]
         q.lecturer = models.Lecturer.objects.all()[0]
         q.quote = quote
         q.comment = "Eine Bemerkung zum Kommentar"
@@ -219,7 +222,7 @@ class QuoteModelTest(TestCase):
         """Check whether a quote from 1970-1-1 is marked as date_available=False."""
         q = models.Quote()
         q.lecturer = models.Lecturer.objects.all()[0]
-        q.author = models.User.objects.all()[0]
+        q.author = User.objects.all()[0]
         q.quote = 'spam'
         q.comment = 'ham'
         q.date = datetime.datetime(1970, 1, 1)
@@ -240,29 +243,6 @@ class UserModelTest(TransactionTestCase):
         self.assertEqual(self.pete.name(), u'Peterson')
         self.assertEqual(self.mike.name(), u'Mike Müller')
 
-    def testUserProfileCreation(self):
-        """Test whether a user profile is created when a user is created."""
-        u = User.objects.create_user("profiletester", "pt@example.com", "pwd")
-        try:
-            u.get_profile()
-        except ObjectDoesNotExist:
-            self.fail("Userprofile was not automatically created for a new user.")
-
-
-class UserProfileModelTest(TestCase):
-    def setUp(self):
-        self.john = User.objects.create(username='john')
-
-    def testData(self):
-        profile = self.john.get_profile()
-        profile.twitter = 'twjohn'
-        profile.flattr = 'fljohn'
-        profile.save()
-        self.assertEqual('twjohn', self.john.get_profile().twitter)
-        self.assertEqual('fljohn', self.john.get_profile().flattr)
-
-    def testProperty(self):
-        self.assertEqual(self.john.get_profile(), self.john.profile)
 
 
 class EventModelTest(TestCase):
@@ -603,7 +583,7 @@ class EventDetailViewTest(TestCase):
     fixtures = ['testusers']
 
     def setUp(self):
-        self.user = models.User.objects.get(pk=1)
+        self.user = User.objects.get(pk=1)
         self.event = models.Event.objects.create(
             id=1,
             summary='Testbar',
@@ -793,8 +773,8 @@ class UserProfileViewTest(TestCase):
         self.assertEqual('test@example.com', user.email)
         self.assertEqual('John', user.first_name)
         self.assertEqual('Doe', user.last_name)
-        self.assertEqual('jdoe', user.get_profile().twitter)
-        self.assertEqual('johndoe', user.get_profile().flattr)
+        self.assertEqual('jdoe', user.twitter)
+        self.assertEqual('johndoe', user.flattr)
 
 
 class StatsViewTest(TestCase):
