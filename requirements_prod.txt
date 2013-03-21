@@ -1,5 +1,5 @@
 # Production server
-gunicorn==0.14.2
+gunicorn==0.17.2
 
 # Sentry logging
-raven==2.0.10
+raven==3.1.17
