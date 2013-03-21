@@ -70,6 +70,10 @@ class Migration(SchemaMigration):
         # Changing field 'UserProfile.user'
         db.alter_column(u'front_userprofile', 'user_id', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['front.User'], unique=True))
 
+        # Changing field 'RegistrationProfile.user'
+        db.alter_column(u'registration_registrationprofile', 'user_id', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['front.User'], unique=True))
+
+
     def backwards(self, orm):
         # Deleting model 'User'
         db.delete_table(u'front_user')
@@ -101,6 +105,10 @@ class Migration(SchemaMigration):
 
         # Changing field 'UserProfile.user'
         db.alter_column(u'front_userprofile', 'user_id', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['auth.User'], unique=True))
+
+        # Changing field 'RegistrationProfile.user'
+        db.alter_column(u'registration_registrationprofile', 'user_id', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['auth.User'], unique=True))
+
 
     models = {
         u'auth.group': {
