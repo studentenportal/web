@@ -1,6 +1,6 @@
 # Base system
 Django==1.5
-PIL
+Pillow==2.0.0
 django-extensions
 psycopg2==2.4.6
 South==0.7.6
