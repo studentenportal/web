@@ -11,6 +11,7 @@ class DocumentAdmin(admin.ModelAdmin):
     list_filter = ('category', 'uploader')
     search_fields = ('name', 'description')
 
+admin.site.register(models.User)
 admin.site.register(models.Lecturer)
 admin.site.register(models.LecturerRating)
 admin.site.register(models.Quote, QuoteAdmin)
