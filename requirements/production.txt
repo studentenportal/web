@@ -1,4 +1,6 @@
-# Production server
+-r base.txt
+
+# Webserver
 gunicorn==0.17.2
 
 # Sentry logging

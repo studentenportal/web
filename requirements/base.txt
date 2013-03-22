@@ -21,6 +21,3 @@ requests==0.14.2
 
 # Calendar
 vobject==0.8.1c
-
-# Development
-django-debug-toolbar

@@ -50,7 +50,7 @@ Um die Entwicklungsumgebung einzurichten:
  3. `psql -d template1 -c 'CREATE EXTENSION citext;'`
  4. `createuser -e -P -d -E -s studentenportal` (Passwort "studentenportal")
  5. `createdb -e -O studentenportal -U studentenportal studentenportal`
- 6. `pip install -r requirements.txt`
+ 6. `pip install -r requirements/local.txt`
  7. `python manage.py syncdb --all`
  8. `python manage.py migrate --fake`
  9. `python manage.py runserver`
