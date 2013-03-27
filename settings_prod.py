@@ -54,6 +54,11 @@ LOGGING['loggers']['raven'] = {
     'handlers': ['console'],
     'propagate': False,
 }
+LOGGING['loggers']['django.request'] = {
+    'level': 'WARNING',
+    'handlers': ['sentry'],
+    'propagate': False,
+}
 LOGGING['loggers']['dajaxice'] = {
     'handlers': ['sentry'],
     'level': 'WARNING',
