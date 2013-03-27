@@ -10,7 +10,8 @@ Raven.config('http://cbaa9dff64764fee963e7f71a0d7a898@sentry.studentenportal.ch/
 
 Dajaxice.setup({
     'default_exception_callback': function() {
-        alert('Sorry, ein Fehler ist aufgetreten.');
+        alert('Sorry, ein Fehler ist aufgetreten. Er wurde geloggt und ein Admin wurde benachrichtigt.');
+        Raven.captureMessage('Unknown Dajaxice error', {tags: { key: "value" }})
     }
 });
 
