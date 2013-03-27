@@ -20,7 +20,7 @@ var raven_options = {
       'bmi_SafeAddOnload',
       'EBCallBackMessageReceived',
       // See http://toolbar.conduit.com/Developer/HtmlAndGadget/Methods/JSInjection.aspx
-      'conduitPage',
+      'conduitPage'
     ],
     ignoreUrls: [
       // Facebook flakiness
