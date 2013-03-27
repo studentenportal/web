@@ -36,6 +36,30 @@ DATABASES = {
     }
 }
 
+LOGGING['root'] = {
+    'level': 'WARNING',
+    'handlers': ['sentry'],
+}
+LOGGING['handlers']['sentry'] = {
+    'level': 'ERROR',
+    'class': 'raven.contrib.django.raven_compat.handlers.SentryHandler',
+}
+LOGGING['loggers']['sentry.errors'] = {
+    'level': 'DEBUG',
+    'handlers': ['console'],
+    'propagate': False,
+}
+LOGGING['loggers']['raven'] = {
+    'level': 'DEBUG',
+    'handlers': ['console'],
+    'propagate': False,
+}
+LOGGING['loggers']['dajaxice'] = {
+    'handlers': ['sentry'],
+    'level': 'WARNING',
+    'propagate': False,
+}
+
 SECRET_KEY = env('SECRET_KEY')
 if SECRET_KEY is None:
     raise ImproperlyConfigured('Missing SECRET_KEY env variable')

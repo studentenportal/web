@@ -183,14 +183,18 @@ LOGGING = {
         'mail_admins': {
             'level': 'ERROR',
             'filters': ['require_debug_false'],
-            'class': 'django.utils.log.AdminEmailHandler'
-        }
+            'class': 'django.utils.log.AdminEmailHandler',
+        },
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+        },
     },
     'loggers': {
-        'django.request': {
-            'handlers': ['mail_admins'],
+        'django.db.backends': {
             'level': 'ERROR',
-            'propagate': True,
+            'handlers': ['console'],
+            'propagate': False,
         },
     }
 }
