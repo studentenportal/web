@@ -12,7 +12,7 @@ class AuthenticationRequiredError(RuntimeError):
 def vote_quote(request, vote, quote_pk):
 
     # Check authentication
-    if not request.user.is_authenticated:
+    if not request.user.is_authenticated():
         raise AuthenticationRequiredError()
 
     quote = models.Quote.objects.get(pk=quote_pk)
@@ -23,7 +23,7 @@ def vote_quote(request, vote, quote_pk):
     elif vote == 'remove':
         models.QuoteVote.objects.get(user=request.user, quote=quote).delete()
 
-    return simplejson.dumps({
+    return json.dumps({
         'quote_pk': quote_pk,
         'vote': vote,
         'vote_count': quote.QuoteVote.count(),
@@ -57,7 +57,7 @@ def rate_lecturer(request, lecturer_pk, category, score):
         return ValueError('Validierungsfehler')
     rating.save()
 
-    return simplejson.dumps({
+    return json.dumps({
         'category': category,
         'rating_avg': lecturer._avg_rating(category),
         'rating_count': lecturer._rating_count(category),
