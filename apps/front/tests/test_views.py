@@ -436,7 +436,7 @@ class RegistrationViewTest(TestCase):
     def testRegistrationPage(self):
         response = self.client.get(self.registration_url)
         self.assertContains(response, '<h1>Registrieren</h1>')
-        self.assertContains(response, 'Diese Registrierung ist Personen mit einer HSR-Email-Adresse vorbehalten')
+        self.assertContains(response, 'Diese Registrierung ist Studenten mit einer HSR-Email-Adresse vorbehalten')
         self.assertContains(response, '<form')
 
     def testRegistration(self):
