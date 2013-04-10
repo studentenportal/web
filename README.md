@@ -2,7 +2,6 @@ Studentenportal 2.0
 ===================
 
 [![Build Status](https://secure.travis-ci.org/dbrgn/studentenportal2.png?branch=master)](http://travis-ci.org/dbrgn/studentenportal2)
-
 [![Coverage Status](https://coveralls.io/repos/dbrgn/studentenportal2/badge.png?branch=master)](https://coveralls.io/r/dbrgn/studentenportal2)
 
 Dies ist ein re-launch des [HSR Studentenportals](http://studentenportal.ch).
