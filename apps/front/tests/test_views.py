@@ -4,15 +4,21 @@ import os
 
 from django.test import TestCase
 from django.core import mail
+from django.core.urlresolvers import reverse
 from django.contrib.auth import get_user_model
 from django.conf import settings
 
 from BeautifulSoup import BeautifulSoup
+from model_mommy import mommy
 
 from apps.front import models, forms
 
 
 User = get_user_model()
+
+
+def login(self):
+    self.client.login(username='testuser', password='test')
 
 
 class HomeViewTest(TestCase):
@@ -22,35 +28,39 @@ class HomeViewTest(TestCase):
 
 
 class LecturerListViewTest(TestCase):
-    fixtures = ['testusers', 'testlecturer']
-
     def testLoginRequired(self):
         response = self.client.get('/dozenten/')
         self.assertRedirects(response, '/accounts/login/?next=/dozenten/')
 
     def testContent(self):
-        self.client.login(username='testuser', password='test')
+        mommy.make_recipe('apps.front.user')
+        mommy.make_recipe('apps.front.lecturer')
+        login(self)
         response = self.client.get('/dozenten/')
         self.assertContains(response, '<h1>Unsere Dozenten</h1>')
         self.assertContains(response, 'Prof. Dr. Krakaduku David')
 
 
 class LecturerDetailViewTest(TestCase):
-    fixtures = ['testusers', 'testlecturer']
-    url = '/dozenten/1/'
+    def setUp(self):
+        # setUpClass
+        mommy.make_recipe('apps.front.user')
+        self.lecturer = mommy.make_recipe('apps.front.lecturer')
+        self.url = reverse('lecturer_detail', args=(self.lecturer.pk,))
 
     def testLoginRequired(self):
         response = self.client.get(self.url)
         self.assertRedirects(response, '/accounts/login/?next=%s' % self.url)
 
     def testDescription(self):
-        self.client.login(username='testuser', password='test')
+        login(self)
         response = self.client.get(self.url)
-        self.assertContains(response, '<h1 class="lecturer-name" data-lecturer-pk="1">Prof. Dr. Krakaduku David</h1>')
+        self.assertContains(response, '<h1 class="lecturer-name" ' + \
+                'data-lecturer-pk="%s">Prof. Dr. Krakaduku David</h1>' % self.lecturer.pk)
         self.assertContains(response, 'Quantenphysik, Mathematik für Mathematiker')
 
     def testContact(self):
-        self.client.login(username='testuser', password='test')
+        login(self)
         response = self.client.get(self.url)
         self.assertContains(response, '1.337')
         self.assertContains(response, 'krakaduku@hsr.ch')
@@ -58,64 +68,59 @@ class LecturerDetailViewTest(TestCase):
 
 class ProfileViewTest(TestCase):
     def testUnauthRedirect(self):
+        """An unauthenticated user should not get access to the profile detail page."""
         response = self.client.get('/profil/')
         self.assertEqual(response.status_code, 302)
 
 
 class DocumentDownloadTest(TestCase):
-    fixtures = ['testdocs', 'testusers']
-    basepath = '/dokumente/an1i/'
-    docurl1 = basepath + '1/'
-    docurl2 = basepath + '2/'
-    docurl3 = basepath + '3/'
-    filepath1 = os.path.join(settings.MEDIA_ROOT, 'documents', 'Analysis-Theoriesammlung.pdf')
-    filepath23 = os.path.join(settings.MEDIA_ROOT, 'documents', 'zf_mit_umlaut_6.doc')
-
     def setUp(self):
-        self.file1_existed = os.path.exists(self.filepath1)
-        self.file2_existed = os.path.exists(self.filepath23)
-        if not self.file1_existed:
-            open(self.filepath1, 'w').close()
-        if not self.file2_existed:
-            open(self.filepath23, 'w').close()
+        # setUpClass
+        mommy.make_recipe('apps.front.user')
 
     def testSummaryServed(self):
         """Assert that the summaries get served, even without login."""
-        response = self.client.get(self.docurl1)
-        self.assertEqual(response.status_code, 200)
-        response = self.client.get(self.docurl2)
+        doc = mommy.make_recipe('apps.front.document_summary')
+        url = reverse('document_download', args=(doc.category.name, doc.pk))
+        response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
 
     def testExamRequireLogin(self):
         """Assert that the exams require login."""
-        response = self.client.get(self.docurl3)
-        self.assertRedirects(response, '/accounts/login/?next=%s' % self.basepath)
+        doc = mommy.make_recipe('apps.front.document_exam')
+        url = reverse('document_download', args=(doc.category.name, doc.pk))
+        response = self.client.get(url)
+        category_path = reverse('document_list', args=(doc.category.name.lower(),))
+        self.assertRedirects(response, '/accounts/login/?next=%s' % category_path)
 
     def testExamServed(self):
         """Assert that the exams get served when logged in."""
-        self.client.login(username='testuser', password='test')
-        response = self.client.get(self.docurl3)
+        login(self)
+        doc = mommy.make_recipe('apps.front.document_exam')
+        url = reverse('document_download', args=(doc.category.name, doc.pk))
+        response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
 
     def testUmlautDocumentServed(self):
-        """Test whether documents with umlauts in their original filename
-        can be served."""
-        response = self.client.get(self.docurl2)
+        """Test whether documents with umlauts in their original filename can
+        be served."""
+        doc = mommy.make_recipe('apps.front.document_summary', original_filename='Füübäär Søreņ')
+        url = reverse('document_download', args=(doc.category.name, doc.pk))
+        response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
-
-    def tearDown(self):
-        if not self.file1_existed:
-            os.remove(self.filepath1)
-        if not self.file2_existed:
-            os.remove(self.filepath23)
 
 
 class DocumentcategoryListViewTest(TestCase):
-    fixtures = ['testdocs', 'testusers']
-    taburl = '/dokumente/'
-
     def setUp(self):
-        self.response = self.client.get(self.taburl)
+        # setUpClass
+        mommy.make_recipe('apps.front.user')
+        mommy.make_recipe('apps.front.document_summary')
+        mommy.make_recipe('apps.front.document_summary')
+        mommy.make_recipe('apps.front.document_exam')
+        mommy.make_recipe('apps.front.document_software')
+        mommy.make_recipe('apps.front.document_learning_aid')
+        # setUp
+        self.response = self.client.get(reverse('documentcategory_list'))
 
     def testTitle(self):
         self.assertContains(self.response, '<h1>Dokumente</h1>')
@@ -127,11 +132,10 @@ class DocumentcategoryListViewTest(TestCase):
 
     def testUserAddButton(self):
         """Test whether the add button is shown when and only when the user is logged in."""
-        response1 = self.client.get(self.taburl)
-        self.assertNotContains(response1, 'Modul hinzufügen')
-        self.client.login(username='testuser', password='test')
-        response2 = self.client.get(self.taburl)
-        self.assertContains(response2, 'Modul hinzufügen')
+        self.assertNotContains(self.response, 'Modul hinzufügen')
+        login(self)
+        logged_in_response = self.client.get(reverse('documentcategory_list'))
+        self.assertContains(logged_in_response, 'Modul hinzufügen')
 
     def testCounts(self):
         """Test whether the category counts are correct."""
@@ -141,11 +145,11 @@ class DocumentcategoryListViewTest(TestCase):
 
 
 class DocumentcategoryAddViewTest(TestCase):
-    fixtures = ['testusers']
     taburl = '/dokumente/add/'
 
     def setUp(self):
-        self.client.login(username='testuser', password='test')
+        mommy.make_recipe('apps.front.user')
+        login(self)
 
     def testLoginRequired(self):
         self.client.logout()
@@ -186,11 +190,25 @@ class DocumentcategoryAddViewTest(TestCase):
 
 
 class DocumentListViewTest(TestCase):
-    fixtures = ['testdocs', 'testusers']
-    taburl = '/dokumente/an1i/'
-
     def setUp(self):
-        self.response = self.client.get(self.taburl)
+        # setUpClass
+        self.user1 = mommy.make_recipe('apps.front.user')
+        self.user2 = mommy.make(User, first_name='Another', last_name='Guy')
+        self.doc1 = mommy.make_recipe('apps.front.document_summary',
+                         name='Analysis 1 Theoriesammlung',
+                         description='Theorie aus dem AnI1-Skript auf 8 Seiten',
+                         uploader=self.user1,
+                         upload_date='2011-12-18 01:28:52',
+                         change_date='2011-12-18 01:28:52',
+                         license=5)
+        self.doc2 = mommy.make_recipe('apps.front.document_summary', uploader=self.user2)
+        self.doc3 = mommy.make_recipe('apps.front.document_exam', uploader=self.user1)
+        self.doc4 = mommy.make_recipe('apps.front.document_software', uploader=self.user1)
+        self.doc5 = mommy.make_recipe('apps.front.document_learning_aid', uploader=self.user1)
+        self.category = self.doc1.category
+        # setUp
+        self.url = reverse('document_list', args=(self.category.name.lower(),))
+        self.response = self.client.get(self.url)
 
     def testTitle(self):
         self.assertContains(self.response, '<h1>Dokumente An1I</h1>')
@@ -214,58 +232,62 @@ class DocumentListViewTest(TestCase):
         self.assertContains(self.response, '18.12.2011')
 
     def testEditButtonLoggedOut(self):
-        self.assertNotContains(self.response, 'href="/dokumente/an1i/1/edit/"')
-        self.assertNotContains(self.response, 'href="/dokumente/an1i/2/edit/"')
+        url = reverse('document_edit', args=(self.doc1.category.name.lower(), self.doc1.pk))
+        self.assertNotContains(self.response, 'href="{}"'.format(url))
 
     def testEditButtonLoggedIn(self):
-        self.client.login(username='testuser', password='test')
-        response = self.client.get(self.taburl)
-        self.assertContains(response, 'href="/dokumente/an1i/1/edit/"')
-        self.assertNotContains(response, 'href="/dokumente/an1i/2/edit/"')
+        login(self)
+        url1 = reverse('document_edit', args=(self.doc1.category.name.lower(), self.doc1.pk))
+        url2 = reverse('document_edit', args=(self.doc2.category.name.lower(), self.doc2.pk))
+        response = self.client.get(self.url)
+        self.assertContains(response, 'href="{}"'.format(url1))
+        self.assertNotContains(response, 'href="{}"'.format(url2))
 
     def testDeleteButtonLoggedOut(self):
-        self.assertNotContains(self.response, 'href="/dokumente/an1i/1/delete/"')
-        self.assertNotContains(self.response, 'href="/dokumente/an1i/2/delete/"')
+        url = reverse('document_delete', args=(self.doc1.category.name.lower(), self.doc1.pk))
+        self.assertNotContains(self.response, 'href="{}"'.format(url))
 
     def testDeleteButtonLoggedIn(self):
-        self.client.login(username='testuser', password='test')
-        response = self.client.get(self.taburl)
-        self.assertContains(response, 'href="/dokumente/an1i/1/delete/"')
-        self.assertNotContains(response, 'href="/dokumente/an1i/2/delete/"')
+        login(self)
+        url1 = reverse('document_delete', args=(self.doc1.category.name.lower(), self.doc1.pk))
+        url2 = reverse('document_delete', args=(self.doc2.category.name.lower(), self.doc2.pk))
+        response = self.client.get(self.url)
+        self.assertContains(response, 'href="{}"'.format(url1))
+        self.assertNotContains(response, 'href="{}"'.format(url2))
 
     def testDownloadCount(self):
-        filepath = os.path.join(settings.MEDIA_ROOT, 'documents', 'Analysis-Theoriesammlung.pdf')
-        file_existed = os.path.exists(filepath)
-        if not file_existed:
-            open(filepath, 'w').close()
-        response0 = self.client.get(self.taburl)
-        self.assertContains(response0, '<p>0 Downloads</p>')
-        self.client.get(self.taburl + '1/')
-        response1 = self.client.get(self.taburl)
-        self.assertContains(response1, '<p>1 Download</p>')
-        self.client.get(self.taburl + '1/')
-        response2 = self.client.get(self.taburl)
-        # Downloadcount shouldn't increase, as request was done from the same IP
-        self.assertContains(response2, '<p>1 Download</p>')
-        if not file_existed:
-            os.remove(filepath)
+        doc = mommy.make_recipe('apps.front.document_summary')
+        dl_url = reverse('document_download', args=(doc.category.name.lower(), doc.pk))
+
+        # No downloads yet
+        response0 = self.client.get(self.url)
+        soup0 = BeautifulSoup(response0.content)
+        anchor0 = soup0.find('a', href=dl_url)
+        self.assertEqual(anchor0.parent()[-1].text, '0 Downloads')
+
+        # First download
+        self.client.get(dl_url)
+        response1 = self.client.get(self.url)
+        soup1 = BeautifulSoup(response1.content)
+        anchor1 = soup1.find('a', href=dl_url)
+        self.assertEqual(anchor1.parent()[-1].text, '1 Download')
+
+        # Second download. Downloadcount shouldn't increase, as request was
+        # done from the same IP
+        self.client.get(dl_url)
+        response2 = self.client.get(self.url)
+        soup2 = BeautifulSoup(response2.content)
+        anchor2 = soup2.find('a', href=dl_url)
+        self.assertEqual(anchor2.parent()[-1].text, '1 Download')
 
     def testNullValueUploader(self):
         """Test whether a document without an uploader does not raise an error."""
-        models.DocumentCategory.objects.create(
-            id=123, name='test', description='spam ham bacon')
-        models.Document.objects.create(
-            name='Analysis 1 Theoriesammlung',
-            description='Dieses Dokument ist eine Zusammenfassung der \
-                Theorie aus dem AnI1-Skript auf 8 Seiten. Das Dokument ist \
-                in LaTeX gesetzt, Source ist hier: http://j.mp/fjtleh - \
-                Gute Ergänzungen sind erwünscht!',
-            document='zf.pdf',
-            dtype=models.Document.DTypes.SUMMARY,
-            original_filename='zf.pdf',
-            category_id=123,
-            uploader=None)
-        response = self.client.get('/dokumente/test/')
+        doc = mommy.make_recipe('apps.front.document_summary',
+                name='Analysis 1 Theoriesammlung',
+                description='Dieses Dokument ist eine Zusammenfassung der',
+                uploader=None)
+        url = reverse('document_list', args=(doc.category.name.lower(),))
+        response = self.client.get(url)
         self.assertContains(response, 'Analysis 1 Theoriesammlung')
         self.assertContains(response, 'Dieses Dokument ist eine Zusammenfassung der')
 
@@ -297,10 +319,8 @@ class EventsViewTest(TestCase):
 
 
 class EventDetailViewTest(TestCase):
-    fixtures = ['testusers']
-
     def setUp(self):
-        self.user = User.objects.get(pk=1)
+        self.user = mommy.make_recipe('apps.front.user')
         self.event = models.Event.objects.create(
             id=1,
             summary='Testbar',
@@ -335,10 +355,12 @@ class EventDetailViewTest(TestCase):
 
 
 class QuoteAddViewTest(TestCase):
-    fixtures = ['testusers', 'testlecturer']
-
     def setUp(self):
-        self.client.login(username='testuser', password='test')
+        # setUpClass
+        mommy.make_recipe('apps.front.user')
+        mommy.make_recipe('apps.front.lecturer')
+        # setUp
+        login(self)
 
     def testGenericForm(self):
         """Test the form that is shown if no lecturer is preselected."""
@@ -348,15 +370,15 @@ class QuoteAddViewTest(TestCase):
 
     def testPrefilledForm(self):
         """Test the form that is shown if a lecturer is preselected."""
-        response = self.client.get('/zitate/1/add/')
+        response = self.client.get('/zitate/1337/add/')
         self.assertContains(response, '<h1>Zitat hinzufügen</h1>')
         self.assertContains(response, '<select id="id_lecturer" name="lecturer">')
-        self.assertContains(response, '<option value="1" selected="selected">Krakaduku David</option>')
+        self.assertContains(response, '<option value="1337" selected="selected">Krakaduku David</option>')
 
     def testFormSubmission(self):
         """Test whether a quote submission gets saved correctly."""
         response = self.client.post('/zitate/add/', {
-            'lecturer': '1',
+            'lecturer': '1337',
             'quote': 'ich bin der beste dozent von allen.',
             'comment': 'etwas arrogant, nicht?',
         })
@@ -369,18 +391,19 @@ class QuoteAddViewTest(TestCase):
         """Test whether the added quote was automatically upvoted."""
         self.client.post('/zitate/add/', {
             'pk': 9000,
-            'lecturer': '1',
+            'lecturer': '1337',
             'quote': 'ich bin der töllscht!',
         })
-        quote = models.Quote.objects.get(lecturer=1, quote='ich bin der töllscht!')
+        quote = models.Quote.objects.get(lecturer=1337, quote='ich bin der töllscht!')
         assert quote.vote_sum() == 1, "Quote wasn't automatically upvoted..."
 
 
 class QuoteViewTest(TestCase):
-    fixtures = ['testusers', 'testlecturer']
-
     def setUp(self):
-        self.client.login(username='testuser', password='test')
+        # setUpClass
+        mommy.make_recipe('apps.front.user')
+        # setUp
+        login(self)
         self.response = self.client.get('/zitate/')
 
     def testTitle(self):
@@ -388,29 +411,25 @@ class QuoteViewTest(TestCase):
 
     def testQuoteInList(self):
         """Test whether an added quote shows up in the list."""
-        models.Quote.objects.create(
-            lecturer=models.Lecturer.objects.all()[0],
-            author_id=1,
-            quote='spam',
-            comment='ham')
+        mommy.make(models.Quote, quote='spam', comment='ham')
         response = self.client.get('/zitate/')
         self.assertContains(response, 'spam')
         self.assertContains(response, 'ham')
 
     def testNullValueAuthor(self):
         """Test whether a quote without an author does not raise an error."""
-        models.Quote.objects.create(
-            lecturer=models.Lecturer.objects.all()[0],
-            quote='spam',
-            comment='ham')
+        mommy.make(models.Quote, quote='spam', comment='ham', author=None)
         response = self.client.get('/zitate/')
         self.assertContains(response, 'spam')
         self.assertContains(response, 'ham')
 
 
 class LoginTest(TestCase):
-    fixtures = ['testusers']
     url = '/accounts/login/'
+
+    def setUp(self):
+        # setUpClass
+        mommy.make_recipe('apps.front.user')
 
     def testTitle(self):
         r = self.client.get(self.url)
@@ -419,7 +438,7 @@ class LoginTest(TestCase):
     def testLogin(self):
         r1 = self.client.get('/zitate/')
         self.assertEqual(r1.status_code, 302)
-        self.client.login(username='testuser', password='test')
+        login(self)
         r2 = self.client.get('/zitate/')
         self.assertEqual(r2.status_code, 200)
 
@@ -454,27 +473,33 @@ class RegistrationViewTest(TestCase):
 
 
 class UserViewTest(TestCase):
-    fixtures = ['testusers']
-
     def setUp(self):
-        self.client.login(username='testuser', password='test')
+        # setUpClass
+        self.user1 = mommy.make_recipe('apps.front.user')
+        self.user2 = mommy.make(User, first_name='Another', last_name='Guy',
+                                      email='test2@studentenportal.ch')
+        # setUp
+        login(self)
 
     def testOwnUserView(self):
-        response = self.client.get('/users/1/testuser/')
+        url = reverse('user', args=(self.user1.pk, self.user1.username))
+        response = self.client.get(url)
         self.assertContains(response, '<h1>testuser</h1>')
-        self.assertContains(response, 'django-test@studentenportal.ch')
+        self.assertContains(response, 'test@studentenportal.ch')
 
     def testOtherUserView(self):
-        response = self.client.get('/users/2/testuser2/')
+        url = reverse('user', args=(self.user2.pk, self.user2.username))
+        response = self.client.get(url)
         self.assertContains(response, '<h1>Another Guy</h1>')
-        self.assertContains(response, 'django-test2@studentenportal.ch')
+        self.assertContains(response, 'test2@studentenportal.ch')
 
 
 class UserProfileViewTest(TestCase):
-    fixtures = ['testusers']
-
     def setUp(self):
-        self.client.login(username='testuser', password='test')
+        # setUpClass
+        mommy.make_recipe('apps.front.user')
+        # setUp
+        login(self)
 
     def testFormSubmission(self):
         """Test whether a profile form submission gets saved correctly."""
@@ -495,14 +520,17 @@ class UserProfileViewTest(TestCase):
 
 
 class StatsViewTest(TestCase):
-    fixtures = ['testusers', 'testlecturer', 'testlratings']
     taburl = '/statistiken/'
+
+    def setUp(self):
+        # setUpClass
+        mommy.make_recipe('apps.front.user')
 
     def testLoginRequired(self):
         response = self.client.get(self.taburl)
         self.assertRedirects(response, '/accounts/login/?next=/statistiken/')
 
     def testTitle(self):
-        self.client.login(username='testuser', password='test')
+        login(self)
         response = self.client.get(self.taburl)
         self.assertContains(response, '<h1>Statistiken</h1>')

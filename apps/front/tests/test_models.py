@@ -1,10 +1,14 @@
 # -*- coding: utf-8 -*-
+from __future__ import print_function, division, absolute_import, unicode_literals
+
 import datetime
 
 from django.test import TestCase, TransactionTestCase
 from django.core.exceptions import ValidationError
 from django.contrib.auth import get_user_model
 from django.db import IntegrityError
+
+from model_mommy import mommy
 
 from apps.front import models
 
@@ -13,10 +17,14 @@ User = get_user_model()
 
 
 class LecturerModelTest(TestCase):
-    fixtures = ['testusers', 'testlecturer', 'testlratings']
-
     def setUp(self):
-        self.lecturer = models.Lecturer.objects.get(pk=1)
+        self.lecturer = mommy.make(models.Lecturer, title='Prof. Dr.',
+            first_name='David',
+            last_name='Krakaduku',
+        )
+        mommy.make(models.LecturerRating, lecturer=self.lecturer, category='d', rating=5)
+        mommy.make(models.LecturerRating, lecturer=self.lecturer, category='d', rating=8)
+        mommy.make(models.LecturerRating, lecturer=self.lecturer, category='m', rating=10)
 
     def testRatings(self):
         """Test whether ratings are calculated correctly."""
@@ -28,27 +36,29 @@ class LecturerModelTest(TestCase):
         self.assertEqual(self.lecturer.name(), 'Prof. Dr. Krakaduku David')
 
     def testManager(self):
+        mommy.make(models.Lecturer, pk=10, function='Dozent')
+        mommy.make(models.Lecturer, pk=11, department='Gebäudemanagement')
+        mommy.make(models.Lecturer, pk=12, function='Projektmitarbeiterin')
         all_lecturers = models.Lecturer.objects.all()
         real_lecturers = models.Lecturer.real_objects.all()
-        self.assertIn(1, all_lecturers.values_list('pk', flat=True))
-        self.assertIn(2, all_lecturers.values_list('pk', flat=True))
-        self.assertIn(3, all_lecturers.values_list('pk', flat=True))
-        self.assertIn(1, real_lecturers.values_list('pk', flat=True))
-        self.assertNotIn(2, real_lecturers.values_list('pk', flat=True))
-        self.assertNotIn(3, real_lecturers.values_list('pk', flat=True))
+        self.assertIn(10, all_lecturers.values_list('pk', flat=True))
+        self.assertIn(11, all_lecturers.values_list('pk', flat=True))
+        self.assertIn(12, all_lecturers.values_list('pk', flat=True))
+        self.assertIn(10, real_lecturers.values_list('pk', flat=True))
+        self.assertNotIn(11, real_lecturers.values_list('pk', flat=True))
+        self.assertNotIn(12, real_lecturers.values_list('pk', flat=True))
 
 
 class LecturerRatingModelTest(TestCase):
-    fixtures = ['testusers', 'testlecturer']
-
-    def tearDown(self):
-        for rating in models.LecturerRating.objects.all():
-            rating.delete()
+    def setUp(self):
+        # setUpClass
+        mommy.make(User)
+        mommy.make(models.Lecturer)
 
     def create_default_rating(self, category=u'd', rating=5):
         """Helper function to create a default rating."""
         user = User.objects.all()[0]
-        lecturer = models.Lecturer.objects.get(pk=1)
+        lecturer = models.Lecturer.objects.all()[0]
         lr = models.LecturerRating(
             user=user,
             lecturer=lecturer,
@@ -83,9 +93,9 @@ class LecturerRatingModelTest(TestCase):
 
 class DocumentModelTest(TransactionTestCase):
     def setUp(self):
-        self.john = User.objects.create_user('john', 'john@example.com', 'johnpasswd')
-        self.marc = User.objects.create_user('marc', 'marc@example.com', 'marcpasswd')
-        self.pete = User.objects.create_user('pete', 'pete@example.com', 'petepasswd')
+        self.john = mommy.make(User, username='john')
+        self.marc = mommy.make(User, username='marc')
+        self.pete = mommy.make(User, username='pete')
         self.document = models.Document.objects.create(
                 name='Analysis 1 Theoriesammlung',
                 dtype=models.Document.DTypes.SUMMARY,
@@ -181,8 +191,6 @@ class DocumentModelTest(TransactionTestCase):
 
 
 class QuoteModelTest(TestCase):
-    fixtures = ['testusers', 'testlecturer']
-
     def testQuote(self):
         quote = "Dies ist ein längeres Zitat, das dazu dient, zu testen " + \
             "ob man Zitate erfassen kann und ob die Länge des Zitats mehr " + \
@@ -191,8 +199,8 @@ class QuoteModelTest(TestCase):
             "ja nicht, dass längere Zitate hier keinen Platz haben :)"
         before = datetime.datetime.now()
         q = models.Quote()
-        q.author = User.objects.all()[0]
-        q.lecturer = models.Lecturer.objects.all()[0]
+        q.author = mommy.make(User)
+        q.lecturer = mommy.make(models.Lecturer)
         q.quote = quote
         q.comment = "Eine Bemerkung zum Kommentar"
         q.save()
@@ -202,7 +210,7 @@ class QuoteModelTest(TestCase):
 
     def testNullValueAuthor(self):
         q = models.Quote()
-        q.lecturer = models.Lecturer.objects.all()[0]
+        q.lecturer = mommy.make(models.Lecturer)
         q.quote = 'spam'
         q.comment = 'ham'
         try:
@@ -213,8 +221,8 @@ class QuoteModelTest(TestCase):
     def test1970Quote(self):
         """Check whether a quote from 1970-1-1 is marked as date_available=False."""
         q = models.Quote()
-        q.lecturer = models.Lecturer.objects.all()[0]
-        q.author = User.objects.all()[0]
+        q.lecturer = mommy.make(models.Lecturer)
+        q.author = mommy.make(User)
         q.quote = 'spam'
         q.comment = 'ham'
         q.date = datetime.datetime(1970, 1, 1)
@@ -237,10 +245,8 @@ class UserModelTest(TransactionTestCase):
 
 
 class EventModelTest(TestCase):
-    fixtures = ['testusers']
-
     def testDateTimeEvent(self):
-        user = User.objects.get(username='testuser')
+        user = mommy.make(User, username='testuser')
         event = models.Event.objects.create(
             summary='Testbar',
             description=u'This is a bar where people drink and party to \
@@ -257,7 +263,7 @@ class EventModelTest(TestCase):
         self.assertIsNone(event.days_until())
 
     def testAllDayEvent(self):
-        user = User.objects.get(username='testuser')
+        user = mommy.make(User)
         start_date = datetime.date.today() + datetime.timedelta(days=365)
         event = models.Event.objects.create(
             summary='In a year',

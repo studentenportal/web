@@ -1,5 +1,4 @@
 -r base.txt
--r testing.txt
 
 # Debug toolbar
 django-debug-toolbar

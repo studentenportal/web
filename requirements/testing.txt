@@ -1,6 +1,4 @@
--r base.txt
-
 django-discover-runner==0.3
 coverage
 coveralls
--e git://github.com/vandersonmota/model_mommy.git@38567b199b6291e0b0da913b10f6f9c888ceb66f#egg=model_mommy-dev
+model_mommy==1.0
