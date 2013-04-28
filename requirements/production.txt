@@ -1,7 +1,7 @@
 -r base.txt
 
 # Webserver
-gunicorn==0.17.2
+gunicorn==0.17.4
 
 # Sentry logging
-raven==3.1.17
+raven==3.3.4
