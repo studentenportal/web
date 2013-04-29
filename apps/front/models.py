@@ -1,24 +1,28 @@
 # -*- coding: utf-8 -*-
+from __future__ import print_function, division, absolute_import, unicode_literals
+
 import re
 import os
 from datetime import date, datetime
+
 from django.conf import settings
 from django.db import models
 from django.core.exceptions import ValidationError
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.contrib.auth.models import AbstractUser
 from django.template.defaultfilters import slugify
-from django.db.models.signals import post_save
 from django.utils.safestring import mark_safe
+
 from model_utils import Choices
+
 from apps.front import fields, managers
 
 
 class User(AbstractUser):
     """The user model."""
-    twitter = models.CharField(u'Twitter Benutzername', max_length=24, blank=True)
-    flattr = models.CharField(u'Flattr Benutzername', max_length=128, blank=True,
-            help_text=mark_safe(u'Falls angegeben, wird bei deinen Zusammenfassungen jeweils ein '
+    twitter = models.CharField('Twitter Benutzername', max_length=24, blank=True)
+    flattr = models.CharField('Flattr Benutzername', max_length=128, blank=True,
+            help_text=mark_safe('Falls angegeben, wird bei deinen Zusammenfassungen jeweils ein '
             '<a href="https://flattr.com/">Flattr</a> Button angezeigt.'))
 
     def name(self):
@@ -36,19 +40,19 @@ class Lecturer(models.Model):
     and the filename should be <abbreviation>.jpg.
 
     """
-    id = models.IntegerField(u'HSR ID', primary_key=True)
-    title = models.CharField(u'Titel', max_length=32, null=True, blank=True)
-    last_name = models.CharField(u'Name', max_length=255)
-    first_name = models.CharField(u'Vorname', max_length=255)
-    abbreviation = models.CharField(u'Kürzel', max_length=10, unique=True)
-    department = models.CharField(u'Abteilung', max_length=100, null=True, blank=True)
-    function = models.CharField(u'Funktion', max_length=255, null=True, blank=True)
-    main_area = models.CharField(u'Fachschwerpunkt', max_length=255, null=True, blank=True)
+    id = models.IntegerField('HSR ID', primary_key=True)
+    title = models.CharField('Titel', max_length=32, null=True, blank=True)
+    last_name = models.CharField('Name', max_length=255)
+    first_name = models.CharField('Vorname', max_length=255)
+    abbreviation = models.CharField('Kürzel', max_length=10, unique=True)
+    department = models.CharField('Abteilung', max_length=100, null=True, blank=True)
+    function = models.CharField('Funktion', max_length=255, null=True, blank=True)
+    main_area = models.CharField('Fachschwerpunkt', max_length=255, null=True, blank=True)
     subjects = models.CharField(max_length=50, null=True, blank=True)  # todo add to frontend
     email = models.EmailField(null=True, blank=True)
     office = models.CharField(max_length=20, null=True, blank=True)
 
-    objects = models.Manager();
+    objects = models.Manager()
     real_objects = managers.RealLecturerManager()
 
     def name(self):
@@ -88,22 +92,22 @@ class Lecturer(models.Model):
         return self.LecturerRating.filter(category=category).count()
 
     def avg_rating_d(self):
-        return self._avg_rating(u'd')
+        return self._avg_rating('d')
 
     def avg_rating_m(self):
-        return self._avg_rating(u'm')
+        return self._avg_rating('m')
 
     def avg_rating_f(self):
-        return self._avg_rating(u'f')
+        return self._avg_rating('f')
 
     def rating_count_d(self):
-        return self._rating_count(u'd')
+        return self._rating_count('d')
 
     def rating_count_m(self):
-        return self._rating_count(u'm')
+        return self._rating_count('m')
 
     def rating_count_f(self):
-        return self._rating_count(u'f')
+        return self._rating_count('f')
 
     def __unicode__(self):
         return '%s %s' % (self.last_name, self.first_name)
@@ -115,14 +119,15 @@ class Lecturer(models.Model):
 class LecturerRating(models.Model):
     """A lecturer rating. Max 1 per user, category and lecturer."""
     CATEGORY_CHOICES = (
-        (u'd', 'Didaktisch'),
-        (u'm', 'Menschlich'),
-        (u'f', 'Fachlich'))
+        ('d', 'Didaktisch'),
+        ('m', 'Menschlich'),
+        ('f', 'Fachlich'))
+    RATING_VALIDATORS = [MaxValueValidator(10), MinValueValidator(1)]
 
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name=u'LecturerRating')
-    lecturer = models.ForeignKey(Lecturer, related_name=u'LecturerRating')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='LecturerRating')
+    lecturer = models.ForeignKey(Lecturer, related_name='LecturerRating')
     category = models.CharField(max_length=1, choices=CATEGORY_CHOICES, db_index=True)
-    rating = models.PositiveSmallIntegerField(validators=[MaxValueValidator(10), MinValueValidator(1)], db_index=True)
+    rating = models.PositiveSmallIntegerField(validators=RATING_VALIDATORS, db_index=True)
 
     def __unicode__(self):
         return '%s %s%u' % (self.lecturer, self.category, self.rating)
@@ -133,11 +138,12 @@ class LecturerRating(models.Model):
 
 class Quote(models.Model):
     """Lecturer quotes."""
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='Quote', null=True, on_delete=models.SET_NULL)
-    lecturer = models.ForeignKey(Lecturer, verbose_name=u'Dozent', related_name='Quote')
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='Quote', null=True,
+            on_delete=models.SET_NULL)
+    lecturer = models.ForeignKey(Lecturer, verbose_name='Dozent', related_name='Quote')
     date = models.DateTimeField(auto_now_add=True)
-    quote = models.TextField(u'Zitat')
-    comment = models.TextField(u'Bemerkung', default=u'', blank=True)
+    quote = models.TextField('Zitat')
+    comment = models.TextField('Bemerkung', default='', blank=True)
 
     def date_available(self):
         return self.date != datetime(1970, 1, 1)
@@ -149,7 +155,7 @@ class Quote(models.Model):
         return up - down
 
     def __unicode__(self):
-        return u'[%s] %s...' % (self.lecturer, self.quote[:30])
+        return '[%s] %s...' % (self.lecturer, self.quote[:30])
 
     class Meta:
         ordering = ['-date']
@@ -163,7 +169,8 @@ class QuoteVote(models.Model):
     vote = models.BooleanField(help_text='True = upvote, False = downvote')
 
     def __unicode__(self):
-        return 'User %s votes %s quote %s' % (self.user.username, 'up' if self.vote else 'down', self.quote.pk)
+        fmt_args = self.user.username, 'up' if self.vote else 'down', self.quote.pk
+        return 'User %s votes %s quote %s' % fmt_args
 
     class Meta:
         unique_together = ('user', 'quote')
@@ -175,11 +182,11 @@ class DocumentCategory(models.Model):
     A document can have several categories.
 
     """
-    name = fields.CaseInsensitiveSlugField(u'Kürzel', max_length=32, unique=True,
-            help_text=u'z.B. "CompT1" oder "Prog3"')
-    description = models.CharField(u'Voller Name', max_length=255,
-            help_text=u'z.B. "Computertechnik 1" oder "Programmieren 3"')
-    is_module = models.BooleanField(default=True, verbose_name=u'Unterrichtsmodul',
+    name = fields.CaseInsensitiveSlugField('Kürzel', max_length=32, unique=True,
+            help_text='z.B. "CompT1" oder "Prog3"')
+    description = models.CharField('Voller Name', max_length=255,
+            help_text='z.B. "Computertechnik 1" oder "Programmieren 3"')
+    is_module = models.BooleanField(default=True, verbose_name='Unterrichtsmodul',
             help_text='Ob diese Kategorie ein Unterrichtsmodul ist oder nicht.')
 
     @property
@@ -199,7 +206,7 @@ class DocumentCategory(models.Model):
         return self.name
 
     class Meta:
-        verbose_name = u'Modul'
+        verbose_name = 'Modul'
         ordering = ['name']
 
 
@@ -211,12 +218,12 @@ class Document(models.Model):
     """
     class DTypes(object):
         """Enum-style document type class."""
-        SUMMARY=1
-        EXAM=2
-        SOFTWARE=3
-        LEARNING_AID=4
+        SUMMARY = 1
+        EXAM = 2
+        SOFTWARE = 3
+        LEARNING_AID = 4
 
-    LICENSES=Choices(
+    LICENSES = Choices(
         (1, 'pd', 'Public Domain'),
         (2, 'cc3_by', 'CC BY 3.0'),
         (3, 'cc3_by_sa', 'CC BY-SA 3.0'),
@@ -231,25 +238,27 @@ class Document(models.Model):
         instance.original_filename = filename
         return '/'.join(['documents', slugify(instance.category.name), '%s%s' % (timestamp, ext)])
 
-    name = models.CharField(u'Titel', max_length=100)
-    description = models.CharField(u'Beschreibung', blank=True, max_length=500,
-        help_text=u'(Max. 500 Zeichen)')
-    url = models.URLField(u'URL', null=True, blank=True,
-        help_text=u'z.B. Link zu Github Repository')
-    category = models.ForeignKey(DocumentCategory, verbose_name=u'Modul', related_name=u'Document', null=True, on_delete=models.PROTECT)
-    dtype = models.PositiveSmallIntegerField(u'Typ', choices=(
-        (DTypes.SUMMARY, u'Zusammenfassung'),
-        (DTypes.EXAM, u'Prüfung'),
-        (DTypes.SOFTWARE, u'Software'),
-        (DTypes.LEARNING_AID, u'Lernhilfe'),
-        ))
-    document = models.FileField(u'Datei', upload_to=document_file_name, help_text=u'(Max. 10MB)')
-    original_filename = models.CharField(u'Originaler Dateiname', max_length=255, blank=True)
-    uploader = models.ForeignKey(settings.AUTH_USER_MODEL, related_name=u'Document', null=True, on_delete=models.SET_NULL)
-    upload_date = models.DateTimeField(u'Uploaddatum', auto_now_add=True)
-    change_date = models.DateTimeField(u'Letztes Änderungsdatum')
-    license = models.PositiveSmallIntegerField(u'Lizenz', choices=LICENSES, null=True, blank=True,
-        help_text=mark_safe('Lizenz, siehe <a href="http://creativecommons.org/choose/?lang=de">' + 
+    name = models.CharField('Titel', max_length=100)
+    description = models.CharField('Beschreibung', blank=True, max_length=500,
+        help_text='(Max. 500 Zeichen)')
+    url = models.URLField('URL', null=True, blank=True,
+        help_text='z.B. Link zu Github Repository')
+    category = models.ForeignKey(DocumentCategory, verbose_name='Modul', related_name='Document',
+            null=True, on_delete=models.PROTECT)
+    dtype = models.PositiveSmallIntegerField('Typ', choices=(
+                (DTypes.SUMMARY, 'Zusammenfassung'),
+                (DTypes.EXAM, 'Prüfung'),
+                (DTypes.SOFTWARE, 'Software'),
+                (DTypes.LEARNING_AID, 'Lernhilfe'),
+            ))
+    document = models.FileField('Datei', upload_to=document_file_name, help_text='(Max. 10MB)')
+    original_filename = models.CharField('Originaler Dateiname', max_length=255, blank=True)
+    uploader = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='Document', null=True,
+            on_delete=models.SET_NULL)
+    upload_date = models.DateTimeField('Uploaddatum', auto_now_add=True)
+    change_date = models.DateTimeField('Letztes Änderungsdatum')
+    license = models.PositiveSmallIntegerField('Lizenz', choices=LICENSES, null=True, blank=True,
+        help_text=mark_safe('Lizenz, siehe <a href="http://creativecommons.org/choose/?lang=de">' +
             'http://creativecommons.org/choose/?lang=de</a> um eine passende Lizenz auszuwählen.' +
             '<br>Empfohlen: CC BY-SA-NC 3.0'))
 
@@ -265,7 +274,7 @@ class Document(models.Model):
     def rating(self):
         """Return rounded rating average."""
         return int(round(self.rating_exact()))
-        
+
     def filename(self):
         """Return filename of uploaded file without directories."""
         return os.path.basename(self.document.name)
@@ -284,7 +293,7 @@ class Document(models.Model):
 
     def license_details(self):
         """Return the URL to the license and the appropriate license icon."""
-        CC_LICENSES={2: 'by', 3: 'by-sa', 4: 'by-nc', 5: 'by-nc-sa'}
+        CC_LICENSES = {2: 'by', 3: 'by-sa', 4: 'by-nc', 5: 'by-nc-sa'}
         if self.license in CC_LICENSES.keys():
             url_template = 'http://creativecommons.org/licenses/{0}/3.0/deed.de'
             icon_template = 'http://i.creativecommons.org/l/{0}/3.0/80x15.png'
@@ -314,7 +323,7 @@ class Document(models.Model):
 class DocumentDownload(models.Model):
     """Tracks a download of a document."""
     # TODO django 1.5: index_together on document/timestamp/ip
-    document = models.ForeignKey(Document, related_name=u'DocumentDownload', db_index=True)
+    document = models.ForeignKey(Document, related_name='DocumentDownload', db_index=True)
     timestamp = models.DateTimeField(auto_now_add=True, editable=False)
     ip = models.GenericIPAddressField(unpack_ipv4=True, editable=False, db_index=True)
 
@@ -325,17 +334,19 @@ class DocumentRating(models.Model):
     Valid values are integers between 1 and 5.
 
     """
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name=u'DocumentRating')
+    RATING_VALIDATORS = [MaxValueValidator(10), MinValueValidator(1)]
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='DocumentRating')
     document = models.ForeignKey(Document, related_name='DocumentRating')
-    rating = models.PositiveSmallIntegerField(validators=[MaxValueValidator(10), MinValueValidator(1)])
+    rating = models.PositiveSmallIntegerField(validators=RATING_VALIDATORS)
 
     # Custom model validation
     def clean(self):
         if self.user == self.document.uploader:
-            raise ValidationError(u'A user cannot rate his own uploads.')
+            raise ValidationError('A user cannot rate his own uploads.')
 
     def __unicode__(self):
-        return 'User %s Document %s Rating %u' % (self.user.username, self.document.name, self.rating)
+        fmt_args = self.user.username, self.document.name, self.rating
+        return 'User %s Document %s Rating %u' % fmt_args
 
     class Meta:
         unique_together = ('user', 'document')
@@ -344,49 +355,52 @@ class DocumentRating(models.Model):
 class ModuleReview(models.Model):
     """Review of a module."""
     SEMESTER_CHOICES = (
-        (u'h', u'Herbstsemester'),
-        (u'f', u'Frühlingssemester'))
+        ('h', 'Herbstsemester'),
+        ('f', 'Frühlingssemester'))
     TOPIC_RATINGS = (
-        (1, u'Sehr Langweilig'),
-        (2, u'Langweilig'),
-        (3, u'Normal'),
-        (4, u'Interessant'),
-        (5, u'Sehr Interessant'))
+        (1, 'Sehr Langweilig'),
+        (2, 'Langweilig'),
+        (3, 'Normal'),
+        (4, 'Interessant'),
+        (5, 'Sehr Interessant'))
     UNDERSTANDABILITY_RATINGS = (
-        (1, u'Katastrophal'),
-        (2, u'Unverständlich'),
-        (3, u'Normal'),
-        (4, u'Verständlich'),
-        (5, u'Genial'))
+        (1, 'Katastrophal'),
+        (2, 'Unverständlich'),
+        (3, 'Normal'),
+        (4, 'Verständlich'),
+        (5, 'Genial'))
     EFFORT_RATINGS = (
-        (1, u'Sehr Hoch'),
-        (2, u'Hoch'),
-        (3, u'Normal'),
-        (4, u'Gering'),
-        (5, u'Sehr Gering'))
+        (1, 'Sehr Hoch'),
+        (2, 'Hoch'),
+        (3, 'Normal'),
+        (4, 'Gering'),
+        (5, 'Sehr Gering'))
     DIFFICULTY_RATINGS = (
-        (1, u'Sehr Schwierig'),
-        (2, u'Schwierig'),
-        (3, u'Normal'),
-        (4, u'Einfach'),
-        (5, u'Sehr Einfach'))
+        (1, 'Sehr Schwierig'),
+        (2, 'Schwierig'),
+        (3, 'Normal'),
+        (4, 'Einfach'),
+        (5, 'Sehr Einfach'))
 
-    Module = models.ForeignKey(DocumentCategory, related_name=u'ModuleReview')
-    Lecturer = models.ForeignKey(Lecturer, related_name=u'ModuleReview')
-    semester = models.CharField(u'Semester', max_length=1, choices=SEMESTER_CHOICES)
-    year = models.PositiveIntegerField(u'Jahr')
-    topic = models.SmallIntegerField(u'Thematik', choices=TOPIC_RATINGS,
-            help_text=u'Wie interessant war die Thematik?')
-    understandability = models.SmallIntegerField(u'Verständlichkeit', choices=UNDERSTANDABILITY_RATINGS,
-            help_text=u'Wie verständlich war der Unterricht?')
-    effort = models.SmallIntegerField(u'Aufwand', choices=EFFORT_RATINGS,
-            help_text=u'Wie aufwändig war das Modul?')
-    difficulty_module = models.SmallIntegerField(u'Schwierigkeit Modul', choices=DIFFICULTY_RATINGS,
-            help_text=u'Wie schwierig war das Modul inhaltlich?')
-    difficulty_exam = models.SmallIntegerField(u'Schwierigkeit Prüfung', choices=DIFFICULTY_RATINGS,
-            help_text=u'Wie schwierig war die Prüfung?')
-    comment = models.TextField(u'Allgemeines Feedback', blank=True, null=True,
-            help_text=u'Allgemeines Feedback zum Modul.')
+    Module = models.ForeignKey(DocumentCategory, related_name='ModuleReview')
+    Lecturer = models.ForeignKey(Lecturer, related_name='ModuleReview')
+    semester = models.CharField('Semester', max_length=1, choices=SEMESTER_CHOICES)
+    year = models.PositiveIntegerField('Jahr')
+    topic = models.SmallIntegerField('Thematik', choices=TOPIC_RATINGS,
+            help_text='Wie interessant war die Thematik?')
+    understandability = models.SmallIntegerField('Verständlichkeit',
+            choices=UNDERSTANDABILITY_RATINGS,
+            help_text='Wie verständlich war der Unterricht?')
+    effort = models.SmallIntegerField('Aufwand', choices=EFFORT_RATINGS,
+            help_text='Wie aufwändig war das Modul?')
+    difficulty_module = models.SmallIntegerField('Schwierigkeit Modul',
+            choices=DIFFICULTY_RATINGS,
+            help_text='Wie schwierig war das Modul inhaltlich?')
+    difficulty_exam = models.SmallIntegerField('Schwierigkeit Prüfung',
+            choices=DIFFICULTY_RATINGS,
+            help_text='Wie schwierig war die Prüfung?')
+    comment = models.TextField('Allgemeines Feedback', blank=True, null=True,
+            help_text='Allgemeines Feedback zum Modul.')
 
 
 class Event(models.Model):
@@ -400,23 +414,24 @@ class Event(models.Model):
         """Where to put a newly uploaded picture."""
         return '/'.join(['event_pictures', str(instance.start_date.year), filename])
 
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='Event', null=True, on_delete=models.SET_NULL)
-    summary = models.CharField(u'Titel', max_length=64)
-    description = models.TextField(u'Beschreibung')
-    start_date = models.DateField(u'Startdatum',
-            help_text=u'Format: dd.mm.YYYY')
-    start_time = models.TimeField(u'Startzeit', null=True, blank=True,
-            help_text=u'Format: hh:mm')
-    end_date = models.DateField(u'Enddatum', null=True, blank=True,
-            help_text=u'Format: dd.mm.YYYY')
-    end_time = models.TimeField(u'Endzeit', null=True, blank=True,
-            help_text=u'Format: hh:mm')
-    location = models.CharField(u'Ort', max_length=80, null=True, blank=True,
-            help_text=u'Veranstaltungsort, zB "Gebäude 3" oder "Bären Rapperswil"')
-    url = models.URLField(u'URL', null=True, blank=True,
-            help_text=u'URL zu Veranstaltungs-Website')
-    picture = models.ImageField(u'Bild/Flyer', upload_to=picture_file_name, null=True, blank=True,
-            help_text=u'Bild oder Flyer')
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='Event', null=True,
+            on_delete=models.SET_NULL)
+    summary = models.CharField('Titel', max_length=64)
+    description = models.TextField('Beschreibung')
+    start_date = models.DateField('Startdatum',
+            help_text='Format: dd.mm.YYYY')
+    start_time = models.TimeField('Startzeit', null=True, blank=True,
+            help_text='Format: hh:mm')
+    end_date = models.DateField('Enddatum', null=True, blank=True,
+            help_text='Format: dd.mm.YYYY')
+    end_time = models.TimeField('Endzeit', null=True, blank=True,
+            help_text='Format: hh:mm')
+    location = models.CharField('Ort', max_length=80, null=True, blank=True,
+            help_text='Veranstaltungsort, zB "Gebäude 3" oder "Bären Rapperswil"')
+    url = models.URLField('URL', null=True, blank=True,
+            help_text='URL zu Veranstaltungs-Website')
+    picture = models.ImageField('Bild/Flyer', upload_to=picture_file_name, null=True, blank=True,
+            help_text='Bild oder Flyer')
 
     def is_over(self):
         """Return whether the start_date has already passed or not.
@@ -427,7 +442,7 @@ class Event(models.Model):
     def all_day(self):
         """Return whether the event runs all day long.
         This is the case if start_time and end_time are not set."""
-        return self.start_time == self.end_time == None
+        return self.start_time is None and self.end_time is None
 
     def days_until(self):
         """Return how many days are left until the day of the event."""

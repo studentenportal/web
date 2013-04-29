@@ -1,4 +1,6 @@
+# -*- coding: utf-8 -*-
 """Helper functions."""
+from __future__ import print_function, division, absolute_import, unicode_literals
 
 
 def extend_quotes_with_votes(quotes, user_pk):

@@ -1,5 +1,10 @@
+# -*- coding: utf-8 -*-
+from __future__ import print_function, division, absolute_import, unicode_literals
+
 from registration.backends.default import DefaultBackend
+
 from apps.front.forms import HsrRegistrationForm
+
 
 class HsrEmailBackend(DefaultBackend):
     """An extension of the DefaultBackend, that requires
@@ -7,7 +12,7 @@ class HsrEmailBackend(DefaultBackend):
 
     It does this, by requiring only the HSR username and generating the
     e-mail address from it.
-    
+
     """
     def get_form_class(self, request):
         return HsrRegistrationForm

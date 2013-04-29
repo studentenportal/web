@@ -1,5 +1,10 @@
+# -*- coding: utf-8 -*-
+from __future__ import print_function, division, absolute_import, unicode_literals
+
 from django.contrib import admin
+
 from apps.front import models
+
 
 class QuoteAdmin(admin.ModelAdmin):
     list_filter = ('author', 'lecturer')

@@ -1,7 +1,9 @@
-# coding=utf-8
+# -*- coding: utf-8 -*-
+from __future__ import print_function, division, absolute_import, unicode_literals
 import datetime
 import unicodedata
 from urlparse import urlsplit, urlunsplit
+
 from django.contrib.auth import get_user_model
 from django.contrib import messages
 from django.db.models import Count
@@ -18,10 +20,12 @@ from django.views.generic.detail import DetailView
 from django.utils.decorators import method_decorator
 from django.shortcuts import redirect, get_object_or_404, render
 from django.template.defaultfilters import slugify
-from sendfile import sendfile
+
 import vobject
-from apps.front.mixins import LoginRequiredMixin
+from sendfile import sendfile
+
 from apps.front import forms, models, helpers
+from apps.front.mixins import LoginRequiredMixin
 
 
 class Home(TemplateView):
@@ -35,12 +39,12 @@ class Profile(LoginRequiredMixin, UpdateView):
 
     def get_object(self, queryset=None):
         """Gets the current user object."""
-        assert self.request.user, u'request.user is empty.'
+        assert self.request.user, 'request.user is empty.'
         return self.request.user
 
     def get_success_url(self):
         messages.add_message(self.request, messages.SUCCESS,
-            u'Profil wurde erfolgreich aktualisiert.')
+            'Profil wurde erfolgreich aktualisiert.')
         return reverse('profile')
 
 
@@ -78,7 +82,7 @@ class EventAdd(LoginRequiredMixin, CreateView):
 
     def get_success_url(self):
         messages.add_message(self.request, messages.SUCCESS,
-            u'Event "%s" wurde erfolgreich erstellt.' % self.object.summary)
+            'Event "%s" wurde erfolgreich erstellt.' % self.object.summary)
         return reverse('event_detail', args=[self.object.pk])
 
 
@@ -90,7 +94,7 @@ class EventEdit(LoginRequiredMixin, UpdateView):
         handler = super(EventEdit, self).dispatch(request, *args, **kwargs)
         # Only allow editing if current user is owner
         if self.object.author != request.user:
-            return HttpResponseForbidden(u'Du darfst keine fremden Events editieren.')
+            return HttpResponseForbidden('Du darfst keine fremden Events editieren.')
         return handler
 
     def get_success_url(self):
@@ -104,12 +108,12 @@ class EventDelete(LoginRequiredMixin, DeleteView):
         handler = super(EventDelete, self).dispatch(request, *args, **kwargs)
         # Only allow deletion if current user is owner
         if self.object.author != request.user:
-            return HttpResponseForbidden(u'Du darfst keine fremden Events löschen.')
+            return HttpResponseForbidden('Du darfst keine fremden Events löschen.')
         return handler
 
     def get_success_url(self):
         messages.add_message(self.request, messages.SUCCESS,
-            u'Event "%s" wurde erfolgreich gelöscht.' % self.object.summary)
+            'Event "%s" wurde erfolgreich gelöscht.' % self.object.summary)
         return reverse('event_list')
 
 
@@ -131,7 +135,6 @@ class EventList(TemplateView):
 
 
 class EventCalendar(View):
-
     http_method_names = ['get', 'head', 'options']
 
     def get(self, request, *args, **kwargs):
@@ -248,7 +251,7 @@ class QuoteAdd(LoginRequiredMixin, CreateView):
     def get_success_url(self):
         """Redirect to quotes or lecturer page."""
         messages.add_message(self.request, messages.SUCCESS,
-            u'Zitat wurde erfolgreich hinzugefügt.')
+            'Zitat wurde erfolgreich hinzugefügt.')
         if self.lecturer:
             return reverse('lecturer_detail', args=[self.lecturer.pk])
         return reverse('quote_list')
@@ -261,12 +264,12 @@ class QuoteDelete(LoginRequiredMixin, DeleteView):
         handler = super(QuoteDelete, self).dispatch(request, *args, **kwargs)
         # Only allow deletion if current user is owner
         if self.object.author != request.user:
-            return HttpResponseForbidden(u'Du darfst keine fremden Quotes löschen.')
+            return HttpResponseForbidden('Du darfst keine fremden Quotes löschen.')
         return handler
 
     def get_success_url(self):
         messages.add_message(self.request, messages.SUCCESS,
-            u'Zitat wurde erfolgreich gelöscht.')
+            'Zitat wurde erfolgreich gelöscht.')
         return reverse('quote_list')
 # }}}
 
@@ -282,7 +285,7 @@ class DocumentcategoryAdd(LoginRequiredMixin, CreateView):
 
     def get_success_url(self):
         messages.add_message(self.request, messages.SUCCESS,
-            u'Modul "%s" wurde erfolgreich hinzugefügt.' % self.object.name)
+            'Modul "%s" wurde erfolgreich hinzugefügt.' % self.object.name)
         return reverse('documentcategory_list')
 
 
@@ -333,7 +336,8 @@ class DocumentDownload(View):
         if not models.DocumentDownload.objects.filter(**filters).exists():
             models.DocumentDownload.objects.create(document=doc, ip=ip)
         # Serve file
-        filename = unicodedata.normalize('NFKD', doc.original_filename).encode('us-ascii', 'ignore')
+        filename = unicodedata.normalize('NFKD', doc.original_filename) \
+                              .encode('us-ascii', 'ignore')
         attachment = not filename.lower().endswith('.pdf')
         return sendfile(request, doc.document.path,
                 attachment=attachment, attachment_filename=filename)
@@ -360,7 +364,7 @@ class DocumentAdd(LoginRequiredMixin, DocumentcategoryMixin, CreateView):
     def get_success_url(self):
         """Redirect to documentcategory page."""
         messages.add_message(self.request, messages.SUCCESS,
-            u'Dokument wurde erfolgreich hinzugefügt.')
+            'Dokument wurde erfolgreich hinzugefügt.')
         return reverse('document_list', args=[self.category])
 
 
@@ -372,13 +376,13 @@ class DocumentEdit(LoginRequiredMixin, DocumentcategoryMixin, UpdateView):
         handler = super(DocumentEdit, self).dispatch(request, *args, **kwargs)
         # Only allow editing if current user is owner
         if self.object.uploader != request.user:
-            return HttpResponseForbidden(u'Du darfst keine fremden Uploads editieren.')
+            return HttpResponseForbidden('Du darfst keine fremden Uploads editieren.')
         return handler
 
     def get_success_url(self):
         """Redirect to documentcategory page."""
         messages.add_message(self.request, messages.SUCCESS,
-            u'Dokument wurde erfolgreich aktualisiert.')
+            'Dokument wurde erfolgreich aktualisiert.')
         return reverse('document_list', args=[self.category])
 
 
@@ -388,7 +392,7 @@ class DocumentDelete(LoginRequiredMixin, DocumentcategoryMixin, DeleteView):
     def get_success_url(self):
         """Redirect to documentcategory page."""
         messages.add_message(self.request, messages.SUCCESS,
-            u'Dokument wurde erfolgreich gelöscht.')
+            'Dokument wurde erfolgreich gelöscht.')
         return reverse('document_list', args=[self.category])
 
 
@@ -404,7 +408,7 @@ class DocumentRate(LoginRequiredMixin, SingleObjectMixin, View):
         """Create or update the document rating."""
         score = request.POST.get('score')
         if not score:
-            return HttpResponseServerError(u'Required argument missing')
+            return HttpResponseServerError('Required argument missing')
         params = {  # Prepare keyword-arguments that identify the rating object
             'user': request.user,
             'document': self.get_object(),
@@ -417,18 +421,18 @@ class DocumentRate(LoginRequiredMixin, SingleObjectMixin, View):
         try:
             rating.full_clean()  # validation
         except ValidationError:
-            return HttpResponseServerError(u'Validierungsfehler')
+            return HttpResponseServerError('Validierungsfehler')
         rating.save()
-        return HttpResponse(u'Bewertung wurde aktualisiert.')
+        return HttpResponse('Bewertung wurde aktualisiert.')
 
 
 def document_rating(request, category, pk):
     """AJAX view that returns the document_rating_summary block. This is used
     to update the text after changing a rating via JavaScript."""
     if not request.is_ajax():
-        return HttpResponseBadRequest(u'XMLHttpRequest expected.')
+        return HttpResponseBadRequest('XMLHttpRequest expected.')
     if not request.user.is_authenticated():
-        return HttpResponseForbidden(u'Login required')
+        return HttpResponseForbidden('Login required')
     template = 'front/blocks/document_rating_summary.html'
     context = {'doc': get_object_or_404(models.Document, pk=pk, category__name=category)}
     return render(request, template, context, content_type='text/plain')
@@ -463,7 +467,9 @@ class Stats(LoginRequiredMixin, TemplateView):
         context['lecturer_flop_m'] = fetchfirst(models.Lecturer.objects.raw(base_query_flop % 'm'))
         context['lecturer_flop_f'] = fetchfirst(models.Lecturer.objects.raw(base_query_flop % 'f'))
 
-        context['lecturer_quotes'] = models.Lecturer.objects.annotate(quotes_count=Count('Quote')).order_by('-quotes_count')[:3]
+        context['lecturer_quotes'] = models.Lecturer.objects \
+                                                    .annotate(quotes_count=Count('Quote')) \
+                                                    .order_by('-quotes_count')[:3]
 
         # Users
         context['user_topratings'] = fetchfirst(
@@ -476,7 +482,7 @@ class Stats(LoginRequiredMixin, TemplateView):
                         ORDER BY lrcount DESC'''))
         context['user_topuploads'] = fetchfirst(
                 models.User.objects
-                        .exclude(username=u'spimport')
+                        .exclude(username='spimport')
                         .annotate(uploads_count=Count('Document'))
                         .order_by('-uploads_count'))
         context['user_topevents'] = fetchfirst(
@@ -485,7 +491,7 @@ class Stats(LoginRequiredMixin, TemplateView):
                         .order_by('-events_count'))
         context['user_topquotes'] = fetchfirst(
                 models.User.objects
-                        .exclude(username=u'spimport')
+                        .exclude(username='spimport')
                         .annotate(quotes_count=Count('Quote'))
                         .order_by('-quotes_count'))
 

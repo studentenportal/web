@@ -4,13 +4,12 @@ from __future__ import print_function, division, absolute_import, unicode_litera
 from django.contrib.auth import get_user_model
 
 from model_mommy import mommy
-from model_mommy.recipe import Recipe, foreign_key
+from model_mommy.recipe import Recipe
 
 from apps.front import models
 
 
 lecturer = Recipe(models.Lecturer,
-    # TODO report negative PKs
     id=1337,
     title='Prof. Dr.',
     first_name='David',

@@ -1,10 +1,15 @@
-# coding=utf-8
+# -*- coding: utf-8 -*-
+from __future__ import print_function, division, absolute_import, unicode_literals
+
 from datetime import datetime
+
 from django import forms
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.template.defaultfilters import filesizeformat
+
 from registration.forms import RegistrationForm
+
 from apps.front import models
 
 
@@ -15,8 +20,8 @@ class ProfileForm(forms.ModelForm):
 
 
 class PasswordForm(forms.Form):
-    password1 = forms.CharField(widget=forms.PasswordInput, label=u'Passwort')
-    password2 = forms.CharField(widget=forms.PasswordInput, label=u'Passwort (Wiederholung)')
+    password1 = forms.CharField(widget=forms.PasswordInput, label='Passwort')
+    password2 = forms.CharField(widget=forms.PasswordInput, label='Passwort (Wiederholung)')
 
 
 class EventForm(forms.ModelForm):
@@ -51,7 +56,8 @@ class HsrRegistrationForm(RegistrationForm):
         def clean_username(self):
             data = self.cleaned_data.get('username')
             if '@' in data:
-                raise forms.ValidationError(u'Bitte nur vorderen Teil der Mailadresse ohne "@" eintragen.')
+                error_msg = 'Bitte nur vorderen Teil der Mailadresse ohne "@" eintragen.'
+                raise forms.ValidationError(error_msg)
             return super(HsrRegistrationForm, self).clean_username()
 
 
@@ -67,8 +73,9 @@ class DocumentEditForm(forms.ModelForm):
         document = self.cleaned_data['document']
         if hasattr(document, '_size'):
             if document.size > settings.MAX_UPLOAD_SIZE:
-                raise forms.ValidationError(u'Bitte Dateigrösse unter %s halten. Aktuelle Dateigrösse ist %s' %
-                        (filesizeformat(settings.MAX_UPLOAD_SIZE), filesizeformat(document._size)))
+                error_msg = 'Bitte Dateigrösse unter %s halten. Aktuelle Dateigrösse ist %s'
+                sizes = filesizeformat(settings.MAX_UPLOAD_SIZE), filesizeformat(document._size)
+                raise forms.ValidationError(error_msg % sizes)
         return document
 
     def save(self, *args, **kwargs):
