@@ -38,7 +38,7 @@
 
     <h3>Dokumente</h3>
 
-    {% with documents=user.Document.all standalone=True %}
+    {% with documents=object.Document.all standalone=True %}
         {% include 'front/blocks/document.html' %}
     {% endwith %}
 

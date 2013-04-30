@@ -58,7 +58,7 @@ class User(LoginRequiredMixin, DetailView):
         context['lecturerratings'] = user.LecturerRating. \
                 values_list('lecturer').distinct().count()
         if self.request.user.is_authenticated():
-            ratings = models.DocumentRating.objects.filter(user=self.request.user)
+            ratings = models.DocumentRating.objects.filter(user=user)
             context['ratings'] = dict([(r.document.pk, r.rating) for r in ratings])
         return context
 # }}}
