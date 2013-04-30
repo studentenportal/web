@@ -23,6 +23,6 @@ requests==1.2.0
 vobject==0.8.1c
 
 # API
-djangorestframework==2.2.1
-django-oauth-plus==2.0
-oauth2==1.5.211
+djangorestframework==2.2.7
+#django-oauth-plus==2.1
+#oauth2==1.5.211
