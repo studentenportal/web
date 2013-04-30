@@ -3,7 +3,7 @@ from __future__ import print_function, division, absolute_import, unicode_litera
 
 from django.contrib.auth import get_user_model
 
-from rest_framework import generics
+from rest_framework import generics, permissions
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
@@ -34,6 +34,7 @@ class UserDetail(generics.RetrieveUpdateAPIView):
     serializer_class = serializers.UserSerializer
     owner_username_field = 'username'
     permission_classes = (
+        permissions.IsAuthenticated,
         custom_permissions.IsOwnerOrReadOnly,
     )
 
@@ -65,6 +66,7 @@ class QuoteDetail(generics.RetrieveUpdateAPIView):
     serializer_class = serializers.QuoteSerializer
     owner_obj_field = 'author'
     permission_classes = (
+        permissions.IsAuthenticated,
         custom_permissions.IsOwnerOrReadOnly,
     )
 
