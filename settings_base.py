@@ -157,9 +157,11 @@ INSTALLED_APPS = (
     'dajaxice',
     'mathfilters',
     'easy_thumbnails',
+    'rest_framework',
 
     # Own apps
     'apps.front',
+    'apps.api',
 
     # Django admin (overrideable templates)
     'django.contrib.admin',
@@ -215,6 +217,22 @@ LOGGING = {
 
 LOGIN_REDIRECT_URL = '/'
 AUTHENTICATION_BACKENDS = ('backends.CaseInsensitiveModelBackend',)
+
+# API
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.SessionAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'PAGINATE_BY': 20,
+    'PAGINATE_BY_PARAM': 'page_size',
+}
 
 # Registration
 ACCOUNT_ACTIVATION_DAYS = 7
