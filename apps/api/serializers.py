@@ -19,7 +19,7 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = get_user_model()
         fields = ('url', 'username', 'first_name', 'last_name', 'email',
-                  'flattr', 'twitter', 'quotes')
+                  'flattr', 'twitter')
 
 
 class LecturerSerializer(serializers.HyperlinkedModelSerializer):
@@ -36,13 +36,10 @@ class LecturerSerializer(serializers.HyperlinkedModelSerializer):
 
 class QuoteSerializer(serializers.HyperlinkedModelSerializer):
     url = serializers.HyperlinkedIdentityField(view_name='api:quote_detail')
-    author = serializers.HyperlinkedRelatedField(view_name='api:user_detail', read_only=True)
-    author_username = serializers.Field(source='author.username')
     lecturer = serializers.HyperlinkedRelatedField(view_name='api:lecturer_detail')
     lecturer_name = serializers.Field(source='lecturer.name')
     quote_votes = serializers.PrimaryKeyRelatedField(many=True)
 
     class Meta:
         model = models.Quote
-        fields = ('url', 'author', 'author_username', 'lecturer',
-                  'lecturer_name', 'date', 'quote', 'comment')
+        fields = ('url', 'lecturer', 'lecturer_name', 'date', 'quote', 'comment')
