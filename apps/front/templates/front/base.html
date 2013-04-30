@@ -64,7 +64,8 @@
                                     <b class="caret"></b>
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="{% url 'profile' %}">Profil</a></li>
+                                    <li><a href="{% url 'user' user.pk user.username %}">Profil</a></li>
+                                    <li><a href="{% url 'profile' %}">Benutzerdaten ändern</a></li>
                                     <li><a href="{% url 'auth_logout' %}">Logout</a></li>
                                 </ul>
                             </li>
