@@ -1,0 +1,105 @@
+{% load tags %}
+
+{% if documents %}
+<table id="documents" class="table table-striped">
+    <thead>
+        <tr>
+            <th class="name">Name</th>
+            <th class="download">Download</th>
+            <th class="admin"></th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for doc in documents %}
+        <tr>
+            <td>
+                <div class="titlerow">
+                    <h4>
+
+                        {% if standalone %} {# Show category as tag #}
+                            <span class="label">
+                                {{ doc.category.name }}
+                            </span>
+                        {% endif %}
+
+                        <span class="label label-{% if doc.dtype = 1 %}success{% elif doc.dtype = 2 %}important{% else %}info{% endif %}">
+                            {{ doc.get_dtype_display }}
+                        </span>
+
+                        {% with doc.license_details as license %}
+                            {% if license.name and doc.dtype != 2 %}
+                                <a rel="license" href="{{ license.url }}"
+                                    {% if doc.license == 1 %}
+                                        title="Veröffentlicht als {{ license.name }}"
+                                    {% else %}
+                                        title="Veröffentlicht unter der {{ license.name }} Lizenz"
+                                    {% endif %}
+                                ><span class="label">{{ license.name }}</span></a>
+                            {% endif %}
+                        {% endwith %}
+
+                        <span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">{{ doc.name }}</span>
+
+                    </h4>
+
+                    {% if doc.uploader %}
+                        <p>von <a href="{% url 'user' doc.uploader.pk doc.uploader.username|slugify %}">{{ doc.uploader.name }}</a></p>
+                    {% endif %}
+
+                </div>
+
+                <p>
+                    {% if doc.change_date %}
+                        (<em>{{ doc.change_date|date:"d.m.Y" }}</em>)
+                    {% endif %}
+                    {{ doc.description|urlizetrunc:50 }}
+                </p>
+
+                {% if doc.url %}<p>{{ doc.url|urlizetrunc:70 }}</p>{% endif %}
+
+                {% if user.is_authenticated %}
+                    <div class="drating floatleft" data-readonly="{% if doc.uploader = user %}1{% else %}0{% endif %}"
+                        data-url="{% url 'document_rate' doc.category.name|slugify doc.pk %}"
+                        data-summary-url="{% url 'document_rating_ajax' doc.category.name|slugify doc.pk %}"
+                        data-rating="{{ ratings|lookup:doc.pk }}"></div>
+                {% endif %}
+                <span class="rating_summary">{% include 'front/blocks/document_rating_summary.html' %}</span>
+            </td>
+            <td>
+                {% if doc.exists %}
+                    <a href="{% url 'document_download' doc.category.name|slugify doc.pk %}" class="file-{{ doc.fileext }}" title="{{ doc.original_filename }}">
+                        {{ doc.original_filename|truncatechars:30 }}
+                    </a><br>
+                    ({{ doc.document.size|filesizeformat }})<br>
+                {% else %}
+                    <p><em>Datei nicht verfügbar</em></p>
+                {% endif %}
+                <p>{{ doc.downloadcount }} Download{{ doc.downloadcount|pluralize:"s" }}</p>
+                {% if doc.uploader.flattr %}
+                <p><a class="FlattrButton"
+                    href="{% url 'document_download' doc.category.name|slugify doc.pk %}"
+                    title="{{ doc.name }}"
+                    data-flattr-button="compact"
+                    data-flattr-uid="{{ doc.uploader.flattr }}"
+                >{{ doc.description }}</a></p>
+                {% endif %}
+            </td>
+            <td>
+                {% if doc.uploader = user %}
+                    <p>
+                        <a class="btn" title="Edit" href="{% url 'document_edit' doc.category.name|slugify doc.pk %}">
+                            <i class="icon-pencil"></i>
+                        </a>
+                        <a class="btn btn-danger" title="Delete" href="{% url 'document_delete' doc.category.name|slugify doc.pk %}">
+                            <i class="icon-trash icon-white"></i>
+                        </a>
+                    </p>
+                {% endif %}
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>Keine Dokumente gefunden.</p>
+{% endif %}

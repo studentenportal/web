@@ -473,11 +473,16 @@ class RegistrationViewTest(TestCase):
 
 
 class UserViewTest(TestCase):
+
     def setUp(self):
         # setUpClass
         self.user1 = mommy.make_recipe('apps.front.user')
         self.user2 = mommy.make(User, first_name='Another', last_name='Guy',
                                       email='test2@studentenportal.ch')
+        self.doc1 = mommy.make_recipe('apps.front.document_summary', name='Document 1',
+                         description='The first document.', uploader=self.user1)
+        self.doc2 = mommy.make_recipe('apps.front.document_summary', name='Document 2',
+                         description='The second document.', uploader=self.user2)
         # setUp
         login(self)
 
@@ -492,6 +497,18 @@ class UserViewTest(TestCase):
         response = self.client.get(url)
         self.assertContains(response, '<h1>Another Guy</h1>')
         self.assertContains(response, 'test2@studentenportal.ch')
+
+    def testOwnDocuments(self):
+        url = reverse('user', args=(self.user1.pk, self.user1.username))
+        category = self.doc1.category.name
+        response = self.client.get(url)
+        # Own document should be listed
+        self.assertContains(response, 'property="dct:title">{}</span>'.format(self.doc1.name))
+        # Foreign document should not be listed
+        self.assertNotContains(response, 'property="dct:title">{}</span>'.format(self.doc2.name))
+        # Category should be displayed
+        pattern = '<span class="label">.*\n.*{}.*\n.*</span>'.format(category)
+        self.assertRegexpMatches(response.content, pattern)
 
 
 class UserProfileViewTest(TestCase):

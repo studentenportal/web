@@ -1,7 +1,17 @@
 {% extends 'front/base.html' %}
+{% load compress %}
 {% load tabs %}
 
 {% block title %}Profil von {{ object.name }}{% endblock %}
+
+{% block bodyclass %}user_detail{% endblock %}
+
+{% block scripts %}
+    {{ block.super }}
+    {% compress js %}
+    <script src="{{ STATIC_URL }}js/flattr_loader.js"></script>
+    {% endcompress %}
+{% endblock %}
 
 {% block content %}
 
@@ -25,5 +35,11 @@
         <li><strong>Dokumente hochgeladen:</strong> {{ object.Document.count }}</li>
         <li><strong>Dokumente bewertet:</strong> {{ object.DocumentRating.count }}</li>
     </ul>
+
+    <h3>Dokumente</h3>
+
+    {% with documents=user.Document.all standalone=True %}
+        {% include 'front/blocks/document.html' %}
+    {% endwith %}
 
 {% endblock %}
