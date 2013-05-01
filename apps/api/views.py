@@ -69,6 +69,3 @@ class QuoteDetail(generics.RetrieveUpdateAPIView):
         permissions.IsAuthenticated,
         custom_permissions.IsOwnerOrReadOnly,
     )
-
-    def pre_save(self, obj):
-        obj.author = self.request.user

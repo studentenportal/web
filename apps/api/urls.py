@@ -9,11 +9,11 @@ from . import views
 v1_api = patterns('',
     url(r'^$', views.api_root, name='api_root'),
     url(r'^users$', views.UserList.as_view(), name='user_list'),
-    url(r'^users/(?P<pk>[0-9]+)$', views.UserDetail.as_view(), name='user_detail'),
+    url(r'^users/(?P<pk>-?\d+)$', views.UserDetail.as_view(), name='user_detail'),
     url(r'^lecturers$', views.LecturerList.as_view(), name='lecturer_list'),
-    url(r'^lecturers/(?P<pk>[0-9]+)$', views.LecturerDetail.as_view(), name='lecturer_detail'),
+    url(r'^lecturers/(?P<pk>-?\d+)$', views.LecturerDetail.as_view(), name='lecturer_detail'),
     url(r'^quotes$', views.QuoteList.as_view(), name='quote_list'),
-    url(r'^quotes/(?P<pk>[0-9]+)$', views.QuoteDetail.as_view(), name='quote_detail'),
+    url(r'^quotes/(?P<pk>-?\d+)$', views.QuoteDetail.as_view(), name='quote_detail'),
 )
 
 urlpatterns = patterns('',
