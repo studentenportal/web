@@ -1,6 +1,7 @@
 # coding=utf-8
 # Django settings for studentenportal project.
 import os
+import datetime
 
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 MODULE_NAME = os.path.basename(PROJECT_ROOT)
@@ -158,6 +159,8 @@ INSTALLED_APPS = (
     'mathfilters',
     'easy_thumbnails',
     'rest_framework',
+    'provider',
+    'provider.oauth2',
 
     # Own apps
     'apps.front',
@@ -226,6 +229,7 @@ REST_FRAMEWORK = {
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.OAuth2Authentication',
     ),
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
@@ -233,6 +237,8 @@ REST_FRAMEWORK = {
     'PAGINATE_BY': 20,
     'PAGINATE_BY_PARAM': 'page_size',
 }
+OAUTH_EXPIRE_DELTA = datetime.timedelta(days=90)
+OAUTH_ENFORCE_SECURE = True
 
 # Registration
 ACCOUNT_ACTIVATION_DAYS = 7

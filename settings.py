@@ -31,6 +31,8 @@ DATABASES = {
 
 SECRET_KEY = 'TESTING'
 
+OAUTH_ENFORCE_SECURE = False
+
 ### DEBUG TOOLBAR ###
 
 def local_network_debug(request):
