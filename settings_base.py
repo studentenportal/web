@@ -218,6 +218,10 @@ LOGGING = {
     }
 }
 
+# Email
+DEFAULT_FROM_EMAIL = 'Studentenportal <noreply@studentenportal.ch>'
+
+# Auth
 LOGIN_REDIRECT_URL = '/'
 AUTHENTICATION_BACKENDS = ('backends.CaseInsensitiveModelBackend',)
 

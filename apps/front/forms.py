@@ -95,3 +95,15 @@ class DocumentEditForm(forms.ModelForm):
 class DocumentAddForm(DocumentEditForm):
     class Meta(DocumentEditForm.Meta):
         exclude = ('uploader', 'downloadcount', 'original_filename', 'category', 'change_date')
+
+
+class DocumentReportForm(forms.Form):
+    name = forms.CharField()
+    email = forms.EmailField()
+    reason = forms.ChoiceField(choices=(
+        ('other', 'Sonstiges'),
+        ('wrong_category', 'Falsche Kategorie'),
+        ('outdated', 'Veraltet'),
+        ('bad_content', 'Schlechter Inhalt'),
+    ), label='Begründung')
+    comment = forms.CharField(label='Kommentar', widget=forms.Textarea())

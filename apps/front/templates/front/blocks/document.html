@@ -85,16 +85,19 @@
                 {% endif %}
             </td>
             <td>
-                {% if doc.uploader = user %}
-                    <p>
-                        <a class="btn" title="Edit" href="{% url 'document_edit' doc.category.name|slugify doc.pk %}">
+                <p>
+                    {% if doc.uploader = user %}
+                        <a class="btn" title="Bearbeiten" href="{% url 'document_edit' doc.category.name|slugify doc.pk %}">
                             <i class="icon-pencil"></i>
                         </a>
-                        <a class="btn btn-danger" title="Delete" href="{% url 'document_delete' doc.category.name|slugify doc.pk %}">
+                        <a class="btn btn-danger" title="Löschen" href="{% url 'document_delete' doc.category.name|slugify doc.pk %}">
                             <i class="icon-trash icon-white"></i>
                         </a>
-                    </p>
-                {% endif %}
+                    {% endif %}
+                    <a class="btn" title="Melden" href="{% url 'document_report' doc.category.name|slugify doc.pk %}">
+                        <i class="icon-exclamation-sign"></i>
+                    </a>
+                </p>
             </td>
         </tr>
     {% endfor %}

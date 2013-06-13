@@ -4,21 +4,23 @@ import datetime
 import unicodedata
 from urlparse import urlsplit, urlunsplit
 
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib import messages
 from django.db.models import Count
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ObjectDoesNotExist, ValidationError
+from django.core.mail import send_mail
 from django.http import HttpResponse
 from django.http import HttpResponseForbidden, HttpResponseServerError, HttpResponseBadRequest
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import View, TemplateView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.views.generic.edit import SingleObjectMixin
+from django.views.generic.edit import SingleObjectMixin, FormView
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.utils.decorators import method_decorator
-from django.shortcuts import redirect, get_object_or_404, render
+from django.shortcuts import redirect, get_object_or_404, render, render_to_response
 from django.template.defaultfilters import slugify
 
 import vobject
@@ -427,6 +429,44 @@ class DocumentRate(LoginRequiredMixin, SingleObjectMixin, View):
             return HttpResponseServerError('Validierungsfehler')
         rating.save()
         return HttpResponse('Bewertung wurde aktualisiert.')
+
+
+class DocumentReport(DocumentcategoryMixin, SingleObjectMixin, FormView):
+    model = models.Document
+    form_class = forms.DocumentReportForm
+    template_name = 'front/document_report.html'
+    context_object_name = 'document'
+
+    def dispatch(self, request, *args, **kwargs):
+        self.object = self.get_object()  # TODO can probably be removed in django 1.6
+        return super(DocumentReport, self).dispatch(request, *args, **kwargs)
+
+    def get_initial(self):
+        if self.request.user.is_authenticated():
+            return {
+                'name': self.request.user.name(),
+                'email': self.request.user.email,
+            }
+
+    def get_success_url(self):
+        """Redirect to documentcategory page."""
+        messages.add_message(self.request, messages.SUCCESS,
+            'Vielen Dank, das Dokument wurde erfolgreich gemeldet.')
+        return reverse('document_list', args=[self.category])
+
+    def form_valid(self, form):
+        subject = '[studentenportal.ch] Neue Dokument-Meldung'
+        sender = settings.DEFAULT_FROM_EMAIL
+        receivers = [a[1] for a in settings.ADMINS]
+        msg_tpl = 'Es gibt eine neue Meldung zum Dokument "{document.name}" ' + \
+                  '(PK {document.pk}):\n\n' + \
+                  'Melder: {name} ({email})\n' + \
+                  'Grund: {reason}\n' + \
+                  'Nachricht: {comment}'
+        msg = msg_tpl.format(document=self.object, **form.cleaned_data)
+        send_mail(subject, msg, sender, receivers, fail_silently=False)
+
+        return super(DocumentReport, self).form_valid(form)
 
 
 def document_rating(request, category, pk):
