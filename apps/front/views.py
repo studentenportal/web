@@ -462,8 +462,10 @@ class DocumentReport(DocumentcategoryMixin, SingleObjectMixin, FormView):
                   '(PK {document.pk}):\n\n' + \
                   'Melder: {name} ({email})\n' + \
                   'Grund: {reason}\n' + \
-                  'Nachricht: {comment}'
-        msg = msg_tpl.format(document=self.object, **form.cleaned_data)
+                  'Nachricht: {comment}\n\n' + \
+                  'Link auf Dokument: https://studentenportal.ch{url}'
+        admin_url = reverse('admin:front_document_change', args=(self.object.pk,))
+        msg = msg_tpl.format(document=self.object, url=admin_url, **form.cleaned_data)
         send_mail(subject, msg, sender, receivers, fail_silently=False)
 
         return super(DocumentReport, self).form_valid(form)
