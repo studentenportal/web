@@ -17,7 +17,7 @@ Ehre weit überholen.
 Technologie
 -----------
 
-Das neue Studentenportal wird mit Django/Python geschrieben.
+Das Studentenportal nutzt Python/Django.
 
 
 Features
@@ -30,7 +30,7 @@ Features
  - Flattr Integration
 
 Featurevorschläge sind willkommen! Aktuell geplante Features und Featurewünsche
-können auf https://github.com/gwrtheyrn/studentenportal2/issues eingesehen und
+können auf https://github.com/dbrgn/studentenportal2/issues eingesehen und
 erstellt werden.
 
 
