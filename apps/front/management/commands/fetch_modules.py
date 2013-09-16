@@ -11,7 +11,8 @@ from apps.front.mixins import CommandOutputMixin
 
 
 blacklist = ['3D-Vis', 'DigT1', 'DigT2', 'MaTechM1', 'MaTechM2', 'ElMasch', 'StReiseR', 'SE2P',
-             'BAB', 'BAE', 'BAEU', 'BAI', 'BAL', 'BAM', 'BAR', 'SAE', 'SAEU', 'SAI', 'SAM']
+             'MathSem' 'AdpaFw', 'AdpaFwUe', 'ChallP', 'ChallP1', 'ChallP2', 'CEng_MT',
+             'CEng_PJ1', 'CEng_PJ2', 'CM_Block', 'ZeiWo', 'WibS']
 
 
 class Command(CommandOutputMixin, NoArgsCommand):
@@ -41,16 +42,24 @@ class Command(CommandOutputMixin, NoArgsCommand):
                 dates = cols[2].text
 
                 # Skip conditions
-                if not full_name.startswith('M_'):
-                    self.printO('Skipping %s (invalid module name)' % name)
-                    invalid_count += 1
-                    continue
                 if name in blacklist:
                     self.printO('Skipping %s (blacklisted)' % name)
                     blacklisted_count += 1
                     continue
+                if not full_name.startswith('M_'):
+                    self.printO('Skipping %s (invalid module name)' % name)
+                    invalid_count += 1
+                    continue
                 if 'nicht durchgeführt' in dates:
                     self.printO('Skipping %s (no valid dates)' % name)
+                    invalid_count += 1
+                    continue
+                if description.startswith('Seminar - ') or \
+                        description.startswith('Bachelor-Arbeit ') or \
+                        description.startswith('Studienarbeit ') or \
+                        description.startswith('Projektarbeit ') or \
+                        description.startswith('Diplomarbeit '):
+                    self.printO('Skipping %s (project or seminary)' % name)
                     invalid_count += 1
                     continue
 
