@@ -64,7 +64,6 @@ class HsrRegistrationForm(RegistrationForm):
 class DocumentCategoryForm(forms.ModelForm):
     class Meta:
         model = models.DocumentCategory
-        exclude = ('is_module',)
 
 
 class DocumentEditForm(forms.ModelForm):
