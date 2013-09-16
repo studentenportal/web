@@ -19,6 +19,11 @@ class DocumentAdmin(admin.ModelAdmin):
     search_fields = ('name', 'description')
 
 
+class DocumentCategoryAdmin(admin.ModelAdmin):
+    list_display = ('name', 'description')
+    search_fields = list_display
+
+
 admin.site.register(models.User)
 admin.site.register(models.Lecturer)
 admin.site.register(models.LecturerRating)
