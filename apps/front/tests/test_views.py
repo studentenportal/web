@@ -8,7 +8,7 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth import get_user_model
 from django.conf import settings
 
-from BeautifulSoup import BeautifulSoup
+from bs4 import BeautifulSoup
 from model_mommy import mommy
 
 from apps.front import models, forms
@@ -215,12 +215,12 @@ class DocumentListViewTest(TestCase):
 
     def testDocumentTitle(self):
         soup = BeautifulSoup(self.response.content)
-        h4 = soup.find('span', text='Analysis 1 Theoriesammlung').findParent('h4').prettify()
-        self.assertIn('<span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">', h4)
-        self.assertIn('<span class="label label-success">\n Zusammenfassung\n</span>', h4)
-        self.assertIn('<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.de" ' +
-                      'title="Veröffentlicht unter der CC BY-NC-SA 3.0 Lizenz">', h4)
-        self.assertIn('<span class="label">\n  CC BY-NC-SA 3.0\n </span>', h4)
+        h4 = soup.find('span', text='Analysis 1 Theoriesammlung').find_parent('h4').prettify()
+        self.assertIn('<span property="dct:title" xmlns:dct="http://purl.org/dc/terms/">', h4)
+        self.assertIn('<span class="label label-success">\n  Zusammenfassung\n </span>', h4)
+        self.assertIn('<a href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.de" rel="license" ' +
+                      u'title="Veröffentlicht unter der CC BY-NC-SA 3.0 Lizenz">', h4)
+        self.assertIn('<span class="label">\n   CC BY-NC-SA 3.0\n  </span>', h4)
 
     def testUploaderName(self):
         self.assertContains(self.response, 'Another Guy')
