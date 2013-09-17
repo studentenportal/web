@@ -327,8 +327,8 @@ class DocumentDownload(View):
     def get(self, request, *args, **kwargs):
         # Get document or raise HTTP404
         doc = get_object_or_404(models.Document, pk=self.kwargs.get('pk'))
-        # If document isn't a summary, require login
-        if doc.dtype != doc.DTypes.SUMMARY:
+        # If document is an exam or marked as non-public, require login
+        if doc.dtype == doc.DTypes.EXAM or doc.public is False:
             if not self.request.user.is_authenticated():
                 return redirect('%s?next=%s' % (
                         reverse('auth_login'),
