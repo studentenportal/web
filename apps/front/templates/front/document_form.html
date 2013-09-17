@@ -19,24 +19,36 @@
     <script type="text/javascript">
         $(document).ready(function() {
             var field_dtype = $('#id_dtype');
+            var field_license = $('#id_license');
             var field_public = $('#id_public');
 
-            // Initial state of "public" field
+            // Initial state of "public" and "license" fields
             if (field_dtype.val() == {{ exam_dtype_id|default:-1 }}) {
                 field_public.parents('.control-group').addClass('hidden');
                 field_public.prop('checked', false);
+
+                field_license.parents('.control-group').addClass('hidden');
+                field_license.val('');
             }
 
-            // Show or hide "public" field on dtype change
+            // Show or hide "public" and "license" field on dtype change
             var previous_checked_state = field_public.prop('checked');
+            var previous_license = field_license.val();
             field_dtype.change(function() {
                 if ($(this).val() == {{ exam_dtype_id|default:-1 }}) {
                     field_public.parents('.control-group').addClass('hidden');
                     previous_checked_state = field_public.prop('checked');
                     field_public.prop('checked', false);
+
+                    field_license.parents('.control-group').addClass('hidden');
+                    previous_license = field_license.val();
+                    field_license.val('');
                 } else {
                     field_public.parents('.control-group').removeClass('hidden');
                     field_public.prop('checked', previous_checked_state);
+
+                    field_license.parents('.control-group').removeClass('hidden');
+                    field_license.val(previous_license);
                 }
             });
         });
