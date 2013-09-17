@@ -18,15 +18,25 @@
     {{ block.super }}
     <script type="text/javascript">
         $(document).ready(function() {
-            previous_checked_state = $('#id_public').prop('checked');
-            $('#id_dtype').change(function() {
+            var field_dtype = $('#id_dtype');
+            var field_public = $('#id_public');
+
+            // Initial state of "public" field
+            if (field_dtype.val() == {{ exam_dtype_id|default:-1 }}) {
+                field_public.parents('.control-group').addClass('hidden');
+                field_public.prop('checked', false);
+            }
+
+            // Show or hide "public" field on dtype change
+            var previous_checked_state = field_public.prop('checked');
+            field_dtype.change(function() {
                 if ($(this).val() == {{ exam_dtype_id|default:-1 }}) {
-                    $('#id_public').parents('.control-group').addClass('hidden');
-                    previous_checked_state = $('#id_public').prop('checked');
-                    $('#id_public').prop('checked', false);
+                    field_public.parents('.control-group').addClass('hidden');
+                    previous_checked_state = field_public.prop('checked');
+                    field_public.prop('checked', false);
                 } else {
-                    $('#id_public').parents('.control-group').removeClass('hidden');
-                    $('#id_public').prop('checked', previous_checked_state);
+                    field_public.parents('.control-group').removeClass('hidden');
+                    field_public.prop('checked', previous_checked_state);
                 }
             });
         });
