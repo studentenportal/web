@@ -77,6 +77,18 @@ class DocumentEditForm(forms.ModelForm):
                 raise forms.ValidationError(error_msg % sizes)
         return document
 
+    def clean(self):
+        cleaned_data = super(DocumentEditForm, self).clean()
+        public = cleaned_data['public']
+        dtype = cleaned_data['dtype']
+
+        # Verify that exams are non-public
+        if dtype == models.Document.DTypes.EXAM and public is True:
+            self._errors['public'] = self.error_class(['Prüfungen dürfen nicht öffentlich sein.'])
+            del cleaned_data['public']
+
+        return cleaned_data
+
     def save(self, *args, **kwargs):
         """Override save method, set change_date to now only if pdf is actually updated."""
         if 'document' in self.changed_data:
@@ -85,7 +97,8 @@ class DocumentEditForm(forms.ModelForm):
 
     class Meta:
         model = models.Document
-        fields = ('name', 'description', 'url', 'category', 'dtype', 'document', 'license')
+        fields = ('name', 'description', 'url', 'category', 'dtype', 'document',
+                  'license', 'public')
         widgets = {
             'description': forms.Textarea(),
         }
@@ -93,7 +106,7 @@ class DocumentEditForm(forms.ModelForm):
 
 class DocumentAddForm(DocumentEditForm):
     class Meta(DocumentEditForm.Meta):
-        exclude = ('uploader', 'downloadcount', 'original_filename', 'category', 'change_date')
+        fields = ('name', 'description', 'url', 'dtype', 'document', 'license', 'public')
 
 
 class DocumentReportForm(forms.Form):

@@ -259,6 +259,8 @@ class Document(models.Model):
         help_text=mark_safe('Lizenz, siehe <a href="http://creativecommons.org/choose/?lang=de">' +
             'http://creativecommons.org/choose/?lang=de</a> um eine passende Lizenz auszuwählen.' +
             '<br>Empfohlen: CC BY-SA-NC 3.0'))
+    public = models.BooleanField('Öffentlich', default=True,
+        help_text='Soll man dieses Dokument ohne Login downloaden können?')
 
     def rating_exact(self):
         """Return exact rating average."""

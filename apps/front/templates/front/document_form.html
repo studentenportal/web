@@ -14,6 +14,25 @@
     Dokument {{ document|yesno:"bearbeiten,hinzufügen" }}
 {% endblock %}
 
+{% block scripts %}
+    {{ block.super }}
+    <script type="text/javascript">
+        $(document).ready(function() {
+            previous_checked_state = $('#id_public').prop('checked');
+            $('#id_dtype').change(function() {
+                if ($(this).val() == {{ exam_dtype_id|default:-1 }}) {
+                    $('#id_public').parents('.control-group').addClass('hidden');
+                    previous_checked_state = $('#id_public').prop('checked');
+                    $('#id_public').prop('checked', false);
+                } else {
+                    $('#id_public').parents('.control-group').removeClass('hidden');
+                    $('#id_public').prop('checked', previous_checked_state);
+                }
+            });
+        });
+    </script>
+{% endblock %}
+
 {% block content %}
 
     <div class="page-header">

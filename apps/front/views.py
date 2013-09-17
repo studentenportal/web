@@ -348,12 +348,24 @@ class DocumentDownload(View):
                 attachment=attachment, attachment_filename=filename)
 
 
-class DocumentAdd(LoginRequiredMixin, DocumentcategoryMixin, CreateView):
+class DocumentAddEditMixin(object):
     model = models.Document
-    form_class = forms.DocumentAddForm
 
-    def __init__(self, *args, **kwargs):
-        super(DocumentAdd, self).__init__(*args, **kwargs)
+    def get_context_data(self, **kwargs):
+        context = super(DocumentAddEditMixin, self).get_context_data(**kwargs)
+        context['exam_dtype_id'] = models.Document.DTypes.EXAM
+        return context
+
+    def get_success_url(self):
+        """Redirect to documentcategory page."""
+        messages.add_message(self.request, messages.SUCCESS,
+            self.success_message)
+        return reverse('document_list', args=[self.category])
+
+
+class DocumentAdd(LoginRequiredMixin, DocumentAddEditMixin, DocumentcategoryMixin, CreateView):
+    form_class = forms.DocumentAddForm
+    success_message = 'Dokument wurde erfolgreich hinzugefügt.'
 
     def form_valid(self, form):
         """Override the form_valid method of the ModelFormMixin to insert
@@ -366,16 +378,10 @@ class DocumentAdd(LoginRequiredMixin, DocumentcategoryMixin, CreateView):
         self.object.save()
         return super(DocumentAdd, self).form_valid(form)
 
-    def get_success_url(self):
-        """Redirect to documentcategory page."""
-        messages.add_message(self.request, messages.SUCCESS,
-            'Dokument wurde erfolgreich hinzugefügt.')
-        return reverse('document_list', args=[self.category])
 
-
-class DocumentEdit(LoginRequiredMixin, DocumentcategoryMixin, UpdateView):
-    model = models.Document
+class DocumentEdit(LoginRequiredMixin, DocumentAddEditMixin, DocumentcategoryMixin, UpdateView):
     form_class = forms.DocumentEditForm
+    success_message = 'Dokument wurde erfolgreich aktualisiert.'
 
     def dispatch(self, request, *args, **kwargs):
         handler = super(DocumentEdit, self).dispatch(request, *args, **kwargs)
@@ -383,12 +389,6 @@ class DocumentEdit(LoginRequiredMixin, DocumentcategoryMixin, UpdateView):
         if self.object.uploader != request.user:
             return HttpResponseForbidden('Du darfst keine fremden Uploads editieren.')
         return handler
-
-    def get_success_url(self):
-        """Redirect to documentcategory page."""
-        messages.add_message(self.request, messages.SUCCESS,
-            'Dokument wurde erfolgreich aktualisiert.')
-        return reverse('document_list', args=[self.category])
 
 
 class DocumentDelete(LoginRequiredMixin, DocumentcategoryMixin, DeleteView):
