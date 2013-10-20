@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 from __future__ import print_function, division, absolute_import, unicode_literals
+
 import datetime
 import unicodedata
 from urlparse import urlsplit, urlunsplit
+from collections import defaultdict
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -280,8 +282,40 @@ class QuoteDelete(LoginRequiredMixin, DeleteView):
 
 
 # Documents {{{
-class DocumentcategoryList(ListView):
-    model = models.DocumentCategory
+class DocumentcategoryList(TemplateView):
+    template_name = 'front/documentcategory_list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(DocumentcategoryList, self).get_context_data(**kwargs)
+
+        # Get all categories
+        categories = list(models.DocumentCategory.objects.all())
+
+        # To reduce number of queries, prefetch aggregated count values from the
+        # document model. The query returns the count for each (category, dtype) pair.
+        category_counts = models.Document.objects.values('category', 'dtype') \
+                                .order_by().annotate(count=Count('dtype'))
+
+        # Create counts dictionary ({category_id: {dtype: count, dtype: count, ...}})
+        counts = defaultdict(lambda: defaultdict(int))
+        for item in category_counts:
+            category = item['category']
+            dtype = item['dtype']
+            counts[category][dtype] = item['count']
+
+        # Add counts to category objects
+        simplecounts = defaultdict(dict)
+        for c in categories:
+            d = simplecounts[c.pk]
+            d['summary'] = counts[c.pk][models.Document.DTypes.SUMMARY]
+            d['exam'] = counts[c.pk][models.Document.DTypes.EXAM]
+            d['other'] = counts[c.pk][models.Document.DTypes.SOFTWARE] + \
+                         counts[c.pk][models.Document.DTypes.LEARNING_AID]
+            d['total'] = sum(d.values())
+
+        context['categories'] = categories
+        context['counts'] = simplecounts
+        return context
 
 
 class DocumentcategoryAdd(LoginRequiredMixin, CreateView):

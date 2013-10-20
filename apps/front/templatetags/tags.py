@@ -38,8 +38,8 @@ def index(value, arg):
 
 
 @register.filter
-def lookup(dict, index):
+def lookup(dictionary, index):
     """Return index from dict."""
-    if index in dict:
-        return dict[index]
+    if index in dictionary:
+        return dictionary[index]
     return ''

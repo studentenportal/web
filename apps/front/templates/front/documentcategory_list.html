@@ -45,7 +45,7 @@
         </a></p>
     {% endif %}
 
-    {% if object_list %}
+    {% if categories %}
         <div id="modules">
             <div class="input input-append">
                 <input class="search" placeholder="Modul suchen...">
@@ -64,15 +64,15 @@
 
                 </thead>
                 <tbody class="list">
-                    {% for category in object_list %}
-                        <tr {% if category.Document.count == 0 %}class="empty"{% endif %}>
+                    {% for category in categories %}
+                        <tr {% if counts|lookup:category.pk|lookup:"total" == 0 %}class="empty"{% endif %}>
                             <td class="name"><a href="{% url 'document_list' category.name|slugify %}">
                                 <strong>{{ category.name }}</strong>
                                 {% if category.description %}{{ category.description }}{% endif %}
                             </td>
-                            <td class="summary_count">{{ category.summary_count }}</td>
-                            <td class="exam_count">{{ category.exam_count }}</td>
-                            <td class="other_count">{{ category.other_count }}</td>
+                            <td class="summary_count">{{ counts|lookup:category.pk|lookup:"summary" }}</td>
+                            <td class="exam_count">{{ counts|lookup:category.pk|lookup:"exam" }}</td>
+                            <td class="other_count">{{ counts|lookup:category.pk|lookup:"other" }}</td>
                         </tr>
                     {% endfor %}
                 </tbody>

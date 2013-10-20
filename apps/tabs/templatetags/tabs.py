@@ -105,6 +105,3 @@ def ifactivetab(parser, token):
     return IfActiveTabNode(nodelist_true, nodelist_false, name, namespace)
 
 ifactivetab = register.tag('ifactivetab', ifactivetab)
-    
-        
-        
