@@ -5,3 +5,6 @@ gunicorn==0.17.4
 
 # Sentry logging
 raven==3.3.4
+
+# Newrelic
+newrelic==2.6.0.5
