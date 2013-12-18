@@ -1,8 +1,8 @@
 Studentenportal 2.0
 ===================
 
-[![Build Status](https://secure.travis-ci.org/dbrgn/studentenportal2.png?branch=master)](http://travis-ci.org/dbrgn/studentenportal2)
-[![Coverage Status](https://coveralls.io/repos/dbrgn/studentenportal2/badge.png?branch=master)](https://coveralls.io/r/dbrgn/studentenportal2)
+[![Build Status](https://secure.travis-ci.org/studentenportal/web.png?branch=master)](http://travis-ci.org/studentenportal/web)
+[![Coverage Status](https://coveralls.io/repos/studentenportal/web/badge.png?branch=master)](https://coveralls.io/r/studentenportal/web)
 
 Dies ist ein re-launch des [HSR Studentenportals](http://studentenportal.ch).
 Es hat das alte Portal im Frühling 2012 abgelöst und soll es in Sachen Ruhm und
@@ -11,7 +11,7 @@ Ehre weit überholen.
 ![f\*ck yeah!](http://s3.amazonaws.com/kym-assets/entries/icons/original/000/001/987/fyeah.jpg)
 
  * Live-Instanz: http://studentenportal.ch/
- * Travis Buildserver: http://travis-ci.org/dbrgn/studentenportal2
+ * Travis Buildserver: http://travis-ci.org/studentenportal/web
 
 
 Technologie
@@ -30,7 +30,7 @@ Features
  - Flattr Integration
 
 Featurevorschläge sind willkommen! Aktuell geplante Features und Featurewünsche
-können auf https://github.com/dbrgn/studentenportal2/issues eingesehen und
+können auf https://github.com/studentenportal/web/issues eingesehen und
 erstellt werden.
 
 
