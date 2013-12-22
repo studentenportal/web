@@ -23,5 +23,5 @@ requests==1.2.3
 vobject==0.8.1c
 
 # API
-djangorestframework==2.2.7
-django-oauth2-provider==0.2.4
+djangorestframework==2.3.10
+django-oauth2-provider==0.2.6

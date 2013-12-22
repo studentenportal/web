@@ -119,12 +119,12 @@ class UserViewTest(AuthenticatedTest):
     def testListMethods(self):
         url = reverse('api:user_list')
         resp = self.client.head(url)
-        self.assertEqual(resp.get('Allow'), 'HEAD, GET, OPTIONS')
+        self.assertEqual(resp.get('Allow'), 'GET, HEAD, OPTIONS')
 
     def testDetailMethods(self):
         url = reverse('api:user_detail', args=(self.user.pk,))
         resp = self.client.head(url)
-        self.assertEqual(resp.get('Allow'), 'HEAD, GET, PATCH, PUT, OPTIONS')
+        self.assertEqual(resp.get('Allow'), 'GET, PUT, HEAD, OPTIONS, PATCH')
 
     def testUpdatePermissions(self):
         """It should only be possible to edit own user."""
@@ -183,12 +183,12 @@ class LecturerViewTest(AuthenticatedTest):
     def testListMethods(self):
         url = reverse('api:lecturer_list')
         resp = self.client.head(url)
-        self.assertEqual(resp.get('Allow'), 'HEAD, GET, OPTIONS')
+        self.assertEqual(resp.get('Allow'), 'GET, HEAD, OPTIONS')
 
     def testDetailMethods(self):
         url = reverse('api:lecturer_detail', args=(self.lecturer.pk,))
         resp = self.client.head(url)
-        self.assertEqual(resp.get('Allow'), 'HEAD, GET, OPTIONS')
+        self.assertEqual(resp.get('Allow'), 'GET, HEAD, OPTIONS')
 
 
 class QuoteViewTest(AuthenticatedTest):
@@ -217,12 +217,12 @@ class QuoteViewTest(AuthenticatedTest):
     def testListMethods(self):
         url = reverse('api:quote_list')
         resp = self.client.head(url)
-        self.assertEqual(resp.get('Allow'), 'HEAD, GET, POST, OPTIONS')
+        self.assertEqual(resp.get('Allow'), 'GET, POST, HEAD, OPTIONS')
 
     def testDetailMethods(self):
         url = reverse('api:quote_detail', args=(self.quote.pk,))
         resp = self.client.head(url)
-        self.assertEqual(resp.get('Allow'), 'HEAD, GET, PATCH, PUT, OPTIONS')
+        self.assertEqual(resp.get('Allow'), 'GET, PUT, HEAD, OPTIONS, PATCH')
 
     def testAutoAuthorPOST(self):
         """Assert that the author is automatically set to the currently logged
