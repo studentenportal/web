@@ -1,10 +1,10 @@
 # coding=utf-8
 # Django settings for studentenportal project.
-import os
 import datetime
 
-PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
-MODULE_NAME = os.path.basename(PROJECT_ROOT)
+from unipath import Path
+
+PROJECT_ROOT = Path(__file__).ancestor(2)
 
 ADMINS = (
     ('Danilo', 'gezuru@gmail.com'),
@@ -39,7 +39,7 @@ USE_L10N = True
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+        'ENGINE': 'django.db.backends.sqlite3',  # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
         'NAME': 'db.sqlite',             # Or path to database file if using sqlite3.
         'USER': '',                      # Not used with sqlite3.
         'PASSWORD': '',                  # Not used with sqlite3.
@@ -50,7 +50,7 @@ DATABASES = {
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
-MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'media/')
+MEDIA_ROOT = PROJECT_ROOT.child('media')
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
@@ -61,7 +61,7 @@ MEDIA_URL = '/media/'
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/home/media/media.lawrence.com/static/"
-STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static/')
+STATIC_ROOT = PROJECT_ROOT.child('static')
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
@@ -126,7 +126,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
 )
 
-ROOT_URLCONF = '%s.urls' % MODULE_NAME
+ROOT_URLCONF = 'config.urls'
 
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
@@ -223,7 +223,7 @@ DEFAULT_FROM_EMAIL = 'Studentenportal <noreply@studentenportal.ch>'
 
 # Auth
 LOGIN_REDIRECT_URL = '/'
-AUTHENTICATION_BACKENDS = ('backends.CaseInsensitiveModelBackend',)
+AUTHENTICATION_BACKENDS = ('config.backends.CaseInsensitiveModelBackend',)
 
 # API
 REST_FRAMEWORK = {

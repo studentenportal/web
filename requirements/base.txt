@@ -4,6 +4,7 @@ Pillow==2.1.0
 django-extensions
 psycopg2==2.5.1
 South==0.7.6
+Unipath==1.0
 
 # Useful/important apps
 django-messagegroups==0.3.0
