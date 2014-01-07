@@ -79,8 +79,8 @@ class DocumentEditForm(forms.ModelForm):
 
     def clean(self):
         cleaned_data = super(DocumentEditForm, self).clean()
-        public = cleaned_data['public']
-        dtype = cleaned_data['dtype']
+        public = cleaned_data.get('public')
+        dtype = cleaned_data.get('dtype')
 
         # Verify that exams are non-public
         if dtype == models.Document.DTypes.EXAM and public is True:
