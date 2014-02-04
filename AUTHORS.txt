@@ -2,3 +2,4 @@ Danilo Bargen @dbrgn
 Fabian Vogler @fabian
 Peter Manser @petermanser
 Michi Gysel @theScythe
+Lukas Martinelli @lukasmartinelli
