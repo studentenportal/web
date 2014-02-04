@@ -1,4 +1,4 @@
-django-discover-runner==0.4
+django-discover-runner==1.0
 coverage
 coveralls
 model_mommy==1.0
