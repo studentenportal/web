@@ -64,8 +64,8 @@ Falls die Datenbank bereits existiert:
 
 Um die Tests auszuführen:
 
- 1. `python manage.py collectstatic`
- 2. `python manage.py test front`
+ 1. `pip install -r requirements/testing.txt`
+ 3. `./test.sh`
 
 
 Falls ein Datenbankfehler auftritt, weil das Schema sich geändert hat:
