@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block breadcrumbs %}
-    <a href="{% url 'event_list' %}">Events</a> &raquo; <a href="{% url 'event_detail' event.pk %}">{{ event.summary }}</a> &raquo; Löschen
+    <a href="{% url 'events:event_list' %}">Events</a> &raquo; <a href="{% url 'events:event_detail' event.pk %}">{{ event.summary }}</a> &raquo; Löschen
 {% endblock %}
 
 {% block content %}
@@ -22,7 +22,7 @@
 
     <form method="post">{% csrf_token %}
         <button type="submit" class="btn btn-danger"><i class="icon-trash icon-white"></i> Ja, ich bin sicher.</button>
-        <a href="{% url 'event_detail' event.pk %}" class="btn">Nein, abbrechen!</a>
+        <a href="{% url 'events:event_detail' event.pk %}" class="btn">Nein, abbrechen!</a>
     </form>
 
 {% endblock %}

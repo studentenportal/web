@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block breadcrumbs %}
-    <a href="{% url 'event_list' %}">Events</a> &raquo; Event {{ event|yesno:"bearbeiten,erfassen" }}
+    <a href="{% url 'events:event_list' %}">Events</a> &raquo; Event {{ event|yesno:"bearbeiten,erfassen" }}
 {% endblock %}
 
 {% block content %}
@@ -23,9 +23,9 @@
         <div class="form-actions">
             <button type="submit" class="btn btn-primary"><i class="icon-ok icon-white"></i> {{ event|yesno:"Speichern,Eintragen" }}</button>
             {% if event %}
-                <a href="{% url 'event_detail' event.pk %}" class="btn"><i class="icon-remove"></i> Abbrechen</a>
+                <a href="{% url 'events:event_detail' event.pk %}" class="btn"><i class="icon-remove"></i> Abbrechen</a>
             {% else %}
-                <a href="{% url 'event_list' %}" class="btn"><i class="icon-remove"></i> Abbrechen</a>
+                <a href="{% url 'events:event_list' %}" class="btn"><i class="icon-remove"></i> Abbrechen</a>
             {% endif %}
         </div>
     </form>

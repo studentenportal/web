@@ -37,7 +37,7 @@
 
     <p>
         {% if user.is_authenticated %}
-            <a class="btn btn-primary" href="{% url 'event_add' %}">
+            <a class="btn btn-primary" href="{% url 'events:event_add' %}">
                 <i class="icon-plus-sign icon-white"></i> Event hinzufügen
             </a>
         {% endif %}
@@ -52,7 +52,7 @@
         <p><em>Es wurden keine zukünftigen Events gefunden.</em></p>
     {% else %}
         {% with events_future as object_list %}
-            {% include 'front/blocks/event_table.html' %}
+            {% include 'events/blocks/event_table.html' %}
         {% endwith %}
     {% endif %}
 
@@ -62,7 +62,7 @@
         <p><em>Es wurden keine vergangenen Events gefunden.</em></p>
     {% else %}
         {% with events_past as object_list %}
-            {% include 'front/blocks/event_table.html' %}
+            {% include 'events/blocks/event_table.html' %}
         {% endwith %}
     {% endif %}
 
