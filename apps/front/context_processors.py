@@ -1,5 +1,5 @@
 from apps.front import models
-from apps.lecturers import Lecturer
+from apps.lecturers.models import Quote, Lecturer
 
 
 def global_stats(request):

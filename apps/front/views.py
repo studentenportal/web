@@ -324,12 +324,12 @@ class Stats(LoginRequiredMixin, TemplateView):
             except IndexError:
                 return None
 
-        context['lecturer_top_d'] = fetchfirst(models.Lecturer.objects.raw(base_query_top % 'd'))
-        context['lecturer_top_m'] = fetchfirst(models.Lecturer.objects.raw(base_query_top % 'm'))
-        context['lecturer_top_f'] = fetchfirst(models.Lecturer.objects.raw(base_query_top % 'f'))
-        context['lecturer_flop_d'] = fetchfirst(models.Lecturer.objects.raw(base_query_flop % 'd'))
-        context['lecturer_flop_m'] = fetchfirst(models.Lecturer.objects.raw(base_query_flop % 'm'))
-        context['lecturer_flop_f'] = fetchfirst(models.Lecturer.objects.raw(base_query_flop % 'f'))
+        context['lecturer_top_d'] = fetchfirst(Lecturer.objects.raw(base_query_top % 'd'))
+        context['lecturer_top_m'] = fetchfirst(Lecturer.objects.raw(base_query_top % 'm'))
+        context['lecturer_top_f'] = fetchfirst(Lecturer.objects.raw(base_query_top % 'f'))
+        context['lecturer_flop_d'] = fetchfirst(Lecturer.objects.raw(base_query_flop % 'd'))
+        context['lecturer_flop_m'] = fetchfirst(Lecturer.objects.raw(base_query_flop % 'm'))
+        context['lecturer_flop_f'] = fetchfirst(Lecturer.objects.raw(base_query_flop % 'f'))
 
         context['lecturer_quotes'] = Lecturer.objects \
                                                     .annotate(quotes_count=Count('Quote')) \
