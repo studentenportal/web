@@ -91,8 +91,8 @@
                         <li class="{% ifactivetab 'navigation' 'home' %}active{% endifactivetab %}">
                             <a href="{% url 'home' %}"><i class="icon-home {% ifactivetab 'navigation' 'home' %}icon-white{% endifactivetab %}"></i> Home</a>
                         </li>
-                        <li class="{% ifactivetab 'navigation' 'events' %}active{% endifactivetab %}">
-                            <a href="{% url 'event_list' %}"><i class="icon-calendar {% ifactivetab 'navigation' 'events' %}icon-white{% endifactivetab %}"></i> Events</a>
+                        <li class="{% ifactivetab 'navigation' 'events:events' %}active{% endifactivetab %}">
+                            <a href="{% url 'events:event_list' %}"><i class="icon-calendar {% ifactivetab 'navigation' 'events:events' %}icon-white{% endifactivetab %}"></i> Events</a>
                         </li>
                         <li class="{% ifactivetab 'navigation' 'tipps' %}active{% endifactivetab %}">
                             <a href="{% url 'tips' %}"><i class="icon-star {% ifactivetab 'navigation' 'tipps' %}icon-white{% endifactivetab %}"></i> Tipps zum Studium</a>

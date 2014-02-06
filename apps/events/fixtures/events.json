@@ -1,7 +1,7 @@
 [
   {
     "pk": 1, 
-    "model": "front.event", 
+    "model": "events.event", 
     "fields": {
       "description": "Eine Bar mit Bier!", 
       "end_date": "2015-11-15", 
@@ -14,7 +14,7 @@
   }, 
   {
     "pk": 2, 
-    "model": "front.event", 
+    "model": "events.event", 
     "fields": {
       "description": "Der erste Tag der neuen.HSR Studenten.\r\n\r\nSiehe http://hsr.ch/", 
       "end_date": null, 
@@ -27,7 +27,7 @@
   }, 
   {
     "pk": 3, 
-    "model": "front.event", 
+    "model": "events.event", 
     "fields": {
       "description": "Dauert zwei ganze Tage.", 
       "end_date": "2012-09-26", 

@@ -23,13 +23,6 @@ class PasswordForm(forms.Form):
     password1 = forms.CharField(widget=forms.PasswordInput, label='Passwort')
     password2 = forms.CharField(widget=forms.PasswordInput, label='Passwort (Wiederholung)')
 
-
-class EventForm(forms.ModelForm):
-    class Meta:
-        model = models.Event
-        exclude = ('author',)
-
-
 class QuoteForm(forms.ModelForm):
     def __init__(self, lecturer_id, *args, **kwargs):
         """This form takes a lecturer_id or None as the first argument.

@@ -6,6 +6,7 @@ from django.views.generic import TemplateView
 from django.contrib import admin
 from apps.front import views
 from apps.api import urls as api_urls
+from apps.events import urls as events_urls
 
 admin.autodiscover()
 dajaxice_autodiscover()
@@ -14,12 +15,6 @@ dajaxice_autodiscover()
 urlpatterns = patterns('apps.front.views',
     url(r'^$', views.Home.as_view(), name='home'),
     url(r'^profil/$', views.Profile.as_view(), name='profile'),
-    url(r'^events/$', views.EventList.as_view(), name='event_list'),
-    url(r'^events/add/$', views.EventAdd.as_view(), name='event_add'),
-    url(r'^events/(?P<pk>-?\d+)/$', views.Event.as_view(), name='event_detail'),
-    url(r'^events/(?P<pk>-?\d+)/edit/$', views.EventEdit.as_view(), name='event_edit'),
-    url(r'^events/(?P<pk>-?\d+)/delete/$', views.EventDelete.as_view(), name='event_delete'),
-    url(r'^events/calendar.ics$', views.EventCalendar.as_view(), name='event_calendar'),
     url(r'^dozenten/$', views.LecturerList.as_view(), name='lecturer_list'),
     url(r'^dozenten/(?P<pk>-?\d+)/$', views.Lecturer.as_view(), name='lecturer_detail'),
     url(r'^zitate/$', views.QuoteList.as_view(), name='quote_list'),
@@ -60,7 +55,7 @@ urlpatterns += patterns('',
 
 # AJAX
 urlpatterns += patterns('',
-    url(dajaxice_config.dajaxice_url, include('dajaxice.urls')),
+    url(dajaxice_config.dajaxice_url, include('dajaxice.urls')),    
 )
 
 # API
@@ -68,6 +63,9 @@ urlpatterns += patterns('',
     url(r'^api/', include(api_urls, namespace='api')),
     url(r'^oauth2/', include('provider.oauth2.urls', namespace='oauth2')),
 )
+
+# Events
+urlpatterns += patterns('', url(r'^events/', include(events_urls, namespace='events')))
 
 if settings.DEBUG:
     urlpatterns += patterns('django.views.static',
