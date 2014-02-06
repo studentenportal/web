@@ -312,7 +312,7 @@ class Stats(LoginRequiredMixin, TemplateView):
 
         # Lecturers
         base_query = "SELECT lecturer_id AS id \
-                      FROM front_lecturerrating \
+                      FROM lecturers_lecturerrating \
                       WHERE category = '%c' \
                       GROUP BY lecturer_id HAVING COUNT(id) > 5"
         base_query_top = base_query + " ORDER BY AVG(rating) DESC, COUNT(id) DESC"
@@ -340,7 +340,7 @@ class Stats(LoginRequiredMixin, TemplateView):
                 models.User.objects.raw('''
                         SELECT u.id AS id, COUNT(DISTINCT lr.lecturer_id) AS lrcount
                         FROM front_user u
-                        JOIN front_lecturerrating lr
+                        JOIN lecturers_lecturerrating lr
                             ON u.id = lr.user_id
                         GROUP BY u.id
                         ORDER BY lrcount DESC'''))

@@ -63,7 +63,7 @@ urlpatterns += patterns('',
 urlpatterns += patterns('', url(r'^events/', include(events_urls, namespace='events')))
 
 # Lecturers
-urlpatterns += patterns('', url(r'^$', include(lecturers_urls, namespace='lecturers')))
+urlpatterns += patterns('', url(r'', include(lecturers_urls, namespace='lecturers')))
 
 
 if settings.DEBUG:
