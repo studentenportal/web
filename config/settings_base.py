@@ -1,13 +1,17 @@
-# coding=utf-8
-# Django settings for studentenportal project.
+# -*- coding: utf-8 -*-
+import os
 import datetime
 
 from unipath import Path
 
+
+env = os.environ.get
+
+
 PROJECT_ROOT = Path(__file__).ancestor(2)
 
 ADMINS = (
-    ('Danilo', 'gezuru@gmail.com'),
+    ('Danilo', 'mail@dbrgn.ch'),
 )
 
 MANAGERS = ADMINS
@@ -50,7 +54,7 @@ DATABASES = {
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
-MEDIA_ROOT = PROJECT_ROOT.child('media')
+MEDIA_ROOT = env('DJANGO_MEDIA_ROOT', PROJECT_ROOT.child('media'))
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
@@ -61,7 +65,7 @@ MEDIA_URL = '/media/'
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/home/media/media.lawrence.com/static/"
-STATIC_ROOT = PROJECT_ROOT.child('static')
+STATIC_ROOT = env('DJANGO_STATIC_ROOT', PROJECT_ROOT.child('static'))
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"

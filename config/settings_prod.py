@@ -1,13 +1,9 @@
 # -*- coding: utf-8 -*-
-
 import os
 
 from django.core.exceptions import ImproperlyConfigured
 
 from settings_base import *
-
-
-env = os.environ.get
 
 
 DEBUG = False
