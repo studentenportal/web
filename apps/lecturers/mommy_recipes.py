@@ -7,9 +7,9 @@ from model_mommy import mommy
 from model_mommy.recipe import Recipe
 
 from apps.front import models
-from apps.lecturers.models import Lecturer
 
-lecturer = Recipe(Lecturer,
+
+lecturer = Recipe(models.Lecturer,
     id=1337,
     title='Prof. Dr.',
     first_name='David',

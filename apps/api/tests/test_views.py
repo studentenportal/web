@@ -13,6 +13,7 @@ from provider.constants import CONFIDENTIAL
 from provider.oauth2 import models as oauth2_models
 
 from apps.front import models
+from apps.lecturers.models import Quote, Lecturer
 
 
 User = get_user_model()
@@ -152,7 +153,7 @@ class LecturerViewTest(AuthenticatedTest):
 
     def setUp(self):
         super(LecturerViewTest, self).setUp()
-        self.lecturer = mommy.make(models.Lecturer)
+        self.lecturer = mommy.make(Lecturer)
 
     def testStatusCode(self):
         urls = [reverse('api:lecturer_list'), reverse('api:lecturer_detail', args=(self.lecturer.pk,))]
@@ -162,7 +163,7 @@ class LecturerViewTest(AuthenticatedTest):
                     'Status code for %s is %d instead of 200.' % (url, resp.status_code))
 
     def testDetailData(self):
-        [mommy.make(models.Quote, lecturer=self.lecturer) for i in xrange(3)]
+        [mommy.make(Quote, lecturer=self.lecturer) for i in xrange(3)]
 
         url = reverse('api:lecturer_detail', args=(self.lecturer.pk,))
         resp = self.client.get(url)
@@ -195,7 +196,7 @@ class QuoteViewTest(AuthenticatedTest):
 
     def setUp(self):
         super(QuoteViewTest, self).setUp()
-        self.quote = mommy.make(models.Quote, author=self.user)
+        self.quote = mommy.make(Quote, author=self.user)
 
     def testStatusCode(self):
         urls = [reverse('api:quote_list'), reverse('api:quote_detail', args=(self.quote.pk,))]

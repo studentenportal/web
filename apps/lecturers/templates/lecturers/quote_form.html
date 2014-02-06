@@ -14,9 +14,9 @@
 
 {% block breadcrumbs %}
     {% if lecturer %}
-        <a href="{% url 'lecturer_detail' lecturer.pk %}">{{ lecturer.name }}</a> &raquo; Zitat hinzufügen
+        <a href="{% url 'lecturers:lecturer_detail' lecturer.pk %}">{{ lecturer.name }}</a> &raquo; Zitat hinzufügen
     {% else %}
-        <a href="{% url 'quote_list' %}">Zitate</a> &raquo; Zitat hinzufügen
+        <a href="{% url 'lecturers:quote_list' %}">Zitate</a> &raquo; Zitat hinzufügen
     {% endif %}
 {% endblock %}
 
@@ -31,9 +31,9 @@
         <div class="form-actions">
             <button type="submit" class="btn btn-primary"><i class="icon-ok icon-white"></i> Eintragen</button>
             {% if lecturer %}
-                <a href="{% url 'lecturer_detail' lecturer.pk %}" class="btn"><i class="icon-remove"></i> Abbrechen</a>
+                <a href="{% url 'lecturers:lecturer_detail' lecturer.pk %}" class="btn"><i class="icon-remove"></i> Abbrechen</a>
             {% else %}
-                <a href="{% url 'quote_list' %}" class="btn"><i class="icon-remove"></i> Abbrechen</a>
+                <a href="{% url 'lecturers:quote_list' %}" class="btn"><i class="icon-remove"></i> Abbrechen</a>
             {% endif %}
         </div>
     </form>

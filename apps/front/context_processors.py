@@ -1,10 +1,12 @@
 from apps.front import models
+from apps.lecturers import Lecturer
+
 
 def global_stats(request):
     """This context processor adds global stats to each context."""
     return {
         'usercount': models.User.objects.count(),
-        'lecturercount': models.Lecturer.real_objects.count(),
+        'lecturercount': Lecturer.real_objects.count(),
         'documentcount': models.Document.objects.count(),
-        'quotecount': models.Quote.objects.count(),
+        'quotecount': Quote.objects.count(),
     }

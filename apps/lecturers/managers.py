@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.db import models
 
+
 class RealLecturerManager(models.Manager):
     """A lecturer manager that tries to filter out all non-lecturers."""
 

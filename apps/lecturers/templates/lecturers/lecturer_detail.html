@@ -13,7 +13,7 @@
 {% endblock %}
 
 {% block breadcrumbs %}
-    <a href="{% url 'lecturer_list' %}">Dozenten</a> &raquo; {{ lecturer.name }}
+    <a href="{% url 'lecturers:lecturer_list' %}">Dozenten</a> &raquo; {{ lecturer.name }}
 {% endblock %}
 
 {% block scripts %}
@@ -113,7 +113,7 @@
         <p><em>Keine Zitate gefunden.</em></p>
     {% endif %}
 
-    <p><a class="btn btn-primary" href="{% url 'lecturer_quote_add' lecturer.pk %}">
+    <p><a class="btn btn-primary" href="{% url 'lecturers:lecturer_quote_add' lecturer.pk %}">
         <i class="icon-plus-sign icon-white"></i> Zitat hinzufügen
     </a></p>
 
@@ -132,14 +132,14 @@
                 {% for quote in quotes %}
                     <tr>
                         <td>
-                            {% include 'front/blocks/vote_buttons.html' %}
+                            {% include 'lecturers/blocks/vote_buttons.html' %}
                         </td>
                         <td>{{ quote.quote }}</td>
                         <td>{{ quote.comment }}</td>
                         <td>{% if not quote.date_available %}-{% else %}{{ quote.date|date:"d.m.Y H:i" }}{% endif %}</td>
                         <td>
                             {% if quote.author = user %}
-                                {% include 'front/blocks/quote_delete_button.html' with small_button=1 %}
+                                {% include 'lecturers/blocks/quote_delete_button.html' with small_button=1 %}
                             {% endif %}
                         </td>
                     </tr>

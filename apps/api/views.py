@@ -8,7 +8,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
 
-from apps.front import models
+from apps.lecturers import models
 from . import permissions as custom_permissions
 from . import serializers
 
