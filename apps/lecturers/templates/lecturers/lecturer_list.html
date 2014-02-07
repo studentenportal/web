@@ -18,11 +18,27 @@
                 $("img.lazy").lazyload({ threshold : 200 });
 
                 var options = {
-                    valueNames: ['name'],
+                    valueNames: ["name"],
                     page: 9001
                 };
 
-                var contactList = new List('lecturers', options);
+                var contactList = new List("lecturers", options);                
+                
+                var loadImages = function() {
+                    var elements = $.map(contactList.visibleItems, function(val) { return val.elm; });
+                    $(elements).find("img.lazy").trigger("appear");
+                };
+
+                //Depending on how fast the user is typing, the updated event
+                //triggers multiple times, which is not optimal.
+                //The v1.1 of list.js supports a searchCompleted event which whould
+                //resolve this issue, 
+                 
+                contactList.on("updated", function() {
+                    onSearchCompleted = setTimeout(function() {
+                        loadImages();                        
+                    }, 500);
+                });
             });
         </script>
     {% endcompress %}
