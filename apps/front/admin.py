@@ -15,6 +15,7 @@ class DocumentCategoryAdmin(admin.ModelAdmin):
     search_fields = list_display
 
 
+admin.site.register(models.User)
 admin.site.register(models.Document, DocumentAdmin)
 admin.site.register(models.DocumentCategory, DocumentCategoryAdmin)
 admin.site.register(models.DocumentRating)
