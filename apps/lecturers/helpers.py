@@ -7,13 +7,13 @@ def extend_quotes_with_votes(quotes, user_pk):
     """Extends a quote queryset with quote votes (using an extra()-query)."""
 
     vote_base_query = "SELECT EXISTS (SELECT id \
-            FROM front_quotevote \
-            WHERE front_quotevote.quote_id = front_quote.id \
+            FROM lecturers_quotevote \
+            WHERE lecturers_quotevote.quote_id = lecturers_quote.id \
             AND vote = '%s' \
             AND user_id = %u)"
     count_query = "SELECT COUNT(*) \
-            FROM front_quotevote \
-            WHERE front_quotevote.quote_id = front_quote.id"
+            FROM lecturers_quotevote \
+            WHERE lecturers_quotevote.quote_id = lecturers_quote.id"
     count_base_query = count_query + " AND vote = '%s'"
 
     return quotes.extra(select={

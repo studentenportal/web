@@ -9,7 +9,7 @@ from collections import namedtuple
 from optparse import make_option
 from django.core.management.base import BaseCommand
 from django.core.exceptions import ObjectDoesNotExist
-from apps.front.models import Lecturer
+from apps.lecturers.models import Lecturer
 
 
 def unicode_csv_reader(utf8_data, dialect=csv.excel, **kwargs):

@@ -6,7 +6,7 @@ $(document).ready(function() {
             var vote = $(this).hasClass('upvote') ? 'up' : 'down';
         }
         var quote_pk = $(this).parent().attr('data-quote-pk');
-        Dajaxice.apps.front.vote_quote(quote_vote_callback, {'vote': vote, 'quote_pk': quote_pk});
+        Dajaxice.apps.lecturers.vote_quote(quote_vote_callback, {'vote': vote, 'quote_pk': quote_pk});
     });
 });
 

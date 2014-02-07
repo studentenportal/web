@@ -103,8 +103,8 @@ class QuoteAdd(LoginRequiredMixin, CreateView):
         messages.add_message(self.request, messages.SUCCESS,
             'Zitat wurde erfolgreich hinzugefügt.')
         if self.lecturer:
-            return reverse('lecturer_detail', args=[self.lecturer.pk])
-        return reverse('quote_list')
+            return reverse('lecturers:lecturer_detail', args=[self.lecturer.pk])
+        return reverse('lecturers:quote_list')
 
 
 class QuoteDelete(LoginRequiredMixin, DeleteView):
@@ -120,5 +120,5 @@ class QuoteDelete(LoginRequiredMixin, DeleteView):
     def get_success_url(self):
         messages.add_message(self.request, messages.SUCCESS,
             'Zitat wurde erfolgreich gelöscht.')
-        return reverse('quote_list')
+        return reverse('lecturers:quote_list')
 # }}}
