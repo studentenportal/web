@@ -158,6 +158,7 @@ INSTALLED_APPS = (
     'apps.tabs',
     'registration',
     'django_extensions',
+    'django_nose',
     'south',
     'dajaxice',
     'mathfilters',
@@ -259,7 +260,7 @@ REGISTRATION_OPEN = True
 SOUTH_TESTS_MIGRATE = False
 
 # Testing
-TEST_RUNNER = 'discover_runner.DiscoverRunner'
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 TEST_DISCOVER_TOP_LEVEL = PROJECT_ROOT
 TEST_DISCOVER_ROOT = PROJECT_ROOT
 TEST_DISCOVER_PATTERN = 'test*.py'
