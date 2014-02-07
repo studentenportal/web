@@ -5,7 +5,7 @@ $.fn.raty.defaults.hintList = [1,2,3,4,5,6,7,8,9,10]
 function submitScore(category) {
     return function(score, evt) {
         var lecturer_pk = $('h1.lecturer-name').attr('data-lecturer-pk');
-        Dajaxice.apps.front.rate_lecturer(
+        Dajaxice.apps.lecturers.rate_lecturer(
             lecturerRatingCallback, {
                 'lecturer_pk': lecturer_pk, 'category': category, 'score': score
             }

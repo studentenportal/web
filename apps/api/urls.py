@@ -3,7 +3,7 @@ from django.conf.urls.defaults import patterns, include, url
 
 from rest_framework.urlpatterns import format_suffix_patterns
 
-from . import views
+from apps.api import views
 
 
 v1_api = patterns('',

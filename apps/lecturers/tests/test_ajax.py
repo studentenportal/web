@@ -8,7 +8,8 @@ from django.test import TestCase
 
 from model_mommy import mommy
 
-from apps.front import models
+from apps.lecturers import models
+from apps.front import models as front_models
 
 
 class VoteQuoteTest(TestCase):
@@ -16,7 +17,7 @@ class VoteQuoteTest(TestCase):
 
     def sendRequest(self, payload):
         """Send a dajaxice request with the specified payload. Return response."""
-        url = '/dajaxice/apps.front.vote_quote/'
+        url = '/dajaxice/apps.lecturers.vote_quote/'
         data = {'argv': json.dumps(payload)}
         return self.client.post(url,
             data=urllib.urlencode(data),
@@ -25,7 +26,7 @@ class VoteQuoteTest(TestCase):
 
     def testVoting(self):
         quote = mommy.make(models.Quote)
-        models.User.objects.create_user('fakename', 'fake@example.com', 'fakepwd')
+        front_models.User.objects.create_user('fakename', 'fake@example.com', 'fakepwd')
 
         self.client.login(username='fakename', password='fakepwd')
 

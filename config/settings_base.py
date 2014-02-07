@@ -171,6 +171,7 @@ INSTALLED_APPS = (
     'apps.api',
     'apps.events',
     'apps.user_stats',
+    'apps.lecturers',
 
     # Django admin (overrideable templates)
     'django.contrib.admin',

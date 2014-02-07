@@ -5,7 +5,7 @@ from rest_framework import serializers
 
 from django.contrib.auth import get_user_model
 
-from apps.front import models
+from apps.lecturers import models
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):

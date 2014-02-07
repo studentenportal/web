@@ -23,19 +23,6 @@ class PasswordForm(forms.Form):
     password1 = forms.CharField(widget=forms.PasswordInput, label='Passwort')
     password2 = forms.CharField(widget=forms.PasswordInput, label='Passwort (Wiederholung)')
 
-class QuoteForm(forms.ModelForm):
-    def __init__(self, lecturer_id, *args, **kwargs):
-        """This form takes a lecturer_id or None as the first argument.
-        If a lecturer id is provided, it will be set as initial value
-        for the dropdown."""
-        super(QuoteForm, self).__init__(*args, **kwargs)
-        if lecturer_id:
-            self.fields['lecturer'].initial = lecturer_id
-
-    class Meta:
-        model = models.Quote
-        exclude = ('author', 'date')
-
 
 class HsrRegistrationForm(RegistrationForm):
         """Subclass of RegistrationForm which does not require

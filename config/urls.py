@@ -7,6 +7,7 @@ from django.contrib import admin
 from apps.front import views
 from apps.api import urls as api_urls
 from apps.events import urls as events_urls
+from apps.lecturers import urls as lecturers_urls
 
 admin.autodiscover()
 dajaxice_autodiscover()
@@ -15,12 +16,6 @@ dajaxice_autodiscover()
 urlpatterns = patterns('apps.front.views',
     url(r'^$', views.Home.as_view(), name='home'),
     url(r'^profil/$', views.Profile.as_view(), name='profile'),
-    url(r'^dozenten/$', views.LecturerList.as_view(), name='lecturer_list'),
-    url(r'^dozenten/(?P<pk>-?\d+)/$', views.Lecturer.as_view(), name='lecturer_detail'),
-    url(r'^zitate/$', views.QuoteList.as_view(), name='quote_list'),
-    url(r'^zitate/add/$', views.QuoteAdd.as_view(), name='quote_add'),
-    url(r'^zitate/(?P<pk>-?\d+)/add/$', views.QuoteAdd.as_view(), name='lecturer_quote_add'),
-    url(r'^zitate/(?P<pk>-?\d+)/delete/$', views.QuoteDelete.as_view(), name='quote_delete'),
     url(r'^dokumente/$', views.DocumentcategoryList.as_view(), name='documentcategory_list'),
     url(r'^dokumente/add/$', views.DocumentcategoryAdd.as_view(), name='documentcategory_add'),
     url(r'^dokumente/(?P<category>[^\/]+)/$', views.DocumentList.as_view(), name='document_list'),
@@ -66,6 +61,10 @@ urlpatterns += patterns('',
 
 # Events
 urlpatterns += patterns('', url(r'^events/', include(events_urls, namespace='events')))
+
+# Lecturers
+urlpatterns += patterns('', url(r'', include(lecturers_urls, namespace='lecturers')))
+
 
 if settings.DEBUG:
     urlpatterns += patterns('django.views.static',

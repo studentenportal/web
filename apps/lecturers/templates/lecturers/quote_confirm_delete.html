@@ -17,7 +17,7 @@
     <p>Möchtest du wirklich das folgende Zitat aus der Datenbank löschen?</p>
 
     <ul>
-        <li><strong>Dozent</strong> <a href="{% url 'lecturer_detail' quote.lecturer.pk %}">{{ quote.lecturer }}</a></li>
+        <li><strong>Dozent</strong> <a href="{% url 'lecturers:lecturer_detail' quote.lecturer.pk %}">{{ quote.lecturer }}</a></li>
         <li><strong>Erfasst am</strong> {{ quote.date }}</li>
         <li><strong>Zitat</strong> {{ quote.quote }}</li>
         {% if quote.comment %}<li><strong>Bemerkung</strong> {{ quote.comment }}</li>{% endif %}

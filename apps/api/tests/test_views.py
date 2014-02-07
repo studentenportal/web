@@ -12,7 +12,7 @@ from model_mommy import mommy
 from provider.constants import CONFIDENTIAL
 from provider.oauth2 import models as oauth2_models
 
-from apps.front import models
+from apps.lecturers.models import Quote, Lecturer
 
 
 User = get_user_model()
@@ -152,7 +152,7 @@ class LecturerViewTest(AuthenticatedTest):
 
     def setUp(self):
         super(LecturerViewTest, self).setUp()
-        self.lecturer = mommy.make(models.Lecturer)
+        self.lecturer = mommy.make(Lecturer)
 
     def testStatusCode(self):
         urls = [reverse('api:lecturer_list'), reverse('api:lecturer_detail', args=(self.lecturer.pk,))]
@@ -162,7 +162,7 @@ class LecturerViewTest(AuthenticatedTest):
                     'Status code for %s is %d instead of 200.' % (url, resp.status_code))
 
     def testDetailData(self):
-        [mommy.make(models.Quote, lecturer=self.lecturer) for i in xrange(3)]
+        [mommy.make(Quote, lecturer=self.lecturer) for i in xrange(3)]
 
         url = reverse('api:lecturer_detail', args=(self.lecturer.pk,))
         resp = self.client.get(url)
@@ -195,7 +195,7 @@ class QuoteViewTest(AuthenticatedTest):
 
     def setUp(self):
         super(QuoteViewTest, self).setUp()
-        self.quote = mommy.make(models.Quote, author=self.user)
+        self.quote = mommy.make(Quote, author=self.user)
 
     def testStatusCode(self):
         urls = [reverse('api:quote_list'), reverse('api:quote_detail', args=(self.quote.pk,))]
@@ -229,7 +229,7 @@ class QuoteViewTest(AuthenticatedTest):
         in user on POST."""
         # Insert two quotes
         url = reverse('api:quote_list')
-        lecturer = mommy.make(models.Lecturer)
+        lecturer = mommy.make(Lecturer)
         other_user = mommy.make(User)
         resp = self.client.post(url, {
             'lecturer': reverse('api:lecturer_detail', args=(lecturer.pk,)),
@@ -245,8 +245,8 @@ class QuoteViewTest(AuthenticatedTest):
         })
         self.assertEqual(resp.status_code, 201)
         # Assert that two quotes were created.
-        quote1 = models.Quote.objects.filter(comment='No author')
-        quote2 = models.Quote.objects.filter(comment='With author')
+        quote1 = Quote.objects.filter(comment='No author')
+        quote2 = Quote.objects.filter(comment='With author')
         self.assertTrue(quote1.exists())
         self.assertTrue(quote2.exists())
         # Assert that the author is the currently logged in user
@@ -269,14 +269,14 @@ class QuoteViewTest(AuthenticatedTest):
         # Assert that the PUT request was processed
         self.assertEqual(resp.status_code, 200)
         # Comment should be changed, but not the author
-        newquote = models.Quote.objects.get(pk=self.quote.pk)
+        newquote = Quote.objects.get(pk=self.quote.pk)
         self.assertEqual(newquote.comment, 'newcomment')
         self.assertEqual(newquote.author, self.user)
 
     def testUpdatePermissions(self):
         """It should only be possible to edit own quotes."""
         quote1 = self.quote
-        quote2 = mommy.make(models.Quote)
+        quote2 = mommy.make(Quote)
         url1 = reverse('api:quote_detail', args=(quote1.pk,))
         url2 = reverse('api:quote_detail', args=(quote2.pk,))
         data = {
@@ -301,5 +301,5 @@ class QuoteViewTest(AuthenticatedTest):
         }
         resp = self.client.put(url, json.dumps(data), 'application/json')
         self.assertEqual(resp.status_code, 200)
-        newquote = models.Quote.objects.get(pk=self.quote.pk)
+        newquote = Quote.objects.get(pk=self.quote.pk)
         self.assertEqual(self.quote.author, newquote.author)
