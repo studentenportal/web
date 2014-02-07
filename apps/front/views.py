@@ -27,8 +27,9 @@ from django.template.defaultfilters import slugify
 from sendfile import sendfile
 
 from apps.front import forms, models, helpers
+from apps.lecturers import models as lecturers_models
 from apps.front.mixins import LoginRequiredMixin
-from apps.lecturers.models import Lecturer
+
 
 class Home(TemplateView):
     template_name = 'front/home.html'
@@ -324,14 +325,14 @@ class Stats(LoginRequiredMixin, TemplateView):
             except IndexError:
                 return None
 
-        context['lecturer_top_d'] = fetchfirst(Lecturer.objects.raw(base_query_top % 'd'))
-        context['lecturer_top_m'] = fetchfirst(Lecturer.objects.raw(base_query_top % 'm'))
-        context['lecturer_top_f'] = fetchfirst(Lecturer.objects.raw(base_query_top % 'f'))
-        context['lecturer_flop_d'] = fetchfirst(Lecturer.objects.raw(base_query_flop % 'd'))
-        context['lecturer_flop_m'] = fetchfirst(Lecturer.objects.raw(base_query_flop % 'm'))
-        context['lecturer_flop_f'] = fetchfirst(Lecturer.objects.raw(base_query_flop % 'f'))
+        context['lecturer_top_d'] = fetchfirst(lecturers_models.Lecturer.objects.raw(base_query_top % 'd'))
+        context['lecturer_top_m'] = fetchfirst(lecturers_models.Lecturer.objects.raw(base_query_top % 'm'))
+        context['lecturer_top_f'] = fetchfirst(lecturers_models.Lecturer.objects.raw(base_query_top % 'f'))
+        context['lecturer_flop_d'] = fetchfirst(lecturers_models.Lecturer.objects.raw(base_query_flop % 'd'))
+        context['lecturer_flop_m'] = fetchfirst(lecturers_models.Lecturer.objects.raw(base_query_flop % 'm'))
+        context['lecturer_flop_f'] = fetchfirst(lecturers_models.Lecturer.objects.raw(base_query_flop % 'f'))
 
-        context['lecturer_quotes'] = Lecturer.objects \
+        context['lecturer_quotes'] = lecturers_models.Lecturer.objects \
                                                     .annotate(quotes_count=Count('Quote')) \
                                                     .order_by('-quotes_count')[:3]
 

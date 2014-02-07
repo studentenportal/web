@@ -9,6 +9,7 @@ from collections import namedtuple
 from optparse import make_option
 from django.core.management.base import BaseCommand
 from django.core.exceptions import ObjectDoesNotExist
+
 from apps.lecturers.models import Lecturer
 
 

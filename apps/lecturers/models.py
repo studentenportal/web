@@ -9,7 +9,7 @@ from django.conf import settings
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 
-from apps.front.models import DocumentCategory
+from apps.front import models as front_models 
 from apps.lecturers import managers
 
 
@@ -185,7 +185,7 @@ class ModuleReview(models.Model):
         (4, 'Einfach'),
         (5, 'Sehr Einfach'))
 
-    Module = models.ForeignKey(DocumentCategory, related_name='ModuleReview')
+    Module = models.ForeignKey(front_models.DocumentCategory, related_name='ModuleReview')
     Lecturer = models.ForeignKey(Lecturer, related_name='ModuleReview')
     semester = models.CharField('Semester', max_length=1, choices=SEMESTER_CHOICES)
     year = models.PositiveIntegerField('Jahr')
