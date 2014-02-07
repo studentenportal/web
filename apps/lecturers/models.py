@@ -3,7 +3,7 @@ from __future__ import print_function, division, absolute_import, unicode_litera
 
 import re
 import os
-import datetime
+from datetime import datetime
 
 from django.conf import settings
 from django.db import models

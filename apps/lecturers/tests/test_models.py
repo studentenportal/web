@@ -10,7 +10,7 @@ from django.db import IntegrityError
 
 from model_mommy import mommy
 
-from apps.front import models
+from apps.lecturers import models
 
 
 User = get_user_model()

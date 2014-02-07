@@ -7,7 +7,7 @@ from django.contrib.auth import get_user_model
 
 from model_mommy import mommy
 
-from apps.front import models
+from apps.lecturers import models
 
 User = get_user_model()
 
@@ -35,7 +35,7 @@ class LecturerDetailViewTest(TestCase):
         # setUpClass
         mommy.make_recipe('apps.front.user')
         self.lecturer = mommy.make_recipe('apps.front.lecturer')
-        self.url = reverse('lecturer_detail', args=(self.lecturer.pk,))
+        self.url = reverse('lecturers:lecturer_detail', args=(self.lecturer.pk,))
 
     def testLoginRequired(self):
         response = self.client.get(self.url)
