@@ -2,8 +2,8 @@ language: python
 python:
     - 2.7
 install:
-    - pip install -r requirements/base.txt --use-mirrors
-    - pip install -r requirements/testing.txt --use-mirrors
+    - pip install -r requirements/base.txt
+    - pip install -r requirements/testing.txt
 before_script:
     - psql -c "CREATE ROLE studentenportal NOSUPERUSER LOGIN CREATEDB PASSWORD 'studentenportal';" -U postgres
     - psql -c "CREATE DATABASE studentenportal OWNER studentenportal;" -U postgres
