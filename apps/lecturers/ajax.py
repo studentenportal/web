@@ -19,7 +19,12 @@ def vote_quote(request, vote, quote_pk):
 
     quote = models.Quote.objects.get(pk=quote_pk)
     if vote in ('up', 'down'):
-        vote_obj, _ = models.QuoteVote.objects.get_or_create(user=request.user, quote=quote)
+        try:
+            vote_obj = models.QuoteVote.objects.get(user=request.user, quote=quote)
+        except models.QuoteVote.DoesNotExist:
+            vote_obj = models.QuoteVote()
+            vote_obj.user = request.user
+            vote_obj.quote = quote
         vote_obj.vote = vote == 'up'
         vote_obj.save()
     elif vote == 'remove':
