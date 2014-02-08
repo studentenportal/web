@@ -3,7 +3,6 @@ import time
 import sys
 import getpass
 from BeautifulSoup import BeautifulSoup
-from cStringIO import StringIO
 from optparse import make_option
 from django.core.management.base import BaseCommand
 from django.core.files.storage import default_storage
@@ -14,11 +13,13 @@ from apps.front.models import Lecturer
 class UnterrichtWebsite(object):
     """Class to coordinate access to unterricht.hsr.ch."""
     base_url = u'https://unterricht.hsr.ch/'
-    login_url = u'https://adfs.hsr.ch/adfs/ls/?wa=wsignin1.0&wtrealm=https%3a%2f%2funterricht.hsr.ch%3a443%2f&wctx=https%3a%2f%2funterricht.hsr.ch%2f'
+    login_url = u'https://adfs.hsr.ch/adfs/ls/?wa=wsignin1.0&wtrealm=https%3a%2f%2f' + \
+                u'unterricht.hsr.ch%3a443%2f&wctx=https%3a%2f%2funterricht.hsr.ch%2f'
     headers = {
         'Accept': 'Accept:text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
         'Accept-Language': 'en-US,en;q=0.8,de-CH;q=0.6,de;q=0.4',
-        'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.1 (KHTML, like Gecko) Chrome/21.0.1180.89 Safari/537.1',
+        'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.1 (KHTML, like Gecko) ' +
+                      'Chrome/21.0.1180.89 Safari/537.1',
     }
 
     def __init__(self):
@@ -64,20 +65,12 @@ class UnterrichtWebsite(object):
         # POST auth data to unterricht.hsr.ch
         self.s.post(self.base_url, data=data)
 
-
     def get_person_photo(self, person_id):
         """Fetch the lecturer photos from the Klassenspiegel."""
         assert self.logged_in(), 'Not logged in. Please call login().'
         r = self.s.get('https://unterricht.hsr.ch/Content/PersonImage/mkempf')
         print r.content
-        resp = r
-        import pdb; pdb.set_trace()
         assert False
-        #r = self.s.get(self.base_url + 'KlassenspiegelImages/%u.jpg' % person_id)
-        #if r.status_code == 404:
-        #    return None
-        #r.raise_for_status()  # Raise exception if request fails
-        #return StringIO(r.content)
 
 
 class Command(BaseCommand):
@@ -87,7 +80,7 @@ class Command(BaseCommand):
             dest='username', help='HSR username'),
         make_option('--pass',
             dest='password', help='HSR password'),
-        )
+    )
 
     def printO(self, msg, newline=True):
         """Print to stdout. This expects unicode strings!"""

@@ -5,6 +5,7 @@ from django.contrib import admin
 
 from apps.front import models
 
+
 class DocumentAdmin(admin.ModelAdmin):
     list_filter = ('category', 'uploader')
     search_fields = ('name', 'description')

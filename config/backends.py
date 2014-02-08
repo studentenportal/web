@@ -1,6 +1,7 @@
 from django.contrib.auth.backends import ModelBackend
 from django.contrib.auth import get_user_model
- 
+
+
 class CaseInsensitiveModelBackend(ModelBackend):
     """
     By default ModelBackend does case _sensitive_ username authentication, which isn't what is
