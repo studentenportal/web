@@ -40,7 +40,7 @@
     <p>Hier finden sich alte Prüfungen, Zusammenfassungen des Unterrichtsstoffes und Lernhilfen für die Prüfungen.</p>
 
     {% if user.is_authenticated %}
-        <p><a class="btn btn-primary" href="{% url 'documentcategory_add' %}">
+        <p><a class="btn btn-primary" href="{% url 'documents:documentcategory_add' %}">
             <i class="icon-plus-sign icon-white"></i> Modul hinzufügen
         </a></p>
     {% endif %}
@@ -66,7 +66,7 @@
                 <tbody class="list">
                     {% for category in categories %}
                         <tr {% if counts|lookup:category.pk|lookup:"total" == 0 %}class="empty"{% endif %}>
-                            <td class="name"><a href="{% url 'document_list' category.name|slugify %}">
+                            <td class="name"><a href="{% url 'documents:document_list' category.name|slugify %}">
                                 <strong>{{ category.name }}</strong>
                                 {% if category.description %}{{ category.description }}{% endif %}
                             </td>

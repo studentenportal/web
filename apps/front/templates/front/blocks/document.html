@@ -59,15 +59,15 @@
 
                 {% if user.is_authenticated %}
                     <div class="drating floatleft" data-readonly="{% if doc.uploader = user %}1{% else %}0{% endif %}"
-                        data-url="{% url 'document_rate' doc.category.name|slugify doc.pk %}"
-                        data-summary-url="{% url 'document_rating_ajax' doc.category.name|slugify doc.pk %}"
+                        data-url="{% url 'documents:document_rate' doc.category.name|slugify doc.pk %}"
+                        data-summary-url="{% url 'documents:document_rating_ajax' doc.category.name|slugify doc.pk %}"
                         data-rating="{{ ratings|lookup:doc.pk }}"></div>
                 {% endif %}
                 <span class="rating_summary">{% include 'front/blocks/document_rating_summary.html' %}</span>
             </td>
             <td>
                 {% if doc.exists %}
-                    <a href="{% url 'document_download' doc.category.name|slugify doc.pk %}" class="file-{{ doc.fileext }}" title="{{ doc.original_filename }}">
+                    <a href="{% url 'documents:document_download' doc.category.name|slugify doc.pk %}" class="file-{{ doc.fileext }}" title="{{ doc.original_filename }}">
                         {{ doc.original_filename|truncatechars:30 }}
                     </a><br>
                     ({{ doc.document.size|filesizeformat }})<br>
@@ -77,7 +77,7 @@
                 <p>{{ doc.downloadcount }} Download{{ doc.downloadcount|pluralize:"s" }}</p>
                 {% if doc.uploader.flattr %}
                 <p><a class="FlattrButton"
-                    href="{% url 'document_download' doc.category.name|slugify doc.pk %}"
+                    href="{% url 'documents:document_download' doc.category.name|slugify doc.pk %}"
                     title="{{ doc.name }}"
                     data-flattr-button="compact"
                     data-flattr-uid="{{ doc.uploader.flattr }}"
@@ -87,14 +87,14 @@
             <td>
                 <p>
                     {% if doc.uploader = user %}
-                        <a class="btn" title="Bearbeiten" href="{% url 'document_edit' doc.category.name|slugify doc.pk %}">
+                        <a class="btn" title="Bearbeiten" href="{% url 'documents:document_edit' doc.category.name|slugify doc.pk %}">
                             <i class="icon-pencil"></i>
                         </a>
-                        <a class="btn btn-danger" title="Löschen" href="{% url 'document_delete' doc.category.name|slugify doc.pk %}">
+                        <a class="btn btn-danger" title="Löschen" href="{% url 'documents:document_delete' doc.category.name|slugify doc.pk %}">
                             <i class="icon-trash icon-white"></i>
                         </a>
                     {% endif %}
-                    <a class="btn" title="Melden" href="{% url 'document_report' doc.category.name|slugify doc.pk %}">
+                    <a class="btn" title="Melden" href="{% url 'documents:document_report' doc.category.name|slugify doc.pk %}">
                         <i class="icon-exclamation-sign"></i>
                     </a>
                 </p>

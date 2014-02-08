@@ -5,7 +5,7 @@ from apps.lecturers import views
 admin.autodiscover()
 
 # Dynamic pages
-urlpatterns = patterns('apps.lecturers.views',
+urlpatterns = patterns('',
     url(r'^dozenten/$', views.LecturerList.as_view(), name='lecturer_list'),
     url(r'^dozenten/(?P<pk>-?\d+)/$', views.Lecturer.as_view(), name='lecturer_detail'),
     url(r'^zitate/$', views.QuoteList.as_view(), name='quote_list'),

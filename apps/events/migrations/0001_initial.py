@@ -8,52 +8,26 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding model 'User'
-        db.create_table(u'front_user', (
+        # Adding model 'Event'
+        db.create_table(u'events_event', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('password', self.gf('django.db.models.fields.CharField')(max_length=128)),
-            ('last_login', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now)),
-            ('is_superuser', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('username', self.gf('django.db.models.fields.CharField')(unique=True, max_length=30)),
-            ('first_name', self.gf('django.db.models.fields.CharField')(max_length=30, blank=True)),
-            ('last_name', self.gf('django.db.models.fields.CharField')(max_length=30, blank=True)),
-            ('email', self.gf('django.db.models.fields.EmailField')(max_length=75, blank=True)),
-            ('is_staff', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('is_active', self.gf('django.db.models.fields.BooleanField')(default=True)),
-            ('date_joined', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now)),
-            ('twitter', self.gf('django.db.models.fields.CharField')(max_length=24, blank=True)),
-            ('flattr', self.gf('django.db.models.fields.CharField')(max_length=128, blank=True)),
+            ('author', self.gf('django.db.models.fields.related.ForeignKey')(related_name=u'Event', null=True, on_delete=models.SET_NULL, to=orm['front.User'])),
+            ('summary', self.gf('django.db.models.fields.CharField')(max_length=64)),
+            ('description', self.gf('django.db.models.fields.TextField')()),
+            ('start_date', self.gf('django.db.models.fields.DateField')()),
+            ('start_time', self.gf('django.db.models.fields.TimeField')(null=True, blank=True)),
+            ('end_date', self.gf('django.db.models.fields.DateField')(null=True, blank=True)),
+            ('end_time', self.gf('django.db.models.fields.TimeField')(null=True, blank=True)),
+            ('location', self.gf('django.db.models.fields.CharField')(max_length=80, null=True, blank=True)),
+            ('url', self.gf('django.db.models.fields.URLField')(max_length=200, null=True, blank=True)),
+            ('picture', self.gf('django.db.models.fields.files.ImageField')(max_length=100, null=True, blank=True)),
         ))
-        db.send_create_signal(u'front', ['User'])
-
-        # Adding M2M table for field groups on 'User'
-        m2m_table_name = db.shorten_name(u'front_user_groups')
-        db.create_table(m2m_table_name, (
-            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
-            ('user', models.ForeignKey(orm[u'front.user'], null=False)),
-            ('group', models.ForeignKey(orm[u'auth.group'], null=False))
-        ))
-        db.create_unique(m2m_table_name, ['user_id', 'group_id'])
-
-        # Adding M2M table for field user_permissions on 'User'
-        m2m_table_name = db.shorten_name(u'front_user_user_permissions')
-        db.create_table(m2m_table_name, (
-            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
-            ('user', models.ForeignKey(orm[u'front.user'], null=False)),
-            ('permission', models.ForeignKey(orm[u'auth.permission'], null=False))
-        ))
-        db.create_unique(m2m_table_name, ['user_id', 'permission_id'])
+        db.send_create_signal(u'events', ['Event'])
 
 
     def backwards(self, orm):
-        # Deleting model 'User'
-        db.delete_table(u'front_user')
-
-        # Removing M2M table for field groups on 'User'
-        db.delete_table(db.shorten_name(u'front_user_groups'))
-
-        # Removing M2M table for field user_permissions on 'User'
-        db.delete_table(db.shorten_name(u'front_user_user_permissions'))
+        # Deleting model 'Event'
+        db.delete_table(u'events_event')
 
 
     models = {
@@ -77,6 +51,20 @@ class Migration(SchemaMigration):
             'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
         },
+        u'events.event': {
+            'Meta': {'object_name': 'Event'},
+            'author': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "u'Event'", 'null': 'True', 'on_delete': 'models.SET_NULL', 'to': u"orm['front.User']"}),
+            'description': ('django.db.models.fields.TextField', [], {}),
+            'end_date': ('django.db.models.fields.DateField', [], {'null': 'True', 'blank': 'True'}),
+            'end_time': ('django.db.models.fields.TimeField', [], {'null': 'True', 'blank': 'True'}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'location': ('django.db.models.fields.CharField', [], {'max_length': '80', 'null': 'True', 'blank': 'True'}),
+            'picture': ('django.db.models.fields.files.ImageField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
+            'start_date': ('django.db.models.fields.DateField', [], {}),
+            'start_time': ('django.db.models.fields.TimeField', [], {'null': 'True', 'blank': 'True'}),
+            'summary': ('django.db.models.fields.CharField', [], {'max_length': '64'}),
+            'url': ('django.db.models.fields.URLField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'})
+        },
         u'front.user': {
             'Meta': {'object_name': 'User'},
             'date_joined': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
@@ -97,4 +85,4 @@ class Migration(SchemaMigration):
         }
     }
 
-    complete_apps = ['front']
+    complete_apps = ['events']

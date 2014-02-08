@@ -19,7 +19,7 @@
 {% endblock %}
 
 {% block breadcrumbs %}
-    <a href="{% url 'documentcategory_list' %}">Dokumente</a> &raquo; {{ documentcategory.name }}
+    <a href="{% url 'documents:documentcategory_list' %}">Dokumente</a> &raquo; {{ documentcategory.name }}
 {% endblock %}
 
 {% block content %}
@@ -38,7 +38,7 @@
 
     {# Add button #}
     {% if user.is_authenticated %}
-        <p><a class="btn btn-primary" href="{% url 'document_add' documentcategory.name|slugify %}">
+        <p><a class="btn btn-primary" href="{% url 'documents:document_add' documentcategory.name|slugify %}">
             <i class="icon-plus-sign icon-white"></i> Dokument hinzufügen
         </a></p>
     {% endif %}

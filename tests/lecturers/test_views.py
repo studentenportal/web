@@ -23,7 +23,7 @@ class LecturerListViewTest(TestCase):
 
     def testContent(self):
         mommy.make_recipe('apps.front.user')
-        mommy.make_recipe('apps.front.lecturer')
+        mommy.make_recipe('apps.lecturers.lecturer')
         login(self)
         response = self.client.get('/dozenten/')
         self.assertContains(response, '<h1>Unsere Dozenten</h1>')
@@ -34,7 +34,7 @@ class LecturerDetailViewTest(TestCase):
     def setUp(self):
         # setUpClass
         mommy.make_recipe('apps.front.user')
-        self.lecturer = mommy.make_recipe('apps.front.lecturer')
+        self.lecturer = mommy.make_recipe('apps.lecturers.lecturer')
         self.url = reverse('lecturers:lecturer_detail', args=(self.lecturer.pk,))
 
     def testLoginRequired(self):
@@ -59,7 +59,7 @@ class QuoteAddViewTest(TestCase):
     def setUp(self):
         # setUpClass
         mommy.make_recipe('apps.front.user')
-        mommy.make_recipe('apps.front.lecturer')
+        mommy.make_recipe('apps.lecturers.lecturer')
         # setUp
         login(self)
 

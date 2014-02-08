@@ -199,10 +199,11 @@ INSTALLED_APPS = (
 
     # Own apps
     'apps.front',
-    'apps.api',
+    'apps.documents',
     'apps.events',
-    'apps.user_stats',
     'apps.lecturers',
+    'apps.api',
+    'apps.user_stats',
 
     # Django admin (overrideable templates)
     'django.contrib.admin',
