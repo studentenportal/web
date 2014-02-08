@@ -9,8 +9,8 @@
 {% endblock %}
 
 {% block breadcrumbs %}
-    <a href="{% url 'documentcategory_list' %}">Dokumente</a> &raquo;
-    <a href="{% url 'document_list' documentcategory.name|slugify %}">{{ documentcategory.name }}</a> &raquo;
+    <a href="{% url 'documents:documentcategory_list' %}">Dokumente</a> &raquo;
+    <a href="{% url 'documents:document_list' documentcategory.name|slugify %}">{{ documentcategory.name }}</a> &raquo;
     Dokument löschen
 {% endblock %}
 
@@ -24,7 +24,7 @@
 
     <form method="post">{% csrf_token %}
         <button type="submit" class="btn btn-danger"><i class="icon-trash icon-white"></i> Ja, ich bin sicher.</button>
-        <a href="{% url 'document_list' documentcategory.name|slugify %}" class="btn">Nein, abbrechen!</a>
+        <a href="{% url 'documents:document_list' documentcategory.name|slugify %}" class="btn">Nein, abbrechen!</a>
     </form>
 
 {% endblock %}

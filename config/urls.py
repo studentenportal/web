@@ -6,8 +6,9 @@ from django.views.generic import TemplateView
 from django.contrib import admin
 from apps.front import views
 from apps.api import urls as api_urls
-from apps.events import urls as events_urls
-from apps.lecturers import urls as lecturers_urls
+from apps.events import urls as event_urls
+from apps.documents import urls as document_urls
+from apps.lecturers import urls as lecturer_urls
 
 admin.autodiscover()
 dajaxice_autodiscover()
@@ -16,24 +17,15 @@ dajaxice_autodiscover()
 urlpatterns = patterns('apps.front.views',
     url(r'^$', views.Home.as_view(), name='home'),
     url(r'^profil/$', views.Profile.as_view(), name='profile'),
-    url(r'^dokumente/$', views.DocumentcategoryList.as_view(), name='documentcategory_list'),
-    url(r'^dokumente/add/$', views.DocumentcategoryAdd.as_view(), name='documentcategory_add'),
-    url(r'^dokumente/(?P<category>[^\/]+)/$', views.DocumentList.as_view(), name='document_list'),
-    url(r'^dokumente/(?P<category>[^\/]+)/(?P<pk>-?\d+)/$', views.DocumentDownload.as_view(), name='document_download'),
-    url(r'^dokumente/(?P<category>[^\/]+)/add/$', views.DocumentAdd.as_view(), name='document_add'),
-    url(r'^dokumente/(?P<category>[^\/]+)/(?P<pk>-?\d+)/edit/$', views.DocumentEdit.as_view(), name='document_edit'),
-    url(r'^dokumente/(?P<category>[^\/]+)/(?P<pk>-?\d+)/delete/$', views.DocumentDelete.as_view(), name='document_delete'),
-    url(r'^dokumente/(?P<category>[^\/]+)/(?P<pk>-?\d+)/rate/$', views.DocumentRate.as_view(), name='document_rate'),
-    url(r'^dokumente/(?P<category>[^\/]+)/(?P<pk>-?\d+)/report/$', views.DocumentReport.as_view(), name='document_report'),
-    url(r'^dokumente/(?P<category>[^\/]+)/ajax_rating_block/(?P<pk>-?\d+)/$', views.document_rating, name='document_rating_ajax'),
     url(r'^users/(?P<pk>-?\d+)/(?P<username>[^\/]+)/$', views.User.as_view(), name='user'),
     url(r'^statistiken/$', views.Stats.as_view(), name='stats'),
 )
 
-# Static pages
+# Own apps
 urlpatterns += patterns('',
-    url(r'^tipps/$', TemplateView.as_view(template_name='front/tips.html'), name='tips'),
-    url(r'^sitemap\.xml$', TemplateView.as_view(template_name='front/sitemap.xml'), name='sitemap'),
+    url(r'^events/', include(event_urls, namespace='events')),
+    url(r'^dokumente/', include(document_urls, namespace='documents')),
+    url(r'', include(lecturer_urls, namespace='lecturers')),
 )
 
 # Auth pages
@@ -59,12 +51,11 @@ urlpatterns += patterns('',
     url(r'^oauth2/', include('provider.oauth2.urls', namespace='oauth2')),
 )
 
-# Events
-urlpatterns += patterns('', url(r'^events/', include(events_urls, namespace='events')))
-
-# Lecturers
-urlpatterns += patterns('', url(r'', include(lecturers_urls, namespace='lecturers')))
-
+# Static pages
+urlpatterns += patterns('',
+    url(r'^tipps/$', TemplateView.as_view(template_name='front/tips.html'), name='tips'),
+    url(r'^sitemap\.xml$', TemplateView.as_view(template_name='front/sitemap.xml'), name='sitemap'),
+)
 
 if settings.DEBUG:
     urlpatterns += patterns('django.views.static',

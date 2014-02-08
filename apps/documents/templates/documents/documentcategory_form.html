@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block breadcrumbs %}
-    <a href="{% url 'documentcategory_list' %}">Zusammenfassungen</a> &raquo; Modul {{ event|yesno:"bearbeiten,hinzufügen" }}
+    <a href="{% url 'documents:documentcategory_list' %}">Zusammenfassungen</a> &raquo; Modul {{ event|yesno:"bearbeiten,hinzufügen" }}
 {% endblock %}
 
 {% block content %}
@@ -22,7 +22,7 @@
         {% include 'lib/form_loop.html' %}
         <div class="form-actions">
             <button type="submit" class="btn btn-primary">{{ event|yesno:"Speichern,Eintragen" }}</button>
-            <a href="{% url 'documentcategory_list' %}" class="btn">Abbrechen</a>
+            <a href="{% url 'documents:documentcategory_list' %}" class="btn">Abbrechen</a>
         </div>
     </form>
 {% endblock %}

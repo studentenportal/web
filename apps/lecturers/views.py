@@ -14,7 +14,6 @@ from apps.lecturers import forms, models, helpers
 from apps.front.mixins import LoginRequiredMixin
 
 
-# Lecturers {{{
 class Lecturer(LoginRequiredMixin, DetailView):
     model = models.Lecturer
     context_object_name = 'lecturer'
@@ -47,10 +46,8 @@ class LecturerList(LoginRequiredMixin, ListView):
         quotecounts = models.Quote.objects.values_list('lecturer').annotate(Count('pk')).order_by()
         context['quotecounts'] = dict(quotecounts)
         return context
-# }}}
 
 
-# Quotes {{{
 class QuoteList(LoginRequiredMixin, ListView):
     context_object_name = 'quotes'
     paginate_by = 50
@@ -121,4 +118,3 @@ class QuoteDelete(LoginRequiredMixin, DeleteView):
         messages.add_message(self.request, messages.SUCCESS,
             'Zitat wurde erfolgreich gelöscht.')
         return reverse('lecturers:quote_list')
-# }}}
