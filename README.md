@@ -104,4 +104,4 @@ Lizenz
 ------
 
 Der Code wird unter der [AGPLv3](http://www.gnu.org/licenses/agpl-3.0.html)
-veröffentlicht.
+(oder einer späteren Version der AGPL) veröffentlicht.
