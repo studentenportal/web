@@ -1,7 +1,6 @@
 [run]
 source =
     apps
-    backends
 omit =
     */migrations/*
     */tests/*

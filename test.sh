@@ -1,4 +1,4 @@
 #!/bin/bash
-coverage run manage.py test $1 \
+coverage run --source apps -m py.test \
 && echo \
 && coverage report
