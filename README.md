@@ -64,7 +64,8 @@ Falls die Datenbank bereits existiert:
 
 Um die Tests auszuführen:
 
- 1. `pip install -r requirements/testing.txt`
+ 1. `pip install -e .`
+ 2. `pip install -r requirements/testing.txt`
  3. `./test.sh`
 
 
