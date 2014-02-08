@@ -5,8 +5,10 @@ from django.contrib import admin
 
 from apps.lecturers import models
 
+
 class QuoteAdmin(admin.ModelAdmin):
     list_filter = ('author', 'lecturer')
+
 
 admin.site.register(models.Lecturer)
 admin.site.register(models.LecturerRating)

@@ -153,7 +153,7 @@ class DocumentDownload(View):
                 return redirect('%s?next=%s' % (
                         reverse('auth_login'),
                         reverse('document_list', kwargs={'category': slugify(doc.category.name)})
-                    ))
+                ))
         # Log download
         ip = helpers.get_client_ip(request)
         timerange = datetime.datetime.now() - datetime.timedelta(1)
@@ -325,12 +325,18 @@ class Stats(LoginRequiredMixin, TemplateView):
             except IndexError:
                 return None
 
-        context['lecturer_top_d'] = fetchfirst(lecturers_models.Lecturer.objects.raw(base_query_top % 'd'))
-        context['lecturer_top_m'] = fetchfirst(lecturers_models.Lecturer.objects.raw(base_query_top % 'm'))
-        context['lecturer_top_f'] = fetchfirst(lecturers_models.Lecturer.objects.raw(base_query_top % 'f'))
-        context['lecturer_flop_d'] = fetchfirst(lecturers_models.Lecturer.objects.raw(base_query_flop % 'd'))
-        context['lecturer_flop_m'] = fetchfirst(lecturers_models.Lecturer.objects.raw(base_query_flop % 'm'))
-        context['lecturer_flop_f'] = fetchfirst(lecturers_models.Lecturer.objects.raw(base_query_flop % 'f'))
+        context['lecturer_top_d'] = fetchfirst(
+                lecturers_models.Lecturer.objects.raw(base_query_top % 'd'))
+        context['lecturer_top_m'] = fetchfirst(
+                lecturers_models.Lecturer.objects.raw(base_query_top % 'm'))
+        context['lecturer_top_f'] = fetchfirst(
+                lecturers_models.Lecturer.objects.raw(base_query_top % 'f'))
+        context['lecturer_flop_d'] = fetchfirst(
+                lecturers_models.Lecturer.objects.raw(base_query_flop % 'd'))
+        context['lecturer_flop_m'] = fetchfirst(
+                lecturers_models.Lecturer.objects.raw(base_query_flop % 'm'))
+        context['lecturer_flop_f'] = fetchfirst(
+                lecturers_models.Lecturer.objects.raw(base_query_flop % 'f'))
 
         context['lecturer_quotes'] = lecturers_models.Lecturer.objects \
                                                     .annotate(quotes_count=Count('Quote')) \

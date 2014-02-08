@@ -22,7 +22,7 @@ def unicode_csv_reader(utf8_data, dialect=csv.excel, **kwargs):
 class HsrWebsite(object):
     """Class to coordinate access to the HSR website."""
     base_url = u'https://www.hsr.ch/index.php'
-    
+
     def __init__(self):
         """Initialize requests session."""
         self.s = requests.session()
@@ -42,7 +42,7 @@ class HsrWebsite(object):
             'pid': '4394',
             'submit': 'Login',
         })
-    
+
     def get_person_id(self, first_name, last_name, room=None):
         """Search for a person on the HSR page and return id."""
         assert self.logged_in(), 'Not logged in. Please call login().'
@@ -59,7 +59,7 @@ class HsrWebsite(object):
         rows = table.findAll('tr', recursive=False)
         # Find matching row. Compare name and - if provided - room number.
         for row in rows:
-            cols = row.findAll('td') 
+            cols = row.findAll('td')
             if not cols:
                 raise RuntimeError('Person not found.')
             fullname = u'%s&nbsp;%s' % (last_name, first_name)
@@ -73,7 +73,7 @@ class HsrWebsite(object):
                     continue
             return int(re.sub(r'^.*=(\d+)\'$', r'\1', row['onclick']))
         raise RuntimeError('Could not find person id.')
-    
+
     def get_persons_csv(self):
         """Fetch persons csv file."""
         assert self.logged_in(), 'Not logged in. Please call login().'
@@ -93,7 +93,7 @@ class Command(BaseCommand):
             dest='username', help='HSR username'),
         make_option('--pass',
             dest='password', help='HSR password'),
-        )
+    )
 
     def printO(self, msg):
         """Print to stdout. This expects unicode strings!"""

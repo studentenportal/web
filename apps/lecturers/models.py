@@ -9,7 +9,7 @@ from django.conf import settings
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 
-from apps.front import models as front_models 
+from apps.front import models as front_models
 from apps.lecturers import managers
 
 
@@ -154,6 +154,7 @@ class QuoteVote(models.Model):
 
     class Meta:
         unique_together = ('user', 'quote')
+
 
 class ModuleReview(models.Model):
     """Review of a module."""

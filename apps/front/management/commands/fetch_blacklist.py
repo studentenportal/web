@@ -1,7 +1,8 @@
+# -*- coding: utf-8 -*-
 import sys
 import ldap
-import getpass
 from optparse import make_option
+
 from django.core.management.base import BaseCommand
 
 
@@ -12,7 +13,7 @@ class Command(BaseCommand):
             dest='username', help='HSR username'),
         make_option('--pass',
             dest='password', help='HSR password'),
-        )
+    )
 
     def printO(self, msg, newline=True):
         """Print to stdout. This expects unicode strings!"""
@@ -43,7 +44,7 @@ class Command(BaseCommand):
 
         print 'bound'
 
-        basedn_stud = 'OU=Stud,OU=HSR,OU=FH_Users,DC=hsr,DC=ch'
+        #basedn_stud = 'OU=Stud,OU=HSR,OU=FH_Users,DC=hsr,DC=ch'
         basedn_pers = 'OU=Pers,OU=HSR,OU=FH_Users,DC=hsr,DC=ch'
 
         #fltr = ''

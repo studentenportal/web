@@ -7,7 +7,7 @@ from django.contrib.auth import get_user_model
 
 from model_mommy import mommy
 
-from .. import serializers
+from apps.api import serializers
 
 
 class UserSerializerTest(TestCase):

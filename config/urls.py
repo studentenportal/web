@@ -50,7 +50,7 @@ urlpatterns += patterns('',
 
 # AJAX
 urlpatterns += patterns('',
-    url(dajaxice_config.dajaxice_url, include('dajaxice.urls')),    
+    url(dajaxice_config.dajaxice_url, include('dajaxice.urls')),
 )
 
 # API
