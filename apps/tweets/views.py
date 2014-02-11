@@ -44,11 +44,17 @@ class TweetList(TemplateView):
         auth = tweepy.OAuthHandler(consumer_token, consumer_secret)
         api = tweepy.API(auth)
 
+        # Search tweets
         query = '#hsr -#maglev -#transrapid -#highspeedrail -"high-speed rail" -#highspeedrail'
-        results = api.search(q=query, rpp=50, result_type='recent', lang='de')
-        tweets = (r.retweeted_status if hasattr(r, 'retweeted_status') else r for r in results)
-        return tweets
+        results = api.search(q=query, count=20, result_type='recent', lang='de')
+        search_tweets = [r.retweeted_status if hasattr(r, 'retweeted_status') else r
+                         for r in results]
 
+        # Combine with @studportal_hsr tweets
+        user_tweets = api.user_timeline('studportal_hsr', count=10)
+        tweets = sorted(search_tweets + user_tweets, key=lambda t: t.created_at, reverse=True)
+
+        return tweets[:12]
 
     def get_context_data(self, **kwargs):
         context = super(TweetList, self).get_context_data(**kwargs)
