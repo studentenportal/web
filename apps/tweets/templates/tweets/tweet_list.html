@@ -33,7 +33,7 @@
                 {% ifchanged tweet.id %}
                     <blockquote class="twitter-tweet" data-cards="hidden" lang="en">
                         <p>{{ tweet.text|urlize }}</p>
-                        &mdash; {{ tweet.author.name }} (@{{ tweet.author.screen_name }}) <a href="https://twitter.com/{{ tweet.author.screen_name }}/statuses/{{ tweet.id }}">{{ tw.created_at }}</a>
+                        &mdash; {{ tweet.author.name }} (@{{ tweet.author.screen_name }}) <a href="https://twitter.com/{{ tweet.author.screen_name }}/statuses/{{ tweet.id }}">{{ tweet.created_at }}</a>
                     </blockquote>
                     <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
                 {% endifchanged %}

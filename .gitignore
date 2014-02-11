@@ -4,6 +4,7 @@
 /media
 /reports
 /build/
+/VIRTUAL
 db.sqlite
 venv/
 .coverage

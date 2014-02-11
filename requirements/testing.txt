@@ -6,3 +6,4 @@ coveralls
 pytest==2.5.2
 pytest-django==2.6
 pytest-pep8==1.0.5
+mock
