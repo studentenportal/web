@@ -148,6 +148,10 @@ body.event_detail #event_picture {
     margin: 20px 0;
 }
 
+body.tweet_list #tweets {
+    margin-top: 30px;
+}
+
 
 /* Vote buttons */
 

@@ -100,9 +100,9 @@
                         <li class="{% ifactivetab 'navigation' 'documents' %}active{% endifactivetab %}">
                             <a href="{% url 'documents:documentcategory_list' %}"><i class="icon-list-alt {% ifactivetab 'navigation' 'documents' %}icon-white{% endifactivetab %}"></i> Dokumente ({{ documentcount }})</a>
                         </li>
-                        <!--<li class="{% ifactivetab 'navigation' 'suche' %}active{% endifactivetab %}">
-                            <a href="#"><i class="icon-shopping-cart {% ifactivetab 'navigation' 'suche' %}icon-white{% endifactivetab %}"></i> Suche / Biete</a>
-                        </li>-->
+                        <li class="{% ifactivetab 'navigation' 'tweets' %}active{% endifactivetab %}">
+                            <a href="{% url 'tweets:tweet_list' %}"><i class="icon-th-list {% ifactivetab 'navigation' 'tweets' %}icon-white{% endifactivetab %}"></i> Tweets</a>
+                        </li>
                         
                         <li class="nav-header">
                             Links
