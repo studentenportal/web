@@ -202,6 +202,7 @@ INSTALLED_APPS = (
     'apps.documents',
     'apps.events',
     'apps.lecturers',
+    'apps.tweets',
     'apps.api',
     'apps.user_stats',
 

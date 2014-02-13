@@ -9,6 +9,7 @@ from apps.api import urls as api_urls
 from apps.events import urls as event_urls
 from apps.documents import urls as document_urls
 from apps.lecturers import urls as lecturer_urls
+from apps.tweets import urls as tweet_urls
 
 admin.autodiscover()
 dajaxice_autodiscover()
@@ -25,6 +26,7 @@ urlpatterns = patterns('apps.front.views',
 urlpatterns += patterns('',
     url(r'^events/', include(event_urls, namespace='events')),
     url(r'^dokumente/', include(document_urls, namespace='documents')),
+    url(r'tweets/', include(tweet_urls, namespace='tweets')),
     url(r'', include(lecturer_urls, namespace='lecturers')),
 )
 
