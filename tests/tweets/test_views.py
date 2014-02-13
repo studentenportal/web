@@ -46,5 +46,5 @@ class TweetListTest(TestCase):
 
         #Assert
         assert len(response.context['tweets']) == 3
-        self.assertContains('@weibelm', response)
-        self.assertContains('@sfkeller', response)
+        self.assertContains(response, '@weibelm')
+        self.assertContains(response, '@sfkeller')
