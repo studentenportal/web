@@ -112,7 +112,7 @@ class EventCalendar(View):
                 elif event.end_time:
                     dtend = datetime.datetime.combine(event.end_date, event.end_time)
                 else:
-                    dtend = event.end_date
+                    dtend = datetime.datetime.combine(event.end_date, datetime.time(23, 59, 59))
                 vevent.add('dtend').value = dtend
             if event.author:
                 vevent.add('comment').value = 'Erfasst von %s' % event.author.name()
