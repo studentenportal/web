@@ -28,6 +28,7 @@ Features
  - Faire Dozentenbewertungen
  - Unterrichtszitate
  - Flattr Integration
+ - Deployment with ansible
 
 Featurevorschläge sind willkommen! Aktuell geplante Features und Featurewünsche
 können auf https://github.com/studentenportal/web/issues eingesehen und
