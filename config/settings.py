@@ -211,7 +211,7 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
 )
 if not DEBUG:
-    INSTALLED_APPS += ('raven.contrib.django')
+    INSTALLED_APPS += ('raven.contrib.django',)
 if DEBUG_TOOLBAR:
     INSTALLED_APPS += ('debug_toolbar',)
 
