@@ -1,14 +1,18 @@
+# -*- coding: utf-8 -*-
+from __future__ import print_function, division, absolute_import, unicode_literals
+
 import re
 import csv
-import requests
-import sys
 import getpass
-from BeautifulSoup import BeautifulSoup
 from StringIO import StringIO
 from collections import namedtuple
 from optparse import make_option
+
 from django.core.management.base import BaseCommand
 from django.core.exceptions import ObjectDoesNotExist
+
+import requests
+from bs4 import BeautifulSoup
 
 from apps.lecturers.models import Lecturer
 
@@ -21,7 +25,7 @@ def unicode_csv_reader(utf8_data, dialect=csv.excel, **kwargs):
 
 class HsrWebsite(object):
     """Class to coordinate access to the HSR website."""
-    base_url = u'https://www.hsr.ch/index.php'
+    base_url = 'https://www.hsr.ch/index.php'
 
     def __init__(self):
         """Initialize requests session."""
@@ -56,23 +60,23 @@ class HsrWebsite(object):
         r.raise_for_status()  # Raise exception if request fails
         soup = BeautifulSoup(r.content)
         table = soup.find('table', attrs={'id': 'tx_icscrm_table'})
-        rows = table.findAll('tr', recursive=False)
+        rows = table.find_all('tr', recursive=False)
         # Find matching row. Compare name and - if provided - room number.
         for row in rows:
-            cols = row.findAll('td')
+            cols = row.find_all('td')
             if not cols:
                 raise RuntimeError('Person not found.')
-            fullname = u'%s&nbsp;%s' % (last_name, first_name)
+            fullname = '%s\xa0%s' % (last_name, first_name)
             if cols[0].text.lower() != fullname.lower():
                 continue
             if room is not None:
-                # If room is an empty string, replace it with &nbsp;
+                # If room is an empty string, replace it with \xa0.
                 if room == '':
-                    room = '&nbsp;'
+                    room = '\xa0'
                 if cols[2].text != room:
                     continue
             return int(re.sub(r'^.*=(\d+)\'$', r'\1', row['onclick']))
-        raise RuntimeError('Could not find person id.')
+        raise RuntimeError('Could not find person id for {} {}.'.format(first_name, last_name))
 
     def get_persons_csv(self):
         """Fetch persons csv file."""
@@ -95,15 +99,9 @@ class Command(BaseCommand):
             dest='password', help='HSR password'),
     )
 
-    def printO(self, msg):
-        """Print to stdout. This expects unicode strings!"""
-        encoding = self.stdout.encoding or sys.getdefaultencoding()
-        self.stdout.write(msg.encode(encoding, 'replace'))
-
     def printE(self, msg, newline=True):
         """Print to stderr. This expects unicode strings!"""
-        encoding = self.stderr.encoding or sys.getdefaultencoding()
-        self.stderr.write(msg.encode(encoding, 'replace'))
+        self.stderr.write(msg)
         if newline:
             self.stdout.write('\n')
 
@@ -126,7 +124,7 @@ class Command(BaseCommand):
 
         # Read and parse CSV
         f = hsr.get_persons_csv()
-        reader = unicode_csv_reader(f, delimiter=';')
+        reader = unicode_csv_reader(f, delimiter=b';')
         # The last element added to the list is a little hack, because all
         # rows except the title row have a trailing semicolon.
         titles = [t.lower().replace(' ', '_') for t in reader.next()] + ['empty']
@@ -134,7 +132,7 @@ class Command(BaseCommand):
         for p in map(Person._make, reader):
             parsed_count += 1
             if not p.initialen:
-                self.printO(u'SKIP: %s, %s' % (p.name, p.vorname))
+                self.stdout.write('SKIP: %s, %s' % (p.name, p.vorname))
                 skipped_count += 1
                 continue  # Don't add people without an abbreviation
             hsr_id = hsr.get_person_id(p.vorname, p.name, p.raum)
@@ -146,9 +144,9 @@ class Command(BaseCommand):
                 l.abbreviation = p.initialen
             else:
                 if others.pk != hsr_id:
-                    self.printO(u'WARNING: Added an index to pre-existing abbreviation %s'
+                    self.stdout.write('WARNING: Added an index to pre-existing abbreviation %s'
                                                                                   % p.initialen)
-                    l.abbreviation = u'%s2' % p.initialen
+                    l.abbreviation = '%s2' % p.initialen
                 else:
                     l.abbreviation = p.initialen
             l.title = p.titel
@@ -161,13 +159,13 @@ class Command(BaseCommand):
             l.office = p.raum
             l.save()
             if created:
-                self.printO(u'ADD: %s' % l.name())
+                self.stdout.write('ADD: %s' % l.name())
             else:
                 updated_count += 1
-                self.printO(u'UPDATE: %s' % l.name())
+                self.stdout.write('UPDATE: %s' % l.name())
         f.close()
 
-        self.printO(u'\nParsed %u lecturers.' % parsed_count)
-        self.printO(u'Added %u lecturers.' % added_count)
-        self.printO(u'Updated %u lecturers.' % updated_count)
-        self.printO(u'Skipped %u lecturers.' % skipped_count)
+        self.stdout.write('\nParsed %u lecturers.' % parsed_count)
+        self.stdout.write('Added %u lecturers.' % added_count)
+        self.stdout.write('Updated %u lecturers.' % updated_count)
+        self.stdout.write('Skipped %u lecturers.' % skipped_count)
