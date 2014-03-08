@@ -51,7 +51,7 @@ LANGUAGE_CODE = 'de-ch'
 SITE_ID = 1
 
 # Security
-CSRF_COOKIE_HTTPONLY = True
+CSRF_COOKIE_HTTPONLY = False  # Don't enable, dajaxice needs cookie access!
 if not DEBUG:
     ALLOWED_HOSTS = ['studentenportal.ch', 'www.studentenportal.ch']
     CSRF_COOKIE_SECURE = True
