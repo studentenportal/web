@@ -1,0 +1,36 @@
+@import "compass";
+@import "susy";
+
+// ===VARS=== //
+
+// Color combination
+// http://www.colorcombos.com/color-schemes/99/ColorCombo99.html
+$color-gray: #D2DDE5;
+$color-gray-sand: #f5f5f5;
+$color-white-smoke: #f5f5f5;
+
+$color-blue-fiord: #41586e;
+$color-midnight-blue: #155183;
+$color-cornflower-blue: #D2DDE5;
+
+$color-azure-blue: #336699;
+$color-white: #ffffff;
+$color-golden-tainoi: #ffcc66;
+
+$font-title: 'Droid Sans', sans-serif;
+$font-text: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
+
+$gutter: 1rem;
+
+@function px-to-em($target, $context) {
+    @return ($target/$context)+0em;
+}
+
+/* ===RESET=== */
+@import "compass/reset";
+@include border-box-sizing;
+
+@import "icons";
+@import "base";
+@import "layout";
+@import "modules";

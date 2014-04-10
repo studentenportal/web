@@ -1,4 +1,8 @@
 $(document).ready(function() {
+    var navigation = responsiveNav(".nav-collapse", {
+        customToggle: "#toggle"
+    });
+
     // Enable dropdowns
     $('.dropdown-toggle').dropdown()
 

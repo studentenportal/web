@@ -1,0 +1,206 @@
+
+
+/* ===BRANDING=== */
+
+.branding {
+    margin-left: $gutter;
+    float: left;
+}
+
+/* ===DOCUMENT=== */
+.document {
+    h3 {
+        line-height: 1;
+        margin-bottom: 0.25em;
+    }
+
+    .labels { margin-bottom: 0.5em; }
+
+    .download-action {
+        font-size: 1.25em;
+        background: #155183;
+        color: #fff;
+        padding: 0.5em 0.25em;
+        width: 100%;
+        text-align: center;
+        display: block;
+
+        &:before {
+            font-size: 0.75em;
+        }
+    }
+
+}
+
+
+/* ===DOCUMENT CATEGORY=== */
+.document-category {
+    @include clearfix;
+
+    h3 {
+        line-height: 1;
+        margin-bottom: 0.25em;
+    }
+
+    .abbreviation { margin-right: 0.5em; }
+    .labels { margin-bottom: 0.5em; }
+    .lecturer {
+        float: left;
+        max-width: 6em;
+        img { max-width: 100%; }
+    }
+    .summary {
+        float: left;
+        margin-left: 1em;
+        span { margin-right: 0.5em; }
+    }
+
+}
+
+/* ===SEARCH=== */
+// Built after http://codepen.io/Siwicki/details/FHkwu
+
+.search {
+    margin-bottom: 1em;
+    width: 100%;
+    @include clearfix;
+
+    input, button {
+        border: 0;
+        height: 2.5em;
+    }
+
+    input {
+        float: left;
+        width: 90%;
+        padding: 0.25em;
+        background: #E1E5E8;
+    }
+
+    button {
+        position: relative;
+        float: right;
+        width: 10%;
+        color: #fff;
+        background: #155183;
+        @include icon;
+        &:before {
+            content: '';
+            position: absolute;
+            border-width: 8px 8px 8px 0;
+            border-style: solid solid solid none;
+            border-color: transparent #155183 transparent;
+            top: 0.75em;
+            left: -0.4em;
+        }
+    }
+}
+
+/* ===BIG DATE=== */
+// The look was inspired by http://dribbble.com/shots/351931-List-of-events-for-something
+// Please note that when using the date the container has
+// to use a relative position and clear afterwards
+.date {
+    position: absolute;
+    float: left;
+
+    .day, .month {
+        font-family: $font-title;
+        display: block;
+        line-height: 1;
+    }
+
+    .day {
+        margin-top: 0.75rem;
+        font-size: 3.5rem;
+        color: darken($color-gray, 30%);
+    }
+
+    .month {
+        margin-left: 0.25rem;
+        font-size: 2rem;
+        color: darken($color-gray, 20%);
+    }
+}
+
+/* ===NEWS=== */
+
+.news {
+    margin-top: 1em;
+    //Use only half padding because border reserves already
+    padding: 0.5rem;
+    border-bottom: 1px $color-gray;
+    min-height: 4em;
+    position: relative;
+    padding-bottom: 0.4em;
+
+    @include clearfix;
+    border-left: 0.5rem solid transparent;
+    &:hover {
+        border-left: 0.5rem solid $color-midnight-blue;
+    }
+
+
+    .summary {
+        margin-left: 4em;
+        float: left;
+    }
+}
+
+
+/* ===EVENTS=== */
+
+.event {
+    margin-top: 1em;
+    padding: 0 0.4em;
+    @include clearfix;
+    border-bottom: 1px $color-gray;
+    min-height: 4em;
+    position: relative;
+    padding-bottom: 0.4em;
+
+
+
+
+    .info {
+        margin-left: 4em;
+        float: left;
+    }
+}
+
+/* ===LABELS=== */
+// Bootstrap like labels for the different fields of study
+
+.label {
+    display: inline;
+    padding: .2em .6em .3em;
+    font-family: $font-title;
+    font-size: 0.75em;
+    font-weight: 700;
+    line-height: 1;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    @include border-radius(.1em);
+}
+
+.label-blublu {
+background-color: #428bca;
+}
+
+.label-green {
+background-color: #5CB870;
+}
+
+.label-blue {
+background-color: #5bc0de;
+}
+
+.label-mud {
+    background-color: #AEB870;
+}
+
+.label-orange {
+background-color: #f0ad4e;
+}

@@ -1,0 +1,605 @@
+/* ===RESET=== */
+@import url(http://fonts.googleapis.com/css?family=Droid+Sans:400,700);
+/* line 5, ../../../../../../../.gem/ruby/2.1.0/gems/compass-core-1.0.0.alpha.19/stylesheets/compass/reset/_utilities.scss */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+
+/* line 22, ../../../../../../../.gem/ruby/2.1.0/gems/compass-core-1.0.0.alpha.19/stylesheets/compass/reset/_utilities.scss */
+html {
+  line-height: 1;
+}
+
+/* line 24, ../../../../../../../.gem/ruby/2.1.0/gems/compass-core-1.0.0.alpha.19/stylesheets/compass/reset/_utilities.scss */
+ol, ul {
+  list-style: none;
+}
+
+/* line 26, ../../../../../../../.gem/ruby/2.1.0/gems/compass-core-1.0.0.alpha.19/stylesheets/compass/reset/_utilities.scss */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* line 28, ../../../../../../../.gem/ruby/2.1.0/gems/compass-core-1.0.0.alpha.19/stylesheets/compass/reset/_utilities.scss */
+caption, th, td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+}
+
+/* line 30, ../../../../../../../.gem/ruby/2.1.0/gems/compass-core-1.0.0.alpha.19/stylesheets/compass/reset/_utilities.scss */
+q, blockquote {
+  quotes: none;
+}
+/* line 103, ../../../../../../../.gem/ruby/2.1.0/gems/compass-core-1.0.0.alpha.19/stylesheets/compass/reset/_utilities.scss */
+q:before, q:after, blockquote:before, blockquote:after {
+  content: "";
+  content: none;
+}
+
+/* line 32, ../../../../../../../.gem/ruby/2.1.0/gems/compass-core-1.0.0.alpha.19/stylesheets/compass/reset/_utilities.scss */
+a img {
+  border: none;
+}
+
+/* line 116, ../../../../../../../.gem/ruby/2.1.0/gems/compass-core-1.0.0.alpha.19/stylesheets/compass/reset/_utilities.scss */
+article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
+  display: block;
+}
+
+/* line 11, ../../../../../../../.gem/ruby/2.1.0/gems/susy-2.1.1/sass/susy/language/susy/_box-sizing.scss */
+*, *::before, *::after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: "studentenportal-icons";
+  src: url("fonts/studentenportal-icons.eot");
+  src: url("fonts/studentenportal-icons.eot?#iefix") format("embedded-opentype"), url("fonts/studentenportal-icons.woff") format("woff"), url("fonts/studentenportal-icons.ttf") format("truetype"), url("fonts/studentenportal-icons.svg#studentenportal-icons") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+/* line 26, ../sass/_icons.scss */
+[data-icon]:before {
+  content: attr(data-icon);
+  font-family: "studentenportal-icons" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* line 31, ../sass/_icons.scss */
+[class^="icon-"]:before,
+[class*=" icon-"]:before {
+  font-family: "studentenportal-icons" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* line 36, ../sass/_icons.scss */
+.icon-edit:before {
+  content: "b";
+}
+
+/* line 39, ../sass/_icons.scss */
+.icon-settings:before {
+  content: "c";
+}
+
+/* line 42, ../sass/_icons.scss */
+.icon-search:before {
+  content: "d";
+}
+
+/* line 45, ../sass/_icons.scss */
+.icon-menu:before {
+  content: "e";
+}
+
+/* line 48, ../sass/_icons.scss */
+.icon-download:before {
+  content: "a";
+}
+
+/* line 51, ../sass/_icons.scss */
+.icon-lecturer:before {
+  content: "f";
+}
+
+/* line 54, ../sass/_icons.scss */
+.icon-document:before {
+  content: "g";
+}
+
+/* line 57, ../sass/_icons.scss */
+.icon-twitter:before {
+  content: "h";
+}
+
+/* line 60, ../sass/_icons.scss */
+.icon-event:before {
+  content: "i";
+}
+
+/* line 63, ../sass/_icons.scss */
+.icon-home:before {
+  content: "j";
+}
+
+/* ===TYPOGRAPHY=== */
+/* line 5, ../sass/_base.scss */
+html {
+  font-size: 62.5%;
+}
+
+/* line 12, ../sass/_base.scss */
+body {
+  background: whitesmoke;
+  font-size: 1.4rem;
+  line-height: 2rem;
+  font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
+  color: #333;
+}
+
+/* line 20, ../sass/_base.scss */
+h1, h2, h3, h4, h5, h6, nav a {
+  font-family: "Droid Sans", sans-serif;
+}
+
+/* line 24, ../sass/_base.scss */
+h1 {
+  font-size: 3.2rem;
+  font-weight: 400;
+  color: #155183;
+  line-height: 4.16rem;
+}
+
+/* line 31, ../sass/_base.scss */
+h2 {
+  font-size: 2.8rem;
+  line-height: 3.64rem;
+}
+
+/* line 36, ../sass/_base.scss */
+h3 {
+  font-size: 2rem;
+  line-height: 4rem;
+}
+
+/* line 41, ../sass/_base.scss */
+em, strong {
+  font-weight: 700;
+}
+
+/* line 45, ../sass/_base.scss */
+p {
+  margin: 0 auto 0.5em;
+}
+
+/* line 49, ../sass/_base.scss */
+hr {
+  border: solid #ddd;
+  border-width: 1px 0 0;
+  clear: both;
+  margin: 1rem 0 1.5rem;
+  height: 0;
+}
+
+/* ===LINKS=== */
+/* line 59, ../sass/_base.scss */
+a, a:visited {
+  color: #155183;
+  text-decoration: none;
+  outline: 0;
+}
+
+/* line 64, ../sass/_base.scss */
+a:hover, a:focus {
+  color: #41586e;
+}
+
+/* ===FORMS=== */
+/* line 68, ../sass/_base.scss */
+form, fieldset {
+  margin-bottom: 1rem;
+}
+
+/* line 70, ../sass/_base.scss */
+input {
+  margin-top: 1rem;
+  width: 100%;
+  outline: none;
+  padding: 0.75rem 1.5rem;
+  border: 2px solid #d2dde5;
+  -moz-transition: border-color, 0.3s;
+  -o-transition: border-color, 0.3s;
+  -webkit-transition: border-color, 0.3s;
+  transition: border-color, 0.3s;
+}
+/* line 78, ../sass/_base.scss */
+input:focus {
+  border-color: #41586e;
+}
+
+/* line 83, ../sass/_base.scss */
+.note {
+  margin-top: 0.5rem;
+  font-size: 1.1rem;
+  line-height: 1.5rem;
+  color: #999;
+}
+
+/* line 91, ../sass/_base.scss */
+label.input {
+  position: relative;
+}
+/* line 94, ../sass/_base.scss */
+label.input .add-on {
+  color: #aaa;
+  top: 5px;
+  right: 5px;
+  width: 100px;
+  position: absolute;
+  padding-left: 0.25rem;
+  border-left-width: 1px;
+  border-left: 1px solid #d2dde5;
+}
+
+/* line 107, ../sass/_base.scss */
+button.light, a.button.light {
+  background-color: #91acc0;
+}
+/* line 110, ../sass/_base.scss */
+button.light:hover, a.button.light:hover {
+  color: #fff;
+  background-color: #7194ad;
+}
+
+/* line 116, ../sass/_base.scss */
+button, a.button {
+  margin-top: 1rem;
+  color: #fff;
+  background-color: #155183;
+  padding: 0.75rem 1.5rem;
+  border: 0;
+  cursor: pointer;
+  -moz-transition: background 0.2s;
+  -o-transition: background 0.2s;
+  -webkit-transition: background 0.2s;
+  transition: background 0.2s;
+}
+/* line 125, ../sass/_base.scss */
+button:hover, a.button:hover {
+  background: #41586e;
+}
+
+/* line 6, ../sass/_layout.scss */
+.header {
+  background-color: #d2dde5;
+  overflow: hidden;
+  *zoom: 1;
+}
+
+/* ===NAVIGATION=== */
+/* line 15, ../sass/_layout.scss */
+.nav-collapse li a {
+  padding: 0.5em 1em;
+  width: 100%;
+  display: block;
+  background: #d2dde5;
+  color: #155183;
+  border-bottom: 1px solid white;
+}
+/* line 22, ../sass/_layout.scss */
+.nav-collapse li a:before {
+  font-size: 0.75em;
+  padding-right: 0.5em;
+}
+/* line 29, ../sass/_layout.scss */
+.nav-collapse:before {
+  clear: left;
+}
+
+/* line 34, ../sass/_layout.scss */
+.nav-toggle {
+  color: #fff;
+  float: right;
+  display: block;
+  padding: 0.25em;
+  font-family: "studentenportal-icons" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 2em;
+}
+
+/* line 46, ../sass/_layout.scss */
+.events h2 {
+  background-color: #D2DDE5;
+}
+
+/* line 52, ../sass/_layout.scss */
+section {
+  padding: 1rem;
+}
+/* line 55, ../sass/_layout.scss */
+section > header {
+  padding: 0 1rem;
+  margin-left: -1rem;
+  margin-right: -1rem;
+  margin-bottom: 1rem;
+  background-color: #d2dde5;
+}
+
+/* line 66, ../sass/_layout.scss */
+article {
+  margin-bottom: 1em;
+  padding: 0.5em;
+  background-color: #fff;
+  -moz-box-shadow: 0 0 3px 0 #cccccc;
+  -webkit-box-shadow: 0 0 3px 0 #cccccc;
+  box-shadow: 0 0 3px 0 #cccccc;
+}
+
+/* ===BRANDING=== */
+/* line 5, ../sass/_modules.scss */
+.branding {
+  margin-left: 1rem;
+  float: left;
+}
+
+/* ===DOCUMENT=== */
+/* line 12, ../sass/_modules.scss */
+.document h3 {
+  line-height: 1;
+  margin-bottom: 0.25em;
+}
+/* line 17, ../sass/_modules.scss */
+.document .labels {
+  margin-bottom: 0.5em;
+}
+/* line 19, ../sass/_modules.scss */
+.document .download-action {
+  font-size: 1.25em;
+  background: #155183;
+  color: #fff;
+  padding: 0.5em 0.25em;
+  width: 100%;
+  text-align: center;
+  display: block;
+}
+/* line 28, ../sass/_modules.scss */
+.document .download-action:before {
+  font-size: 0.75em;
+}
+
+/* ===DOCUMENT CATEGORY=== */
+/* line 37, ../sass/_modules.scss */
+.document-category {
+  overflow: hidden;
+  *zoom: 1;
+}
+/* line 40, ../sass/_modules.scss */
+.document-category h3 {
+  line-height: 1;
+  margin-bottom: 0.25em;
+}
+/* line 45, ../sass/_modules.scss */
+.document-category .abbreviation {
+  margin-right: 0.5em;
+}
+/* line 46, ../sass/_modules.scss */
+.document-category .labels {
+  margin-bottom: 0.5em;
+}
+/* line 47, ../sass/_modules.scss */
+.document-category .lecturer {
+  float: left;
+  max-width: 6em;
+}
+/* line 50, ../sass/_modules.scss */
+.document-category .lecturer img {
+  max-width: 100%;
+}
+/* line 52, ../sass/_modules.scss */
+.document-category .summary {
+  float: left;
+  margin-left: 1em;
+}
+/* line 55, ../sass/_modules.scss */
+.document-category .summary span {
+  margin-right: 0.5em;
+}
+
+/* ===SEARCH=== */
+/* line 63, ../sass/_modules.scss */
+.search {
+  margin-bottom: 1em;
+  width: 100%;
+  overflow: hidden;
+  *zoom: 1;
+}
+/* line 68, ../sass/_modules.scss */
+.search input, .search button {
+  border: 0;
+  height: 2.5em;
+}
+/* line 73, ../sass/_modules.scss */
+.search input {
+  float: left;
+  width: 90%;
+  padding: 0.25em;
+  background: #E1E5E8;
+}
+/* line 80, ../sass/_modules.scss */
+.search button {
+  position: relative;
+  float: right;
+  width: 10%;
+  color: #fff;
+  background: #155183;
+  font-family: "studentenportal-icons" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+/* line 87, ../sass/_modules.scss */
+.search button:before {
+  content: '';
+  position: absolute;
+  border-width: 8px 8px 8px 0;
+  border-style: solid solid solid none;
+  border-color: transparent #155183 transparent;
+  top: 0.75em;
+  left: -0.4em;
+}
+
+/* ===BIG DATE=== */
+/* line 103, ../sass/_modules.scss */
+.date {
+  position: absolute;
+  float: left;
+}
+/* line 107, ../sass/_modules.scss */
+.date .day, .date .month {
+  font-family: "Droid Sans", sans-serif;
+  display: block;
+  line-height: 1;
+}
+/* line 113, ../sass/_modules.scss */
+.date .day {
+  margin-top: 0.75rem;
+  font-size: 3.5rem;
+  color: #7194ad;
+}
+/* line 119, ../sass/_modules.scss */
+.date .month {
+  margin-left: 0.25rem;
+  font-size: 2rem;
+  color: #91acc0;
+}
+
+/* ===NEWS=== */
+/* line 128, ../sass/_modules.scss */
+.news {
+  margin-top: 1em;
+  padding: 0.5rem;
+  border-bottom: 1px #d2dde5;
+  min-height: 4em;
+  position: relative;
+  padding-bottom: 0.4em;
+  overflow: hidden;
+  *zoom: 1;
+  border-left: 0.5rem solid transparent;
+}
+/* line 139, ../sass/_modules.scss */
+.news:hover {
+  border-left: 0.5rem solid #155183;
+}
+/* line 144, ../sass/_modules.scss */
+.news .summary {
+  margin-left: 4em;
+  float: left;
+}
+
+/* ===EVENTS=== */
+/* line 153, ../sass/_modules.scss */
+.event {
+  margin-top: 1em;
+  padding: 0 0.4em;
+  overflow: hidden;
+  *zoom: 1;
+  border-bottom: 1px #d2dde5;
+  min-height: 4em;
+  position: relative;
+  padding-bottom: 0.4em;
+}
+/* line 165, ../sass/_modules.scss */
+.event .info {
+  margin-left: 4em;
+  float: left;
+}
+
+/* ===LABELS=== */
+/* line 174, ../sass/_modules.scss */
+.label {
+  display: inline;
+  padding: .2em .6em .3em;
+  font-family: "Droid Sans", sans-serif;
+  font-size: 0.75em;
+  font-weight: 700;
+  line-height: 1;
+  color: #fff;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  -moz-border-radius: 0.1em;
+  -webkit-border-radius: 0.1em;
+  border-radius: 0.1em;
+}
+
+/* line 188, ../sass/_modules.scss */
+.label-blublu {
+  background-color: #428bca;
+}
+
+/* line 192, ../sass/_modules.scss */
+.label-green {
+  background-color: #5CB870;
+}
+
+/* line 196, ../sass/_modules.scss */
+.label-blue {
+  background-color: #5bc0de;
+}
+
+/* line 200, ../sass/_modules.scss */
+.label-mud {
+  background-color: #AEB870;
+}
+
+/* line 204, ../sass/_modules.scss */
+.label-orange {
+  background-color: #f0ad4e;
+}

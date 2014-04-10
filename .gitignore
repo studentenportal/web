@@ -10,4 +10,5 @@ venv/
 .coverage
 .coveralls.yml
 .cache/
+.sass-cache/
 *.egg-info/

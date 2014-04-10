@@ -1,0 +1,71 @@
+@import "compass";
+@import "susy";
+@import "compass/utilities/general/clearfix";
+@import "compass/css3";
+
+.header {
+    background-color: $color-cornflower-blue;
+    @include clearfix;
+}
+
+/* ===NAVIGATION=== */
+
+.nav-collapse {
+    li {
+        a {
+            padding: 0.5em 1em;
+            width: 100%;
+            display: block;
+            background: $color-cornflower-blue;
+            color: $color-midnight-blue;
+            border-bottom: 1px solid $color-white;
+            &:before {
+                font-size: 0.75em;
+                padding-right: 0.5em;
+            }
+        }
+    }
+
+    &:before {
+        clear: left;
+    }
+}
+
+.nav-toggle {
+    color: #fff;
+    float: right;
+    display: block;
+    padding: 0.25em;
+    @include icon;
+    font-size: 2em;
+}
+
+
+
+.events {
+    h2 {
+        background-color: #D2DDE5;
+    }
+
+}
+
+section {
+    padding: $gutter;
+
+    > header {
+        //Pull back one em to compensate padding to enablefull header bg color
+        padding: 0 $gutter;
+        margin-left: -$gutter;
+        margin-right: -$gutter;
+        margin-bottom: $gutter;
+        background-color: $color-cornflower-blue;
+    }
+}
+
+
+article {
+    margin-bottom: 1em;
+    padding: 0.5em;
+    background-color: #fff;
+    @include box-shadow(0 0 3px 0 #cccccc);
+}
