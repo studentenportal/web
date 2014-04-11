@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block content %}
-    <section class="welcome-message">
+    <article class="welcome-message">
         {% if not user.is_authenticated %}
             <h1>Willkommen beim VSHSR Studentenportal</h1>
         {% endif %}{% if user.is_authenticated %}
@@ -20,18 +20,17 @@
         Rapperswil</a> gedacht. Hier könnt ihr Informationen für euer Studium
         bekommen, News zu Events und Ähnlichem erfahren und euer Wissen mit
         anderen Studenten teilen.</p>
-    </section>
+    </article>
 
-    <section>
-        <header>
-            <h2>News</h2>
-        </header>
+    <section class="latest-news">
+        <h1>News</h1>
 
         <article class="news">
-            <div class="date">
+            <time class="date" datetime="2013-02-17">
                 <span class="day">17</span>
                 <span class="month">feb</span>
-            </div>
+                <span class="year">2013</span>
+            </time>
             <div class="summary">
                 <h3>LaTex-Quelle und Lizenz wählbar</h3>
                 <p>Den Dokumenten können seit längerem auch URLs (zB auf Link auf das Github-Projekt mit LaTeX-Quellen) zugewiesen werden. Neu kann man optional auch die Lizenz (Creative Commons oder Public Domain) festlegen.<br> Desweiteren wurde Uservoice entfernt, es hat sich nicht bewährt.  Stattdessen Bugs und Featureideen auf <a href="https://github.com/dbrgn/studentenportal2/issues">Github</a>
@@ -40,10 +39,11 @@
         </article>
 
         <article class="news">
-            <div class="date">
+            <time class="date" datetime="2013-01-28">
                 <span class="day">28</span>
                 <span class="month">jan</span>
-            </div>
+                <span class="year">2013</span>
+            </time>
             <div class="summary">
                 <h3>Neue Kategorien</h3>
                 <p>Für die Dokumente gibt es nun zwei neue
@@ -54,10 +54,11 @@
         </article>
 
         <article class="news">
-            <div class="date">
+            <time class="date" datetime="2012-07-26">
                 <span class="day">26</span>
                 <span class="month">jul</span>
-            </div>
+                <span class="year">2012</span>
+            </time>
             <div class="summary">
                 <h3>API verfügbar</h3>
                 <p>Neu gibt es für das Studentenportal eine
@@ -70,10 +71,11 @@
         </article>
 
         <article class="news">
-            <div class="date">
+            <time class="date" datetime="2012-06-16">
                 <span class="day">16</span>
                 <span class="month">jun</span>
-            </div>
+                <span class="year">2012</span>
+            </time>
             <div class="summary">
                 <h3>Flattr Unterstützung</h3>
                 <p>Es gibt nun
@@ -84,10 +86,8 @@
             </div>
         </article>
     </section>
-    <section class="contribute">
-        <header>
-            <h2>Mitmachen</h2>
-        </header>
+    <article class="contribute">
+        <h1>Mitmachen</h1>
 
         <p>Dieses neue Studentenportal wurde entwickelt, weil die vorherige Seite
         veraltet und voller Sicherheitslücken war. Die Entwicklung ist noch im Gange,
@@ -97,7 +97,7 @@
         designtechnische Verbesserungen wären cool und viele Zusammenfassungen
         und Zitate machen die Seite interessant.
 
-        <h3>Bugs und Ideen</h3>
+        <h2>Bugs und Ideen</h2>
 
         <p>Wenn Fehler auftreten oder wenn du eine coole Idee fürs
         Studentenportal hast, dann erfasse bitte ein Ticket auf
@@ -106,11 +106,11 @@
         momentan geplanten Features findest du
         <a href="https://github.com/dbrgn/studentenportal2/issues?sort=created&direction=desc&state=open">hier</a>.</p>
 
-        <h3>Twitter</h3>
+        <h2>Twitter</h2>
 
         <p>Natürlich ist das Studentenportal auch auf Twitter vertreten:
         <a href="https://twitter.com/studportal_hsr">@studportal_hsr</a>.</p>
 
-    </section>
+    </article>
 
 {% endblock %}

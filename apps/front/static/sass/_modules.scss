@@ -121,25 +121,34 @@
         font-size: 2rem;
         color: darken($color-gray, 20%);
     }
+
+    .year {
+        margin-left: 0.25rem;
+        font-size: 1.1rem;
+        color: darken($color-gray, 10%);
+    }
 }
 
-/* ===NEWS=== */
+/* ===CONTRIBUTE=== */
+.contribute {
+    h1 { @extend .crossbar; }
+}
 
-.news {
+/* ===LIST CARDS=== */
+.list-card {
+    @include pie-clearfix;
     margin-top: 1em;
     //Use only half padding because border reserves already
     padding: 0.5rem;
-    border-bottom: 1px $color-gray;
     min-height: 4em;
     position: relative;
     padding-bottom: 0.4em;
-
-    @include clearfix;
+    border-bottom: 1px $color-gray;
     border-left: 0.5rem solid transparent;
+
     &:hover {
         border-left: 0.5rem solid $color-midnight-blue;
     }
-
 
     .summary {
         margin-left: 4em;
@@ -148,23 +157,36 @@
 }
 
 
+/* ===NEWS=== */
+.latest-news {
+    h1 { @extend .crossbar; }
+}
+
+.news {
+    @extend .box;
+    @extend .list-card;
+
+}
+
+
 /* ===EVENTS=== */
+.events {
+    h1, h2 { @extend .crossbar; }
+}
 
 .event {
-    margin-top: 1em;
-    padding: 0 0.4em;
-    @include clearfix;
-    border-bottom: 1px $color-gray;
-    min-height: 4em;
-    position: relative;
-    padding-bottom: 0.4em;
+    @extend .box;
+    @extend .list-card;
 
+    //Set h3 to normal lineheight and pull it down 1rem
+    //so that the author can be placed right below it
+    h3 {
+        line-height: 1;
+        margin-top: 1rem;
+    }
 
-
-
-    .info {
-        margin-left: 4em;
-        float: left;
+    .author, a[rel="author"] {
+        font-size: 1.1rem;
     }
 }
 

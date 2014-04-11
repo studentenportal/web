@@ -86,6 +86,7 @@ class EventList(TemplateView):
                .filter(start_date__lt=datetime.date.today()) \
                .order_by('-start_date', 'start_time')
         http_url = self.request.build_absolute_uri(reverse('events:event_calendar'))
+        context['current_year'] = datetime.date.today().year
         context['webcal_url'] = urlunsplit(urlsplit(http_url)._replace(scheme='webcal'))
         return context
 

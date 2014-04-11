@@ -8,6 +8,10 @@
     @include clearfix;
 }
 
+.wrapper {
+    padding: $gutter;
+}
+
 /* ===NAVIGATION=== */
 
 .nav-collapse {
@@ -40,30 +44,16 @@
     font-size: 2em;
 }
 
-
-
-.events {
-    h2 {
-        background-color: #D2DDE5;
-    }
-
+.crossbar {
+    //Pull back one em to compensate padding to enablefull header bg color
+    padding: 0 $gutter;
+    margin-left: -$gutter;
+    margin-right: -$gutter;
+    margin-bottom: $gutter;
+    background-color: $color-cornflower-blue;
 }
 
-section {
-    padding: $gutter;
-
-    > header {
-        //Pull back one em to compensate padding to enablefull header bg color
-        padding: 0 $gutter;
-        margin-left: -$gutter;
-        margin-right: -$gutter;
-        margin-bottom: $gutter;
-        background-color: $color-cornflower-blue;
-    }
-}
-
-
-article {
+.box {
     margin-bottom: 1em;
     padding: 0.5em;
     background-color: #fff;

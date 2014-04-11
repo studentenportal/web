@@ -288,6 +288,7 @@ button.light:hover, a.button.light:hover {
 
 /* line 116, ../sass/_base.scss */
 button, a.button {
+  margin-right: 1rem;
   margin-top: 1rem;
   color: #fff;
   background-color: #155183;
@@ -299,7 +300,7 @@ button, a.button {
   -webkit-transition: background 0.2s;
   transition: background 0.2s;
 }
-/* line 125, ../sass/_base.scss */
+/* line 126, ../sass/_base.scss */
 button:hover, a.button:hover {
   background: #41586e;
 }
@@ -311,8 +312,13 @@ button:hover, a.button:hover {
   *zoom: 1;
 }
 
+/* line 11, ../sass/_layout.scss */
+.wrapper {
+  padding: 1rem;
+}
+
 /* ===NAVIGATION=== */
-/* line 15, ../sass/_layout.scss */
+/* line 19, ../sass/_layout.scss */
 .nav-collapse li a {
   padding: 0.5em 1em;
   width: 100%;
@@ -321,17 +327,17 @@ button:hover, a.button:hover {
   color: #155183;
   border-bottom: 1px solid white;
 }
-/* line 22, ../sass/_layout.scss */
+/* line 26, ../sass/_layout.scss */
 .nav-collapse li a:before {
   font-size: 0.75em;
   padding-right: 0.5em;
 }
-/* line 29, ../sass/_layout.scss */
+/* line 33, ../sass/_layout.scss */
 .nav-collapse:before {
   clear: left;
 }
 
-/* line 34, ../sass/_layout.scss */
+/* line 38, ../sass/_layout.scss */
 .nav-toggle {
   color: #fff;
   float: right;
@@ -349,17 +355,8 @@ button:hover, a.button:hover {
   font-size: 2em;
 }
 
-/* line 46, ../sass/_layout.scss */
-.events h2 {
-  background-color: #D2DDE5;
-}
-
-/* line 52, ../sass/_layout.scss */
-section {
-  padding: 1rem;
-}
-/* line 55, ../sass/_layout.scss */
-section > header {
+/* line 47, ../sass/_layout.scss */
+.crossbar, .contribute h1, .latest-news h1, .events h1, .events h2 {
   padding: 0 1rem;
   margin-left: -1rem;
   margin-right: -1rem;
@@ -367,8 +364,8 @@ section > header {
   background-color: #d2dde5;
 }
 
-/* line 66, ../sass/_layout.scss */
-article {
+/* line 56, ../sass/_layout.scss */
+.box, .news, .event {
   margin-bottom: 1em;
   padding: 0.5em;
   background-color: #fff;
@@ -519,50 +516,56 @@ article {
   font-size: 2rem;
   color: #91acc0;
 }
+/* line 125, ../sass/_modules.scss */
+.date .year {
+  margin-left: 0.25rem;
+  font-size: 1.1rem;
+  color: #b2c5d2;
+}
 
-/* ===NEWS=== */
-/* line 128, ../sass/_modules.scss */
-.news {
+/* ===CONTRIBUTE=== */
+/* ===LIST CARDS=== */
+/* line 138, ../sass/_modules.scss */
+.list-card, .news, .event {
+  *zoom: 1;
   margin-top: 1em;
   padding: 0.5rem;
-  border-bottom: 1px #d2dde5;
   min-height: 4em;
   position: relative;
   padding-bottom: 0.4em;
-  overflow: hidden;
-  *zoom: 1;
+  border-bottom: 1px #d2dde5;
   border-left: 0.5rem solid transparent;
 }
-/* line 139, ../sass/_modules.scss */
-.news:hover {
+/* line 38, ../../../../../../../.gem/ruby/2.1.0/gems/compass-core-1.0.0.alpha.19/stylesheets/compass/utilities/general/_clearfix.scss */
+.list-card:after, .news:after, .event:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+/* line 149, ../sass/_modules.scss */
+.list-card:hover, .news:hover, .event:hover {
   border-left: 0.5rem solid #155183;
 }
-/* line 144, ../sass/_modules.scss */
-.news .summary {
+/* line 153, ../sass/_modules.scss */
+.list-card .summary, .news .summary, .event .summary {
   margin-left: 4em;
   float: left;
 }
 
+/* ===NEWS=== */
 /* ===EVENTS=== */
-/* line 153, ../sass/_modules.scss */
-.event {
-  margin-top: 1em;
-  padding: 0 0.4em;
-  overflow: hidden;
-  *zoom: 1;
-  border-bottom: 1px #d2dde5;
-  min-height: 4em;
-  position: relative;
-  padding-bottom: 0.4em;
+/* line 183, ../sass/_modules.scss */
+.event h3 {
+  line-height: 1;
+  margin-top: 1rem;
 }
-/* line 165, ../sass/_modules.scss */
-.event .info {
-  margin-left: 4em;
-  float: left;
+/* line 188, ../sass/_modules.scss */
+.event .author, .event a[rel="author"] {
+  font-size: 1.1rem;
 }
 
 /* ===LABELS=== */
-/* line 174, ../sass/_modules.scss */
+/* line 196, ../sass/_modules.scss */
 .label {
   display: inline;
   padding: .2em .6em .3em;
@@ -579,27 +582,27 @@ article {
   border-radius: 0.1em;
 }
 
-/* line 188, ../sass/_modules.scss */
+/* line 210, ../sass/_modules.scss */
 .label-blublu {
   background-color: #428bca;
 }
 
-/* line 192, ../sass/_modules.scss */
+/* line 214, ../sass/_modules.scss */
 .label-green {
   background-color: #5CB870;
 }
 
-/* line 196, ../sass/_modules.scss */
+/* line 218, ../sass/_modules.scss */
 .label-blue {
   background-color: #5bc0de;
 }
 
-/* line 200, ../sass/_modules.scss */
+/* line 222, ../sass/_modules.scss */
 .label-mud {
   background-color: #AEB870;
 }
 
-/* line 204, ../sass/_modules.scss */
+/* line 226, ../sass/_modules.scss */
 .label-orange {
   background-color: #f0ad4e;
 }
