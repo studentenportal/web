@@ -1,4 +1,16 @@
+/* ===AUTHOR===*/
+//Set h3 to normal lineheight and pull it down 1rem
+//so that the author can be placed right below it
+@mixin author {
+    h3 {
+        line-height: 1;
+        margin-top: 1rem;
+    }
+}
 
+.author, a[rel="author"] {
+        font-size: 1.1rem;
+}
 
 /* ===BRANDING=== */
 
@@ -9,12 +21,8 @@
 
 /* ===DOCUMENT=== */
 .document {
-    h3 {
-        line-height: 1;
-        margin-bottom: 0.25em;
-    }
+    @include author;
 
-    .labels { margin-bottom: 0.5em; }
 
     .download-action {
         font-size: 1.25em;
@@ -37,17 +45,20 @@
 .document-category {
     @include clearfix;
 
-    h3 {
-        line-height: 1;
-        margin-bottom: 0.25em;
+    li {
+        float: left;
+        margin-right: $gutter/2;
     }
 
     .abbreviation { margin-right: 0.5em; }
-    .labels { margin-bottom: 0.5em; }
-    .lecturer {
-        float: left;
-        max-width: 6em;
-        img { max-width: 100%; }
+    .lecturers {
+        float: right;
+        > div {
+            a {
+                background-color: $color-midnight-blue;
+            }
+            img { max-width: 100%; }
+        }
     }
     .summary {
         float: left;
@@ -61,23 +72,25 @@
 // Built after http://codepen.io/Siwicki/details/FHkwu
 
 .search {
+    @include clearfix;
     margin-bottom: 1em;
     width: 100%;
-    @include clearfix;
 
     input, button {
-        border: 0;
         height: 2.5em;
     }
 
     input {
         float: left;
         width: 90%;
-        padding: 0.25em;
+        padding: 0.25rem;
         background: #E1E5E8;
     }
 
     button {
+        //Override default right margin on buttons
+        margin-right: 0;
+
         position: relative;
         float: right;
         width: 10%;
@@ -156,7 +169,6 @@
     }
 }
 
-
 /* ===NEWS=== */
 .latest-news {
     h1 { @extend .crossbar; }
@@ -177,17 +189,7 @@
 .event {
     @extend .box;
     @extend .list-card;
-
-    //Set h3 to normal lineheight and pull it down 1rem
-    //so that the author can be placed right below it
-    h3 {
-        line-height: 1;
-        margin-top: 1rem;
-    }
-
-    .author, a[rel="author"] {
-        font-size: 1.1rem;
-    }
+    @include author;
 }
 
 /* ===LABELS=== */

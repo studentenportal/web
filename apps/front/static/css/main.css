@@ -374,24 +374,26 @@ button:hover, a.button:hover {
   box-shadow: 0 0 3px 0 #cccccc;
 }
 
+/* ===AUTHOR===*/
+/* line 11, ../sass/_modules.scss */
+.author, a[rel="author"] {
+  font-size: 1.1rem;
+}
+
 /* ===BRANDING=== */
-/* line 5, ../sass/_modules.scss */
+/* line 17, ../sass/_modules.scss */
 .branding {
   margin-left: 1rem;
   float: left;
 }
 
 /* ===DOCUMENT=== */
-/* line 12, ../sass/_modules.scss */
+/* line 5, ../sass/_modules.scss */
 .document h3 {
   line-height: 1;
-  margin-bottom: 0.25em;
+  margin-top: 1rem;
 }
-/* line 17, ../sass/_modules.scss */
-.document .labels {
-  margin-bottom: 0.5em;
-}
-/* line 19, ../sass/_modules.scss */
+/* line 27, ../sass/_modules.scss */
 .document .download-action {
   font-size: 1.25em;
   background: #155183;
@@ -401,71 +403,70 @@ button:hover, a.button:hover {
   text-align: center;
   display: block;
 }
-/* line 28, ../sass/_modules.scss */
+/* line 36, ../sass/_modules.scss */
 .document .download-action:before {
   font-size: 0.75em;
 }
 
 /* ===DOCUMENT CATEGORY=== */
-/* line 37, ../sass/_modules.scss */
+/* line 45, ../sass/_modules.scss */
 .document-category {
   overflow: hidden;
   *zoom: 1;
 }
-/* line 40, ../sass/_modules.scss */
-.document-category h3 {
-  line-height: 1;
-  margin-bottom: 0.25em;
+/* line 48, ../sass/_modules.scss */
+.document-category li {
+  float: left;
+  margin-right: 0.5rem;
 }
-/* line 45, ../sass/_modules.scss */
+/* line 53, ../sass/_modules.scss */
 .document-category .abbreviation {
   margin-right: 0.5em;
 }
-/* line 46, ../sass/_modules.scss */
-.document-category .labels {
-  margin-bottom: 0.5em;
+/* line 54, ../sass/_modules.scss */
+.document-category .lecturers {
+  float: right;
 }
-/* line 47, ../sass/_modules.scss */
-.document-category .lecturer {
-  float: left;
-  max-width: 6em;
+/* line 57, ../sass/_modules.scss */
+.document-category .lecturers > div a {
+  background-color: #155183;
 }
-/* line 50, ../sass/_modules.scss */
-.document-category .lecturer img {
+/* line 60, ../sass/_modules.scss */
+.document-category .lecturers > div img {
   max-width: 100%;
 }
-/* line 52, ../sass/_modules.scss */
+/* line 63, ../sass/_modules.scss */
 .document-category .summary {
   float: left;
   margin-left: 1em;
 }
-/* line 55, ../sass/_modules.scss */
+/* line 66, ../sass/_modules.scss */
 .document-category .summary span {
   margin-right: 0.5em;
 }
 
 /* ===SEARCH=== */
-/* line 63, ../sass/_modules.scss */
+/* line 74, ../sass/_modules.scss */
 .search {
-  margin-bottom: 1em;
-  width: 100%;
   overflow: hidden;
   *zoom: 1;
+  margin-bottom: 1em;
+  width: 100%;
 }
-/* line 68, ../sass/_modules.scss */
+/* line 79, ../sass/_modules.scss */
 .search input, .search button {
-  border: 0;
   height: 2.5em;
 }
-/* line 73, ../sass/_modules.scss */
+/* line 83, ../sass/_modules.scss */
 .search input {
   float: left;
   width: 90%;
-  padding: 0.25em;
+  padding: 0.25rem;
   background: #E1E5E8;
 }
-/* line 80, ../sass/_modules.scss */
+/* line 90, ../sass/_modules.scss */
 .search button {
+  margin-right: 0;
   position: relative;
   float: right;
   width: 10%;
@@ -481,7 +482,7 @@ button:hover, a.button:hover {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-/* line 87, ../sass/_modules.scss */
+/* line 100, ../sass/_modules.scss */
 .search button:before {
   content: '';
   position: absolute;
@@ -493,30 +494,30 @@ button:hover, a.button:hover {
 }
 
 /* ===BIG DATE=== */
-/* line 103, ../sass/_modules.scss */
+/* line 116, ../sass/_modules.scss */
 .date {
   position: absolute;
   float: left;
 }
-/* line 107, ../sass/_modules.scss */
+/* line 120, ../sass/_modules.scss */
 .date .day, .date .month {
   font-family: "Droid Sans", sans-serif;
   display: block;
   line-height: 1;
 }
-/* line 113, ../sass/_modules.scss */
+/* line 126, ../sass/_modules.scss */
 .date .day {
   margin-top: 0.75rem;
   font-size: 3.5rem;
   color: #7194ad;
 }
-/* line 119, ../sass/_modules.scss */
+/* line 132, ../sass/_modules.scss */
 .date .month {
   margin-left: 0.25rem;
   font-size: 2rem;
   color: #91acc0;
 }
-/* line 125, ../sass/_modules.scss */
+/* line 138, ../sass/_modules.scss */
 .date .year {
   margin-left: 0.25rem;
   font-size: 1.1rem;
@@ -525,7 +526,7 @@ button:hover, a.button:hover {
 
 /* ===CONTRIBUTE=== */
 /* ===LIST CARDS=== */
-/* line 138, ../sass/_modules.scss */
+/* line 151, ../sass/_modules.scss */
 .list-card, .news, .event {
   *zoom: 1;
   margin-top: 1em;
@@ -542,11 +543,11 @@ button:hover, a.button:hover {
   display: table;
   clear: both;
 }
-/* line 149, ../sass/_modules.scss */
+/* line 162, ../sass/_modules.scss */
 .list-card:hover, .news:hover, .event:hover {
   border-left: 0.5rem solid #155183;
 }
-/* line 153, ../sass/_modules.scss */
+/* line 166, ../sass/_modules.scss */
 .list-card .summary, .news .summary, .event .summary {
   margin-left: 4em;
   float: left;
@@ -554,18 +555,14 @@ button:hover, a.button:hover {
 
 /* ===NEWS=== */
 /* ===EVENTS=== */
-/* line 183, ../sass/_modules.scss */
+/* line 5, ../sass/_modules.scss */
 .event h3 {
   line-height: 1;
   margin-top: 1rem;
 }
-/* line 188, ../sass/_modules.scss */
-.event .author, .event a[rel="author"] {
-  font-size: 1.1rem;
-}
 
 /* ===LABELS=== */
-/* line 196, ../sass/_modules.scss */
+/* line 198, ../sass/_modules.scss */
 .label {
   display: inline;
   padding: .2em .6em .3em;
@@ -582,27 +579,27 @@ button:hover, a.button:hover {
   border-radius: 0.1em;
 }
 
-/* line 210, ../sass/_modules.scss */
+/* line 212, ../sass/_modules.scss */
 .label-blublu {
   background-color: #428bca;
 }
 
-/* line 214, ../sass/_modules.scss */
+/* line 216, ../sass/_modules.scss */
 .label-green {
   background-color: #5CB870;
 }
 
-/* line 218, ../sass/_modules.scss */
+/* line 220, ../sass/_modules.scss */
 .label-blue {
   background-color: #5bc0de;
 }
 
-/* line 222, ../sass/_modules.scss */
+/* line 224, ../sass/_modules.scss */
 .label-mud {
   background-color: #AEB870;
 }
 
-/* line 226, ../sass/_modules.scss */
+/* line 228, ../sass/_modules.scss */
 .label-orange {
   background-color: #f0ad4e;
 }

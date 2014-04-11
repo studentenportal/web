@@ -15,7 +15,7 @@
         <script>
             $(function() {
                 var options = {
-                    valueNames: ['name', 'summary_count', 'exam_count', 'other_count'],
+                    valueNames: ['name'],
                     page: 9001
                 };
 
@@ -33,50 +33,63 @@
 
 {% block content %}
 
-    <div class="page-header">
-        <h1>Dokumente</h1>
-    </div>
+    <h1>Dokumente</h1>
 
     <p>Hier finden sich alte Prüfungen, Zusammenfassungen des Unterrichtsstoffes und Lernhilfen für die Prüfungen.</p>
 
     {% if user.is_authenticated %}
-        <p><a class="btn btn-primary" href="{% url 'documents:documentcategory_add' %}">
+        <p><a class="button" href="{% url 'documents:documentcategory_add' %}">
             <i class="icon-plus-sign icon-white"></i> Modul hinzufügen
         </a></p>
     {% endif %}
 
     {% if categories %}
         <div id="modules">
-            <div class="input input-append">
-                <input class="search" placeholder="Modul suchen...">
-                <span class="add-on"><i class="icon-search"></i></span>
+            <form action="#" class="search">
+                <input class="search" type="text" placeholder="Modul suchen..." />
+                <button type="submit">d</button>
+            </form>
+
+            <div class="list">
+            {% for category in categories %}
+                {% if counts|lookup:category.pk|lookup:"total" == 0 %}
+                    <!--<p>Leer</p>-->
+                {% else %}
+                    <article class="document-category">
+                        <div class="lecturers">
+                            <div><a class="label" rel="author" href="#">JOL</a></div>
+                        </div>
+
+                        <div class="summary">
+                            <div class="labels">
+                                <span class="label label-blue">I</span>
+                                <span class="label label-blublu">E</span>
+                            </div>
+                            <a href="{% url 'documents:document_list' category.name|slugify %}">
+                            <h3 class="name"><em class="abbreviation">{{category.name}}</em>{% if category.description %}{{ category.description }}{% endif %}</h3>
+                            </a>
+                            <ul>
+                                {% if counts|lookup:category.pk|lookup:"summary" > 0 %}
+                                <li>
+                                    <span class="icon-document"></span><a href="#">{{ counts|lookup:category.pk|lookup:"summary" }} Zusammenfassungen</a>
+                                </li>
+                                {% endif %}
+                                {% if counts|lookup:category.pk|lookup:"exam" > 0 %}
+                                <li>
+                                    <span class="icon-document"></span><a href="#">{{ counts|lookup:category.pk|lookup:"exam" }} Prüfungen</a>
+                                </li>
+                                {% endif %}
+                                {% if counts|lookup:category.pk|lookup:"other" > 0 %}
+                                <li>
+                                    <span class="icon-document"></span><a href="#">{{ counts|lookup:category.pk|lookup:"other"}} Andere</a>
+                                </li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </article>
+                {% endif %}
+            {% endfor %}
             </div>
-
-
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th class="sort asc" data-sort="name">Modul</th>
-                        <th class="sort" data-sort="summary_count">Zusammenfassungen</th>
-                        <th class="sort" data-sort="exam_count">Prüfungen</th>
-                        <th class="sort" data-sort="other_count">Andere</th>
-                    </tr>
-
-                </thead>
-                <tbody class="list">
-                    {% for category in categories %}
-                        <tr {% if counts|lookup:category.pk|lookup:"total" == 0 %}class="empty"{% endif %}>
-                            <td class="name"><a href="{% url 'documents:document_list' category.name|slugify %}">
-                                <strong>{{ category.name }}</strong>
-                                {% if category.description %}{{ category.description }}{% endif %}
-                            </td>
-                            <td class="summary_count">{{ counts|lookup:category.pk|lookup:"summary" }}</td>
-                            <td class="exam_count">{{ counts|lookup:category.pk|lookup:"exam" }}</td>
-                            <td class="other_count">{{ counts|lookup:category.pk|lookup:"other" }}</td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
         </div>
     {% else %}
         <p><em>Momentan keine Dokumente vorhanden.</em></p>
