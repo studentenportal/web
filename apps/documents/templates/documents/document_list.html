@@ -9,7 +9,12 @@
 {% block scripts %}
     {{ block.super }}
     {% compress js %}
-    <script src="{{ STATIC_URL }}js/flattr_loader.js"></script>
+        <script src="{{ STATIC_URL }}js/jquery.lazyload.js"></script>
+        <script>
+        $(function() {
+            $("img.lazy").lazyload({ threshold : 200 });
+        });
+        </script>
     {% endcompress %}
 {% endblock %}
 
@@ -38,7 +43,7 @@
 
     {# Add button #}
     {% if user.is_authenticated %}
-        <p><a class="btn btn-primary" href="{% url 'documents:document_add' documentcategory.name|slugify %}">
+        <p><a class="button" href="{% url 'documents:document_add' documentcategory.name|slugify %}">
             <i class="icon-plus-sign icon-white"></i> Dokument hinzufügen
         </a></p>
     {% endif %}

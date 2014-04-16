@@ -1,15 +1,15 @@
+@import "compass/css3/flexbox";
+
 /* ===AUTHOR===*/
+.author, a[rel="author"] { font-size: 1.1rem; }
+
 //Set h3 to normal lineheight and pull it down 1rem
 //so that the author can be placed right below it
-@mixin author {
+@mixin adapt-heading-to-author {
     h3 {
         line-height: 1;
         margin-top: 1rem;
     }
-}
-
-.author, a[rel="author"] {
-        font-size: 1.1rem;
 }
 
 /* ===BRANDING=== */
@@ -21,36 +21,159 @@
 
 /* ===DOCUMENT=== */
 .document {
-    @include author;
+    @include clearfix;
+    @include adapt-heading-to-author;
+    @extend %box;
 
+    //Float so that the document rating sumamry appears on the right
+    .drating {
+    }
 
-    .download-action {
-        font-size: 1.25em;
-        background: #155183;
-        color: #fff;
-        padding: 0.5em 0.25em;
-        width: 100%;
+    .download {
         text-align: center;
-        display: block;
 
-        &:before {
-            font-size: 0.75em;
+
+        .thumbnail {
+
+            height: 15rem;
+            overflow: hidden;
+            img { max-width: 100%; }
+        }
+
+        > a {
+            font-family: "Droid Sans", sans-serif;
+            color: #fff;
+            padding: 0.75rem 1.5rem 0.75rem 4rem;
+            line-height: 3.3rem - 2 * 0.75rem;
+            font-size: 1.6rem;
+            font-weight: 700;
+            display: block;
+            min-height: 3.4rem;
+            position: relative;
+
+            > div {
+                position: absolute;
+                top: 0.2rem;
+                left: 0.2rem;
+                float: left;
+                width: 3.2rem;
+                height: 3.2rem;
+            }
+        }
+        span.ficon-pdf {
+                display: inline-block;
+        }
+        > a.pdf {
+            background-color: $color-pdf;
         }
     }
+
+    //This is a flexbox "hack" so that the image appears above the button on mobile view
+    //We cannot solve this by rearranging the html because we want the button
+    //to appear above the thumbnail on bigger screens
+    @media (max-width: 620px) {
+        .download {
+            @include display-flex();
+            @include flex-direction(column-reverse);
+        }
+    }
+
+    //Expand to bigger layout when space allows it
+    @media (min-width: 620px) {
+        .details {
+            width: 70%;
+            float: left;
+        }
+
+        .download {
+            margin-top: 0.3rem;
+            float: right;
+            width: 30%;
+            max-width: 400px;
+
+            .thumbnail {
+                height: 10rem;
+            }
+
+            > a {
+                height: 3.2rem;
+            }
+        }
+
+        span.filename {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            float: left;
+            display: none;
+            width: 55%;
+
+            @media (min-width: 900px) {
+                display: block;
+            }
+
+            @media (min-width: 1300px) {
+                width: 75%;
+            }
+        }
+        span.filesize {
+            display: block;
+
+            @media (min-width: 900px) {
+                float: left;
+                display: block;
+                width: 45%;
+                text-align: left;
+            }
+
+            @media (min-width: 1300px) {
+                width: 25%;
+            }
+        }
+
+    }
+
+
+
+    @each $ext, $color in $color-filetypes {
+        .download-action.#{$ext} {
+            background-color: $color;
+        }
+    }
+
 
 }
 
 
 /* ===DOCUMENT CATEGORY=== */
+.document-categories {
+    h2 { @extend %crossbar; }
+}
+
 .document-category {
     @include clearfix;
+    @extend %box;
 
-    li {
-        float: left;
-        margin-right: $gutter/2;
+    //Otherwise the color of the link would override the color
+    //ot the heading
+    .summary {
+        > a, > a:visited { color: inherit; }
     }
 
     .abbreviation { margin-right: 0.5em; }
+
+    .summary {
+        float: left;
+        margin-left: 1em;
+
+        span { margin-right: 0.5em; }
+
+        li {
+            float: left;
+            margin-right: $gutter/2;
+        }
+    }
+
     .lecturers {
         float: right;
         > div {
@@ -60,43 +183,37 @@
             img { max-width: 100%; }
         }
     }
-    .summary {
-        float: left;
-        margin-left: 1em;
-        span { margin-right: 0.5em; }
-    }
-
 }
 
 /* ===SEARCH=== */
 // Built after http://codepen.io/Siwicki/details/FHkwu
 
-.search {
+.search-box {
     @include clearfix;
     margin-bottom: 1em;
     width: 100%;
+    max-width: 70rem; //The search button looks ugly if it's too big
 
-    input, button {
-        height: 2.5em;
-    }
+    > input, > button { height: 2.5em; }
 
-    input {
+    > input {
         float: left;
         width: 90%;
         padding: 0.25rem;
+
         background: #E1E5E8;
     }
 
-    button {
-        //Override default right margin on buttons
-        margin-right: 0;
-
-        position: relative;
+    > button {
         float: right;
         width: 10%;
+        position: relative;
+        padding: 0;
+        margin-right: 0; //Override default right margin on buttons
+
         color: #fff;
         background: #155183;
-        @include icon;
+
         &:before {
             content: '';
             position: absolute;
@@ -144,11 +261,11 @@
 
 /* ===CONTRIBUTE=== */
 .contribute {
-    h1 { @extend .crossbar; }
+    h1 { @extend %crossbar; }
 }
 
 /* ===LIST CARDS=== */
-.list-card {
+%list-card {
     @include pie-clearfix;
     margin-top: 1em;
     //Use only half padding because border reserves already
@@ -171,60 +288,98 @@
 
 /* ===NEWS=== */
 .latest-news {
-    h1 { @extend .crossbar; }
+    h1 { @extend %crossbar; }
 }
 
 .news {
-    @extend .box;
-    @extend .list-card;
+    @extend %box;
+    @extend %list-card;
 
 }
 
 
 /* ===EVENTS=== */
 .events {
-    h1, h2 { @extend .crossbar; }
+    h1, h2 { @extend %crossbar; }
 }
 
 .event {
-    @extend .box;
-    @extend .list-card;
-    @include author;
+    @extend %box;
+    @extend %list-card;
+    @include adapt-heading-to-author;
 }
 
 /* ===LABELS=== */
 // Bootstrap like labels for the different fields of study
 
+@mixin fix-icon-position-in-label {
+    position: relative;
+    padding-left: 1.8rem;
+
+    &:before {
+        position: absolute;
+        font-size: 1.5rem;
+        top: 0.1rem;
+        left: 0.2rem;
+    }
+}
+
+
 .label {
     display: inline;
     padding: .2em .6em .3em;
     font-family: $font-title;
-    font-size: 0.75em;
+    font-size: 1.1rem;
     font-weight: 700;
     line-height: 1;
+    margin-right: 0.5rem;
     color: #fff;
     text-align: center;
     white-space: nowrap;
     vertical-align: baseline;
+    background-color: $color-midnight-blue;
     @include border-radius(.1em);
 }
 
-.label-blublu {
-background-color: #428bca;
+.label-license {
+    @extend .label;
+    background-color: $color-sandy-brown;
 }
 
-.label-green {
-background-color: #5CB870;
+.label-summary {
+    @extend .label;
+    background-color: $color-fern;
 }
 
-.label-blue {
-background-color: #5bc0de;
+.label-exam {
+    @extend .label;
+    background-color: #428bca;
 }
 
-.label-mud {
-    background-color: #AEB870;
+.label-other {
+    @extend .label;
+    background-color: #5bc0de;
 }
 
-.label-orange {
-background-color: #f0ad4e;
+.label-extension {
+    @extend .label;
+    text-transform: uppercase;
+}
+
+.label-pdf {
+    @extend .label;
+    background-color: $color-pdf;
+    text-transform: uppercase;
+}
+
+.label-github {
+    @extend .label;
+    @include fix-icon-position-in-label;
+    background-color: #302F2F;
+}
+
+.label-flattr {
+    @extend .label;
+    @include fix-icon-position-in-label;
+    background-color: #89b058;
 }

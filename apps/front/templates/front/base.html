@@ -53,17 +53,17 @@
         <div class="branding">
             <h1><em>studenten</em>portal</h1>
         </div>
-        <a href="#nav" id="toggle" class="nav-toggle" aria-hidden="false">e</a>
+        <a href="#nav" id="toggle" class="nav-toggle icon-list" aria-hidden="false"></a>
     </header>
     <nav id="nav" class="nav-collapse">
         <ul>
             {% block navigation %}
             {% if user.is_authenticated %}
                 <li class="{% ifactivetab 'navigation' 'lecturers' %}active{% endifactivetab %}">
-                    <a href="{% url 'lecturers:lecturer_list' %}"><i class="icon-user {% ifactivetab 'navigation' 'lecturers' %}icon-white{% endifactivetab %}"></i> Dozenten ({{ lecturercount }})</a>
+                    <a href="{% url 'lecturers:lecturer_list' %}"><i class="icon-lecturer {% ifactivetab 'navigation' 'lecturers' %}icon-white{% endifactivetab %}"></i> Dozenten ({{ lecturercount }})</a>
                 </li>
                 <li class="{% ifactivetab 'navigation' 'quotes' %}active{% endifactivetab %}">
-                    <a href="{% url 'lecturers:quote_list' %}"><i class="icon-volume-up {% ifactivetab 'navigation' 'quotes' %}icon-white{% endifactivetab %}"></i> Zitate ({{ quotecount }})</a>
+                    <a href="{% url 'lecturers:quote_list' %}"><i class="icon-comment-quotes {% ifactivetab 'navigation' 'quotes' %}icon-white{% endifactivetab %}"></i> Zitate ({{ quotecount }})</a>
                 </li>
                 <li class="{% ifactivetab 'navigation' 'stats' %}active{% endifactivetab %}">
                     <a href="{% url 'stats' %}"><i class="icon-signal {% ifactivetab 'navigation' 'stats' %}icon-white{% endifactivetab %}"></i> Statistiken</a>
@@ -85,7 +85,7 @@
                 <a href="{% url 'tips' %}"><i class="icon-star {% ifactivetab 'navigation' 'tipps' %}icon-white{% endifactivetab %}"></i> Tipps zum Studium</a>
             </li>
             <li class="{% ifactivetab 'navigation' 'documents' %}active{% endifactivetab %}">
-                <a href="{% url 'documents:documentcategory_list' %}"><i class="icon-list-alt {% ifactivetab 'navigation' 'documents' %}icon-white{% endifactivetab %}"></i> Dokumente ({{ documentcount }})</a>
+                <a href="{% url 'documents:documentcategory_list' %}"><i class="icon-archive {% ifactivetab 'navigation' 'documents' %}icon-white{% endifactivetab %}"></i> Dokumente ({{ documentcount }})</a>
             </li>
             <li class="{% ifactivetab 'navigation' 'tweets' %}active{% endifactivetab %}">
                 <a href="{% url 'tweets:tweet_list' %}"><i class="icon-th-list {% ifactivetab 'navigation' 'tweets' %}icon-white{% endifactivetab %}"></i> Tweets</a>
@@ -115,7 +115,7 @@
         <script src="{{ STATIC_URL }}js/jquery-ui-1.8.21.custom.min.js"></script>
         <script src="{{ STATIC_URL }}js/responsive-nav.js"></script>
 
-        <!-- Custom scripts -->
+        <!-- Custom scripts-->
         <script src="{{ STATIC_URL }}js/raven.js"></script>
         <script src="{{ STATIC_URL }}js/studentenportal.js"></script>
         <script src="{{ STATIC_URL }}js/raty.js"></script>

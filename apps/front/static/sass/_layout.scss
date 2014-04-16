@@ -40,11 +40,11 @@
     float: right;
     display: block;
     padding: 0.25em;
-    @include icon;
+    @include icon(menu);
     font-size: 2em;
 }
 
-.crossbar {
+%crossbar {
     //Pull back one em to compensate padding to enablefull header bg color
     padding: 0 $gutter;
     margin-left: -$gutter;
@@ -53,9 +53,9 @@
     background-color: $color-cornflower-blue;
 }
 
-.box {
+%box {
     margin-bottom: 1em;
     padding: 0.5em;
     background-color: #fff;
-    @include box-shadow(0 0 3px 0 #cccccc);
+    @include box-shadow(0 0 3px 2px #cccccc);
 }

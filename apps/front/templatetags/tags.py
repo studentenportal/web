@@ -1,3 +1,4 @@
+import re
 from django.template import Library
 
 register = Library()
@@ -43,3 +44,23 @@ def lookup(dictionary, index):
     if index in dictionary:
         return dictionary[index]
     return ''
+
+
+_regex = re.compile("\.(docx|xlsx|pptx)")
+
+
+@register.filter
+def filetype_class(ext):
+    """Returns the css class for a given file extension"""
+    ext = ext.replace(".", "")
+
+    if re.match("docx|xlsx|pptx", ext):
+        ext = ext.replace("x", "")
+
+    if re.match("pdf|doc|xls|ppt|zip", ext):
+        return ext
+
+    if re.match("gif|png|tiff|jpg|svg", ext):
+        return "img"
+
+    return "other"

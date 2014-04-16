@@ -17,6 +17,26 @@ $color-azure-blue: #336699;
 $color-white: #ffffff;
 $color-golden-tainoi: #ffcc66;
 
+$color-sandy-brown: #f0ad4e;
+$color-fern: #5CB870;
+
+$color-filetypes: (
+  doc: #2b5796,
+  xls: #1e7145,
+  ppt: #d15a25,
+  other: #6b533b,
+  img: #5b2d8d,
+  pdf: #ea4c3a,
+  zip: #ff9408
+);
+
+$color-doc: #2372ba;
+$color-xls: #08743b;
+$color-ppt: #dd5b26;
+$color-other: #6b533b;
+$color-img: #5b2d8d;
+$color-pdf: #ea4c3a;
+
 $font-title: 'Droid Sans', sans-serif;
 $font-text: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
 

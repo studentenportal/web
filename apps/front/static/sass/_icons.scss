@@ -1,5 +1,5 @@
+/* ===FONTASTIC ICONS=== */
 @charset "UTF-8";
-
 @font-face {
   font-family: "studentenportal-icons";
   src:url("fonts/studentenportal-icons.eot");
@@ -11,55 +11,51 @@
   font-style: normal;
 }
 
-@mixin icon {
+$icons: (
+  lecturer: "f",
+  twitter: "h",
+  download: "j",
+  home: "b",
+  magnifying-glass: "c",
+  flattr: "d",
+  github: "e",
+  calendar: "a",
+  list: "g",
+  comment-quotes: "i"
+);
+
+@mixin icon($icon) {
   font-family: "studentenportal-icons" !important;
   font-style: normal !important;
   font-weight: normal !important;
   font-variant: normal !important;
   text-transform: none !important;
+  font-size: 1em;
   speak: none;
   line-height: 1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  content: map-get($icons, $icon);
 }
 
-[data-icon]:before {
-  content: attr(data-icon);
-  @include icon;
+@each $icon, $letter in $icons {
+    .icon-#{$icon}:before {
+      @include icon($icon)
+    }
 }
 
-[class^="icon-"]:before,
-[class*=" icon-"]:before {
-  @include icon;
+/* ===FILETYPE ICONS=== */
+@import "compass/utilities/sprites";
+@import "filetypes/*.png";
+
+$filetype-icons: "xls", "ppt", "doc", "pdf", "other", "img", "zip";
+
+@mixin filetype-icon($icon) {
+  @include filetypes-sprite($icon);
 }
 
-.icon-edit:before {
-  content: "b";
-}
-.icon-settings:before {
-  content: "c";
-}
-.icon-search:before {
-  content: "d";
-}
-.icon-menu:before {
-  content: "e";
-}
-.icon-download:before {
-  content: "a";
-}
-.icon-lecturer:before {
-  content: "f";
-}
-.icon-document:before {
-  content: "g";
-}
-.icon-twitter:before {
-  content: "h";
-}
-.icon-event:before {
-  content: "i";
-}
-.icon-home:before {
-  content: "j";
+@each $icon in $filetype-icons {
+  .ficon-#{$icon} {
+      @include filetype-icon($icon);
+  }
 }

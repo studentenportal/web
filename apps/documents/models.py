@@ -127,6 +127,21 @@ class Document(models.Model):
         """Return whether or not the file exists on the harddrive."""
         return os.path.exists(self.document.path)
 
+    def thumbnail(self):
+        """Check if a thumbnail with the name <path>.png exists. Return the corresponding
+        URL or None if it doesn't exist."""
+        path = '{0}.png'.format(self.document.path)
+
+        if not self.exists() or not os.path.exists(path):
+            return None
+        return path
+
+    def github(self):
+        """Check whether the url is associated with github by simply checking if "github"
+        is contained in the link. This means that any URL with "github" in the name will
+        be associated to github."""
+        return  self.url and "github" in self.url
+
     def downloadcount(self):
         """Return the download count."""
         return self.DocumentDownload.count()

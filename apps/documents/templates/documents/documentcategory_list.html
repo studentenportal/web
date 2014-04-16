@@ -32,6 +32,7 @@
 {% endblock %}
 
 {% block content %}
+    <section class="document-categories">
 
     <h1>Dokumente</h1>
 
@@ -43,11 +44,15 @@
         </a></p>
     {% endif %}
 
+    <br />
+
+    <h2>Module</h2>
+
     {% if categories %}
         <div id="modules">
-            <form action="#" class="search">
-                <input class="search" type="text" placeholder="Modul suchen..." />
-                <button type="submit">d</button>
+            <form action="#" class="search-box">
+                <input type="text" placeholder="Modul suchen..." />
+                <button type="submit"><span class="icon-magnifying-glass"></span></button>
             </form>
 
             <div class="list">
@@ -59,14 +64,13 @@
                         <div class="lecturers">
                             <div><a class="label" rel="author" href="#">JOL</a></div>
                         </div>
-
                         <div class="summary">
                             <div class="labels">
                                 <span class="label label-blue">I</span>
                                 <span class="label label-blublu">E</span>
                             </div>
                             <a href="{% url 'documents:document_list' category.name|slugify %}">
-                            <h3 class="name"><em class="abbreviation">{{category.name}}</em>{% if category.description %}{{ category.description }}{% endif %}</h3>
+                                <h3 class="name"><em class="abbreviation">{{category.name}}</em>{% if category.description %}{{ category.description }}{% endif %}</h3>
                             </a>
                             <ul>
                                 {% if counts|lookup:category.pk|lookup:"summary" > 0 %}
@@ -94,4 +98,5 @@
     {% else %}
         <p><em>Momentan keine Dokumente vorhanden.</em></p>
     {% endif %}
+    </section>
 {% endblock %}
