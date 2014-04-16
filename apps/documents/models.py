@@ -26,6 +26,8 @@ class DocumentCategory(models.Model):
             help_text='z.B. "CompT1" oder "Prog3"')
     description = models.CharField('Voller Name', max_length=255,
             help_text='z.B. "Computertechnik 1" oder "Programmieren 3"')
+    courses = models.ManyToManyField('lecturers.Course')
+    lecturers = models.ManyToManyField('lecturers.Lecturer')
 
     @property
     def summary_count(self):
