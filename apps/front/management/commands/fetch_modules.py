@@ -1,12 +1,14 @@
 # -*- coding: utf-8 -*-
 from __future__ import print_function, division, absolute_import, unicode_literals
 
+import re
+
 from django.core.management.base import NoArgsCommand
 
 import requests
 from bs4 import BeautifulSoup
 
-from apps.front.models import DocumentCategory
+from apps.documents.models import DocumentCategory
 from apps.front.mixins import CommandOutputMixin
 
 
@@ -18,6 +20,29 @@ blacklist = ['3D-Vis', 'DigT1', 'DigT2', 'MaTechM1', 'MaTechM2', 'ElMasch', 'StR
 class Command(CommandOutputMixin, NoArgsCommand):
     help = 'Fetch module descriptions and write them to the database.'
 
+    def parse_module_description(self, url):
+        """Parse a module detail page to extract the required ects points,
+        the described objectives, the main lecturer and the associated courses"""
+        r = requests.get(url)
+        soup = BeautifulSoup(r.content)
+        table = soup.find('tbody', id=re.compile('^modul'))
+
+        ects_points = int(table.find('tr', id=re.compile('^Kreditpunkte')).find_all('td')[1].text)
+        objectives = table.find('tr', id=re.compile('^Lernziele')).find_all('td')[1].string
+        lecturer = table.find('tr', id=re.compile('^dozent')).find_all('td')[1].text
+
+        relation_table = soup.find('tbody', id=re.compile('^kategorieZuordnungen'))
+        relation_rows = relation_table.find_all('div', {'class':'katZuordnung'})
+
+        def get_course(row):
+            return re.match('(.*)\(', row.find('strong').text).group(1).strip()
+
+        courses = {get_course(row) for row in relation_rows}
+
+        return (ects_points, objectives, lecturer, relation_rows)
+
+
+
     def handle_noargs(self, **options):
         # Initialize counters
         parsed_count = 0
@@ -25,6 +50,7 @@ class Command(CommandOutputMixin, NoArgsCommand):
         invalid_count = 0
         blacklisted_count = 0
         added_count = 0
+        previous_module_name = ""
 
         r = requests.get('http://studien.hsr.ch/')
         soup = BeautifulSoup(r.content)
@@ -36,6 +62,7 @@ class Command(CommandOutputMixin, NoArgsCommand):
             if len(cols):  # If this is not a header row...
 
                 # Parse data
+                url = cols[0].a['href']
                 description = cols[0].text
                 full_name = cols[1].text
                 name = full_name.split('_', 1)[1]
@@ -65,6 +92,8 @@ class Command(CommandOutputMixin, NoArgsCommand):
 
                 parsed_count += 1
 
+                ects_points, objectives, lecturer, relation_rows = self.parse_module_description(url)
+
                 # Create module if new
                 try:
                     DocumentCategory.objects.get(name=name)
@@ -73,7 +102,7 @@ class Command(CommandOutputMixin, NoArgsCommand):
                     DocumentCategory.objects.create(name=name, description=description)
                     added_count += 1
                 else:
-                    self.printO('Skipping %s (already exists)' % name)
+                    self.printO(u'Skipping %s (already exists)' % name)
                     existing_count += 1
 
         self.printO(u'\nParsed %u modules.' % parsed_count)
