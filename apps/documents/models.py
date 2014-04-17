@@ -14,7 +14,7 @@ from django.utils.safestring import mark_safe
 from model_utils import Choices
 
 from apps.front import fields
-
+from apps.lecturers import models as lecturer_models
 
 class DocumentCategory(models.Model):
     """Categories (usually subjects) for the documents.
@@ -26,8 +26,8 @@ class DocumentCategory(models.Model):
             help_text='z.B. "CompT1" oder "Prog3"')
     description = models.CharField('Voller Name', max_length=255,
             help_text='z.B. "Computertechnik 1" oder "Programmieren 3"')
-    courses = models.ManyToManyField('lecturers.Course')
-    lecturers = models.ManyToManyField('lecturers.Lecturer')
+    courses = models.ManyToManyField(lecturer_models.Course)
+    lecturers = models.ManyToManyField(lecturer_models.Lecturer)
 
     @property
     def summary_count(self):
