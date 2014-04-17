@@ -12,8 +12,7 @@ class Migration(SchemaMigration):
         db.create_table(u'lecturers_course', (
             ('id', self.gf('django.db.models.fields.IntegerField')(primary_key=True)),
             ('abbreviation', self.gf('django.db.models.fields.CharField')(unique=True, max_length=10)),
-            ('name', self.gf('django.db.models.fields.CharField')(max_length=32)),
-            ('lecturer', self.gf('django.db.models.fields.related.ForeignKey')(related_name=u'LecturerCourse', to=orm['lecturers.Lecturer'])),
+            ('name', self.gf('django.db.models.fields.CharField')(max_length=50))
         ))
         db.send_create_signal(u'lecturers', ['Course'])
 
@@ -74,7 +73,6 @@ class Migration(SchemaMigration):
             'Meta': {'object_name': 'Course'},
             'abbreviation': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '10'}),
             'id': ('django.db.models.fields.IntegerField', [], {'primary_key': 'True'}),
-            'lecturer': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "u'LecturerCourse'", 'to': u"orm['lecturers.Lecturer']"}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '32'})
         },
         u'lecturers.lecturer': {

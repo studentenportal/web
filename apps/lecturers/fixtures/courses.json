@@ -1,0 +1,66 @@
+[
+{
+   "pk": 1,
+   "model": "lecturers.course",
+   "fields": {
+      "abbreviation": "E",
+      "name": "Elektrotechnik"
+   }
+},
+{
+   "pk": 2,
+   "model": "lecturers.course",
+   "fields": {
+      "abbreviation": "EEU",
+      "name": "Erneuerbare Energien und Umwelttechnik"
+   }
+},
+{
+   "pk": 3,
+   "model": "lecturers.course",
+   "fields": {
+      "abbreviation": "M|I",
+      "name": "Maschinentechnik | Innovation"
+   }
+},
+{
+   "pk": 4,
+   "model": "lecturers.course",
+   "fields": {
+      "abbreviation": "WING",
+      "name": "Wirtschaftsingenieurwesen"
+   }
+},
+{
+   "pk": 5,
+   "model": "lecturers.course",
+   "fields": {
+      "abbreviation": "B",
+      "name": "Bauingenieurwesen"
+   }
+},
+{
+   "pk": 6,
+   "model": "lecturers.course",
+   "fields": {
+      "abbreviation": "R",
+      "name": "Raumplanung"
+   }
+},
+{
+   "pk": 7,
+   "model": "lecturers.course",
+   "fields": {
+      "abbreviation": "L",
+      "name": "Landschaftsarchitektur"
+   }
+},
+{
+   "pk": 8,
+   "model": "lecturers.course",
+   "fields": {
+      "abbreviation": "I",
+      "name": "Informatik"
+   }
+}
+]

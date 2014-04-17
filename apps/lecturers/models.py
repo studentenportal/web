@@ -159,8 +159,7 @@ class Course(models.Model):
     """A possible degree course. At the moment only one lecturer is possible"""
     id = models.IntegerField('Studiengang ID', primary_key=True)
     abbreviation = models.CharField('Abkürzung', max_length=10, unique=True)
-    name = models.CharField('Titel', max_length=32)
-    lecturer = models.ForeignKey(Lecturer, related_name='LecturerCourse')
+    name = models.CharField('Titel', max_length=50)
 
     def __unicode__(self):
         return '%s (%s)' % (self.name, self.abbreviation)

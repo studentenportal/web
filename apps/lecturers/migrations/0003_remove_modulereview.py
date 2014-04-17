@@ -73,7 +73,6 @@ class Migration(SchemaMigration):
             'Meta': {'object_name': 'Course'},
             'abbreviation': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '10'}),
             'id': ('django.db.models.fields.IntegerField', [], {'primary_key': 'True'}),
-            'lecturer': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "u'LecturerCourse'", 'to': u"orm['lecturers.Lecturer']"}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '32'})
         },
         u'lecturers.lecturer': {
