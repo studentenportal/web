@@ -110,7 +110,7 @@
 
 %box {
     margin-bottom: 1em;
-    padding: 0.5em;
+    padding: $gutter;
     background-color: #fff;
     @include box-shadow(0 0 3px 2px #cccccc);
 }

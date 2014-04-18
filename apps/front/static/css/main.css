@@ -414,20 +414,26 @@ h2 {
 /* line 37, ../sass/_base.scss */
 h3 {
   font-size: 2rem;
-  line-height: 4rem;
+  line-height: 2.6rem;
 }
 
 /* line 42, ../sass/_base.scss */
+h4 {
+  font-size: 1.6rem;
+  line-height: 2rem;
+}
+
+/* line 47, ../sass/_base.scss */
 em, strong {
   font-weight: 700;
 }
 
-/* line 46, ../sass/_base.scss */
+/* line 51, ../sass/_base.scss */
 p {
   margin: 0 auto 0.5em;
 }
 
-/* line 50, ../sass/_base.scss */
+/* line 55, ../sass/_base.scss */
 hr {
   border: solid #ddd;
   border-width: 1px 0 0;
@@ -437,25 +443,25 @@ hr {
 }
 
 /* ===LINKS=== */
-/* line 60, ../sass/_base.scss */
+/* line 65, ../sass/_base.scss */
 a {
   color: #155183;
   text-decoration: none;
   outline: 0;
 }
 
-/* line 65, ../sass/_base.scss */
+/* line 70, ../sass/_base.scss */
 a:hover, a:focus {
   color: #41586e;
 }
 
 /* ===FORMS=== */
-/* line 69, ../sass/_base.scss */
+/* line 74, ../sass/_base.scss */
 form, fieldset {
   margin-bottom: 1rem;
 }
 
-/* line 71, ../sass/_base.scss */
+/* line 76, ../sass/_base.scss */
 input {
   margin-top: 1rem;
   width: 100%;
@@ -467,12 +473,12 @@ input {
   -webkit-transition: border-color, 0.3s;
   transition: border-color, 0.3s;
 }
-/* line 79, ../sass/_base.scss */
+/* line 84, ../sass/_base.scss */
 input:focus {
   border-color: #41586e;
 }
 
-/* line 84, ../sass/_base.scss */
+/* line 89, ../sass/_base.scss */
 .note {
   margin-top: 0.5rem;
   font-size: 1.1rem;
@@ -480,11 +486,11 @@ input:focus {
   color: #999;
 }
 
-/* line 92, ../sass/_base.scss */
+/* line 97, ../sass/_base.scss */
 label.input {
   position: relative;
 }
-/* line 95, ../sass/_base.scss */
+/* line 100, ../sass/_base.scss */
 label.input .add-on {
   color: #aaa;
   top: 5px;
@@ -496,17 +502,17 @@ label.input .add-on {
   border-left: 1px solid #d2dde5;
 }
 
-/* line 108, ../sass/_base.scss */
+/* line 113, ../sass/_base.scss */
 button.light, a.button.light {
   background-color: #91acc0;
 }
-/* line 111, ../sass/_base.scss */
+/* line 116, ../sass/_base.scss */
 button.light:hover, a.button.light:hover {
   color: #fff;
   background-color: #7194ad;
 }
 
-/* line 117, ../sass/_base.scss */
+/* line 122, ../sass/_base.scss */
 button, a.button {
   display: inline-block;
   margin: 1rem;
@@ -521,7 +527,7 @@ button, a.button {
   -webkit-transition: background 0.2s;
   transition: background 0.2s;
 }
-/* line 128, ../sass/_base.scss */
+/* line 133, ../sass/_base.scss */
 button:hover, a.button:hover {
   background: #41586e;
 }
@@ -645,9 +651,9 @@ button:hover, a.button:hover {
 }
 
 /* line 111, ../sass/_layout.scss */
-.document, .document-category, .news, .event {
+.document, .document-category, .news, .event, .lecturer {
   margin-bottom: 1em;
-  padding: 0.5em;
+  padding: 1rem;
   background-color: #fff;
   -moz-box-shadow: 0 0 3px 2px #cccccc;
   -webkit-box-shadow: 0 0 3px 2px #cccccc;
@@ -978,9 +984,32 @@ button:hover, a.button:hover {
   margin-top: 1rem;
 }
 
+/* ===LECTURERS=== */
+/* line 314, ../sass/_modules.scss */
+#lecturers {
+  *zoom: 1;
+}
+/* line 38, ../../../../../../../.gem/ruby/2.1.0/gems/compass-core-1.0.0.alpha.19/stylesheets/compass/utilities/general/_clearfix.scss */
+#lecturers:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* line 318, ../sass/_modules.scss */
+.lecturer {
+  float: left;
+  margin-right: 2rem;
+  width: 18rem;
+}
+/* line 324, ../sass/_modules.scss */
+.lecturer img {
+  width: 100%;
+}
+
 /* ===LABELS=== */
-/* line 329, ../sass/_modules.scss */
-.label, .label-license, .label-summary, .label-exam, .label-other, .label-extension, .label-pdf, .label-github, .label-flattr, .label-e, .label-i, .label-m, .label-mi, .label-b, .label-eeu, .label-wing, .label-r, .label-l {
+/* line 344, ../sass/_modules.scss */
+.label, .label-license, .label-summary, .label-exam, .label-other, .label-extension, .label-pdf, .label-github, .label-flattr, .label-didactic, .label-humanly, .label-technical, .label-e, .label-i, .label-m, .label-mi, .label-b, .label-eeu, .label-wing, .label-r, .label-l {
   display: inline;
   padding: .2em .6em .3em;
   font-family: "Droid Sans", sans-serif;
@@ -998,44 +1027,44 @@ button:hover, a.button:hover {
   border-radius: 0.1em;
 }
 
-/* line 345, ../sass/_modules.scss */
+/* line 360, ../sass/_modules.scss */
 .label-license {
   background-color: #f0ad4e;
 }
 
-/* line 350, ../sass/_modules.scss */
+/* line 365, ../sass/_modules.scss */
 .label-summary {
   background-color: #5cb870;
 }
 
-/* line 355, ../sass/_modules.scss */
+/* line 370, ../sass/_modules.scss */
 .label-exam {
   background-color: #428bca;
 }
 
-/* line 360, ../sass/_modules.scss */
+/* line 375, ../sass/_modules.scss */
 .label-other {
   background-color: #5bc0de;
 }
 
-/* line 365, ../sass/_modules.scss */
+/* line 380, ../sass/_modules.scss */
 .label-extension {
   text-transform: uppercase;
 }
 
-/* line 370, ../sass/_modules.scss */
+/* line 385, ../sass/_modules.scss */
 .label-pdf {
   background-color: #ea4c3a;
   text-transform: uppercase;
 }
 
-/* line 376, ../sass/_modules.scss */
+/* line 391, ../sass/_modules.scss */
 .label-github {
   position: relative;
   padding-left: 1.8rem;
   background-color: #302F2F;
 }
-/* line 320, ../sass/_modules.scss */
+/* line 335, ../sass/_modules.scss */
 .label-github:before {
   position: absolute;
   font-size: 1.5rem;
@@ -1043,13 +1072,13 @@ button:hover, a.button:hover {
   left: 0.2rem;
 }
 
-/* line 382, ../sass/_modules.scss */
+/* line 397, ../sass/_modules.scss */
 .label-flattr {
   position: relative;
   padding-left: 1.8rem;
   background-color: #89b058;
 }
-/* line 320, ../sass/_modules.scss */
+/* line 335, ../sass/_modules.scss */
 .label-flattr:before {
   position: absolute;
   font-size: 1.5rem;
@@ -1057,47 +1086,62 @@ button:hover, a.button:hover {
   left: 0.2rem;
 }
 
-/* line 401, ../sass/_modules.scss */
+/* line 403, ../sass/_modules.scss */
+.label-didactic {
+  background-color: #f0ad4e;
+}
+
+/* line 408, ../sass/_modules.scss */
+.label-humanly {
+  background-color: #428bca;
+}
+
+/* line 413, ../sass/_modules.scss */
+.label-technical {
+  background-color: #5cb870;
+}
+
+/* line 431, ../sass/_modules.scss */
 .label-e {
   background-color: #5cb870;
 }
 
-/* line 401, ../sass/_modules.scss */
+/* line 431, ../sass/_modules.scss */
 .label-i {
   background-color: #f0ad4e;
 }
 
-/* line 401, ../sass/_modules.scss */
+/* line 431, ../sass/_modules.scss */
 .label-m {
   background-color: #428bca;
 }
 
-/* line 401, ../sass/_modules.scss */
+/* line 431, ../sass/_modules.scss */
 .label-mi {
   background-color: #428bca;
 }
 
-/* line 401, ../sass/_modules.scss */
+/* line 431, ../sass/_modules.scss */
 .label-b {
   background-color: #aeb870;
 }
 
-/* line 401, ../sass/_modules.scss */
+/* line 431, ../sass/_modules.scss */
 .label-eeu {
   background-color: #f0ad4e;
 }
 
-/* line 401, ../sass/_modules.scss */
+/* line 431, ../sass/_modules.scss */
 .label-wing {
   background-color: #5cb870;
 }
 
-/* line 401, ../sass/_modules.scss */
+/* line 431, ../sass/_modules.scss */
 .label-r {
   background-color: #5cb870;
 }
 
-/* line 401, ../sass/_modules.scss */
+/* line 431, ../sass/_modules.scss */
 .label-l {
   background-color: #5bc0de;
 }

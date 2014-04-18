@@ -22,8 +22,8 @@
                     page: 9001
                 };
 
-                var contactList = new List("lecturers", options);                
-                
+                var contactList = new List("lecturers", options);
+
                 var loadImages = function() {
                     var elements = $.map(contactList.visibleItems, function(val) { return val.elm; });
                     $(elements).find("img.lazy").trigger("appear");
@@ -32,11 +32,11 @@
                 //Depending on how fast the user is typing, the updated event
                 //triggers multiple times, which is not optimal.
                 //The v1.1 of list.js supports a searchCompleted event which whould
-                //resolve this issue, 
-                 
+                //resolve this issue,
+
                 contactList.on("updated", function() {
                     onSearchCompleted = setTimeout(function() {
-                        loadImages();                        
+                        loadImages();
                     }, 500);
                 });
             });
@@ -68,32 +68,33 @@
 
     <p>Falls sich ein Dozent durch ein Zitat angegriffen fühlt, wird dieses gelöscht.</p>
 
-    <p>Legende für Bewertungen (1-10 Punkte): <span class="label label-important">didaktisch</span> <span class="label label-success">menschlich</span> <span class="label label-info">fachlich</span></p>
+    <p>Legende für Bewertungen (1-10 Punkte): <span class="label-didactic">didaktisch</span> <span class="label-humanly">menschlich</span> <span class="label-technical">fachlich</span></p>
 
     <hr>
 
     <div id="lecturers">
-        <div class="input input-append">
-            <input class="search" placeholder="Dozent suchen...">
-            <span class="add-on"><i class="icon-search"></i></span>
-        </div>
+        <form action="#" class="search-box">
+            <input class="search" type="text" placeholder="Dozent suchen..." />
+            <button type="submit"><span class="icon-magnifying-glass"></span></button>
+        </form>
 
         <div class="list">
             {% for lecturer in lecturers %}
-                <div>
-                    <h4><a href="{% url 'lecturers:lecturer_detail' lecturer.pk %}" class="name">{{ lecturer.name }}</a></h4>
+                <article class="lecturer">
+                    <h3><a href="{% url 'lecturers:lecturer_detail' lecturer.pk %}" class="name">{{ lecturer.first_name }}<br />{{ lecturer.last_name }}</a>
+                    <!--<span class="label">{{lecturer.abbreviation}}</span>--></h3>
                     <a href="{% url 'lecturers:lecturer_detail' lecturer.pk %}">
 
                         <img class="thumbnail lazy" src="{{ STATIC_URL }}img/120x160.gif"
                             {% if lecturer.photo %}data-original="{% thumbnail lecturer.photo 120x160 crop %}"{% endif %}
                         /></a>
                     {% with quotecounts|lookup:lecturer.pk|default:0 as quotecount %}
-                    <p><span class="label"><a href="{% url 'lecturers:lecturer_detail' lecturer.pk %}#zitate">{{ quotecount }} Zitat{{ quotecount|pluralize:"e" }}</a></span>
-                           <span class="label label-important">{{ lecturer.avg_rating_d|default:'-' }}</span>
-                           <span class="label label-success">{{ lecturer.avg_rating_m|default:'-' }}</span>
-                           <span class="label label-info">{{ lecturer.avg_rating_f|default:'-' }}</span></p>
+                    <p><a class="label" href="{% url 'lecturers:lecturer_detail' lecturer.pk %}#zitate">{{ quotecount }} Zitat{{ quotecount|pluralize:"e" }}</a>
+                           <span class="label-didactic">{{ lecturer.avg_rating_d|default:'-' }}</span>
+                           <span class="label-humanly">{{ lecturer.avg_rating_m|default:'-' }}</span>
+                           <span class="label-technical">{{ lecturer.avg_rating_f|default:'-' }}</span></p>
                    {% endwith %}
-                </div>
+                </article>
 
             {% endfor %}
         </div>

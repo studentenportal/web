@@ -310,6 +310,21 @@
     @include adapt-heading-to-author;
 }
 
+/* ===LECTURERS=== */
+#lecturers {
+    @include pie-clearfix;
+}
+
+.lecturer {
+    @extend %box;
+    float: left;
+    margin-right: 2*$gutter;
+    width: 18rem;
+
+    img { width: 100%; }
+}
+
+
 /* ===LABELS=== */
 // Bootstrap like labels for the different fields of study
 
@@ -383,6 +398,21 @@
     @extend .label;
     @include fix-icon-position-in-label;
     background-color: #89b058;
+}
+
+.label-didactic {
+    @extend .label;
+    background-color: #f0ad4e;
+}
+
+.label-humanly {
+    @extend .label;
+    background-color: #428bca;
+}
+
+.label-technical {
+    @extend .label;
+    background-color: $color-fern;
 }
 
 $courses: (
