@@ -1,22 +1,135 @@
 # -*- coding: utf-8 -*-
 from __future__ import print_function, division, absolute_import, unicode_literals
 
+from optparse import make_option
+import sys
+import re
+
 from django.core.management.base import NoArgsCommand
 
 import requests
 from bs4 import BeautifulSoup
 
-from apps.front.models import DocumentCategory
+from apps.documents.models import DocumentCategory
 from apps.front.mixins import CommandOutputMixin
-
+from apps.lecturers import models as lecturer_models
 
 blacklist = ['3D-Vis', 'DigT1', 'DigT2', 'MaTechM1', 'MaTechM2', 'ElMasch', 'StReiseR', 'SE2P',
              'MathSem' 'AdpaFw', 'AdpaFwUe', 'ChallP', 'ChallP1', 'ChallP2', 'CEng_MT',
              'CEng_PJ1', 'CEng_PJ2', 'CM_Block', 'ZeiWo', 'WibS']
 
+course_specialisations = {"Energy and Environment", "Spatial Development & Landscape Architecture",
+                    "Civil Engineering & Building Technology", "Industrial Technologies",
+                    "Information and Communication Technologies", "Automation und Robotik",
+                    "Public Planning, Construction and Building Technology", "Simulationstechnik",
+                    "Application Design - Cloud Solutions", "Software Engineering",
+                    "Betrieb- und Instandhaltung", "Maschinenbau-Informatik", "Produktentwicklung",
+                    "Kunststofftechnik", "Network, Security & Cloud-Infrastructure"
+                    "Planung und Entwurf urbaner Freiräume", "Landschaftsbau- und Management",
+                    "Landschaftsentwicklung und Gestaltung"}
+
 
 class Command(CommandOutputMixin, NoArgsCommand):
     help = 'Fetch module descriptions and write them to the database.'
+    option_list = NoArgsCommand.option_list + (make_option('--update',
+                                               action='store_true',
+                                               dest='update',
+                                               default=False,
+                                               help='Update existing modules'),)
+
+    def parse_module_detail_page(self, url):
+        """
+        Parse a module detail page and return its extracted properties.
+        """
+        try:
+            r = requests.get(url)
+            soup = BeautifulSoup(r.content)
+
+            def get_course(row):
+                return re.match('(.*)\(', row.find('strong').text).group(1).strip()
+
+            table = soup.find('tbody', id=re.compile('^modul'))
+            course_table = soup.find('tbody', id=re.compile('^kategorieZuordnungen'))
+            course_rows = course_table.find_all('div', {'class': 'katZuordnung'})
+            courses = {get_course(row) for row in course_rows}
+
+            ects_points_row = table.find('tr', id=re.compile('^Kreditpunkte'))
+            objectives_row = table.find('tr', id=re.compile('^Lernziele'))
+            lecturer_row = table.find('tr', id=re.compile('^dozent'))
+
+            return {
+                'ects_points': int(ects_points_row.find_all('td')[1].text),
+                'objectives': objectives_row.find_all('td')[1].string,
+                'lecturer': lecturer_row.find_all('td')[1].text,
+                'courses': {c for c in courses if c not in course_specialisations}
+                # Skip all courses that are only specialications and not real courses
+            }
+        except:
+            self.stderr.write("Could not parse {0}: {1}".format(url, sys.exc_info()[0]))
+
+    def parse_modules(self, url):
+        """
+        Parse all modules in the table and their corresponding detail page.
+        Returns a dictionary containing all extracted data.
+        """
+        try:
+            r = requests.get(url)
+            soup = BeautifulSoup(r.content)
+            table = soup.find('table')
+            rows = table.find_all('tr', recursive=False)
+
+            for row in rows[1:]:  # Skip heading row
+                cols = row.find_all('td', recursive=False)
+
+                yield {
+                    "url": cols[0].a['href'],
+                    "description": cols[0].text,
+                    "full_name": cols[1].text,
+                    "name": cols[1].text.split('_', 1)[1],
+                    "dates": cols[2].text,
+                    "detail": self.parse_module_detail_page(cols[0].a['href'])
+                }
+        except:
+            self.stderr.write("Could not parse {0}: {1}".format(url, sys.exc_info()[0]))
+
+    def update_courses_document_category(self, module):
+        """
+        Update courses of an existing DocumentCategory.
+        This is used to add the related courses to all the existing modules.
+        """
+        category = DocumentCategory.objects.get(name=module["name"])
+        self.add_courses_to_document_category(category, module)
+        category.save()
+
+    def add_courses_to_document_category(self, category, module):
+        """
+        Add all courses that are defined in the module to the document category if
+        they already exist.
+        """
+        for course_name in module["detail"]["courses"]:
+            try:
+                course = lecturer_models.Course.objects.get(name=course_name)
+                category.courses.add(course)
+            except lecturer_models.Course.DoesNotExist:
+                self.stderr.write("Could not find course {0}".format(course_name))
+
+        category.save()
+
+    def create_document_category(self, module):
+        """
+        Create a DocumentCategory in the database if it does not yet exist.
+        Returns True if a DocumentCategory was created.
+        """
+        try:
+            DocumentCategory.objects.get(name=module["name"])
+            return False
+        except DocumentCategory.DoesNotExist:
+            category = DocumentCategory.objects.create(
+                name=module["name"],
+                description=module["description"])
+            self.add_courses_to_document_category(category, course)
+            category.save()
+            return True
 
     def handle_noargs(self, **options):
         # Initialize counters
@@ -25,59 +138,47 @@ class Command(CommandOutputMixin, NoArgsCommand):
         invalid_count = 0
         blacklisted_count = 0
         added_count = 0
+        update_count = 0
 
-        r = requests.get('http://studien.hsr.ch/')
-        soup = BeautifulSoup(r.content)
-        table = soup.find('table')
-        rows = table.find_all('tr', recursive=False)
-        for row in rows:
-            cols = row.find_all('td', recursive=False)
+        for module in self.parse_modules('http://studien.hsr.ch/'):
+            # Skip conditions
+            if module["name"] in blacklist:
+                self.stdout.write('Skipping %s (blacklisted)' % module["name"])
+                blacklisted_count += 1
+                continue
+            if not module["full_name"].startswith('M_'):
+                self.stdout.write('Skipping %s (invalid module name)' % module["name"])
+                invalid_count += 1
+                continue
+            if 'nicht durchgeführt' in module["dates"]:
+                self.stdout.write('Skipping %s (no valid dates)' % module["name"])
+                invalid_count += 1
+                continue
+            if module["description"].startswith('Seminar - ') or \
+                    module["description"].startswith('Bachelor-Arbeit ') or \
+                    module["description"].startswith('Studienarbeit ') or \
+                    module["description"].startswith('Projektarbeit ') or \
+                    module["description"].startswith('Diplomarbeit '):
+                self.stdout.write('Skipping %s (project or seminary)' % module["name"])
+                invalid_count += 1
+                continue
 
-            if len(cols):  # If this is not a header row...
+            parsed_count += 1
 
-                # Parse data
-                description = cols[0].text
-                full_name = cols[1].text
-                name = full_name.split('_', 1)[1]
-                dates = cols[2].text
-
-                # Skip conditions
-                if name in blacklist:
-                    self.printO('Skipping %s (blacklisted)' % name)
-                    blacklisted_count += 1
-                    continue
-                if not full_name.startswith('M_'):
-                    self.printO('Skipping %s (invalid module name)' % name)
-                    invalid_count += 1
-                    continue
-                if 'nicht durchgeführt' in dates:
-                    self.printO('Skipping %s (no valid dates)' % name)
-                    invalid_count += 1
-                    continue
-                if description.startswith('Seminar - ') or \
-                        description.startswith('Bachelor-Arbeit ') or \
-                        description.startswith('Studienarbeit ') or \
-                        description.startswith('Projektarbeit ') or \
-                        description.startswith('Diplomarbeit '):
-                    self.printO('Skipping %s (project or seminary)' % name)
-                    invalid_count += 1
-                    continue
-
-                parsed_count += 1
-
-                # Create module if new
-                try:
-                    DocumentCategory.objects.get(name=name)
-                except DocumentCategory.DoesNotExist:
-                    self.printO('Adding %s' % name)
-                    DocumentCategory.objects.create(name=name, description=description)
-                    added_count += 1
+            if self.create_document_category(module):
+                self.stdout.write('Added %s' % module["name"])
+                added_count += 1
+            else:
+                if options["update"]:
+                    self.update_courses_document_category(module)
+                    update_count += 1
                 else:
-                    self.printO('Skipping %s (already exists)' % name)
+                    self.stdout.write(u'Skipping %s (already exists)' % module["name"])
                     existing_count += 1
 
-        self.printO(u'\nParsed %u modules.' % parsed_count)
-        self.printO(u'Added %u modules.' % added_count)
-        self.printO(u'Skipped %u modules (already exist).' % existing_count)
-        self.printO(u'Skipped %u modules (blacklist).' % blacklisted_count)
-        self.printO(u'Skipped %u modules (invalid).' % invalid_count)
+        self.stdout.write(u'\nParsed %u modules.' % parsed_count)
+        self.stdout.write(u'Added %u modules.' % added_count)
+        self.stdout.write(u'Updated %u modules.' % update_count)
+        self.stdout.write(u'Skipped %u modules (already exist).' % existing_count)
+        self.stdout.write(u'Skipped %u modules (blacklist).' % blacklisted_count)
+        self.stdout.write(u'Skipped %u modules (invalid).' % invalid_count)

@@ -9,8 +9,6 @@ from django.conf import settings
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 
-from apps.front import models as front_models
-from apps.documents import models as document_models
 from apps.lecturers import managers
 
 
@@ -157,52 +155,11 @@ class QuoteVote(models.Model):
         unique_together = ('user', 'quote')
 
 
-class ModuleReview(models.Model):
-    """Review of a module."""
-    SEMESTER_CHOICES = (
-        ('h', 'Herbstsemester'),
-        ('f', 'Frühlingssemester'))
-    TOPIC_RATINGS = (
-        (1, 'Sehr Langweilig'),
-        (2, 'Langweilig'),
-        (3, 'Normal'),
-        (4, 'Interessant'),
-        (5, 'Sehr Interessant'))
-    UNDERSTANDABILITY_RATINGS = (
-        (1, 'Katastrophal'),
-        (2, 'Unverständlich'),
-        (3, 'Normal'),
-        (4, 'Verständlich'),
-        (5, 'Genial'))
-    EFFORT_RATINGS = (
-        (1, 'Sehr Hoch'),
-        (2, 'Hoch'),
-        (3, 'Normal'),
-        (4, 'Gering'),
-        (5, 'Sehr Gering'))
-    DIFFICULTY_RATINGS = (
-        (1, 'Sehr Schwierig'),
-        (2, 'Schwierig'),
-        (3, 'Normal'),
-        (4, 'Einfach'),
-        (5, 'Sehr Einfach'))
+class Course(models.Model):
+    """A possible degree course. At the moment only one lecturer is possible"""
+    id = models.IntegerField('Studiengang ID', primary_key=True)
+    abbreviation = models.CharField('Abkürzung', max_length=10, unique=True)
+    name = models.CharField('Titel', max_length=50)
 
-    Module = models.ForeignKey(document_models.DocumentCategory, related_name='ModuleReview')
-    Lecturer = models.ForeignKey(Lecturer, related_name='ModuleReview')
-    semester = models.CharField('Semester', max_length=1, choices=SEMESTER_CHOICES)
-    year = models.PositiveIntegerField('Jahr')
-    topic = models.SmallIntegerField('Thematik', choices=TOPIC_RATINGS,
-            help_text='Wie interessant war die Thematik?')
-    understandability = models.SmallIntegerField('Verständlichkeit',
-            choices=UNDERSTANDABILITY_RATINGS,
-            help_text='Wie verständlich war der Unterricht?')
-    effort = models.SmallIntegerField('Aufwand', choices=EFFORT_RATINGS,
-            help_text='Wie aufwändig war das Modul?')
-    difficulty_module = models.SmallIntegerField('Schwierigkeit Modul',
-            choices=DIFFICULTY_RATINGS,
-            help_text='Wie schwierig war das Modul inhaltlich?')
-    difficulty_exam = models.SmallIntegerField('Schwierigkeit Prüfung',
-            choices=DIFFICULTY_RATINGS,
-            help_text='Wie schwierig war die Prüfung?')
-    comment = models.TextField('Allgemeines Feedback', blank=True, null=True,
-            help_text='Allgemeines Feedback zum Modul.')
+    def __unicode__(self):
+        return '%s (%s)' % (self.name, self.abbreviation)

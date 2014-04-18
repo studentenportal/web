@@ -1,5 +1,12 @@
+Maintainers
+-----------
+
 Danilo Bargen @dbrgn
+Lukas Martinelli @lukasmartinelli
+
+Contributors
+------------
+
 Fabian Vogler @fabian
 Peter Manser @petermanser
 Michi Gysel @theScythe
-Lukas Martinelli @lukasmartinelli

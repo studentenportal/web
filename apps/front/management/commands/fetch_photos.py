@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+from __future__ import print_function, division, absolute_import, unicode_literals
+
 import requests
 import time
 import sys
@@ -27,9 +30,9 @@ class UnterrichtWebsite(object):
         self.s = requests.session(headers=self.headers)
 
     def logged_in(self):
-        if not 'adfs.hsr.ch' in self.s.cookies._cookies:
+        if 'adfs.hsr.ch' not in self.s.cookies._cookies:
             return False
-        if not '/adfs/ls' in self.s.cookies._cookies['adfs.hsr.ch']:
+        if '/adfs/ls' not in self.s.cookies._cookies['adfs.hsr.ch']:
             return False
         return 'MSISAuthenticated' in self.s.cookies._cookies['adfs.hsr.ch']['/adfs/ls']
 
@@ -69,17 +72,15 @@ class UnterrichtWebsite(object):
         """Fetch the lecturer photos from the Klassenspiegel."""
         assert self.logged_in(), 'Not logged in. Please call login().'
         r = self.s.get('https://unterricht.hsr.ch/Content/PersonImage/mkempf')
-        print r.content
+        print(r.content)
         assert False
 
 
 class Command(BaseCommand):
     help = 'Fetch lecturers photos and write them to the file storage.'
     option_list = BaseCommand.option_list + (
-        make_option('--user',
-            dest='username', help='HSR username'),
-        make_option('--pass',
-            dest='password', help='HSR password'),
+        make_option('--user', dest='username', help='HSR username'),
+        make_option('--pass', dest='password', help='HSR password'),
     )
 
     def printO(self, msg, newline=True):

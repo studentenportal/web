@@ -97,17 +97,17 @@ class Stats(LoginRequiredMixin, TemplateView):
                         ORDER BY lrcount DESC'''))
         context['user_topuploads'] = fetchfirst(
                 models.User.objects
-                        .exclude(username='spimport')
-                        .annotate(uploads_count=Count('Document'))
-                        .order_by('-uploads_count'))
+                .exclude(username='spimport')
+                .annotate(uploads_count=Count('Document'))
+                .order_by('-uploads_count'))
         context['user_topevents'] = fetchfirst(
                 models.User.objects
-                        .annotate(events_count=Count('Event'))
-                        .order_by('-events_count'))
+                .annotate(events_count=Count('Event'))
+                .order_by('-events_count'))
         context['user_topquotes'] = fetchfirst(
                 models.User.objects
-                        .exclude(username='spimport')
-                        .annotate(quotes_count=Count('Quote'))
-                        .order_by('-quotes_count'))
+                .exclude(username='spimport')
+                .annotate(quotes_count=Count('Quote'))
+                .order_by('-quotes_count'))
 
         return context
