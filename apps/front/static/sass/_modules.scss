@@ -384,3 +384,22 @@
     @include fix-icon-position-in-label;
     background-color: #89b058;
 }
+
+$courses: (
+  e: #5CB870,
+  i: #f0ad4e,
+  m: #428bca,
+  mi:#428bca,
+  b: #AEB870,
+  eeu: #f0ad4e,
+  wing: #5CB870,
+  r: #5CB870,
+  l: #5bc0de
+);
+
+@each $course, $color in $courses {
+    .label-#{$course} {
+        @extend .label;
+        background-color: $color;
+    }
+}

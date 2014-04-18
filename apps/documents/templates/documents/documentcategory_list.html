@@ -66,8 +66,9 @@
                         </div>
                         <div class="summary">
                             <div class="labels">
-                                <span class="label label-blue">I</span>
-                                <span class="label label-blublu">E</span>
+                                {% for course in category.courses.all %}
+                                    <span class="label-{{course.abbreviation|slugify}}">{{course.abbreviation}}</span>
+                                {% endfor %}
                             </div>
                             <a href="{% url 'documents:document_list' category.name|slugify %}">
                                 <h3 class="name"><em class="abbreviation">{{category.name}}</em>{% if category.description %}{{ category.description }}{% endif %}</h3>
@@ -75,12 +76,12 @@
                             <ul>
                                 {% if counts|lookup:category.pk|lookup:"summary" > 0 %}
                                 <li>
-                                    <span class="icon-document"></span><a href="#">{{ counts|lookup:category.pk|lookup:"summary" }} Zusammenfassungen</a>
+                                    <span class="icon-doc"></span><a href="#">{{ counts|lookup:category.pk|lookup:"summary" }} Zusammenfassungen</a>
                                 </li>
                                 {% endif %}
                                 {% if counts|lookup:category.pk|lookup:"exam" > 0 %}
                                 <li>
-                                    <span class="icon-document"></span><a href="#">{{ counts|lookup:category.pk|lookup:"exam" }} Prüfungen</a>
+                                    <span class="icon-test"></span><a href="#">{{ counts|lookup:category.pk|lookup:"exam" }} Prüfungen</a>
                                 </li>
                                 {% endif %}
                                 {% if counts|lookup:category.pk|lookup:"other" > 0 %}

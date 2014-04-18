@@ -980,7 +980,7 @@ button:hover, a.button:hover {
 
 /* ===LABELS=== */
 /* line 329, ../sass/_modules.scss */
-.label, .label-license, .label-summary, .label-exam, .label-other, .label-extension, .label-pdf, .label-github, .label-flattr {
+.label, .label-license, .label-summary, .label-exam, .label-other, .label-extension, .label-pdf, .label-github, .label-flattr, .label-e, .label-i, .label-m, .label-mi, .label-b, .label-eeu, .label-wing, .label-r, .label-l {
   display: inline;
   padding: .2em .6em .3em;
   font-family: "Droid Sans", sans-serif;
@@ -1055,4 +1055,49 @@ button:hover, a.button:hover {
   font-size: 1.5rem;
   top: 0.1rem;
   left: 0.2rem;
+}
+
+/* line 401, ../sass/_modules.scss */
+.label-e {
+  background-color: #5cb870;
+}
+
+/* line 401, ../sass/_modules.scss */
+.label-i {
+  background-color: #f0ad4e;
+}
+
+/* line 401, ../sass/_modules.scss */
+.label-m {
+  background-color: #428bca;
+}
+
+/* line 401, ../sass/_modules.scss */
+.label-mi {
+  background-color: #428bca;
+}
+
+/* line 401, ../sass/_modules.scss */
+.label-b {
+  background-color: #aeb870;
+}
+
+/* line 401, ../sass/_modules.scss */
+.label-eeu {
+  background-color: #f0ad4e;
+}
+
+/* line 401, ../sass/_modules.scss */
+.label-wing {
+  background-color: #5cb870;
+}
+
+/* line 401, ../sass/_modules.scss */
+.label-r {
+  background-color: #5cb870;
+}
+
+/* line 401, ../sass/_modules.scss */
+.label-l {
+  background-color: #5bc0de;
 }
