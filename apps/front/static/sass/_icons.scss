@@ -21,7 +21,14 @@ $icons: (
   github: "e",
   calendar: "a",
   list: "g",
-  comment-quotes: "i"
+  comment-quotes: "i",
+  doc: "l",
+  test: "k",
+  statistics: "m",
+  edit: "n",
+  logout: "o",
+  user: "p",
+  login: "q"
 );
 
 @mixin icon($icon) {

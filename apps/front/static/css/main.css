@@ -80,7 +80,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   font-weight: normal;
   font-style: normal;
 }
-/* line 42, ../sass/_icons.scss */
+/* line 49, ../sass/_icons.scss */
 .icon-lecturer:before {
   font-family: "studentenportal-icons" !important;
   font-style: normal !important;
@@ -95,7 +95,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   content: "f";
 }
 
-/* line 42, ../sass/_icons.scss */
+/* line 49, ../sass/_icons.scss */
 .icon-twitter:before {
   font-family: "studentenportal-icons" !important;
   font-style: normal !important;
@@ -110,7 +110,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   content: "h";
 }
 
-/* line 42, ../sass/_icons.scss */
+/* line 49, ../sass/_icons.scss */
 .icon-download:before {
   font-family: "studentenportal-icons" !important;
   font-style: normal !important;
@@ -125,7 +125,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   content: "j";
 }
 
-/* line 42, ../sass/_icons.scss */
+/* line 49, ../sass/_icons.scss */
 .icon-home:before {
   font-family: "studentenportal-icons" !important;
   font-style: normal !important;
@@ -140,7 +140,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   content: "b";
 }
 
-/* line 42, ../sass/_icons.scss */
+/* line 49, ../sass/_icons.scss */
 .icon-magnifying-glass:before {
   font-family: "studentenportal-icons" !important;
   font-style: normal !important;
@@ -155,7 +155,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   content: "c";
 }
 
-/* line 42, ../sass/_icons.scss */
+/* line 49, ../sass/_icons.scss */
 .icon-flattr:before {
   font-family: "studentenportal-icons" !important;
   font-style: normal !important;
@@ -170,7 +170,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   content: "d";
 }
 
-/* line 42, ../sass/_icons.scss */
+/* line 49, ../sass/_icons.scss */
 .icon-github:before {
   font-family: "studentenportal-icons" !important;
   font-style: normal !important;
@@ -185,7 +185,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   content: "e";
 }
 
-/* line 42, ../sass/_icons.scss */
+/* line 49, ../sass/_icons.scss */
 .icon-calendar:before {
   font-family: "studentenportal-icons" !important;
   font-style: normal !important;
@@ -200,7 +200,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   content: "a";
 }
 
-/* line 42, ../sass/_icons.scss */
+/* line 49, ../sass/_icons.scss */
 .icon-list:before {
   font-family: "studentenportal-icons" !important;
   font-style: normal !important;
@@ -215,7 +215,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   content: "g";
 }
 
-/* line 42, ../sass/_icons.scss */
+/* line 49, ../sass/_icons.scss */
 .icon-comment-quotes:before {
   font-family: "studentenportal-icons" !important;
   font-style: normal !important;
@@ -230,6 +230,111 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   content: "i";
 }
 
+/* line 49, ../sass/_icons.scss */
+.icon-doc:before {
+  font-family: "studentenportal-icons" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  font-size: 1em;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  content: "l";
+}
+
+/* line 49, ../sass/_icons.scss */
+.icon-test:before {
+  font-family: "studentenportal-icons" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  font-size: 1em;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  content: "k";
+}
+
+/* line 49, ../sass/_icons.scss */
+.icon-statistics:before {
+  font-family: "studentenportal-icons" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  font-size: 1em;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  content: "m";
+}
+
+/* line 49, ../sass/_icons.scss */
+.icon-edit:before {
+  font-family: "studentenportal-icons" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  font-size: 1em;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  content: "n";
+}
+
+/* line 49, ../sass/_icons.scss */
+.icon-logout:before {
+  font-family: "studentenportal-icons" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  font-size: 1em;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  content: "o";
+}
+
+/* line 49, ../sass/_icons.scss */
+.icon-user:before {
+  font-family: "studentenportal-icons" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  font-size: 1em;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  content: "p";
+}
+
+/* line 49, ../sass/_icons.scss */
+.icon-login:before {
+  font-family: "studentenportal-icons" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  font-size: 1em;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  content: "q";
+}
+
 /* ===FILETYPE ICONS=== */
 /* line 96, filetypes/*.png */
 .filetypes-sprite, .ficon-xls, .ficon-ppt, .ficon-doc, .ficon-pdf, .ficon-other, .ficon-img, .ficon-zip {
@@ -237,48 +342,48 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   background-repeat: no-repeat;
 }
 
-/* line 58, ../sass/_icons.scss */
+/* line 65, ../sass/_icons.scss */
 .ficon-xls {
   background-position: 0 -160px;
 }
 
-/* line 58, ../sass/_icons.scss */
+/* line 65, ../sass/_icons.scss */
 .ficon-ppt {
   background-position: 0 -128px;
 }
 
-/* line 58, ../sass/_icons.scss */
+/* line 65, ../sass/_icons.scss */
 .ficon-doc {
   background-position: 0 0;
 }
 
-/* line 58, ../sass/_icons.scss */
+/* line 65, ../sass/_icons.scss */
 .ficon-pdf {
   background-position: 0 -96px;
 }
 
-/* line 58, ../sass/_icons.scss */
+/* line 65, ../sass/_icons.scss */
 .ficon-other {
   background-position: 0 -64px;
 }
 
-/* line 58, ../sass/_icons.scss */
+/* line 65, ../sass/_icons.scss */
 .ficon-img {
   background-position: 0 -32px;
 }
 
-/* line 58, ../sass/_icons.scss */
+/* line 65, ../sass/_icons.scss */
 .ficon-zip {
   background-position: 0 -192px;
 }
 
 /* ===TYPOGRAPHY=== */
-/* line 5, ../sass/_base.scss */
+/* line 6, ../sass/_base.scss */
 html {
   font-size: 62.5%;
 }
 
-/* line 12, ../sass/_base.scss */
+/* line 13, ../sass/_base.scss */
 body {
   background: whitesmoke;
   font-size: 1.4rem;
@@ -287,12 +392,12 @@ body {
   color: #333;
 }
 
-/* line 20, ../sass/_base.scss */
+/* line 21, ../sass/_base.scss */
 h1, h2, h3, h4, h5, h6, nav a {
   font-family: "Droid Sans", sans-serif;
 }
 
-/* line 24, ../sass/_base.scss */
+/* line 25, ../sass/_base.scss */
 h1 {
   font-size: 3.2rem;
   font-weight: 400;
@@ -300,29 +405,29 @@ h1 {
   line-height: 4.16rem;
 }
 
-/* line 31, ../sass/_base.scss */
+/* line 32, ../sass/_base.scss */
 h2 {
   font-size: 2.8rem;
   line-height: 3.64rem;
 }
 
-/* line 36, ../sass/_base.scss */
+/* line 37, ../sass/_base.scss */
 h3 {
   font-size: 2rem;
   line-height: 4rem;
 }
 
-/* line 41, ../sass/_base.scss */
+/* line 42, ../sass/_base.scss */
 em, strong {
   font-weight: 700;
 }
 
-/* line 45, ../sass/_base.scss */
+/* line 46, ../sass/_base.scss */
 p {
   margin: 0 auto 0.5em;
 }
 
-/* line 49, ../sass/_base.scss */
+/* line 50, ../sass/_base.scss */
 hr {
   border: solid #ddd;
   border-width: 1px 0 0;
@@ -332,25 +437,25 @@ hr {
 }
 
 /* ===LINKS=== */
-/* line 59, ../sass/_base.scss */
+/* line 60, ../sass/_base.scss */
 a {
   color: #155183;
   text-decoration: none;
   outline: 0;
 }
 
-/* line 64, ../sass/_base.scss */
+/* line 65, ../sass/_base.scss */
 a:hover, a:focus {
   color: #41586e;
 }
 
 /* ===FORMS=== */
-/* line 68, ../sass/_base.scss */
+/* line 69, ../sass/_base.scss */
 form, fieldset {
   margin-bottom: 1rem;
 }
 
-/* line 70, ../sass/_base.scss */
+/* line 71, ../sass/_base.scss */
 input {
   margin-top: 1rem;
   width: 100%;
@@ -362,12 +467,12 @@ input {
   -webkit-transition: border-color, 0.3s;
   transition: border-color, 0.3s;
 }
-/* line 78, ../sass/_base.scss */
+/* line 79, ../sass/_base.scss */
 input:focus {
   border-color: #41586e;
 }
 
-/* line 83, ../sass/_base.scss */
+/* line 84, ../sass/_base.scss */
 .note {
   margin-top: 0.5rem;
   font-size: 1.1rem;
@@ -375,11 +480,11 @@ input:focus {
   color: #999;
 }
 
-/* line 91, ../sass/_base.scss */
+/* line 92, ../sass/_base.scss */
 label.input {
   position: relative;
 }
-/* line 94, ../sass/_base.scss */
+/* line 95, ../sass/_base.scss */
 label.input .add-on {
   color: #aaa;
   top: 5px;
@@ -391,20 +496,21 @@ label.input .add-on {
   border-left: 1px solid #d2dde5;
 }
 
-/* line 107, ../sass/_base.scss */
+/* line 108, ../sass/_base.scss */
 button.light, a.button.light {
   background-color: #91acc0;
 }
-/* line 110, ../sass/_base.scss */
+/* line 111, ../sass/_base.scss */
 button.light:hover, a.button.light:hover {
   color: #fff;
   background-color: #7194ad;
 }
 
-/* line 116, ../sass/_base.scss */
+/* line 117, ../sass/_base.scss */
 button, a.button {
-  margin-right: 1rem;
-  margin-top: 1rem;
+  display: inline-block;
+  margin: 1rem;
+  margin-left: 0;
   color: #fff;
   background-color: #155183;
   padding: 0.75rem 1.5rem;
@@ -415,7 +521,7 @@ button, a.button {
   -webkit-transition: background 0.2s;
   transition: background 0.2s;
 }
-/* line 126, ../sass/_base.scss */
+/* line 128, ../sass/_base.scss */
 button:hover, a.button:hover {
   background: #41586e;
 }
@@ -428,59 +534,117 @@ button:hover, a.button:hover {
 }
 
 /* line 11, ../sass/_layout.scss */
-.wrapper {
-  padding: 1rem;
+.top, .main, .footer {
+  padding: 0 1rem;
+}
+@media (min-width: 1024px) {
+  /* line 11, ../sass/_layout.scss */
+  .top, .main, .footer {
+    max-width: 1024px;
+    margin: 0 auto;
+  }
 }
 
-/* ===NAVIGATION=== */
 /* line 19, ../sass/_layout.scss */
-.nav-collapse li a {
-  padding: 0.5em 1em;
-  width: 100%;
-  display: block;
-  background: #d2dde5;
-  color: #155183;
-  border-bottom: 1px solid white;
-}
-/* line 26, ../sass/_layout.scss */
-.nav-collapse li a:before {
-  font-size: 0.75em;
-  padding-right: 0.5em;
-}
-/* line 33, ../sass/_layout.scss */
-.nav-collapse:before {
-  clear: left;
-}
-
-/* line 38, ../sass/_layout.scss */
-.nav-toggle {
-  color: #fff;
-  float: right;
-  display: block;
-  padding: 0.25em;
-  font-family: "studentenportal-icons" !important;
-  font-style: normal !important;
-  font-weight: normal !important;
-  font-variant: normal !important;
-  text-transform: none !important;
-  font-size: 1em;
-  speak: none;
-  line-height: 1;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  font-size: 2em;
-}
-
-/* line 47, ../sass/_layout.scss */
 .document-categories h2, .contribute h1, .latest-news h1, .events h1, .events h2 {
   padding: 0 1rem;
   margin-left: -1rem;
   margin-right: -1rem;
   margin-bottom: 1rem;
+}
+
+/* line 26, ../sass/_layout.scss */
+.top {
+  padding: 0;
+}
+
+/* line 31, ../sass/_layout.scss */
+.main {
+  margin-top: 1rem;
+}
+
+/* line 36, ../sass/_layout.scss */
+.footer {
+  margin-top: 1rem;
+}
+
+/* ===NAVIGATION=== */
+/* line 44, ../sass/_layout.scss */
+.nav-collapse {
+  background-color: #d2dde5;
+  *zoom: 1;
+}
+/* line 38, ../../../../../../../.gem/ruby/2.1.0/gems/compass-core-1.0.0.alpha.19/stylesheets/compass/utilities/general/_clearfix.scss */
+.nav-collapse:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+/* line 49, ../sass/_layout.scss */
+.nav-collapse li a {
+  padding: 0.5em 0.5em 1rem;
+  display: block;
+  background-color: #d2dde5;
+  color: #155183;
+  border-bottom: 1px solid white;
+}
+/* line 55, ../sass/_layout.scss */
+.nav-collapse li a:before {
+  font-size: 0.75em;
+  padding-right: 0.5em;
+}
+@media (min-width: 40em) {
+  /* line 49, ../sass/_layout.scss */
+  .nav-collapse li a {
+    float: left;
+  }
+}
+/* line 67, ../sass/_layout.scss */
+.nav-collapse li.active a {
+  background-color: whitesmoke;
+}
+/* line 71, ../sass/_layout.scss */
+.nav-collapse:before {
+  clear: left;
+}
+
+/* line 76, ../sass/_layout.scss */
+.header a {
+  float: right;
+  padding: 0.5rem;
+  font-size: 3.2rem;
+  color: #fff;
+}
+/* line 82, ../sass/_layout.scss */
+.header a:hover {
+  color: #155183;
+}
+
+/* line 87, ../sass/_layout.scss */
+.header {
+  background-color: #d2dde5;
+}
+/* line 90, ../sass/_layout.scss */
+.header .icon-user, .header .icon-logout, .header .icon-login {
+  width: 1em;
+  height: 1em;
+  position: relative;
+  padding-left: 1em;
+}
+/* line 96, ../sass/_layout.scss */
+.header .icon-user:before, .header .icon-logout:before, .header .icon-login:before {
+  position: absolute;
+  font-size: 0.75em;
+  top: 0.325em;
+  left: 0.1em;
+}
+
+/* line 105, ../sass/_layout.scss */
+.document-categories h2, .contribute h1, .latest-news h1, .events h1, .events h2 {
   background-color: #d2dde5;
 }
 
-/* line 56, ../sass/_layout.scss */
+/* line 111, ../sass/_layout.scss */
 .document, .document-category, .news, .event {
   margin-bottom: 1em;
   padding: 0.5em;
@@ -491,43 +655,43 @@ button:hover, a.button:hover {
 }
 
 /* ===AUTHOR===*/
-/* line 4, ../sass/_modules.scss */
+/* line 5, ../sass/_modules.scss */
 .author, a[rel="author"] {
   font-size: 1.1rem;
 }
 
 /* ===BRANDING=== */
-/* line 17, ../sass/_modules.scss */
+/* line 18, ../sass/_modules.scss */
 .branding {
-  margin-left: 1rem;
+  padding-left: 1rem;
   float: left;
 }
 
 /* ===DOCUMENT=== */
-/* line 23, ../sass/_modules.scss */
+/* line 24, ../sass/_modules.scss */
 .document {
   overflow: hidden;
   *zoom: 1;
 }
-/* line 9, ../sass/_modules.scss */
+/* line 10, ../sass/_modules.scss */
 .document h3 {
   line-height: 1;
   margin-top: 1rem;
 }
-/* line 32, ../sass/_modules.scss */
+/* line 33, ../sass/_modules.scss */
 .document .download {
   text-align: center;
 }
-/* line 36, ../sass/_modules.scss */
+/* line 37, ../sass/_modules.scss */
 .document .download .thumbnail {
   height: 15rem;
   overflow: hidden;
 }
-/* line 40, ../sass/_modules.scss */
+/* line 41, ../sass/_modules.scss */
 .document .download .thumbnail img {
   max-width: 100%;
 }
-/* line 43, ../sass/_modules.scss */
+/* line 44, ../sass/_modules.scss */
 .document .download > a {
   font-family: "Droid Sans", sans-serif;
   color: #fff;
@@ -539,7 +703,7 @@ button:hover, a.button:hover {
   min-height: 3.4rem;
   position: relative;
 }
-/* line 54, ../sass/_modules.scss */
+/* line 55, ../sass/_modules.scss */
 .document .download > a > div {
   position: absolute;
   top: 0.2rem;
@@ -548,16 +712,16 @@ button:hover, a.button:hover {
   width: 3.2rem;
   height: 3.2rem;
 }
-/* line 63, ../sass/_modules.scss */
+/* line 64, ../sass/_modules.scss */
 .document .download span.ficon-pdf {
   display: inline-block;
 }
-/* line 66, ../sass/_modules.scss */
+/* line 67, ../sass/_modules.scss */
 .document .download > a.pdf {
   background-color: #ea4c3a;
 }
 @media (max-width: 620px) {
-  /* line 75, ../sass/_modules.scss */
+  /* line 76, ../sass/_modules.scss */
   .document .download {
     display: -webkit-flex;
     display: flex;
@@ -566,27 +730,27 @@ button:hover, a.button:hover {
   }
 }
 @media (min-width: 620px) {
-  /* line 83, ../sass/_modules.scss */
+  /* line 84, ../sass/_modules.scss */
   .document .details {
     width: 70%;
     float: left;
   }
-  /* line 88, ../sass/_modules.scss */
+  /* line 89, ../sass/_modules.scss */
   .document .download {
     margin-top: 0.3rem;
     float: right;
     width: 30%;
     max-width: 400px;
   }
-  /* line 94, ../sass/_modules.scss */
+  /* line 95, ../sass/_modules.scss */
   .document .download .thumbnail {
     height: 10rem;
   }
-  /* line 98, ../sass/_modules.scss */
+  /* line 99, ../sass/_modules.scss */
   .document .download > a {
     height: 3.2rem;
   }
-  /* line 103, ../sass/_modules.scss */
+  /* line 104, ../sass/_modules.scss */
   .document span.filename {
     white-space: nowrap;
     overflow: hidden;
@@ -597,25 +761,25 @@ button:hover, a.button:hover {
   }
 }
 @media (min-width: 620px) and (min-width: 900px) {
-  /* line 103, ../sass/_modules.scss */
+  /* line 104, ../sass/_modules.scss */
   .document span.filename {
     display: block;
   }
 }
 @media (min-width: 620px) and (min-width: 1300px) {
-  /* line 103, ../sass/_modules.scss */
+  /* line 104, ../sass/_modules.scss */
   .document span.filename {
     width: 75%;
   }
 }
 @media (min-width: 620px) {
-  /* line 119, ../sass/_modules.scss */
+  /* line 120, ../sass/_modules.scss */
   .document span.filesize {
     display: block;
   }
 }
 @media (min-width: 620px) and (min-width: 900px) {
-  /* line 119, ../sass/_modules.scss */
+  /* line 120, ../sass/_modules.scss */
   .document span.filesize {
     float: left;
     display: block;
@@ -624,84 +788,84 @@ button:hover, a.button:hover {
   }
 }
 @media (min-width: 620px) and (min-width: 1300px) {
-  /* line 119, ../sass/_modules.scss */
+  /* line 120, ../sass/_modules.scss */
   .document span.filesize {
     width: 25%;
   }
 }
 
-/* line 139, ../sass/_modules.scss */
+/* line 140, ../sass/_modules.scss */
 .document .download-action.doc {
   background-color: #2b5796;
 }
-/* line 139, ../sass/_modules.scss */
+/* line 140, ../sass/_modules.scss */
 .document .download-action.xls {
   background-color: #1e7145;
 }
-/* line 139, ../sass/_modules.scss */
+/* line 140, ../sass/_modules.scss */
 .document .download-action.ppt {
   background-color: #d15a25;
 }
-/* line 139, ../sass/_modules.scss */
+/* line 140, ../sass/_modules.scss */
 .document .download-action.other {
   background-color: #6b533b;
 }
-/* line 139, ../sass/_modules.scss */
+/* line 140, ../sass/_modules.scss */
 .document .download-action.img {
   background-color: #5b2d8d;
 }
-/* line 139, ../sass/_modules.scss */
+/* line 140, ../sass/_modules.scss */
 .document .download-action.pdf {
   background-color: #ea4c3a;
 }
-/* line 139, ../sass/_modules.scss */
+/* line 140, ../sass/_modules.scss */
 .document .download-action.zip {
   background-color: #ff9408;
 }
 
 /* ===DOCUMENT CATEGORY=== */
-/* line 153, ../sass/_modules.scss */
+/* line 154, ../sass/_modules.scss */
 .document-category {
   overflow: hidden;
   *zoom: 1;
 }
-/* line 160, ../sass/_modules.scss */
+/* line 161, ../sass/_modules.scss */
 .document-category .summary > a, .document-category .summary > a:visited {
   color: inherit;
 }
-/* line 163, ../sass/_modules.scss */
+/* line 164, ../sass/_modules.scss */
 .document-category .abbreviation {
   margin-right: 0.5em;
 }
-/* line 165, ../sass/_modules.scss */
+/* line 166, ../sass/_modules.scss */
 .document-category .summary {
   float: left;
   margin-left: 1em;
 }
-/* line 169, ../sass/_modules.scss */
+/* line 170, ../sass/_modules.scss */
 .document-category .summary span {
   margin-right: 0.5em;
 }
-/* line 171, ../sass/_modules.scss */
+/* line 172, ../sass/_modules.scss */
 .document-category .summary li {
   float: left;
   margin-right: 0.5rem;
 }
-/* line 177, ../sass/_modules.scss */
+/* line 178, ../sass/_modules.scss */
 .document-category .lecturers {
   float: right;
 }
-/* line 180, ../sass/_modules.scss */
+/* line 181, ../sass/_modules.scss */
 .document-category .lecturers > div a {
   background-color: #155183;
 }
-/* line 183, ../sass/_modules.scss */
+/* line 184, ../sass/_modules.scss */
 .document-category .lecturers > div img {
   max-width: 100%;
 }
 
 /* ===SEARCH=== */
-/* line 191, ../sass/_modules.scss */
+/* line 192, ../sass/_modules.scss */
 .search-box {
   overflow: hidden;
   *zoom: 1;
@@ -709,18 +873,18 @@ button:hover, a.button:hover {
   width: 100%;
   max-width: 70rem;
 }
-/* line 197, ../sass/_modules.scss */
+/* line 198, ../sass/_modules.scss */
 .search-box > input, .search-box > button {
   height: 2.5em;
 }
-/* line 199, ../sass/_modules.scss */
+/* line 200, ../sass/_modules.scss */
 .search-box > input {
   float: left;
   width: 90%;
   padding: 0.25rem;
   background: #E1E5E8;
 }
-/* line 207, ../sass/_modules.scss */
+/* line 208, ../sass/_modules.scss */
 .search-box > button {
   float: right;
   width: 10%;
@@ -730,7 +894,7 @@ button:hover, a.button:hover {
   color: #fff;
   background: #155183;
 }
-/* line 217, ../sass/_modules.scss */
+/* line 218, ../sass/_modules.scss */
 .search-box > button:before {
   content: '';
   position: absolute;
@@ -742,30 +906,30 @@ button:hover, a.button:hover {
 }
 
 /* ===BIG DATE=== */
-/* line 233, ../sass/_modules.scss */
+/* line 234, ../sass/_modules.scss */
 .date {
   position: absolute;
   float: left;
 }
-/* line 237, ../sass/_modules.scss */
+/* line 238, ../sass/_modules.scss */
 .date .day, .date .month {
   font-family: "Droid Sans", sans-serif;
   display: block;
   line-height: 1;
 }
-/* line 243, ../sass/_modules.scss */
+/* line 244, ../sass/_modules.scss */
 .date .day {
   margin-top: 0.75rem;
   font-size: 3.5rem;
   color: #7194ad;
 }
-/* line 249, ../sass/_modules.scss */
+/* line 250, ../sass/_modules.scss */
 .date .month {
   margin-left: 0.25rem;
   font-size: 2rem;
   color: #91acc0;
 }
-/* line 255, ../sass/_modules.scss */
+/* line 256, ../sass/_modules.scss */
 .date .year {
   margin-left: 0.25rem;
   font-size: 1.1rem;
@@ -774,7 +938,7 @@ button:hover, a.button:hover {
 
 /* ===CONTRIBUTE=== */
 /* ===LIST CARDS=== */
-/* line 268, ../sass/_modules.scss */
+/* line 269, ../sass/_modules.scss */
 .news, .event {
   *zoom: 1;
   margin-top: 1em;
@@ -791,26 +955,31 @@ button:hover, a.button:hover {
   display: table;
   clear: both;
 }
-/* line 279, ../sass/_modules.scss */
+/* line 280, ../sass/_modules.scss */
 .news:hover, .event:hover {
   border-left: 0.5rem solid #155183;
 }
-/* line 283, ../sass/_modules.scss */
+/* line 284, ../sass/_modules.scss */
 .news .summary, .event .summary {
   margin-left: 4em;
   float: left;
 }
 
 /* ===NEWS=== */
+/* line 295, ../sass/_modules.scss */
+.news {
+  min-height: 9.5rem;
+}
+
 /* ===EVENTS=== */
-/* line 9, ../sass/_modules.scss */
+/* line 10, ../sass/_modules.scss */
 .event h3 {
   line-height: 1;
   margin-top: 1rem;
 }
 
 /* ===LABELS=== */
-/* line 328, ../sass/_modules.scss */
+/* line 329, ../sass/_modules.scss */
 .label, .label-license, .label-summary, .label-exam, .label-other, .label-extension, .label-pdf, .label-github, .label-flattr {
   display: inline;
   padding: .2em .6em .3em;
@@ -829,44 +998,44 @@ button:hover, a.button:hover {
   border-radius: 0.1em;
 }
 
-/* line 344, ../sass/_modules.scss */
+/* line 345, ../sass/_modules.scss */
 .label-license {
   background-color: #f0ad4e;
 }
 
-/* line 349, ../sass/_modules.scss */
+/* line 350, ../sass/_modules.scss */
 .label-summary {
   background-color: #5cb870;
 }
 
-/* line 354, ../sass/_modules.scss */
+/* line 355, ../sass/_modules.scss */
 .label-exam {
   background-color: #428bca;
 }
 
-/* line 359, ../sass/_modules.scss */
+/* line 360, ../sass/_modules.scss */
 .label-other {
   background-color: #5bc0de;
 }
 
-/* line 364, ../sass/_modules.scss */
+/* line 365, ../sass/_modules.scss */
 .label-extension {
   text-transform: uppercase;
 }
 
-/* line 369, ../sass/_modules.scss */
+/* line 370, ../sass/_modules.scss */
 .label-pdf {
   background-color: #ea4c3a;
   text-transform: uppercase;
 }
 
-/* line 375, ../sass/_modules.scss */
+/* line 376, ../sass/_modules.scss */
 .label-github {
   position: relative;
   padding-left: 1.8rem;
   background-color: #302F2F;
 }
-/* line 319, ../sass/_modules.scss */
+/* line 320, ../sass/_modules.scss */
 .label-github:before {
   position: absolute;
   font-size: 1.5rem;
@@ -874,13 +1043,13 @@ button:hover, a.button:hover {
   left: 0.2rem;
 }
 
-/* line 381, ../sass/_modules.scss */
+/* line 382, ../sass/_modules.scss */
 .label-flattr {
   position: relative;
   padding-left: 1.8rem;
   background-color: #89b058;
 }
-/* line 319, ../sass/_modules.scss */
+/* line 320, ../sass/_modules.scss */
 .label-flattr:before {
   position: absolute;
   font-size: 1.5rem;

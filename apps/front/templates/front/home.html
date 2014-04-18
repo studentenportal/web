@@ -10,16 +10,22 @@
 
 {% block content %}
     <article class="welcome-message">
+
+
         {% if not user.is_authenticated %}
-            <h1>Willkommen beim VSHSR Studentenportal</h1>
+            <h3>Willkommen beim VSHSR Studentenportal</h3>
         {% endif %}{% if user.is_authenticated %}
-            <h1>Willkommen {{ user.name }}!</h1>
+            <h3>Willkommen {{ user.name }}!</h3>
         {% endif %}
 
         <p>Dieses Portal ist für alle Studenten der <a href="http://www.hsr.ch/">Hochschule
         Rapperswil</a> gedacht. Hier könnt ihr Informationen für euer Studium
         bekommen, News zu Events und Ähnlichem erfahren und euer Wissen mit
         anderen Studenten teilen.</p>
+
+        {% if not user.is_authenticated %}
+        <a class="button icon-user" href="{% url 'register' %}">Registrieren</a>
+        {% endif %}
     </article>
 
     <section class="latest-news">

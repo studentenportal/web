@@ -1,5 +1,6 @@
 @import url(http://fonts.googleapis.com/css?family=Droid+Sans:400,700);
 @import "compass/css3/transition";
+@import "compass/css3/background-size";
 
 /* ===TYPOGRAPHY=== */
 html {
@@ -114,8 +115,9 @@ button.light, a.button.light {
 }
 
 button, a.button {
-  margin-right: 1rem;
-  margin-top: 1rem;
+  display: inline-block;
+  margin: $gutter;
+  margin-left: 0;
   color: #fff;
   background-color: $color-midnight-blue;
   padding: 0.75rem 1.5rem;

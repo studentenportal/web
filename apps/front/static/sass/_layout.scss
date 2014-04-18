@@ -8,26 +8,64 @@
     @include clearfix;
 }
 
-.wrapper {
-    padding: $gutter;
+%wrapper {
+    padding: 0 $gutter;
+    @media (min-width: 1024px) {
+        max-width: 1024px;
+        margin: 0 auto;
+    }
 }
+
+%responsive-padding {
+    padding: 0 $gutter;
+    margin-left: -$gutter;
+    margin-right: -$gutter;
+    margin-bottom: $gutter;
+}
+
+.top {
+    @extend %wrapper;
+    padding: 0;
+}
+
+.main {
+    @extend %wrapper;
+    margin-top: $gutter;
+}
+
+.footer {
+    @extend %wrapper;
+    margin-top: $gutter;
+}
+
 
 /* ===NAVIGATION=== */
 
 .nav-collapse {
+    background-color: $color-cornflower-blue;
+    @include pie-clearfix;
+
     li {
         a {
-            padding: 0.5em 1em;
-            width: 100%;
+            padding: 0.5em 0.5em $gutter;
             display: block;
-            background: $color-cornflower-blue;
+            background-color: $color-cornflower-blue;
             color: $color-midnight-blue;
             border-bottom: 1px solid $color-white;
             &:before {
                 font-size: 0.75em;
                 padding-right: 0.5em;
             }
+
+            @media (min-width: 40em) {
+                float: left;
+            }
         }
+    }
+
+
+    li.active a {
+        background-color: $color-white-smoke;
     }
 
     &:before {
@@ -35,21 +73,38 @@
     }
 }
 
-.nav-toggle {
-    color: #fff;
+.header a {
     float: right;
-    display: block;
-    padding: 0.25em;
-    @include icon(menu);
-    font-size: 2em;
+    padding: 0.5rem;
+    font-size: 3.2rem;
+    color: #fff;
+
+    &:hover {
+        color: $color-midnight-blue;
+    }
+}
+
+.header {
+    background-color: $color-cornflower-blue;
+
+    .icon-user, .icon-logout, .icon-login {
+        width: 1em;
+        height: 1em;
+        position: relative;
+        padding-left: 1em;
+
+        &:before {
+            position: absolute;
+            font-size: 0.75em;
+            top: 0.325em;
+            left: 0.1em;
+        }
+    }
 }
 
 %crossbar {
     //Pull back one em to compensate padding to enablefull header bg color
-    padding: 0 $gutter;
-    margin-left: -$gutter;
-    margin-right: -$gutter;
-    margin-bottom: $gutter;
+    @extend %responsive-padding;
     background-color: $color-cornflower-blue;
 }
 
