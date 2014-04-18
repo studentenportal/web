@@ -54,7 +54,8 @@ Um die Entwicklungsumgebung einzurichten:
  5. `createdb -e -O studentenportal -U studentenportal studentenportal`
  6. `pip install -r requirements/local.txt`
  7. `python manage.py syncdb`
- 8. `python manage.py migrate apps.front`
+ 8. `python manage.py migrate apps.lecturers`
+ 8. `python manage.py migrate apps.documents`
  9. `python manage.py migrate`
  10. `python manage.py runserver`
 
@@ -91,17 +92,19 @@ Testdaten
 Testdaten können am einfachsten via django-admin
 (`http://localhost:8000/admin`) angelegt werden.
 
-Es gibt aber auch einige Files mit Testdaten im Verzeichnis
-`apps/front/fixtures/`. Voraussetzung dafür sind zwei Benutzer mit den
+Es gibt aber auch einige Files mit Testdaten in den
+`fixtures` Verzeichnissen der Apps. Voraussetzung dafür sind zwei Benutzer mit den
 Primärschlüsseln 1 und 2 (am besten mit `python manage.py createsuperuser`
 erstellen).
 
+ * Studiengänge: `python manage.py loaddata courses`
  * Events: `python manage.py loaddata events`
 
 Bei anderen Daten (zB bei den Dozenten) kann man gleich mit echten Daten
 arbeiten. Die Daten werden direkt von der HSR Website bezogen. Man braucht
 dafür ein funktionierendes HSR Login.
 
+ * Module: `python manage.py fetch_modules`
  * Dozenten: `python manage.py fetch_lecturers --user=<hsr-username> --pass=<hsr-passwd>`
 
 

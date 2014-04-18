@@ -39,7 +39,7 @@ class Command(CommandOutputMixin, NoArgsCommand):
 
     def parse_module_detail_page(self, url):
         """
-        Parse a module detail page and return it's extracted properties.
+        Parse a module detail page and return its extracted properties.
         """
         try:
             r = requests.get(url)
