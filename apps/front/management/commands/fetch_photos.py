@@ -5,12 +5,13 @@ import requests
 import time
 import sys
 import getpass
-from BeautifulSoup import BeautifulSoup
+from collections import namedtuple
+from bs4 import BeautifulSoup
 from optparse import make_option
 from django.core.management.base import BaseCommand
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
-from apps.front.models import Lecturer
+from apps.lecturers.models import Lecturer
 
 
 class UnterrichtWebsite(object):
@@ -24,10 +25,12 @@ class UnterrichtWebsite(object):
         'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.1 (KHTML, like Gecko) ' +
                       'Chrome/21.0.1180.89 Safari/537.1',
     }
+    ClassList = namedtuple('ClassList', ['organizations', 'modules', 'courses', 'course_units', 'content'])
 
     def __init__(self):
         """Initialize requests session."""
-        self.s = requests.session(headers=self.headers)
+        self.s = requests.Session()
+        self.s.headers.update(self.headers)
 
     def logged_in(self):
         if 'adfs.hsr.ch' not in self.s.cookies._cookies:
@@ -74,6 +77,21 @@ class UnterrichtWebsite(object):
         r = self.s.get('https://unterricht.hsr.ch/Content/PersonImage/mkempf')
         print(r.content)
         assert False
+
+    def get_class_list(self, organization_id=-1, module_id=-1, course_id=-1, course_unit_id=-1):
+        assert self.logged_in(), 'Not logged in. Please call login().'
+        url = "https://unterricht.hsr.ch/CurrentSem/Reporting/Registrations/Module?organizationUnitId={0}&courseUnitId={1};{2};{3}".format(organization_id, module_id, course_id, course_unit_id)
+        r = self.s.get(url)
+        soup = BeautifulSoup(r.content)
+
+
+        organizations = soup.find(id='Parameter_OrganizationUnitId')
+        modules = soup.find(id='Parameter_ModuleId')
+        courses = soup.find(id='Parameter_CourseId')
+        course_units = soup.find(id='Parameter_CourseUnitId')
+        content = soup.find(id='reportContent')
+
+        return self.ClassList(organizations, modules, courses, course_units, content)
 
 
 class Command(BaseCommand):
