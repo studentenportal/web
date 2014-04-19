@@ -1,5 +1,6 @@
 /* ===RESET=== */
 @import url(http://fonts.googleapis.com/css?family=Droid+Sans:400,700);
+@import url(http://fonts.googleapis.com/css?family=Droid+Serif:400italic);
 /* line 5, ../../../../../../../.gem/ruby/2.1.0/gems/compass-core-1.0.0.alpha.19/stylesheets/compass/reset/_utilities.scss */
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -80,7 +81,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   font-weight: normal;
   font-style: normal;
 }
-/* line 49, ../sass/_icons.scss */
+/* line 53, ../sass/_icons.scss */
 .icon-lecturer:before {
   font-family: "studentenportal-icons" !important;
   font-style: normal !important;
@@ -95,7 +96,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   content: "f";
 }
 
-/* line 49, ../sass/_icons.scss */
+/* line 53, ../sass/_icons.scss */
 .icon-twitter:before {
   font-family: "studentenportal-icons" !important;
   font-style: normal !important;
@@ -110,7 +111,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   content: "h";
 }
 
-/* line 49, ../sass/_icons.scss */
+/* line 53, ../sass/_icons.scss */
 .icon-download:before {
   font-family: "studentenportal-icons" !important;
   font-style: normal !important;
@@ -125,7 +126,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   content: "j";
 }
 
-/* line 49, ../sass/_icons.scss */
+/* line 53, ../sass/_icons.scss */
 .icon-home:before {
   font-family: "studentenportal-icons" !important;
   font-style: normal !important;
@@ -140,7 +141,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   content: "b";
 }
 
-/* line 49, ../sass/_icons.scss */
+/* line 53, ../sass/_icons.scss */
 .icon-magnifying-glass:before {
   font-family: "studentenportal-icons" !important;
   font-style: normal !important;
@@ -155,7 +156,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   content: "c";
 }
 
-/* line 49, ../sass/_icons.scss */
+/* line 53, ../sass/_icons.scss */
 .icon-flattr:before {
   font-family: "studentenportal-icons" !important;
   font-style: normal !important;
@@ -170,7 +171,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   content: "d";
 }
 
-/* line 49, ../sass/_icons.scss */
+/* line 53, ../sass/_icons.scss */
 .icon-github:before {
   font-family: "studentenportal-icons" !important;
   font-style: normal !important;
@@ -185,7 +186,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   content: "e";
 }
 
-/* line 49, ../sass/_icons.scss */
+/* line 53, ../sass/_icons.scss */
 .icon-calendar:before {
   font-family: "studentenportal-icons" !important;
   font-style: normal !important;
@@ -200,7 +201,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   content: "a";
 }
 
-/* line 49, ../sass/_icons.scss */
+/* line 53, ../sass/_icons.scss */
 .icon-list:before {
   font-family: "studentenportal-icons" !important;
   font-style: normal !important;
@@ -215,7 +216,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   content: "g";
 }
 
-/* line 49, ../sass/_icons.scss */
+/* line 53, ../sass/_icons.scss */
 .icon-comment-quotes:before {
   font-family: "studentenportal-icons" !important;
   font-style: normal !important;
@@ -230,7 +231,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   content: "i";
 }
 
-/* line 49, ../sass/_icons.scss */
+/* line 53, ../sass/_icons.scss */
 .icon-doc:before {
   font-family: "studentenportal-icons" !important;
   font-style: normal !important;
@@ -245,7 +246,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   content: "l";
 }
 
-/* line 49, ../sass/_icons.scss */
+/* line 53, ../sass/_icons.scss */
 .icon-test:before {
   font-family: "studentenportal-icons" !important;
   font-style: normal !important;
@@ -260,7 +261,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   content: "k";
 }
 
-/* line 49, ../sass/_icons.scss */
+/* line 53, ../sass/_icons.scss */
 .icon-statistics:before {
   font-family: "studentenportal-icons" !important;
   font-style: normal !important;
@@ -275,7 +276,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   content: "m";
 }
 
-/* line 49, ../sass/_icons.scss */
+/* line 53, ../sass/_icons.scss */
 .icon-edit:before {
   font-family: "studentenportal-icons" !important;
   font-style: normal !important;
@@ -290,7 +291,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   content: "n";
 }
 
-/* line 49, ../sass/_icons.scss */
+/* line 53, ../sass/_icons.scss */
 .icon-logout:before {
   font-family: "studentenportal-icons" !important;
   font-style: normal !important;
@@ -305,7 +306,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   content: "o";
 }
 
-/* line 49, ../sass/_icons.scss */
+/* line 53, ../sass/_icons.scss */
 .icon-user:before {
   font-family: "studentenportal-icons" !important;
   font-style: normal !important;
@@ -320,7 +321,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   content: "p";
 }
 
-/* line 49, ../sass/_icons.scss */
+/* line 53, ../sass/_icons.scss */
 .icon-login:before {
   font-family: "studentenportal-icons" !important;
   font-style: normal !important;
@@ -335,6 +336,66 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   content: "q";
 }
 
+/* line 53, ../sass/_icons.scss */
+.icon-arrow-up:before {
+  font-family: "studentenportal-icons" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  font-size: 1em;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  content: "r";
+}
+
+/* line 53, ../sass/_icons.scss */
+.icon-arrow-down:before {
+  font-family: "studentenportal-icons" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  font-size: 1em;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  content: "s";
+}
+
+/* line 53, ../sass/_icons.scss */
+.icon-doc-alt:before {
+  font-family: "studentenportal-icons" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  font-size: 1em;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  content: "t";
+}
+
+/* line 53, ../sass/_icons.scss */
+.icon-plus-alt:before {
+  font-family: "studentenportal-icons" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  font-size: 1em;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  content: "u";
+}
+
 /* ===FILETYPE ICONS=== */
 /* line 96, filetypes/*.png */
 .filetypes-sprite, .ficon-xls, .ficon-ppt, .ficon-doc, .ficon-pdf, .ficon-other, .ficon-img, .ficon-zip {
@@ -342,37 +403,37 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   background-repeat: no-repeat;
 }
 
-/* line 65, ../sass/_icons.scss */
+/* line 69, ../sass/_icons.scss */
 .ficon-xls {
   background-position: 0 -160px;
 }
 
-/* line 65, ../sass/_icons.scss */
+/* line 69, ../sass/_icons.scss */
 .ficon-ppt {
   background-position: 0 -128px;
 }
 
-/* line 65, ../sass/_icons.scss */
+/* line 69, ../sass/_icons.scss */
 .ficon-doc {
   background-position: 0 0;
 }
 
-/* line 65, ../sass/_icons.scss */
+/* line 69, ../sass/_icons.scss */
 .ficon-pdf {
   background-position: 0 -96px;
 }
 
-/* line 65, ../sass/_icons.scss */
+/* line 69, ../sass/_icons.scss */
 .ficon-other {
   background-position: 0 -64px;
 }
 
-/* line 65, ../sass/_icons.scss */
+/* line 69, ../sass/_icons.scss */
 .ficon-img {
   background-position: 0 -32px;
 }
 
-/* line 65, ../sass/_icons.scss */
+/* line 69, ../sass/_icons.scss */
 .ficon-zip {
   background-position: 0 -192px;
 }
@@ -651,7 +712,7 @@ button:hover, a.button:hover {
 }
 
 /* line 111, ../sass/_layout.scss */
-.document, .document-category, .news, .event, .lecturer {
+.document, .document-category, .news, .quote, .event, .lecturer {
   margin-bottom: 1em;
   padding: 1rem;
   background-color: #fff;
@@ -945,7 +1006,7 @@ button:hover, a.button:hover {
 /* ===CONTRIBUTE=== */
 /* ===LIST CARDS=== */
 /* line 269, ../sass/_modules.scss */
-.news, .event {
+.news, .quote, .event {
   *zoom: 1;
   margin-top: 1em;
   padding: 0.5rem;
@@ -956,17 +1017,17 @@ button:hover, a.button:hover {
   border-left: 0.5rem solid transparent;
 }
 /* line 38, ../../../../../../../.gem/ruby/2.1.0/gems/compass-core-1.0.0.alpha.19/stylesheets/compass/utilities/general/_clearfix.scss */
-.news:after, .event:after {
+.news:after, .quote:after, .event:after {
   content: "";
   display: table;
   clear: both;
 }
 /* line 280, ../sass/_modules.scss */
-.news:hover, .event:hover {
+.news:hover, .quote:hover, .event:hover {
   border-left: 0.5rem solid #155183;
 }
 /* line 284, ../sass/_modules.scss */
-.news .summary, .event .summary {
+.news .summary, .quote .summary, .event .summary {
   margin-left: 4em;
   float: left;
 }
@@ -977,6 +1038,127 @@ button:hover, a.button:hover {
   min-height: 9.5rem;
 }
 
+/* ===VOTE BUTTONS=== */
+/* line 306, ../sass/_modules.scss */
+.votebuttons {
+  text-align: center;
+  width: 3rem;
+}
+/* line 311, ../sass/_modules.scss */
+.votebuttons .upvote:before, .votebuttons .downvote:before {
+  font-size: 3rem;
+  color: #4f4a4a;
+}
+/* line 315, ../sass/_modules.scss */
+.votebuttons .upvote:hover, .votebuttons .downvote:hover {
+  cursor: pointer;
+  cursor: hand;
+}
+/* line 322, ../sass/_modules.scss */
+.votebuttons .upvote:hover:before, .votebuttons .upvote.active:before {
+  color: #4bc35f;
+}
+/* line 326, ../sass/_modules.scss */
+.votebuttons .downvote:hover:before, .votebuttons .downvote.active:before {
+  color: #c15044;
+}
+/* line 329, ../sass/_modules.scss */
+.votebuttons .vote_sum {
+  font-size: 3rem;
+  font-family: "Droid Sans", sans-serif;
+}
+
+/* ===QUOTES=== */
+/* line 336, ../sass/_modules.scss */
+.quote {
+  padding: 1rem;
+  position: relative;
+}
+/* line 342, ../sass/_modules.scss */
+.quote .quote-wrapper {
+  margin-left: 4rem;
+  float: left;
+  width: 70%;
+}
+/* line 348, ../sass/_modules.scss */
+.quote .votebuttons {
+  position: absolute;
+  z-index: 2;
+}
+/* line 354, ../sass/_modules.scss */
+.quote blockquote {
+  padding: 0.5rem 0.5rem 0 0;
+}
+/* line 357, ../sass/_modules.scss */
+.quote blockquote p {
+  font-family: 'Droid Serif', serif;
+  font-style: italic;
+  font-size: 1.6rem;
+  line-height: 2rem;
+  text-indent: 7rem;
+  word-wrap: break-word;
+}
+/* line 365, ../sass/_modules.scss */
+.quote blockquote p:before {
+  content: '\201C';
+  font-family: serif;
+  font-style: normal;
+  font-weight: 700;
+  position: absolute;
+  font-size: 10rem;
+  top: 2rem;
+  left: -1rem;
+  color: #155183;
+  text-shadow: 7px 14px 10px rgba(0, 0, 0, 0.1);
+}
+/* line 380, ../sass/_modules.scss */
+.quote .comment {
+  background-color: #d2dde5;
+  padding: 0.5rem;
+  font-size: 1.2rem;
+  display: inline-block;
+}
+/* line 387, ../sass/_modules.scss */
+.quote .thumbnail {
+  width: 20%;
+  float: right;
+  max-width: 7.5rem;
+}
+/* line 391, ../sass/_modules.scss */
+.quote .thumbnail img {
+  max-width: 100%;
+}
+@media (max-width: 450px) {
+  /* line 398, ../sass/_modules.scss */
+  .quote .quote-wrapper {
+    width: 85%;
+  }
+  /* line 399, ../sass/_modules.scss */
+  .quote .thumbnail {
+    display: none;
+  }
+}
+@media (min-width: 620px) {
+  /* line 403, ../sass/_modules.scss */
+  .quote .quote-wrapper {
+    width: 80%;
+  }
+  /* line 404, ../sass/_modules.scss */
+  .quote .thumbnail {
+    width: 15%;
+  }
+}
+@media (min-width: 900px) {
+  /* line 408, ../sass/_modules.scss */
+  .quote .quote-wrapper {
+    width: 85%;
+  }
+  /* line 409, ../sass/_modules.scss */
+  .quote .thumbnail {
+    width: 10%;
+  }
+}
+
 /* ===EVENTS=== */
 /* line 10, ../sass/_modules.scss */
 .event h3 {
@@ -985,7 +1167,7 @@ button:hover, a.button:hover {
 }
 
 /* ===LECTURERS=== */
-/* line 314, ../sass/_modules.scss */
+/* line 425, ../sass/_modules.scss */
 #lecturers {
   *zoom: 1;
 }
@@ -996,19 +1178,19 @@ button:hover, a.button:hover {
   clear: both;
 }
 
-/* line 318, ../sass/_modules.scss */
+/* line 429, ../sass/_modules.scss */
 .lecturer {
   float: left;
   margin-right: 2rem;
   width: 18rem;
 }
-/* line 324, ../sass/_modules.scss */
+/* line 435, ../sass/_modules.scss */
 .lecturer img {
   width: 100%;
 }
 
 /* ===LABELS=== */
-/* line 344, ../sass/_modules.scss */
+/* line 455, ../sass/_modules.scss */
 .label, .label-license, .label-summary, .label-exam, .label-other, .label-extension, .label-pdf, .label-github, .label-flattr, .label-didactic, .label-humanly, .label-technical, .label-e, .label-i, .label-m, .label-mi, .label-b, .label-eeu, .label-wing, .label-r, .label-l {
   display: inline;
   padding: .2em .6em .3em;
@@ -1027,44 +1209,44 @@ button:hover, a.button:hover {
   border-radius: 0.1em;
 }
 
-/* line 360, ../sass/_modules.scss */
+/* line 471, ../sass/_modules.scss */
 .label-license {
   background-color: #f0ad4e;
 }
 
-/* line 365, ../sass/_modules.scss */
+/* line 476, ../sass/_modules.scss */
 .label-summary {
   background-color: #5cb870;
 }
 
-/* line 370, ../sass/_modules.scss */
+/* line 481, ../sass/_modules.scss */
 .label-exam {
   background-color: #428bca;
 }
 
-/* line 375, ../sass/_modules.scss */
+/* line 486, ../sass/_modules.scss */
 .label-other {
   background-color: #5bc0de;
 }
 
-/* line 380, ../sass/_modules.scss */
+/* line 491, ../sass/_modules.scss */
 .label-extension {
   text-transform: uppercase;
 }
 
-/* line 385, ../sass/_modules.scss */
+/* line 496, ../sass/_modules.scss */
 .label-pdf {
   background-color: #ea4c3a;
   text-transform: uppercase;
 }
 
-/* line 391, ../sass/_modules.scss */
+/* line 502, ../sass/_modules.scss */
 .label-github {
   position: relative;
   padding-left: 1.8rem;
   background-color: #302F2F;
 }
-/* line 335, ../sass/_modules.scss */
+/* line 446, ../sass/_modules.scss */
 .label-github:before {
   position: absolute;
   font-size: 1.5rem;
@@ -1072,13 +1254,13 @@ button:hover, a.button:hover {
   left: 0.2rem;
 }
 
-/* line 397, ../sass/_modules.scss */
+/* line 508, ../sass/_modules.scss */
 .label-flattr {
   position: relative;
   padding-left: 1.8rem;
   background-color: #89b058;
 }
-/* line 335, ../sass/_modules.scss */
+/* line 446, ../sass/_modules.scss */
 .label-flattr:before {
   position: absolute;
   font-size: 1.5rem;
@@ -1086,62 +1268,62 @@ button:hover, a.button:hover {
   left: 0.2rem;
 }
 
-/* line 403, ../sass/_modules.scss */
+/* line 514, ../sass/_modules.scss */
 .label-didactic {
   background-color: #f0ad4e;
 }
 
-/* line 408, ../sass/_modules.scss */
+/* line 519, ../sass/_modules.scss */
 .label-humanly {
   background-color: #428bca;
 }
 
-/* line 413, ../sass/_modules.scss */
+/* line 524, ../sass/_modules.scss */
 .label-technical {
   background-color: #5cb870;
 }
 
-/* line 431, ../sass/_modules.scss */
+/* line 542, ../sass/_modules.scss */
 .label-e {
   background-color: #5cb870;
 }
 
-/* line 431, ../sass/_modules.scss */
+/* line 542, ../sass/_modules.scss */
 .label-i {
   background-color: #f0ad4e;
 }
 
-/* line 431, ../sass/_modules.scss */
+/* line 542, ../sass/_modules.scss */
 .label-m {
   background-color: #428bca;
 }
 
-/* line 431, ../sass/_modules.scss */
+/* line 542, ../sass/_modules.scss */
 .label-mi {
   background-color: #428bca;
 }
 
-/* line 431, ../sass/_modules.scss */
+/* line 542, ../sass/_modules.scss */
 .label-b {
   background-color: #aeb870;
 }
 
-/* line 431, ../sass/_modules.scss */
+/* line 542, ../sass/_modules.scss */
 .label-eeu {
   background-color: #f0ad4e;
 }
 
-/* line 431, ../sass/_modules.scss */
+/* line 542, ../sass/_modules.scss */
 .label-wing {
   background-color: #5cb870;
 }
 
-/* line 431, ../sass/_modules.scss */
+/* line 542, ../sass/_modules.scss */
 .label-r {
   background-color: #5cb870;
 }
 
-/* line 431, ../sass/_modules.scss */
+/* line 542, ../sass/_modules.scss */
 .label-l {
   background-color: #5bc0de;
 }

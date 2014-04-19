@@ -1,5 +1,5 @@
 @import "compass/css3/flexbox";
-@import "compass/css3/images";
+@import "compass/css3/images";@import url(http://fonts.googleapis.com/css?family=Droid+Serif:400italic);
 
 /* ===AUTHOR===*/
 .author, a[rel="author"] { font-size: 1.1rem; }
@@ -298,6 +298,117 @@
     min-height: 9.5rem;
 }
 
+/* ===VOTE BUTTONS=== */
+$color-vote-up: map-get($color-voting, "vote-up");
+$color-vote-down: map-get($color-voting, "vote-down");
+$color-vote: map-get($color-voting, "vote");
+
+.votebuttons {
+    text-align: center;
+    width: 3rem;
+
+    .upvote, .downvote {
+        &:before {
+            font-size: 3rem;
+            color: $color-vote;
+        }
+        &:hover {
+            cursor: pointer;
+            cursor: hand;
+        }
+    }
+
+    .upvote:hover, .upvote.active {
+        &:before { color: $color-vote-up; }
+    }
+
+    .downvote:hover, .downvote.active {
+        &:before { color: $color-vote-down; }
+    }
+
+    .vote_sum {
+        font-size: 3rem;
+        font-family: $font-title;
+    }
+}
+
+/* ===QUOTES=== */
+.quote {
+    @extend %box;
+    @extend %list-card;
+    padding: $gutter;
+    position: relative;
+
+    .quote-wrapper {
+        margin-left: 4rem;
+        float: left;
+        width: 70%;
+    }
+
+    .votebuttons {
+        //Make votebuttons absolute so that it layered over the big quote
+        position: absolute;
+        z-index: 2;
+    }
+
+    blockquote {
+        padding: $gutter/2 $gutter/2 0 0;
+
+        p {
+            font-family: 'Droid Serif', serif;
+            font-style: italic;
+            font-size: 1.6rem;
+            line-height: 2rem;
+            text-indent: 7rem;
+            word-wrap:break-word;
+
+            &:before {
+                content: '\201C';
+                font-family: serif;
+                font-style: normal;
+                font-weight: 700;
+                position: absolute;
+                font-size: 10rem;
+                top: 2rem;
+                left: -1rem;
+                color: $color-midnight-blue;
+                text-shadow: 7px 14px 10px rgba(0, 0, 0, 0.1);
+            }
+        }
+    }
+
+    .comment {
+        background-color: $color-cornflower-blue;
+        padding: $gutter/2;
+        font-size: 1.2rem;
+        display: inline-block;
+    }
+
+    .thumbnail {
+        width: 20%;
+        float: right;
+        max-width: 7.5rem;
+        img {
+            max-width: 100%;
+        }
+    }
+
+    //Scale up gracefully (Im sure this can somehow be done better)
+    @media (max-width: 450px) {
+        .quote-wrapper { width: 85%; }
+        .thumbnail { display: none; }
+    }
+
+    @media (min-width: 620px) {
+        .quote-wrapper { width: 80%; }
+        .thumbnail { width: 15%; }
+    }
+
+    @media (min-width: 900px) {
+        .quote-wrapper { width: 85%; }
+        .thumbnail { width: 10%; }
+    }
+}
 
 /* ===EVENTS=== */
 .events {

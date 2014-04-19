@@ -28,7 +28,11 @@ $icons: (
   edit: "n",
   logout: "o",
   user: "p",
-  login: "q"
+  login: "q",
+  arrow-up: "r",
+  arrow-down: "s",
+  doc-alt: "t",
+  plus-alt: "u"
 );
 
 @mixin icon($icon) {

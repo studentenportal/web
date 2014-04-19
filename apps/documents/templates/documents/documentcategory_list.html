@@ -86,7 +86,7 @@
                                 {% endif %}
                                 {% if counts|lookup:category.pk|lookup:"other" > 0 %}
                                 <li>
-                                    <span class="icon-document"></span><a href="#">{{ counts|lookup:category.pk|lookup:"other"}} Andere</a>
+                                    <span class="icon-doc-alt"></span><a href="#">{{ counts|lookup:category.pk|lookup:"other"}} Andere</a>
                                 </li>
                                 {% endif %}
                             </ul>
