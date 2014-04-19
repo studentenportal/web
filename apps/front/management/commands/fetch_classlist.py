@@ -3,15 +3,18 @@ from __future__ import print_function, division, absolute_import, unicode_litera
 
 import re
 import sys
+import time
 from optparse import make_option
 
 from django.core.management.base import BaseCommand
 
 from apps.front.management.commands.fetch_photos import UnterrichtWebsite
+from apps.documents import models as document_models
+from apps.lecturers import models as lecturer_models
 
 
 class Command(BaseCommand):
-    help = 'Fetch all students and lecturers from the classlist of each module.'
+    help = 'Add all lecturers from classlist to modules.'
     option_list = BaseCommand.option_list + (
         make_option('--user', dest='username', help='HSR username'),
         make_option('--pass', dest='password', help='HSR password'),
@@ -89,6 +92,33 @@ class Command(BaseCommand):
             self.stderr.write("Could not parse module {0}: {1}"\
                               .format(module_id, sys.exc_info()[0]))
 
+    def add_lecturers_to_document_category(self, module):
+        """Try to find all the lecturers in the database and add them to the
+        category if the category exists as well.
+        returns: Tuple of added lecturers and failed lecturers or none if category
+        does not exist
+        """
+        added_lecturer_count = 0
+        failed_lecturer_count = 0
+
+        try:
+            category = document_models.DocumentCategory.objects.get(name=module['abbr'])
+
+            for name, abbr in module['lecturers']:
+                try:
+                    lecturer = lecturer_models.Lecturer.objects.get(abbreviation=abbr)
+                    category.lecturers.add(lecturer)
+                    added_lecturer_count += 1
+                except lecturer_models.Lecturer.DoesNotExist:
+                    failed_lecturer_count += 1
+                    self.stderr.write("Could not find Lecturer {0} ({1})".format(name, abbr))
+
+            category.save()
+            return (added_lecturer_count, failed_lecturer_count)
+        except document_models.DocumentCategory.DoesNotExist:
+            self.stderr.write("Could not find DocumentCategory {0}".format(module['abbr']))
+
+
     def handle(self, **options):
         """Parse all modules from the select list from
         Aktuelles Semester > Module > Klassenliste and call the site again for the
@@ -99,6 +129,14 @@ class Command(BaseCommand):
         if not ('password' in options and options['password']):
             options['password'] = getpass.getpass('HSR Password: ').strip()
 
+
+        # Initialize counters
+        start = time.time()
+        added_lecturer_count = 0
+        failed_lecturer_count = 0
+        updated_category_count = 0
+        failed_category_count = 0
+
         # Initialize HsrWebsite object to fetch person IDs
         hsr = UnterrichtWebsite()
         hsr.login(options['username'], options['password'])
@@ -107,11 +145,25 @@ class Command(BaseCommand):
         initial_list = hsr.get_class_list()
         options = initial_list.modules.find_all('option')[1:]
         module_ids = [int(option['value']) for option in options]
+
         for module_id in module_ids:
             module = self.parse_module(hsr, module_id)
-            self.stdout.write("ID: {0}\tABBR: {1}\tCOUNT:{2}"\
-                              .format(module_id,
-                                      module['abbr'],
-                                      module['student_count']))
-            self.stdout.write("STUDENTS:" + ",".join([s['email'] for s in module['students']]))
-            self.stdout.write("LECTURERS:" + ",".join([str(l) for l in module['lecturers']]))
+            results = self.add_lecturers_to_document_category(module)
+
+            if results:
+                added_lecturer_count += results[0]
+                failed_lecturer_count += results[1]
+                updated_category_count += 1
+                self.stdout.write('Added {0} lecturer to module {1} and {2} failed'\
+                                  .format(results[0], module['abbr'], results[1]))
+            else:
+                failed_category_count += 1
+
+        end = time.time()
+        self.stdout.write('Used {0} to parse all the modules and lecturers.'.format(end))
+
+        self.stdout.write('Updated {0} modules.'.format(updated_category_count))
+        self.stdout.write('Failed {0} modules.'.format(failed_category_count))
+        self.stdout.write('Added {0} lecturers.'.format(added_lecturer_count))
+        self.stdout.write('Failed {0} lecturers.'.format(failed_lecturer_count))
+
