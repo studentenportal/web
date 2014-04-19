@@ -25,7 +25,8 @@ class UnterrichtWebsite(object):
         'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.1 (KHTML, like Gecko) ' +
                       'Chrome/21.0.1180.89 Safari/537.1',
     }
-    ClassList = namedtuple('ClassList', ['organizations', 'modules', 'courses', 'course_units', 'content'])
+    ClassList = namedtuple('ClassList',
+                           ['organizations', 'modules', 'courses', 'course_units', 'content'])
 
     def __init__(self):
         """Initialize requests session."""
@@ -80,10 +81,11 @@ class UnterrichtWebsite(object):
 
     def get_class_list(self, organization_id=-1, module_id=-1, course_id=-1, course_unit_id=-1):
         assert self.logged_in(), 'Not logged in. Please call login().'
-        url = "https://unterricht.hsr.ch/CurrentSem/Reporting/Registrations/Module?organizationUnitId={0}&courseUnitId={1};{2};{3}".format(organization_id, module_id, course_id, course_unit_id)
+        url = "https://unterricht.hsr.ch/CurrentSem/Reporting/Registrations/Module?\
+        organizationUnitId={0}&courseUnitId={1};{2};{3}"\
+        .format(organization_id, module_id, course_id, course_unit_id)
         r = self.s.get(url)
         soup = BeautifulSoup(r.content)
-
 
         organizations = soup.find(id='Parameter_OrganizationUnitId')
         modules = soup.find(id='Parameter_ModuleId')
