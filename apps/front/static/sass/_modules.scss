@@ -166,23 +166,34 @@
 
     .summary {
         float: left;
+        width: 80%;
         span { margin-right: 0.5em; }
 
         li {
             list-style: none;
             padding: 0;
-            padding-right: $gutter/2;
+            padding-right: $gutter;
             float: left;
         }
     }
 
     .lecturers {
+        @include pie-clearfix;
         float: right;
+        width: 20%;
         > div {
+            margin-top: 0.2rem;
+            margin-left: 0.5rem;
+            float: right;
             a {
+                margin: 0;
+                display: block;
                 background-color: $color-midnight-blue;
             }
-            img { max-width: 100%; }
+            img {
+                display: block;
+                width: 100%;
+            }
         }
     }
 }
@@ -528,7 +539,7 @@ $color-vote: map-get($color-voting, "vote");
 
 .label {
     display: inline;
-    padding: .2em .6em .3em;
+    padding: .2rem .6rem .3rem;
     font-family: $font-title;
     font-size: 1.1rem;
     font-weight: 700;

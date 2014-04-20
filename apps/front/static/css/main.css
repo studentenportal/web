@@ -923,33 +923,51 @@ ul > li {
 /* line 167, ../sass/_modules.scss */
 .document-category .summary {
   float: left;
+  width: 80%;
 }
-/* line 169, ../sass/_modules.scss */
+/* line 170, ../sass/_modules.scss */
 .document-category .summary span {
   margin-right: 0.5em;
 }
-/* line 171, ../sass/_modules.scss */
+/* line 172, ../sass/_modules.scss */
 .document-category .summary li {
   list-style: none;
   padding: 0;
-  padding-right: 0.5rem;
+  padding-right: 1rem;
   float: left;
 }
-/* line 179, ../sass/_modules.scss */
+/* line 180, ../sass/_modules.scss */
 .document-category .lecturers {
+  *zoom: 1;
+  float: right;
+  width: 20%;
+}
+/* line 38, ../../../../../../../.gem/ruby/2.1.0/gems/compass-core-1.0.0.alpha.19/stylesheets/compass/utilities/general/_clearfix.scss */
+.document-category .lecturers:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+/* line 184, ../sass/_modules.scss */
+.document-category .lecturers > div {
+  margin-top: 0.2rem;
+  margin-left: 0.5rem;
   float: right;
 }
-/* line 182, ../sass/_modules.scss */
+/* line 188, ../sass/_modules.scss */
 .document-category .lecturers > div a {
+  margin: 0;
+  display: block;
   background-color: #155183;
 }
-/* line 185, ../sass/_modules.scss */
+/* line 193, ../sass/_modules.scss */
 .document-category .lecturers > div img {
-  max-width: 100%;
+  display: block;
+  width: 100%;
 }
 
 /* ===SEARCH=== */
-/* line 193, ../sass/_modules.scss */
+/* line 204, ../sass/_modules.scss */
 .search-box {
   overflow: hidden;
   *zoom: 1;
@@ -957,18 +975,18 @@ ul > li {
   width: 100%;
   max-width: 70rem;
 }
-/* line 199, ../sass/_modules.scss */
+/* line 210, ../sass/_modules.scss */
 .search-box > input, .search-box > button {
   height: 2.5em;
 }
-/* line 201, ../sass/_modules.scss */
+/* line 212, ../sass/_modules.scss */
 .search-box > input {
   float: left;
   width: 90%;
   padding: 0.25rem;
   background: #E1E5E8;
 }
-/* line 209, ../sass/_modules.scss */
+/* line 220, ../sass/_modules.scss */
 .search-box > button {
   float: right;
   width: 10%;
@@ -978,7 +996,7 @@ ul > li {
   color: #fff;
   background: #155183;
 }
-/* line 219, ../sass/_modules.scss */
+/* line 230, ../sass/_modules.scss */
 .search-box > button:before {
   content: '';
   position: absolute;
@@ -990,30 +1008,30 @@ ul > li {
 }
 
 /* ===BIG DATE=== */
-/* line 235, ../sass/_modules.scss */
+/* line 246, ../sass/_modules.scss */
 .date {
   position: absolute;
   float: left;
 }
-/* line 239, ../sass/_modules.scss */
+/* line 250, ../sass/_modules.scss */
 .date .day, .date .month {
   font-family: "Droid Sans", sans-serif;
   display: block;
   line-height: 1;
 }
-/* line 245, ../sass/_modules.scss */
+/* line 256, ../sass/_modules.scss */
 .date .day {
   margin-top: 0.75rem;
   font-size: 3.5rem;
   color: #7194ad;
 }
-/* line 251, ../sass/_modules.scss */
+/* line 262, ../sass/_modules.scss */
 .date .month {
   margin-left: 0.25rem;
   font-size: 2rem;
   color: #91acc0;
 }
-/* line 257, ../sass/_modules.scss */
+/* line 268, ../sass/_modules.scss */
 .date .year {
   margin-left: 0.25rem;
   font-size: 1.1rem;
@@ -1022,7 +1040,7 @@ ul > li {
 
 /* ===CONTRIBUTE=== */
 /* ===LIST CARDS=== */
-/* line 270, ../sass/_modules.scss */
+/* line 281, ../sass/_modules.scss */
 .news, .quote, .event {
   *zoom: 1;
   margin-top: 1em;
@@ -1039,75 +1057,75 @@ ul > li {
   display: table;
   clear: both;
 }
-/* line 281, ../sass/_modules.scss */
+/* line 292, ../sass/_modules.scss */
 .news:hover, .quote:hover, .event:hover {
   border-left: 0.5rem solid #155183;
 }
-/* line 285, ../sass/_modules.scss */
+/* line 296, ../sass/_modules.scss */
 .news .summary, .quote .summary, .event .summary {
   margin-left: 4em;
   float: left;
 }
 
 /* ===NEWS=== */
-/* line 296, ../sass/_modules.scss */
+/* line 307, ../sass/_modules.scss */
 .news {
   min-height: 9.5rem;
 }
 
 /* ===VOTE BUTTONS=== */
-/* line 307, ../sass/_modules.scss */
+/* line 318, ../sass/_modules.scss */
 .votebuttons {
   text-align: center;
   width: 3rem;
 }
-/* line 312, ../sass/_modules.scss */
+/* line 323, ../sass/_modules.scss */
 .votebuttons .upvote:before, .votebuttons .downvote:before {
   font-size: 3rem;
   color: #4f4a4a;
 }
-/* line 316, ../sass/_modules.scss */
+/* line 327, ../sass/_modules.scss */
 .votebuttons .upvote:hover, .votebuttons .downvote:hover {
   cursor: pointer;
   cursor: hand;
 }
-/* line 323, ../sass/_modules.scss */
+/* line 334, ../sass/_modules.scss */
 .votebuttons .upvote:hover:before, .votebuttons .upvote.active:before {
   color: #4bc35f;
 }
-/* line 327, ../sass/_modules.scss */
+/* line 338, ../sass/_modules.scss */
 .votebuttons .downvote:hover:before, .votebuttons .downvote.active:before {
   color: #c15044;
 }
-/* line 330, ../sass/_modules.scss */
+/* line 341, ../sass/_modules.scss */
 .votebuttons .vote_sum {
   font-size: 3rem;
   font-family: "Droid Sans", sans-serif;
 }
 
 /* ===QUOTES=== */
-/* line 337, ../sass/_modules.scss */
+/* line 348, ../sass/_modules.scss */
 .quote {
   padding: 1rem;
   position: relative;
   min-height: 11rem;
 }
-/* line 343, ../sass/_modules.scss */
+/* line 354, ../sass/_modules.scss */
 .quote .quote-wrapper {
   padding-left: 4rem;
   float: left;
   width: 80%;
 }
-/* line 349, ../sass/_modules.scss */
+/* line 360, ../sass/_modules.scss */
 .quote .votebuttons {
   position: absolute;
   z-index: 2;
 }
-/* line 355, ../sass/_modules.scss */
+/* line 366, ../sass/_modules.scss */
 .quote blockquote {
   padding: 0.5rem 0.5rem 0 0;
 }
-/* line 358, ../sass/_modules.scss */
+/* line 369, ../sass/_modules.scss */
 .quote blockquote p {
   font-family: 'Droid Serif', serif;
   font-style: italic;
@@ -1116,7 +1134,7 @@ ul > li {
   text-indent: 7rem;
   word-wrap: break-word;
 }
-/* line 366, ../sass/_modules.scss */
+/* line 377, ../sass/_modules.scss */
 .quote blockquote p:before {
   content: '\201C';
   font-family: serif;
@@ -1129,61 +1147,61 @@ ul > li {
   color: #155183;
   text-shadow: 7px 14px 10px rgba(0, 0, 0, 0.1);
 }
-/* line 381, ../sass/_modules.scss */
+/* line 392, ../sass/_modules.scss */
 .quote .comment {
   background-color: #d2dde5;
   padding: 0.5rem;
   font-size: 1.2rem;
   display: inline-block;
 }
-/* line 388, ../sass/_modules.scss */
+/* line 399, ../sass/_modules.scss */
 .quote .thumbnail {
   width: 20%;
   float: right;
   max-width: 7.5rem;
 }
-/* line 392, ../sass/_modules.scss */
+/* line 403, ../sass/_modules.scss */
 .quote .thumbnail img {
   max-width: 100%;
 }
 @media (max-width: 450px) {
-  /* line 399, ../sass/_modules.scss */
+  /* line 410, ../sass/_modules.scss */
   .quote .quote-wrapper {
     width: 95%;
   }
-  /* line 400, ../sass/_modules.scss */
+  /* line 411, ../sass/_modules.scss */
   .quote .thumbnail {
     display: none;
   }
 }
 @media (min-width: 620px) {
-  /* line 404, ../sass/_modules.scss */
+  /* line 415, ../sass/_modules.scss */
   .quote .quote-wrapper {
     width: 85%;
   }
-  /* line 405, ../sass/_modules.scss */
+  /* line 416, ../sass/_modules.scss */
   .quote .thumbnail {
     width: 15%;
   }
 }
 @media (min-width: 900px) {
-  /* line 409, ../sass/_modules.scss */
+  /* line 420, ../sass/_modules.scss */
   .quote .quote-wrapper {
     width: 90%;
   }
-  /* line 410, ../sass/_modules.scss */
+  /* line 421, ../sass/_modules.scss */
   .quote .thumbnail {
     width: 10%;
   }
 }
 
-/* line 415, ../sass/_modules.scss */
+/* line 426, ../sass/_modules.scss */
 .quote-no-lecturer .quote-wrapper {
   width: 100%;
 }
 
 /* ===LECTURER PROFILE=== */
-/* line 424, ../sass/_modules.scss */
+/* line 435, ../sass/_modules.scss */
 .lecturer-profile {
   *zoom: 1;
 }
@@ -1193,54 +1211,54 @@ ul > li {
   display: table;
   clear: both;
 }
-/* line 427, ../sass/_modules.scss */
+/* line 438, ../sass/_modules.scss */
 .lecturer-profile .info {
   float: left;
 }
 @media (min-width: 660px) {
-  /* line 431, ../sass/_modules.scss */
+  /* line 442, ../sass/_modules.scss */
   .lecturer-profile .pictures {
     float: right;
   }
 }
-/* line 439, ../sass/_modules.scss */
+/* line 450, ../sass/_modules.scss */
 .lecturer-profile .pictures .oldphotos {
   cursor: pointer;
   cursor: hand;
 }
-/* line 442, ../sass/_modules.scss */
+/* line 453, ../sass/_modules.scss */
 .lecturer-profile .pictures .oldphotos > img {
   margin-left: 0.5rem;
   float: right;
 }
 
-/* line 450, ../sass/_modules.scss */
+/* line 461, ../sass/_modules.scss */
 .rate {
   margin-top: 1rem;
 }
-/* line 453, ../sass/_modules.scss */
+/* line 464, ../sass/_modules.scss */
 .rate li {
   list-style: none;
   padding: 0;
 }
 
-/* line 456, ../sass/_modules.scss */
+/* line 467, ../sass/_modules.scss */
 .quotes {
   margin-top: 1rem;
 }
 
-/* line 461, ../sass/_modules.scss */
+/* line 472, ../sass/_modules.scss */
 #lrating-d, #lrating-m, #lrating-f {
   display: inline-block;
 }
 
-/* line 467, ../sass/_modules.scss */
+/* line 478, ../sass/_modules.scss */
 .properties {
   table-layout: fixed;
   width: 100%;
   max-width: 50rem;
 }
-/* line 472, ../sass/_modules.scss */
+/* line 483, ../sass/_modules.scss */
 .properties td {
   vertical-align: top;
   padding: 0.5rem 1rem;
@@ -1248,7 +1266,7 @@ ul > li {
   word-wrap: break-word;
   width: 15rem;
 }
-/* line 480, ../sass/_modules.scss */
+/* line 491, ../sass/_modules.scss */
 .properties td + td {
   border: none;
   width: auto;
@@ -1262,7 +1280,7 @@ ul > li {
 }
 
 /* ===LECTURERS=== */
-/* line 499, ../sass/_modules.scss */
+/* line 510, ../sass/_modules.scss */
 #lecturers {
   *zoom: 1;
 }
@@ -1273,22 +1291,22 @@ ul > li {
   clear: both;
 }
 
-/* line 503, ../sass/_modules.scss */
+/* line 514, ../sass/_modules.scss */
 .lecturer {
   float: left;
   margin-right: 2rem;
   width: 18rem;
 }
-/* line 509, ../sass/_modules.scss */
+/* line 520, ../sass/_modules.scss */
 .lecturer img {
   width: 100%;
 }
 
 /* ===LABELS=== */
-/* line 529, ../sass/_modules.scss */
+/* line 540, ../sass/_modules.scss */
 .label, .label-license, .label-summary, .label-exam, .label-other, .label-extension, .label-pdf, .label-github, .label-flattr, .label-didactic, .label-humanly, .label-technical, .label-e, .label-i, .label-m, .label-mi, .label-b, .label-eeu, .label-wing, .label-r, .label-l {
   display: inline;
-  padding: .2em .6em .3em;
+  padding: .2rem .6rem .3rem;
   font-family: "Droid Sans", sans-serif;
   font-size: 1.1rem;
   font-weight: 700;
@@ -1304,44 +1322,44 @@ ul > li {
   border-radius: 0.1em;
 }
 
-/* line 545, ../sass/_modules.scss */
+/* line 556, ../sass/_modules.scss */
 .label-license {
   background-color: #f0ad4e;
 }
 
-/* line 550, ../sass/_modules.scss */
+/* line 561, ../sass/_modules.scss */
 .label-summary {
   background-color: #5cb870;
 }
 
-/* line 555, ../sass/_modules.scss */
+/* line 566, ../sass/_modules.scss */
 .label-exam {
   background-color: #428bca;
 }
 
-/* line 560, ../sass/_modules.scss */
+/* line 571, ../sass/_modules.scss */
 .label-other {
   background-color: #5bc0de;
 }
 
-/* line 565, ../sass/_modules.scss */
+/* line 576, ../sass/_modules.scss */
 .label-extension {
   text-transform: uppercase;
 }
 
-/* line 570, ../sass/_modules.scss */
+/* line 581, ../sass/_modules.scss */
 .label-pdf {
   background-color: #ea4c3a;
   text-transform: uppercase;
 }
 
-/* line 576, ../sass/_modules.scss */
+/* line 587, ../sass/_modules.scss */
 .label-github {
   position: relative;
   padding-left: 1.8rem;
   background-color: #302F2F;
 }
-/* line 520, ../sass/_modules.scss */
+/* line 531, ../sass/_modules.scss */
 .label-github:before {
   position: absolute;
   font-size: 1.5rem;
@@ -1349,13 +1367,13 @@ ul > li {
   left: 0.2rem;
 }
 
-/* line 582, ../sass/_modules.scss */
+/* line 593, ../sass/_modules.scss */
 .label-flattr {
   position: relative;
   padding-left: 1.8rem;
   background-color: #89b058;
 }
-/* line 520, ../sass/_modules.scss */
+/* line 531, ../sass/_modules.scss */
 .label-flattr:before {
   position: absolute;
   font-size: 1.5rem;
@@ -1363,62 +1381,62 @@ ul > li {
   left: 0.2rem;
 }
 
-/* line 588, ../sass/_modules.scss */
+/* line 599, ../sass/_modules.scss */
 .label-didactic {
   background-color: #f0ad4e;
 }
 
-/* line 593, ../sass/_modules.scss */
+/* line 604, ../sass/_modules.scss */
 .label-humanly {
   background-color: #428bca;
 }
 
-/* line 598, ../sass/_modules.scss */
+/* line 609, ../sass/_modules.scss */
 .label-technical {
   background-color: #5cb870;
 }
 
-/* line 616, ../sass/_modules.scss */
+/* line 627, ../sass/_modules.scss */
 .label-e {
   background-color: #5cb870;
 }
 
-/* line 616, ../sass/_modules.scss */
+/* line 627, ../sass/_modules.scss */
 .label-i {
   background-color: #f0ad4e;
 }
 
-/* line 616, ../sass/_modules.scss */
+/* line 627, ../sass/_modules.scss */
 .label-m {
   background-color: #428bca;
 }
 
-/* line 616, ../sass/_modules.scss */
+/* line 627, ../sass/_modules.scss */
 .label-mi {
   background-color: #428bca;
 }
 
-/* line 616, ../sass/_modules.scss */
+/* line 627, ../sass/_modules.scss */
 .label-b {
   background-color: #aeb870;
 }
 
-/* line 616, ../sass/_modules.scss */
+/* line 627, ../sass/_modules.scss */
 .label-eeu {
   background-color: #f0ad4e;
 }
 
-/* line 616, ../sass/_modules.scss */
+/* line 627, ../sass/_modules.scss */
 .label-wing {
   background-color: #5cb870;
 }
 
-/* line 616, ../sass/_modules.scss */
+/* line 627, ../sass/_modules.scss */
 .label-r {
   background-color: #5cb870;
 }
 
-/* line 616, ../sass/_modules.scss */
+/* line 627, ../sass/_modules.scss */
 .label-l {
   background-color: #5bc0de;
 }

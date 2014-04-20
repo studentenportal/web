@@ -2,6 +2,7 @@
 {% load tabs %}
 {% load tags %}
 {% load compress %}
+{% load thumbnail %}
 
 {% block title %}Dokumente{% endblock %}
 
@@ -61,10 +62,18 @@
                     <!--<p>Leer</p>-->
                 {% else %}
                     <article class="document-category">
-                        <!--
                         <div class="lecturers">
-                            <div><a class="label" rel="author" href="#">JOL</a></div>
-                        </div>-->
+                            {% for lecturer in category.lecturers.all %}
+                            <div>
+                                <a class="label" rel="author" href="#">{{ lecturer.abbreviation }}</a>
+                                {% if lecturer.photo %}
+                                <img class="thumbnail" src="{% thumbnail lecturer.photo 34x45 crop %}" />
+                                {% else %}
+                                <img class="thumbnail" src="{{ STATIC_URL }}img/professor.png" />
+                                {% endif %}
+                            </div>
+                            {% endfor %}
+                        </div>
                         <div class="summary">
                             <div class="labels">
                                 {% for course in category.courses.all %}
