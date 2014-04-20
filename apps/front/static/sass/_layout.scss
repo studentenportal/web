@@ -46,6 +46,9 @@
     @include pie-clearfix;
 
     li {
+        margin: 0;
+        padding: 0;
+
         a {
             padding: 0.5em 0.5em $gutter;
             display: block;
@@ -65,7 +68,7 @@
 
 
     li.active a {
-        background-color: $color-white-smoke;
+        background-color: $color-background;
     }
 
     &:before {

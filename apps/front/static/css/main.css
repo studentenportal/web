@@ -446,7 +446,7 @@ html {
 
 /* line 13, ../sass/_base.scss */
 body {
-  background: whitesmoke;
+  background: white;
   font-size: 1.4rem;
   line-height: 2rem;
   font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
@@ -593,6 +593,17 @@ button:hover, a.button:hover {
   background: #41586e;
 }
 
+/* line 138, ../sass/_base.scss */
+.hidden {
+  display: none;
+}
+
+/* line 142, ../sass/_base.scss */
+ul > li {
+  list-style: disc inside;
+  padding-left: 1rem;
+}
+
 /* line 6, ../sass/_layout.scss */
 .header {
   background-color: #d2dde5;
@@ -613,7 +624,7 @@ button:hover, a.button:hover {
 }
 
 /* line 19, ../sass/_layout.scss */
-.document-categories h2, .contribute h1, .latest-news h1, .events h1, .events h2 {
+.document-categories h2, .contribute h1, .latest-news h1, .rate h2, .quotes h2, .events h1, .events h2 {
   padding: 0 1rem;
   margin-left: -1rem;
   margin-right: -1rem;
@@ -647,7 +658,12 @@ button:hover, a.button:hover {
   display: table;
   clear: both;
 }
-/* line 49, ../sass/_layout.scss */
+/* line 48, ../sass/_layout.scss */
+.nav-collapse li {
+  margin: 0;
+  padding: 0;
+}
+/* line 52, ../sass/_layout.scss */
 .nav-collapse li a {
   padding: 0.5em 0.5em 1rem;
   display: block;
@@ -655,50 +671,50 @@ button:hover, a.button:hover {
   color: #155183;
   border-bottom: 1px solid white;
 }
-/* line 55, ../sass/_layout.scss */
+/* line 58, ../sass/_layout.scss */
 .nav-collapse li a:before {
   font-size: 0.75em;
   padding-right: 0.5em;
 }
 @media (min-width: 40em) {
-  /* line 49, ../sass/_layout.scss */
+  /* line 52, ../sass/_layout.scss */
   .nav-collapse li a {
     float: left;
   }
 }
-/* line 67, ../sass/_layout.scss */
+/* line 70, ../sass/_layout.scss */
 .nav-collapse li.active a {
-  background-color: whitesmoke;
+  background-color: white;
 }
-/* line 71, ../sass/_layout.scss */
+/* line 74, ../sass/_layout.scss */
 .nav-collapse:before {
   clear: left;
 }
 
-/* line 76, ../sass/_layout.scss */
+/* line 79, ../sass/_layout.scss */
 .header a {
   float: right;
   padding: 0.5rem;
   font-size: 3.2rem;
   color: #fff;
 }
-/* line 82, ../sass/_layout.scss */
+/* line 85, ../sass/_layout.scss */
 .header a:hover {
   color: #155183;
 }
 
-/* line 87, ../sass/_layout.scss */
+/* line 90, ../sass/_layout.scss */
 .header {
   background-color: #d2dde5;
 }
-/* line 90, ../sass/_layout.scss */
+/* line 93, ../sass/_layout.scss */
 .header .icon-user, .header .icon-logout, .header .icon-login {
   width: 1em;
   height: 1em;
   position: relative;
   padding-left: 1em;
 }
-/* line 96, ../sass/_layout.scss */
+/* line 99, ../sass/_layout.scss */
 .header .icon-user:before, .header .icon-logout:before, .header .icon-login:before {
   position: absolute;
   font-size: 0.75em;
@@ -706,12 +722,12 @@ button:hover, a.button:hover {
   left: 0.1em;
 }
 
-/* line 105, ../sass/_layout.scss */
-.document-categories h2, .contribute h1, .latest-news h1, .events h1, .events h2 {
+/* line 108, ../sass/_layout.scss */
+.document-categories h2, .contribute h1, .latest-news h1, .rate h2, .quotes h2, .events h1, .events h2 {
   background-color: #d2dde5;
 }
 
-/* line 111, ../sass/_layout.scss */
+/* line 114, ../sass/_layout.scss */
 .document, .document-category, .news, .quote, .event, .lecturer {
   margin-bottom: 1em;
   padding: 1rem;
@@ -722,43 +738,43 @@ button:hover, a.button:hover {
 }
 
 /* ===AUTHOR===*/
-/* line 5, ../sass/_modules.scss */
+/* line 6, ../sass/_modules.scss */
 .author, a[rel="author"] {
   font-size: 1.1rem;
 }
 
 /* ===BRANDING=== */
-/* line 18, ../sass/_modules.scss */
+/* line 19, ../sass/_modules.scss */
 .branding {
   padding-left: 1rem;
   float: left;
 }
 
 /* ===DOCUMENT=== */
-/* line 24, ../sass/_modules.scss */
+/* line 25, ../sass/_modules.scss */
 .document {
   overflow: hidden;
   *zoom: 1;
 }
-/* line 10, ../sass/_modules.scss */
+/* line 11, ../sass/_modules.scss */
 .document h3 {
   line-height: 1;
   margin-top: 1rem;
 }
-/* line 33, ../sass/_modules.scss */
+/* line 34, ../sass/_modules.scss */
 .document .download {
   text-align: center;
 }
-/* line 37, ../sass/_modules.scss */
+/* line 38, ../sass/_modules.scss */
 .document .download .thumbnail {
   height: 15rem;
   overflow: hidden;
 }
-/* line 41, ../sass/_modules.scss */
+/* line 42, ../sass/_modules.scss */
 .document .download .thumbnail img {
   max-width: 100%;
 }
-/* line 44, ../sass/_modules.scss */
+/* line 45, ../sass/_modules.scss */
 .document .download > a {
   font-family: "Droid Sans", sans-serif;
   color: #fff;
@@ -770,7 +786,7 @@ button:hover, a.button:hover {
   min-height: 3.4rem;
   position: relative;
 }
-/* line 55, ../sass/_modules.scss */
+/* line 56, ../sass/_modules.scss */
 .document .download > a > div {
   position: absolute;
   top: 0.2rem;
@@ -779,16 +795,16 @@ button:hover, a.button:hover {
   width: 3.2rem;
   height: 3.2rem;
 }
-/* line 64, ../sass/_modules.scss */
+/* line 65, ../sass/_modules.scss */
 .document .download span.ficon-pdf {
   display: inline-block;
 }
-/* line 67, ../sass/_modules.scss */
+/* line 68, ../sass/_modules.scss */
 .document .download > a.pdf {
   background-color: #ea4c3a;
 }
 @media (max-width: 620px) {
-  /* line 76, ../sass/_modules.scss */
+  /* line 77, ../sass/_modules.scss */
   .document .download {
     display: -webkit-flex;
     display: flex;
@@ -797,27 +813,27 @@ button:hover, a.button:hover {
   }
 }
 @media (min-width: 620px) {
-  /* line 84, ../sass/_modules.scss */
+  /* line 85, ../sass/_modules.scss */
   .document .details {
     width: 70%;
     float: left;
   }
-  /* line 89, ../sass/_modules.scss */
+  /* line 90, ../sass/_modules.scss */
   .document .download {
     margin-top: 0.3rem;
     float: right;
     width: 30%;
     max-width: 400px;
   }
-  /* line 95, ../sass/_modules.scss */
+  /* line 96, ../sass/_modules.scss */
   .document .download .thumbnail {
     height: 10rem;
   }
-  /* line 99, ../sass/_modules.scss */
+  /* line 100, ../sass/_modules.scss */
   .document .download > a {
     height: 3.2rem;
   }
-  /* line 104, ../sass/_modules.scss */
+  /* line 105, ../sass/_modules.scss */
   .document span.filename {
     white-space: nowrap;
     overflow: hidden;
@@ -828,25 +844,25 @@ button:hover, a.button:hover {
   }
 }
 @media (min-width: 620px) and (min-width: 900px) {
-  /* line 104, ../sass/_modules.scss */
+  /* line 105, ../sass/_modules.scss */
   .document span.filename {
     display: block;
   }
 }
 @media (min-width: 620px) and (min-width: 1300px) {
-  /* line 104, ../sass/_modules.scss */
+  /* line 105, ../sass/_modules.scss */
   .document span.filename {
     width: 75%;
   }
 }
 @media (min-width: 620px) {
-  /* line 120, ../sass/_modules.scss */
+  /* line 121, ../sass/_modules.scss */
   .document span.filesize {
     display: block;
   }
 }
 @media (min-width: 620px) and (min-width: 900px) {
-  /* line 120, ../sass/_modules.scss */
+  /* line 121, ../sass/_modules.scss */
   .document span.filesize {
     float: left;
     display: block;
@@ -855,84 +871,85 @@ button:hover, a.button:hover {
   }
 }
 @media (min-width: 620px) and (min-width: 1300px) {
-  /* line 120, ../sass/_modules.scss */
+  /* line 121, ../sass/_modules.scss */
   .document span.filesize {
     width: 25%;
   }
 }
 
-/* line 140, ../sass/_modules.scss */
+/* line 141, ../sass/_modules.scss */
 .document .download-action.doc {
   background-color: #2b5796;
 }
-/* line 140, ../sass/_modules.scss */
+/* line 141, ../sass/_modules.scss */
 .document .download-action.xls {
   background-color: #1e7145;
 }
-/* line 140, ../sass/_modules.scss */
+/* line 141, ../sass/_modules.scss */
 .document .download-action.ppt {
   background-color: #d15a25;
 }
-/* line 140, ../sass/_modules.scss */
+/* line 141, ../sass/_modules.scss */
 .document .download-action.other {
   background-color: #6b533b;
 }
-/* line 140, ../sass/_modules.scss */
+/* line 141, ../sass/_modules.scss */
 .document .download-action.img {
   background-color: #5b2d8d;
 }
-/* line 140, ../sass/_modules.scss */
+/* line 141, ../sass/_modules.scss */
 .document .download-action.pdf {
   background-color: #ea4c3a;
 }
-/* line 140, ../sass/_modules.scss */
+/* line 141, ../sass/_modules.scss */
 .document .download-action.zip {
   background-color: #ff9408;
 }
 
 /* ===DOCUMENT CATEGORY=== */
-/* line 154, ../sass/_modules.scss */
+/* line 155, ../sass/_modules.scss */
 .document-category {
   overflow: hidden;
   *zoom: 1;
 }
-/* line 161, ../sass/_modules.scss */
+/* line 162, ../sass/_modules.scss */
 .document-category .summary > a, .document-category .summary > a:visited {
   color: inherit;
 }
-/* line 164, ../sass/_modules.scss */
+/* line 165, ../sass/_modules.scss */
 .document-category .abbreviation {
   margin-right: 0.5em;
 }
-/* line 166, ../sass/_modules.scss */
+/* line 167, ../sass/_modules.scss */
 .document-category .summary {
   float: left;
-  margin-left: 1em;
 }
-/* line 170, ../sass/_modules.scss */
+/* line 169, ../sass/_modules.scss */
 .document-category .summary span {
   margin-right: 0.5em;
 }
-/* line 172, ../sass/_modules.scss */
+/* line 171, ../sass/_modules.scss */
 .document-category .summary li {
+  list-style: none;
+  padding: 0;
+  padding-right: 0.5rem;
   float: left;
-  margin-right: 0.5rem;
 }
-/* line 178, ../sass/_modules.scss */
+/* line 179, ../sass/_modules.scss */
 .document-category .lecturers {
   float: right;
 }
-/* line 181, ../sass/_modules.scss */
+/* line 182, ../sass/_modules.scss */
 .document-category .lecturers > div a {
   background-color: #155183;
 }
-/* line 184, ../sass/_modules.scss */
+/* line 185, ../sass/_modules.scss */
 .document-category .lecturers > div img {
   max-width: 100%;
 }
 
 /* ===SEARCH=== */
-/* line 192, ../sass/_modules.scss */
+/* line 193, ../sass/_modules.scss */
 .search-box {
   overflow: hidden;
   *zoom: 1;
@@ -940,18 +957,18 @@ button:hover, a.button:hover {
   width: 100%;
   max-width: 70rem;
 }
-/* line 198, ../sass/_modules.scss */
+/* line 199, ../sass/_modules.scss */
 .search-box > input, .search-box > button {
   height: 2.5em;
 }
-/* line 200, ../sass/_modules.scss */
+/* line 201, ../sass/_modules.scss */
 .search-box > input {
   float: left;
   width: 90%;
   padding: 0.25rem;
   background: #E1E5E8;
 }
-/* line 208, ../sass/_modules.scss */
+/* line 209, ../sass/_modules.scss */
 .search-box > button {
   float: right;
   width: 10%;
@@ -961,7 +978,7 @@ button:hover, a.button:hover {
   color: #fff;
   background: #155183;
 }
-/* line 218, ../sass/_modules.scss */
+/* line 219, ../sass/_modules.scss */
 .search-box > button:before {
   content: '';
   position: absolute;
@@ -973,30 +990,30 @@ button:hover, a.button:hover {
 }
 
 /* ===BIG DATE=== */
-/* line 234, ../sass/_modules.scss */
+/* line 235, ../sass/_modules.scss */
 .date {
   position: absolute;
   float: left;
 }
-/* line 238, ../sass/_modules.scss */
+/* line 239, ../sass/_modules.scss */
 .date .day, .date .month {
   font-family: "Droid Sans", sans-serif;
   display: block;
   line-height: 1;
 }
-/* line 244, ../sass/_modules.scss */
+/* line 245, ../sass/_modules.scss */
 .date .day {
   margin-top: 0.75rem;
   font-size: 3.5rem;
   color: #7194ad;
 }
-/* line 250, ../sass/_modules.scss */
+/* line 251, ../sass/_modules.scss */
 .date .month {
   margin-left: 0.25rem;
   font-size: 2rem;
   color: #91acc0;
 }
-/* line 256, ../sass/_modules.scss */
+/* line 257, ../sass/_modules.scss */
 .date .year {
   margin-left: 0.25rem;
   font-size: 1.1rem;
@@ -1005,7 +1022,7 @@ button:hover, a.button:hover {
 
 /* ===CONTRIBUTE=== */
 /* ===LIST CARDS=== */
-/* line 269, ../sass/_modules.scss */
+/* line 270, ../sass/_modules.scss */
 .news, .quote, .event {
   *zoom: 1;
   margin-top: 1em;
@@ -1022,74 +1039,75 @@ button:hover, a.button:hover {
   display: table;
   clear: both;
 }
-/* line 280, ../sass/_modules.scss */
+/* line 281, ../sass/_modules.scss */
 .news:hover, .quote:hover, .event:hover {
   border-left: 0.5rem solid #155183;
 }
-/* line 284, ../sass/_modules.scss */
+/* line 285, ../sass/_modules.scss */
 .news .summary, .quote .summary, .event .summary {
   margin-left: 4em;
   float: left;
 }
 
 /* ===NEWS=== */
-/* line 295, ../sass/_modules.scss */
+/* line 296, ../sass/_modules.scss */
 .news {
   min-height: 9.5rem;
 }
 
 /* ===VOTE BUTTONS=== */
-/* line 306, ../sass/_modules.scss */
+/* line 307, ../sass/_modules.scss */
 .votebuttons {
   text-align: center;
   width: 3rem;
 }
-/* line 311, ../sass/_modules.scss */
+/* line 312, ../sass/_modules.scss */
 .votebuttons .upvote:before, .votebuttons .downvote:before {
   font-size: 3rem;
   color: #4f4a4a;
 }
-/* line 315, ../sass/_modules.scss */
+/* line 316, ../sass/_modules.scss */
 .votebuttons .upvote:hover, .votebuttons .downvote:hover {
   cursor: pointer;
   cursor: hand;
 }
-/* line 322, ../sass/_modules.scss */
+/* line 323, ../sass/_modules.scss */
 .votebuttons .upvote:hover:before, .votebuttons .upvote.active:before {
   color: #4bc35f;
 }
-/* line 326, ../sass/_modules.scss */
+/* line 327, ../sass/_modules.scss */
 .votebuttons .downvote:hover:before, .votebuttons .downvote.active:before {
   color: #c15044;
 }
-/* line 329, ../sass/_modules.scss */
+/* line 330, ../sass/_modules.scss */
 .votebuttons .vote_sum {
   font-size: 3rem;
   font-family: "Droid Sans", sans-serif;
 }
 
 /* ===QUOTES=== */
-/* line 336, ../sass/_modules.scss */
+/* line 337, ../sass/_modules.scss */
 .quote {
   padding: 1rem;
   position: relative;
+  min-height: 11rem;
 }
-/* line 342, ../sass/_modules.scss */
+/* line 343, ../sass/_modules.scss */
 .quote .quote-wrapper {
-  margin-left: 4rem;
+  padding-left: 4rem;
   float: left;
-  width: 70%;
+  width: 80%;
 }
-/* line 348, ../sass/_modules.scss */
+/* line 349, ../sass/_modules.scss */
 .quote .votebuttons {
   position: absolute;
   z-index: 2;
 }
-/* line 354, ../sass/_modules.scss */
+/* line 355, ../sass/_modules.scss */
 .quote blockquote {
   padding: 0.5rem 0.5rem 0 0;
 }
-/* line 357, ../sass/_modules.scss */
+/* line 358, ../sass/_modules.scss */
 .quote blockquote p {
   font-family: 'Droid Serif', serif;
   font-style: italic;
@@ -1098,7 +1116,7 @@ button:hover, a.button:hover {
   text-indent: 7rem;
   word-wrap: break-word;
 }
-/* line 365, ../sass/_modules.scss */
+/* line 366, ../sass/_modules.scss */
 .quote blockquote p:before {
   content: '\201C';
   font-family: serif;
@@ -1111,63 +1129,140 @@ button:hover, a.button:hover {
   color: #155183;
   text-shadow: 7px 14px 10px rgba(0, 0, 0, 0.1);
 }
-/* line 380, ../sass/_modules.scss */
+/* line 381, ../sass/_modules.scss */
 .quote .comment {
   background-color: #d2dde5;
   padding: 0.5rem;
   font-size: 1.2rem;
   display: inline-block;
 }
-/* line 387, ../sass/_modules.scss */
+/* line 388, ../sass/_modules.scss */
 .quote .thumbnail {
   width: 20%;
   float: right;
   max-width: 7.5rem;
 }
-/* line 391, ../sass/_modules.scss */
+/* line 392, ../sass/_modules.scss */
 .quote .thumbnail img {
   max-width: 100%;
 }
 @media (max-width: 450px) {
-  /* line 398, ../sass/_modules.scss */
-  .quote .quote-wrapper {
-    width: 85%;
-  }
   /* line 399, ../sass/_modules.scss */
+  .quote .quote-wrapper {
+    width: 95%;
+  }
+  /* line 400, ../sass/_modules.scss */
   .quote .thumbnail {
     display: none;
   }
 }
 @media (min-width: 620px) {
-  /* line 403, ../sass/_modules.scss */
-  .quote .quote-wrapper {
-    width: 80%;
-  }
   /* line 404, ../sass/_modules.scss */
+  .quote .quote-wrapper {
+    width: 85%;
+  }
+  /* line 405, ../sass/_modules.scss */
   .quote .thumbnail {
     width: 15%;
   }
 }
 @media (min-width: 900px) {
-  /* line 408, ../sass/_modules.scss */
-  .quote .quote-wrapper {
-    width: 85%;
-  }
   /* line 409, ../sass/_modules.scss */
+  .quote .quote-wrapper {
+    width: 90%;
+  }
+  /* line 410, ../sass/_modules.scss */
   .quote .thumbnail {
     width: 10%;
   }
 }
 
+/* line 415, ../sass/_modules.scss */
+.quote-no-lecturer .quote-wrapper {
+  width: 100%;
+}
+
+/* ===LECTURER PROFILE=== */
+/* line 424, ../sass/_modules.scss */
+.lecturer-profile {
+  *zoom: 1;
+}
+/* line 38, ../../../../../../../.gem/ruby/2.1.0/gems/compass-core-1.0.0.alpha.19/stylesheets/compass/utilities/general/_clearfix.scss */
+.lecturer-profile:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+/* line 427, ../sass/_modules.scss */
+.lecturer-profile .info {
+  float: left;
+}
+@media (min-width: 660px) {
+  /* line 431, ../sass/_modules.scss */
+  .lecturer-profile .pictures {
+    float: right;
+  }
+}
+/* line 439, ../sass/_modules.scss */
+.lecturer-profile .pictures .oldphotos {
+  cursor: pointer;
+  cursor: hand;
+}
+/* line 442, ../sass/_modules.scss */
+.lecturer-profile .pictures .oldphotos > img {
+  margin-left: 0.5rem;
+  float: right;
+}
+
+/* line 450, ../sass/_modules.scss */
+.rate {
+  margin-top: 1rem;
+}
+/* line 453, ../sass/_modules.scss */
+.rate li {
+  list-style: none;
+  padding: 0;
+}
+
+/* line 456, ../sass/_modules.scss */
+.quotes {
+  margin-top: 1rem;
+}
+
+/* line 461, ../sass/_modules.scss */
+#lrating-d, #lrating-m, #lrating-f {
+  display: inline-block;
+}
+
+/* line 467, ../sass/_modules.scss */
+.properties {
+  table-layout: fixed;
+  width: 100%;
+  max-width: 50rem;
+}
+/* line 472, ../sass/_modules.scss */
+.properties td {
+  vertical-align: top;
+  padding: 0.5rem 1rem;
+  border-right: 1px dashed #91acc0;
+  word-wrap: break-word;
+  width: 15rem;
+}
+/* line 480, ../sass/_modules.scss */
+.properties td + td {
+  border: none;
+  width: auto;
+}
+
 /* ===EVENTS=== */
-/* line 10, ../sass/_modules.scss */
+/* line 11, ../sass/_modules.scss */
 .event h3 {
   line-height: 1;
   margin-top: 1rem;
 }
 
 /* ===LECTURERS=== */
-/* line 425, ../sass/_modules.scss */
+/* line 499, ../sass/_modules.scss */
 #lecturers {
   *zoom: 1;
 }
@@ -1178,19 +1273,19 @@ button:hover, a.button:hover {
   clear: both;
 }
 
-/* line 429, ../sass/_modules.scss */
+/* line 503, ../sass/_modules.scss */
 .lecturer {
   float: left;
   margin-right: 2rem;
   width: 18rem;
 }
-/* line 435, ../sass/_modules.scss */
+/* line 509, ../sass/_modules.scss */
 .lecturer img {
   width: 100%;
 }
 
 /* ===LABELS=== */
-/* line 455, ../sass/_modules.scss */
+/* line 529, ../sass/_modules.scss */
 .label, .label-license, .label-summary, .label-exam, .label-other, .label-extension, .label-pdf, .label-github, .label-flattr, .label-didactic, .label-humanly, .label-technical, .label-e, .label-i, .label-m, .label-mi, .label-b, .label-eeu, .label-wing, .label-r, .label-l {
   display: inline;
   padding: .2em .6em .3em;
@@ -1209,44 +1304,44 @@ button:hover, a.button:hover {
   border-radius: 0.1em;
 }
 
-/* line 471, ../sass/_modules.scss */
+/* line 545, ../sass/_modules.scss */
 .label-license {
   background-color: #f0ad4e;
 }
 
-/* line 476, ../sass/_modules.scss */
+/* line 550, ../sass/_modules.scss */
 .label-summary {
   background-color: #5cb870;
 }
 
-/* line 481, ../sass/_modules.scss */
+/* line 555, ../sass/_modules.scss */
 .label-exam {
   background-color: #428bca;
 }
 
-/* line 486, ../sass/_modules.scss */
+/* line 560, ../sass/_modules.scss */
 .label-other {
   background-color: #5bc0de;
 }
 
-/* line 491, ../sass/_modules.scss */
+/* line 565, ../sass/_modules.scss */
 .label-extension {
   text-transform: uppercase;
 }
 
-/* line 496, ../sass/_modules.scss */
+/* line 570, ../sass/_modules.scss */
 .label-pdf {
   background-color: #ea4c3a;
   text-transform: uppercase;
 }
 
-/* line 502, ../sass/_modules.scss */
+/* line 576, ../sass/_modules.scss */
 .label-github {
   position: relative;
   padding-left: 1.8rem;
   background-color: #302F2F;
 }
-/* line 446, ../sass/_modules.scss */
+/* line 520, ../sass/_modules.scss */
 .label-github:before {
   position: absolute;
   font-size: 1.5rem;
@@ -1254,13 +1349,13 @@ button:hover, a.button:hover {
   left: 0.2rem;
 }
 
-/* line 508, ../sass/_modules.scss */
+/* line 582, ../sass/_modules.scss */
 .label-flattr {
   position: relative;
   padding-left: 1.8rem;
   background-color: #89b058;
 }
-/* line 446, ../sass/_modules.scss */
+/* line 520, ../sass/_modules.scss */
 .label-flattr:before {
   position: absolute;
   font-size: 1.5rem;
@@ -1268,62 +1363,62 @@ button:hover, a.button:hover {
   left: 0.2rem;
 }
 
-/* line 514, ../sass/_modules.scss */
+/* line 588, ../sass/_modules.scss */
 .label-didactic {
   background-color: #f0ad4e;
 }
 
-/* line 519, ../sass/_modules.scss */
+/* line 593, ../sass/_modules.scss */
 .label-humanly {
   background-color: #428bca;
 }
 
-/* line 524, ../sass/_modules.scss */
+/* line 598, ../sass/_modules.scss */
 .label-technical {
   background-color: #5cb870;
 }
 
-/* line 542, ../sass/_modules.scss */
+/* line 616, ../sass/_modules.scss */
 .label-e {
   background-color: #5cb870;
 }
 
-/* line 542, ../sass/_modules.scss */
+/* line 616, ../sass/_modules.scss */
 .label-i {
   background-color: #f0ad4e;
 }
 
-/* line 542, ../sass/_modules.scss */
+/* line 616, ../sass/_modules.scss */
 .label-m {
   background-color: #428bca;
 }
 
-/* line 542, ../sass/_modules.scss */
+/* line 616, ../sass/_modules.scss */
 .label-mi {
   background-color: #428bca;
 }
 
-/* line 542, ../sass/_modules.scss */
+/* line 616, ../sass/_modules.scss */
 .label-b {
   background-color: #aeb870;
 }
 
-/* line 542, ../sass/_modules.scss */
+/* line 616, ../sass/_modules.scss */
 .label-eeu {
   background-color: #f0ad4e;
 }
 
-/* line 542, ../sass/_modules.scss */
+/* line 616, ../sass/_modules.scss */
 .label-wing {
   background-color: #5cb870;
 }
 
-/* line 542, ../sass/_modules.scss */
+/* line 616, ../sass/_modules.scss */
 .label-r {
   background-color: #5cb870;
 }
 
-/* line 542, ../sass/_modules.scss */
+/* line 616, ../sass/_modules.scss */
 .label-l {
   background-color: #5bc0de;
 }

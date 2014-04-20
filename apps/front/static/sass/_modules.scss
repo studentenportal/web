@@ -1,5 +1,6 @@
 @import "compass/css3/flexbox";
-@import "compass/css3/images";@import url(http://fonts.googleapis.com/css?family=Droid+Serif:400italic);
+@import "compass/css3/images";
+@import url(http://fonts.googleapis.com/css?family=Droid+Serif:400italic);
 
 /* ===AUTHOR===*/
 .author, a[rel="author"] { font-size: 1.1rem; }
@@ -165,13 +166,13 @@
 
     .summary {
         float: left;
-        margin-left: 1em;
-
         span { margin-right: 0.5em; }
 
         li {
+            list-style: none;
+            padding: 0;
+            padding-right: $gutter/2;
             float: left;
-            margin-right: $gutter/2;
         }
     }
 
@@ -338,11 +339,11 @@ $color-vote: map-get($color-voting, "vote");
     @extend %list-card;
     padding: $gutter;
     position: relative;
-
+    min-height: 11rem;
     .quote-wrapper {
-        margin-left: 4rem;
+        padding-left: 4rem;
         float: left;
-        width: 70%;
+        width: 80%;
     }
 
     .votebuttons {
@@ -395,20 +396,93 @@ $color-vote: map-get($color-voting, "vote");
 
     //Scale up gracefully (Im sure this can somehow be done better)
     @media (max-width: 450px) {
-        .quote-wrapper { width: 85%; }
+        .quote-wrapper { width: 95%; }
         .thumbnail { display: none; }
     }
 
     @media (min-width: 620px) {
-        .quote-wrapper { width: 80%; }
+        .quote-wrapper { width: 85%; }
         .thumbnail { width: 15%; }
     }
 
     @media (min-width: 900px) {
-        .quote-wrapper { width: 85%; }
+        .quote-wrapper { width: 90%; }
         .thumbnail { width: 10%; }
     }
 }
+
+.quote-no-lecturer {
+    .quote-wrapper {
+        width: 100%;
+    }
+
+    .citation {
+    }
+}
+
+/* ===LECTURER PROFILE=== */
+.lecturer-profile {
+    @include pie-clearfix;
+
+    .info {
+        float: left;
+    }
+
+    .pictures {
+        @media (min-width: 660px) {
+            float: right;
+        }
+
+        .thumbnail {
+        }
+
+        .oldphotos {
+            cursor: pointer;
+            cursor: hand;
+            > img {
+                margin-left: $gutter/2;
+                float: right;
+            }
+        }
+    }
+}
+
+.rate {
+    margin-top: $gutter;
+    h2 { @extend %crossbar; }
+    li { list-style: none; padding: 0; }
+}
+
+.quotes {
+    margin-top: $gutter;
+    h2 { @extend %crossbar; }
+}
+
+#lrating-d, #lrating-m, #lrating-f {
+    display: inline-block;
+}
+
+
+
+.properties {
+    table-layout: fixed;
+    width: 100%;
+    max-width: 50rem;
+
+    td {
+        vertical-align: top;
+        padding: $gutter/2 $gutter;
+        border-right: 1px dashed darken($color-cornflower-blue, 20%);
+        word-wrap: break-word;
+        width: 15rem;
+    }
+
+    td + td {
+        border: none;
+        width: auto;
+    }
+}
+
 
 /* ===EVENTS=== */
 .events {
