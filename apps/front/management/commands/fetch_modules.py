@@ -92,14 +92,36 @@ class Command(CommandOutputMixin, NoArgsCommand):
         except:
             self.stderr.write("Could not parse {0}: {1}".format(url, sys.exc_info()[0]))
 
-    def update_courses_document_category(self, module):
+    def update_document_category(self, module):
+        """Update courses and lecturers of an existing DocumentCategory.
+        This is used to add the related courses and lecturers to all the existing modules.
         """
-        Update courses of an existing DocumentCategory.
-        This is used to add the related courses to all the existing modules.
-        """
-        category = DocumentCategory.objects.get(name=module["name"])
-        self.add_courses_to_document_category(category, module)
-        category.save()
+        try:
+            category = DocumentCategory.objects.get(name=module["name"])
+            self.add_courses_to_document_category(category, module)
+            self.add_lecturer_to_document_category(category, module)
+            category.save()
+        except DocumentCategory.DoesNotExist:
+            self.stderr.write("Could not find category {0}: {1}"
+                              .format(module["name"], sys.exc_info()[0]))
+
+    def add_lecturer_to_document_category(self, category, module):
+        """Searches for the main lecturer and adds it to the DocumentCategory if he exists"""
+        full_name = module["detail"]["lecturer"]
+        match = re.match('(.*) (.*)', full_name)
+        if match:
+            first_name = match.group(1)
+            last_name = match.group(2)
+            try:
+                lecturer = lecturer_models.Lecturer.objects.get(first_name=first_name,
+                                                                last_name=last_name)
+                category.lecturers.add(lecturer)
+            except lecturer_models.Lecturer.DoesNotExist:
+                self.stderr.write("Could not find lecturer {0} {1}: {2}"
+                                  .format(first_name, last_name, sys.exc_info()[0]))
+        else:
+            self.stderr.write("First and last name of module {0} with lecturer {1} cannot be read"
+                              .format(module["name"], full_name))
 
     def add_courses_to_document_category(self, category, module):
         """
@@ -113,8 +135,6 @@ class Command(CommandOutputMixin, NoArgsCommand):
             except lecturer_models.Course.DoesNotExist:
                 self.stderr.write("Could not find course {0}".format(course_name))
 
-        category.save()
-
     def create_document_category(self, module):
         """
         Create a DocumentCategory in the database if it does not yet exist.
@@ -127,6 +147,7 @@ class Command(CommandOutputMixin, NoArgsCommand):
             category = DocumentCategory.objects.create(
                 name=module["name"],
                 description=module["description"])
+            self.add_lecturer_to_document_category(category, lecturer)
             self.add_courses_to_document_category(category, course)
             category.save()
             return True
@@ -170,7 +191,8 @@ class Command(CommandOutputMixin, NoArgsCommand):
                 added_count += 1
             else:
                 if options["update"]:
-                    self.update_courses_document_category(module)
+                    self.update_document_category(module)
+                    self.stdout.write('Updated %s' % module["name"])
                     update_count += 1
                 else:
                     self.stdout.write(u'Skipping %s (already exists)' % module["name"])
