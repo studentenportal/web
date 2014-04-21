@@ -1237,28 +1237,42 @@ ul > li {
   margin-top: 1rem;
 }
 /* line 464, ../sass/_modules.scss */
+.rate h3 {
+  display: inline-block;
+  width: 10rem;
+}
+/* line 469, ../sass/_modules.scss */
 .rate li {
+  position: relative;
   list-style: none;
   padding: 0;
+  margin: 0.5rem 0;
+}
+/* line 476, ../sass/_modules.scss */
+.rate .label-didactic, .rate .label-humanly, .rate .label-technical {
+  font-size: 2rem;
+  line-height: 3rem;
+  width: 3.4rem;
+  display: inline-block;
 }
 
-/* line 467, ../sass/_modules.scss */
+/* line 484, ../sass/_modules.scss */
 .quotes {
   margin-top: 1rem;
 }
 
-/* line 472, ../sass/_modules.scss */
+/* line 489, ../sass/_modules.scss */
 #lrating-d, #lrating-m, #lrating-f {
   display: inline-block;
 }
 
-/* line 478, ../sass/_modules.scss */
+/* line 495, ../sass/_modules.scss */
 .properties {
   table-layout: fixed;
   width: 100%;
   max-width: 50rem;
 }
-/* line 483, ../sass/_modules.scss */
+/* line 500, ../sass/_modules.scss */
 .properties td {
   vertical-align: top;
   padding: 0.5rem 1rem;
@@ -1266,7 +1280,7 @@ ul > li {
   word-wrap: break-word;
   width: 15rem;
 }
-/* line 491, ../sass/_modules.scss */
+/* line 508, ../sass/_modules.scss */
 .properties td + td {
   border: none;
   width: auto;
@@ -1280,7 +1294,7 @@ ul > li {
 }
 
 /* ===LECTURERS=== */
-/* line 510, ../sass/_modules.scss */
+/* line 527, ../sass/_modules.scss */
 #lecturers {
   *zoom: 1;
 }
@@ -1291,19 +1305,99 @@ ul > li {
   clear: both;
 }
 
-/* line 514, ../sass/_modules.scss */
+/* line 531, ../sass/_modules.scss */
 .lecturer {
   float: left;
   margin-right: 2rem;
   width: 18rem;
 }
-/* line 520, ../sass/_modules.scss */
+/* line 537, ../sass/_modules.scss */
 .lecturer img {
   width: 100%;
 }
 
+/* ===STAR RATER=== */
+/* line 4, ../sass/modules/_star-rating.scss */
+.star-rating {
+  font-size: 0;
+  white-space: nowrap;
+  display: inline-block;
+  height: 3rem;
+  width: 30rem;
+  vertical-align: top;
+  overflow: hidden;
+  position: relative;
+  background: url("data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0iMjBweCIgaGVpZ2h0PSIyMHB4IiB2aWV3Qm94PSIwIDAgMjAgMjAiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDIwIDIwIiB4bWw6c3BhY2U9InByZXNlcnZlIj48cG9seWdvbiBmaWxsPSIjREREREREIiBwb2ludHM9IjEwLDAgMTMuMDksNi41ODMgMjAsNy42MzkgMTUsMTIuNzY0IDE2LjE4LDIwIDEwLDE2LjU4MyAzLjgyLDIwIDUsMTIuNzY0IDAsNy42MzkgNi45MSw2LjU4MyAiLz48L3N2Zz4=");
+  background-size: contain;
+}
+/* line 16, ../sass/modules/_star-rating.scss */
+.star-rating input {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  opacity: 0;
+  display: inline-block;
+  width: 10%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  z-index: 2;
+  position: relative;
+}
+/* line 28, ../sass/modules/_star-rating.scss */
+.star-rating input:hover + i, .star-rating input:checked + i {
+  opacity: 1;
+}
+/* line 33, ../sass/modules/_star-rating.scss */
+.star-rating i {
+  opacity: 0;
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 10%;
+  z-index: 1;
+  background: url("data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0iMjBweCIgaGVpZ2h0PSIyMHB4IiB2aWV3Qm94PSIwIDAgMjAgMjAiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDIwIDIwIiB4bWw6c3BhY2U9InByZXNlcnZlIj48cG9seWdvbiBmaWxsPSIjRkZERjg4IiBwb2ludHM9IjEwLDAgMTMuMDksNi41ODMgMjAsNy42MzkgMTUsMTIuNzY0IDE2LjE4LDIwIDEwLDE2LjU4MyAzLjgyLDIwIDUsMTIuNzY0IDAsNy42MzkgNi45MSw2LjU4MyAiLz48L3N2Zz4=");
+  background-size: contain;
+}
+/* line 45, ../sass/modules/_star-rating.scss */
+.star-rating i ~ i {
+  width: 20%;
+}
+/* line 48, ../sass/modules/_star-rating.scss */
+.star-rating i ~ i ~ i {
+  width: 30%;
+}
+/* line 51, ../sass/modules/_star-rating.scss */
+.star-rating i ~ i ~ i ~ i {
+  width: 40%;
+}
+/* line 54, ../sass/modules/_star-rating.scss */
+.star-rating i ~ i ~ i ~ i ~ i {
+  width: 50%;
+}
+/* line 57, ../sass/modules/_star-rating.scss */
+.star-rating i ~ i ~ i ~ i ~ i ~ i {
+  width: 60%;
+}
+/* line 60, ../sass/modules/_star-rating.scss */
+.star-rating i ~ i ~ i ~ i ~ i ~ i ~ i {
+  width: 70%;
+}
+/* line 63, ../sass/modules/_star-rating.scss */
+.star-rating i ~ i ~ i ~ i ~ i ~ i ~ i ~ i {
+  width: 80%;
+}
+/* line 66, ../sass/modules/_star-rating.scss */
+.star-rating i ~ i ~ i ~ i ~ i ~ i ~ i ~ i ~ i {
+  width: 90%;
+}
+/* line 69, ../sass/modules/_star-rating.scss */
+.star-rating i ~ i ~ i ~ i ~ i ~ i ~ i ~ i ~ i ~ i {
+  width: 100%;
+}
+
 /* ===LABELS=== */
-/* line 540, ../sass/_modules.scss */
+/* line 558, ../sass/_modules.scss */
 .label, .label-license, .label-summary, .label-exam, .label-other, .label-extension, .label-pdf, .label-github, .label-flattr, .label-didactic, .label-humanly, .label-technical, .label-e, .label-i, .label-m, .label-mi, .label-b, .label-eeu, .label-wing, .label-r, .label-l {
   display: inline;
   padding: .2rem .6rem .3rem;
@@ -1322,44 +1416,44 @@ ul > li {
   border-radius: 0.1em;
 }
 
-/* line 556, ../sass/_modules.scss */
+/* line 574, ../sass/_modules.scss */
 .label-license {
   background-color: #f0ad4e;
 }
 
-/* line 561, ../sass/_modules.scss */
+/* line 579, ../sass/_modules.scss */
 .label-summary {
   background-color: #5cb870;
 }
 
-/* line 566, ../sass/_modules.scss */
+/* line 584, ../sass/_modules.scss */
 .label-exam {
   background-color: #428bca;
 }
 
-/* line 571, ../sass/_modules.scss */
+/* line 589, ../sass/_modules.scss */
 .label-other {
   background-color: #5bc0de;
 }
 
-/* line 576, ../sass/_modules.scss */
+/* line 594, ../sass/_modules.scss */
 .label-extension {
   text-transform: uppercase;
 }
 
-/* line 581, ../sass/_modules.scss */
+/* line 599, ../sass/_modules.scss */
 .label-pdf {
   background-color: #ea4c3a;
   text-transform: uppercase;
 }
 
-/* line 587, ../sass/_modules.scss */
+/* line 605, ../sass/_modules.scss */
 .label-github {
   position: relative;
   padding-left: 1.8rem;
   background-color: #302F2F;
 }
-/* line 531, ../sass/_modules.scss */
+/* line 549, ../sass/_modules.scss */
 .label-github:before {
   position: absolute;
   font-size: 1.5rem;
@@ -1367,13 +1461,13 @@ ul > li {
   left: 0.2rem;
 }
 
-/* line 593, ../sass/_modules.scss */
+/* line 611, ../sass/_modules.scss */
 .label-flattr {
   position: relative;
   padding-left: 1.8rem;
   background-color: #89b058;
 }
-/* line 531, ../sass/_modules.scss */
+/* line 549, ../sass/_modules.scss */
 .label-flattr:before {
   position: absolute;
   font-size: 1.5rem;
@@ -1381,62 +1475,62 @@ ul > li {
   left: 0.2rem;
 }
 
-/* line 599, ../sass/_modules.scss */
+/* line 617, ../sass/_modules.scss */
 .label-didactic {
   background-color: #f0ad4e;
 }
 
-/* line 604, ../sass/_modules.scss */
+/* line 622, ../sass/_modules.scss */
 .label-humanly {
   background-color: #428bca;
 }
 
-/* line 609, ../sass/_modules.scss */
+/* line 627, ../sass/_modules.scss */
 .label-technical {
   background-color: #5cb870;
 }
 
-/* line 627, ../sass/_modules.scss */
+/* line 645, ../sass/_modules.scss */
 .label-e {
   background-color: #5cb870;
 }
 
-/* line 627, ../sass/_modules.scss */
+/* line 645, ../sass/_modules.scss */
 .label-i {
   background-color: #f0ad4e;
 }
 
-/* line 627, ../sass/_modules.scss */
+/* line 645, ../sass/_modules.scss */
 .label-m {
   background-color: #428bca;
 }
 
-/* line 627, ../sass/_modules.scss */
+/* line 645, ../sass/_modules.scss */
 .label-mi {
   background-color: #428bca;
 }
 
-/* line 627, ../sass/_modules.scss */
+/* line 645, ../sass/_modules.scss */
 .label-b {
   background-color: #aeb870;
 }
 
-/* line 627, ../sass/_modules.scss */
+/* line 645, ../sass/_modules.scss */
 .label-eeu {
   background-color: #f0ad4e;
 }
 
-/* line 627, ../sass/_modules.scss */
+/* line 645, ../sass/_modules.scss */
 .label-wing {
   background-color: #5cb870;
 }
 
-/* line 627, ../sass/_modules.scss */
+/* line 645, ../sass/_modules.scss */
 .label-r {
   background-color: #5cb870;
 }
 
-/* line 627, ../sass/_modules.scss */
+/* line 645, ../sass/_modules.scss */
 .label-l {
   background-color: #5bc0de;
 }

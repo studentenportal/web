@@ -10,6 +10,7 @@
     {{ block.super }}
     {% compress js %}
         <script src="{{ STATIC_URL }}js/jquery.lazyload.js"></script>
+        <script src="{{ STATIC_URL }}js/star-rater.js"></script>
         <script>
         $(function() {
             $("img.lazy").lazyload({ threshold : 200 });

@@ -1,0 +1,5 @@
+<span class="star-rating">
+{% for i in range %}
+     <input type="radio" name="{{ name }}" value="{{ i }}" {% if rating == i %}checked{% endif %}><i></i>
+{% endfor %}
+</span>

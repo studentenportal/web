@@ -2,6 +2,7 @@
 {% load tabs %}
 {% load thumbnail %}
 {% load compress %}
+{% load tags %}
 
 {% block title %}{{ lecturer.name }}{% endblock %}
 
@@ -24,6 +25,7 @@
                 });
             });
         </script>
+        <script src="{{ STATIC_URL }}js/star-rater.js"></script>
     {% endcompress %}
 {% endblock %}
 
@@ -112,22 +114,25 @@
         <h2>Bewerten</h2>
         <ul>
             <li>
-            <span class="label-didactic" title="{{ lecturer.rating_count_d }} Bewertung{{ lecturer.rating_count_d|pluralize:"en" }}">
+                <label for="rating_d" class="label-didactic" title="{{ lecturer.rating_count_d }} Bewertung{{ lecturer.rating_count_d|pluralize:"en" }}">
                     {{ lecturer.avg_rating_d|default:'-' }}
-                </span>Didaktisch
-                <div id="lrating-d" data-rating="{{ rating_d|default:0 }}"></div>
+                </label>
+                <h3>Didaktisch</h3>
+                {% include 'lecturers/blocks/star_rating.html' with name="rating_d" rating=rating_d range=10|get_range1 %}
             </li>
             <li>
-            <span class="label-humanly" title="{{ lecturer.rating_count_m }} Bewertung{{ lecturer.rating_count_m|pluralize:"en" }}">
+                <label for="rating_m" class="label-humanly" title="{{ lecturer.rating_count_m }} Bewertung{{ lecturer.rating_count_m|pluralize:"en" }}">
                     {{ lecturer.avg_rating_m|default:'-' }}
-                </span>Menschlich
-                <div id="lrating-m" data-rating="{{ rating_m|default:0 }}"></div>
+                </label>
+                <h3>Menschlich</h3>
+                {% include 'lecturers/blocks/star_rating.html' with name="rating_m" rating=rating_m range=10|get_range1 %}
             </li>
             <li>
-                <span class="label-technical" title="{{ lecturer.rating_count_f }} Bewertung{{ lecturer.rating_count_f|pluralize:"en" }}">
+                <label for="rating_f" class="label-technical" title="{{ lecturer.rating_count_f }} Bewertung{{ lecturer.rating_count_f|pluralize:"en" }}">
                     {{ lecturer.avg_rating_f|default:'-' }}
-                </span>Fachlich
-                <div id="lrating-f" data-rating="{{ rating_f|default:0 }}"></div>
+                </label>
+                <h3>Fachlich</h3>
+                {% include 'lecturers/blocks/star_rating.html' with name="rating_f" rating=rating_f range=10|get_range1 %}
             </li>
         </ul>
     </div>

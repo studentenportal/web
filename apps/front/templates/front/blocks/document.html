@@ -46,16 +46,14 @@
                 (<span>{{ doc.downloadcount }} Download{{ doc.downloadcount|pluralize:"s" }}</span>)
                 </p>
             {% endif %}
-            <div class="rating">
-                {% if user.is_authenticated %}
-                    <div class="drating" data-readonly="{% if doc.uploader = user %}1{% else %}0{% endif %}"
-                        data-url="{% url 'documents:document_rate' doc.category.name|slugify doc.pk %}"
-                        data-summary-url="{% url 'documents:document_rating_ajax' doc.category.name|slugify doc.pk %}"
-                        data-rating="{{ ratings|lookup:doc.pk }}"></div>
-                {% endif %}
-                <!--
-                <span class="rating_summary">{% include 'front/blocks/document_rating_summary.html' %}</span>-->
-            </div>
+            {% if user.is_authenticated %}
+            <form class="drating" data-rating="{{ ratings|lookup:doc.pk }}" data-readonly="{% if doc.uploader = user %}1{% else %}0{% endif %}" data-url="{% url 'documents:document_rate' doc.category.name|slugify doc.pk %}" data-summary-url="{% url 'documents:document_rating_ajax' doc.category.name|slugify doc.pk %}">
+                {% include 'lecturers/blocks/star_rating.html' with name="drating" rating=doc.rating range=10|get_range1 %}
+                <label for="drating">
+                {% include 'front/blocks/document_rating_summary.html' %}
+                </label>
+            </form>
+            {% endif %}
             <p>
                 {% if doc.change_date %}
                     <em>{{ doc.change_date|date:"d.m.Y" }}:</em>

@@ -46,9 +46,6 @@ def lookup(dictionary, index):
     return ''
 
 
-_regex = re.compile("\.(docx|xlsx|pptx)")
-
-
 @register.filter
 def filetype_class(ext):
     """Returns the css class for a given file extension"""

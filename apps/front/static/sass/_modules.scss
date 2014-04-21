@@ -461,7 +461,24 @@ $color-vote: map-get($color-voting, "vote");
 .rate {
     margin-top: $gutter;
     h2 { @extend %crossbar; }
-    li { list-style: none; padding: 0; }
+    h3 {
+        display: inline-block;
+        width: 10rem;
+    }
+
+    li {
+        position: relative;
+        list-style: none;
+        padding: 0;
+        margin: $gutter/2 0;
+    }
+
+    .label-didactic, .label-humanly, .label-technical {
+        font-size: 2rem;
+        line-height: 3rem;
+        width: 3.4rem;
+        display: inline-block;
+    }
 }
 
 .quotes {
@@ -520,6 +537,7 @@ $color-vote: map-get($color-voting, "vote");
     img { width: 100%; }
 }
 
+@import "modules/star-rating";
 
 /* ===LABELS=== */
 // Bootstrap like labels for the different fields of study
