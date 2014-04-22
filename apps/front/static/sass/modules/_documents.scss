@@ -13,7 +13,7 @@
         > a, > a:visited { color: inherit; }
     }
 
-    .abbreviation { margin-right: 0.5em; }
+    .abbreviation { margin-right: $gutter/2; }
 
     .summary {
         float: left;
@@ -49,11 +49,50 @@
     }
 }
 
+.document-empty {
+    > * {
+        opacity: .4;
+    }
+}
+
 /* ===DOCUMENT=== */
 .document {
-    @include clearfix;
+    @include pie-clearfix;
     @include adapt-heading-to-author;
     @extend %box;
+    position: relative;
+
+    .edit {
+        margin-left: -$gutter;
+        margin-right: -$gutter;
+        margin-bottom: $gutter;
+        background-color: $color-dark-accent;
+        button, .button {
+            margin: 0;
+            margin-left: $gutter;
+            background: none;
+            font-size: 1.1rem;
+            padding: 0;
+        }
+    }
+
+    .report {
+        cursor: pointer;
+        font-size: 0.9rem;
+        position: absolute;
+        right: $gutter;
+        bottom: $gutter;
+        padding: .2rem .6rem 0;
+        @include border-radius(.2em);
+
+        @include transition(background 0.2s);
+        background-color: $color-dark-accent;
+        &:hover { background-color: $color-darker-accent; }
+
+        a.icon-flag:before {
+            color: #fff;
+        }
+    }
 
     .drating {
         @include pie-clearfix;
@@ -114,13 +153,27 @@
         }
     }
 
-    //This is a flexbox "hack" so that the image appears above the button on mobile view
-    //We cannot solve this by rearranging the html because we want the button
-    //to appear above the thumbnail on bigger screens
     @media (max-width: rem-to-em(62rem, $font-size-browser)) {
+        //This is a flexbox "hack" so that the image appears above the button on mobile view
+        //We cannot solve this by rearranging the html because we want the button
+        //to appear above the thumbnail on bigger screens
         .download {
             @include display-flex();
             @include flex-direction(column-reverse);
+        }
+
+        //Correct position of report flag
+        .report {
+            top: $gutter;
+            bottom: auto;
+        }
+
+        .labels {
+            width: 90%;
+            > a {
+                display: inline-block;
+                margin-bottom: 0.2rem;
+            }
         }
     }
 
@@ -182,4 +235,8 @@
         }
 
     }
+}
+
+.document-edit {
+    padding-top: 0;
 }

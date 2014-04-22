@@ -4,9 +4,18 @@
 <section class="documents">
 
 {% if documents %}
-
     {% for doc in documents %}
-    <article class="document">
+    <article class="document {% if doc.uploader = user %}document-edit{% endif %}">
+        {% if doc.uploader = user %}
+        <div class="edit">
+            <a class="button icon-edit" title="Bearbeiten" href="{% url 'documents:document_edit' doc.category.name|slugify doc.pk %}">
+                Bearbeiten
+            </a>
+            <a class="button icon-trash" title="Löschen" href="{% url 'documents:document_delete' doc.category.name|slugify doc.pk %}">
+                Löschen
+            </a>
+        </div>
+        {% endif %}
         <div class="details">
             <div class="labels">
                 {% if standalone %} {# Show category as tag #}
@@ -63,16 +72,6 @@
             {% if doc.url and not doc.github %}
                 <p>{{ doc.url|urlizetrunc:70 }}</p>
             {% endif %}
-            <p>
-                {% if doc.uploader = user %}
-                    <a class="btn" title="Bearbeiten" href="{% url 'documents:document_edit' doc.category.name|slugify doc.pk %}">
-                        <i class="icon-pencil"></i>
-                    </a>
-                    <a class="btn btn-danger" title="Löschen" href="{% url 'documents:document_delete' doc.category.name|slugify doc.pk %}">
-                        <i class="icon-trash icon-white"></i>
-                    </a>
-                {% endif %}
-            </p>
         </div>
         <div class="download">
             {% if doc.exists %}
@@ -90,14 +89,9 @@
                 <p><em>Datei nicht verfügbar</em></p>
             {% endif %}
         </div>
-        <!--
-        <p>
-
-            <a class="btn" title="Melden" href="{% url 'documents:document_report' doc.category.name|slugify doc.pk %}">
-                <i class="icon-exclamation-sign"></i>
-            </a>
-        </p>
-        -->
+        <div class="report">
+            <a class="icon-flag" title="Melden" href="{% url 'documents:document_report' doc.category.name|slugify doc.pk %}"></a>
+        </div>
     </article>
 
     {% endfor %}

@@ -81,7 +81,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   font-weight: normal;
   font-style: normal;
 }
-/* line 53, ../sass/_icons.scss */
+/* line 55, ../sass/_icons.scss */
 .icon-lecturer:before {
   font-family: "studentenportal-icons" !important;
   font-style: normal !important;
@@ -96,7 +96,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   content: "f";
 }
 
-/* line 53, ../sass/_icons.scss */
+/* line 55, ../sass/_icons.scss */
 .icon-twitter:before {
   font-family: "studentenportal-icons" !important;
   font-style: normal !important;
@@ -111,7 +111,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   content: "h";
 }
 
-/* line 53, ../sass/_icons.scss */
+/* line 55, ../sass/_icons.scss */
 .icon-download:before {
   font-family: "studentenportal-icons" !important;
   font-style: normal !important;
@@ -126,7 +126,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   content: "j";
 }
 
-/* line 53, ../sass/_icons.scss */
+/* line 55, ../sass/_icons.scss */
 .icon-home:before {
   font-family: "studentenportal-icons" !important;
   font-style: normal !important;
@@ -141,7 +141,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   content: "b";
 }
 
-/* line 53, ../sass/_icons.scss */
+/* line 55, ../sass/_icons.scss */
 .icon-magnifying-glass:before {
   font-family: "studentenportal-icons" !important;
   font-style: normal !important;
@@ -156,7 +156,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   content: "c";
 }
 
-/* line 53, ../sass/_icons.scss */
+/* line 55, ../sass/_icons.scss */
 .icon-flattr:before {
   font-family: "studentenportal-icons" !important;
   font-style: normal !important;
@@ -171,7 +171,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   content: "d";
 }
 
-/* line 53, ../sass/_icons.scss */
+/* line 55, ../sass/_icons.scss */
 .icon-github:before {
   font-family: "studentenportal-icons" !important;
   font-style: normal !important;
@@ -186,7 +186,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   content: "e";
 }
 
-/* line 53, ../sass/_icons.scss */
+/* line 55, ../sass/_icons.scss */
 .icon-calendar:before {
   font-family: "studentenportal-icons" !important;
   font-style: normal !important;
@@ -201,7 +201,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   content: "a";
 }
 
-/* line 53, ../sass/_icons.scss */
+/* line 55, ../sass/_icons.scss */
 .icon-list:before {
   font-family: "studentenportal-icons" !important;
   font-style: normal !important;
@@ -216,7 +216,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   content: "g";
 }
 
-/* line 53, ../sass/_icons.scss */
+/* line 55, ../sass/_icons.scss */
 .icon-comment-quotes:before {
   font-family: "studentenportal-icons" !important;
   font-style: normal !important;
@@ -231,7 +231,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   content: "i";
 }
 
-/* line 53, ../sass/_icons.scss */
+/* line 55, ../sass/_icons.scss */
 .icon-doc:before {
   font-family: "studentenportal-icons" !important;
   font-style: normal !important;
@@ -246,7 +246,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   content: "l";
 }
 
-/* line 53, ../sass/_icons.scss */
+/* line 55, ../sass/_icons.scss */
 .icon-test:before {
   font-family: "studentenportal-icons" !important;
   font-style: normal !important;
@@ -261,7 +261,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   content: "k";
 }
 
-/* line 53, ../sass/_icons.scss */
+/* line 55, ../sass/_icons.scss */
 .icon-statistics:before {
   font-family: "studentenportal-icons" !important;
   font-style: normal !important;
@@ -276,8 +276,8 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   content: "m";
 }
 
-/* line 53, ../sass/_icons.scss */
-.icon-edit:before {
+/* line 55, ../sass/_icons.scss */
+.icon-trash:before {
   font-family: "studentenportal-icons" !important;
   font-style: normal !important;
   font-weight: normal !important;
@@ -291,7 +291,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   content: "n";
 }
 
-/* line 53, ../sass/_icons.scss */
+/* line 55, ../sass/_icons.scss */
 .icon-logout:before {
   font-family: "studentenportal-icons" !important;
   font-style: normal !important;
@@ -306,7 +306,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   content: "o";
 }
 
-/* line 53, ../sass/_icons.scss */
+/* line 55, ../sass/_icons.scss */
 .icon-user:before {
   font-family: "studentenportal-icons" !important;
   font-style: normal !important;
@@ -321,7 +321,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   content: "p";
 }
 
-/* line 53, ../sass/_icons.scss */
+/* line 55, ../sass/_icons.scss */
 .icon-login:before {
   font-family: "studentenportal-icons" !important;
   font-style: normal !important;
@@ -336,7 +336,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   content: "q";
 }
 
-/* line 53, ../sass/_icons.scss */
+/* line 55, ../sass/_icons.scss */
 .icon-arrow-up:before {
   font-family: "studentenportal-icons" !important;
   font-style: normal !important;
@@ -351,7 +351,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   content: "r";
 }
 
-/* line 53, ../sass/_icons.scss */
+/* line 55, ../sass/_icons.scss */
 .icon-arrow-down:before {
   font-family: "studentenportal-icons" !important;
   font-style: normal !important;
@@ -366,7 +366,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   content: "s";
 }
 
-/* line 53, ../sass/_icons.scss */
+/* line 55, ../sass/_icons.scss */
 .icon-doc-alt:before {
   font-family: "studentenportal-icons" !important;
   font-style: normal !important;
@@ -381,8 +381,8 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   content: "t";
 }
 
-/* line 53, ../sass/_icons.scss */
-.icon-plus-alt:before {
+/* line 55, ../sass/_icons.scss */
+.icon-edit:before {
   font-family: "studentenportal-icons" !important;
   font-style: normal !important;
   font-weight: normal !important;
@@ -396,6 +396,36 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   content: "u";
 }
 
+/* line 55, ../sass/_icons.scss */
+.icon-smilie-sad:before {
+  font-family: "studentenportal-icons" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  font-size: 1em;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  content: "v";
+}
+
+/* line 55, ../sass/_icons.scss */
+.icon-flag:before {
+  font-family: "studentenportal-icons" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  font-size: 1em;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  content: "w";
+}
+
 /* ===FILETYPE ICONS=== */
 /* line 96, filetypes/*.png */
 .filetypes-sprite, .ficon-xls, .ficon-ppt, .ficon-doc, .ficon-pdf, .ficon-other, .ficon-img, .ficon-zip {
@@ -403,37 +433,37 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   background-repeat: no-repeat;
 }
 
-/* line 69, ../sass/_icons.scss */
+/* line 71, ../sass/_icons.scss */
 .ficon-xls {
   background-position: 0 -160px;
 }
 
-/* line 69, ../sass/_icons.scss */
+/* line 71, ../sass/_icons.scss */
 .ficon-ppt {
   background-position: 0 -128px;
 }
 
-/* line 69, ../sass/_icons.scss */
+/* line 71, ../sass/_icons.scss */
 .ficon-doc {
   background-position: 0 0;
 }
 
-/* line 69, ../sass/_icons.scss */
+/* line 71, ../sass/_icons.scss */
 .ficon-pdf {
   background-position: 0 -96px;
 }
 
-/* line 69, ../sass/_icons.scss */
+/* line 71, ../sass/_icons.scss */
 .ficon-other {
   background-position: 0 -64px;
 }
 
-/* line 69, ../sass/_icons.scss */
+/* line 71, ../sass/_icons.scss */
 .ficon-img {
   background-position: 0 -32px;
 }
 
-/* line 69, ../sass/_icons.scss */
+/* line 71, ../sass/_icons.scss */
 .ficon-zip {
   background-position: 0 -192px;
 }
@@ -976,7 +1006,7 @@ button.button-primary:hover, .button.button-primary:hover {
 }
 /* line 16, ../sass/modules/_documents.scss */
 .document-category .abbreviation {
-  margin-right: 0.5em;
+  margin-right: 0.5rem;
 }
 /* line 18, ../sass/modules/_documents.scss */
 .document-category .summary {
@@ -1024,18 +1054,69 @@ button.button-primary:hover, .button.button-primary:hover {
   width: 100%;
 }
 
-/* ===DOCUMENT=== */
 /* line 53, ../sass/modules/_documents.scss */
+.document-empty > * {
+  opacity: .4;
+}
+
+/* ===DOCUMENT=== */
+/* line 59, ../sass/modules/_documents.scss */
 .document {
-  overflow: hidden;
   *zoom: 1;
+  position: relative;
+}
+/* line 38, ../../../../../../../.gem/ruby/2.1.0/gems/compass-core-1.0.0.alpha.19/stylesheets/compass/utilities/general/_clearfix.scss */
+.document:after {
+  content: "";
+  display: table;
+  clear: both;
 }
 /* line 11, ../sass/_modules.scss */
 .document h3 {
   line-height: 1;
   margin-top: 1rem;
 }
-/* line 58, ../sass/modules/_documents.scss */
+/* line 65, ../sass/modules/_documents.scss */
+.document .edit {
+  margin-left: -1rem;
+  margin-right: -1rem;
+  margin-bottom: 1rem;
+  background-color: #155183;
+}
+/* line 70, ../sass/modules/_documents.scss */
+.document .edit button, .document .edit .button {
+  margin: 0;
+  margin-left: 1rem;
+  background: none;
+  font-size: 1.1rem;
+  padding: 0;
+}
+/* line 79, ../sass/modules/_documents.scss */
+.document .report {
+  cursor: pointer;
+  font-size: 0.9rem;
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
+  padding: .2rem .6rem 0;
+  -moz-border-radius: 0.2em;
+  -webkit-border-radius: 0.2em;
+  border-radius: 0.2em;
+  -moz-transition: background 0.2s;
+  -o-transition: background 0.2s;
+  -webkit-transition: background 0.2s;
+  transition: background 0.2s;
+  background-color: #155183;
+}
+/* line 90, ../sass/modules/_documents.scss */
+.document .report:hover {
+  background-color: #41586e;
+}
+/* line 92, ../sass/modules/_documents.scss */
+.document .report a.icon-flag:before {
+  color: #fff;
+}
+/* line 97, ../sass/modules/_documents.scss */
 .document .drating {
   *zoom: 1;
 }
@@ -1045,31 +1126,31 @@ button.button-primary:hover, .button.button-primary:hover {
   display: table;
   clear: both;
 }
-/* line 60, ../sass/modules/_documents.scss */
+/* line 99, ../sass/modules/_documents.scss */
 .document .drating .star-rating {
   float: left;
   display: block;
   margin-right: 1rem;
 }
-/* line 65, ../sass/modules/_documents.scss */
+/* line 104, ../sass/modules/_documents.scss */
 .document .drating > label {
   line-height: 3rem;
   float: left;
 }
-/* line 71, ../sass/modules/_documents.scss */
+/* line 110, ../sass/modules/_documents.scss */
 .document .download {
   text-align: center;
 }
-/* line 74, ../sass/modules/_documents.scss */
+/* line 113, ../sass/modules/_documents.scss */
 .document .download .thumbnail {
   height: 15rem;
   overflow: hidden;
 }
-/* line 77, ../sass/modules/_documents.scss */
+/* line 116, ../sass/modules/_documents.scss */
 .document .download .thumbnail img {
   max-width: 100%;
 }
-/* line 80, ../sass/modules/_documents.scss */
+/* line 119, ../sass/modules/_documents.scss */
 .document .download .download-action {
   font-family: "Droid Sans", sans-serif;
   color: #fff;
@@ -1081,7 +1162,7 @@ button.button-primary:hover, .button.button-primary:hover {
   min-height: 3.4rem;
   position: relative;
 }
-/* line 92, ../sass/modules/_documents.scss */
+/* line 131, ../sass/modules/_documents.scss */
 .document .download .download-action > div {
   position: absolute;
   top: 0.2rem;
@@ -1090,73 +1171,87 @@ button.button-primary:hover, .button.button-primary:hover {
   width: 3.2rem;
   height: 3.2rem;
 }
-/* line 104, ../sass/modules/_documents.scss */
+/* line 143, ../sass/modules/_documents.scss */
 .document .download .download-action.doc {
   background-color: #2b5796;
 }
-/* line 104, ../sass/modules/_documents.scss */
+/* line 143, ../sass/modules/_documents.scss */
 .document .download .download-action.xls {
   background-color: #1e7145;
 }
-/* line 104, ../sass/modules/_documents.scss */
+/* line 143, ../sass/modules/_documents.scss */
 .document .download .download-action.ppt {
   background-color: #d15a25;
 }
-/* line 104, ../sass/modules/_documents.scss */
+/* line 143, ../sass/modules/_documents.scss */
 .document .download .download-action.other {
   background-color: #6b533b;
 }
-/* line 104, ../sass/modules/_documents.scss */
+/* line 143, ../sass/modules/_documents.scss */
 .document .download .download-action.img {
   background-color: #5b2d8d;
 }
-/* line 104, ../sass/modules/_documents.scss */
+/* line 143, ../sass/modules/_documents.scss */
 .document .download .download-action.pdf {
   background-color: #ea4c3a;
 }
-/* line 104, ../sass/modules/_documents.scss */
+/* line 143, ../sass/modules/_documents.scss */
 .document .download .download-action.zip {
   background-color: #ff9408;
 }
-/* line 109, ../sass/modules/_documents.scss */
+/* line 148, ../sass/modules/_documents.scss */
 .document .download span.ficon-pdf {
   display: inline-block;
 }
-/* line 112, ../sass/modules/_documents.scss */
+/* line 151, ../sass/modules/_documents.scss */
 .document .download > a.pdf {
   background-color: #ea4c3a;
 }
 @media (max-width: 38.75em) {
-  /* line 121, ../sass/modules/_documents.scss */
+  /* line 160, ../sass/modules/_documents.scss */
   .document .download {
     display: -webkit-flex;
     display: flex;
     -webkit-flex-direction: column-reverse;
     flex-direction: column-reverse;
   }
+  /* line 166, ../sass/modules/_documents.scss */
+  .document .report {
+    top: 1rem;
+    bottom: auto;
+  }
+  /* line 171, ../sass/modules/_documents.scss */
+  .document .labels {
+    width: 90%;
+  }
+  /* line 173, ../sass/modules/_documents.scss */
+  .document .labels > a {
+    display: inline-block;
+    margin-bottom: 0.2rem;
+  }
 }
 @media (min-width: 38.75em) {
-  /* line 129, ../sass/modules/_documents.scss */
+  /* line 182, ../sass/modules/_documents.scss */
   .document .details {
     width: 70%;
     float: left;
   }
-  /* line 134, ../sass/modules/_documents.scss */
+  /* line 187, ../sass/modules/_documents.scss */
   .document .download {
     margin-top: 0.3rem;
     float: right;
     width: 30%;
     max-width: 400px;
   }
-  /* line 140, ../sass/modules/_documents.scss */
+  /* line 193, ../sass/modules/_documents.scss */
   .document .download .thumbnail {
     height: 10rem;
   }
-  /* line 144, ../sass/modules/_documents.scss */
+  /* line 197, ../sass/modules/_documents.scss */
   .document .download > a {
     height: 3.2rem;
   }
-  /* line 153, ../sass/modules/_documents.scss */
+  /* line 206, ../sass/modules/_documents.scss */
   .document span.filename {
     white-space: nowrap;
     overflow: hidden;
@@ -1167,25 +1262,25 @@ button.button-primary:hover, .button.button-primary:hover {
   }
 }
 @media (min-width: 38.75em) and (min-width: 56.25em) {
-  /* line 153, ../sass/modules/_documents.scss */
+  /* line 206, ../sass/modules/_documents.scss */
   .document span.filename {
     display: block;
   }
 }
 @media (min-width: 38.75em) and (min-width: 81.25em) {
-  /* line 153, ../sass/modules/_documents.scss */
+  /* line 206, ../sass/modules/_documents.scss */
   .document span.filename {
     width: 75%;
   }
 }
 @media (min-width: 38.75em) {
-  /* line 169, ../sass/modules/_documents.scss */
+  /* line 222, ../sass/modules/_documents.scss */
   .document span.filesize {
     display: block;
   }
 }
 @media (min-width: 38.75em) and (min-width: 56.25em) {
-  /* line 169, ../sass/modules/_documents.scss */
+  /* line 222, ../sass/modules/_documents.scss */
   .document span.filesize {
     float: left;
     display: block;
@@ -1194,10 +1289,15 @@ button.button-primary:hover, .button.button-primary:hover {
   }
 }
 @media (min-width: 38.75em) and (min-width: 81.25em) {
-  /* line 169, ../sass/modules/_documents.scss */
+  /* line 222, ../sass/modules/_documents.scss */
   .document span.filesize {
     width: 25%;
   }
+}
+
+/* line 240, ../sass/modules/_documents.scss */
+.document-edit {
+  padding-top: 0;
 }
 
 /* ===QUOTES=== */

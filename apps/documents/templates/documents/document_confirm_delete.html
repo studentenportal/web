@@ -23,8 +23,8 @@
     <p>Möchtest du wirklich das Dokument "{{ document.name }}" aus der Datenbank löschen?</p>
 
     <form method="post">{% csrf_token %}
-        <button type="submit" class="btn btn-danger"><i class="icon-trash icon-white"></i> Ja, ich bin sicher.</button>
-        <a href="{% url 'documents:document_list' documentcategory.name|slugify %}" class="btn">Nein, abbrechen!</a>
+        <button type="submit" class="button button-primary"><i class="icon-trash icon-white"></i> Ja, ich bin sicher.</button>
+        <a href="{% url 'documents:document_list' documentcategory.name|slugify %}" class="button">Nein, abbrechen!</a>
     </form>
 
 {% endblock %}

@@ -56,10 +56,8 @@
 
             <div class="list">
             {% for category in categories %}
-                {% if counts|lookup:category.pk|lookup:"total" == 0 %}
-                    <!--<p>Leer</p>-->
-                {% else %}
-                    <article class="document-category">
+                    <article class="document-category
+                {% if counts|lookup:category.pk|lookup:"total" == 0 %}document-empty{% endif %}">
                         <div class="lecturers">
                             {% for lecturer in category.lecturers.all %}
                             <div>
@@ -82,6 +80,11 @@
                                 <h3 class="name"><em class="abbreviation">{{category.name}}</em>{% if category.description %}{{ category.description }}{% endif %}</h3>
                             </a>
                             <ul>
+                                {% if counts|lookup:category.pk|lookup:"total" == 0 %}
+                                <li>
+                                <span class="icon-smilie-sad"></span>In diesem Modul gibt es noch keine Uploads.
+                                </li>
+                                {% endif %}
                                 {% if counts|lookup:category.pk|lookup:"summary" > 0 %}
                                 <li>
                                     <span class="icon-doc"></span><a href="#">{{ counts|lookup:category.pk|lookup:"summary" }} Zusammenfassungen</a>
@@ -100,7 +103,6 @@
                             </ul>
                         </div>
                     </article>
-                {% endif %}
             {% endfor %}
             </div>
         </div>

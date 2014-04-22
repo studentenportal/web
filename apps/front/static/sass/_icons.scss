@@ -25,14 +25,16 @@ $icons: (
   doc: "l",
   test: "k",
   statistics: "m",
-  edit: "n",
+  trash: "n",
   logout: "o",
   user: "p",
   login: "q",
   arrow-up: "r",
   arrow-down: "s",
   doc-alt: "t",
-  plus-alt: "u"
+  edit: "u",
+  smilie-sad: "v",
+  flag: "w"
 );
 
 @mixin icon($icon) {
