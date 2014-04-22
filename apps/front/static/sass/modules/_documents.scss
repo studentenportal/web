@@ -1,0 +1,185 @@
+/* ===DOCUMENT CATEGORY=== */
+.document-categories {
+    h2 { @extend %crossbar; }
+}
+
+.document-category {
+    @include clearfix;
+    @extend %box;
+
+    //Otherwise the color of the link would override the color
+    //ot the heading
+    .summary {
+        > a, > a:visited { color: inherit; }
+    }
+
+    .abbreviation { margin-right: 0.5em; }
+
+    .summary {
+        float: left;
+        width: 80%;
+        span { margin-right: 0.5em; }
+
+        li {
+            list-style: none;
+            padding: 0;
+            padding-right: $gutter;
+            float: left;
+        }
+    }
+
+    .lecturers {
+        @include pie-clearfix;
+        float: right;
+        width: 20%;
+        > div {
+            margin-top: 0.2rem;
+            margin-left: 0.5rem;
+            float: right;
+            a {
+                margin: 0;
+                display: block;
+                background-color: $color-midnight-blue;
+            }
+            img {
+                display: block;
+                width: 100%;
+            }
+        }
+    }
+}
+
+/* ===DOCUMENT=== */
+.document {
+    @include clearfix;
+    @include adapt-heading-to-author;
+    @extend %box;
+
+    .drating {
+        @include pie-clearfix;
+        .star-rating {
+            float: left;
+            display: block;
+            margin-right: $gutter;
+        }
+        > label {
+            line-height: 3rem;
+            float: left;
+        }
+    }
+
+    .download {
+        text-align: center;
+
+        .thumbnail {
+            height: 15rem;
+            overflow: hidden;
+            img { max-width: 100%; }
+        }
+
+        .download-action {
+            font-family: "Droid Sans", sans-serif;
+            color: #fff;
+            padding: 0.75rem 1.5rem 0.75rem 4rem;
+            line-height: 3.3rem - 2 * 0.75rem;
+            font-size: 1.6rem;
+            font-weight: 700;
+            display: block;
+            min-height: 3.4rem;
+            position: relative;
+
+            //Correct position of file icons
+            > div {
+                position: absolute;
+                top: 0.2rem;
+                left: 0.2rem;
+                float: left;
+                width: 3.2rem;
+                height: 3.2rem;
+            }
+        }
+
+        //Generate the different background colors for the filetypes
+        @each $ext, $color in $color-filetypes {
+            .download-action.#{$ext} {
+                background-color: $color;
+            }
+        }
+
+        span.ficon-pdf {
+                display: inline-block;
+        }
+        > a.pdf {
+            background-color: $color-pdf;
+        }
+    }
+
+    //This is a flexbox "hack" so that the image appears above the button on mobile view
+    //We cannot solve this by rearranging the html because we want the button
+    //to appear above the thumbnail on bigger screens
+    @media (max-width: rem-to-em(62rem, $font-size-browser)) {
+        .download {
+            @include display-flex();
+            @include flex-direction(column-reverse);
+        }
+    }
+
+    //Expand to bigger layout when space allows it
+    @media (min-width: rem-to-em(62rem, $font-size-browser)) {
+        .details {
+            width: 70%;
+            float: left;
+        }
+
+        .download {
+            margin-top: 0.3rem;
+            float: right;
+            width: 30%;
+            max-width: 400px;
+
+            .thumbnail {
+                height: 10rem;
+            }
+
+            > a {
+                height: 3.2rem;
+            }
+        }
+
+        //This is a very hacky approach to optimize
+        //the size of the filename and filesize
+        //so that the filename is displayed if the space is sufficient
+        //This should be solved in a better way...
+        span.filename {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            float: left;
+            display: none;
+            width: 55%;
+
+            @media (min-width: rem-to-em(90rem, $font-size-browser)) {
+                display: block;
+            }
+
+            @media (min-width: rem-to-em(130rem, $font-size-browser)) {
+                width: 75%;
+            }
+        }
+        span.filesize {
+            display: block;
+
+            @media (min-width: rem-to-em(90rem, $font-size-browser)) {
+                float: left;
+                display: block;
+                width: 45%;
+                text-align: left;
+            }
+
+            @media (min-width: rem-to-em(130rem, $font-size-browser)) {
+                width: 25%;
+            }
+        }
+
+    }
+}

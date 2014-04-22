@@ -1,0 +1,109 @@
+
+/* ===LABELS=== */
+// Bootstrap like labels for the different fields of study
+
+@mixin fix-icon-position-in-label {
+    position: relative;
+    padding-left: 1.8rem;
+
+    &:before {
+        position: absolute;
+        font-size: 1.5rem;
+        top: 0.1rem;
+        left: 0.2rem;
+    }
+}
+
+
+.label {
+    display: inline;
+    padding: .2rem .6rem .3rem;
+    font-family: $font-title;
+    font-size: 1.1rem;
+    font-weight: 700;
+    line-height: 1;
+    margin-right: 0.5rem;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    background-color: $color-midnight-blue;
+    @include border-radius(.1em);
+}
+
+.label-license {
+    @extend .label;
+    background-color: $color-sandy-brown;
+}
+
+.label-summary {
+    @extend .label;
+    background-color: $color-fern;
+}
+
+.label-exam {
+    @extend .label;
+    background-color: #428bca;
+}
+
+.label-other {
+    @extend .label;
+    background-color: #5bc0de;
+}
+
+.label-extension {
+    @extend .label;
+    text-transform: uppercase;
+}
+
+.label-pdf {
+    @extend .label;
+    background-color: $color-pdf;
+    text-transform: uppercase;
+}
+
+.label-github {
+    @extend .label;
+    @include fix-icon-position-in-label;
+    background-color: #302F2F;
+}
+
+.label-flattr {
+    @extend .label;
+    @include fix-icon-position-in-label;
+    background-color: #89b058;
+}
+
+.label-didactic {
+    @extend .label;
+    background-color: #f0ad4e;
+}
+
+.label-humanly {
+    @extend .label;
+    background-color: #428bca;
+}
+
+.label-technical {
+    @extend .label;
+    background-color: $color-fern;
+}
+
+$courses: (
+  e: #5CB870,
+  i: #f0ad4e,
+  m: #428bca,
+  mi:#428bca,
+  b: #AEB870,
+  eeu: #f0ad4e,
+  wing: #5CB870,
+  r: #5CB870,
+  l: #5bc0de
+);
+
+@each $course, $color in $courses {
+    .label-#{$course} {
+        @extend .label;
+        background-color: $color;
+    }
+}

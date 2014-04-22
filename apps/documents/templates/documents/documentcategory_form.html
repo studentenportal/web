@@ -21,8 +21,8 @@
     <form method="POST" class="form-horizontal">{% csrf_token %}
         {% include 'lib/form_loop.html' %}
         <div class="form-actions">
-            <button type="submit" class="btn btn-primary">{{ event|yesno:"Speichern,Eintragen" }}</button>
-            <a href="{% url 'documents:documentcategory_list' %}" class="btn">Abbrechen</a>
+            <button type="submit" class="button button-primary">{{ event|yesno:"Speichern,Eintragen" }}</button>
+            <a href="{% url 'documents:documentcategory_list' %}" class="button">Abbrechen</a>
         </div>
     </form>
 {% endblock %}

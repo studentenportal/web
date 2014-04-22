@@ -3,15 +3,25 @@
 @import "compass/utilities/general/clearfix";
 @import "compass/css3";
 
-.header {
-    background-color: $color-cornflower-blue;
-    @include clearfix;
+/* ===LAYOUT MIXINS=== */
+
+%crossbar {
+    //Pull back one em to compensate padding to enablefull header bg color
+    @extend %responsive-padding;
+    background-color: $color-light-accent;
+}
+
+%box {
+    padding: $gutter;
+    margin-bottom: $gutter;
+    background-color: #fff;
+    @include box-shadow(0 0 3px 2px #ccc);
 }
 
 %wrapper {
     padding: 0 $gutter;
-    @media (min-width: 1024px) {
-        max-width: 1024px;
+    @media (min-width: rem-to-em(100.24rem, $font-size-browser)) {
+        max-width: 100.24rem;
         margin: 0 auto;
     }
 }
@@ -23,9 +33,18 @@
     margin-bottom: $gutter;
 }
 
+
+/* ===LAYOUT STRUCTURE=== */
+
+//The whole top part of the website includes the header as well
 .top {
     @extend %wrapper;
     padding: 0;
+}
+
+.header {
+    background-color: $color-light-accent;
+    @include clearfix;
 }
 
 .main {
@@ -38,64 +57,35 @@
     margin-top: $gutter;
 }
 
+/* ===HEADER=== */
+.header {
+    background-color: $color-light-accent;
 
-/* ===NAVIGATION=== */
+    .branding {
+        padding-left: $gutter;
+        float: left;
+    }
 
-.nav-collapse {
-    background-color: $color-cornflower-blue;
-    @include pie-clearfix;
+    //Special links like user home or login/logout
+    > a {
+        float: right;
+        padding: $gutter/2;
+        font-size: 3.2rem;
+        color: #fff;
 
-    li {
-        margin: 0;
-        padding: 0;
-
-        a {
-            padding: 0.5em 0.5em $gutter;
-            display: block;
-            background-color: $color-cornflower-blue;
-            color: $color-midnight-blue;
-            border-bottom: 1px solid $color-white;
-            &:before {
-                font-size: 0.75em;
-                padding-right: 0.5em;
-            }
-
-            @media (min-width: 40em) {
-                float: left;
-            }
+        &:hover {
+            color: $color-dark-accent;
         }
     }
 
-
-    li.active a {
-        background-color: $color-background;
-    }
-
-    &:before {
-        clear: left;
-    }
-}
-
-.header a {
-    float: right;
-    padding: 0.5rem;
-    font-size: 3.2rem;
-    color: #fff;
-
-    &:hover {
-        color: $color-midnight-blue;
-    }
-}
-
-.header {
-    background-color: $color-cornflower-blue;
-
+    //Handle icon problems that occur because icons
+    //don't fit perfectly together
     .icon-user, .icon-logout, .icon-login {
         width: 1em;
         height: 1em;
+        padding-left: $gutter/2;
         position: relative;
-        padding-left: 1em;
-
+        //Force alignment of icons
         &:before {
             position: absolute;
             font-size: 0.75em;
@@ -105,15 +95,37 @@
     }
 }
 
-%crossbar {
-    //Pull back one em to compensate padding to enablefull header bg color
-    @extend %responsive-padding;
-    background-color: $color-cornflower-blue;
-}
+/* ===NAVIGATION=== */
+.nav-collapse {
+    background-color: $color-light-accent;
+    @include pie-clearfix;
 
-%box {
-    margin-bottom: 1em;
-    padding: $gutter;
-    background-color: #fff;
-    @include box-shadow(0 0 3px 2px #cccccc);
+    li {
+        margin: 0;
+        padding: 0;
+
+        a {
+            padding: 0.5em 0.5em $gutter;
+            display: block;
+            background-color: $color-light-accent;
+            color: $color-dark-accent;
+            border-bottom: 1px solid #fff;
+            &:before {
+                font-size: 0.75em;
+                padding-right: 0.5em;
+            }
+
+            @media (min-width: 46em) {
+                float: left;
+            }
+        }
+    }
+
+    li.active a {
+        background-color: $color-background;
+    }
+
+    &:before {
+        clear: left;
+    }
 }

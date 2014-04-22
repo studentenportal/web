@@ -14,192 +14,9 @@
     }
 }
 
-/* ===BRANDING=== */
-
-.branding {
-    padding-left: $gutter;
-    float: left;
-}
-
-/* ===DOCUMENT=== */
-.document {
-    @include clearfix;
-    @include adapt-heading-to-author;
-    @extend %box;
-
-    //Float so that the document rating sumamry appears on the right
-    .drating {
-    }
-
-    .download {
-        text-align: center;
-
-
-        .thumbnail {
-
-            height: 15rem;
-            overflow: hidden;
-            img { max-width: 100%; }
-        }
-
-        > a {
-            font-family: "Droid Sans", sans-serif;
-            color: #fff;
-            padding: 0.75rem 1.5rem 0.75rem 4rem;
-            line-height: 3.3rem - 2 * 0.75rem;
-            font-size: 1.6rem;
-            font-weight: 700;
-            display: block;
-            min-height: 3.4rem;
-            position: relative;
-
-            > div {
-                position: absolute;
-                top: 0.2rem;
-                left: 0.2rem;
-                float: left;
-                width: 3.2rem;
-                height: 3.2rem;
-            }
-        }
-        span.ficon-pdf {
-                display: inline-block;
-        }
-        > a.pdf {
-            background-color: $color-pdf;
-        }
-    }
-
-    //This is a flexbox "hack" so that the image appears above the button on mobile view
-    //We cannot solve this by rearranging the html because we want the button
-    //to appear above the thumbnail on bigger screens
-    @media (max-width: 620px) {
-        .download {
-            @include display-flex();
-            @include flex-direction(column-reverse);
-        }
-    }
-
-    //Expand to bigger layout when space allows it
-    @media (min-width: 620px) {
-        .details {
-            width: 70%;
-            float: left;
-        }
-
-        .download {
-            margin-top: 0.3rem;
-            float: right;
-            width: 30%;
-            max-width: 400px;
-
-            .thumbnail {
-                height: 10rem;
-            }
-
-            > a {
-                height: 3.2rem;
-            }
-        }
-
-        span.filename {
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            float: left;
-            display: none;
-            width: 55%;
-
-            @media (min-width: 900px) {
-                display: block;
-            }
-
-            @media (min-width: 1300px) {
-                width: 75%;
-            }
-        }
-        span.filesize {
-            display: block;
-
-            @media (min-width: 900px) {
-                float: left;
-                display: block;
-                width: 45%;
-                text-align: left;
-            }
-
-            @media (min-width: 1300px) {
-                width: 25%;
-            }
-        }
-
-    }
-
-
-
-    @each $ext, $color in $color-filetypes {
-        .download-action.#{$ext} {
-            background-color: $color;
-        }
-    }
-
-
-}
-
-
-/* ===DOCUMENT CATEGORY=== */
-.document-categories {
-    h2 { @extend %crossbar; }
-}
-
-.document-category {
-    @include clearfix;
-    @extend %box;
-
-    //Otherwise the color of the link would override the color
-    //ot the heading
-    .summary {
-        > a, > a:visited { color: inherit; }
-    }
-
-    .abbreviation { margin-right: 0.5em; }
-
-    .summary {
-        float: left;
-        width: 80%;
-        span { margin-right: 0.5em; }
-
-        li {
-            list-style: none;
-            padding: 0;
-            padding-right: $gutter;
-            float: left;
-        }
-    }
-
-    .lecturers {
-        @include pie-clearfix;
-        float: right;
-        width: 20%;
-        > div {
-            margin-top: 0.2rem;
-            margin-left: 0.5rem;
-            float: right;
-            a {
-                margin: 0;
-                display: block;
-                background-color: $color-midnight-blue;
-            }
-            img {
-                display: block;
-                width: 100%;
-            }
-        }
-    }
-}
-
 /* ===SEARCH=== */
 // Built after http://codepen.io/Siwicki/details/FHkwu
+$color-search-background: #E1E5E8;
 
 .search-box {
     @include clearfix;
@@ -211,33 +28,37 @@
 
     > input {
         float: left;
-        width: 90%;
-        padding: 0.25rem;
+        width: 85%;
+        background: $color-search-background;
 
-        background: #E1E5E8;
+        &:focus {
+            border-color: $color-dark-accent;
+        }
     }
 
     > button {
+        margin: 0;
         float: right;
-        width: 10%;
+        width: 15%;
         position: relative;
         padding: 0;
-        margin-right: 0; //Override default right margin on buttons
 
         color: #fff;
-        background: #155183;
+        background: $color-dark-accent;
 
+        //Create the triangle
         &:before {
             content: '';
             position: absolute;
             border-width: 8px 8px 8px 0;
             border-style: solid solid solid none;
-            border-color: transparent #155183 transparent;
+            border-color: transparent $color-dark-accent transparent;
             top: 0.75em;
             left: -0.4em;
         }
     }
 }
+
 
 /* ===BIG DATE=== */
 // The look was inspired by http://dribbble.com/shots/351931-List-of-events-for-something
@@ -344,174 +165,6 @@ $color-vote: map-get($color-voting, "vote");
     }
 }
 
-/* ===QUOTES=== */
-.quote {
-    @extend %box;
-    @extend %list-card;
-    padding: $gutter;
-    position: relative;
-    min-height: 11rem;
-    .quote-wrapper {
-        padding-left: 4rem;
-        float: left;
-        width: 80%;
-    }
-
-    .votebuttons {
-        //Make votebuttons absolute so that it layered over the big quote
-        position: absolute;
-        z-index: 2;
-    }
-
-    blockquote {
-        padding: $gutter/2 $gutter/2 0 0;
-
-        p {
-            font-family: 'Droid Serif', serif;
-            font-style: italic;
-            font-size: 1.6rem;
-            line-height: 2rem;
-            text-indent: 7rem;
-            word-wrap:break-word;
-
-            &:before {
-                content: '\201C';
-                font-family: serif;
-                font-style: normal;
-                font-weight: 700;
-                position: absolute;
-                font-size: 10rem;
-                top: 2rem;
-                left: -1rem;
-                color: $color-midnight-blue;
-                text-shadow: 7px 14px 10px rgba(0, 0, 0, 0.1);
-            }
-        }
-    }
-
-    .comment {
-        background-color: $color-cornflower-blue;
-        padding: $gutter/2;
-        font-size: 1.2rem;
-        display: inline-block;
-    }
-
-    .thumbnail {
-        width: 20%;
-        float: right;
-        max-width: 7.5rem;
-        img {
-            max-width: 100%;
-        }
-    }
-
-    //Scale up gracefully (Im sure this can somehow be done better)
-    @media (max-width: 450px) {
-        .quote-wrapper { width: 95%; }
-        .thumbnail { display: none; }
-    }
-
-    @media (min-width: 620px) {
-        .quote-wrapper { width: 85%; }
-        .thumbnail { width: 15%; }
-    }
-
-    @media (min-width: 900px) {
-        .quote-wrapper { width: 90%; }
-        .thumbnail { width: 10%; }
-    }
-}
-
-.quote-no-lecturer {
-    .quote-wrapper {
-        width: 100%;
-    }
-
-    .citation {
-    }
-}
-
-/* ===LECTURER PROFILE=== */
-.lecturer-profile {
-    @include pie-clearfix;
-
-    .info {
-        float: left;
-    }
-
-    .pictures {
-        @media (min-width: 660px) {
-            float: right;
-        }
-
-        .thumbnail {
-        }
-
-        .oldphotos {
-            cursor: pointer;
-            cursor: hand;
-            > img {
-                margin-left: $gutter/2;
-                float: right;
-            }
-        }
-    }
-}
-
-.rate {
-    margin-top: $gutter;
-    h2 { @extend %crossbar; }
-    h3 {
-        display: inline-block;
-        width: 10rem;
-    }
-
-    li {
-        position: relative;
-        list-style: none;
-        padding: 0;
-        margin: $gutter/2 0;
-    }
-
-    .label-didactic, .label-humanly, .label-technical {
-        font-size: 2rem;
-        line-height: 3rem;
-        width: 3.4rem;
-        display: inline-block;
-    }
-}
-
-.quotes {
-    margin-top: $gutter;
-    h2 { @extend %crossbar; }
-}
-
-#lrating-d, #lrating-m, #lrating-f {
-    display: inline-block;
-}
-
-
-
-.properties {
-    table-layout: fixed;
-    width: 100%;
-    max-width: 50rem;
-
-    td {
-        vertical-align: top;
-        padding: $gutter/2 $gutter;
-        border-right: 1px dashed darken($color-cornflower-blue, 20%);
-        word-wrap: break-word;
-        width: 15rem;
-    }
-
-    td + td {
-        border: none;
-        width: auto;
-    }
-}
-
-
 /* ===EVENTS=== */
 .events {
     h1, h2 { @extend %crossbar; }
@@ -523,127 +176,7 @@ $color-vote: map-get($color-voting, "vote");
     @include adapt-heading-to-author;
 }
 
-/* ===LECTURERS=== */
-#lecturers {
-    @include pie-clearfix;
-}
-
-.lecturer {
-    @extend %box;
-    float: left;
-    margin-right: 2*$gutter;
-    width: 18rem;
-
-    img { width: 100%; }
-}
-
+@import "modules/documents";
+@import "modules/lecturers";
 @import "modules/star-rating";
-
-/* ===LABELS=== */
-// Bootstrap like labels for the different fields of study
-
-@mixin fix-icon-position-in-label {
-    position: relative;
-    padding-left: 1.8rem;
-
-    &:before {
-        position: absolute;
-        font-size: 1.5rem;
-        top: 0.1rem;
-        left: 0.2rem;
-    }
-}
-
-
-.label {
-    display: inline;
-    padding: .2rem .6rem .3rem;
-    font-family: $font-title;
-    font-size: 1.1rem;
-    font-weight: 700;
-    line-height: 1;
-    margin-right: 0.5rem;
-    color: #fff;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: baseline;
-    background-color: $color-midnight-blue;
-    @include border-radius(.1em);
-}
-
-.label-license {
-    @extend .label;
-    background-color: $color-sandy-brown;
-}
-
-.label-summary {
-    @extend .label;
-    background-color: $color-fern;
-}
-
-.label-exam {
-    @extend .label;
-    background-color: #428bca;
-}
-
-.label-other {
-    @extend .label;
-    background-color: #5bc0de;
-}
-
-.label-extension {
-    @extend .label;
-    text-transform: uppercase;
-}
-
-.label-pdf {
-    @extend .label;
-    background-color: $color-pdf;
-    text-transform: uppercase;
-}
-
-.label-github {
-    @extend .label;
-    @include fix-icon-position-in-label;
-    background-color: #302F2F;
-}
-
-.label-flattr {
-    @extend .label;
-    @include fix-icon-position-in-label;
-    background-color: #89b058;
-}
-
-.label-didactic {
-    @extend .label;
-    background-color: #f0ad4e;
-}
-
-.label-humanly {
-    @extend .label;
-    background-color: #428bca;
-}
-
-.label-technical {
-    @extend .label;
-    background-color: $color-fern;
-}
-
-$courses: (
-  e: #5CB870,
-  i: #f0ad4e,
-  m: #428bca,
-  mi:#428bca,
-  b: #AEB870,
-  eeu: #f0ad4e,
-  wing: #5CB870,
-  r: #5CB870,
-  l: #5bc0de
-);
-
-@each $course, $color in $courses {
-    .label-#{$course} {
-        @extend .label;
-        background-color: $color;
-    }
-}
+@import "modules/labels";

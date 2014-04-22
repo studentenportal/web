@@ -44,7 +44,7 @@
 
     {# Add button #}
     {% if user.is_authenticated %}
-        <p><a class="button" href="{% url 'documents:document_add' documentcategory.name|slugify %}">
+        <p><a class="button button-primary" href="{% url 'documents:document_add' documentcategory.name|slugify %}">
             <i class="icon-plus-sign icon-white"></i> Dokument hinzufügen
         </a></p>
     {% endif %}

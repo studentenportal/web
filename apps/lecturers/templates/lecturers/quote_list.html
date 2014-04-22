@@ -22,7 +22,7 @@
     Profil ansehen.</p>
 
     {% if user.is_authenticated %}
-        <a class="button" href="{% url 'lecturers:quote_add' %}">
+        <a class="button button-primary" href="{% url 'lecturers:quote_add' %}">
             Zitat hinzufügen
         </a>
     {% endif %}

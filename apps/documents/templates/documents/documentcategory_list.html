@@ -40,19 +40,17 @@
     <p>Hier finden sich alte Prüfungen, Zusammenfassungen des Unterrichtsstoffes und Lernhilfen für die Prüfungen.</p>
 
     {% if user.is_authenticated %}
-        <p><a class="button" href="{% url 'documents:documentcategory_add' %}">
+        <p><a class="button button-primary" href="{% url 'documents:documentcategory_add' %}">
             <i class="icon-plus-sign icon-white"></i> Modul hinzufügen
         </a></p>
     {% endif %}
-
-    <br />
 
     <h2>Module</h2>
 
     {% if categories %}
         <div id="modules">
             <form action="#" class="search-box">
-                <input type="text" placeholder="Modul suchen..." />
+                <input class="search" type="text" placeholder="Modul suchen..." />
                 <button type="submit"><span class="icon-magnifying-glass"></span></button>
             </form>
 

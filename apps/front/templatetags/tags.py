@@ -61,3 +61,14 @@ def filetype_class(ext):
         return "img"
 
     return "other"
+
+
+@register.filter()
+def field_type(field):
+    type_name = field.field.__class__.__name__
+    types = {
+        "FileField": "file",
+        "TypedChoiceField": "checkbox",
+        "CharField": "text"
+    }
+    return types[type_name] if type_name in types else type_name

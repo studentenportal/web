@@ -22,11 +22,11 @@
 
     <p>
         {% if user.is_authenticated %}
-            <a class="button" href="{% url 'events:event_add' %}">
+            <a class="button button-primary" href="{% url 'events:event_add' %}">
                 <i class="icon-plus-sign icon-white"></i> Event hinzufügen
             </a>
         {% endif %}
-        <a class="button light" href="{{ webcal_url }}">
+        <a class="button" href="{{ webcal_url }}">
             <i class="icon-calendar"></i> Events abonnieren
         </a>
     </p>

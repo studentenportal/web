@@ -13,6 +13,10 @@
     {{ block.super }}
 {% endblock %}
 
+{% block breadcrumbs %}
+    <a href="{% url 'lecturers:lecturer_list' %}">Dozenten</a> &raquo; {{ lecturer.name }}
+{% endblock %}
+
 {% block scripts %}
     {{ block.super }}
     {% compress js %}
