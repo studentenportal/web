@@ -180,3 +180,22 @@ $color-vote: map-get($color-voting, "vote");
 @import "modules/lecturers";
 @import "modules/star-rating";
 @import "modules/labels";
+
+/* ===PAGINATION=== */
+ul.pagination {
+    li {
+        padding-left: 0;
+        list-style: none;
+        display: inline-block;
+    }
+
+    .button {
+        font-size: 1.4rem;
+        margin: 0;
+        text-align: center;
+        width: 3rem;
+        padding: $gutter/4 0;
+        margin-bottom: $gutter/2;
+        margin-left: $gutter/2;
+    }
+}

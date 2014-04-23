@@ -1724,3 +1724,21 @@ button.button-primary:hover, .button.button-primary:hover {
 .label-l {
   background-color: #5bc0de;
 }
+
+/* ===PAGINATION=== */
+/* line 186, ../sass/_modules.scss */
+ul.pagination li {
+  padding-left: 0;
+  list-style: none;
+  display: inline-block;
+}
+/* line 192, ../sass/_modules.scss */
+ul.pagination .button {
+  font-size: 1.4rem;
+  margin: 0;
+  text-align: center;
+  width: 3rem;
+  padding: 0.25rem 0;
+  margin-bottom: 0.5rem;
+  margin-left: 0.5rem;
+}
