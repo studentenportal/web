@@ -141,7 +141,7 @@ class Document(models.Model):
         """Check whether the url is associated with github by simply checking if "github"
         is contained in the link. This means that any URL with "github" in the name will
         be associated to github."""
-        return  self.url and "github" in self.url
+        return self.url and "github" in self.url
 
     def downloadcount(self):
         """Return the download count."""

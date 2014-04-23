@@ -61,7 +61,7 @@
                         <div class="lecturers">
                             {% for lecturer in category.lecturers.all %}
                             <div>
-                                <a class="label" rel="author" href="#">{{ lecturer.abbreviation }}</a>
+                                <a class="label" rel="author" href="{% url 'lecturers:lecturer_detail' lecturer.pk|slugify %}">{{ lecturer.abbreviation }}</a>
                                 {% if lecturer.photo %}
                                 <img class="thumbnail" src="{% thumbnail lecturer.photo 34x45 crop %}" />
                                 {% else %}
@@ -87,17 +87,17 @@
                                 {% endif %}
                                 {% if counts|lookup:category.pk|lookup:"summary" > 0 %}
                                 <li>
-                                    <span class="icon-doc"></span><a href="#">{{ counts|lookup:category.pk|lookup:"summary" }} Zusammenfassungen</a>
+                                    <span class="icon-doc"></span>{{ counts|lookup:category.pk|lookup:"summary" }} Zusammenfassungen
                                 </li>
                                 {% endif %}
                                 {% if counts|lookup:category.pk|lookup:"exam" > 0 %}
                                 <li>
-                                    <span class="icon-test"></span><a href="#">{{ counts|lookup:category.pk|lookup:"exam" }} Prüfungen</a>
+                                    <span class="icon-test"></span>{{ counts|lookup:category.pk|lookup:"exam" }} Prüfungen
                                 </li>
                                 {% endif %}
                                 {% if counts|lookup:category.pk|lookup:"other" > 0 %}
                                 <li>
-                                    <span class="icon-doc-alt"></span><a href="#">{{ counts|lookup:category.pk|lookup:"other"}} Andere</a>
+                                    <span class="icon-doc-alt"></span>{{ counts|lookup:category.pk|lookup:"other"}} Andere
                                 </li>
                                 {% endif %}
                             </ul>

@@ -147,8 +147,8 @@ class Command(CommandOutputMixin, NoArgsCommand):
             category = DocumentCategory.objects.create(
                 name=module["name"],
                 description=module["description"])
-            self.add_lecturer_to_document_category(category, lecturer)
-            self.add_courses_to_document_category(category, course)
+            self.add_lecturer_to_document_category(category, module)
+            self.add_courses_to_document_category(category, module)
             category.save()
             return True
 

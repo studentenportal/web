@@ -72,7 +72,7 @@ class DocumentcategoryListViewTest(TestCase):
 
     def testModuleName(self):
         """Test whether the module An1I appears in the list."""
-        self.assertContains(self.response, '<strong>An1I</strong>')
+        self.assertContains(self.response, '<em class="abbreviation">An1I</em>')
         self.assertContains(self.response, 'Analysis 1 für Informatiker')
 
     def testUserAddButton(self):
@@ -84,9 +84,9 @@ class DocumentcategoryListViewTest(TestCase):
 
     def testCounts(self):
         """Test whether the category counts are correct."""
-        self.assertContains(self.response, '<td class="summary_count">2</td>')
-        self.assertContains(self.response, '<td class="exam_count">1</td>')
-        self.assertContains(self.response, '<td class="other_count">2</td>')
+        self.assertContains(self.response, '<span class="icon-doc"></span>2 Zusammenfassungen')
+        self.assertContains(self.response, '<span class="icon-test"></span>1 Prüfung')
+        self.assertContains(self.response, '<span class="icon-doc-alt"></span>2 Andere')
 
 
 class DocumentcategoryAddViewTest(TestCase):
@@ -160,12 +160,12 @@ class DocumentListViewTest(TestCase):
 
     def testDocumentTitle(self):
         soup = BeautifulSoup(self.response.content)
-        h4 = soup.find('span', text='Analysis 1 Theoriesammlung').find_parent('h4').prettify()
-        self.assertIn('<span property="dct:title" xmlns:dct="http://purl.org/dc/terms/">', h4)
-        self.assertIn('<span class="label label-success">\n  Zusammenfassung\n </span>', h4)
+        div_details = soup.find('h3', text='Analysis 1 Theoriesammlung').find_parent('div').prettify()
+        self.assertIn('<h3 property="dct:title" xmlns:dct="http://purl.org/dc/terms/">\n  Analysis 1 Theoriesammlung\n </h3>', div_details)
+        self.assertIn('<span class="label-summary">\n   Zusammenfassung\n  </span>', div_details)
         self.assertIn('<a href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.de" rel="license" ' +
-                      u'title="Veröffentlicht unter der CC BY-NC-SA 3.0 Lizenz">', h4)
-        self.assertIn('<span class="label">\n   CC BY-NC-SA 3.0\n  </span>', h4)
+                      u'title="Veröffentlicht unter der CC BY-NC-SA 3.0 Lizenz">', div_details)
+        self.assertIn(' <span class="label-license">\n    CC BY-NC-SA 3.0\n   </span>', div_details)
 
     def testUploaderName(self):
         self.assertContains(self.response, 'Another Guy')
@@ -208,14 +208,16 @@ class DocumentListViewTest(TestCase):
         response0 = self.client.get(self.url)
         soup0 = BeautifulSoup(response0.content)
         anchor0 = soup0.find('a', href=dl_url)
-        self.assertEqual(anchor0.parent()[-1].text, '0 Downloads')
+        document0 = anchor0.find_parent('article').prettify()
+        self.assertIn("0 Downloads", document0)
 
         # First download
         self.client.get(dl_url)
         response1 = self.client.get(self.url)
         soup1 = BeautifulSoup(response1.content)
         anchor1 = soup1.find('a', href=dl_url)
-        self.assertEqual(anchor1.parent()[-1].text, '1 Download')
+        document1 = anchor1.find_parent('article').prettify()
+        self.assertIn("1 Download", document1)
 
         # Second download. Downloadcount shouldn't increase, as request was
         # done from the same IP
@@ -223,7 +225,8 @@ class DocumentListViewTest(TestCase):
         response2 = self.client.get(self.url)
         soup2 = BeautifulSoup(response2.content)
         anchor2 = soup2.find('a', href=dl_url)
-        self.assertEqual(anchor2.parent()[-1].text, '1 Download')
+        document2 = anchor2.find_parent('article').prettify()
+        self.assertIn("1 Download", document2)
 
     def testNullValueUploader(self):
         """Test whether a document without an uploader does not raise an error."""
