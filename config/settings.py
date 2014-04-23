@@ -70,7 +70,7 @@ DATABASES = {
         'NAME': env('DB_NAME', 'studentenportal'),
         'USER': env('DB_USER', 'studentenportal'),
         'PASSWORD': env('DB_PASSWORD', 'studentenportal'),
-        'HOST': env('DB_HOST', ''),
+        'HOST': env('DB_HOST', 'localhost'),
         'PORT': env('DB_PORT', ''),
     }
 }
