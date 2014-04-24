@@ -11,16 +11,27 @@
 {% block scripts %}
     {{ block.super }}
     {% compress js %}
+        <script src="{{ STATIC_URL }}js/jquery.lazyload.js"></script>
         <script src="{{ STATIC_URL }}js/list.js"></script>
 
         <script>
             $(function() {
+                $("img.lazy").lazyload({ threshold : 200 });
+
                 var options = {
                     valueNames: ['name'],
                     page: 9001
                 };
+                var moduleList = new List('modules', options);
 
-                var contactList = new List('modules', options);
+                var loadImages = function() {
+                    var elements = $.map(moduleList.visibleItems, function(val) { return val.elm; });
+                    $(elements).find("img.lazy").trigger("appear");
+                };
+
+                moduleList.on("searchComplete", function() {
+                    loadImages();
+                });
             });
         </script>
 
@@ -63,7 +74,7 @@
                             <div>
                                 <a class="label" rel="author" href="{% url 'lecturers:lecturer_detail' lecturer.pk|slugify %}">{{ lecturer.abbreviation }}</a>
                                 {% if lecturer.photo %}
-                                <img class="thumbnail" src="{% thumbnail lecturer.photo 34x45 crop %}" />
+                                <img class="thumbnail lazy" src="" data-original="{% thumbnail lecturer.photo 34x45 crop %}" />
                                 {% else %}
                                 <img class="thumbnail" src="{{ STATIC_URL }}img/professor.png" />
                                 {% endif %}
