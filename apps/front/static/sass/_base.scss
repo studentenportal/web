@@ -110,6 +110,15 @@ input, select, textarea {
   font-size: 1.1rem;
 }
 
+ul.errorlist {
+  li {
+    color: #b94a48;
+    list-style-type: none;
+    padding-left: 0;
+    font-size: 1.1rem;
+  }
+}
+
 //Checkbox has to float left, so that the box is not centered
 //and help blocks can align afterwards
 input[type="checkbox"] {
@@ -145,10 +154,16 @@ input[type="file"] {
   }
 }
 
+.form-horizontal {
+  .control-group {
+    margin-bottom: $gutter;
+  }
+}
+
 /* ===RESPONSIVE FORMS=== */
 @media (min-width: rem-to-em(70rem, $font-size-browser)) {
   .form-horizontal {
-    label, p.help-block {
+    label, p.help-block, ul.errorlist {
       float: left;
       width: 30%;
     }
@@ -161,6 +176,11 @@ input[type="file"] {
     #id_license + p.help-block {
       width: 70%;
       float: right;
+    }
+
+    input[type="checkbox"] {
+      float: left;
+      width: auto;
     }
 
     //Move help block on the same baseline as the
@@ -199,3 +219,4 @@ button.button-primary, .button.button-primary {
 
 /* ===MISC=== */
 .hidden { display: none; }
+.readonly { opacity: .7; }

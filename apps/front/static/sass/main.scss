@@ -49,7 +49,14 @@ $color-xls: #08743b;
 $color-ppt: #dd5b26;
 $color-other: #6b533b;
 $color-img: #5b2d8d;
-$color-pdf: #ea4c3a;
+$color-pdf: #CF1B3C;
+
+$color-alerts: (
+  success: $color-fern,
+  info: $color-cornflower-blue,
+  warning: $color-sandy-brown,
+  danger: #f2dede
+);
 
 $font-title: 'Droid Sans', sans-serif;
 $font-text: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;

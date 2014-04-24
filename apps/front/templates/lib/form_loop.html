@@ -7,13 +7,12 @@
 
 <fieldset>
     {% for field in form %}
-        {% if field.errors %}error{% endif %}
         <div class="control-group ">
             <label for="id_{{ field.html_name }}">{{ field.label }}
                 {% if field.field.required %}<span class="required-star">*</span>{% endif %}
             </label>
             {{ field }}
-            {% if field.errors %}<span class="help-inline">{{ field.errors }}</span>{% endif %}
+            {{ field.errors }}
             {% if field.help_text %}<p class="help-block">{{ field.help_text }}</p>{% endif %}
         </div>
     {% endfor %}

@@ -63,6 +63,12 @@ def filetype_class(ext):
     return "other"
 
 
+@register.filter
+def is_author(doc, user):
+    """Returns whether the current user is the uploader of the given doc"""
+    return doc.uploader == user
+
+
 @register.filter()
 def field_type(field):
     type_name = field.field.__class__.__name__

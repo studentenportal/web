@@ -6,7 +6,7 @@
 {% if documents %}
     {% for doc in documents %}
     <article class="document {% if doc.uploader = user %}document-edit{% endif %}">
-        {% if doc.uploader = user %}
+        {% if doc|is_author:user %}
         <div class="edit">
             <a class="button icon-edit" title="Bearbeiten" href="{% url 'documents:document_edit' doc.category.name|slugify doc.pk %}">
                 Bearbeiten
@@ -51,8 +51,8 @@
             <p class="author">von {% if doc.uploader %}<a rel="author" href="{% url 'user' doc.uploader.pk doc.uploader.username|slugify %}">{{ doc.uploader.name }}</a>{% endif %}
             (<span>{{ doc.downloadcount }} Download{{ doc.downloadcount|pluralize:"s" }}</span>)</p>
             {% if user.is_authenticated %}
-            <form class="drating" data-rating="{{ ratings|lookup:doc.pk }}" data-readonly="{% if doc.uploader = user %}1{% else %}0{% endif %}" data-url="{% url 'documents:document_rate' doc.category.name|slugify doc.pk %}" data-summary-url="{% url 'documents:document_rating_ajax' doc.category.name|slugify doc.pk %}">
-                {% include 'lecturers/blocks/star_rating.html' with name="drating" rating=doc.rating range=10|get_range1 %}
+            <form class="drating" data-rating="{{ ratings|lookup:doc.pk }}" data-url="{% url 'documents:document_rate' doc.category.name|slugify doc.pk %}" data-summary-url="{% url 'documents:document_rating_ajax' doc.category.name|slugify doc.pk %}">
+                {% include 'lecturers/blocks/star_rating.html' with name="drating" rating=doc.rating range=10|get_range1 disabled=doc|is_author:user %}
                 <label for="drating">
                 {% include 'front/blocks/document_rating_summary.html' %}
                 </label>

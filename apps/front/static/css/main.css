@@ -604,27 +604,35 @@ input:focus, select:focus, textarea:focus {
   font-size: 1.1rem;
 }
 
-/* line 115, ../sass/_base.scss */
+/* line 114, ../sass/_base.scss */
+ul.errorlist li {
+  color: #b94a48;
+  list-style-type: none;
+  padding-left: 0;
+  font-size: 1.1rem;
+}
+
+/* line 124, ../sass/_base.scss */
 input[type="checkbox"] {
   width: auto;
   float: left;
 }
 
-/* line 122, ../sass/_base.scss */
+/* line 131, ../sass/_base.scss */
 input[type="checkbox"] + p.help-block {
   font-size: 1.4rem;
 }
 
-/* line 127, ../sass/_base.scss */
+/* line 136, ../sass/_base.scss */
 input[type="file"]::-webkit-file-upload-button {
   visibility: hidden;
 }
 
-/* line 132, ../sass/_base.scss */
+/* line 141, ../sass/_base.scss */
 input[type="file"] {
   position: relative;
 }
-/* line 135, ../sass/_base.scss */
+/* line 144, ../sass/_base.scss */
 input[type="file"]:before {
   content: 'Browse';
   display: inline-block;
@@ -637,36 +645,46 @@ input[type="file"]:before {
   transition: background 0.2s;
   background: #155183;
 }
-/* line 144, ../sass/_base.scss */
+/* line 153, ../sass/_base.scss */
 input[type="file"]:before:hover {
   background: #41586e;
 }
 
+/* line 158, ../sass/_base.scss */
+.form-horizontal .control-group {
+  margin-bottom: 1rem;
+}
+
 /* ===RESPONSIVE FORMS=== */
 @media (min-width: 43.75em) {
-  /* line 151, ../sass/_base.scss */
-  .form-horizontal label, .form-horizontal p.help-block {
+  /* line 166, ../sass/_base.scss */
+  .form-horizontal label, .form-horizontal p.help-block, .form-horizontal ul.errorlist {
     float: left;
     width: 30%;
   }
-  /* line 155, ../sass/_base.scss */
+  /* line 170, ../sass/_base.scss */
   .form-horizontal input, .form-horizontal textarea, .form-horizontal select {
     float: right;
     width: 70%;
   }
-  /* line 161, ../sass/_base.scss */
+  /* line 176, ../sass/_base.scss */
   .form-horizontal #id_license + p.help-block {
     width: 70%;
     float: right;
   }
-  /* line 169, ../sass/_base.scss */
+  /* line 181, ../sass/_base.scss */
+  .form-horizontal input[type="checkbox"] {
+    float: left;
+    width: auto;
+  }
+  /* line 189, ../sass/_base.scss */
   .form-horizontal input[type="checkbox"] + p.help-block {
     width: 65%;
     float: right;
   }
 }
 /* ===BUTTONS=== */
-/* line 177, ../sass/_base.scss */
+/* line 197, ../sass/_base.scss */
 button, .button {
   border: 0;
   display: inline-block;
@@ -680,25 +698,30 @@ button, .button {
   transition: background 0.2s;
   background-color: #91acc0;
 }
-/* line 187, ../sass/_base.scss */
+/* line 207, ../sass/_base.scss */
 button:hover, .button:hover {
   background-color: #7194ad;
   color: #fff;
 }
 
-/* line 193, ../sass/_base.scss */
+/* line 213, ../sass/_base.scss */
 button.button-primary, .button.button-primary {
   background-color: #155183;
 }
-/* line 195, ../sass/_base.scss */
+/* line 215, ../sass/_base.scss */
 button.button-primary:hover, .button.button-primary:hover {
   background: #41586e;
 }
 
 /* ===MISC=== */
-/* line 201, ../sass/_base.scss */
+/* line 221, ../sass/_base.scss */
 .hidden {
   display: none;
+}
+
+/* line 222, ../sass/_base.scss */
+.readonly {
+  opacity: .7;
 }
 
 /* ===LAYOUT MIXINS=== */
@@ -1205,7 +1228,7 @@ button.button-primary:hover, .button.button-primary:hover {
 }
 /* line 151, ../sass/modules/_documents.scss */
 .document .download > a.pdf {
-  background-color: #ea4c3a;
+  background-color: #cf1b3c;
 }
 @media (max-width: 38.75em) {
   /* line 160, ../sass/modules/_documents.scss */
@@ -1307,22 +1330,37 @@ button.button-primary:hover, .button.button-primary:hover {
   position: relative;
   min-height: 11rem;
 }
-/* line 8, ../sass/modules/_lecturers.scss */
+/* line 9, ../sass/modules/_lecturers.scss */
+.quote .edit {
+  margin-left: -1rem;
+  margin-right: -1rem;
+  margin-bottom: 1rem;
+  background-color: #155183;
+}
+/* line 14, ../sass/modules/_lecturers.scss */
+.quote .edit button, .quote .edit .button {
+  margin: 0;
+  margin-left: 1rem;
+  background: none;
+  font-size: 1.1rem;
+  padding: 0;
+}
+/* line 23, ../sass/modules/_lecturers.scss */
 .quote .quote-wrapper {
   padding-left: 4rem;
   float: left;
   width: 80%;
 }
-/* line 14, ../sass/modules/_lecturers.scss */
+/* line 29, ../sass/modules/_lecturers.scss */
 .quote .votebuttons {
   position: absolute;
   z-index: 2;
 }
-/* line 20, ../sass/modules/_lecturers.scss */
+/* line 35, ../sass/modules/_lecturers.scss */
 .quote blockquote {
   padding: 0.5rem 0.5rem 0 0;
 }
-/* line 23, ../sass/modules/_lecturers.scss */
+/* line 38, ../sass/modules/_lecturers.scss */
 .quote blockquote p {
   font-family: 'Droid Serif', serif;
   font-style: italic;
@@ -1331,7 +1369,7 @@ button.button-primary:hover, .button.button-primary:hover {
   text-indent: 7rem;
   word-wrap: break-word;
 }
-/* line 31, ../sass/modules/_lecturers.scss */
+/* line 46, ../sass/modules/_lecturers.scss */
 .quote blockquote p:before {
   content: '\201C';
   font-family: serif;
@@ -1344,61 +1382,70 @@ button.button-primary:hover, .button.button-primary:hover {
   color: #155183;
   text-shadow: 7px 14px 10px rgba(0, 0, 0, 0.1);
 }
-/* line 46, ../sass/modules/_lecturers.scss */
+/* line 61, ../sass/modules/_lecturers.scss */
 .quote .comment {
   background-color: #d2dde5;
   padding: 0.5rem;
   font-size: 1.2rem;
   display: inline-block;
 }
-/* line 53, ../sass/modules/_lecturers.scss */
+/* line 68, ../sass/modules/_lecturers.scss */
 .quote .thumbnail {
   width: 20%;
   float: right;
   max-width: 7.5rem;
 }
-/* line 57, ../sass/modules/_lecturers.scss */
+/* line 72, ../sass/modules/_lecturers.scss */
 .quote .thumbnail img {
   max-width: 100%;
 }
 @media (max-width: 450px) {
-  /* line 64, ../sass/modules/_lecturers.scss */
+  /* line 79, ../sass/modules/_lecturers.scss */
   .quote .quote-wrapper {
     width: 95%;
   }
-  /* line 65, ../sass/modules/_lecturers.scss */
+  /* line 80, ../sass/modules/_lecturers.scss */
   .quote .thumbnail {
     display: none;
   }
 }
 @media (min-width: 620px) {
-  /* line 69, ../sass/modules/_lecturers.scss */
+  /* line 84, ../sass/modules/_lecturers.scss */
   .quote .quote-wrapper {
     width: 85%;
   }
-  /* line 70, ../sass/modules/_lecturers.scss */
+  /* line 85, ../sass/modules/_lecturers.scss */
   .quote .thumbnail {
     width: 15%;
   }
 }
 @media (min-width: 900px) {
-  /* line 74, ../sass/modules/_lecturers.scss */
+  /* line 89, ../sass/modules/_lecturers.scss */
   .quote .quote-wrapper {
     width: 90%;
   }
-  /* line 75, ../sass/modules/_lecturers.scss */
+  /* line 90, ../sass/modules/_lecturers.scss */
   .quote .thumbnail {
     width: 10%;
   }
 }
 
-/* line 80, ../sass/modules/_lecturers.scss */
+/* line 95, ../sass/modules/_lecturers.scss */
 .quote-no-lecturer .quote-wrapper {
   width: 100%;
 }
 
+/* line 103, ../sass/modules/_lecturers.scss */
+.quote-edit {
+  padding-top: 0;
+}
+/* line 106, ../sass/modules/_lecturers.scss */
+.quote-edit blockquote p:before {
+  display: none;
+}
+
 /* ===LECTURER PROFILE=== */
-/* line 89, ../sass/modules/_lecturers.scss */
+/* line 112, ../sass/modules/_lecturers.scss */
 .lecturer-profile {
   *zoom: 1;
 }
@@ -1408,44 +1455,44 @@ button.button-primary:hover, .button.button-primary:hover {
   display: table;
   clear: both;
 }
-/* line 92, ../sass/modules/_lecturers.scss */
+/* line 115, ../sass/modules/_lecturers.scss */
 .lecturer-profile .info {
   float: left;
 }
 @media (min-width: 660px) {
-  /* line 96, ../sass/modules/_lecturers.scss */
+  /* line 119, ../sass/modules/_lecturers.scss */
   .lecturer-profile .pictures {
     float: right;
   }
 }
-/* line 104, ../sass/modules/_lecturers.scss */
+/* line 127, ../sass/modules/_lecturers.scss */
 .lecturer-profile .pictures .oldphotos {
   cursor: pointer;
   cursor: hand;
 }
-/* line 107, ../sass/modules/_lecturers.scss */
+/* line 130, ../sass/modules/_lecturers.scss */
 .lecturer-profile .pictures .oldphotos > img {
   margin-left: 0.5rem;
   float: right;
 }
 
-/* line 115, ../sass/modules/_lecturers.scss */
+/* line 138, ../sass/modules/_lecturers.scss */
 .rate {
   margin-top: 1rem;
 }
-/* line 118, ../sass/modules/_lecturers.scss */
+/* line 141, ../sass/modules/_lecturers.scss */
 .rate h3 {
   display: inline-block;
   width: 10rem;
 }
-/* line 123, ../sass/modules/_lecturers.scss */
+/* line 146, ../sass/modules/_lecturers.scss */
 .rate li {
   position: relative;
   list-style: none;
   padding: 0;
   margin: 0.5rem 0;
 }
-/* line 130, ../sass/modules/_lecturers.scss */
+/* line 153, ../sass/modules/_lecturers.scss */
 .rate .label-didactic, .rate .label-humanly, .rate .label-technical {
   font-size: 2rem;
   line-height: 3rem;
@@ -1453,23 +1500,23 @@ button.button-primary:hover, .button.button-primary:hover {
   display: inline-block;
 }
 
-/* line 138, ../sass/modules/_lecturers.scss */
+/* line 161, ../sass/modules/_lecturers.scss */
 .quotes {
   margin-top: 1rem;
 }
 
-/* line 143, ../sass/modules/_lecturers.scss */
+/* line 166, ../sass/modules/_lecturers.scss */
 #lrating-d, #lrating-m, #lrating-f {
   display: inline-block;
 }
 
-/* line 149, ../sass/modules/_lecturers.scss */
+/* line 172, ../sass/modules/_lecturers.scss */
 .properties {
   table-layout: fixed;
   width: 100%;
   max-width: 50rem;
 }
-/* line 154, ../sass/modules/_lecturers.scss */
+/* line 177, ../sass/modules/_lecturers.scss */
 .properties td {
   vertical-align: top;
   padding: 0.5rem 1rem;
@@ -1477,14 +1524,14 @@ button.button-primary:hover, .button.button-primary:hover {
   word-wrap: break-word;
   width: 15rem;
 }
-/* line 162, ../sass/modules/_lecturers.scss */
+/* line 185, ../sass/modules/_lecturers.scss */
 .properties td + td {
   border: none;
   width: auto;
 }
 
 /* ===LECTURERS=== */
-/* line 170, ../sass/modules/_lecturers.scss */
+/* line 193, ../sass/modules/_lecturers.scss */
 #lecturers {
   *zoom: 1;
 }
@@ -1495,15 +1542,48 @@ button.button-primary:hover, .button.button-primary:hover {
   clear: both;
 }
 
-/* line 174, ../sass/modules/_lecturers.scss */
+/* line 197, ../sass/modules/_lecturers.scss */
 .lecturer {
+  *zoom: 1;
   float: left;
-  margin-right: 2rem;
-  width: 18rem;
+  width: 49%;
+  margin-right: 1%;
 }
-/* line 180, ../sass/modules/_lecturers.scss */
+/* line 38, ../../../../../../../.gem/ruby/2.1.0/gems/compass-core-1.0.0.alpha.19/stylesheets/compass/utilities/general/_clearfix.scss */
+.lecturer:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+/* line 201, ../sass/modules/_lecturers.scss */
 .lecturer img {
   width: 100%;
+}
+/* line 205, ../sass/modules/_lecturers.scss */
+.lecturer h3 {
+  max-height: 5.3rem;
+}
+/* line 209, ../sass/modules/_lecturers.scss */
+.lecturer .label, .lecturer .label-license, .lecturer .label-summary, .lecturer .label-exam, .lecturer .label-other, .lecturer .label-extension, .lecturer .label-pdf, .lecturer .label-github, .lecturer .label-flattr, .lecturer .label-didactic, .lecturer .label-humanly, .lecturer .label-technical, .lecturer .label-e, .lecturer .label-i, .lecturer .label-m, .lecturer .label-mi, .lecturer .label-b, .lecturer .label-eeu, .lecturer .label-wing, .lecturer .label-r, .lecturer .label-l, .lecturer .label-didactic, .lecturer .label-humanly, .lecturer .label-technical {
+  margin: 0;
+}
+@media (min-width: 33.75em) {
+  /* line 197, ../sass/modules/_lecturers.scss */
+  .lecturer {
+    width: 32%;
+  }
+}
+@media (min-width: 43.75em) {
+  /* line 197, ../sass/modules/_lecturers.scss */
+  .lecturer {
+    width: 24%;
+  }
+}
+@media (min-width: 50em) {
+  /* line 197, ../sass/modules/_lecturers.scss */
+  .lecturer {
+    width: 19%;
+  }
 }
 
 /* ===STAR RATER=== */
@@ -1633,7 +1713,7 @@ button.button-primary:hover, .button.button-primary:hover {
 
 /* line 59, ../sass/modules/_labels.scss */
 .label-pdf {
-  background-color: #ea4c3a;
+  background-color: #cf1b3c;
   text-transform: uppercase;
 }
 
@@ -1740,5 +1820,38 @@ ul.pagination .button {
   width: 3rem;
   padding: 0.25rem 0;
   margin-bottom: 0.5rem;
-  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+}
+
+/* ===ALERTs=== */
+/* line 208, ../sass/_modules.scss */
+.alert {
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid transparent;
+  border-radius: 1px;
+}
+
+/* line 215, ../sass/_modules.scss */
+.alert-success {
+  color: #5cb870;
+  background-color: #c7e6ce;
+}
+
+/* line 220, ../sass/_modules.scss */
+.alert-info {
+  color: #567a95;
+  background-color: #d2dde5;
+}
+
+/* line 225, ../sass/_modules.scss */
+.alert-warning {
+  color: #f0ad4e;
+  background-color: #fceedb;
+}
+
+/* line 230, ../sass/_modules.scss */
+.alert-error {
+  color: #f2dede;
+  background-color: white;
 }

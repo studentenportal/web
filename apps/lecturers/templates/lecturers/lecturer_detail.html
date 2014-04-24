@@ -142,10 +142,15 @@
     </div>
     <div class="quotes">
         <h2>Zitate</h2>
-        <a class="button" href="{% url 'lecturers:lecturer_quote_add' lecturer.pk %}">Zitat hinzufügen</a>
+        <a class="button button-primary" href="{% url 'lecturers:lecturer_quote_add' lecturer.pk %}">Zitat hinzufügen</a>
         {% if quotes %}
             {% for quote in quotes %}
-            <article class="quote quote-no-lecturer">
+            <article class="quote quote-no-lecturer {% if quote.author_id = user.pk %}quote-edit{% endif %}">
+                {% if quote.author_id = user.pk %}
+                    <div class="edit">
+                        {% include 'lecturers/blocks/quote_delete_button.html' with small_button=1 %}
+                    </div>
+                {% endif %}
                 {% include 'lecturers/blocks/vote_buttons.html' %}
                 <div class="quote-wrapper">
                     <blockquote cite="{% url 'lecturers:lecturer_detail' quote.lecturer_id %}">
@@ -159,8 +164,6 @@
                     <div class="citation">
                         {% if quote.date_available %}am {{ quote.date|date:"d. M.Y" }}{% endif %}
                     </div>
-                    {% if quote.author_id = user.pk %}                                {% include 'lecturers/blocks/quote_delete_button.html' with small_button=1 %}
-                    {% endif %}
                 </div>
             </article>
             {% endfor %}

@@ -5,6 +5,21 @@
     padding: $gutter;
     position: relative;
     min-height: 11rem;
+
+    .edit {
+        margin-left: -$gutter;
+        margin-right: -$gutter;
+        margin-bottom: $gutter;
+        background-color: $color-dark-accent;
+        button, .button {
+            margin: 0;
+            margin-left: $gutter;
+            background: none;
+            font-size: 1.1rem;
+            padding: 0;
+        }
+    }
+
     .quote-wrapper {
         padding-left: 4rem;
         float: left;
@@ -82,6 +97,14 @@
     }
 
     .citation {
+    }
+}
+
+.quote-edit {
+    padding-top: 0;
+
+    blockquote p:before {
+        display: none;
     }
 }
 
@@ -172,10 +195,32 @@
 }
 
 .lecturer {
+    @include pie-clearfix;
     @extend %box;
     float: left;
-    margin-right: 2*$gutter;
-    width: 18rem;
-
     img { width: 100%; }
+    width: 49%;
+    margin-right: 1%;
+
+    h3 {
+        max-height: 5.3rem;
+    }
+
+    .label, .label-didactic, .label-humanly, .label-technical {
+        margin: 0;
+    }
+
+
+    @media (min-width: rem-to-em(54rem, $font-size-browser)) {
+        width: 32%;
+    }
+
+    @media (min-width: rem-to-em(70rem, $font-size-browser)) {
+        width: 24%;
+    }
+
+    @media (min-width: rem-to-em(80rem, $font-size-browser)) {
+        width: 19%;
+    }
 }
+

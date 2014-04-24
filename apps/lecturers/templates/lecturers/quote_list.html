@@ -38,7 +38,12 @@
         {% endif %}
 
         {% for quote in quotes %}
-            <article class="quote">
+            <article class="quote {% if quote.author_id = user.pk %}quote-edit{% endif %}">
+            {% if quote.author_id = user.pk %}
+                <div class="edit">
+                    {% include 'lecturers/blocks/quote_delete_button.html' with small_button=1 %}
+                </div>
+            {% endif %}
             {% include 'lecturers/blocks/vote_buttons.html' %}
             <div class="quote-wrapper">
                 <blockquote cite="{% url 'lecturers:lecturer_detail' quote.lecturer_id %}">
@@ -50,8 +55,6 @@
                 <div class="citation">
                     von <a href="{% url 'lecturers:lecturer_detail' quote.lecturer_id %}">{{ quote.lecturer.name }}</a>{% if quote.date_available %} - {{ quote.date|date:"d. M.Y" }}{% endif %}
                 </div>
-                {% if quote.author_id = user.pk %}                                {% include 'lecturers/blocks/quote_delete_button.html' with small_button=1 %}
-                {% endif %}
             </div>
             {% if quote.lecturer.photo %}
             <div class="thumbnail">

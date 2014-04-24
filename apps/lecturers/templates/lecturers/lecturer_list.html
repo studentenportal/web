@@ -90,9 +90,10 @@
                         /></a>
                     {% with quotecounts|lookup:lecturer.pk|default:0 as quotecount %}
                     <p><a class="label" href="{% url 'lecturers:lecturer_detail' lecturer.pk %}#zitate">{{ quotecount }} Zitat{{ quotecount|pluralize:"e" }}</a>
-                           <span class="label-didactic">{{ lecturer.avg_rating_d|default:'-' }}</span>
-                           <span class="label-humanly">{{ lecturer.avg_rating_m|default:'-' }}</span>
-                           <span class="label-technical">{{ lecturer.avg_rating_f|default:'-' }}</span></p>
+                    <span class="label-didactic">{{ lecturer.avg_rating_d|default:'-' }}</span>
+                    <span class="label-humanly">{{ lecturer.avg_rating_m|default:'-' }}</span>
+                    <span class="label-technical">{{ lecturer.avg_rating_f|default:'-' }}</span>
+                    </p>
                    {% endwith %}
                 </article>
 

@@ -196,6 +196,38 @@ ul.pagination {
         width: 3rem;
         padding: $gutter/4 0;
         margin-bottom: $gutter/2;
-        margin-left: $gutter/2;
+        margin-right: $gutter/2;
     }
+}
+/* ===ALERTs=== */
+$color-success: map-get($color-alerts, "success");
+$color-info: map-get($color-alerts, "info");
+$color-warning: map-get($color-alerts, "warning");
+$color-danger: map-get($color-alerts, "danger");
+
+.alert {
+    padding: $gutter;
+    margin-bottom: $gutter;
+    border: 1px solid transparent;
+    border-radius: 1px;
+}
+
+.alert-success {
+    color: $color-success;
+    background-color: lighten($color-success, 30%);
+}
+
+.alert-info {
+    color: darken($color-info, 40%);
+    background-color: $color-info;
+}
+
+.alert-warning {
+    color: $color-warning;
+    background-color: lighten($color-warning, 30%);
+}
+
+.alert-error {
+    color: $color-danger;
+    background-color: lighten($color-danger, 30%);
 }
