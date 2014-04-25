@@ -20,6 +20,8 @@
 {% block scripts %}
     {{ block.super }}
     {% compress js %}
+        <script src="{{ STATIC_URL }}js/jquery-2.0.0.js"></script>
+        <script src="{{ STATIC_URL }}js/star-rater.js"></script>
         <script type="text/javascript">
             $(document).ready(function() {
                 $('.oldphotos img').click(function() {
@@ -29,7 +31,6 @@
                 });
             });
         </script>
-        <script src="{{ STATIC_URL }}js/star-rater.js"></script>
     {% endcompress %}
 {% endblock %}
 

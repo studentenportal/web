@@ -1865,3 +1865,15 @@ ul.pagination .button {
   color: #f2dede;
   background-color: white;
 }
+
+/* ===DATE PICKER=== */
+/* line 251, ../sass/_modules.scss */
+.picker button {
+  color: inherit;
+  margin: inherit;
+  margin-left: inherit;
+}
+/* line 256, ../sass/_modules.scss */
+.picker td {
+  text-align: inherit;
+}

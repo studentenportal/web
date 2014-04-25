@@ -244,3 +244,16 @@ $color-danger: map-get($color-alerts, "danger");
     color: $color-danger;
     background-color: lighten($color-danger, 30%);
 }
+
+/* ===DATE PICKER=== */
+// Explicitely set color and margin so that they don't get overridden
+.picker {
+    button {
+        color: inherit;
+        margin: inherit;
+        margin-left: inherit;
+    }
+    td {
+        text-align: inherit;
+    }
+}

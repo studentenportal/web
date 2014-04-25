@@ -17,22 +17,10 @@
     {% dajaxice_js_import %}
 
     {% block styles %}
-
         {% compress css %}
-
-        <!-- Libraries -->
-        <link rel="stylesheet" href="{{ STATIC_URL }}css/smoothness/jquery-ui-1.8.21.custom.css">
-        <!--
-        <link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap.css">
-        <link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap-responsive.css">-->
-
-        <!-- Custom styles -->
         <link rel="stylesheet" href="{{ STATIC_URL }}css/main.css">
         <link rel="stylesheet" href="{{ STATIC_URL }}css/responsive-nav.css">
-        <!--<link rel="stylesheet" href="{{ STATIC_URL }}css/style.css">
-        -->
         {% endcompress %}
-
     {% endblock %}
 
     <script type="text/javascript">
@@ -114,17 +102,9 @@
     {% block scripts %}
         {% compress js %}
         <!-- Libraries -->
-        <script src="{{ STATIC_URL }}js/jquery-1.7.1.js"></script>
-        <script src="{{ STATIC_URL }}js/bootstrap.js"></script>
-        <script src="{{ STATIC_URL }}js/jquery.raty.min.js"></script>
-        <script src="{{ STATIC_URL }}js/jquery-ui-1.8.21.custom.min.js"></script>
         <script src="{{ STATIC_URL }}js/responsive-nav.js"></script>
-
         <!-- Custom scripts-->
-        <script src="{{ STATIC_URL }}js/raven.js"></script>
         <script src="{{ STATIC_URL }}js/studentenportal.js"></script>
-        <script src="{{ STATIC_URL }}js/raty.js"></script>
-        <script src="{{ STATIC_URL }}js/quote_votes.js"></script>
         {% endcompress %}
     {% endblock %}
 </body>

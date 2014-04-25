@@ -1,5 +1,6 @@
 {% extends 'front/base.html' %} {% load tabs %}
 {% load thumbnail %}
+{% load compress %}
 
 {% block title %}Zitate{% endblock %}
 
@@ -8,6 +9,21 @@
 {% block navigation %}
     {% activetab 'navigation' 'quotes' %}
     {{ block.super }}
+{% endblock %}
+
+{% block scripts %}
+    {{ block.super }}
+    {% compress js %}
+
+        <script src="{{ STATIC_URL }}js/jquery-2.1.0.js"></script>
+        <script src="{{ STATIC_URL }}js/blazy.js"></script>
+        <script src="{{ STATIC_URL }}js/quote_votes.js"></script>
+        <script>
+            (function() {
+                var bLazy = new Blazy();
+            })();
+        </script>
+    {% endcompress %}
 {% endblock %}
 
 {% block content %}
@@ -58,7 +74,7 @@
             </div>
             {% if quote.lecturer.photo %}
             <div class="thumbnail">
-                <img src="{% thumbnail quote.lecturer.photo 75x100 crop %}" />
+                <img class="b-lazy" src="{{ STATIC_URL }}img/professor.png" data-src="{% thumbnail quote.lecturer.photo 75x100 crop %}" />
             </div>
             {% endif %}
             </article>

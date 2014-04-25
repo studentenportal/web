@@ -11,35 +11,19 @@
 {% block scripts %}
     {{ block.super }}
     {% compress js %}
-        <script src="{{ STATIC_URL }}js/jquery.lazyload.js"></script>
+        <script src="{{ STATIC_URL }}js/blazy.js"></script>
         <script src="{{ STATIC_URL }}js/list.js"></script>
         <script>
-            $(function() {
-                $("img.lazy").lazyload({ threshold : 200 });
-
-                var options = {
-                    valueNames: ["name"],
+            (function() {
+                var bLazy = new Blazy();
+                var moduleList = new List('lecturers', {
+                    valueNames: ['name'],
                     page: 9001
-                };
-
-                var contactList = new List("lecturers", options);
-
-                var loadImages = function() {
-                    var elements = $.map(contactList.visibleItems, function(val) { return val.elm; });
-                    $(elements).find("img.lazy").trigger("appear");
-                };
-
-                //Depending on how fast the user is typing, the updated event
-                //triggers multiple times, which is not optimal.
-                //The v1.1 of list.js supports a searchCompleted event which whould
-                //resolve this issue,
-
-                contactList.on("updated", function() {
-                    onSearchCompleted = setTimeout(function() {
-                        loadImages();
-                    }, 500);
                 });
-            });
+                moduleList.on("searchComplete", function() {
+                    bLazy.revalidate();
+                });
+            })();
         </script>
     {% endcompress %}
 {% endblock %}
@@ -81,13 +65,11 @@
         <div class="list">
             {% for lecturer in lecturers %}
                 <article class="lecturer">
-                    <h3><a href="{% url 'lecturers:lecturer_detail' lecturer.pk %}" class="name">{{ lecturer.first_name }}<br />{{ lecturer.last_name }}</a>
-                    <!--<span class="label">{{lecturer.abbreviation}}</span>--></h3>
+                    <h3><a href="{% url 'lecturers:lecturer_detail' lecturer.pk %}" class="name">{{ lecturer.first_name }}<br />{{ lecturer.last_name }}</a></h3>
                     <a href="{% url 'lecturers:lecturer_detail' lecturer.pk %}">
-
-                        <img class="thumbnail lazy" src="{{ STATIC_URL }}img/120x160.gif"
-                            {% if lecturer.photo %}data-original="{% thumbnail lecturer.photo 120x160 crop %}"{% endif %}
-                        /></a>
+                    <img class="thumbnail b-lazy" src="{{ STATIC_URL }}img/120x160.gif"
+                        {% if lecturer.photo %}data-src="{% thumbnail lecturer.photo 120x160 crop %}"{% endif %}
+                    /></a>
                     {% with quotecounts|lookup:lecturer.pk|default:0 as quotecount %}
                     <p><a class="label" href="{% url 'lecturers:lecturer_detail' lecturer.pk %}#zitate">{{ quotecount }} Zitat{{ quotecount|pluralize:"e" }}</a>
                     <span class="label-didactic">{{ lecturer.avg_rating_d|default:'-' }}</span>

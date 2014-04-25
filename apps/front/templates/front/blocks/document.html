@@ -75,7 +75,7 @@
                 </a>
                 {% if doc.thumbnail %}
                     <div class="thumbnail">
-                        <img class="lazy" src="" data-original="{% static doc.thumbnail %}" alt="{{ doc.original_filename }}"/>
+                        <img class="b-lazy" src="" data-src="{% static doc.thumbnail %}" alt="{{ doc.original_filename }}"/>
                     </div>
                 {% endif %}
             {% else %}
