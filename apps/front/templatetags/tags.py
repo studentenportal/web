@@ -78,3 +78,11 @@ def field_type(field):
         "CharField": "text"
     }
     return types[type_name] if type_name in types else type_name
+
+
+@register.filter()
+def pagination_slice(page_range, page_number):
+    if page_number > 3:
+        return page_range[page_number - 2:page_number + 1]
+    else:
+        return page_range[0:3]
