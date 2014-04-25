@@ -120,6 +120,19 @@ $color-search-background: #E1E5E8;
     }
 }
 
+/* ===USER PROFILE=== */
+.user-profile {
+    h2 { @extend %crossbar; }
+
+    .user-info, .user-stats {
+        margin-bottom: $gutter;
+    }
+
+    .documents {
+        padding: $gutter 0;
+    }
+}
+
 /* ===NEWS=== */
 .latest-news {
     h1 { @extend %crossbar; }

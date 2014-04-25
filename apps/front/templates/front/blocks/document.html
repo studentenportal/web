@@ -1,8 +1,6 @@
 {% load tags %}
 {% load staticfiles %}
 
-<section class="documents">
-
 {% if documents %}
     {% for doc in documents %}
     <article class="document {% if doc.uploader = user %}document-edit{% endif %}">
@@ -94,7 +92,3 @@
 {% else %}
 <p>Keine Dokumente gefunden.</p>
 {% endif %}
-
-
-</section>
-

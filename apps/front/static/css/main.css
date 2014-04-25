@@ -726,7 +726,7 @@ button.button-primary:hover, .button.button-primary:hover {
 
 /* ===LAYOUT MIXINS=== */
 /* line 8, ../sass/_layout.scss */
-.contribute h1, .latest-news h1, .events h1, .events h2, .document-categories h2, .rate h2, .quotes h2 {
+.contribute h1, .user-profile h2, .latest-news h1, .events h1, .events h2, .document-categories h2, .rate h2, .quotes h2 {
   background-color: #d2dde5;
 }
 
@@ -753,7 +753,7 @@ button.button-primary:hover, .button.button-primary:hover {
 }
 
 /* line 29, ../sass/_layout.scss */
-.contribute h1, .latest-news h1, .events h1, .events h2, .document-categories h2, .rate h2, .quotes h2 {
+.contribute h1, .user-profile h2, .latest-news h1, .events h1, .events h2, .document-categories h2, .rate h2, .quotes h2 {
   padding: 0 1rem;
   margin-left: -1rem;
   margin-right: -1rem;
@@ -974,37 +974,47 @@ button.button-primary:hover, .button.button-primary:hover {
   float: left;
 }
 
+/* ===USER PROFILE=== */
+/* line 127, ../sass/_modules.scss */
+.user-profile .user-info, .user-profile .user-stats {
+  margin-bottom: 1rem;
+}
+/* line 131, ../sass/_modules.scss */
+.user-profile .documents {
+  padding: 1rem 0;
+}
+
 /* ===NEWS=== */
-/* line 128, ../sass/_modules.scss */
+/* line 141, ../sass/_modules.scss */
 .news {
   min-height: 9.5rem;
 }
 
 /* ===VOTE BUTTONS=== */
-/* line 139, ../sass/_modules.scss */
+/* line 152, ../sass/_modules.scss */
 .votebuttons {
   text-align: center;
   width: 3rem;
 }
-/* line 144, ../sass/_modules.scss */
+/* line 157, ../sass/_modules.scss */
 .votebuttons .upvote:before, .votebuttons .downvote:before {
   font-size: 3rem;
   color: #4f4a4a;
 }
-/* line 148, ../sass/_modules.scss */
+/* line 161, ../sass/_modules.scss */
 .votebuttons .upvote:hover, .votebuttons .downvote:hover {
   cursor: pointer;
   cursor: hand;
 }
-/* line 155, ../sass/_modules.scss */
+/* line 168, ../sass/_modules.scss */
 .votebuttons .upvote:hover:before, .votebuttons .upvote.active:before {
   color: #4bc35f;
 }
-/* line 159, ../sass/_modules.scss */
+/* line 172, ../sass/_modules.scss */
 .votebuttons .downvote:hover:before, .votebuttons .downvote.active:before {
   color: #c15044;
 }
-/* line 162, ../sass/_modules.scss */
+/* line 175, ../sass/_modules.scss */
 .votebuttons .vote_sum {
   font-size: 3rem;
   font-family: "Droid Sans", sans-serif;
@@ -1806,13 +1816,13 @@ button.button-primary:hover, .button.button-primary:hover {
 }
 
 /* ===PAGINATION=== */
-/* line 186, ../sass/_modules.scss */
+/* line 199, ../sass/_modules.scss */
 ul.pagination li {
   padding-left: 0;
   list-style: none;
   display: inline-block;
 }
-/* line 192, ../sass/_modules.scss */
+/* line 205, ../sass/_modules.scss */
 ul.pagination .button {
   font-size: 1.4rem;
   margin: 0;
@@ -1824,7 +1834,7 @@ ul.pagination .button {
 }
 
 /* ===ALERTs=== */
-/* line 208, ../sass/_modules.scss */
+/* line 221, ../sass/_modules.scss */
 .alert {
   padding: 1rem;
   margin-bottom: 1rem;
@@ -1832,25 +1842,25 @@ ul.pagination .button {
   border-radius: 1px;
 }
 
-/* line 215, ../sass/_modules.scss */
+/* line 228, ../sass/_modules.scss */
 .alert-success {
   color: #5cb870;
   background-color: #c7e6ce;
 }
 
-/* line 220, ../sass/_modules.scss */
+/* line 233, ../sass/_modules.scss */
 .alert-info {
   color: #567a95;
   background-color: #d2dde5;
 }
 
-/* line 225, ../sass/_modules.scss */
+/* line 238, ../sass/_modules.scss */
 .alert-warning {
   color: #f0ad4e;
   background-color: #fceedb;
 }
 
-/* line 230, ../sass/_modules.scss */
+/* line 243, ../sass/_modules.scss */
 .alert-error {
   color: #f2dede;
   background-color: white;
