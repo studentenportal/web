@@ -1,6 +1,5 @@
 {% extends 'front/base.html' %} {% load tabs %}
 {% load thumbnail %}
-{% load tags %}
 {% load compress %}
 
 {% block title %}Zitate{% endblock %}
@@ -46,25 +45,7 @@
 
     {% if quotes %}
 
-        {% if paginator.num_pages > 1 %}
-        <ul class="pagination">
-            {% if page_obj.has_previous %}
-                <li><a class="button" href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
-            {% endif %}
-
-            {% for num in page_obj.paginator.page_range|pagination_slice:page_obj.number %}
-                {% ifequal num page_obj.number %}
-                    <li><a class="button button-primary" href="#">{{ num }}</a></li>
-                {% else %}
-                    <li><a class="button" href="?page={{ num }}">{{ num }}</a></li>
-                {% endifequal %}
-            {% endfor %}
-
-            {% if page_obj.has_next %}
-                <li><a class="button" href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
-            {% endif %}
-        <ul>
-        {% endif %}
+        {% include 'lecturers/blocks/pagination.html' %}
 
         {% for quote in quotes %}
             <article class="quote {% if quote.author_id = user.pk %}quote-edit{% endif %}">
@@ -93,13 +74,7 @@
             </article>
         {% endfor %}
 
-        {% if paginator.num_pages > 1 %}
-            <ul class="pagination">
-                {% for page in paginator.page_range %}
-                    <li class="{% if page_obj.number == page %}active{% endif %}"><a class="button" href="?page={{ page }}">{{ page }}</a></li>
-                {% endfor %}
-            </ul>
-        {% endif %}
+        {% include 'lecturers/blocks/pagination.html' %}
 
     {% else %}
         <p><em>Keine Zitate gefunden.</em></p>
