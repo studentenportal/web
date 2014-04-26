@@ -75,7 +75,7 @@
                 </a>
                 {% if doc.thumbnail %}
                     <div class="thumbnail">
-                        <img class="b-lazy" src="" data-src="{% static doc.thumbnail %}" alt="{{ doc.original_filename }}"/>
+                        <img class="b-lazy" src="" data-src="{% url 'documents:document_thumbnail' doc.category.name|slugify doc.pk %}" alt="{{ doc.original_filename }}"/>
                     </div>
                 {% endif %}
             {% else %}

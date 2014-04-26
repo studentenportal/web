@@ -129,13 +129,9 @@ class Document(models.Model):
         return os.path.exists(self.document.path)
 
     def thumbnail(self):
-        """Check if a thumbnail with the name <path>.png exists. Return the corresponding
-        URL or None if it doesn't exist."""
-        path = '{0}.png'.format(self.document.path)
-
-        if not self.exists() or not os.path.exists(path):
-            return None
-        return path
+        """Check wether current document can have a thumbnail by checking
+        wether the file extension is a PDF."""
+        return self.fileext() == ".pdf"
 
     def github(self):
         """Check whether the url is associated with github by simply checking if "github"
