@@ -699,7 +699,7 @@ button, .button {
   background-color: #91acc0;
 }
 /* line 207, ../sass/_base.scss */
-button:hover, .button:hover {
+button:hover, button:focus, button:active, .button:hover, .button:focus, .button:active {
   background-color: #7194ad;
   color: #fff;
 }
@@ -709,7 +709,7 @@ button.button-primary, .button.button-primary {
   background-color: #155183;
 }
 /* line 215, ../sass/_base.scss */
-button.button-primary:hover, .button.button-primary:hover {
+button.button-primary:hover, button.button-primary:active, button.button-primary:focus, .button.button-primary:hover, .button.button-primary:active, .button.button-primary:focus {
   background: #41586e;
 }
 
@@ -1870,4 +1870,13 @@ ul.pagination .button {
 /* line 265, ../sass/_modules.scss */
 .picker td {
   text-align: inherit;
+}
+
+/* ===BROWSEHAPPY=== */
+/* line 271, ../sass/_modules.scss */
+.browsehappy {
+  margin: 0.2em 0;
+  background: #ccc;
+  color: #000;
+  padding: 0.2em 0;
 }

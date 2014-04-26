@@ -204,7 +204,7 @@ button, .button {
 
   @include transition(background 0.2s);
   background-color: darken($color-gray, 20%);
-  &:hover {
+  &:hover, &:focus, &:active {
     background-color: darken($color-gray, 30%);
     color: #fff;
   }
@@ -212,7 +212,7 @@ button, .button {
 
 button.button-primary, .button.button-primary {
   background-color: $color-dark-accent;
-  &:hover {
+  &:hover, &:active, &:focus {
     background: $color-darker-accent;
   }
 }
