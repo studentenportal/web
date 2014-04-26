@@ -9,7 +9,13 @@
 {% block scripts %}
     {{ block.super }}
     {% compress js %}
-    <script src="{{ STATIC_URL }}js/flattr_loader.js"></script>
+        <script src="{{ STATIC_URL }}js/flattr_loader.js"></script>
+        <script src="{{ STATIC_URL }}js/blazy.js"></script>
+        <script>
+            (function() {
+                var bLazy = new Blazy();
+            })();
+        </script>
     {% endcompress %}
 {% endblock %}
 
