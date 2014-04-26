@@ -1026,6 +1026,10 @@ button.button-primary:hover, .button.button-primary:hover {
   line-height: 1;
   margin-top: 1rem;
 }
+/* line 193, ../sass/_modules.scss */
+.event .summary a {
+  word-break: break-all;
+}
 
 /* ===DOCUMENT CATEGORY=== */
 /* line 6, ../sass/modules/_documents.scss */
@@ -1236,55 +1240,51 @@ button.button-primary:hover, .button.button-primary:hover {
 .document .download span.ficon-pdf {
   display: inline-block;
 }
-/* line 151, ../sass/modules/_documents.scss */
-.document .download > a.pdf {
-  background-color: #cf1b3c;
-}
 @media (max-width: 38.75em) {
-  /* line 160, ../sass/modules/_documents.scss */
+  /* line 157, ../sass/modules/_documents.scss */
   .document .download {
     display: -webkit-flex;
     display: flex;
     -webkit-flex-direction: column-reverse;
     flex-direction: column-reverse;
   }
-  /* line 166, ../sass/modules/_documents.scss */
+  /* line 163, ../sass/modules/_documents.scss */
   .document .report {
     top: 1rem;
     bottom: auto;
   }
-  /* line 171, ../sass/modules/_documents.scss */
+  /* line 168, ../sass/modules/_documents.scss */
   .document .labels {
     width: 90%;
   }
-  /* line 173, ../sass/modules/_documents.scss */
+  /* line 170, ../sass/modules/_documents.scss */
   .document .labels > a {
     display: inline-block;
     margin-bottom: 0.2rem;
   }
 }
 @media (min-width: 38.75em) {
-  /* line 182, ../sass/modules/_documents.scss */
+  /* line 179, ../sass/modules/_documents.scss */
   .document .details {
     width: 70%;
     float: left;
   }
-  /* line 187, ../sass/modules/_documents.scss */
+  /* line 184, ../sass/modules/_documents.scss */
   .document .download {
     margin-top: 0.3rem;
     float: right;
     width: 30%;
     max-width: 400px;
   }
-  /* line 193, ../sass/modules/_documents.scss */
+  /* line 190, ../sass/modules/_documents.scss */
   .document .download .thumbnail {
     height: 10rem;
   }
-  /* line 197, ../sass/modules/_documents.scss */
+  /* line 194, ../sass/modules/_documents.scss */
   .document .download > a {
     height: 3.2rem;
   }
-  /* line 206, ../sass/modules/_documents.scss */
+  /* line 203, ../sass/modules/_documents.scss */
   .document span.filename {
     white-space: nowrap;
     overflow: hidden;
@@ -1295,25 +1295,25 @@ button.button-primary:hover, .button.button-primary:hover {
   }
 }
 @media (min-width: 38.75em) and (min-width: 56.25em) {
-  /* line 206, ../sass/modules/_documents.scss */
+  /* line 203, ../sass/modules/_documents.scss */
   .document span.filename {
     display: block;
   }
 }
 @media (min-width: 38.75em) and (min-width: 81.25em) {
-  /* line 206, ../sass/modules/_documents.scss */
+  /* line 203, ../sass/modules/_documents.scss */
   .document span.filename {
     width: 75%;
   }
 }
 @media (min-width: 38.75em) {
-  /* line 222, ../sass/modules/_documents.scss */
+  /* line 219, ../sass/modules/_documents.scss */
   .document span.filesize {
     display: block;
   }
 }
 @media (min-width: 38.75em) and (min-width: 56.25em) {
-  /* line 222, ../sass/modules/_documents.scss */
+  /* line 219, ../sass/modules/_documents.scss */
   .document span.filesize {
     float: left;
     display: block;
@@ -1322,13 +1322,13 @@ button.button-primary:hover, .button.button-primary:hover {
   }
 }
 @media (min-width: 38.75em) and (min-width: 81.25em) {
-  /* line 222, ../sass/modules/_documents.scss */
+  /* line 219, ../sass/modules/_documents.scss */
   .document span.filesize {
     width: 25%;
   }
 }
 
-/* line 240, ../sass/modules/_documents.scss */
+/* line 237, ../sass/modules/_documents.scss */
 .document-edit {
   padding-top: 0;
 }
@@ -1574,7 +1574,7 @@ button.button-primary:hover, .button.button-primary:hover {
   max-height: 5.3rem;
 }
 /* line 209, ../sass/modules/_lecturers.scss */
-.lecturer .label, .lecturer .label-license, .lecturer .label-summary, .lecturer .label-exam, .lecturer .label-other, .lecturer .label-extension, .lecturer .label-pdf, .lecturer .label-github, .lecturer .label-flattr, .lecturer .label-didactic, .lecturer .label-humanly, .lecturer .label-technical, .lecturer .label-e, .lecturer .label-i, .lecturer .label-m, .lecturer .label-mi, .lecturer .label-b, .lecturer .label-eeu, .lecturer .label-wing, .lecturer .label-r, .lecturer .label-l, .lecturer .label-didactic, .lecturer .label-humanly, .lecturer .label-technical {
+.lecturer .label, .lecturer .label-license, .lecturer .label-summary, .lecturer .label-exam, .lecturer .label-other, .lecturer .label-extension, .lecturer .label-github, .lecturer .label-flattr, .lecturer .label-didactic, .lecturer .label-humanly, .lecturer .label-technical, .lecturer .label-e, .lecturer .label-i, .lecturer .label-m, .lecturer .label-mi, .lecturer .label-b, .lecturer .label-eeu, .lecturer .label-wing, .lecturer .label-r, .lecturer .label-l, .lecturer .label-didactic, .lecturer .label-humanly, .lecturer .label-technical {
   margin: 0;
 }
 @media (min-width: 33.75em) {
@@ -1678,7 +1678,7 @@ button.button-primary:hover, .button.button-primary:hover {
 
 /* ===LABELS=== */
 /* line 18, ../sass/modules/_labels.scss */
-.label, .label-license, .label-summary, .label-exam, .label-other, .label-extension, .label-pdf, .label-github, .label-flattr, .label-didactic, .label-humanly, .label-technical, .label-e, .label-i, .label-m, .label-mi, .label-b, .label-eeu, .label-wing, .label-r, .label-l {
+.label, .label-license, .label-summary, .label-exam, .label-other, .label-extension, .label-github, .label-flattr, .label-didactic, .label-humanly, .label-technical, .label-e, .label-i, .label-m, .label-mi, .label-b, .label-eeu, .label-wing, .label-r, .label-l {
   display: inline;
   padding: .2rem .6rem .3rem;
   font-family: "Droid Sans", sans-serif;
@@ -1722,12 +1722,6 @@ button.button-primary:hover, .button.button-primary:hover {
 }
 
 /* line 59, ../sass/modules/_labels.scss */
-.label-pdf {
-  background-color: #cf1b3c;
-  text-transform: uppercase;
-}
-
-/* line 65, ../sass/modules/_labels.scss */
 .label-github {
   position: relative;
   padding-left: 1.8rem;
@@ -1741,7 +1735,7 @@ button.button-primary:hover, .button.button-primary:hover {
   left: 0.2rem;
 }
 
-/* line 71, ../sass/modules/_labels.scss */
+/* line 65, ../sass/modules/_labels.scss */
 .label-flattr {
   position: relative;
   padding-left: 1.8rem;
@@ -1755,74 +1749,74 @@ button.button-primary:hover, .button.button-primary:hover {
   left: 0.2rem;
 }
 
-/* line 77, ../sass/modules/_labels.scss */
+/* line 71, ../sass/modules/_labels.scss */
 .label-didactic {
   background-color: #f0ad4e;
 }
 
-/* line 82, ../sass/modules/_labels.scss */
+/* line 76, ../sass/modules/_labels.scss */
 .label-humanly {
   background-color: #428bca;
 }
 
-/* line 87, ../sass/modules/_labels.scss */
+/* line 81, ../sass/modules/_labels.scss */
 .label-technical {
   background-color: #5cb870;
 }
 
-/* line 105, ../sass/modules/_labels.scss */
+/* line 99, ../sass/modules/_labels.scss */
 .label-e {
   background-color: #5cb870;
 }
 
-/* line 105, ../sass/modules/_labels.scss */
+/* line 99, ../sass/modules/_labels.scss */
 .label-i {
   background-color: #f0ad4e;
 }
 
-/* line 105, ../sass/modules/_labels.scss */
+/* line 99, ../sass/modules/_labels.scss */
 .label-m {
   background-color: #428bca;
 }
 
-/* line 105, ../sass/modules/_labels.scss */
+/* line 99, ../sass/modules/_labels.scss */
 .label-mi {
   background-color: #428bca;
 }
 
-/* line 105, ../sass/modules/_labels.scss */
+/* line 99, ../sass/modules/_labels.scss */
 .label-b {
   background-color: #aeb870;
 }
 
-/* line 105, ../sass/modules/_labels.scss */
+/* line 99, ../sass/modules/_labels.scss */
 .label-eeu {
   background-color: #f0ad4e;
 }
 
-/* line 105, ../sass/modules/_labels.scss */
+/* line 99, ../sass/modules/_labels.scss */
 .label-wing {
   background-color: #5cb870;
 }
 
-/* line 105, ../sass/modules/_labels.scss */
+/* line 99, ../sass/modules/_labels.scss */
 .label-r {
   background-color: #5cb870;
 }
 
-/* line 105, ../sass/modules/_labels.scss */
+/* line 99, ../sass/modules/_labels.scss */
 .label-l {
   background-color: #5bc0de;
 }
 
 /* ===PAGINATION=== */
-/* line 199, ../sass/_modules.scss */
+/* line 204, ../sass/_modules.scss */
 ul.pagination li {
   padding-left: 0;
   list-style: none;
   display: inline-block;
 }
-/* line 205, ../sass/_modules.scss */
+/* line 210, ../sass/_modules.scss */
 ul.pagination .button {
   font-size: 1.4rem;
   margin: 0;
@@ -1834,46 +1828,46 @@ ul.pagination .button {
 }
 
 /* ===ALERTs=== */
-/* line 221, ../sass/_modules.scss */
-.alert {
+/* line 226, ../sass/_modules.scss */
+.alert-success, .alert-info, .alert-warning, .alert-error {
   padding: 1rem;
   margin-bottom: 1rem;
   border: 1px solid transparent;
   border-radius: 1px;
 }
 
-/* line 228, ../sass/_modules.scss */
+/* line 233, ../sass/_modules.scss */
 .alert-success {
   color: #5cb870;
   background-color: #c7e6ce;
 }
 
-/* line 233, ../sass/_modules.scss */
+/* line 239, ../sass/_modules.scss */
 .alert-info {
   color: #567a95;
   background-color: #d2dde5;
 }
 
-/* line 238, ../sass/_modules.scss */
+/* line 245, ../sass/_modules.scss */
 .alert-warning {
   color: #f0ad4e;
   background-color: #fceedb;
 }
 
-/* line 243, ../sass/_modules.scss */
+/* line 251, ../sass/_modules.scss */
 .alert-error {
-  color: #f2dede;
-  background-color: white;
+  color: #a94442;
+  background-color: #dda8a7;
 }
 
 /* ===DATE PICKER=== */
-/* line 251, ../sass/_modules.scss */
+/* line 260, ../sass/_modules.scss */
 .picker button {
   color: inherit;
   margin: inherit;
   margin-left: inherit;
 }
-/* line 256, ../sass/_modules.scss */
+/* line 265, ../sass/_modules.scss */
 .picker td {
   text-align: inherit;
 }

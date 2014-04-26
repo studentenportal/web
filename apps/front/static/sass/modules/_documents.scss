@@ -148,9 +148,6 @@
         span.ficon-pdf {
                 display: inline-block;
         }
-        > a.pdf {
-            background-color: $color-pdf;
-        }
     }
 
     @media (max-width: rem-to-em(62rem, $font-size-browser)) {

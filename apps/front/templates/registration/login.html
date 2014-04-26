@@ -17,7 +17,7 @@
     </header>
 
     {% if request.GET.next %}
-        <br><div class="alert alert-error"><strong>Bitte einloggen!</strong>
+        <br><div class="alert-error"><strong>Bitte einloggen!</strong>
             Die gewünschte Seite ist nur für registrierte Personen zugänglich.
             <a href="{% url 'register' %}">Registrieren?</a>
         </div>
@@ -25,7 +25,7 @@
 
     {% if form.errors %}
         <br>
-        <div class="alert alert-error">
+        <div class="alert-error">
             Fehlerhafte Angaben. Bitte versuch es nochmals.
             <br><br>
             <strong>Hinweis:</strong> Da das Studentenportal unabhängig von der

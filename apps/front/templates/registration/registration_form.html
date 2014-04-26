@@ -18,13 +18,13 @@
     <p>Diese Registrierung ist Studenten mit einer HSR-Email-Adresse vorbehalten.</p>
 
     {% if form.non_field_errors %}
-        <div class="alert alert-block alert-error">
-            <h4 class="alert-heading">Oops...</h4>
+        <div class="alert-error">
+            <h4>Oops...</h4>
             {{ form.non_field_errors }}
         </div>
     {% endif %}
 
-    <form method="post" action="" class="form-horizontal">{% csrf_token %}
+    <form method="post" action="">{% csrf_token %}
         <fieldset>
         <input type="text" name="{{ form.username.name }}" id="id_{{ form.username.name }}" placeholder="{{ form.username.label }}" required>
         {% if form.username.errors %}<span class="help-inline">{{ form.username.errors }}</span>{% endif %}
@@ -37,8 +37,8 @@
 
         <br clear="all" />
 
-        <button type="submit">Aktivierungsmail senden</button>
-        <button type="reset" class="light">Abbrechen</button>
+        <button class="button-primary" type="submit">Aktivierungsmail senden</button>
+        <button type="reset">Abbrechen</button>
 
         </fieldset>
     </form>

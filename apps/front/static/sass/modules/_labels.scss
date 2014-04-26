@@ -56,12 +56,6 @@
     text-transform: uppercase;
 }
 
-.label-pdf {
-    @extend .label;
-    background-color: $color-pdf;
-    text-transform: uppercase;
-}
-
 .label-github {
     @extend .label;
     @include fix-icon-position-in-label;

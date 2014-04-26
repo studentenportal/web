@@ -187,6 +187,11 @@ $color-vote: map-get($color-voting, "vote");
     @extend %box;
     @extend %list-card;
     @include adapt-heading-to-author;
+
+    //Force all really long links to break
+    .summary {
+        a { word-break: break-all; }
+    }
 }
 
 @import "modules/documents";
@@ -218,7 +223,7 @@ $color-info: map-get($color-alerts, "info");
 $color-warning: map-get($color-alerts, "warning");
 $color-danger: map-get($color-alerts, "danger");
 
-.alert {
+%alert {
     padding: $gutter;
     margin-bottom: $gutter;
     border: 1px solid transparent;
@@ -226,21 +231,25 @@ $color-danger: map-get($color-alerts, "danger");
 }
 
 .alert-success {
+    @extend %alert;
     color: $color-success;
     background-color: lighten($color-success, 30%);
 }
 
 .alert-info {
+    @extend %alert;
     color: darken($color-info, 40%);
     background-color: $color-info;
 }
 
 .alert-warning {
+    @extend %alert;
     color: $color-warning;
     background-color: lighten($color-warning, 30%);
 }
 
 .alert-error {
+    @extend %alert;
     color: $color-danger;
     background-color: lighten($color-danger, 30%);
 }
