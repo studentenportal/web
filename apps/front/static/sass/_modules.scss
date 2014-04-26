@@ -266,3 +266,11 @@ $color-danger: map-get($color-alerts, "danger");
         text-align: inherit;
     }
 }
+
+/* ===BROWSEHAPPY=== */
+.browsehappy {
+    margin: 0.2em 0;
+    background: #ccc;
+    color: #000;
+    padding: 0.2em 0;
+}
