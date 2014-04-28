@@ -1,9 +1,12 @@
 # -*- coding: utf-8 -*-
 from __future__ import print_function, division, absolute_import, unicode_literals
 
+import os
+import subprocess
 import datetime
 import unicodedata
 from collections import defaultdict
+import logging
 
 from django.conf import settings
 from django.contrib import messages
@@ -28,6 +31,9 @@ from . import models, forms, helpers
 from apps.front.mixins import LoginRequiredMixin
 
 
+logger = logging.getLogger(__name__)
+
+
 class DocumentcategoryList(TemplateView):
     template_name = 'documents/documentcategory_list.html'
 
@@ -35,7 +41,9 @@ class DocumentcategoryList(TemplateView):
         context = super(DocumentcategoryList, self).get_context_data(**kwargs)
 
         # Get all categories
-        categories = list(models.DocumentCategory.objects.all())
+        categories = list(models.DocumentCategory.objects.all()
+                          .prefetch_related('lecturers')
+                          .prefetch_related('courses'))
 
         # To reduce number of queries, prefetch aggregated count values from the
         # document model. The query returns the count for each (category, dtype) pair.
@@ -127,6 +135,36 @@ class DocumentDownload(View):
         attachment = not filename.lower().endswith('.pdf')
         return sendfile(request, doc.document.path,
                 attachment=attachment, attachment_filename=filename)
+
+
+class DocumentThumbnail(View):
+    def generate_thumbnail(self, document_path, thumbnail_path):
+        """Generate a thumbnail of the first page of a PDF by using imagemagick.
+        :param document_path Path of the PDF to create thumbnail from
+        :param thumbnail_path Path where to save the thumbnail
+        :returns Tuple with wether operation was successful and message from stdout
+        """
+        params = ["-thumbnail", "400", document_path + "[0]", "-trim", thumbnail_path]
+        proc = subprocess.check_output(["convert"] + params, stderr=subprocess.STDOUT)
+
+    def get(self, request, *args, **kwargs):
+        doc = get_object_or_404(models.Document, pk=self.kwargs.get('pk'))
+        if not os.path.exists(doc.document.path):
+            return HttpResponseBadRequest("Document has no file attached.")
+        if not doc.document.path.lower().endswith(".pdf"):
+            return HttpResponseBadRequest("File has to be a PDF to create a thumbnail")
+
+        thumbnail_path = "{0}.png".format(doc.document.path)
+        if not os.path.exists(thumbnail_path):
+            try:
+                self.generate_thumbnail(doc.document.path, thumbnail_path)
+            except CalledProcessError as e:
+                logger.error('Thumbnail for {0} could not be created: {1}'
+                             .format(doc.document.path, e))
+
+        filename = unicodedata.normalize('NFKD', thumbnail_path).encode('us-ascii', 'ignore')
+        return sendfile(request, thumbnail_path,
+                        attachment=False, attachment_filename=filename)
 
 
 class DocumentAddEditMixin(object):
