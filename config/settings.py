@@ -353,5 +353,5 @@ def show_debug_toolbar(request):
     return DEBUG_TOOLBAR
 DEBUG_TOOLBAR_CONFIG = {
     'INTERCEPT_REDIRECTS': False,
-    'SHOW_TOOLBAR_CALLBACK': 'config.settigns.show_debug_toolbar',
+    'SHOW_TOOLBAR_CALLBACK': 'config.settings.show_debug_toolbar',
 }
