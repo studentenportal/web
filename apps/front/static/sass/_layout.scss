@@ -36,15 +36,24 @@
 
 /* ===LAYOUT STRUCTURE=== */
 
+body {
+
+}
+
 //The whole top part of the website includes the header as well
 .top {
-    @extend %wrapper;
     padding: 0;
+    background-image: url('../img/hsr@2x.jpg');
+    background-position: center;
+    background-repeat:no-repeat;
+    background-size: cover;
+
+    height: 25rem;
 }
 
 .header {
-    background-color: $color-light-accent;
     @include clearfix;
+    @extend %wrapper;
 }
 
 .main {
@@ -59,11 +68,14 @@
 
 /* ===HEADER=== */
 .header {
-    background-color: $color-light-accent;
+    padding: $gutter;
+    background-color: $color-header-background;
 
     .branding {
-        padding-left: $gutter;
         float: left;
+        padding-right: $gutter;
+
+        h1 { color: $color-branding; }
     }
 
     //Special links like user home or login/logout
@@ -71,10 +83,10 @@
         float: right;
         padding: $gutter/2;
         font-size: 3.2rem;
-        color: #fff;
+        color: $color-header-link;
 
         &:hover {
-            color: $color-dark-accent;
+            color: $color-header-link-hover;
         }
     }
 
@@ -97,7 +109,11 @@
 
 /* ===NAVIGATION=== */
 .nav-collapse {
-    background-color: $color-light-accent;
+    @media (max-width: 46em) {
+    }
+
+
+    background-color: $color-navigation-background;
     @include pie-clearfix;
 
     li {
@@ -105,11 +121,13 @@
         padding: 0;
 
         a {
-            padding: 0.5em 0.5em $gutter;
+            font-size: $font-size-browser;
+
+            padding: $gutter 0.75rem;
             display: block;
-            background-color: $color-light-accent;
-            color: $color-dark-accent;
-            border-bottom: 1px solid #fff;
+            background-color: $color-navigation-background;
+            color: $color-navigation-link;
+
             &:before {
                 font-size: 0.75em;
                 padding-right: 0.5em;
@@ -122,7 +140,7 @@
     }
 
     li.active a {
-        background-color: $color-background;
+        background-color: $color-navigation-background-active;
     }
 
     &:before {

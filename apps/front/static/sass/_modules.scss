@@ -134,10 +134,6 @@ $color-search-background: #E1E5E8;
 }
 
 /* ===NEWS=== */
-.latest-news {
-    h1 { @extend %crossbar; }
-}
-
 .news {
     @extend %box;
     @extend %list-card;

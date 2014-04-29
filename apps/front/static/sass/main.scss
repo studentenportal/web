@@ -36,6 +36,14 @@ $color-filetypes: (
   zip: #ff9408
 );
 
+$color-branding: $color-midnight-blue;
+$color-navigation-link: $color-dark-accent;
+$color-navigation-background: $color-light-accent;
+$color-navigation-background-active: #fff;
+$color-header-background: $color-light-accent;
+$color-header-link: $color-dark-accent;
+$color-header-link-hover: $color-darker-accent;
+
 $color-alerts: (
   success: $color-fern,
   info: $color-cornflower-blue,

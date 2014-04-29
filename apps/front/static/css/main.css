@@ -726,7 +726,7 @@ button.button-primary:hover, button.button-primary:active, button.button-primary
 
 /* ===LAYOUT MIXINS=== */
 /* line 8, ../sass/_layout.scss */
-.contribute h1, .user-profile h2, .latest-news h1, .events h1, .events h2, .document-categories h2, .rate h2, .quotes h2 {
+.contribute h1, .user-profile h2, .events h1, .events h2, .document-categories h2, .rate h2, .quotes h2 {
   background-color: #d2dde5;
 }
 
@@ -741,19 +741,19 @@ button.button-primary:hover, button.button-primary:active, button.button-primary
 }
 
 /* line 21, ../sass/_layout.scss */
-.top, .main, .footer {
+.header, .main, .footer {
   padding: 0 1rem;
 }
 @media (min-width: 62.65em) {
   /* line 21, ../sass/_layout.scss */
-  .top, .main, .footer {
+  .header, .main, .footer {
     max-width: 100.24rem;
     margin: 0 auto;
   }
 }
 
 /* line 29, ../sass/_layout.scss */
-.contribute h1, .user-profile h2, .latest-news h1, .events h1, .events h2, .document-categories h2, .rate h2, .quotes h2 {
+.contribute h1, .user-profile h2, .events h1, .events h2, .document-categories h2, .rate h2, .quotes h2 {
   padding: 0 1rem;
   margin-left: -1rem;
   margin-right: -1rem;
@@ -761,57 +761,66 @@ button.button-primary:hover, button.button-primary:active, button.button-primary
 }
 
 /* ===LAYOUT STRUCTURE=== */
-/* line 40, ../sass/_layout.scss */
+/* line 44, ../sass/_layout.scss */
 .top {
   padding: 0;
+  background-image: url("../img/hsr@2x.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 25rem;
 }
 
-/* line 45, ../sass/_layout.scss */
+/* line 54, ../sass/_layout.scss */
 .header {
-  background-color: #d2dde5;
   overflow: hidden;
   *zoom: 1;
 }
 
-/* line 50, ../sass/_layout.scss */
+/* line 59, ../sass/_layout.scss */
 .main {
   margin-top: 1rem;
 }
 
-/* line 55, ../sass/_layout.scss */
+/* line 64, ../sass/_layout.scss */
 .footer {
   margin-top: 1rem;
 }
 
 /* ===HEADER=== */
-/* line 61, ../sass/_layout.scss */
+/* line 70, ../sass/_layout.scss */
 .header {
+  padding: 1rem;
   background-color: #d2dde5;
 }
-/* line 64, ../sass/_layout.scss */
+/* line 74, ../sass/_layout.scss */
 .header .branding {
-  padding-left: 1rem;
   float: left;
+  padding-right: 1rem;
 }
-/* line 70, ../sass/_layout.scss */
+/* line 78, ../sass/_layout.scss */
+.header .branding h1 {
+  color: #155183;
+}
+/* line 82, ../sass/_layout.scss */
 .header > a {
   float: right;
   padding: 0.5rem;
   font-size: 3.2rem;
-  color: #fff;
-}
-/* line 76, ../sass/_layout.scss */
-.header > a:hover {
   color: #155183;
 }
-/* line 83, ../sass/_layout.scss */
+/* line 88, ../sass/_layout.scss */
+.header > a:hover {
+  color: #41586e;
+}
+/* line 95, ../sass/_layout.scss */
 .header .icon-user, .header .icon-logout, .header .icon-login {
   width: 1em;
   height: 1em;
   padding-left: 0.5rem;
   position: relative;
 }
-/* line 89, ../sass/_layout.scss */
+/* line 101, ../sass/_layout.scss */
 .header .icon-user:before, .header .icon-logout:before, .header .icon-login:before {
   position: absolute;
   font-size: 0.75em;
@@ -820,7 +829,7 @@ button.button-primary:hover, button.button-primary:active, button.button-primary
 }
 
 /* ===NAVIGATION=== */
-/* line 99, ../sass/_layout.scss */
+/* line 111, ../sass/_layout.scss */
 .nav-collapse {
   background-color: #d2dde5;
   *zoom: 1;
@@ -831,35 +840,35 @@ button.button-primary:hover, button.button-primary:active, button.button-primary
   display: table;
   clear: both;
 }
-/* line 103, ../sass/_layout.scss */
+/* line 119, ../sass/_layout.scss */
 .nav-collapse li {
   margin: 0;
   padding: 0;
 }
-/* line 107, ../sass/_layout.scss */
+/* line 123, ../sass/_layout.scss */
 .nav-collapse li a {
-  padding: 0.5em 0.5em 1rem;
+  font-size: 1.6rem;
+  padding: 1rem 0.75rem;
   display: block;
   background-color: #d2dde5;
   color: #155183;
-  border-bottom: 1px solid #fff;
 }
-/* line 113, ../sass/_layout.scss */
+/* line 131, ../sass/_layout.scss */
 .nav-collapse li a:before {
   font-size: 0.75em;
   padding-right: 0.5em;
 }
 @media (min-width: 46em) {
-  /* line 107, ../sass/_layout.scss */
+  /* line 123, ../sass/_layout.scss */
   .nav-collapse li a {
     float: left;
   }
 }
-/* line 124, ../sass/_layout.scss */
+/* line 142, ../sass/_layout.scss */
 .nav-collapse li.active a {
   background-color: white;
 }
-/* line 128, ../sass/_layout.scss */
+/* line 146, ../sass/_layout.scss */
 .nav-collapse:before {
   clear: left;
 }
@@ -985,36 +994,36 @@ button.button-primary:hover, button.button-primary:active, button.button-primary
 }
 
 /* ===NEWS=== */
-/* line 141, ../sass/_modules.scss */
+/* line 137, ../sass/_modules.scss */
 .news {
   min-height: 9.5rem;
 }
 
 /* ===VOTE BUTTONS=== */
-/* line 152, ../sass/_modules.scss */
+/* line 148, ../sass/_modules.scss */
 .votebuttons {
   text-align: center;
   width: 3rem;
 }
-/* line 157, ../sass/_modules.scss */
+/* line 153, ../sass/_modules.scss */
 .votebuttons .upvote:before, .votebuttons .downvote:before {
   font-size: 3rem;
   color: #4f4a4a;
 }
-/* line 161, ../sass/_modules.scss */
+/* line 157, ../sass/_modules.scss */
 .votebuttons .upvote:hover, .votebuttons .downvote:hover {
   cursor: pointer;
   cursor: hand;
 }
-/* line 168, ../sass/_modules.scss */
+/* line 164, ../sass/_modules.scss */
 .votebuttons .upvote:hover:before, .votebuttons .upvote.active:before {
   color: #4bc35f;
 }
-/* line 172, ../sass/_modules.scss */
+/* line 168, ../sass/_modules.scss */
 .votebuttons .downvote:hover:before, .votebuttons .downvote.active:before {
   color: #c15044;
 }
-/* line 175, ../sass/_modules.scss */
+/* line 171, ../sass/_modules.scss */
 .votebuttons .vote_sum {
   font-size: 3rem;
   font-family: "Droid Sans", sans-serif;
@@ -1026,7 +1035,7 @@ button.button-primary:hover, button.button-primary:active, button.button-primary
   line-height: 1;
   margin-top: 1rem;
 }
-/* line 193, ../sass/_modules.scss */
+/* line 189, ../sass/_modules.scss */
 .event .summary a {
   word-break: break-all;
 }
@@ -1810,13 +1819,13 @@ button.button-primary:hover, button.button-primary:active, button.button-primary
 }
 
 /* ===PAGINATION=== */
-/* line 204, ../sass/_modules.scss */
+/* line 200, ../sass/_modules.scss */
 ul.pagination li {
   padding-left: 0;
   list-style: none;
   display: inline-block;
 }
-/* line 210, ../sass/_modules.scss */
+/* line 206, ../sass/_modules.scss */
 ul.pagination .button {
   font-size: 1.4rem;
   margin: 0;
@@ -1828,7 +1837,7 @@ ul.pagination .button {
 }
 
 /* ===ALERTs=== */
-/* line 226, ../sass/_modules.scss */
+/* line 222, ../sass/_modules.scss */
 .alert-success, .alert-info, .alert-warning, .alert-error {
   padding: 1rem;
   margin-bottom: 1rem;
@@ -1836,44 +1845,44 @@ ul.pagination .button {
   border-radius: 1px;
 }
 
-/* line 233, ../sass/_modules.scss */
+/* line 229, ../sass/_modules.scss */
 .alert-success {
   color: #5cb870;
   background-color: #c7e6ce;
 }
 
-/* line 239, ../sass/_modules.scss */
+/* line 235, ../sass/_modules.scss */
 .alert-info {
   color: #567a95;
   background-color: #d2dde5;
 }
 
-/* line 245, ../sass/_modules.scss */
+/* line 241, ../sass/_modules.scss */
 .alert-warning {
   color: #f0ad4e;
   background-color: #fceedb;
 }
 
-/* line 251, ../sass/_modules.scss */
+/* line 247, ../sass/_modules.scss */
 .alert-error {
   color: #a94442;
   background-color: #dda8a7;
 }
 
 /* ===DATE PICKER=== */
-/* line 260, ../sass/_modules.scss */
+/* line 256, ../sass/_modules.scss */
 .picker button {
   color: inherit;
   margin: inherit;
   margin-left: inherit;
 }
-/* line 265, ../sass/_modules.scss */
+/* line 261, ../sass/_modules.scss */
 .picker td {
   text-align: inherit;
 }
 
 /* ===BROWSEHAPPY=== */
-/* line 271, ../sass/_modules.scss */
+/* line 267, ../sass/_modules.scss */
 .browsehappy {
   margin: 0.2em 0;
   background: #ccc;
