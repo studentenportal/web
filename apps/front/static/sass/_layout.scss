@@ -5,12 +5,6 @@
 
 /* ===LAYOUT MIXINS=== */
 
-%crossbar {
-    //Pull back one em to compensate padding to enablefull header bg color
-    @extend %responsive-padding;
-    background-color: $color-light-accent;
-}
-
 %box {
     padding: $gutter;
     margin-bottom: $gutter;
@@ -63,7 +57,8 @@ body {
 
 .footer {
     @extend %wrapper;
-    margin-top: $gutter;
+    margin-top: 3*$gutter;
+    margin-bottom: $gutter;
 }
 
 /* ===HEADER=== */

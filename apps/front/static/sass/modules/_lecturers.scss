@@ -137,7 +137,6 @@
 
 .rate {
     margin-top: $gutter;
-    h2 { @extend %crossbar; }
     h3 {
         display: inline-block;
         width: 10rem;
@@ -160,7 +159,6 @@
 
 .quotes {
     margin-top: $gutter;
-    h2 { @extend %crossbar; }
 }
 
 #lrating-d, #lrating-m, #lrating-f {
