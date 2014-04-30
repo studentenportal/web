@@ -78,15 +78,28 @@ body {
         h1 { color: $color-branding; }
     }
 
-    //Special links like user home or login/logout
-    > a {
+    .header-actions {
         float: right;
-        padding: $gutter/2;
-        font-size: 3.2rem;
-        color: $color-header-link;
 
-        &:hover {
-            color: $color-header-link-hover;
+        //Special links like user home or login/logout
+        > a {
+            float: right;
+            padding: $gutter/2;
+            font-size: 3.2rem;
+            color: $color-header-link;
+
+            &:hover {
+                color: $color-header-link-hover;
+            }
+        }
+
+        //By making the header actions to flex layout
+        //the account link and logout link will swap places
+        @media (min-width: 46em) {
+            > a {
+                float: left;
+                margin-left: $gutter/2;
+            }
         }
     }
 
@@ -109,10 +122,6 @@ body {
 
 /* ===NAVIGATION=== */
 .nav-collapse {
-    @media (max-width: 46em) {
-    }
-
-
     background-color: $color-navigation-background;
     @include pie-clearfix;
 

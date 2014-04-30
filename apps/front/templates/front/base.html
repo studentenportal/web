@@ -45,14 +45,16 @@
             <div class="branding">
                 <h1><em>studenten</em>portal</h1>
             </div>
-            <a href="#nav" title="Menü" id="toggle" class="nav-toggle closed icon-list"></a>
-            {% if user.is_authenticated %}
+            <div class="header-actions">
+                <a href="#nav" title="Menü" id="toggle" class="nav-toggle closed icon-list"></a>
+                {% if user.is_authenticated %}
                 <a class="icon-user" title="Profil" href="{% url 'user' user.pk user.username %}"></a>
                 <a class="icon-logout" title="Logout" href="{% url 'auth_logout' %}"></a>
-            {% else %}
+                {% else %}
                 <a class="icon-user" title="Registrieren" href="{% url 'register' %}"></a>
                 <a class="icon-login" title="Login" href="{% url 'auth_login' %}"></a>
-            {% endif %}
+                {% endif %}
+            </div>
             <nav id="nav" class="nav-collapse">
                 <ul>
                     {% block navigation %}
