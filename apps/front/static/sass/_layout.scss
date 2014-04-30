@@ -47,8 +47,8 @@ body {
     background-position: center;
     background-repeat:no-repeat;
     background-size: cover;
-
-    height: 25rem;
+    //Height cannot be fixed because the navigation needs space to flex
+    min-height: 25rem;
 }
 
 .header {
@@ -74,12 +74,22 @@ body {
     .branding {
         float: left;
         padding-right: $gutter;
+        h1 {
+            color: $color-branding;
 
-        h1 { color: $color-branding; }
+        }
+    }
+
+    @media (max-width: 46em) {
+        padding: $gutter/2 0;
+        .branding {
+            padding-left: $gutter/2;
+            padding-right: 0;
+        }
     }
 
     .header-actions {
-        float: right;
+        @include pie-clearfix;
 
         //Special links like user home or login/logout
         > a {
@@ -93,9 +103,11 @@ body {
             }
         }
 
-        //By making the header actions to flex layout
-        //the account link and logout link will swap places
         @media (min-width: 46em) {
+            float: right;
+
+            //By making the header actions float to left
+            //the account link and logout link will swap places
             > a {
                 float: left;
                 margin-left: $gutter/2;

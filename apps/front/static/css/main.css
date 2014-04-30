@@ -768,7 +768,7 @@ button.button-primary:hover, button.button-primary:active, button.button-primary
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  height: 25rem;
+  min-height: 25rem;
 }
 
 /* line 54, ../sass/_layout.scss */
@@ -798,40 +798,61 @@ button.button-primary:hover, button.button-primary:active, button.button-primary
   float: left;
   padding-right: 1rem;
 }
-/* line 78, ../sass/_layout.scss */
+/* line 77, ../sass/_layout.scss */
 .header .branding h1 {
   color: #155183;
 }
-/* line 81, ../sass/_layout.scss */
-.header .header-actions {
-  float: right;
+@media (max-width: 46em) {
+  /* line 70, ../sass/_layout.scss */
+  .header {
+    padding: 0.5rem 0;
+  }
+  /* line 85, ../sass/_layout.scss */
+  .header .branding {
+    padding-left: 0.5rem;
+    padding-right: 0;
+  }
 }
-/* line 85, ../sass/_layout.scss */
+/* line 91, ../sass/_layout.scss */
+.header .header-actions {
+  *zoom: 1;
+}
+/* line 38, ../../../../../../../.gem/ruby/2.1.0/gems/compass-core-1.0.0.alpha.19/stylesheets/compass/utilities/general/_clearfix.scss */
+.header .header-actions:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+/* line 95, ../sass/_layout.scss */
 .header .header-actions > a {
   float: right;
   padding: 0.5rem;
   font-size: 3.2rem;
   color: #155183;
 }
-/* line 91, ../sass/_layout.scss */
+/* line 101, ../sass/_layout.scss */
 .header .header-actions > a:hover {
   color: #41586e;
 }
 @media (min-width: 46em) {
-  /* line 99, ../sass/_layout.scss */
+  /* line 91, ../sass/_layout.scss */
+  .header .header-actions {
+    float: right;
+  }
+  /* line 111, ../sass/_layout.scss */
   .header .header-actions > a {
     float: left;
     margin-left: 0.5rem;
   }
 }
-/* line 108, ../sass/_layout.scss */
+/* line 120, ../sass/_layout.scss */
 .header .icon-user, .header .icon-logout, .header .icon-login {
   width: 1em;
   height: 1em;
   padding-left: 0.5rem;
   position: relative;
 }
-/* line 114, ../sass/_layout.scss */
+/* line 126, ../sass/_layout.scss */
 .header .icon-user:before, .header .icon-logout:before, .header .icon-login:before {
   position: absolute;
   font-size: 0.75em;
@@ -840,7 +861,7 @@ button.button-primary:hover, button.button-primary:active, button.button-primary
 }
 
 /* ===NAVIGATION=== */
-/* line 124, ../sass/_layout.scss */
+/* line 136, ../sass/_layout.scss */
 .nav-collapse {
   background-color: #d2dde5;
   *zoom: 1;
@@ -851,12 +872,12 @@ button.button-primary:hover, button.button-primary:active, button.button-primary
   display: table;
   clear: both;
 }
-/* line 128, ../sass/_layout.scss */
+/* line 140, ../sass/_layout.scss */
 .nav-collapse li {
   margin: 0;
   padding: 0;
 }
-/* line 132, ../sass/_layout.scss */
+/* line 144, ../sass/_layout.scss */
 .nav-collapse li a {
   font-size: 1.6rem;
   padding: 1rem 0.75rem;
@@ -864,22 +885,22 @@ button.button-primary:hover, button.button-primary:active, button.button-primary
   background-color: #d2dde5;
   color: #155183;
 }
-/* line 140, ../sass/_layout.scss */
+/* line 152, ../sass/_layout.scss */
 .nav-collapse li a:before {
   font-size: 0.75em;
   padding-right: 0.5em;
 }
 @media (min-width: 46em) {
-  /* line 132, ../sass/_layout.scss */
+  /* line 144, ../sass/_layout.scss */
   .nav-collapse li a {
     float: left;
   }
 }
-/* line 151, ../sass/_layout.scss */
+/* line 163, ../sass/_layout.scss */
 .nav-collapse li.active a {
   background-color: white;
 }
-/* line 155, ../sass/_layout.scss */
+/* line 167, ../sass/_layout.scss */
 .nav-collapse:before {
   clear: left;
 }
