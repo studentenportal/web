@@ -789,6 +789,7 @@ button.button-primary:hover, button.button-primary:active, button.button-primary
 /* line 72, ../sass/_layout.scss */
 .header .branding h1 {
   color: #155183;
+  font-size: 3rem;
 }
 @media (max-width: 46em) {
   /* line 65, ../sass/_layout.scss */
@@ -815,7 +816,7 @@ button.button-primary:hover, button.button-primary:active, button.button-primary
 .header .header-actions > a {
   float: right;
   padding: 0.5rem;
-  font-size: 3.2rem;
+  font-size: 3rem;
   color: #155183;
 }
 /* line 96, ../sass/_layout.scss */
@@ -1227,8 +1228,9 @@ button.button-primary:hover, button.button-primary:active, button.button-primary
   display: block;
   min-height: 3.4rem;
   position: relative;
+  overflow: hidden;
 }
-/* line 130, ../sass/modules/_documents.scss */
+/* line 133, ../sass/modules/_documents.scss */
 .document .download .download-action > div {
   position: absolute;
   top: 0.2rem;
@@ -1237,83 +1239,87 @@ button.button-primary:hover, button.button-primary:active, button.button-primary
   width: 3.2rem;
   height: 3.2rem;
 }
-/* line 142, ../sass/modules/_documents.scss */
+/* line 145, ../sass/modules/_documents.scss */
 .document .download .download-action.doc {
   background-color: #2b5796;
 }
-/* line 142, ../sass/modules/_documents.scss */
+/* line 145, ../sass/modules/_documents.scss */
 .document .download .download-action.xls {
   background-color: #1e7145;
 }
-/* line 142, ../sass/modules/_documents.scss */
+/* line 145, ../sass/modules/_documents.scss */
 .document .download .download-action.ppt {
   background-color: #d15a25;
 }
-/* line 142, ../sass/modules/_documents.scss */
+/* line 145, ../sass/modules/_documents.scss */
 .document .download .download-action.other {
   background-color: #6b533b;
 }
-/* line 142, ../sass/modules/_documents.scss */
+/* line 145, ../sass/modules/_documents.scss */
 .document .download .download-action.img {
   background-color: #5b2d8d;
 }
-/* line 142, ../sass/modules/_documents.scss */
+/* line 145, ../sass/modules/_documents.scss */
 .document .download .download-action.pdf {
   background-color: #ea4c3a;
 }
-/* line 142, ../sass/modules/_documents.scss */
+/* line 145, ../sass/modules/_documents.scss */
 .document .download .download-action.zip {
   background-color: #ff9408;
 }
-/* line 147, ../sass/modules/_documents.scss */
+/* line 150, ../sass/modules/_documents.scss */
 .document .download span.ficon-pdf {
   display: inline-block;
 }
+/* line 156, ../sass/modules/_documents.scss */
+.document .details a {
+  word-break: break-all;
+}
 @media (max-width: 38.75em) {
-  /* line 156, ../sass/modules/_documents.scss */
+  /* line 162, ../sass/modules/_documents.scss */
   .document .download {
     display: -webkit-flex;
     display: flex;
     -webkit-flex-direction: column-reverse;
     flex-direction: column-reverse;
   }
-  /* line 162, ../sass/modules/_documents.scss */
+  /* line 168, ../sass/modules/_documents.scss */
   .document .report {
     top: 1rem;
     bottom: auto;
   }
-  /* line 167, ../sass/modules/_documents.scss */
+  /* line 173, ../sass/modules/_documents.scss */
   .document .labels {
     width: 90%;
   }
-  /* line 169, ../sass/modules/_documents.scss */
+  /* line 175, ../sass/modules/_documents.scss */
   .document .labels > a {
     display: inline-block;
     margin-bottom: 0.2rem;
   }
 }
 @media (min-width: 38.75em) {
-  /* line 178, ../sass/modules/_documents.scss */
+  /* line 184, ../sass/modules/_documents.scss */
   .document .details {
     width: 70%;
     float: left;
   }
-  /* line 183, ../sass/modules/_documents.scss */
+  /* line 189, ../sass/modules/_documents.scss */
   .document .download {
     margin-top: 0.3rem;
     float: right;
     width: 30%;
     max-width: 400px;
   }
-  /* line 189, ../sass/modules/_documents.scss */
+  /* line 195, ../sass/modules/_documents.scss */
   .document .download .thumbnail {
     height: 10rem;
   }
-  /* line 193, ../sass/modules/_documents.scss */
+  /* line 199, ../sass/modules/_documents.scss */
   .document .download > a {
     height: 3.2rem;
   }
-  /* line 202, ../sass/modules/_documents.scss */
+  /* line 208, ../sass/modules/_documents.scss */
   .document span.filename {
     white-space: nowrap;
     overflow: hidden;
@@ -1324,25 +1330,25 @@ button.button-primary:hover, button.button-primary:active, button.button-primary
   }
 }
 @media (min-width: 38.75em) and (min-width: 56.25em) {
-  /* line 202, ../sass/modules/_documents.scss */
+  /* line 208, ../sass/modules/_documents.scss */
   .document span.filename {
     display: block;
   }
 }
 @media (min-width: 38.75em) and (min-width: 81.25em) {
-  /* line 202, ../sass/modules/_documents.scss */
+  /* line 208, ../sass/modules/_documents.scss */
   .document span.filename {
     width: 75%;
   }
 }
 @media (min-width: 38.75em) {
-  /* line 218, ../sass/modules/_documents.scss */
+  /* line 224, ../sass/modules/_documents.scss */
   .document span.filesize {
     display: block;
   }
 }
 @media (min-width: 38.75em) and (min-width: 56.25em) {
-  /* line 218, ../sass/modules/_documents.scss */
+  /* line 224, ../sass/modules/_documents.scss */
   .document span.filesize {
     float: left;
     display: block;
@@ -1351,13 +1357,13 @@ button.button-primary:hover, button.button-primary:active, button.button-primary
   }
 }
 @media (min-width: 38.75em) and (min-width: 81.25em) {
-  /* line 218, ../sass/modules/_documents.scss */
+  /* line 224, ../sass/modules/_documents.scss */
   .document span.filesize {
     width: 25%;
   }
 }
 
-/* line 236, ../sass/modules/_documents.scss */
+/* line 242, ../sass/modules/_documents.scss */
 .document-edit {
   padding-top: 0;
 }

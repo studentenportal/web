@@ -71,7 +71,7 @@ body {
         padding-right: $gutter;
         h1 {
             color: $color-branding;
-
+            font-size: 3rem;
         }
     }
 
@@ -90,7 +90,7 @@ body {
         > a {
             float: right;
             padding: $gutter/2;
-            font-size: 3.2rem;
+            font-size: 3rem;
             color: $color-header-link;
 
             &:hover {

@@ -126,6 +126,9 @@
             min-height: 3.4rem;
             position: relative;
 
+            //The text can grow really long and has to be hidden in this case
+            overflow: hidden;
+
             //Correct position of file icons
             > div {
                 position: absolute;
@@ -148,6 +151,9 @@
                 display: inline-block;
         }
     }
+
+    //Force all too long links to break
+    .details a { word-break: break-all; }
 
     @media (max-width: rem-to-em(62rem, $font-size-browser)) {
         //This is a flexbox "hack" so that the image appears above the button on mobile view
