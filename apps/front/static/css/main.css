@@ -1,5 +1,4 @@
 /* ===RESET=== */
-@import url(http://fonts.googleapis.com/css?family=Droid+Sans:400,700);
 @import url(http://fonts.googleapis.com/css?family=Droid+Serif:400italic);
 /* line 5, ../../../../../../../.gem/ruby/2.1.0/gems/compass-core-1.0.0.alpha.19/stylesheets/compass/reset/_utilities.scss */
 html, body, div, span, applet, object, iframe,
@@ -469,12 +468,12 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
 }
 
 /* ===TYPOGRAPHY=== */
-/* line 6, ../sass/_base.scss */
+/* line 5, ../sass/_base.scss */
 html {
   font-size: 62.5%;
 }
 
-/* line 13, ../sass/_base.scss */
+/* line 12, ../sass/_base.scss */
 body {
   background: white;
   font-size: 1.4rem;
@@ -483,12 +482,12 @@ body {
   color: #333333;
 }
 
-/* line 21, ../sass/_base.scss */
+/* line 20, ../sass/_base.scss */
 h1, h2, h3, h4, h5, h6, nav a {
   font-family: "Droid Sans", sans-serif;
 }
 
-/* line 25, ../sass/_base.scss */
+/* line 24, ../sass/_base.scss */
 h1 {
   font-size: 3.2rem;
   font-weight: 400;
@@ -496,35 +495,35 @@ h1 {
   line-height: 4.16rem;
 }
 
-/* line 32, ../sass/_base.scss */
+/* line 31, ../sass/_base.scss */
 h2 {
   font-size: 2.8rem;
   line-height: 3.64rem;
 }
 
-/* line 37, ../sass/_base.scss */
+/* line 36, ../sass/_base.scss */
 h3 {
   font-size: 2rem;
   line-height: 2.6rem;
 }
 
-/* line 42, ../sass/_base.scss */
+/* line 41, ../sass/_base.scss */
 h4 {
   font-size: 1.6rem;
   line-height: 2.08rem;
 }
 
-/* line 47, ../sass/_base.scss */
+/* line 46, ../sass/_base.scss */
 em, strong {
   font-weight: 700;
 }
 
-/* line 51, ../sass/_base.scss */
+/* line 50, ../sass/_base.scss */
 p {
   margin: 0 auto 0.5em;
 }
 
-/* line 55, ../sass/_base.scss */
+/* line 54, ../sass/_base.scss */
 hr {
   border: solid #d2dde5;
   border-width: 1px 0 0;
@@ -534,32 +533,32 @@ hr {
 }
 
 /* ===LISTS=== */
-/* line 64, ../sass/_base.scss */
+/* line 63, ../sass/_base.scss */
 ul > li {
   list-style: disc inside;
   padding-left: 1rem;
 }
 
 /* ===LINKS=== */
-/* line 71, ../sass/_base.scss */
+/* line 70, ../sass/_base.scss */
 a {
   color: #155183;
   text-decoration: none;
   outline: 0;
 }
 
-/* line 76, ../sass/_base.scss */
+/* line 75, ../sass/_base.scss */
 a:hover, a:focus {
   color: #41586e;
 }
 
 /* ===FORMS=== */
-/* line 80, ../sass/_base.scss */
+/* line 79, ../sass/_base.scss */
 form, fieldset {
   margin-bottom: 1rem;
 }
 
-/* line 82, ../sass/_base.scss */
+/* line 81, ../sass/_base.scss */
 button, a.button, input, select, textarea {
   font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
   font-size: 1.6rem;
@@ -567,7 +566,7 @@ button, a.button, input, select, textarea {
   outline: none;
 }
 
-/* line 92, ../sass/_base.scss */
+/* line 91, ../sass/_base.scss */
 .control-group {
   *zoom: 1;
 }
@@ -578,14 +577,14 @@ button, a.button, input, select, textarea {
   clear: both;
 }
 
-/* line 96, ../sass/_base.scss */
+/* line 95, ../sass/_base.scss */
 label {
   color: #666666;
   display: block;
   margin-bottom: 0.5rem;
 }
 
-/* line 102, ../sass/_base.scss */
+/* line 101, ../sass/_base.scss */
 input, select, textarea {
   width: 100%;
   -moz-transition: border-color, 0.3s;
@@ -594,17 +593,17 @@ input, select, textarea {
   transition: border-color, 0.3s;
   border: 2px solid #d2dde5;
 }
-/* line 106, ../sass/_base.scss */
+/* line 105, ../sass/_base.scss */
 input:focus, select:focus, textarea:focus {
   border-color: #41586e;
 }
 
-/* line 109, ../sass/_base.scss */
+/* line 108, ../sass/_base.scss */
 .help-block {
   font-size: 1.1rem;
 }
 
-/* line 114, ../sass/_base.scss */
+/* line 113, ../sass/_base.scss */
 ul.errorlist li {
   color: #b94a48;
   list-style-type: none;
@@ -612,27 +611,27 @@ ul.errorlist li {
   font-size: 1.1rem;
 }
 
-/* line 124, ../sass/_base.scss */
+/* line 123, ../sass/_base.scss */
 input[type="checkbox"] {
   width: auto;
   float: left;
 }
 
-/* line 131, ../sass/_base.scss */
+/* line 130, ../sass/_base.scss */
 input[type="checkbox"] + p.help-block {
   font-size: 1.4rem;
 }
 
-/* line 136, ../sass/_base.scss */
+/* line 135, ../sass/_base.scss */
 input[type="file"]::-webkit-file-upload-button {
   visibility: hidden;
 }
 
-/* line 141, ../sass/_base.scss */
+/* line 140, ../sass/_base.scss */
 input[type="file"] {
   position: relative;
 }
-/* line 144, ../sass/_base.scss */
+/* line 143, ../sass/_base.scss */
 input[type="file"]:before {
   content: 'Browse';
   display: inline-block;
@@ -645,46 +644,46 @@ input[type="file"]:before {
   transition: background 0.2s;
   background: #155183;
 }
-/* line 153, ../sass/_base.scss */
+/* line 152, ../sass/_base.scss */
 input[type="file"]:before:hover {
   background: #41586e;
 }
 
-/* line 158, ../sass/_base.scss */
+/* line 157, ../sass/_base.scss */
 .form-horizontal .control-group {
   margin-bottom: 1rem;
 }
 
 /* ===RESPONSIVE FORMS=== */
 @media (min-width: 43.75em) {
-  /* line 166, ../sass/_base.scss */
+  /* line 165, ../sass/_base.scss */
   .form-horizontal label, .form-horizontal p.help-block, .form-horizontal ul.errorlist {
     float: left;
     width: 30%;
   }
-  /* line 170, ../sass/_base.scss */
+  /* line 169, ../sass/_base.scss */
   .form-horizontal input, .form-horizontal textarea, .form-horizontal select {
     float: right;
     width: 70%;
   }
-  /* line 176, ../sass/_base.scss */
+  /* line 175, ../sass/_base.scss */
   .form-horizontal #id_license + p.help-block {
     width: 70%;
     float: right;
   }
-  /* line 181, ../sass/_base.scss */
+  /* line 180, ../sass/_base.scss */
   .form-horizontal input[type="checkbox"] {
     float: left;
     width: auto;
   }
-  /* line 189, ../sass/_base.scss */
+  /* line 188, ../sass/_base.scss */
   .form-horizontal input[type="checkbox"] + p.help-block {
     width: 65%;
     float: right;
   }
 }
 /* ===BUTTONS=== */
-/* line 197, ../sass/_base.scss */
+/* line 196, ../sass/_base.scss */
 button, .button {
   border: 0;
   display: inline-block;
@@ -698,28 +697,28 @@ button, .button {
   transition: background 0.2s;
   background-color: #91acc0;
 }
-/* line 207, ../sass/_base.scss */
+/* line 206, ../sass/_base.scss */
 button:hover, button:focus, button:active, .button:hover, .button:focus, .button:active {
   background-color: #7194ad;
   color: #fff;
 }
 
-/* line 213, ../sass/_base.scss */
+/* line 212, ../sass/_base.scss */
 button.button-primary, .button.button-primary {
   background-color: #155183;
 }
-/* line 215, ../sass/_base.scss */
+/* line 214, ../sass/_base.scss */
 button.button-primary:hover, button.button-primary:active, button.button-primary:focus, .button.button-primary:hover, .button.button-primary:active, .button.button-primary:focus {
   background: #41586e;
 }
 
 /* ===MISC=== */
-/* line 221, ../sass/_base.scss */
+/* line 220, ../sass/_base.scss */
 .hidden {
   display: none;
 }
 
-/* line 222, ../sass/_base.scss */
+/* line 221, ../sass/_base.scss */
 .readonly {
   opacity: .7;
 }
