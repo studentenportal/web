@@ -71,7 +71,6 @@ body {
         padding-right: $gutter;
         h1 {
             color: $color-branding;
-            font-size: 3rem;
         }
     }
 
@@ -90,7 +89,7 @@ body {
         > a {
             float: right;
             padding: $gutter/2;
-            font-size: 3rem;
+            font-size: 3.2rem;
             color: $color-header-link;
 
             &:hover {
@@ -123,6 +122,20 @@ body {
             font-size: 0.75em;
             top: 0.325em;
             left: 0.1em;
+        }
+    }
+
+    //iPhones have a very small width so the header size should adapt to it
+    @media (max-width: rem-to-em(33rem, $font-size-browser)) {
+        .branding h1 {
+            font-size: 2.7rem;
+            line-height: 1.3 * 2.7rem;
+        }
+        .header-actions > a {
+            font-size: 2.7rem;
+        }
+        .icon-logout:before, .icon-login:before, .icon-user:before {
+            top: 0.35em;
         }
     }
 }
