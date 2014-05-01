@@ -1,0 +1,221 @@
+@import "compass/css3/transition";
+@import "compass/css3/background-size";
+
+/* ===TYPOGRAPHY=== */
+html {
+  //Make the old sizing trick
+  //All other sizes will use rem to refer to this measure
+  //http://snook.ca/archives/html_and_css/font-size-with-rem
+  font-size: 62.5%;
+}
+
+body {
+    background: $color-background;
+    font-size: $font-size-base;
+    line-height: $font-size-base * 1.3;
+    font-family: $font-text;
+    color: $color-text;
+}
+
+h1, h2, h3, h4, h5, h6, nav a {
+  font-family: $font-title;
+}
+
+h1 {
+  font-size: 3.2rem;
+  font-weight: 400;
+  color: $color-dark-accent;
+  line-height: 1.3 * 3.2rem;
+}
+
+h2 {
+  font-size: 2.8rem;
+  line-height: 1.3 * 2.8rem;
+}
+
+h3 {
+  font-size: 2rem;
+  line-height: 1.3 * 2rem;
+}
+
+h4 {
+  font-size: 1.6rem;
+  line-height: 1.3 * 1.6rem;
+}
+
+em, strong {
+    font-weight: 700;
+}
+
+p {
+    margin: 0 auto 0.5em;
+}
+
+hr {
+  border: solid $color-border;
+  border-width: 1px 0 0;
+  clear: both;
+  margin: $gutter 0 1.5 * $gutter;
+  height: 0;
+}
+
+/* ===LISTS=== */
+ul > li {
+  list-style: disc inside;
+  padding-left: $gutter;
+}
+
+/* ===LINKS=== */
+
+a {
+  color: $color-dark-accent;
+  text-decoration: none;
+  outline: 0;
+}
+a:hover, a:focus { color: $color-darker-accent; }
+
+
+/* ===FORMS=== */
+form, fieldset { margin-bottom: $gutter; }
+
+button, a.button, input, select, textarea {
+  font-family: $font-text;
+  //All buttons and input elements should be the same font-size
+  //as the user specified, otherwise mobile browsers will zoom in
+  font-size: $font-size-browser;
+  padding: 0.8*$gutter 1.2*$gutter;
+  outline: none;
+}
+
+//Clear everything in a form group
+.control-group {
+  @include pie-clearfix;
+}
+
+label {
+  color: $color-label;
+  display: block;
+  margin-bottom: $gutter/2;
+}
+
+input, select, textarea {
+  width: 100%;
+  @include transition(border-color, 0.3s);
+  border: 2px solid $color-border;
+  &:focus { border-color: $color-darker-accent; }
+}
+
+.help-block {
+  font-size: 1.1rem;
+}
+
+ul.errorlist {
+  li {
+    color: #b94a48;
+    list-style-type: none;
+    padding-left: 0;
+    font-size: 1.1rem;
+  }
+}
+
+//Checkbox has to float left, so that the box is not centered
+//and help blocks can align afterwards
+input[type="checkbox"] {
+  width: auto;
+  float: left;
+}
+
+//Help block should have the same font size as
+//normal text because it aligns directly to the checkbox
+input[type="checkbox"] + p.help-block {
+  font-size: $font-size-base;
+}
+
+//Hide the default upload button in webkit browsers
+input[type="file"]::-webkit-file-upload-button {
+  visibility: hidden;
+}
+
+//Display our own upload button that is based on button-primary
+input[type="file"] {
+  position: relative;
+
+  &:before {
+    content: 'Browse';
+    display: inline-block;
+    color: #fff;
+    padding: $gutter/2 $gutter;
+    cursor: pointer;
+
+    @include transition(background 0.2s);
+    background: $color-dark-accent;
+    &:hover { background: $color-darker-accent; }
+  }
+}
+
+.form-horizontal {
+  .control-group {
+    margin-bottom: $gutter;
+  }
+}
+
+/* ===RESPONSIVE FORMS=== */
+@media (min-width: rem-to-em(70rem, $font-size-browser)) {
+  .form-horizontal {
+    label, p.help-block, ul.errorlist {
+      float: left;
+      width: 30%;
+    }
+    input, textarea, select {
+      float: right;
+      width: 70%;
+    }
+
+    //Should be moved to documents
+    #id_license + p.help-block {
+      width: 70%;
+      float: right;
+    }
+
+    input[type="checkbox"] {
+      float: left;
+      width: auto;
+    }
+
+    //Move help block on the same baseline as the
+    //checkbox and make it small enough to fit on the same
+    //line
+    input[type="checkbox"] + p.help-block {
+      width: 65%;
+      float: right;
+    }
+  }
+}
+
+/* ===BUTTONS=== */
+button, .button {
+  border: 0;
+  display: inline-block;
+  margin: $gutter;
+  margin-left: 0;
+  color: #fff;
+  cursor: pointer;
+
+  @include transition(background 0.2s);
+  background-color: darken($color-gray, 20%);
+  &:hover, &:focus, &:active {
+    background-color: darken($color-gray, 30%);
+    color: #fff;
+  }
+}
+
+button.button-primary, .button.button-primary {
+  background-color: $color-dark-accent;
+  &:hover, &:active, &:focus {
+    background: $color-darker-accent;
+  }
+}
+
+/* ===MISC=== */
+.hidden { display: none; }
+.readonly { opacity: .7; }

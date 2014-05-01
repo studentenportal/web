@@ -1,4 +1,6 @@
 {% extends 'front/base.html' %} {% load tabs %}
+{% load thumbnail %}
+{% load compress %}
 
 {% block title %}Zitate{% endblock %}
 
@@ -7,6 +9,21 @@
 {% block navigation %}
     {% activetab 'navigation' 'quotes' %}
     {{ block.super }}
+{% endblock %}
+
+{% block scripts %}
+    {{ block.super }}
+    {% compress js %}
+
+        <script src="{{ STATIC_URL }}js/jquery-2.1.0.js"></script>
+        <script src="{{ STATIC_URL }}js/blazy.js"></script>
+        <script src="{{ STATIC_URL }}js/quote_votes.js"></script>
+        <script>
+            (function() {
+                var bLazy = new Blazy();
+            })();
+        </script>
+    {% endcompress %}
 {% endblock %}
 
 {% block content %}
@@ -21,50 +38,44 @@
     Profil ansehen.</p>
 
     {% if user.is_authenticated %}
-        <p><a class="btn btn-primary" href="{% url 'lecturers:quote_add' %}">
-            <i class="icon-plus-sign icon-white"></i> Zitat hinzufügen
-        </a></p>
+        <a class="button button-primary" href="{% url 'lecturers:quote_add' %}">
+            Zitat hinzufügen
+        </a>
     {% endif %}
 
     {% if quotes %}
 
-        {% if paginator.num_pages > 1 %}
-            <ul class="nav btn-group">
-                {% for page in paginator.page_range %}
-                    <li class="btn {% if page_obj.number == page %}active{% endif %}"><a href="?page={{ page }}">{{ page }}</a></li>
-                {% endfor %}
-            </ul>
-        {% endif %}
+        {% include 'lecturers/blocks/pagination.html' %}
 
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Vote</th>
-                    <th>Eingetragen</th>
-                    <th>Dozent</th>
-                    <th>Zitat</th>
-                    <th>Bemerkung</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for quote in quotes %}
-                    <tr>
-                        <td>
-                            {% include 'lecturers/blocks/vote_buttons.html' %} </td>
-                        <td>{% if not quote.date_available %}-{% else %}{{ quote.date|date:"d.m.Y H:i" }}{% endif %}</td>
-                        {# TODO get rid of {{ lecturer.name }} by join in main query #}
-                        <td><a href="{% url 'lecturers:lecturer_detail' quote.lecturer_id %}">{{ quote.lecturer.name }}</a></td>
-                        <td>{{ quote.quote|linebreaksbr }}</td>
-                        <td>{{ quote.comment|linebreaksbr }}</td>
-                        <td>
-                            {% if quote.author_id = user.pk %}
-                                {% include 'lecturers/blocks/quote_delete_button.html' with small_button=1 %} {% endif %}
-                        </td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        {% for quote in quotes %}
+            <article class="quote {% if quote.author_id = user.pk %}quote-edit{% endif %}">
+            {% if quote.author_id = user.pk %}
+                <div class="edit">
+                    {% include 'lecturers/blocks/quote_delete_button.html' with small_button=1 %}
+                </div>
+            {% endif %}
+            {% include 'lecturers/blocks/vote_buttons.html' %}
+            <div class="quote-wrapper">
+                <blockquote cite="{% url 'lecturers:lecturer_detail' quote.lecturer_id %}">
+                    <p>{{ quote.quote|linebreaksbr }}</p>
+                </blockquote>
+                {% if quote.comment %}
+                <p class="comment">{{ quote.comment|linebreaksbr }}</p>
+                {% endif %}
+                <div class="citation">
+                    von <a href="{% url 'lecturers:lecturer_detail' quote.lecturer_id %}">{{ quote.lecturer.name }}</a>{% if quote.date_available %} - {{ quote.date|date:"d. M.Y" }}{% endif %}
+                </div>
+            </div>
+            {% if quote.lecturer.photo %}
+            <div class="thumbnail">
+                <img class="b-lazy" src="{{ STATIC_URL }}img/professor.png" data-src="{% thumbnail quote.lecturer.photo 75x100 crop %}" />
+            </div>
+            {% endif %}
+            </article>
+        {% endfor %}
+
+        {% include 'lecturers/blocks/pagination.html' %}
+
     {% else %}
         <p><em>Keine Zitate gefunden.</em></p>
     {% endif %}

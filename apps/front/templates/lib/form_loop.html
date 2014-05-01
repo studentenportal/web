@@ -1,21 +1,19 @@
 {% if form.non_field_errors %}
-    <div class="alert alert-block alert-error">
-        <h4 class="alert-heading">Oops...</h4>
+    <div class="alert-block alert-error">
+        <h4>Oops...</h4>
         {{ form.non_field_errors }}
     </div>
 {% endif %}
 
 <fieldset>
     {% for field in form %}
-        <div class="control-group {% if field.errors %}error{% endif %}">
-            <label class="control-label" for="id_{{ field.html_name }}">{{ field.label }}
+        <div class="control-group ">
+            <label for="id_{{ field.html_name }}">{{ field.label }}
                 {% if field.field.required %}<span class="required-star">*</span>{% endif %}
             </label>
-            <div class="controls">
-                {{ field }}
-                {% if field.errors %}<span class="help-inline">{{ field.errors }}</span>{% endif %}
-                {% if field.help_text %}<p class="help-block">{{ field.help_text }}</p>{% endif %}
-            </div>
-        </div>    
+            {{ field }}
+            {{ field.errors }}
+            {% if field.help_text %}<p class="help-block">{{ field.help_text }}</p>{% endif %}
+        </div>
     {% endfor %}
 </fieldset>

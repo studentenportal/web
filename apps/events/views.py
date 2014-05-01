@@ -2,6 +2,7 @@
 from __future__ import print_function, division, absolute_import, unicode_literals
 
 import datetime
+from dateutil.relativedelta import relativedelta
 from urlparse import urlsplit, urlunsplit
 
 from django.views.generic import View, TemplateView
@@ -83,9 +84,11 @@ class EventList(TemplateView):
                .filter(start_date__gte=datetime.date.today()) \
                .order_by('start_date', 'start_time')
         context['events_past'] = model.objects \
-               .filter(start_date__lt=datetime.date.today()) \
+               .filter(start_date__lt=datetime.date.today(),
+                       start_date__gt=datetime.date.today() - relativedelta(years=2)) \
                .order_by('-start_date', 'start_time')
         http_url = self.request.build_absolute_uri(reverse('events:event_calendar'))
+        context['current_year'] = datetime.date.today().year
         context['webcal_url'] = urlunsplit(urlsplit(http_url)._replace(scheme='webcal'))
         return context
 

@@ -9,37 +9,46 @@
 {% block scripts %}
     {{ block.super }}
     {% compress js %}
-    <script src="{{ STATIC_URL }}js/flattr_loader.js"></script>
+        <script src="{{ STATIC_URL }}js/flattr_loader.js"></script>
+        <script src="{{ STATIC_URL }}js/blazy.js"></script>
+        <script>
+            (function() {
+                var bLazy = new Blazy();
+            })();
+        </script>
     {% endcompress %}
 {% endblock %}
 
 {% block content %}
-
-    <div class="page-header">
-        <h1>{{ object.name }}</h1>
+<section class="user-profile">
+    <h1>{{ object.name }}</h1>
+    <div class="user-info">
+        <h2>Persönliche Informationen</h2>
+        <ul>
+            {% if object.first_name %}<li><strong>Vorname:</strong> {{ object.first_name }}</li>{% endif %}
+            {% if object.last_name %}<li><strong>Name:</strong> {{ object.last_name }}</li>{% endif %}
+            <li><strong>E-Mail:</strong> {{ object.email }}</li>
+        </ul>
+        {% if object.pk = user.pk %}
+            <a class="button button-primary" href="{% url 'profile' %}">Benutzerprofil bearbeiten</a>
+        {% endif %}
     </div>
-
-    <h3>Persönliche Informationen</h3>
-    <ul class="unstyled">
-        {% if object.first_name %}<li><strong>Vorname:</strong> {{ object.first_name }}</li>{% endif %}
-        {% if object.last_name %}<li><strong>Name:</strong> {{ object.last_name }}</li>{% endif %}
-        <li><strong>E-Mail:</strong> {{ object.email }}</li>
-    </ul>
-
-    <h3>Statistiken</h3>
-    <ul class="unstyled">
-        <li><strong>Events erfasst:</strong> {{ object.Event.count }}</li>
-        <li><strong>Zitate hinzugefügt:</strong> {{ object.Quote.count }}</li>
-        <li><strong>Zitate bewertet:</strong> {{ object.QuoteVote.count }}</li>
-        <li><strong>Dozenten bewertet:</strong> {{ lecturerratings }}</li>
-        <li><strong>Dokumente hochgeladen:</strong> {{ object.Document.count }}</li>
-        <li><strong>Dokumente bewertet:</strong> {{ object.DocumentRating.count }}</li>
-    </ul>
-
-    <h3>Dokumente</h3>
-
-    {% with documents=object.Document.all standalone=True %}
-        {% include 'front/blocks/document.html' %}
-    {% endwith %}
-
+    <div class="user-stats">
+         <h2>Statistiken</h2>
+        <ul>
+            <li>{{ object.Event.count }} Event{{ object.Event.count|pluralize:"s" }} erfasst</li>
+            <li>{{ object.Quote.count }} Zitat{{ object.Quote.count|pluralize:"e" }} hinzugefügt</li>
+            <li>{{ object.QuoteVote.count }} Zitat{{ object.QuoteVote.count|pluralize:"e" }} bewertet:</li>
+            <li>{{ lecturerratings }} Dozent{{ lecturerratings|pluralize:"en" }} bewertet</li>
+            <li>{{ object.Document.count }} Dokument{{ object.Document.count|pluralize:"e" }} hochgeladen</li>
+            <li>{{ object.DocumentRating.count }} Dokument{{ object.DocumentRating.count|pluralize:"e" }} bewertet</li>
+        </ul>
+    </div>
+    <section class="documents">
+        <h2>Dokumente</h2>
+        {% with documents=object.Document.all standalone=True %}
+            {% include 'front/blocks/document.html' %}
+        {% endwith %}
+    </section>
+</section>
 {% endblock %}

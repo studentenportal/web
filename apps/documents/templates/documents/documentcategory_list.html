@@ -2,6 +2,7 @@
 {% load tabs %}
 {% load tags %}
 {% load compress %}
+{% load thumbnail %}
 
 {% block title %}Dokumente{% endblock %}
 
@@ -10,19 +11,20 @@
 {% block scripts %}
     {{ block.super }}
     {% compress js %}
+        <script src="{{ STATIC_URL }}js/blazy.js"></script>
         <script src="{{ STATIC_URL }}js/list.js"></script>
-
         <script>
-            $(function() {
-                var options = {
-                    valueNames: ['name', 'summary_count', 'exam_count', 'other_count'],
+            (function() {
+                var bLazy = new Blazy();
+                var moduleList = new List('modules', {
+                    valueNames: ['name'],
                     page: 9001
-                };
-
-                var contactList = new List('modules', options);
-            });
+                });
+                moduleList.on("searchComplete", function() {
+                    bLazy.revalidate();
+                });
+            })();
         </script>
-
     {% endcompress %}
 {% endblock %}
 
@@ -32,53 +34,75 @@
 {% endblock %}
 
 {% block content %}
+    <section class="document-categories">
 
-    <div class="page-header">
-        <h1>Dokumente</h1>
-    </div>
+    <h1>Dokumente</h1>
 
     <p>Hier finden sich alte Prüfungen, Zusammenfassungen des Unterrichtsstoffes und Lernhilfen für die Prüfungen.</p>
 
     {% if user.is_authenticated %}
-        <p><a class="btn btn-primary" href="{% url 'documents:documentcategory_add' %}">
+        <p><a class="button button-primary" href="{% url 'documents:documentcategory_add' %}">
             <i class="icon-plus-sign icon-white"></i> Modul hinzufügen
         </a></p>
     {% endif %}
 
     {% if categories %}
         <div id="modules">
-            <div class="input input-append">
-                <input class="search" placeholder="Modul suchen...">
-                <span class="add-on"><i class="icon-search"></i></span>
+            <form action="#" class="search-box">
+                <input class="search" type="text" placeholder="Modul suchen..." />
+                <button type="submit"><span class="icon-magnifying-glass"></span></button>
+            </form>
+
+            <div class="list">
+            {% for category in categories %}
+                    <article class="document-category
+                {% if counts|lookup:category.pk|lookup:"total" == 0 %}document-empty{% endif %}">
+                        <div class="lecturers">
+                            {% for lecturer in category.lecturers.all %}
+                            <div>
+                                <a class="label" rel="author" href="{% url 'lecturers:lecturer_detail' lecturer.pk|slugify %}">{{ lecturer.abbreviation }}</a>
+                                <img class="thumbnail b-lazy" src="{{ STATIC_URL }}img/professor.png" {% if lecturer.photo %}data-src="{% thumbnail lecturer.photo 34x45 crop %}"{% endif %} />
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <div class="summary">
+                            <div class="labels">
+                                {% for course in category.courses.all %}
+                                    <span class="label-{{course.abbreviation|slugify}}">{{course.abbreviation}}</span>
+                                {% endfor %}
+                            </div>
+                            <a href="{% url 'documents:document_list' category.name|slugify %}">
+                                <h3 class="name"><em class="abbreviation">{{category.name}}</em>{% if category.description %}{{ category.description }}{% endif %}</h3>
+                            </a>
+                            <ul>
+                                {% if counts|lookup:category.pk|lookup:"total" == 0 %}
+                                <li>
+                                <span class="icon-smilie-sad"></span>In diesem Modul gibt es noch keine Uploads.
+                                </li>
+                                {% endif %}
+                                {% if counts|lookup:category.pk|lookup:"summary" > 0 %}
+                                <li>
+                                    <span class="icon-doc"></span>{{ counts|lookup:category.pk|lookup:"summary" }} Zusammenfassungen
+                                </li>
+                                {% endif %}
+                                {% if counts|lookup:category.pk|lookup:"exam" > 0 %}
+                                <li>
+                                    <span class="icon-test"></span>{{ counts|lookup:category.pk|lookup:"exam" }} Prüfungen
+                                </li>
+                                {% endif %}
+                                {% if counts|lookup:category.pk|lookup:"other" > 0 %}
+                                <li>
+                                    <span class="icon-doc-alt"></span>{{ counts|lookup:category.pk|lookup:"other"}} Andere
+                                </li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </article>
+            {% endfor %}
             </div>
-
-
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th class="sort asc" data-sort="name">Modul</th>
-                        <th class="sort" data-sort="summary_count">Zusammenfassungen</th>
-                        <th class="sort" data-sort="exam_count">Prüfungen</th>
-                        <th class="sort" data-sort="other_count">Andere</th>
-                    </tr>
-
-                </thead>
-                <tbody class="list">
-                    {% for category in categories %}
-                        <tr {% if counts|lookup:category.pk|lookup:"total" == 0 %}class="empty"{% endif %}>
-                            <td class="name"><a href="{% url 'documents:document_list' category.name|slugify %}">
-                                <strong>{{ category.name }}</strong>
-                                {% if category.description %}{{ category.description }}{% endif %}
-                            </td>
-                            <td class="summary_count">{{ counts|lookup:category.pk|lookup:"summary" }}</td>
-                            <td class="exam_count">{{ counts|lookup:category.pk|lookup:"exam" }}</td>
-                            <td class="other_count">{{ counts|lookup:category.pk|lookup:"other" }}</td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
         </div>
     {% else %}
         <p><em>Momentan keine Dokumente vorhanden.</em></p>
     {% endif %}
+    </section>
 {% endblock %}

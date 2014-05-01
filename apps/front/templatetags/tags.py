@@ -1,3 +1,4 @@
+import re
 from django.template import Library
 
 register = Library()
@@ -43,3 +44,45 @@ def lookup(dictionary, index):
     if index in dictionary:
         return dictionary[index]
     return ''
+
+
+@register.filter
+def filetype_class(ext):
+    """Returns the css class for a given file extension"""
+    ext = ext.replace(".", "")
+
+    if re.match("docx|xlsx|pptx", ext):
+        ext = ext.replace("x", "")
+
+    if re.match("pdf|doc|xls|ppt|zip", ext):
+        return ext
+
+    if re.match("gif|png|tiff|jpg|svg", ext):
+        return "img"
+
+    return "other"
+
+
+@register.filter
+def is_author(doc, user):
+    """Returns whether the current user is the uploader of the given doc"""
+    return doc.uploader == user
+
+
+@register.filter()
+def field_type(field):
+    type_name = field.field.__class__.__name__
+    types = {
+        "FileField": "file",
+        "TypedChoiceField": "checkbox",
+        "CharField": "text"
+    }
+    return types[type_name] if type_name in types else type_name
+
+
+@register.filter()
+def pagination_slice(page_range, page_number):
+    if page_number > 3:
+        return page_range[page_number - 2:page_number + 1]
+    else:
+        return page_range[0:3]

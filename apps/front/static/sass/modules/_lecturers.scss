@@ -1,0 +1,224 @@
+/* ===QUOTES=== */
+.quote {
+    @extend %box;
+    @extend %list-card;
+    padding: $gutter;
+    position: relative;
+    min-height: 11rem;
+
+    .edit {
+        margin-left: -$gutter;
+        margin-right: -$gutter;
+        margin-bottom: $gutter;
+        background-color: $color-dark-accent;
+        button, .button {
+            margin: 0;
+            margin-left: $gutter;
+            background: none;
+            font-size: 1.1rem;
+            padding: 0;
+        }
+    }
+
+    .quote-wrapper {
+        padding-left: 4rem;
+        float: left;
+        width: 80%;
+    }
+
+    .votebuttons {
+        //Make votebuttons absolute so that it layered over the big quote
+        position: absolute;
+        z-index: 2;
+    }
+
+    blockquote {
+        padding: $gutter/2 $gutter/2 0 0;
+
+        p {
+            font-family: 'Droid Serif', serif;
+            font-style: italic;
+            font-size: 1.6rem;
+            line-height: 2rem;
+            text-indent: 7rem;
+            word-wrap:break-word;
+
+            &:before {
+                content: '\201C';
+                font-family: serif;
+                font-style: normal;
+                font-weight: 700;
+                position: absolute;
+                font-size: 10rem;
+                top: 2rem;
+                left: -1rem;
+                color: $color-midnight-blue;
+                text-shadow: 7px 14px 10px rgba(0, 0, 0, 0.1);
+            }
+        }
+    }
+
+    .comment {
+        background-color: $color-cornflower-blue;
+        padding: $gutter/2;
+        font-size: 1.2rem;
+        display: inline-block;
+    }
+
+    .thumbnail {
+        width: 20%;
+        float: right;
+        max-width: 7.5rem;
+        img {
+            max-width: 100%;
+        }
+    }
+
+    //Scale up gracefully (Im sure this can somehow be done better)
+    @media (max-width: 450px) {
+        .quote-wrapper { width: 95%; }
+        .thumbnail { display: none; }
+    }
+
+    @media (min-width: 620px) {
+        .quote-wrapper { width: 85%; }
+        .thumbnail { width: 15%; }
+    }
+
+    @media (min-width: 900px) {
+        .quote-wrapper { width: 90%; }
+        .thumbnail { width: 10%; }
+    }
+}
+
+.quote-no-lecturer {
+    .quote-wrapper {
+        width: 100%;
+    }
+
+    .citation {
+    }
+}
+
+.quote-edit {
+    padding-top: 0;
+
+    blockquote p:before {
+        display: none;
+    }
+}
+
+/* ===LECTURER PROFILE=== */
+.lecturer-profile {
+    @include pie-clearfix;
+
+    .info {
+        float: left;
+    }
+
+    .pictures {
+        @media (min-width: 660px) {
+            float: right;
+        }
+
+        .thumbnail {
+        }
+
+        .oldphotos {
+            cursor: pointer;
+            cursor: hand;
+            > img {
+                margin-left: $gutter/2;
+                float: right;
+            }
+        }
+    }
+}
+
+.rate {
+    margin-top: $gutter;
+    h3 {
+        display: inline-block;
+        width: 10rem;
+    }
+
+    li {
+        position: relative;
+        list-style: none;
+        padding: 0;
+        margin: $gutter/2 0;
+    }
+
+    .label-didactic, .label-humanly, .label-technical {
+        font-size: 2rem;
+        line-height: 3rem;
+        width: 3.4rem;
+        display: inline-block;
+    }
+}
+
+.quotes {
+    margin-top: $gutter;
+}
+
+#lrating-d, #lrating-m, #lrating-f {
+    display: inline-block;
+}
+
+
+
+.properties {
+    table-layout: fixed;
+    width: 100%;
+    max-width: 50rem;
+
+    td {
+        vertical-align: top;
+        padding: $gutter/2 $gutter;
+        border-right: 1px dashed darken($color-cornflower-blue, 20%);
+        word-wrap: break-word;
+        width: 15rem;
+    }
+
+    td + td {
+        border: none;
+        width: auto;
+    }
+}
+
+
+/* ===LECTURERS=== */
+#lecturers {
+    @include pie-clearfix;
+}
+
+.lecturer {
+    @include pie-clearfix;
+    @extend %box;
+    float: left;
+    img { width: 100%; }
+    width: 49%;
+    margin-right: 1%;
+
+    h3 {
+        max-height: 5.3rem;
+    }
+
+    .label, .label-didactic, .label-humanly, .label-technical {
+        margin: 0;
+    }
+
+
+    @media (min-width: rem-to-em(54rem, $font-size-browser)) {
+        width: 32%;
+    }
+
+    @media (min-width: rem-to-em(70rem, $font-size-browser)) {
+        width: 24%;
+    }
+
+    @media (min-width: rem-to-em(80rem, $font-size-browser)) {
+        width: 19%;
+    }
+}
+

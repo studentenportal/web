@@ -9,7 +9,14 @@
 {% block scripts %}
     {{ block.super }}
     {% compress js %}
-    <script src="{{ STATIC_URL }}js/flattr_loader.js"></script>
+        <script src="{{ STATIC_URL }}js/blazy.js"></script>
+        <script src="{{ STATIC_URL }}js/jquery-2.1.0.js"></script>
+        <script src="{{ STATIC_URL }}js/star-rater.js"></script>
+        <script>
+            (function() {
+                var bLazy = new Blazy();
+            })();
+        </script>
     {% endcompress %}
 {% endblock %}
 
@@ -33,12 +40,12 @@
 
     {# No documents message #}
     {% if not documents %}
-        <div class="alert alert-info"><strong>Sorry.</strong> Leider gibt es in dieser Kategorie noch keine Uploads.</div>
+        <div class="alert-info"><strong>Sorry.</strong> Leider gibt es in dieser Kategorie noch keine Uploads.</div>
     {% endif %}
 
     {# Add button #}
     {% if user.is_authenticated %}
-        <p><a class="btn btn-primary" href="{% url 'documents:document_add' documentcategory.name|slugify %}">
+        <p><a class="button button-primary" href="{% url 'documents:document_add' documentcategory.name|slugify %}">
             <i class="icon-plus-sign icon-white"></i> Dokument hinzufügen
         </a></p>
     {% endif %}

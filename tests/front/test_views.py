@@ -108,24 +108,22 @@ class UserViewTest(TestCase):
         category = self.doc1.category.name
         response = self.client.get(url)
         # Own document should be listed
-        self.assertContains(response, 'property="dct:title">{}</span>'.format(self.doc1.name))
+        self.assertContains(response, 'property="dct:title">{}</h3>'.format(self.doc1.name))
         # Foreign document should not be listed
-        self.assertNotContains(response, 'property="dct:title">{}</span>'.format(self.doc2.name))
+        self.assertNotContains(response, 'property="dct:title">{}</h3>'.format(self.doc2.name))
         # Category should be displayed
-        pattern = '<span class="label">.*\n.*{}.*\n.*</span>'.format(category)
-        self.assertRegexpMatches(response.content, pattern)
+        self.assertContains(response, "{0}</span>".format(category));
 
     def testOtherDocuments(self):
         url = reverse('user', args=(self.user2.pk, self.user2.username))
         category = self.doc2.category.name
         response = self.client.get(url)
         # Own document should be listed
-        self.assertContains(response, 'property="dct:title">{}</span>'.format(self.doc2.name))
+        self.assertContains(response, 'property="dct:title">{}</h3>'.format(self.doc2.name))
         # Foreign document should not be listed
-        self.assertNotContains(response, 'property="dct:title">{}</span>'.format(self.doc1.name))
+        self.assertNotContains(response, 'property="dct:title">{}</h3>'.format(self.doc1.name))
         # Category should be displayed
-        pattern = '<span class="label">.*\n.*{}.*\n.*</span>'.format(category)
-        self.assertRegexpMatches(response.content, pattern)
+        self.assertContains(response, "{0}</span>".format(category));
 
 
 class UserProfileViewTest(TestCase):

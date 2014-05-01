@@ -8,18 +8,18 @@
 
     <p>Hier kannst du deine Profildaten bearbeiten. Vorname und Nachname sind
     freiwillig, werden aber häufig anstelle des Benutzernamens angezeigt,
-    sofern vorhanden. Der Twitter-Benutzername wird zB benutzt, um alle Tweets
+    sofern vorhanden. Der Twitter-Benutzername wird z.B benutzt, um alle Tweets
     von HSR-Studenten auflisten zu können. Falls angegeben, wird dein <a
     href="https://flattr.com/">Flattr</a>- Benutzername verwendet um bei
     deinen Zusammenfassungen jeweils einen Spende-Button anzuzeigen.</p>
 
     <br>
 
-    <form method="post" action="{% url 'profile' %}">
+    <form class="form-horizontal" method="post" action="{% url 'profile' %}">
         {% csrf_token %}
         {% include 'lib/form_loop.html' %}
-            
-        <input type="submit" value="Änderungen speichern" class="btn btn-primary">
+
+        <button class="button button-primary" type="submit">Änderungen speichern</button>
         <input type="hidden" name="next" value="{{ next }}">
     </form>
 

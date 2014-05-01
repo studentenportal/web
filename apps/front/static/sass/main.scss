@@ -1,0 +1,81 @@
+@import "compass";
+@import "susy";
+
+// ===COLORS=== //
+
+$color-gray: #D2DDE5;
+$color-background: #fff;
+
+$color-blue-fiord: #41586e;
+$color-midnight-blue: #155183;
+$color-cornflower-blue: #D2DDE5;
+$color-sandy-brown: #f0ad4e;
+$color-fern: #5CB870;
+
+$color-voting: (
+  vote: #4F4A4A,
+  vote-up: #4BC35F,
+  vote-down: #C15044
+);
+
+$color-label: #666;
+$color-text: #333;
+
+$color-dark-accent: $color-midnight-blue;
+$color-darker-accent: $color-blue-fiord;
+$color-light-accent: $color-cornflower-blue;
+$color-border: $color-light-accent;
+
+$color-filetypes: (
+  doc: #2b5796,
+  xls: #1e7145,
+  ppt: #d15a25,
+  other: #6b533b,
+  img: #5b2d8d,
+  pdf: #ea4c3a,
+  zip: #ff9408
+);
+
+$color-branding: $color-midnight-blue;
+$color-navigation-link: $color-dark-accent;
+$color-navigation-background: $color-light-accent;
+$color-navigation-background-active: #fff;
+$color-header-background: $color-light-accent;
+$color-header-link: $color-dark-accent;
+$color-header-link-hover: $color-darker-accent;
+
+$color-alerts: (
+  success: $color-fern,
+  info: $color-cornflower-blue,
+  warning: $color-sandy-brown,
+  danger: #a94442
+);
+
+// ===VARS=== //
+
+$font-title: 'Droid Sans', sans-serif;
+$font-text: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
+
+$font-size-base: 1.4rem;
+$font-size-browser: 1.6rem;
+
+$gutter: 1rem;
+
+// ===MIXINS=== //
+
+@function px-to-em($target, $context) {
+    @return ($target/$context)+0em;
+}
+
+@function rem-to-em($target, $context) {
+    @return ($target/$context)+0em;
+}
+
+/* ===RESET=== */
+@import "compass/reset";
+@include border-box-sizing;
+
+@import "icons";
+@import "base";
+@import "layout";
+@import "modules";

@@ -1,5 +1,6 @@
 {% extends 'front/base.html' %}
 {% load tabs %}
+{% load compress %}
 
 {% block title %}Event {{ event|yesno:"bearbeiten,erfassen" }}{% endblock %}
 
@@ -12,6 +13,42 @@
     <a href="{% url 'events:event_list' %}">Events</a> &raquo; Event {{ event|yesno:"bearbeiten,erfassen" }}
 {% endblock %}
 
+{% block styles %}
+    {{ block.super }}
+    {% compress css %}
+        <link rel="stylesheet" href="{{ STATIC_URL }}css/picker/default.css">
+        <link rel="stylesheet" href="{{ STATIC_URL }}css/picker/default.date.css">
+        <link rel="stylesheet" href="{{ STATIC_URL }}css/picker/default.time.css">
+    {% endcompress %}
+{% endblock %}
+
+{% block scripts %}
+    {{ block.super }}
+    {% compress js %}
+        <script src="{{ STATIC_URL }}js/jquery-2.1.0.js"></script>
+        <script src="{{ STATIC_URL }}js/picker.js"></script>
+        <script src="{{ STATIC_URL }}js/picker.date.js"></script>
+        <script src="{{ STATIC_URL }}js/picker.time.js"></script>
+        <script>
+            $(function() {
+                $('#id_start_date, #id_end_date').pickadate({
+                     monthsFull: [ 'Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember' ],
+                     monthsShort: [ 'Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez' ],
+                     weekdaysFull: [ 'Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag' ],
+                     weekdaysShort: [ 'So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa' ],
+                    today: 'Heute',
+                    clear: 'Löschen',
+                    firstDay: 1,
+                    format: 'dd.mm.yyyy'
+                });
+                $('#id_start_time, #id_end_time').pickatime({
+                    format: 'H:i'
+                });
+            });
+        </script>
+    {% endcompress %}
+{% endblock %}
+
 {% block content %}
 
     <div class="page-header">
@@ -21,11 +58,11 @@
     <form method="POST" enctype="multipart/form-data" class="form-horizontal">{% csrf_token %}
         {% include 'lib/form_loop.html' %}
         <div class="form-actions">
-            <button type="submit" class="btn btn-primary"><i class="icon-ok icon-white"></i> {{ event|yesno:"Speichern,Eintragen" }}</button>
+            <button type="submit" class="button button-primary">{{ event|yesno:"Speichern,Eintragen" }}</button>
             {% if event %}
-                <a href="{% url 'events:event_detail' event.pk %}" class="btn"><i class="icon-remove"></i> Abbrechen</a>
+                <a href="{% url 'events:event_detail' event.pk %}" class="button">Abbrechen</a>
             {% else %}
-                <a href="{% url 'events:event_list' %}" class="btn"><i class="icon-remove"></i> Abbrechen</a>
+                <a href="{% url 'events:event_list' %}" class="button">Abbrechen</a>
             {% endif %}
         </div>
     </form>

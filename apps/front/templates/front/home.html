@@ -9,50 +9,91 @@
 {% endblock %}
 
 {% block content %}
+    <article class="welcome-message">
 
-    <div class="page-header">
+
         {% if not user.is_authenticated %}
-            <h1>Willkommen beim VSHSR Studentenportal</h1>
+            <h3>Willkommen beim VSHSR Studentenportal</h3>
         {% endif %}{% if user.is_authenticated %}
-            <h1>Willkommen {{ user.name }}!</h1>
+            <h3>Willkommen {{ user.name }}!</h3>
         {% endif %}
-    </div>
 
-    <section class="limitwidth">
         <p>Dieses Portal ist für alle Studenten der <a href="http://www.hsr.ch/">Hochschule
         Rapperswil</a> gedacht. Hier könnt ihr Informationen für euer Studium
         bekommen, News zu Events und Ähnlichem erfahren und euer Wissen mit
         anderen Studenten teilen.</p>
 
-        <h2>News</h2>
+        {% if not user.is_authenticated %}
+        <a class="button icon-user" href="{% url 'register' %}">Registrieren</a>
+        {% endif %}
+    </article>
 
-        <p><strong>17.02.13:</strong> Den Dokumenten können seit längerem auch
-        URLs (zB auf Link auf das Github-Projekt mit LaTeX-Quellen) zugewiesen
-        werden. Neu kann man optional auch die Lizenz (Creative Commons oder
-        Public Domain) festlegen.<br> Desweiteren wurde Uservoice entfernt, es
-        hat sich nicht bewährt.  Stattdessen Bugs und Featureideen weiterhin
-        auf <a href="https://github.com/dbrgn/studentenportal2/issues">Github</a>
+    <section class="latest-news">
+        <h1>News</h1>
+
+        <article class="news">
+            <time class="date" datetime="2013-02-17">
+                <span class="day">17</span>
+                <span class="month">feb</span>
+                <span class="year">2013</span>
+            </time>
+            <div class="summary">
+                <h3>LaTex-Quelle und Lizenz wählbar</h3>
+                <p>Den Dokumenten können seit längerem auch URLs (zB auf Link auf das Github-Projekt mit LaTeX-Quellen) zugewiesen werden. Neu kann man optional auch die Lizenz (Creative Commons oder Public Domain) festlegen.<br> Desweiteren wurde Uservoice entfernt, es hat sich nicht bewährt.  Stattdessen Bugs und Featureideen auf <a href="https://github.com/dbrgn/studentenportal2/issues">Github</a>
         erfassen.</p>
+            </div>
+        </article>
 
-        <p><strong>28.01.13:</strong> Für die Dokumente gibt es nun zwei neue
+        <article class="news">
+            <time class="date" datetime="2013-01-28">
+                <span class="day">28</span>
+                <span class="month">jan</span>
+                <span class="year">2013</span>
+            </time>
+            <div class="summary">
+                <h3>Neue Kategorien</h3>
+                <p>Für die Dokumente gibt es nun zwei neue
         Kategorien: <em>Software</em> (zB für Taschenrechner-Programme) und
         <em>Lernhilfen</em> (zB für Lern-Karteikarten oder
         Repetitionsfragen).</p>
+            </div>
+        </article>
 
-        <p><strong>26.07.12:</strong> Neu gibt es für das Studentenportal eine
+        <article class="news">
+            <time class="date" datetime="2012-07-26">
+                <span class="day">26</span>
+                <span class="month">jul</span>
+                <span class="year">2012</span>
+            </time>
+            <div class="summary">
+                <h3>API verfügbar</h3>
+                <p>Neu gibt es für das Studentenportal eine
         API (bisher readonly). Authentifizierung läuft momentan via manuell
         generierter API Keys. Wer einen solchen Key möchte, bitte ein Mail an
         {{ 'dbargen@hsr.ch'|urlize }} oder ein Tweet an
         <a href="http://twitter.com/studportal_hsr">@studportal_hsr</a>
         senden.</p>
+            </div>
+        </article>
 
-        <p><strong>16.06.12:</strong> Es gibt nun
+        <article class="news">
+            <time class="date" datetime="2012-06-16">
+                <span class="day">16</span>
+                <span class="month">jun</span>
+                <span class="year">2012</span>
+            </time>
+            <div class="summary">
+                <h3>Flattr Unterstützung</h3>
+                <p>Es gibt nun
         <a href="https://flattr.com/">Flattr</a> Buttons bei den
         Zusammenfassungen. Um den Button für deine Dokumente zu
         aktivieren, gib deinen Flattr-Benutzernamen in deinem
         <a href="/profil/">Profil</a> an.</p>
-
-        <h2>Mitmachen</h2>
+            </div>
+        </article>
+    </section>
+    <article class="contribute">
+        <h1>Mitmachen</h1>
 
         <p>Dieses neue Studentenportal wurde entwickelt, weil die vorherige Seite
         veraltet und voller Sicherheitslücken war. Die Entwicklung ist noch im Gange,
@@ -76,6 +117,6 @@
         <p>Natürlich ist das Studentenportal auch auf Twitter vertreten:
         <a href="https://twitter.com/studportal_hsr">@studportal_hsr</a>.</p>
 
-    </section>
+    </article>
 
 {% endblock %}

@@ -9,12 +9,15 @@
 {% endblock %}
 
 {% block content %}
-    <div class="page-header">
+
+    <section>
+
+    <header>
         <h1>Login</h1>
-    </div>
-    
+    </header>
+
     {% if request.GET.next %}
-        <br><div class="alert alert-error"><strong>Bitte einloggen!</strong>
+        <br><div class="alert-error"><strong>Bitte einloggen!</strong>
             Die gewünschte Seite ist nur für registrierte Personen zugänglich.
             <a href="{% url 'register' %}">Registrieren?</a>
         </div>
@@ -22,7 +25,7 @@
 
     {% if form.errors %}
         <br>
-        <div class="alert alert-error">
+        <div class="alert-error">
             Fehlerhafte Angaben. Bitte versuch es nochmals.
             <br><br>
             <strong>Hinweis:</strong> Da das Studentenportal unabhängig von der
@@ -32,35 +35,21 @@
 
     {% endif %}
 
+
     <form method="post" action="{% url 'django.contrib.auth.views.login' %}">
         {% csrf_token %}
         <fieldset>
-            <div class="clearfix">
-                {{ form.username.label_tag }}
-                <div class="input input-append">
-                    <input type="text" name="{{ form.username.name }}" id="id_{{ form.username.name }}">
-                    <span class="add-on">@hsr.ch</span>
-                </div>
-            </div>
+            <input type="text" name="{{ form.username.name }}" id="id_{{ form.username.name }}" placeholder="{{ form.username.label }}">
 
-            <div class="clearfix">
-                {{ form.password.label_tag }}
-                <div class="input">
-                    <input type="password" name="{{ form.password.name }}" id="id_{{ form.password.name }}">
-                </div>
-            </div>
-            
-            <br>
+            <input type="password" name="{{ form.password.name }}" id="id_{{ form.password.name }}" placeholder="{{ form.password.label }}">
+            <a class="note" href="{% url 'auth_password_reset' %}">Passwort vergessen?</a>
 
-            <div class="clearfix">
-                <input type="submit" value="Login" class="btn btn-primary">
-                <input type="hidden" name="next" value="{{ next }}">
-            </div>
+            <br clear="all" />
+
+            <a class="button" href="{% url 'register' %}">Registrieren?</a>
+            <button class="button button-primary" type="submit">Login</button>
+            <input type="hidden" name="next" value="{{ next }}">
         </fieldset>
     </form>
-
-    <div class="others">
-        <a href="{% url 'register' %}">Registrieren?</a>
-        <a href="{% url 'auth_password_reset' %}">Passwort vergessen?</a>
-    </div>
+    </section>
 {% endblock %}

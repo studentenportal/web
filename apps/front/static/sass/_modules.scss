@@ -1,0 +1,269 @@
+@import "compass/css3/flexbox";
+@import "compass/css3/images";
+@import url(http://fonts.googleapis.com/css?family=Droid+Serif:400italic);
+
+/* ===AUTHOR===*/
+.author, a[rel="author"] { font-size: 1.1rem; }
+
+//Set h3 to normal lineheight and pull it down 1rem
+//so that the author can be placed right below it
+@mixin adapt-heading-to-author {
+    h3 {
+        line-height: 1;
+        margin-top: 1rem;
+    }
+}
+
+/* ===SEARCH=== */
+// Built after http://codepen.io/Siwicki/details/FHkwu
+$color-search-background: #E1E5E8;
+
+.search-box {
+    @include clearfix;
+    margin-bottom: 1em;
+    width: 100%;
+    max-width: 70rem; //The search button looks ugly if it's too big
+
+    > input, > button { height: 2.5em; }
+
+    > input {
+        float: left;
+        width: 85%;
+        background: $color-search-background;
+
+        &:focus {
+            border-color: $color-dark-accent;
+        }
+    }
+
+    > button {
+        margin: 0;
+        float: right;
+        width: 15%;
+        position: relative;
+        padding: 0;
+
+        color: #fff;
+        background: $color-dark-accent;
+
+        //Create the triangle
+        &:before {
+            content: '';
+            position: absolute;
+            border-width: 8px 8px 8px 0;
+            border-style: solid solid solid none;
+            border-color: transparent $color-dark-accent transparent;
+            top: 0.75em;
+            left: -0.4em;
+        }
+    }
+}
+
+
+/* ===BIG DATE=== */
+// The look was inspired by http://dribbble.com/shots/351931-List-of-events-for-something
+// Please note that when using the date the container has
+// to use a relative position and clear afterwards
+.date {
+    position: absolute;
+    float: left;
+
+    .day, .month {
+        font-family: $font-title;
+        display: block;
+        line-height: 1;
+    }
+
+    .day {
+        margin-top: 0.75rem;
+        font-size: 3.5rem;
+        color: darken($color-gray, 30%);
+    }
+
+    .month {
+        margin-left: 0.25rem;
+        font-size: 2rem;
+        color: darken($color-gray, 20%);
+    }
+
+    .year {
+        margin-left: 0.25rem;
+        font-size: 1.1rem;
+        color: darken($color-gray, 10%);
+    }
+}
+
+/* ===CONTRIBUTE=== */
+.contribute {
+}
+
+/* ===LIST CARDS=== */
+%list-card {
+    @include pie-clearfix;
+    margin-top: 1em;
+    //Use only half padding because border reserves already
+    padding: 0.5rem;
+    min-height: 4em;
+    position: relative;
+    padding-bottom: 0.4em;
+    border-bottom: 1px $color-gray;
+    border-left: 0.5rem solid transparent;
+
+    &:hover {
+        border-left: 0.5rem solid $color-midnight-blue;
+    }
+
+    .summary {
+        margin-left: 4em;
+        float: left;
+    }
+}
+
+/* ===USER PROFILE=== */
+.user-profile {
+
+    .user-info, .user-stats {
+        margin-bottom: $gutter;
+    }
+
+    .documents {
+        padding: $gutter 0;
+    }
+}
+
+/* ===NEWS=== */
+.news {
+    @extend %box;
+    @extend %list-card;
+    min-height: 9.5rem;
+}
+
+/* ===VOTE BUTTONS=== */
+$color-vote-up: map-get($color-voting, "vote-up");
+$color-vote-down: map-get($color-voting, "vote-down");
+$color-vote: map-get($color-voting, "vote");
+
+.votebuttons {
+    text-align: center;
+    width: 3rem;
+
+    .upvote, .downvote {
+        &:before {
+            font-size: 3rem;
+            color: $color-vote;
+        }
+        &:hover {
+            cursor: pointer;
+            cursor: hand;
+        }
+    }
+
+    .upvote:hover, .upvote.active {
+        &:before { color: $color-vote-up; }
+    }
+
+    .downvote:hover, .downvote.active {
+        &:before { color: $color-vote-down; }
+    }
+
+    .vote_sum {
+        font-size: 3rem;
+        font-family: $font-title;
+    }
+}
+
+/* ===EVENTS=== */
+.events {
+}
+
+.event {
+    @extend %box;
+    @extend %list-card;
+    @include adapt-heading-to-author;
+
+    //Force all really long links to break
+    .summary {
+        a { word-break: break-all; }
+    }
+}
+
+@import "modules/documents";
+@import "modules/lecturers";
+@import "modules/star-rating";
+@import "modules/labels";
+
+/* ===PAGINATION=== */
+ul.pagination {
+    li {
+        padding-left: 0;
+        list-style: none;
+        display: inline-block;
+    }
+
+    .button {
+        font-size: 1.4rem;
+        margin: 0;
+        text-align: center;
+        width: 3rem;
+        padding: $gutter/4 0;
+        margin-bottom: $gutter/2;
+        margin-right: $gutter/2;
+    }
+}
+/* ===ALERTs=== */
+$color-success: map-get($color-alerts, "success");
+$color-info: map-get($color-alerts, "info");
+$color-warning: map-get($color-alerts, "warning");
+$color-danger: map-get($color-alerts, "danger");
+
+%alert {
+    padding: $gutter;
+    margin-bottom: $gutter;
+    border: 1px solid transparent;
+    border-radius: 1px;
+}
+
+.alert-success {
+    @extend %alert;
+    color: $color-success;
+    background-color: lighten($color-success, 30%);
+}
+
+.alert-info {
+    @extend %alert;
+    color: darken($color-info, 40%);
+    background-color: $color-info;
+}
+
+.alert-warning {
+    @extend %alert;
+    color: $color-warning;
+    background-color: lighten($color-warning, 30%);
+}
+
+.alert-error {
+    @extend %alert;
+    color: $color-danger;
+    background-color: lighten($color-danger, 30%);
+}
+
+/* ===DATE PICKER=== */
+// Explicitely set color and margin so that they don't get overridden
+.picker {
+    button {
+        color: inherit;
+        margin: inherit;
+        margin-left: inherit;
+    }
+    td {
+        text-align: inherit;
+    }
+}
+
+/* ===BROWSEHAPPY=== */
+.browsehappy {
+    margin: 0.2em 0;
+    background: #ccc;
+    color: #000;
+    padding: 0.2em 0;
+}

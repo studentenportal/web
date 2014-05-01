@@ -27,7 +27,7 @@ class LecturerListViewTest(TestCase):
         login(self)
         response = self.client.get('/dozenten/')
         self.assertContains(response, '<h1>Unsere Dozenten</h1>')
-        self.assertContains(response, 'Prof. Dr. Krakaduku David')
+        self.assertContains(response, 'David<br />Krakaduku')
 
 
 class LecturerDetailViewTest(TestCase):
@@ -85,8 +85,8 @@ class QuoteAddViewTest(TestCase):
         })
         self.assertRedirects(response, '/zitate/')
         response2 = self.client.get('/zitate/')
-        self.assertContains(response2, '<td>ich bin der beste dozent von allen.</td>')
-        self.assertContains(response2, '<td>etwas arrogant, nicht?</td>')
+        self.assertContains(response2, '<p>ich bin der beste dozent von allen.</p>')
+        self.assertContains(response2, '<p class="comment">etwas arrogant, nicht?</p>')
 
     def testAutoUpvote(self):
         """Test whether the added quote was automatically upvoted."""

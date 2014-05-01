@@ -1,0 +1,20 @@
+{% load tags %}
+{% if paginator.num_pages > 1 %}
+<ul class="pagination">
+    {% if page_obj.has_previous %}
+        <li><a class="button" href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+    {% endif %}
+
+    {% for num in page_obj.paginator.page_range|pagination_slice:page_obj.number %}
+        {% ifequal num page_obj.number %}
+            <li><a class="button button-primary" href="#">{{ num }}</a></li>
+        {% else %}
+            <li><a class="button" href="?page={{ num }}">{{ num }}</a></li>
+        {% endifequal %}
+    {% endfor %}
+
+    {% if page_obj.has_next %}
+        <li><a class="button" href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+    {% endif %}
+<ul>
+{% endif %}
