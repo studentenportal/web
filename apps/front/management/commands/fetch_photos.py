@@ -117,6 +117,20 @@ class Command(BaseCommand):
         if newline:
             self.stdout.write('\n')
 
+    def add_existing_photos(self):
+        added_existing = 0
+
+        lecturers = Lecturer.objects.all()
+        for lecturer in lecturers if lecturer.photo:
+            path = lecturer.photo
+            lecturer.photo = ContentFile(open(path))
+            lecturer.save()
+            added_existing += 1
+            self.printO('ADD EXISTING: %s (%s)' % (lecturer.name(), path))
+
+        self.printO(u'Added %u existing photos.' % added_existing)
+
+
     def handle(self, **options):
         assert 'username' in options, '--user argument required'
         assert options['username'], '--user argument required'

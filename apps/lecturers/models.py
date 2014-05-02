@@ -38,26 +38,6 @@ class Lecturer(models.Model):
         parts = filter(None, [self.title, self.last_name, self.first_name])
         return ' '.join(parts)
 
-    def photo(self):
-        """Try to see if a photo with the name <self.id>.jpg exists. If it
-        does, return the corresponding URL. If it doesn't, return None."""
-        path = os.path.join('lecturers', '%s.jpg' % self.id)
-        fullpath = os.path.join(settings.MEDIA_ROOT, path)
-        return path if os.path.exists(fullpath) else None
-
-    def oldphotos(self):
-        """Try to see whether there are more pictures in the folder
-        ``lecturers/old/<self.id>/``..."""
-        path = os.path.join('lecturers', 'old', str(self.id))
-        fullpath = os.path.join(settings.MEDIA_ROOT, path)
-        oldphotos = []
-        if os.path.exists(fullpath):
-            for filename in os.listdir(fullpath):
-                if re.match(r'^[0-9]+\.jpg$', filename):
-                    filepath = os.path.join(path, filename)
-                    oldphotos.append(filepath)
-        return oldphotos
-
     # TODO rename to _rating_avg
     def _avg_rating(self, category):
         """Calculate the average rating for the given category."""
@@ -93,6 +73,21 @@ class Lecturer(models.Model):
 
     class Meta:
         ordering = ['last_name']
+
+
+class LecturerPhoto(models.Model):
+    """A photo of a lecturer"""
+    def photo_file_name(instance, filename):
+        """Where to put a newly uploaded photo."""
+        ext = os.path.splitext(filename)[1]
+        timestamp = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
+        instance.original_filename = filename
+        return os.path.join('lecturers',
+                            instance.lecturer.abbreviation.lower(),
+                            "{0}{1}".format(timestamp, ext))
+
+    lecturer = models.ForeignKey(Lecturer)
+    photo = models.FileField('Foto', upload_to=photo_file_name)
 
 
 class LecturerRating(models.Model):
@@ -159,7 +154,7 @@ class Course(models.Model):
     """A possible degree course. At the moment only one lecturer is possible"""
     id = models.IntegerField('Studiengang ID', primary_key=True)
     abbreviation = models.CharField('Abkürzung', max_length=10, unique=True)
-    name = models.CharField('Titel', max_length=50)
+    name = models.CharField('Titel', max_length=32)
 
     def __unicode__(self):
         return '%s (%s)' % (self.name, self.abbreviation)
