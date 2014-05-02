@@ -61,7 +61,9 @@
                             {% for lecturer in category.lecturers.all %}
                             <div>
                                 <a class="label" rel="author" href="{% url 'lecturers:lecturer_detail' lecturer.pk|slugify %}">{{ lecturer.abbreviation }}</a>
-                                <img class="thumbnail b-lazy" src="{{ STATIC_URL }}img/professor.png" {% if lecturer.photo %}data-src="{% thumbnail lecturer.photo 34x45 crop %}"{% endif %} />
+                                {% with lecturer.lecturerphoto_set.all|first as lecturer_photo %}
+                                <img class="thumbnail b-lazy" src="{{ STATIC_URL }}img/professor.png" {% if lecturer_photo.photo  %}data-src="{% thumbnail lecturer_photo.photo 34x45 crop %}{% endif %}" />
+                                {% endwith %}
                             </div>
                             {% endfor %}
                         </div>

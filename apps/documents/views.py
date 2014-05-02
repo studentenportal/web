@@ -41,9 +41,11 @@ class DocumentcategoryList(TemplateView):
         context = super(DocumentcategoryList, self).get_context_data(**kwargs)
 
         # Get all categories
-        categories = list(models.DocumentCategory.objects.all()
+        categories = list(models.DocumentCategory.objects
                           .prefetch_related('lecturers')
-                          .prefetch_related('courses'))
+                          .prefetch_related('lecturers__lecturerphoto_set')
+                          .prefetch_related('courses')
+                          .all())
 
         # To reduce number of queries, prefetch aggregated count values from the
         # document model. The query returns the count for each (category, dtype) pair.
