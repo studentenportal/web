@@ -1,0 +1,4 @@
+max-line-length: 99
+test-warnings: no
+ignore-patterns:
+  - (^|)urls\.py
