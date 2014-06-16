@@ -64,6 +64,9 @@ class Command(CommandOutputMixin, NoArgsCommand):
                 'courses': {c for c in courses if c not in course_specialisations}
                 # Skip all courses that are only specialications and not real courses
             }
+        except KeyboardInterrupt:
+            self.stderr.write('Abort.')
+            sys.exit(1)
         except:
             self.stderr.write("Could not parse {0}: {1}".format(url, sys.exc_info()[0]))
 
@@ -89,6 +92,9 @@ class Command(CommandOutputMixin, NoArgsCommand):
                     "dates": cols[2].text,
                     "detail": self.parse_module_detail_page(cols[0].a['href'])
                 }
+        except KeyboardInterrupt:
+            self.stderr.write('Abort.')
+            sys.exit(1)
         except:
             self.stderr.write("Could not parse {0}: {1}".format(url, sys.exc_info()[0]))
 
