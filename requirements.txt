@@ -1,0 +1,2 @@
+# This is primarily here for gemnasium.com support.
+-r requirements/production.txt
