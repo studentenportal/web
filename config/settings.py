@@ -210,8 +210,6 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.admindocs',
 )
-if not DEBUG:
-    INSTALLED_APPS += ('raven.contrib.django',)
 if DEBUG_TOOLBAR:
     INSTALLED_APPS += ('debug_toolbar',)
 
@@ -268,16 +266,6 @@ if not DEBUG:
         'level': 'WARNING',
         'propagate': True,
     }
-    LOGGING['loggers']['raven'] = {
-        'level': 'DEBUG',
-        'handlers': ['console'],
-        'propagate': False,
-    }
-
-
-# Sentry
-if not DEBUG:
-    SENTRY_DSN = require_env('SENTRY_DSN')
 
 # Email
 DEFAULT_FROM_EMAIL = 'Studentenportal <noreply@studentenportal.ch>'
