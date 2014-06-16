@@ -85,12 +85,12 @@ class Command(CommandOutputMixin, NoArgsCommand):
                 cols = row.find_all('td', recursive=False)
 
                 yield {
-                    "url": cols[0].a['href'],
-                    "description": cols[0].text,
-                    "full_name": cols[1].text,
-                    "name": cols[1].text.split('_', 1)[1],
-                    "dates": cols[2].text,
-                    "detail": self.parse_module_detail_page(cols[0].a['href'])
+                    "url": cols[0].a['href'].strip(),
+                    "description": cols[0].text.strip(),
+                    "full_name": cols[1].text.strip(),
+                    "name": cols[1].text.split('_', 1)[1].strip(),
+                    "dates": cols[2].text.strip(),
+                    "detail": self.parse_module_detail_page(cols[0].a['href'].strip())
                 }
         except KeyboardInterrupt:
             self.stderr.write('Abort.')
@@ -181,11 +181,12 @@ class Command(CommandOutputMixin, NoArgsCommand):
                 self.stdout.write('Skipping %s (no valid dates)' % module["name"])
                 invalid_count += 1
                 continue
-            if module["description"].startswith('Seminar - ') or \
-                    module["description"].startswith('Bachelor-Arbeit ') or \
-                    module["description"].startswith('Studienarbeit ') or \
-                    module["description"].startswith('Projektarbeit ') or \
-                    module["description"].startswith('Diplomarbeit '):
+            if 'Seminar' in module["description"] or \
+                    module["description"].startswith('Bachelor-Arbeit') or \
+                    module["description"].startswith('Studienarbeit') or \
+                    module["description"].startswith('Projektarbeit') or \
+                    module["description"].startswith('Masterarbeit') or \
+                    module["description"].startswith('Diplomarbeit'):
                 self.stdout.write('Skipping %s (project or seminary)' % module["name"])
                 invalid_count += 1
                 continue
