@@ -4,12 +4,12 @@ from __future__ import print_function, division, absolute_import, unicode_litera
 import re
 import sys
 import time
+import getpass
 from optparse import make_option
 
 from django.core.management.base import BaseCommand
 
 from apps.front.management.commands.fetch_photos import UnterrichtWebsite
-from apps.front import models as front_models
 from apps.documents import models as document_models
 from apps.lecturers import models as lecturer_models
 
@@ -138,7 +138,6 @@ class Command(BaseCommand):
             options['password'] = getpass.getpass('HSR Password: ').strip()
 
         # Initialize counters
-        start = time.time()
         added_lecturers = []
         failed_lecturers = []
         updated_categories = []
