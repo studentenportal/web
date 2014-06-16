@@ -229,10 +229,6 @@ LOGGING = {
         }
     },
     'handlers': {
-        'null': {
-            'level': 'DEBUG',
-            'class': 'django.utils.log.NullHandler',
-        },
         'console': {
             'level': 'DEBUG',
             'class': 'logging.StreamHandler',
@@ -259,29 +255,16 @@ LOGGING = {
             'handlers': ['console'],
             'propagate': False,
         },
-        'sentry.errors': {
-            'level': 'DEBUG',
-            'handlers': ['mail_admins'],
-            'propagate': False,
-        },
     }
 }
 if not DEBUG:
-    LOGGING['root'] = {
-        'level': 'WARNING',
-        'handlers': ['sentry'],
-    }
-    LOGGING['handlers']['sentry'] = {
-        'level': 'ERROR',
-        'class': 'raven.contrib.django.raven_compat.handlers.SentryHandler',
-    }
     LOGGING['loggers']['django.request'] = {
         'level': 'WARNING',
-        'handlers': ['sentry'],
+        'handlers': ['mail_admins'],
         'propagate': False,
     }
     LOGGING['loggers']['dajaxice'] = {
-        'handlers': ['sentry'],
+        'handlers': ['mail_admins'],
         'level': 'WARNING',
         'propagate': False,
     }
