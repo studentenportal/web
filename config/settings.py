@@ -258,7 +258,7 @@ LOGGING = {
 if not DEBUG:
     LOGGING['loggers']['django.request'] = {
         'level': 'WARNING',
-        'handlers': ['mail_admins'],
+        'handlers': ['mail_admins', 'console'],
         'propagate': False,
     }
     LOGGING['loggers']['dajaxice'] = {
