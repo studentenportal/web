@@ -266,7 +266,7 @@ if not DEBUG:
     LOGGING['loggers']['dajaxice'] = {
         'handlers': ['mail_admins'],
         'level': 'WARNING',
-        'propagate': False,
+        'propagate': True,
     }
     LOGGING['loggers']['raven'] = {
         'level': 'DEBUG',
