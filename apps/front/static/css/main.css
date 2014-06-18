@@ -65,8 +65,8 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   display: block;
 }
 
-/* line 11, ../../../../../../../.gem/ruby/2.1.0/gems/susy-2.1.1/sass/susy/language/susy/_box-sizing.scss */
-*, *::before, *::after {
+/* line 11, ../../../../../../../.gem/ruby/2.1.0/gems/susy-2.1.2/sass/susy/language/susy/_box-sizing.scss */
+*, *:before, *:after {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
@@ -961,7 +961,7 @@ button.button-primary:hover, button.button-primary:active, button.button-primary
 /* line 67, ../sass/_modules.scss */
 .date {
   position: absolute;
-  float: left;
+  left: 0.5rem;
 }
 /* line 71, ../sass/_modules.scss */
 .date .day, .date .month {
