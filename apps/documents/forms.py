@@ -47,7 +47,7 @@ class DocumentEditForm(forms.ModelForm):
     class Meta:
         model = models.Document
         fields = ('name', 'description', 'url', 'category', 'dtype', 'document',
-                  'license', 'public')
+                  'license', 'public', 'flattr_disabled')
         widgets = {
             'description': forms.Textarea(),
         }
@@ -55,7 +55,8 @@ class DocumentEditForm(forms.ModelForm):
 
 class DocumentAddForm(DocumentEditForm):
     class Meta(DocumentEditForm.Meta):
-        fields = ('name', 'description', 'url', 'dtype', 'document', 'license', 'public')
+        fields = ('name', 'description', 'url', 'dtype', 'document', 'license',
+                  'public', 'flattr_disabled')
 
 
 class DocumentReportForm(forms.Form):

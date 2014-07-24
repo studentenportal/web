@@ -33,7 +33,7 @@
                         ><span class="label-license">{{ license.name }}</span></a>
                     {% endif %}
                 {% endwith %}
-                {% if doc.uploader.flattr %}
+                {% if doc.uploader.flattr and not doc.flattr_disabled %}
                     <a class="icon-flattr label-flattr"
                     href="https://flattr.com/submit/auto?user_id={{ doc.uploader.flattr }}&url={% url 'documents:document_download' doc.category.name|slugify doc.pk %}&title={{ doc.name }}">
                     Flattr this!

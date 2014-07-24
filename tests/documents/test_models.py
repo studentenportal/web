@@ -28,7 +28,8 @@ class DocumentModelTest(TransactionTestCase):
                     Theorie aus dem AnI1-Skript auf 8 Seiten. Das Dokument ist \
                     in LaTeX gesetzt, Source ist hier: http://j.mp/fjtleh - \
                     Gute Ergänzungen sind erwünscht!',
-                uploader=self.john)
+                uploader=self.john,
+                flattr_disabled=True)
         self.document.DocumentRating.create(user=self.marc, rating=5)
         self.document.DocumentRating.create(user=self.pete, rating=2)
 
@@ -113,6 +114,9 @@ class DocumentModelTest(TransactionTestCase):
         self.assertIsNone(doc.get_license_display())
         self.assertIsNone(details['url'])
         self.assertIsNone(details['icon'])
+
+    def testFlattrDisabled(self):
+        self.assertTrue(self.document.flattr_disabled)
 
 
 class UserModelTest(TransactionTestCase):

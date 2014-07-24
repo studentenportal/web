@@ -102,6 +102,8 @@ class Document(models.Model):
             '<br>Empfohlen: CC BY-SA-NC 3.0'))
     public = models.BooleanField('Öffentlich', default=True,
         help_text='Soll man dieses Dokument ohne Login downloaden können?')
+    flattr_disabled = models.BooleanField('Flattr deaktivieren', default=False,
+        help_text='Soll Flattr für dieses Dokument deaktiviert werden?')
 
     def rating_exact(self):
         """Return exact rating average."""
