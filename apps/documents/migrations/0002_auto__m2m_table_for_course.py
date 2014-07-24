@@ -7,6 +7,10 @@ from django.db import models
 
 class Migration(SchemaMigration):
 
+    depends_on = (
+        ('lecturers', '0002_auto__add_course'),
+    )
+
     def forwards(self, orm):
         # Adding M2M table for field courses on 'DocumentCategory'
         m2m_table_name = db.shorten_name(u'documents_documentcategory_courses')
