@@ -158,7 +158,7 @@ class DocumentThumbnail(View):
         if not os.path.exists(thumbnail_path):
             try:
                 self.generate_thumbnail(doc.document.path, thumbnail_path)
-            except CalledProcessError as e:
+            except subprocess.CalledProcessError as e:
                 logger.error('Thumbnail for {0} could not be created: {1}'
                              .format(doc.document.path, e))
 
