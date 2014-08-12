@@ -55,15 +55,8 @@ Um die Entwicklungsumgebung einzurichten:
  5. `createdb -e -O studentenportal -U studentenportal studentenportal`
  6. `pip install -r requirements/local.txt`
  7. `python manage.py syncdb`
- 8. `python manage.py migrate apps.lecturers`
- 8. `python manage.py migrate apps.documents`
- 9. `python manage.py migrate`
- 10. `python manage.py runserver`
-
-
-Falls die Datenbank bereits existiert:
-
- 1. `psql -d studentenportal -c 'CREATE EXTENSION citext;'`
+ 8. `python manage.py migrate`
+ 9. `python manage.py runserver`
 
 
 Um die Tests auszuführen:
@@ -105,8 +98,8 @@ Bei anderen Daten (zB bei den Dozenten) kann man gleich mit echten Daten
 arbeiten. Die Daten werden direkt von der HSR Website bezogen. Man braucht
 dafür ein funktionierendes HSR Login.
 
+ * Dozenten: `python manage.py fetch_lecturers --user=<hsr-username>`
  * Module: `python manage.py fetch_modules`
- * Dozenten: `python manage.py fetch_lecturers --user=<hsr-username> --pass=<hsr-passwd>`
 
 
 Fragen
