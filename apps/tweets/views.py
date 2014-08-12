@@ -45,7 +45,8 @@ class TweetList(TemplateView):
         api = tweepy.API(auth)
 
         # Search tweets
-        query = '#hsr -#maglev -#transrapid -#highspeedrail -"high-speed rail" -#highspeedrail'
+        query = '#hsr -#maglev -#transrapid -#highspeedrail -#highspeedrail' \
+                '-"high-speed rail" -HSRIsLate'
         results = api.search(q=query, count=20, result_type='recent', lang='de')
         search_tweets = [r.retweeted_status if hasattr(r, 'retweeted_status') else r
                          for r in results]
