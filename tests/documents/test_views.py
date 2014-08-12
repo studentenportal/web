@@ -138,18 +138,21 @@ class DocumentListViewTest(TestCase):
     def setUp(self):
         # setUpClass
         self.user1 = mommy.make_recipe('apps.front.user')
-        self.user2 = mommy.make(User, first_name='Another', last_name='Guy')
+        self.user2 = mommy.make(User, first_name='Another', last_name='Guy', flattr='guy')
         self.doc1 = mommy.make_recipe('apps.documents.document_summary',
-                         name='Analysis 1 Theoriesammlung',
-                         description='Theorie aus dem AnI1-Skript auf 8 Seiten',
-                         uploader=self.user1,
-                         upload_date='2011-12-18 01:28:52',
-                         change_date='2011-12-18 01:28:52',
-                         license=5)
-        self.doc2 = mommy.make_recipe('apps.documents.document_summary', uploader=self.user2)
+                name='Analysis 1 Theoriesammlung',
+                description='Theorie aus dem AnI1-Skript auf 8 Seiten',
+                uploader=self.user1,
+                upload_date='2011-12-18 01:28:52',
+                change_date='2011-12-18 01:28:52',
+                license=5)
+        self.doc2 = mommy.make_recipe('apps.documents.document_summary',
+                uploader=self.user2, name='Title with Flattr')
         self.doc3 = mommy.make_recipe('apps.documents.document_exam', uploader=self.user1)
         self.doc4 = mommy.make_recipe('apps.documents.document_software', uploader=self.user1)
         self.doc5 = mommy.make_recipe('apps.documents.document_learning_aid', uploader=self.user1)
+        self.doc6 = mommy.make_recipe('apps.documents.document_summary',
+                uploader=self.user2, name='Title Noflattr', flattr_disabled=True)
         self.category = self.doc1.category
         # setUp
         self.url = reverse('documents:document_list', args=(self.category.name.lower(),))
@@ -163,9 +166,20 @@ class DocumentListViewTest(TestCase):
         div_details = soup.find('h3', text='Analysis 1 Theoriesammlung').find_parent('div').prettify()
         self.assertIn('<h3 property="dct:title" xmlns:dct="http://purl.org/dc/terms/">\n  Analysis 1 Theoriesammlung\n </h3>', div_details)
         self.assertIn('<span class="label-summary">\n   Zusammenfassung\n  </span>', div_details)
+
+    def testDocumentLicense(self):
+        soup = BeautifulSoup(self.response.content)
+        div_details = soup.find('h3', text='Analysis 1 Theoriesammlung').find_parent('div').prettify()
         self.assertIn('<a href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.de" rel="license" ' +
                       u'title="Veröffentlicht unter der CC BY-NC-SA 3.0 Lizenz">', div_details)
         self.assertIn(' <span class="label-license">\n    CC BY-NC-SA 3.0\n   </span>', div_details)
+
+    def testDocumentFlattr(self):
+        soup = BeautifulSoup(self.response.content)
+        div_flattr = soup.find('h3', text='Title with Flattr').find_parent('div').prettify()
+        div_noflattr = soup.find('h3', text='Title Noflattr').find_parent('div').prettify()
+        self.assertIn('Flattr this', div_flattr)
+        self.assertNotIn('Flattr this', div_noflattr)
 
     def testUploaderName(self):
         self.assertContains(self.response, 'Another Guy')
