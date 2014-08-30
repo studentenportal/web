@@ -90,7 +90,7 @@ class Document(models.Model):
                 (DTypes.SOFTWARE, 'Software'),
                 (DTypes.LEARNING_AID, 'Lernhilfe'),
             ))
-    document = models.FileField('Datei', upload_to=document_file_name, help_text='(Max. 10MB)')
+    document = models.FileField('Datei', upload_to=document_file_name, help_text='(Max. 20MB)')
     original_filename = models.CharField('Originaler Dateiname', max_length=255, blank=True)
     uploader = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='Document', null=True,
             on_delete=models.SET_NULL)

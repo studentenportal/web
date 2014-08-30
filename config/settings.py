@@ -171,7 +171,7 @@ TEMPLATE_DIRS = (
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
-MAX_UPLOAD_SIZE = 10485760  # 10MB
+MAX_UPLOAD_SIZE = 1024 * 1024 * 20 # 20MB
 
 AUTH_USER_MODEL = 'front.User'
 
