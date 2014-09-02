@@ -85,6 +85,10 @@ button, a.button, input, select, textarea {
   font-size: $font-size-browser;
   padding: 0.8*$gutter 1.2*$gutter;
   outline: none;
+
+  &:before {
+    padding-right: 0.5em;
+  }
 }
 
 //Clear everything in a form group

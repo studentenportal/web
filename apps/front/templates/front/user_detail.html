@@ -4,6 +4,11 @@
 
 {% block title %}Profil von {{ object.name }}{% endblock %}
 
+{% block navigation %}
+    {% activetab 'navigation' 'profile' %}
+    {{ block.super }}
+{% endblock %}
+
 {% block bodyclass %}user_detail{% endblock %}
 
 {% block scripts %}
