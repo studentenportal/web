@@ -60,6 +60,8 @@ class DocumentcategoryList(TemplateView):
 
         # Add counts to category objects
         simplecounts = defaultdict(dict)
+        empty_categories = []
+        nonempty_categories = []
         for c in categories:
             d = simplecounts[c.pk]
             d['summary'] = counts[c.pk][models.Document.DTypes.SUMMARY]
@@ -68,7 +70,13 @@ class DocumentcategoryList(TemplateView):
                          counts[c.pk][models.Document.DTypes.LEARNING_AID]
             d['total'] = sum(d.values())
 
-        context['categories'] = categories
+            # Sort by category activity
+            if d['total'] == 0:
+                empty_categories.append(c)
+            else:
+                nonempty_categories.append(c)
+
+        context['categories'] = nonempty_categories + empty_categories
         context['counts'] = simplecounts
         return context
 
