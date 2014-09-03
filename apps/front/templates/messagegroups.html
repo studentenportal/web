@@ -1,0 +1,19 @@
+{% if messages %}
+    {% for key, values in messages.iteritems %}
+
+        {% if key.0 == 100 %} {# Event #}
+            <script type="text/javascript">
+                $(document).ready(function() {
+                    {% for value in values %}
+                        ga('send', 'event', 'submission', '{{ value }}');
+                    {% endfor %}
+                });
+            </script>
+        {% else %}
+            <div class="alert {{ key.1 }}">
+                {{ values|join:"<br>" }}
+            </div>
+        {% endif %}
+
+    {% endfor %}
+{% endif %}

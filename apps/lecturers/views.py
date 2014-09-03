@@ -12,6 +12,7 @@ from django.views.generic.detail import DetailView
 
 from apps.lecturers import forms, models, helpers
 from apps.front.mixins import LoginRequiredMixin
+from apps.front.message_levels import EVENT
 
 
 class Lecturer(LoginRequiredMixin, DetailView):
@@ -99,6 +100,7 @@ class QuoteAdd(LoginRequiredMixin, CreateView):
         """Redirect to quotes or lecturer page."""
         messages.add_message(self.request, messages.SUCCESS,
             'Zitat wurde erfolgreich hinzugefügt.')
+        messages.add_message(self.request, EVENT, 'quote_add')
         if self.lecturer:
             return reverse('lecturers:lecturer_detail', args=[self.lecturer.pk])
         return reverse('lecturers:quote_list')
@@ -117,4 +119,5 @@ class QuoteDelete(LoginRequiredMixin, DeleteView):
     def get_success_url(self):
         messages.add_message(self.request, messages.SUCCESS,
             'Zitat wurde erfolgreich gelöscht.')
+        messages.add_message(self.request, EVENT, 'quote_delete')
         return reverse('lecturers:quote_list')

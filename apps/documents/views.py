@@ -29,6 +29,7 @@ from sendfile import sendfile
 
 from . import models, forms, helpers
 from apps.front.mixins import LoginRequiredMixin
+from apps.front.message_levels import EVENT
 
 
 logger = logging.getLogger(__name__)
@@ -179,12 +180,15 @@ class DocumentAddEditMixin(object):
         """Redirect to documentcategory page."""
         messages.add_message(self.request, messages.SUCCESS,
             self.success_message)
+        if hasattr(self, 'event_type') and self.event_type:
+            messages.add_message(self.request, EVENT, self.event_type)
         return reverse('documents:document_list', args=[self.category])
 
 
 class DocumentAdd(LoginRequiredMixin, DocumentAddEditMixin, DocumentcategoryMixin, CreateView):
     form_class = forms.DocumentAddForm
     success_message = 'Dokument wurde erfolgreich hinzugefügt.'
+    event_type = 'document_add'
 
     def form_valid(self, form):
         """Override the form_valid method of the ModelFormMixin to insert
@@ -201,6 +205,7 @@ class DocumentAdd(LoginRequiredMixin, DocumentAddEditMixin, DocumentcategoryMixi
 class DocumentEdit(LoginRequiredMixin, DocumentAddEditMixin, DocumentcategoryMixin, UpdateView):
     form_class = forms.DocumentEditForm
     success_message = 'Dokument wurde erfolgreich aktualisiert.'
+    event_type = 'document_edit'
 
     def dispatch(self, request, *args, **kwargs):
         handler = super(DocumentEdit, self).dispatch(request, *args, **kwargs)
@@ -217,6 +222,7 @@ class DocumentDelete(LoginRequiredMixin, DocumentcategoryMixin, DeleteView):
         """Redirect to documentcategory page."""
         messages.add_message(self.request, messages.SUCCESS,
             'Dokument wurde erfolgreich gelöscht.')
+        messages.add_message(self.request, EVENT, 'document_delete')
         return reverse('documents:document_list', args=[self.category])
 
 
@@ -271,6 +277,7 @@ class DocumentReport(DocumentcategoryMixin, SingleObjectMixin, FormView):
         """Redirect to documentcategory page."""
         messages.add_message(self.request, messages.SUCCESS,
             'Vielen Dank, das Dokument wurde erfolgreich gemeldet.')
+        messages.add_message(self.request, EVENT, 'document_report')
         return reverse('documents:document_list', args=[self.category])
 
     def form_valid(self, form):

@@ -186,7 +186,6 @@ INSTALLED_APPS = (
 
     # Third party apps
     'compressor',
-    'messagegroups',
     'apps.tabs',
     'registration',
     'django_extensions',
@@ -206,6 +205,9 @@ INSTALLED_APPS = (
     'apps.tweets',
     'apps.api',
     'apps.user_stats',
+
+    # Overridable 3rd party apps
+    'messagegroups',
 
     # Django admin (overrideable templates)
     'django.contrib.admin',
@@ -318,6 +320,9 @@ TEST_RUNNER = 'discover_runner.DiscoverRunner'
 TEST_DISCOVER_TOP_LEVEL = PROJECT_ROOT
 TEST_DISCOVER_ROOT = PROJECT_ROOT
 TEST_DISCOVER_PATTERN = 'test*.py'
+
+# Analytics
+GOOGLE_ANALYTICS_CODE = env('GOOGLE_ANALYTICS_CODE', None)
 
 
 # DEBUG TOOLBAR

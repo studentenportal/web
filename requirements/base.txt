@@ -7,7 +7,7 @@ South==0.8.4
 Unipath==1.0
 
 # Useful/important apps
-django-messagegroups==0.3.0
+django-messagegroups==0.4.3
 https://bitbucket.org/dbrgn/django-registration/get/a221afa30efd.zip
 django-sendfile==0.3.4
 django-dajaxice-ng==0.5.6.5
