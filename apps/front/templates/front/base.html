@@ -44,13 +44,6 @@
             </div>
             <div class="header-actions">
                 <a href="#nav" title="Menü" id="toggle" class="nav-toggle closed icon-list"></a>
-                {% if user.is_authenticated %}
-                <a class="icon-user" title="Profil" href="{% url 'user' user.pk user.username %}"></a>
-                <a class="icon-logout" title="Logout" href="{% url 'auth_logout' %}"></a>
-                {% else %}
-                <a class="icon-user" title="Registrieren" href="{% url 'register' %}"></a>
-                <a class="icon-login" title="Login" href="{% url 'auth_login' %}"></a>
-                {% endif %}
             </div>
             <nav id="nav" class="nav-collapse">
                 <ul>
@@ -79,9 +72,21 @@
                     <li class="{% ifactivetab 'navigation' 'tweets' %}active{% endifactivetab %}">
                         <a href="{% url 'tweets:tweet_list' %}"><i class="icon-twitter {% ifactivetab 'navigation' 'tweets' %}icon-white{% endifactivetab %}"></i> Tweets</a>
                     </li>
-                    <li class="{% ifactivetab 'navigation' 'stats' %}active{% endifactivetab %}">
+                    <!--<li class="{% ifactivetab 'navigation' 'stats' %}active{% endifactivetab %}">
                         <a href="{% url 'stats' %}"><i class="icon-statistics {% ifactivetab 'navigation' 'stats' %}icon-white{% endifactivetab %}"></i> Statistiken</a>
+                    </li>-->
+                    {% if user.is_authenticated %}
+                    <li class="{% ifactivetab 'navigation' 'profile' %}active{% endifactivetab %}">
+                        <a href="{% url 'user' user.pk user.username %}"><i class="icon-user {% ifactivetab 'navigation' 'login' %}icon-white{% endifactivetab %}"></i> Profil</a>
                     </li>
+                    <li>
+                        <a class="icon-logout" href="{% url 'auth_logout' %}">Logout</a>
+                    </li>
+                    {% else %}
+                    <li class="{% ifactivetab 'navigation' 'login' %}active{% endifactivetab %}">
+                        <a href="{% url 'auth_login' %}"><i class="icon-login {% ifactivetab 'navigation' 'login' %}icon-white{% endifactivetab %}"></i> Login</a>
+                    </li>
+                    {% endif %}
                     {% endblock %}
                 </ul>
             </nav>
