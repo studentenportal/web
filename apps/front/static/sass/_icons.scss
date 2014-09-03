@@ -1,12 +1,13 @@
 /* ===FONTASTIC ICONS=== */
+@import "compass";
 @charset "UTF-8";
 @font-face {
   font-family: "studentenportal-icons";
-  src:url("fonts/studentenportal-icons.eot");
-  src:url("fonts/studentenportal-icons.eot?#iefix") format("embedded-opentype"),
-    url("fonts/studentenportal-icons.woff") format("woff"),
-    url("fonts/studentenportal-icons.ttf") format("truetype"),
-    url("fonts/studentenportal-icons.svg#studentenportal-icons") format("svg");
+  src:font-url("studentenportal-icons.eot");
+  src:font-url("studentenportal-icons.eot?#iefix") format("embedded-opentype"),
+    font-url("studentenportal-icons.woff") format("woff"),
+    font-url("studentenportal-icons.ttf") format("truetype"),
+    font-url("studentenportal-icons.svg#studentenportal-icons") format("svg");
   font-weight: normal;
   font-style: normal;
 }

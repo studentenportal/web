@@ -12,13 +12,13 @@
     <meta name="google-site-verification" content="v1kUQC8l0I-hI9W3O6DeWyUz4zdiliepOwUAP7tkZYE" />
     <link rel="shortcut icon" href="/static/img/favicon.ico" />
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-    <link href='https://fonts.googleapis.com/css?family=Droid+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Droid+Sans:400,700|Droid+Serif:400italic' rel='stylesheet' type='text/css'>
     {% dajaxice_js_import %}
 
     {% block styles %}
         {% compress css %}
-        <link rel="stylesheet" href="{{ STATIC_URL }}css/main.css">
-        <link rel="stylesheet" href="{{ STATIC_URL }}css/responsive-nav.css">
+        <link rel="stylesheet" type="text/scss" href="{{ STATIC_URL }}sass/main.scss" />
+        <link rel="stylesheet" href="{{ STATIC_URL }}css/responsive-nav.css" />
         {% endcompress %}
     {% endblock %}
 
