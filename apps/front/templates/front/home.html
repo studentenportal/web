@@ -28,6 +28,14 @@
         {% endif %}
     </article>
 
+    {% if events_future %}
+        <section class="latest-events">
+            <h1>Kommende Veranstaltungen</h1>
+            {% with events_future as object_list %}
+                {% include 'events/blocks/event_table.html' %}
+            {% endwith %}
+        </section>
+    {% endif %}
     <section class="latest-news">
         <h1>News</h1>
 
@@ -56,83 +64,13 @@
         erfassen.</p>
             </div>
         </article>
-
-        <article class="news">
-            <time class="date" datetime="2013-01-28">
-                <span class="day">28</span>
-                <span class="month">jan</span>
-                <span class="year">2013</span>
-            </time>
-            <div class="summary">
-                <h3>Neue Kategorien</h3>
-                <p>Für die Dokumente gibt es nun zwei neue
-        Kategorien: <em>Software</em> (zB für Taschenrechner-Programme) und
-        <em>Lernhilfen</em> (zB für Lern-Karteikarten oder
-        Repetitionsfragen).</p>
-            </div>
-        </article>
-
-        <article class="news">
-            <time class="date" datetime="2012-07-26">
-                <span class="day">26</span>
-                <span class="month">jul</span>
-                <span class="year">2012</span>
-            </time>
-            <div class="summary">
-                <h3>API verfügbar</h3>
-                <p>Neu gibt es für das Studentenportal eine
-        API (bisher readonly). Authentifizierung läuft momentan via manuell
-        generierter API Keys. Wer einen solchen Key möchte, bitte ein Mail an
-        {{ 'me@lukasmartinelli.ch'|urlize }} oder ein Tweet an
-        <a href="http://twitter.com/studportal_hsr">@studportal_hsr</a>
-        senden.</p>
-            </div>
-        </article>
-
-        <article class="news">
-            <time class="date" datetime="2012-06-16">
-                <span class="day">16</span>
-                <span class="month">jun</span>
-                <span class="year">2012</span>
-            </time>
-            <div class="summary">
-                <h3>Flattr Unterstützung</h3>
-                <p>Es gibt nun
-        <a href="https://flattr.com/">Flattr</a> Buttons bei den
-        Zusammenfassungen. Um den Button für deine Dokumente zu
-        aktivieren, gib deinen Flattr-Benutzernamen in deinem
-        <a href="/profil/">Profil</a> an.</p>
-            </div>
-        </article>
     </section>
     <article class="contribute">
         <h1>Mitmachen</h1>
-
-        <p>Diese Website wurde 2011 von Danilo Bargen entwickelt, weil das
-        "alte Studentenportal" veraltet und voller Sicherheitslücken war. Seit
-        2014 ist Lukas Martinelli für die Weiterentwicklung zuständig. Die
-        Entwicklung ist noch im Gange, wenn du Python oder HTML/CSS kennst oder
-        es gerne lernen möchtest, kannst du uns gerne auf
-        <a href="https://github.com/studentenportal/web/">Github</a>
-        forken.</p>
-
-        <p>Um mitzumachen musst du aber nicht programmieren können. Auch zB
-        designtechnische Verbesserungen wären cool und viele Zusammenfassungen
-        und Zitate machen die Seite interessant.</p>
-
-        <h2>Bugs und Ideen</h2>
-
-        <p>Wenn Fehler auftreten oder wenn du eine coole Idee fürs
-        Studentenportal hast, dann erfasse bitte ein Ticket auf
-        <a href="https://github.com/studentenportal/web/issues">Github</a>
-        oder schreibe eine E-Mail an {{ 'me@lukasmartinelli.ch'|urlize }}.  Die
-        momentan geplanten Features findest du
-        <a href="https://github.com/studentenportal/web/issues?sort=created&direction=desc&state=open">hier</a>.</p>
-
-        <h2>Twitter</h2>
-
-        <p>Natürlich ist das Studentenportal auch auf Twitter vertreten:
-        <a href="https://twitter.com/studportal_hsr">@studportal_hsr</a>.</p>
+        <p>
+        Das Studentenportal wurde von Studenten für Studenten entwickelt. Schau doch bei unserem <a href="https://github.com/studentenportal/web">Github Repo</a> rein, falls du helfen möchtest, das Studentenportal besser zu machen.</p>
+        <p>Um mitzumachen musst du nicht programmieren können. Falls du einen Fehler entdeckst oder eine Idee für das Studentenportal hast, kannst du einfach ein Ticket erfassen oder eine E-Mail an {{ 'me@lukasmartinelli.ch'|urlize }} schreiben.</p>
+        <a class="button" href="https://github.com/studentenportal/web/">Mitmachen</a>
+        <a class="button" href="https://github.com/studentenportal/web/issues/new">Ticket erfassen</a>
     </article>
-
 {% endblock %}

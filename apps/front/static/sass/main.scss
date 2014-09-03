@@ -1,5 +1,4 @@
 @import "compass";
-@import "susy";
 
 // ===COLORS=== //
 
@@ -71,10 +70,20 @@ $gutter: 1rem;
     @return ($target/$context)+0em;
 }
 
+@mixin global-box-sizing() {
+    // apply a natural box layout model to all elements
+    //but allowing components to change
+    html {
+        box-sizing: border-box;
+    }
+    *, *:before, *:after {
+        box-sizing: inherit;
+    }
+}
+
 /* ===RESET=== */
 @import "compass/reset";
-@include border-box-sizing;
-
+@include global-box-sizing;
 @import "icons";
 @import "base";
 @import "layout";

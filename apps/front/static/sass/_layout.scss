@@ -1,5 +1,4 @@
 @import "compass";
-@import "susy";
 @import "compass/utilities/general/clearfix";
 @import "compass/css3";
 
@@ -97,6 +96,10 @@ body {
             }
         }
 
+        .login-button {
+            display: block;
+        }
+
         @media (min-width: 46em) {
             float: right;
 
@@ -106,22 +109,6 @@ body {
                 float: left;
                 margin-left: $gutter/2;
             }
-        }
-    }
-
-    //Handle icon problems that occur because icons
-    //don't fit perfectly together
-    .icon-user, .icon-logout, .icon-login {
-        width: 1em;
-        height: 1em;
-        padding-left: $gutter/2;
-        position: relative;
-        //Force alignment of icons
-        &:before {
-            position: absolute;
-            font-size: 0.75em;
-            top: 0.325em;
-            left: 0.1em;
         }
     }
 
@@ -151,7 +138,6 @@ body {
 
         a {
             font-size: $font-size-browser;
-
             padding: $gutter 0.75rem;
             display: block;
             background-color: $color-navigation-background;
