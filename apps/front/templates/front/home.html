@@ -28,6 +28,14 @@
         {% endif %}
     </article>
 
+    {% if events_future %}
+        <section class="latest-events">
+            <h1>Kommende Veranstaltungen</h1>
+            {% with events_future as object_list %}
+                {% include 'events/blocks/event_table.html' %}
+            {% endwith %}
+        </section>
+    {% endif %}
     <section class="latest-news">
         <h1>News</h1>
 
@@ -54,54 +62,6 @@
                 <h3>LaTex-Quelle und Lizenz wählbar</h3>
                 <p>Den Dokumenten können seit längerem auch URLs (zB auf Link auf das Github-Projekt mit LaTeX-Quellen) zugewiesen werden. Neu kann man optional auch die Lizenz (Creative Commons oder Public Domain) festlegen.<br> Desweiteren wurde Uservoice entfernt, es hat sich nicht bewährt.  Stattdessen Bugs und Featureideen auf <a href="https://github.com/dbrgn/studentenportal2/issues">Github</a>
         erfassen.</p>
-            </div>
-        </article>
-
-        <article class="news">
-            <time class="date" datetime="2013-01-28">
-                <span class="day">28</span>
-                <span class="month">jan</span>
-                <span class="year">2013</span>
-            </time>
-            <div class="summary">
-                <h3>Neue Kategorien</h3>
-                <p>Für die Dokumente gibt es nun zwei neue
-        Kategorien: <em>Software</em> (zB für Taschenrechner-Programme) und
-        <em>Lernhilfen</em> (zB für Lern-Karteikarten oder
-        Repetitionsfragen).</p>
-            </div>
-        </article>
-
-        <article class="news">
-            <time class="date" datetime="2012-07-26">
-                <span class="day">26</span>
-                <span class="month">jul</span>
-                <span class="year">2012</span>
-            </time>
-            <div class="summary">
-                <h3>API verfügbar</h3>
-                <p>Neu gibt es für das Studentenportal eine
-        API (bisher readonly). Authentifizierung läuft momentan via manuell
-        generierter API Keys. Wer einen solchen Key möchte, bitte ein Mail an
-        {{ 'dbargen@hsr.ch'|urlize }} oder ein Tweet an
-        <a href="http://twitter.com/studportal_hsr">@studportal_hsr</a>
-        senden.</p>
-            </div>
-        </article>
-
-        <article class="news">
-            <time class="date" datetime="2012-06-16">
-                <span class="day">16</span>
-                <span class="month">jun</span>
-                <span class="year">2012</span>
-            </time>
-            <div class="summary">
-                <h3>Flattr Unterstützung</h3>
-                <p>Es gibt nun
-        <a href="https://flattr.com/">Flattr</a> Buttons bei den
-        Zusammenfassungen. Um den Button für deine Dokumente zu
-        aktivieren, gib deinen Flattr-Benutzernamen in deinem
-        <a href="/profil/">Profil</a> an.</p>
             </div>
         </article>
     </section>
