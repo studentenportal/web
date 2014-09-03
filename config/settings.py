@@ -186,7 +186,6 @@ INSTALLED_APPS = (
 
     # Third party apps
     'compressor',
-    'messagegroups',
     'apps.tabs',
     'registration',
     'django_extensions',
@@ -206,6 +205,9 @@ INSTALLED_APPS = (
     'apps.tweets',
     'apps.api',
     'apps.user_stats',
+
+    # Overridable 3rd party apps
+    'messagegroups',
 
     # Django admin (overrideable templates)
     'django.contrib.admin',
