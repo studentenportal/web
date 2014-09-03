@@ -105,7 +105,7 @@ dafür ein funktionierendes HSR Login.
 Fragen
 ------
 
-Bei Fragen wende dich an dbargen@hsr.ch oder https://twitter.com/studportal_hsr.
+Bei Fragen wende dich an me@lukasmartinelli.ch oder https://twitter.com/studportal_hsr.
 
 
 Lizenz

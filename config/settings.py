@@ -24,6 +24,7 @@ PROJECT_ROOT = Path(__file__).ancestor(2)
 
 ADMINS = (
     ('Danilo', 'mail@dbrgn.ch'),
+    ('Lukas', 'me@lukasmartinelli.ch'),
 )
 
 MANAGERS = ADMINS
