@@ -10,6 +10,7 @@ import logging
 
 from django.conf import settings
 from django.contrib import messages
+from django.contrib.syndication.views import Feed
 from django.db.models import Count
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ObjectDoesNotExist, ValidationError
@@ -118,6 +119,36 @@ class DocumentList(DocumentcategoryMixin, ListView):
             ratings = models.DocumentRating.objects.filter(user=self.request.user)
             context['ratings'] = dict([(r.document.pk, r.rating) for r in ratings])
         return context
+
+
+class DocumentFeed(Feed):
+
+    def get_object(self, request, *args, **kwargs):
+        return get_object_or_404(models.DocumentCategory, name__iexact=kwargs['category'])
+
+    def title(self, obj):
+        return obj.name
+
+    def link(self, obj):
+        return reverse('documents:document_feed', kwargs={'category': slugify(obj.name)})
+
+    def item_link(self, item):
+        return reverse('documents:document_download', kwargs={'category': slugify(item.category.name), 'pk': item.pk})
+
+    def item_description(self, item):
+        return item.description
+
+    def item_pubdate(self, item):
+        return item.upload_date
+
+    def item_updateddate(self, item):
+        return item.change_date
+
+    def description(self, obj):
+        return obj.description
+
+    def items(self, obj):
+        return models.Document.objects.filter(category=obj).order_by('-upload_date')[:10]
 
 
 class DocumentDownload(View):
