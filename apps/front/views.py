@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import print_function, division, absolute_import, unicode_literals
 
+import datetime
+
 from django.contrib.auth import get_user_model
 from django.contrib import messages
 from django.db.models import Count
@@ -12,11 +14,19 @@ from django.views.generic.detail import DetailView
 from . import forms, models
 from apps.lecturers import models as lecturer_models
 from apps.documents import models as document_models
+from apps.events import models as event_models
 from apps.front.mixins import LoginRequiredMixin
 
 
 class Home(TemplateView):
     template_name = 'front/home.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(Home, self).get_context_data(**kwargs)
+        context['events_future'] = event_models.Event.objects \
+               .filter(start_date__gte=datetime.date.today()) \
+               .order_by('start_date', 'start_time')
+        return context
 
 
 class Profile(LoginRequiredMixin, UpdateView):
