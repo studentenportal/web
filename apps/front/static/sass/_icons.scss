@@ -59,17 +59,38 @@ $icons: (
 }
 
 /* ===FILETYPE ICONS=== */
-@import "compass/utilities/sprites";
-@import "filetypes/*.png";
+// Using a static sprite map gives less problem with dynamic sass
+// compilation by django compressor
 
-$filetype-icons: "xls", "ppt", "doc", "pdf", "other", "img", "zip";
-
-@mixin filetype-icon($icon) {
-  @include filetypes-sprite($icon);
+.filetypes-sprite,.ficon-xls,.ficon-ppt,.ficon-doc,.ficon-pdf,.ficon-other,.ficon-img,.ficon-zip{
+    background-image:url('../img/filetypes.png');
+    background-repeat:no-repeat
 }
 
-@each $icon in $filetype-icons {
-  .ficon-#{$icon} {
-      @include filetype-icon($icon);
-  }
+.ficon-xls{
+    background-position:0 -160px
+}
+
+.ficon-ppt{
+    background-position:0 -128px
+}
+
+.ficon-doc{
+    background-position:0 0
+}
+
+.ficon-pdf{
+    background-position:0 -96px
+}
+
+.ficon-other{
+    background-position:0 -64px
+}
+
+.ficon-img{
+    background-position:0 -32px
+}
+
+.ficon-zip{
+    background-position:0 -192px
 }
