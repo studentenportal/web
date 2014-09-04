@@ -133,7 +133,8 @@ class DocumentFeed(Feed):
         return reverse('documents:document_feed', kwargs={'category': slugify(obj.name)})
 
     def item_link(self, item):
-        return reverse('documents:document_download', kwargs={'category': slugify(item.category.name), 'pk': item.pk})
+        return reverse('documents:document_download',
+                kwargs={'category': slugify(item.category.name), 'pk': item.pk})
 
     def item_description(self, item):
         return item.description
@@ -161,7 +162,7 @@ class DocumentDownload(View):
                 return redirect('%s?next=%s' % (
                         reverse('auth_login'),
                         reverse('documents:document_list',
-                            kwargs={'category': slugify(doc.category.name)})
+                                kwargs={'category': slugify(doc.category.name)})
                 ))
         # Log download
         ip = helpers.get_client_ip(request)
