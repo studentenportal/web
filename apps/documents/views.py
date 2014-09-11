@@ -68,7 +68,8 @@ class DocumentcategoryList(TemplateView):
             d['summary'] = counts[c.pk][models.Document.DTypes.SUMMARY]
             d['exam'] = counts[c.pk][models.Document.DTypes.EXAM]
             d['other'] = counts[c.pk][models.Document.DTypes.SOFTWARE] + \
-                         counts[c.pk][models.Document.DTypes.LEARNING_AID]
+                         counts[c.pk][models.Document.DTypes.LEARNING_AID] + \
+                         counts[c.pk][models.Document.DTypes.ATTESTATION]
             d['total'] = sum(d.values())
 
             # Sort by category activity
