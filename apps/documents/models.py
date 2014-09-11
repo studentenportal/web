@@ -61,6 +61,7 @@ class Document(models.Model):
         EXAM = 2
         SOFTWARE = 3
         LEARNING_AID = 4
+        ATTESTATION = 5
 
     LICENSES = Choices(
         (1, 'pd', 'Public Domain'),
@@ -89,6 +90,7 @@ class Document(models.Model):
                 (DTypes.EXAM, 'Prüfung'),
                 (DTypes.SOFTWARE, 'Software'),
                 (DTypes.LEARNING_AID, 'Lernhilfe'),
+                (DTypes.ATTESTATION, 'Testat'),
             ))
     document = models.FileField('Datei', upload_to=document_file_name, help_text='(Max. 20MB)')
     original_filename = models.CharField('Originaler Dateiname', max_length=255, blank=True)
