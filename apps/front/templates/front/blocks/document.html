@@ -35,7 +35,7 @@
                 {% endwith %}
                 {% if doc.uploader.flattr and not doc.flattr_disabled %}
                     <a class="icon-flattr label-flattr"
-                       href="https://flattr.com/submit/auto?user_id={{ doc.uploader.flattr }}&url={{ request.get_host }}{% url 'documents:document_download' doc.category.name|slugify doc.pk %}&title={{ doc.name }}">
+                       href="https://flattr.com/submit/auto?user_id={{ doc.uploader.flattr }}&url=http{% if request.is_secure %}s{% endif %}://{{ request.get_host }}{% url 'documents:document_download' doc.category.name|slugify doc.pk %}&title={{ doc.name }}">
                     Flattr this!
                     </a>
                 {% endif %}
