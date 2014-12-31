@@ -42,12 +42,16 @@
         <div class="alert-info"><strong>Sorry.</strong> Leider gibt es in dieser Kategorie noch keine Uploads.</div>
     {% endif %}
 
-    {# Add button #}
+    <p>
     {% if user.is_authenticated %}
-        <p><a class="button button-primary" href="{% url 'documents:document_add' documentcategory.name|slugify %}">
+        {# Add button #}
+        <a class="button button-primary" href="{% url 'documents:document_add' documentcategory.name|slugify %}">
             <i class="icon-plus-sign icon-white"></i> Dokument hinzufügen
-        </a></p>
+        </a>
     {% endif %}
+    {# RSS button #}
+    <a class="button" href="{% url 'documents:document_feed' documentcategory.name|slugify  %}">RSS Feed abonnieren</a>
+    </p>
 
     {# Document list #}
     {% include 'front/blocks/document.html' %}
