@@ -192,7 +192,6 @@ INSTALLED_APPS = (
     'compressor',
     'apps.tabs',
     'registration',
-    'django_extensions',
     'south',
     'dajaxice',
     'mathfilters',
