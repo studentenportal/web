@@ -21,7 +21,7 @@ beautifulsoup4==4.3.2
 requests==1.2.3
 
 # Calendar
-vobject==0.8.1c
+vobject==0.8.2
 
 # API
 djangorestframework==2.3.12
