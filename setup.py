@@ -22,7 +22,7 @@ setup(
         'hat das alte Portal im Frühling 2012 abgelöst und soll es in Sachen Ruhm' + \
         'und Ehre weit überholen.',
     url='https://studentenportal.ch/',
-    author='Danilo Bargen, Lukas Martinelli',
-    author_email='me@lukasmartinelli.ch',
+    author='Danilo Bargen, Lukas Martinelli, Simon Schaefer',
+    author_email='saspeed@gmail.com',
     classifiers=['Private :: Do Not Upload'],
 )
