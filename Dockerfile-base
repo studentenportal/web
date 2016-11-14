@@ -1,0 +1,25 @@
+# This file creates a "studentenportal-base" image with all studentenportal
+#  dependencies.
+FROM python:2.7
+
+#TODO: Do we really need build-essential here?
+RUN apt-get update && \
+  apt-get -y install \
+    build-essential gcc g++ \
+    python-dev python-setuptools python-pip python-virtualenv \
+    git mercurial subversion \
+    postgres-client libpq-dev \
+    libjpg-progs libjpg-dev imagemagick \
+    ruby ruby-dev \
+    curl dnsutils
+
+RUN gem install compass
+
+RUN groupadd -g 1000 studentenportal
+RUN useradd --home /home/studentenportal -u 1000 -g 1000 -M studentenportal
+
+RUN mkdir -p /srv/www/studentenportal && chown -R studentenportal:studentenportal /srv/www/
+
+WORKDIR /srv/www/studentenportal
+USER studentenportal
+CMD [ "python", "manage.py", "runserver" ]

@@ -1,0 +1,45 @@
+#  
+# studentenportal-dev:8000  ----- studentenportal-dev-media:/var/www/studentenportal/media
+#  ||                       \  
+#  ||                        ---- ./:/var/www/studentenportal/
+#  ||
+# postgres-dev ----- postgres-dev-data:/var/lib/postgresql/data
+#
+version: '2'
+services:
+  postgres-dev:
+          image: postgres:9.6
+    restart: always
+    volumes:
+      - postgres-dev-data:/var/lib/postgresql/data
+    environment:
+      TODO: "asdf"
+      POSTGRES_PASSWORD: "k9F1bbHiW4o9By1A6tvL"
+      POSTGRES_USER: "studentenportal"
+      POSTGRES_DB: "studentenportal"
+      #PG_DB_PARAMS: "see one line below"
+      #TODO: Database intitialisation and citext pg extension
+
+  studentenportal-dev:
+    # TODO: create studentenportal-dev from Dockerfile
+    # TODO: Wait on postgres ready; deploy DB if not available etc. 
+    # TODO: Mail logging backend
+    links:
+      - postgres-dev
+    image: studentenportal-base
+    entrypoint: /path/to/code.sh
+    restart: on-failure:3
+    volumes:
+      - ./:/var/www/studentenportal
+      - studentenportal-dev-media:/var/www/studentenportal/media
+    ports:
+      - 8000:8000
+    environment:
+      TODO: "asdf"
+      HOSTNAME: "postgres"
+      USERNAME: "studentenportal"
+      PASSWORD: "k9F1bbHiW4o9By1A6tvL"
+
+volumes:
+  - postgres-dev-data: {}
+  - studentenportal-dev-media: {}
