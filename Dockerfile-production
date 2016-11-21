@@ -5,3 +5,5 @@
 FROM studentenportal-base
 
 #TODO
+WORKDIR /srv/www/studentenportal
+USER studentenportal

@@ -18,6 +18,6 @@ RUN useradd --home /home/studentenportal -u 1000 -g 1000 -M studentenportal
 
 RUN mkdir -p /srv/www/studentenportal && chown -R studentenportal:studentenportal /srv/www/
 
-WORKDIR /srv/www/studentenportal
-USER studentenportal
-CMD [ "python", "manage.py", "runserver" ]
+RUN mkdir /tmp/requirements/
+ADD requirements/base.txt /tmp/requirements/base.txt
+RUN pip install -r /tmp/requirements/base.txt
