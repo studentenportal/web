@@ -2,14 +2,12 @@
 #  dependencies.
 FROM python:2.7
 
-#TODO: Do we really need build-essential here?
-RUN apt-get update && \
-  apt-get -y install \
+RUN apt-get update && apt-get -y install \
     build-essential gcc g++ \
     python-dev python-setuptools python-pip python-virtualenv \
     git mercurial subversion \
-    postgres-client libpq-dev \
-    libjpg-progs libjpg-dev imagemagick \
+    postgresql-client libpq-dev \
+    libjpeg-progs imagemagick \
     ruby ruby-dev \
     curl dnsutils
 
