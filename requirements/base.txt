@@ -3,7 +3,7 @@ Django==1.6.5
 Pillow==2.6.1
 django-extensions
 psycopg2==2.5.2
-South==0.8.4
+South==1.0.2
 Unipath==1.0
 python-dateutil==2.6.0
 
