@@ -50,7 +50,7 @@ Um die Entwicklungsumgebung einzurichten:
 
  1. Repository clonen
  2. Python Virtualenv erstellen und aktivieren
- 3. `psql -d template1 -c 'CREATE EXTENSION citext;'`
+ 3. `psql -d template1 -c 'CREATE EXTENSION IF NOT EXISTS citext;'`
  4. `createuser -e -P -d -E -s studentenportal` (Passwort "studentenportal")
  5. `createdb -e -O studentenportal -U studentenportal studentenportal`
  6. `pip install -r requirements/local.txt`

@@ -11,8 +11,6 @@ RUN apt-get update && apt-get -y install \
     ruby ruby-dev \
     curl dnsutils
 
-RUN gem install compass
-
 RUN groupadd -g 1000 studentenportal
 RUN useradd --home /home/studentenportal -u 1000 -g 1000 -M studentenportal
 

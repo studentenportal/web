@@ -4,8 +4,8 @@ FROM studentenportal/studentenportal-base
 
 ADD requirements/local.txt /tmp/requirements/local.txt
 RUN pip install -r /tmp/requirements/local.txt
-
-#TODO
+RUN apt-get install postgresql-client
+RUN gem install --no-rdoc --no-ri sass -v 3.4.2
 WORKDIR /srv/www/studentenportal
 USER studentenportal
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["./start-dev.sh"]

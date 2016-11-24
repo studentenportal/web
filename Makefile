@@ -1,7 +1,7 @@
 .PHONY: Dockerfile-base Dockerfile-dev start start-dev
 
 Dockerfile: Dockerfile-dev
-Dockerfile-base: 
+Dockerfile-base:
 	docker build -t studentenportal/studentenportal-base -f Dockerfile-base .
 
 Dockerfile-dev: Dockerfile-base
