@@ -8,7 +8,7 @@
 version: '2'
 services:
   postgres-dev:
-          image: postgres:9.6
+    image: postgres:9.6
     restart: always
     volumes:
       - postgres-dev-data:/var/lib/postgresql/data

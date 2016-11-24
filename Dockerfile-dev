@@ -8,4 +8,4 @@ RUN pip install -r /tmp/requirements/local.txt
 #TODO
 WORKDIR /srv/www/studentenportal
 USER studentenportal
-CMD ["python", "manage.py", "runserver"]
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
