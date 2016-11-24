@@ -1,15 +1,14 @@
 # Base system
-Django==1.6.5
+Django==1.8.16
 Pillow==2.6.1
 django-extensions
-psycopg2==2.5.2
-South==1.0.2
+psycopg2==2.6.2
 Unipath==1.0
 python-dateutil==2.6.0
 
 # Useful/important apps
 django-messagegroups==0.4.3
-https://bitbucket.org/dbrgn/django-registration/get/a221afa30efd.zip
+django-registration-redux==1.1
 django-sendfile==0.3.4
 django-dajaxice-ng==0.5.6.5
 django-model-utils==1.3.1

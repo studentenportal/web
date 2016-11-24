@@ -198,7 +198,6 @@ INSTALLED_APPS = (
     'compressor',
     'apps.tabs',
     'registration',
-    'south',
     'dajaxice',
     'mathfilters',
     'easy_thumbnails',
@@ -320,9 +319,6 @@ OAUTH_ENFORCE_SECURE = not DEBUG
 # Registration
 ACCOUNT_ACTIVATION_DAYS = 7
 REGISTRATION_OPEN = True
-
-# South
-SOUTH_TESTS_MIGRATE = False
 
 # Testing
 TEST_RUNNER = 'discover_runner.DiscoverRunner'

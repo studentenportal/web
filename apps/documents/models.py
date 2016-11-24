@@ -49,6 +49,14 @@ class DocumentCategory(models.Model):
         ordering = ['name']
 
 
+def document_file_name(instance, filename):
+    """Where to put a newly uploaded document. Also, store original filename."""
+    ext = os.path.splitext(filename)[1]
+    timestamp = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
+    instance.original_filename = filename
+    return '/'.join(['documents', slugify(instance.category.name), '%s%s' % (timestamp, ext)])
+
+
 class Document(models.Model):
     """A document that can be uploaded by students.
 
@@ -70,13 +78,6 @@ class Document(models.Model):
         (4, 'cc3_by_nc', 'CC BY-NC 3.0'),
         (5, 'cc3_by_nc_sa', 'CC BY-NC-SA 3.0'),
     )
-
-    def document_file_name(instance, filename):
-        """Where to put a newly uploaded document. Also, store original filename."""
-        ext = os.path.splitext(filename)[1]
-        timestamp = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
-        instance.original_filename = filename
-        return '/'.join(['documents', slugify(instance.category.name), '%s%s' % (timestamp, ext)])
 
     name = models.CharField('Titel', max_length=100)
     description = models.CharField('Beschreibung', blank=True, max_length=500,
