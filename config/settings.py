@@ -135,7 +135,7 @@ COMPRESS_JS_FILTERS = [
 COMPRESS_OFFLINE = not DEBUG
 
 COMPRESS_PRECOMPILERS = (
-    ('text/scss', 'sass --scss --compass {infile} {outfile}'),
+    ('text/scss', 'sass --scss {infile} {outfile}'),
 )
 
 # List of callables that know how to import templates from various sources.

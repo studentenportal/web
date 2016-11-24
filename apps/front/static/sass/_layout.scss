@@ -1,6 +1,6 @@
-@import "compass";
-@import "compass/utilities/general/clearfix";
-@import "compass/css3";
+// @import "compass";
+// @import "compass/utilities/general/clearfix";
+// @import "compass/css3";
 
 /* ===LAYOUT MIXINS=== */
 
@@ -8,7 +8,7 @@
     padding: $gutter;
     margin-bottom: $gutter;
     background-color: #fff;
-    @include box-shadow(0 0 3px 2px #ccc);
+    // @include box-shadow(0 0 3px 2px #ccc);
 }
 
 %wrapper {
@@ -45,7 +45,7 @@ body {
 }
 
 .header {
-    @include clearfix;
+    // @include clearfix;
     @extend %wrapper;
 }
 
@@ -82,7 +82,7 @@ body {
     }
 
     .header-actions {
-        @include pie-clearfix;
+        // @include pie-clearfix;
 
         //Special links like user home or login/logout
         > a {
@@ -130,7 +130,7 @@ body {
 /* ===NAVIGATION=== */
 .nav-collapse {
     background-color: $color-navigation-background;
-    @include pie-clearfix;
+    // @include pie-clearfix;
 
     li {
         margin: 0;

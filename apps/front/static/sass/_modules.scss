@@ -1,5 +1,5 @@
-@import "compass/css3/flexbox";
-@import "compass/css3/images";
+//@import "compass/css3/flexbox";
+//@import "compass/css3/images";
 
 /* ===AUTHOR===*/
 .author, a[rel="author"] { font-size: 1.1rem; }
@@ -18,7 +18,7 @@
 $color-search-background: #E1E5E8;
 
 .search-box {
-    @include clearfix;
+    // @include clearfix;
     margin-bottom: 1em;
     width: 100%;
     max-width: 70rem; //The search button looks ugly if it's too big
@@ -98,7 +98,7 @@ $color-search-background: #E1E5E8;
 
 /* ===LIST CARDS=== */
 %list-card {
-    @include pie-clearfix;
+    // @include pie-clearfix;
     margin-top: 1em;
     //Use only half padding because border reserves already
     padding: 0.5rem;

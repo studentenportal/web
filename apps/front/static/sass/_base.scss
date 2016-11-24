@@ -1,5 +1,5 @@
-@import "compass/css3/transition";
-@import "compass/css3/background-size";
+// @import "compass/css3/transition";
+// @import "compass/css3/background-size";
 
 /* ===TYPOGRAPHY=== */
 html {
@@ -93,7 +93,7 @@ button, a.button, input, select, textarea {
 
 //Clear everything in a form group
 .control-group {
-  @include pie-clearfix;
+//  // @include pie-clearfix;
 }
 
 label {
@@ -104,7 +104,7 @@ label {
 
 input, select, textarea {
   width: 100%;
-  @include transition(border-color, 0.3s);
+  // @include transition(border-color, 0.3s);
   border: 2px solid $color-border;
   &:focus { border-color: $color-darker-accent; }
 }
@@ -151,7 +151,7 @@ input[type="file"] {
     padding: $gutter/2 $gutter;
     cursor: pointer;
 
-    @include transition(background 0.2s);
+    // @include transition(background 0.2s);
     background: $color-dark-accent;
     &:hover { background: $color-darker-accent; }
   }
@@ -205,7 +205,7 @@ button, .button {
   color: #fff;
   cursor: pointer;
 
-  @include transition(background 0.2s);
+  // @include transition(background 0.2s);
   background-color: darken($color-gray, 20%);
   &:hover, &:focus, &:active {
     background-color: darken($color-gray, 30%);

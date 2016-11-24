@@ -110,7 +110,7 @@
 
 /* ===LECTURER PROFILE=== */
 .lecturer-profile {
-    @include pie-clearfix;
+    // @include pie-clearfix;
 
     .info {
         float: left;
@@ -189,11 +189,11 @@
 
 /* ===LECTURERS=== */
 #lecturers {
-    @include pie-clearfix;
+    // @include pie-clearfix;
 }
 
 .lecturer {
-    @include pie-clearfix;
+    // @include pie-clearfix;
     @extend %box;
     float: left;
     img { width: 100%; }

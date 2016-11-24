@@ -1,4 +1,4 @@
-@import "compass";
+//@import "compass";
 
 // ===COLORS=== //
 
@@ -82,7 +82,7 @@ $gutter: 1rem;
 }
 
 /* ===RESET=== */
-@import "compass/reset";
+//@import "compass/reset";
 @include global-box-sizing;
 @import "icons";
 @import "base";
