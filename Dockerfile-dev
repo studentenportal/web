@@ -5,6 +5,8 @@ FROM studentenportal/studentenportal-base
 ADD requirements/local.txt /tmp/requirements/local.txt
 RUN pip install -r /tmp/requirements/local.txt
 RUN apt-get install postgresql-client
-WORKDIR /srv/www/studentenportal
+
+VOLUME ["/srv/www/studentenportal/"]
+
 USER studentenportal
 CMD ["./start-dev.sh"]

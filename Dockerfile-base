@@ -14,8 +14,12 @@ RUN apt-get update && apt-get -y install \
 RUN groupadd -g 1000 studentenportal
 RUN useradd --home /home/studentenportal -u 1000 -g 1000 -M studentenportal
 
+VOLUME ["/srv/www/studentenportal/media"]
 RUN mkdir -p /srv/www/studentenportal && chown -R studentenportal:studentenportal /srv/www/
 
 RUN mkdir /tmp/requirements/
+
+WORKDIR /srv/www/studentenportal
+
 ONBUILD ADD requirements/base.txt /tmp/requirements/base.txt
 ONBUILD RUN pip install -r /tmp/requirements/base.txt
