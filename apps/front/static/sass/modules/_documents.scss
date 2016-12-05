@@ -3,7 +3,7 @@
 }
 
 .document-category {
-    // @include clearfix;
+    @include clearfix;
     @extend %box;
 
     //Otherwise the color of the link would override the color
@@ -28,7 +28,7 @@
     }
 
     .lecturers {
-        // @include pie-clearfix;
+        @include pie-clearfix;
         float: right;
         width: 20%;
         > div {
@@ -56,7 +56,7 @@
 
 /* ===DOCUMENT=== */
 .document {
-    // @include pie-clearfix;
+    @include pie-clearfix;
     @include adapt-heading-to-author;
     @extend %box;
     position: relative;
@@ -82,9 +82,9 @@
         right: $gutter;
         bottom: $gutter;
         padding: .2rem .6rem 0;
-        // @include border-radius(.2em);
+        @include border-radius(.2em);
 
-        // @include transition(background 0.2s);
+        @include transition(background 0.2s);
         background-color: $color-dark-accent;
         &:hover { background-color: $color-darker-accent; }
 
@@ -94,7 +94,7 @@
     }
 
     .drating {
-        // @include pie-clearfix;
+        @include pie-clearfix;
         .star-rating {
             float: left;
             display: block;
@@ -155,13 +155,13 @@
     //Force all too long links to break
     .details a { word-break: break-all; }
 
-    @media (max-width: rem-to-em(62rem, $font-size-browser)) {
+    @media (max-width: 62rem) {
         //This is a flexbox "hack" so that the image appears above the button on mobile view
         //We cannot solve this by rearranging the html because we want the button
         //to appear above the thumbnail on bigger screens
         .download {
-            // @include display-flex();
-            // @include flex-direction(column-reverse);
+            @include display-flex();
+            @include flex-direction(column-reverse);
         }
 
         //Correct position of report flag

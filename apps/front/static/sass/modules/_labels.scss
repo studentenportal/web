@@ -28,7 +28,7 @@
     white-space: nowrap;
     vertical-align: baseline;
     background-color: $color-midnight-blue;
-    // @include border-radius(.1em);
+    @include border-radius(.1em);
 }
 
 .label-license {

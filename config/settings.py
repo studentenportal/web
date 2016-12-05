@@ -135,7 +135,11 @@ COMPRESS_JS_FILTERS = [
 COMPRESS_OFFLINE = not DEBUG
 
 COMPRESS_PRECOMPILERS = (
-    ('text/scss', 'python -mscss -C -o {outfile} {infile}'),
+    ('text/scss',
+     'python -mscss '
+     ' --load-path "apps/front/static/sass/compass/compass/stylesheets"'    # Legacy :(
+     ' --load-path "apps/front/static/sass/compass/blueprint/stylesheets"'  # sory...
+     ' -C -o {outfile} {infile}'),
 )
 
 # List of callables that know how to import templates from various sources.
