@@ -19,7 +19,7 @@ start-production:
 	docker-compose --file docker-compose-production.yml start
 
 restart-dev: stop-dev start-dev
-restart-production stop-production start-production
+restart-production: stop-production start-production
 
 stop-dev:
 	docker-compose stop
