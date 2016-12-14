@@ -14,10 +14,11 @@ RUN apt-get update && apt-get -y install \
 RUN groupadd -g 1000 studentenportal
 RUN useradd --home /home/studentenportal -u 1000 -g 1000 -M studentenportal
 
-VOLUME ["/srv/www/studentenportal/media"]
-RUN mkdir -p /srv/www/studentenportal && chown -R studentenportal:studentenportal /srv/www/
+RUN mkdir -p /srv/www/studentenportal/media && chown -R studentenportal:studentenportal /srv/www/
 
 RUN mkdir /tmp/requirements/
+
+VOLUME ["/srv/www/studentenportal/media"]
 
 WORKDIR /srv/www/studentenportal
 

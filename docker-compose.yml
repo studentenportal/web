@@ -27,7 +27,6 @@ services:
     restart: on-failure:3
     volumes:
       - ./:/srv/www/studentenportal
-      - studentenportal-dev-media:/srv/www/studentenportal/media
     ports:
       - 8000:8000
     environment:
@@ -37,4 +36,3 @@ services:
 
 volumes:
     postgres-dev-data:
-    studentenportal-dev-media:
