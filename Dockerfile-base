@@ -7,7 +7,7 @@ RUN apt-get update && apt-get -y install \
     python-dev python-setuptools python-pip python-virtualenv \
     git mercurial subversion \
     postgresql-client libpq-dev \
-    libjpeg-progs imagemagick \
+    libjpeg-progs graphicsmagick \
     ruby ruby-dev \
     curl dnsutils
 
