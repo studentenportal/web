@@ -180,7 +180,7 @@
     }
 
     //Expand to bigger layout when space allows it
-    @media (min-width: rem-to-em(62rem, $font-size-browser)) {
+    @media (min-width: 62rem) {
         .details {
             width: 70%;
             float: left;
