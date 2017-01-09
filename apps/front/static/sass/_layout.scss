@@ -11,9 +11,9 @@
     @include box-shadow(0 0 3px 2px #ccc);
 }
 
-@media (min-width: 100.24rem) {
+@media (min-width: 64.375rem) {
     .header, .main, .footer {
-        max-width: 100.24rem;
+        max-width: 103rem;
         margin: 0 auto;
     }
 }
