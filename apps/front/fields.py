@@ -14,7 +14,9 @@ class CaseInsensitiveSlugField(models.SlugField):
     """
     description = _('A SlugField that uses the PostgreSQL CITEXT type for \
                      case insensitive comparison.')
-    db_type = lambda self, connection: 'CITEXT'
+
+    def db_type(self, connection):
+        return 'CITEXT'
 
 
 add_introspection_rules([], ['^apps\.front\.fields\.CaseInsensitiveSlugField'])
