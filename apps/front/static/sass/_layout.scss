@@ -165,3 +165,8 @@ body {
         clear: left;
     }
 }
+
+// Show if in DEBUG mode
+.is-dev-environment > *{
+  color: red!important;;
+}

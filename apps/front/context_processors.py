@@ -4,6 +4,7 @@ from __future__ import print_function, division, absolute_import, unicode_litera
 from apps.front import models
 from apps.lecturers import models as lecturer_models
 from apps.documents import models as document_models
+from django.conf import settings
 
 
 def global_stats(request):
@@ -14,3 +15,7 @@ def global_stats(request):
         'documentcount': document_models.Document.objects.count(),
         'quotecount': lecturer_models.Quote.objects.count(),
     }
+
+
+def debug(context):
+    return {'DEBUG': settings.DEBUG}

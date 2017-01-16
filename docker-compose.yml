@@ -31,6 +31,7 @@ services:
       DB_HOST: postgres-dev
       DB_USER: studentenportal
       DB_PASSWORD: k9F1bbHiW4o9By1A6tvL
+      DJANGO_DEBUG: "True"
 
 volumes:
     postgres-dev-data:
