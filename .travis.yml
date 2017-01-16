@@ -1,14 +1,15 @@
+sudo: required
 language: python
 python:
     - 2.7
+services:
+  - docker
+
 install:
-    - pip install -r requirements/base.txt
-    - pip install -r requirements/testing.txt
-before_script:
-    - psql -c "CREATE ROLE studentenportal NOSUPERUSER LOGIN CREATEDB PASSWORD 'studentenportal';" -U postgres
-    - psql -c "CREATE DATABASE studentenportal OWNER studentenportal;" -U postgres
-    - psql -d template1 -c "CREATE EXTENSION citext;" -U postgres
-    - python manage.py collectstatic --noinput --link
+    - pip install coveralls==0.4.2
+    - make Dockerfile-base
+    - make Dockerfile-dev
+
 script:
     - ./test.sh
     - coveralls

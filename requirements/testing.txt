@@ -1,8 +1,7 @@
 model_mommy==1.2
 
-coverage
-coveralls
-
+coverage==3.7.1
+six==1.10.0
 pytest==2.5.2
 pytest-django==2.6
 pytest-pep8==1.0.5

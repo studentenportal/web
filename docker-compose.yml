@@ -21,9 +21,7 @@ services:
     # TODO: Mail logging backend
     links:
       - postgres-dev
-    build:
-      context: .
-      dockerfile: Dockerfile-dev
+    image: studentenportal/studentenportal-dev
     restart: on-failure:3
     volumes:
       - ./:/srv/www/studentenportal
