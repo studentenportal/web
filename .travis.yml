@@ -11,5 +11,5 @@ install:
     - make Dockerfile-dev
 
 script:
-    - ./test.sh
+    - make tests
     - coveralls
