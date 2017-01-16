@@ -1,0 +1,2805 @@
+--
+-- PostgreSQL database dump
+--
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+--
+-- Name: citext; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS citext WITH SCHEMA public;
+
+
+--
+-- Name: EXTENSION citext; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION citext IS 'data type for case-insensitive character strings';
+
+
+SET search_path = public, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: auth_group; Type: TABLE; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+CREATE TABLE auth_group (
+    id integer NOT NULL,
+    name character varying(80) NOT NULL
+);
+
+
+ALTER TABLE public.auth_group OWNER TO studentenportal;
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE; Schema: public; Owner: studentenportal
+--
+
+CREATE SEQUENCE auth_group_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_group_id_seq OWNER TO studentenportal;
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: studentenportal
+--
+
+ALTER SEQUENCE auth_group_id_seq OWNED BY auth_group.id;
+
+
+--
+-- Name: auth_group_permissions; Type: TABLE; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+CREATE TABLE auth_group_permissions (
+    id integer NOT NULL,
+    group_id integer NOT NULL,
+    permission_id integer NOT NULL
+);
+
+
+ALTER TABLE public.auth_group_permissions OWNER TO studentenportal;
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE; Schema: public; Owner: studentenportal
+--
+
+CREATE SEQUENCE auth_group_permissions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_group_permissions_id_seq OWNER TO studentenportal;
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: studentenportal
+--
+
+ALTER SEQUENCE auth_group_permissions_id_seq OWNED BY auth_group_permissions.id;
+
+
+--
+-- Name: auth_permission; Type: TABLE; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+CREATE TABLE auth_permission (
+    id integer NOT NULL,
+    name character varying(50) NOT NULL,
+    content_type_id integer NOT NULL,
+    codename character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.auth_permission OWNER TO studentenportal;
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE; Schema: public; Owner: studentenportal
+--
+
+CREATE SEQUENCE auth_permission_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_permission_id_seq OWNER TO studentenportal;
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: studentenportal
+--
+
+ALTER SEQUENCE auth_permission_id_seq OWNED BY auth_permission.id;
+
+
+--
+-- Name: django_admin_log; Type: TABLE; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+CREATE TABLE django_admin_log (
+    id integer NOT NULL,
+    action_time timestamp with time zone NOT NULL,
+    user_id integer NOT NULL,
+    content_type_id integer,
+    object_id text,
+    object_repr character varying(200) NOT NULL,
+    action_flag smallint NOT NULL,
+    change_message text NOT NULL,
+    CONSTRAINT django_admin_log_action_flag_check CHECK ((action_flag >= 0))
+);
+
+
+ALTER TABLE public.django_admin_log OWNER TO studentenportal;
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE; Schema: public; Owner: studentenportal
+--
+
+CREATE SEQUENCE django_admin_log_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_admin_log_id_seq OWNER TO studentenportal;
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: studentenportal
+--
+
+ALTER SEQUENCE django_admin_log_id_seq OWNED BY django_admin_log.id;
+
+
+--
+-- Name: django_content_type; Type: TABLE; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+CREATE TABLE django_content_type (
+    id integer NOT NULL,
+    name character varying(100) NOT NULL,
+    app_label character varying(100) NOT NULL,
+    model character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.django_content_type OWNER TO studentenportal;
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE; Schema: public; Owner: studentenportal
+--
+
+CREATE SEQUENCE django_content_type_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_content_type_id_seq OWNER TO studentenportal;
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: studentenportal
+--
+
+ALTER SEQUENCE django_content_type_id_seq OWNED BY django_content_type.id;
+
+
+--
+-- Name: django_session; Type: TABLE; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+CREATE TABLE django_session (
+    session_key character varying(40) NOT NULL,
+    session_data text NOT NULL,
+    expire_date timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.django_session OWNER TO studentenportal;
+
+--
+-- Name: documents_document; Type: TABLE; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+CREATE TABLE documents_document (
+    id integer NOT NULL,
+    name character varying(100) NOT NULL,
+    description character varying(500) NOT NULL,
+    url character varying(200),
+    category_id integer,
+    dtype smallint NOT NULL,
+    document character varying(100) NOT NULL,
+    original_filename character varying(255) NOT NULL,
+    uploader_id integer,
+    upload_date timestamp with time zone NOT NULL,
+    change_date timestamp with time zone NOT NULL,
+    license smallint,
+    public boolean NOT NULL,
+    flattr_disabled boolean NOT NULL,
+    CONSTRAINT documents_document_dtype_check CHECK ((dtype >= 0)),
+    CONSTRAINT documents_document_license_check CHECK ((license >= 0))
+);
+
+
+ALTER TABLE public.documents_document OWNER TO studentenportal;
+
+--
+-- Name: documents_document_id_seq; Type: SEQUENCE; Schema: public; Owner: studentenportal
+--
+
+CREATE SEQUENCE documents_document_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.documents_document_id_seq OWNER TO studentenportal;
+
+--
+-- Name: documents_document_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: studentenportal
+--
+
+ALTER SEQUENCE documents_document_id_seq OWNED BY documents_document.id;
+
+
+--
+-- Name: documents_documentcategory; Type: TABLE; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+CREATE TABLE documents_documentcategory (
+    id integer NOT NULL,
+    name citext NOT NULL,
+    description character varying(255) NOT NULL
+);
+
+
+ALTER TABLE public.documents_documentcategory OWNER TO studentenportal;
+
+--
+-- Name: documents_documentcategory_courses; Type: TABLE; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+CREATE TABLE documents_documentcategory_courses (
+    id integer NOT NULL,
+    documentcategory_id integer NOT NULL,
+    course_id integer NOT NULL
+);
+
+
+ALTER TABLE public.documents_documentcategory_courses OWNER TO studentenportal;
+
+--
+-- Name: documents_documentcategory_courses_id_seq; Type: SEQUENCE; Schema: public; Owner: studentenportal
+--
+
+CREATE SEQUENCE documents_documentcategory_courses_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.documents_documentcategory_courses_id_seq OWNER TO studentenportal;
+
+--
+-- Name: documents_documentcategory_courses_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: studentenportal
+--
+
+ALTER SEQUENCE documents_documentcategory_courses_id_seq OWNED BY documents_documentcategory_courses.id;
+
+
+--
+-- Name: documents_documentcategory_id_seq; Type: SEQUENCE; Schema: public; Owner: studentenportal
+--
+
+CREATE SEQUENCE documents_documentcategory_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.documents_documentcategory_id_seq OWNER TO studentenportal;
+
+--
+-- Name: documents_documentcategory_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: studentenportal
+--
+
+ALTER SEQUENCE documents_documentcategory_id_seq OWNED BY documents_documentcategory.id;
+
+
+--
+-- Name: documents_documentcategory_lecturers; Type: TABLE; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+CREATE TABLE documents_documentcategory_lecturers (
+    id integer NOT NULL,
+    documentcategory_id integer NOT NULL,
+    lecturer_id integer NOT NULL
+);
+
+
+ALTER TABLE public.documents_documentcategory_lecturers OWNER TO studentenportal;
+
+--
+-- Name: documents_documentcategory_lecturers_id_seq; Type: SEQUENCE; Schema: public; Owner: studentenportal
+--
+
+CREATE SEQUENCE documents_documentcategory_lecturers_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.documents_documentcategory_lecturers_id_seq OWNER TO studentenportal;
+
+--
+-- Name: documents_documentcategory_lecturers_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: studentenportal
+--
+
+ALTER SEQUENCE documents_documentcategory_lecturers_id_seq OWNED BY documents_documentcategory_lecturers.id;
+
+
+--
+-- Name: documents_documentdownload; Type: TABLE; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+CREATE TABLE documents_documentdownload (
+    id integer NOT NULL,
+    document_id integer NOT NULL,
+    "timestamp" timestamp with time zone NOT NULL,
+    ip inet NOT NULL
+);
+
+
+ALTER TABLE public.documents_documentdownload OWNER TO studentenportal;
+
+--
+-- Name: documents_documentdownload_id_seq; Type: SEQUENCE; Schema: public; Owner: studentenportal
+--
+
+CREATE SEQUENCE documents_documentdownload_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.documents_documentdownload_id_seq OWNER TO studentenportal;
+
+--
+-- Name: documents_documentdownload_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: studentenportal
+--
+
+ALTER SEQUENCE documents_documentdownload_id_seq OWNED BY documents_documentdownload.id;
+
+
+--
+-- Name: documents_documentrating; Type: TABLE; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+CREATE TABLE documents_documentrating (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    document_id integer NOT NULL,
+    rating smallint NOT NULL,
+    CONSTRAINT documents_documentrating_rating_check CHECK ((rating >= 0))
+);
+
+
+ALTER TABLE public.documents_documentrating OWNER TO studentenportal;
+
+--
+-- Name: documents_documentrating_id_seq; Type: SEQUENCE; Schema: public; Owner: studentenportal
+--
+
+CREATE SEQUENCE documents_documentrating_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.documents_documentrating_id_seq OWNER TO studentenportal;
+
+--
+-- Name: documents_documentrating_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: studentenportal
+--
+
+ALTER SEQUENCE documents_documentrating_id_seq OWNED BY documents_documentrating.id;
+
+
+--
+-- Name: easy_thumbnails_source; Type: TABLE; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+CREATE TABLE easy_thumbnails_source (
+    id integer NOT NULL,
+    name character varying(255) NOT NULL,
+    modified timestamp with time zone NOT NULL,
+    storage_hash character varying(40) NOT NULL
+);
+
+
+ALTER TABLE public.easy_thumbnails_source OWNER TO studentenportal;
+
+--
+-- Name: easy_thumbnails_source_id_seq; Type: SEQUENCE; Schema: public; Owner: studentenportal
+--
+
+CREATE SEQUENCE easy_thumbnails_source_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.easy_thumbnails_source_id_seq OWNER TO studentenportal;
+
+--
+-- Name: easy_thumbnails_source_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: studentenportal
+--
+
+ALTER SEQUENCE easy_thumbnails_source_id_seq OWNED BY easy_thumbnails_source.id;
+
+
+--
+-- Name: easy_thumbnails_thumbnail; Type: TABLE; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+CREATE TABLE easy_thumbnails_thumbnail (
+    id integer NOT NULL,
+    name character varying(255) NOT NULL,
+    modified timestamp with time zone NOT NULL,
+    source_id integer NOT NULL,
+    storage_hash character varying(40) NOT NULL
+);
+
+
+ALTER TABLE public.easy_thumbnails_thumbnail OWNER TO studentenportal;
+
+--
+-- Name: easy_thumbnails_thumbnail_id_seq; Type: SEQUENCE; Schema: public; Owner: studentenportal
+--
+
+CREATE SEQUENCE easy_thumbnails_thumbnail_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.easy_thumbnails_thumbnail_id_seq OWNER TO studentenportal;
+
+--
+-- Name: easy_thumbnails_thumbnail_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: studentenportal
+--
+
+ALTER SEQUENCE easy_thumbnails_thumbnail_id_seq OWNED BY easy_thumbnails_thumbnail.id;
+
+
+--
+-- Name: events_event; Type: TABLE; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+CREATE TABLE events_event (
+    id integer NOT NULL,
+    author_id integer,
+    summary character varying(64) NOT NULL,
+    description text NOT NULL,
+    start_date date NOT NULL,
+    start_time time without time zone,
+    end_date date,
+    end_time time without time zone,
+    location character varying(80),
+    url character varying(200),
+    picture character varying(100)
+);
+
+
+ALTER TABLE public.events_event OWNER TO studentenportal;
+
+--
+-- Name: events_event_id_seq; Type: SEQUENCE; Schema: public; Owner: studentenportal
+--
+
+CREATE SEQUENCE events_event_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.events_event_id_seq OWNER TO studentenportal;
+
+--
+-- Name: events_event_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: studentenportal
+--
+
+ALTER SEQUENCE events_event_id_seq OWNED BY events_event.id;
+
+
+--
+-- Name: front_user; Type: TABLE; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+CREATE TABLE front_user (
+    id integer NOT NULL,
+    password character varying(128) NOT NULL,
+    last_login timestamp with time zone NOT NULL,
+    is_superuser boolean NOT NULL,
+    username character varying(30) NOT NULL,
+    first_name character varying(30) NOT NULL,
+    last_name character varying(30) NOT NULL,
+    email character varying(75) NOT NULL,
+    is_staff boolean NOT NULL,
+    is_active boolean NOT NULL,
+    date_joined timestamp with time zone NOT NULL,
+    twitter character varying(24) NOT NULL,
+    flattr character varying(128) NOT NULL
+);
+
+
+ALTER TABLE public.front_user OWNER TO studentenportal;
+
+--
+-- Name: front_user_groups; Type: TABLE; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+CREATE TABLE front_user_groups (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    group_id integer NOT NULL
+);
+
+
+ALTER TABLE public.front_user_groups OWNER TO studentenportal;
+
+--
+-- Name: front_user_groups_id_seq; Type: SEQUENCE; Schema: public; Owner: studentenportal
+--
+
+CREATE SEQUENCE front_user_groups_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.front_user_groups_id_seq OWNER TO studentenportal;
+
+--
+-- Name: front_user_groups_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: studentenportal
+--
+
+ALTER SEQUENCE front_user_groups_id_seq OWNED BY front_user_groups.id;
+
+
+--
+-- Name: front_user_id_seq; Type: SEQUENCE; Schema: public; Owner: studentenportal
+--
+
+CREATE SEQUENCE front_user_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.front_user_id_seq OWNER TO studentenportal;
+
+--
+-- Name: front_user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: studentenportal
+--
+
+ALTER SEQUENCE front_user_id_seq OWNED BY front_user.id;
+
+
+--
+-- Name: front_user_user_permissions; Type: TABLE; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+CREATE TABLE front_user_user_permissions (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    permission_id integer NOT NULL
+);
+
+
+ALTER TABLE public.front_user_user_permissions OWNER TO studentenportal;
+
+--
+-- Name: front_user_user_permissions_id_seq; Type: SEQUENCE; Schema: public; Owner: studentenportal
+--
+
+CREATE SEQUENCE front_user_user_permissions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.front_user_user_permissions_id_seq OWNER TO studentenportal;
+
+--
+-- Name: front_user_user_permissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: studentenportal
+--
+
+ALTER SEQUENCE front_user_user_permissions_id_seq OWNED BY front_user_user_permissions.id;
+
+
+--
+-- Name: lecturers_course; Type: TABLE; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+CREATE TABLE lecturers_course (
+    id integer NOT NULL,
+    abbreviation character varying(10) NOT NULL,
+    name character varying(50) NOT NULL
+);
+
+
+ALTER TABLE public.lecturers_course OWNER TO studentenportal;
+
+--
+-- Name: lecturers_lecturer; Type: TABLE; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+CREATE TABLE lecturers_lecturer (
+    id integer NOT NULL,
+    title character varying(32),
+    last_name character varying(255) NOT NULL,
+    first_name character varying(255) NOT NULL,
+    abbreviation character varying(10) NOT NULL,
+    department character varying(100),
+    function character varying(255),
+    main_area character varying(255),
+    subjects character varying(50),
+    email character varying(75),
+    office character varying(20)
+);
+
+
+ALTER TABLE public.lecturers_lecturer OWNER TO studentenportal;
+
+--
+-- Name: lecturers_lecturerrating; Type: TABLE; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+CREATE TABLE lecturers_lecturerrating (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    lecturer_id integer NOT NULL,
+    category character varying(1) NOT NULL,
+    rating smallint NOT NULL,
+    CONSTRAINT lecturers_lecturerrating_rating_check CHECK ((rating >= 0))
+);
+
+
+ALTER TABLE public.lecturers_lecturerrating OWNER TO studentenportal;
+
+--
+-- Name: lecturers_lecturerrating_id_seq; Type: SEQUENCE; Schema: public; Owner: studentenportal
+--
+
+CREATE SEQUENCE lecturers_lecturerrating_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.lecturers_lecturerrating_id_seq OWNER TO studentenportal;
+
+--
+-- Name: lecturers_lecturerrating_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: studentenportal
+--
+
+ALTER SEQUENCE lecturers_lecturerrating_id_seq OWNED BY lecturers_lecturerrating.id;
+
+
+--
+-- Name: lecturers_quote; Type: TABLE; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+CREATE TABLE lecturers_quote (
+    id integer NOT NULL,
+    author_id integer,
+    lecturer_id integer NOT NULL,
+    date timestamp with time zone NOT NULL,
+    quote text NOT NULL,
+    comment text NOT NULL
+);
+
+
+ALTER TABLE public.lecturers_quote OWNER TO studentenportal;
+
+--
+-- Name: lecturers_quote_id_seq; Type: SEQUENCE; Schema: public; Owner: studentenportal
+--
+
+CREATE SEQUENCE lecturers_quote_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.lecturers_quote_id_seq OWNER TO studentenportal;
+
+--
+-- Name: lecturers_quote_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: studentenportal
+--
+
+ALTER SEQUENCE lecturers_quote_id_seq OWNED BY lecturers_quote.id;
+
+
+--
+-- Name: lecturers_quotevote; Type: TABLE; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+CREATE TABLE lecturers_quotevote (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    quote_id integer NOT NULL,
+    vote boolean NOT NULL
+);
+
+
+ALTER TABLE public.lecturers_quotevote OWNER TO studentenportal;
+
+--
+-- Name: lecturers_quotevote_id_seq; Type: SEQUENCE; Schema: public; Owner: studentenportal
+--
+
+CREATE SEQUENCE lecturers_quotevote_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.lecturers_quotevote_id_seq OWNER TO studentenportal;
+
+--
+-- Name: lecturers_quotevote_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: studentenportal
+--
+
+ALTER SEQUENCE lecturers_quotevote_id_seq OWNED BY lecturers_quotevote.id;
+
+
+--
+-- Name: oauth2_accesstoken; Type: TABLE; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+CREATE TABLE oauth2_accesstoken (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    token character varying(255) NOT NULL,
+    client_id integer NOT NULL,
+    expires timestamp with time zone NOT NULL,
+    scope integer NOT NULL
+);
+
+
+ALTER TABLE public.oauth2_accesstoken OWNER TO studentenportal;
+
+--
+-- Name: oauth2_accesstoken_id_seq; Type: SEQUENCE; Schema: public; Owner: studentenportal
+--
+
+CREATE SEQUENCE oauth2_accesstoken_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.oauth2_accesstoken_id_seq OWNER TO studentenportal;
+
+--
+-- Name: oauth2_accesstoken_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: studentenportal
+--
+
+ALTER SEQUENCE oauth2_accesstoken_id_seq OWNED BY oauth2_accesstoken.id;
+
+
+--
+-- Name: oauth2_client; Type: TABLE; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+CREATE TABLE oauth2_client (
+    id integer NOT NULL,
+    user_id integer,
+    url character varying(200) NOT NULL,
+    redirect_uri character varying(200) NOT NULL,
+    client_id character varying(255) NOT NULL,
+    client_secret character varying(255) NOT NULL,
+    client_type integer NOT NULL,
+    name character varying(255) NOT NULL
+);
+
+
+ALTER TABLE public.oauth2_client OWNER TO studentenportal;
+
+--
+-- Name: oauth2_client_id_seq; Type: SEQUENCE; Schema: public; Owner: studentenportal
+--
+
+CREATE SEQUENCE oauth2_client_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.oauth2_client_id_seq OWNER TO studentenportal;
+
+--
+-- Name: oauth2_client_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: studentenportal
+--
+
+ALTER SEQUENCE oauth2_client_id_seq OWNED BY oauth2_client.id;
+
+
+--
+-- Name: oauth2_grant; Type: TABLE; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+CREATE TABLE oauth2_grant (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    client_id integer NOT NULL,
+    code character varying(255) NOT NULL,
+    expires timestamp with time zone NOT NULL,
+    redirect_uri character varying(255) NOT NULL,
+    scope integer NOT NULL
+);
+
+
+ALTER TABLE public.oauth2_grant OWNER TO studentenportal;
+
+--
+-- Name: oauth2_grant_id_seq; Type: SEQUENCE; Schema: public; Owner: studentenportal
+--
+
+CREATE SEQUENCE oauth2_grant_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.oauth2_grant_id_seq OWNER TO studentenportal;
+
+--
+-- Name: oauth2_grant_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: studentenportal
+--
+
+ALTER SEQUENCE oauth2_grant_id_seq OWNED BY oauth2_grant.id;
+
+
+--
+-- Name: oauth2_refreshtoken; Type: TABLE; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+CREATE TABLE oauth2_refreshtoken (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    token character varying(255) NOT NULL,
+    access_token_id integer NOT NULL,
+    client_id integer NOT NULL,
+    expired boolean NOT NULL
+);
+
+
+ALTER TABLE public.oauth2_refreshtoken OWNER TO studentenportal;
+
+--
+-- Name: oauth2_refreshtoken_id_seq; Type: SEQUENCE; Schema: public; Owner: studentenportal
+--
+
+CREATE SEQUENCE oauth2_refreshtoken_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.oauth2_refreshtoken_id_seq OWNER TO studentenportal;
+
+--
+-- Name: oauth2_refreshtoken_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: studentenportal
+--
+
+ALTER SEQUENCE oauth2_refreshtoken_id_seq OWNED BY oauth2_refreshtoken.id;
+
+
+--
+-- Name: registration_registrationprofile; Type: TABLE; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+CREATE TABLE registration_registrationprofile (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    activation_key character varying(40) NOT NULL
+);
+
+
+ALTER TABLE public.registration_registrationprofile OWNER TO studentenportal;
+
+--
+-- Name: registration_registrationprofile_id_seq; Type: SEQUENCE; Schema: public; Owner: studentenportal
+--
+
+CREATE SEQUENCE registration_registrationprofile_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.registration_registrationprofile_id_seq OWNER TO studentenportal;
+
+--
+-- Name: registration_registrationprofile_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: studentenportal
+--
+
+ALTER SEQUENCE registration_registrationprofile_id_seq OWNED BY registration_registrationprofile.id;
+
+
+--
+-- Name: south_migrationhistory; Type: TABLE; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+CREATE TABLE south_migrationhistory (
+    id integer NOT NULL,
+    app_name character varying(255) NOT NULL,
+    migration character varying(255) NOT NULL,
+    applied timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.south_migrationhistory OWNER TO studentenportal;
+
+--
+-- Name: south_migrationhistory_id_seq; Type: SEQUENCE; Schema: public; Owner: studentenportal
+--
+
+CREATE SEQUENCE south_migrationhistory_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.south_migrationhistory_id_seq OWNER TO studentenportal;
+
+--
+-- Name: south_migrationhistory_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: studentenportal
+--
+
+ALTER SEQUENCE south_migrationhistory_id_seq OWNED BY south_migrationhistory.id;
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: studentenportal
+--
+
+ALTER TABLE ONLY auth_group ALTER COLUMN id SET DEFAULT nextval('auth_group_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: studentenportal
+--
+
+ALTER TABLE ONLY auth_group_permissions ALTER COLUMN id SET DEFAULT nextval('auth_group_permissions_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: studentenportal
+--
+
+ALTER TABLE ONLY auth_permission ALTER COLUMN id SET DEFAULT nextval('auth_permission_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: studentenportal
+--
+
+ALTER TABLE ONLY django_admin_log ALTER COLUMN id SET DEFAULT nextval('django_admin_log_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: studentenportal
+--
+
+ALTER TABLE ONLY django_content_type ALTER COLUMN id SET DEFAULT nextval('django_content_type_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: studentenportal
+--
+
+ALTER TABLE ONLY documents_document ALTER COLUMN id SET DEFAULT nextval('documents_document_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: studentenportal
+--
+
+ALTER TABLE ONLY documents_documentcategory ALTER COLUMN id SET DEFAULT nextval('documents_documentcategory_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: studentenportal
+--
+
+ALTER TABLE ONLY documents_documentcategory_courses ALTER COLUMN id SET DEFAULT nextval('documents_documentcategory_courses_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: studentenportal
+--
+
+ALTER TABLE ONLY documents_documentcategory_lecturers ALTER COLUMN id SET DEFAULT nextval('documents_documentcategory_lecturers_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: studentenportal
+--
+
+ALTER TABLE ONLY documents_documentdownload ALTER COLUMN id SET DEFAULT nextval('documents_documentdownload_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: studentenportal
+--
+
+ALTER TABLE ONLY documents_documentrating ALTER COLUMN id SET DEFAULT nextval('documents_documentrating_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: studentenportal
+--
+
+ALTER TABLE ONLY easy_thumbnails_source ALTER COLUMN id SET DEFAULT nextval('easy_thumbnails_source_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: studentenportal
+--
+
+ALTER TABLE ONLY easy_thumbnails_thumbnail ALTER COLUMN id SET DEFAULT nextval('easy_thumbnails_thumbnail_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: studentenportal
+--
+
+ALTER TABLE ONLY events_event ALTER COLUMN id SET DEFAULT nextval('events_event_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: studentenportal
+--
+
+ALTER TABLE ONLY front_user ALTER COLUMN id SET DEFAULT nextval('front_user_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: studentenportal
+--
+
+ALTER TABLE ONLY front_user_groups ALTER COLUMN id SET DEFAULT nextval('front_user_groups_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: studentenportal
+--
+
+ALTER TABLE ONLY front_user_user_permissions ALTER COLUMN id SET DEFAULT nextval('front_user_user_permissions_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: studentenportal
+--
+
+ALTER TABLE ONLY lecturers_lecturerrating ALTER COLUMN id SET DEFAULT nextval('lecturers_lecturerrating_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: studentenportal
+--
+
+ALTER TABLE ONLY lecturers_quote ALTER COLUMN id SET DEFAULT nextval('lecturers_quote_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: studentenportal
+--
+
+ALTER TABLE ONLY lecturers_quotevote ALTER COLUMN id SET DEFAULT nextval('lecturers_quotevote_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: studentenportal
+--
+
+ALTER TABLE ONLY oauth2_accesstoken ALTER COLUMN id SET DEFAULT nextval('oauth2_accesstoken_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: studentenportal
+--
+
+ALTER TABLE ONLY oauth2_client ALTER COLUMN id SET DEFAULT nextval('oauth2_client_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: studentenportal
+--
+
+ALTER TABLE ONLY oauth2_grant ALTER COLUMN id SET DEFAULT nextval('oauth2_grant_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: studentenportal
+--
+
+ALTER TABLE ONLY oauth2_refreshtoken ALTER COLUMN id SET DEFAULT nextval('oauth2_refreshtoken_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: studentenportal
+--
+
+ALTER TABLE ONLY registration_registrationprofile ALTER COLUMN id SET DEFAULT nextval('registration_registrationprofile_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: studentenportal
+--
+
+ALTER TABLE ONLY south_migrationhistory ALTER COLUMN id SET DEFAULT nextval('south_migrationhistory_id_seq'::regclass);
+
+
+--
+-- Data for Name: auth_group; Type: TABLE DATA; Schema: public; Owner: studentenportal
+--
+
+COPY auth_group (id, name) FROM stdin;
+\.
+
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE SET; Schema: public; Owner: studentenportal
+--
+
+SELECT pg_catalog.setval('auth_group_id_seq', 1, false);
+
+
+--
+-- Data for Name: auth_group_permissions; Type: TABLE DATA; Schema: public; Owner: studentenportal
+--
+
+COPY auth_group_permissions (id, group_id, permission_id) FROM stdin;
+\.
+
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: studentenportal
+--
+
+SELECT pg_catalog.setval('auth_group_permissions_id_seq', 1, false);
+
+
+--
+-- Data for Name: auth_permission; Type: TABLE DATA; Schema: public; Owner: studentenportal
+--
+
+COPY auth_permission (id, name, content_type_id, codename) FROM stdin;
+1	Can add permission	1	add_permission
+2	Can change permission	1	change_permission
+3	Can delete permission	1	delete_permission
+4	Can add group	2	add_group
+5	Can change group	2	change_group
+6	Can delete group	2	delete_group
+7	Can add content type	3	add_contenttype
+8	Can change content type	3	change_contenttype
+9	Can delete content type	3	delete_contenttype
+10	Can add session	4	add_session
+11	Can change session	4	change_session
+12	Can delete session	4	delete_session
+13	Can add migration history	5	add_migrationhistory
+14	Can change migration history	5	change_migrationhistory
+15	Can delete migration history	5	delete_migrationhistory
+16	Can add log entry	6	add_logentry
+17	Can change log entry	6	change_logentry
+18	Can delete log entry	6	delete_logentry
+19	Can add registration profile	7	add_registrationprofile
+20	Can change registration profile	7	change_registrationprofile
+21	Can delete registration profile	7	delete_registrationprofile
+22	Can add source	8	add_source
+23	Can change source	8	change_source
+24	Can delete source	8	delete_source
+25	Can add thumbnail	9	add_thumbnail
+26	Can change thumbnail	9	change_thumbnail
+27	Can delete thumbnail	9	delete_thumbnail
+28	Can add user	10	add_user
+29	Can change user	10	change_user
+30	Can delete user	10	delete_user
+31	Can add client	11	add_client
+32	Can change client	11	change_client
+33	Can delete client	11	delete_client
+34	Can add grant	12	add_grant
+35	Can change grant	12	change_grant
+36	Can delete grant	12	delete_grant
+37	Can add access token	13	add_accesstoken
+38	Can change access token	13	change_accesstoken
+39	Can delete access token	13	delete_accesstoken
+40	Can add refresh token	14	add_refreshtoken
+41	Can change refresh token	14	change_refreshtoken
+42	Can delete refresh token	14	delete_refreshtoken
+43	Can add Modul	15	add_documentcategory
+44	Can change Modul	15	change_documentcategory
+45	Can delete Modul	15	delete_documentcategory
+46	Can add document	16	add_document
+47	Can change document	16	change_document
+48	Can delete document	16	delete_document
+49	Can add document download	17	add_documentdownload
+50	Can change document download	17	change_documentdownload
+51	Can delete document download	17	delete_documentdownload
+52	Can add document rating	18	add_documentrating
+53	Can change document rating	18	change_documentrating
+54	Can delete document rating	18	delete_documentrating
+55	Can add lecturer	19	add_lecturer
+56	Can change lecturer	19	change_lecturer
+57	Can delete lecturer	19	delete_lecturer
+58	Can add lecturer rating	20	add_lecturerrating
+59	Can change lecturer rating	20	change_lecturerrating
+60	Can delete lecturer rating	20	delete_lecturerrating
+61	Can add quote	21	add_quote
+62	Can change quote	21	change_quote
+63	Can delete quote	21	delete_quote
+64	Can add quote vote	22	add_quotevote
+65	Can change quote vote	22	change_quotevote
+66	Can delete quote vote	22	delete_quotevote
+67	Can add course	23	add_course
+68	Can change course	23	change_course
+69	Can delete course	23	delete_course
+70	Can add event	24	add_event
+71	Can change event	24	change_event
+72	Can delete event	24	delete_event
+\.
+
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE SET; Schema: public; Owner: studentenportal
+--
+
+SELECT pg_catalog.setval('auth_permission_id_seq', 72, true);
+
+
+--
+-- Data for Name: django_admin_log; Type: TABLE DATA; Schema: public; Owner: studentenportal
+--
+
+COPY django_admin_log (id, action_time, user_id, content_type_id, object_id, object_repr, action_flag, change_message) FROM stdin;
+1	2017-01-16 17:37:17.974318+00	1	19	99	Musterfrau Maria	1	
+2	2017-01-16 17:38:57.264147+00	1	19	42	Watson John	1	
+3	2017-01-16 17:40:02.825753+00	1	19	42	Watson John	2	office geändert.
+4	2017-01-16 18:51:51.51514+00	1	10	2	user1	1	
+\.
+
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: studentenportal
+--
+
+SELECT pg_catalog.setval('django_admin_log_id_seq', 4, true);
+
+
+--
+-- Data for Name: django_content_type; Type: TABLE DATA; Schema: public; Owner: studentenportal
+--
+
+COPY django_content_type (id, name, app_label, model) FROM stdin;
+1	permission	auth	permission
+2	group	auth	group
+3	content type	contenttypes	contenttype
+4	session	sessions	session
+5	migration history	south	migrationhistory
+6	log entry	admin	logentry
+7	registration profile	registration	registrationprofile
+8	source	easy_thumbnails	source
+9	thumbnail	easy_thumbnails	thumbnail
+10	user	front	user
+11	client	oauth2	client
+12	grant	oauth2	grant
+13	access token	oauth2	accesstoken
+14	refresh token	oauth2	refreshtoken
+15	Modul	documents	documentcategory
+16	document	documents	document
+17	document download	documents	documentdownload
+18	document rating	documents	documentrating
+19	lecturer	lecturers	lecturer
+20	lecturer rating	lecturers	lecturerrating
+21	quote	lecturers	quote
+22	quote vote	lecturers	quotevote
+23	course	lecturers	course
+24	event	events	event
+\.
+
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: studentenportal
+--
+
+SELECT pg_catalog.setval('django_content_type_id_seq', 24, true);
+
+
+--
+-- Data for Name: django_session; Type: TABLE DATA; Schema: public; Owner: studentenportal
+--
+
+COPY django_session (session_key, session_data, expire_date) FROM stdin;
+nt21d3kx4678z5c2fti8icqt0upsydiu	NWIzMDM4NmY2YTgxNGE2MGM4NzRiZDkwMjBlNGRmNTljNmE2NDM4Yjp7fQ==	2017-01-30 19:54:39.145658+00
+o6z2rjhrnt52dhkx5bakmwf3xdnfqjtn	ZjBiNjQzOGRhNDhhMDU0NzZiZWFjYTJlOTI2ZDc5YzVlMjRlZGNiMTp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImNvbmZpZy5iYWNrZW5kcy5DYXNlSW5zZW5zaXRpdmVNb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2lkIjoxfQ==	2017-01-30 18:14:03.049617+00
+\.
+
+
+--
+-- Data for Name: documents_document; Type: TABLE DATA; Schema: public; Owner: studentenportal
+--
+
+COPY documents_document (id, name, description, url, category_id, dtype, document, original_filename, uploader_id, upload_date, change_date, license, public, flattr_disabled) FROM stdin;
+1	Sherlock Holmes	Upload from user0: .epub file.	https://www.gutenberg.org/ebooks/1661	1	4	documents/rech1/2017-01-16_19-31-26.epub	pg1661-images.epub	1	2017-01-16 18:31:26.464246+00	2017-01-16 18:31:26.472656+00	1	t	t
+2	Sherlock Holmes (PDF)	Upload from user1: .pdf file.		1	4	documents/rech1/2017-01-16_20-13-15.pdf	The Adventures of Sherlock Holmes.pdf	2	2017-01-16 19:13:15.409804+00	2017-01-16 19:13:15.421156+00	5	f	f
+\.
+
+
+--
+-- Name: documents_document_id_seq; Type: SEQUENCE SET; Schema: public; Owner: studentenportal
+--
+
+SELECT pg_catalog.setval('documents_document_id_seq', 2, true);
+
+
+--
+-- Data for Name: documents_documentcategory; Type: TABLE DATA; Schema: public; Owner: studentenportal
+--
+
+COPY documents_documentcategory (id, name, description) FROM stdin;
+1	Rech1	Recherche für Anfänger
+2	Phil1	Philatelie 1
+\.
+
+
+--
+-- Data for Name: documents_documentcategory_courses; Type: TABLE DATA; Schema: public; Owner: studentenportal
+--
+
+COPY documents_documentcategory_courses (id, documentcategory_id, course_id) FROM stdin;
+\.
+
+
+--
+-- Name: documents_documentcategory_courses_id_seq; Type: SEQUENCE SET; Schema: public; Owner: studentenportal
+--
+
+SELECT pg_catalog.setval('documents_documentcategory_courses_id_seq', 1, false);
+
+
+--
+-- Name: documents_documentcategory_id_seq; Type: SEQUENCE SET; Schema: public; Owner: studentenportal
+--
+
+SELECT pg_catalog.setval('documents_documentcategory_id_seq', 2, true);
+
+
+--
+-- Data for Name: documents_documentcategory_lecturers; Type: TABLE DATA; Schema: public; Owner: studentenportal
+--
+
+COPY documents_documentcategory_lecturers (id, documentcategory_id, lecturer_id) FROM stdin;
+1	1	42
+2	2	99
+\.
+
+
+--
+-- Name: documents_documentcategory_lecturers_id_seq; Type: SEQUENCE SET; Schema: public; Owner: studentenportal
+--
+
+SELECT pg_catalog.setval('documents_documentcategory_lecturers_id_seq', 2, true);
+
+
+--
+-- Data for Name: documents_documentdownload; Type: TABLE DATA; Schema: public; Owner: studentenportal
+--
+
+COPY documents_documentdownload (id, document_id, "timestamp", ip) FROM stdin;
+1	1	2017-01-16 18:33:26.220771+00	172.21.0.1
+2	2	2017-01-16 19:13:21.348547+00	172.21.0.1
+\.
+
+
+--
+-- Name: documents_documentdownload_id_seq; Type: SEQUENCE SET; Schema: public; Owner: studentenportal
+--
+
+SELECT pg_catalog.setval('documents_documentdownload_id_seq', 2, true);
+
+
+--
+-- Data for Name: documents_documentrating; Type: TABLE DATA; Schema: public; Owner: studentenportal
+--
+
+COPY documents_documentrating (id, user_id, document_id, rating) FROM stdin;
+1	1	2	4
+\.
+
+
+--
+-- Name: documents_documentrating_id_seq; Type: SEQUENCE SET; Schema: public; Owner: studentenportal
+--
+
+SELECT pg_catalog.setval('documents_documentrating_id_seq', 1, true);
+
+
+--
+-- Data for Name: easy_thumbnails_source; Type: TABLE DATA; Schema: public; Owner: studentenportal
+--
+
+COPY easy_thumbnails_source (id, name, modified, storage_hash) FROM stdin;
+1	event_pictures/2017/logo.png	2017-01-16 19:30:35.641064+00	f9bde26a1556cd667f742bd34ec7c55e
+2	event_pictures/2042/cabcardthetare-thumb.jpg	2017-01-16 19:34:47.110906+00	f9bde26a1556cd667f742bd34ec7c55e
+3	lecturers/42.jpg	2017-01-16 19:48:23.133405+00	f9bde26a1556cd667f742bd34ec7c55e
+\.
+
+
+--
+-- Name: easy_thumbnails_source_id_seq; Type: SEQUENCE SET; Schema: public; Owner: studentenportal
+--
+
+SELECT pg_catalog.setval('easy_thumbnails_source_id_seq', 3, true);
+
+
+--
+-- Data for Name: easy_thumbnails_thumbnail; Type: TABLE DATA; Schema: public; Owner: studentenportal
+--
+
+COPY easy_thumbnails_thumbnail (id, name, modified, source_id, storage_hash) FROM stdin;
+1	event_pictures/2017/logo.png.600x500_q85.jpg	2017-01-16 19:30:36.946063+00	1	d26becbf46ac48eda79c7a39a13a02dd
+2	event_pictures/2042/cabcardthetare-thumb.jpg.600x500_q85.jpg	2017-01-16 19:34:48.435905+00	2	d26becbf46ac48eda79c7a39a13a02dd
+3	lecturers/42.jpg.120x160_q85_crop.jpg	2017-01-16 19:51:49.888309+00	3	d26becbf46ac48eda79c7a39a13a02dd
+4	lecturers/42.jpg.34x45_q85_crop.jpg	2017-01-16 19:52:23.114294+00	3	d26becbf46ac48eda79c7a39a13a02dd
+5	lecturers/42.jpg.75x100_q85_crop.jpg	2017-01-16 19:52:43.116284+00	3	d26becbf46ac48eda79c7a39a13a02dd
+\.
+
+
+--
+-- Name: easy_thumbnails_thumbnail_id_seq; Type: SEQUENCE SET; Schema: public; Owner: studentenportal
+--
+
+SELECT pg_catalog.setval('easy_thumbnails_thumbnail_id_seq', 5, true);
+
+
+--
+-- Data for Name: events_event; Type: TABLE DATA; Schema: public; Owner: studentenportal
+--
+
+COPY events_event (id, author_id, summary, description, start_date, start_time, end_date, end_time, location, url, picture) FROM stdin;
+1	1	Coding Party	Tomorrow, there is a coding party!	2017-01-09	21:30:00	2017-01-18	22:00:00	Secret Location	https://secret.onion/	event_pictures/2017/logo.png
+2	2	The Coding Duo	Live performance of The Coding Duo	2042-04-02	02:30:00	\N	\N	The Internet	https://studentenportal.ch/	event_pictures/2042/cabcardthetare-thumb.jpg
+3	2	Some boring event	Learn you node	2019-09-13	21:30:00	\N	\N			
+\.
+
+
+--
+-- Name: events_event_id_seq; Type: SEQUENCE SET; Schema: public; Owner: studentenportal
+--
+
+SELECT pg_catalog.setval('events_event_id_seq', 3, true);
+
+
+--
+-- Data for Name: front_user; Type: TABLE DATA; Schema: public; Owner: studentenportal
+--
+
+COPY front_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined, twitter, flattr) FROM stdin;
+2	pbkdf2_sha256$12000$n8Awpgtfun9n$jzPqHsFc1N8tOaT1ypJ1DRLdm5SBILyL2tUnyf/IIJ0=	2017-01-16 19:31:38.673451+00	f	user1	1Firstname	1Surname	user1@localhost	f	t	2017-01-16 18:47:39+00		
+1	pbkdf2_sha256$12000$lsoo78F9ZTy4$bITXRF2m8eU73EXC8VgRoIlot6xWa41fFeI04kAHqdM=	2017-01-16 19:50:07.77397+00	t	user0	0Firstname	0Lastname (Admin)	user0@localhost	t	t	2017-01-16 17:30:50.69656+00	gutenberg_org	gbnewby
+\.
+
+
+--
+-- Data for Name: front_user_groups; Type: TABLE DATA; Schema: public; Owner: studentenportal
+--
+
+COPY front_user_groups (id, user_id, group_id) FROM stdin;
+\.
+
+
+--
+-- Name: front_user_groups_id_seq; Type: SEQUENCE SET; Schema: public; Owner: studentenportal
+--
+
+SELECT pg_catalog.setval('front_user_groups_id_seq', 1, false);
+
+
+--
+-- Name: front_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: studentenportal
+--
+
+SELECT pg_catalog.setval('front_user_id_seq', 2, true);
+
+
+--
+-- Data for Name: front_user_user_permissions; Type: TABLE DATA; Schema: public; Owner: studentenportal
+--
+
+COPY front_user_user_permissions (id, user_id, permission_id) FROM stdin;
+\.
+
+
+--
+-- Name: front_user_user_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: studentenportal
+--
+
+SELECT pg_catalog.setval('front_user_user_permissions_id_seq', 1, false);
+
+
+--
+-- Data for Name: lecturers_course; Type: TABLE DATA; Schema: public; Owner: studentenportal
+--
+
+COPY lecturers_course (id, abbreviation, name) FROM stdin;
+\.
+
+
+--
+-- Data for Name: lecturers_lecturer; Type: TABLE DATA; Schema: public; Owner: studentenportal
+--
+
+COPY lecturers_lecturer (id, title, last_name, first_name, abbreviation, department, function, main_area, subjects, email, office) FROM stdin;
+99	Frau Dr. Prof. Phil.	Musterfrau	Maria	MAM	Raketenwissenschaften	Antrieb	Fuelmanager		mmusterfrau@localhost	99.001A
+42	Dr.	Watson	John	JOW	Wissenschaftliche Recherche	Detektiv	Mord		jwatson@localhost	221B
+\.
+
+
+--
+-- Data for Name: lecturers_lecturerrating; Type: TABLE DATA; Schema: public; Owner: studentenportal
+--
+
+COPY lecturers_lecturerrating (id, user_id, lecturer_id, category, rating) FROM stdin;
+1	1	99	d	7
+2	1	99	m	8
+3	1	99	f	6
+4	1	42	f	10
+5	1	42	m	6
+6	1	42	d	3
+7	2	42	d	5
+8	2	42	m	10
+9	2	42	f	9
+\.
+
+
+--
+-- Name: lecturers_lecturerrating_id_seq; Type: SEQUENCE SET; Schema: public; Owner: studentenportal
+--
+
+SELECT pg_catalog.setval('lecturers_lecturerrating_id_seq', 9, true);
+
+
+--
+-- Data for Name: lecturers_quote; Type: TABLE DATA; Schema: public; Owner: studentenportal
+--
+
+COPY lecturers_quote (id, author_id, lecturer_id, date, quote, comment) FROM stdin;
+1	2	42	2017-01-16 19:21:27.951923+00	You know my methods, Watson.	Quotes Sherlock Holmes
+2	2	42	2017-01-16 19:22:46.334881+00	"Excellent!" I cried. "Elementary,",	said he.
+3	1	99	2017-01-16 19:24:44.002343+00	Ich bin durch den fiktiven Personalausweis und ebensolchen Reisepass zu bundesweiter Bekanntheit gelangt.	
+\.
+
+
+--
+-- Name: lecturers_quote_id_seq; Type: SEQUENCE SET; Schema: public; Owner: studentenportal
+--
+
+SELECT pg_catalog.setval('lecturers_quote_id_seq', 3, true);
+
+
+--
+-- Data for Name: lecturers_quotevote; Type: TABLE DATA; Schema: public; Owner: studentenportal
+--
+
+COPY lecturers_quotevote (id, user_id, quote_id, vote) FROM stdin;
+1	2	1	t
+2	2	2	t
+4	1	2	t
+12	1	3	t
+\.
+
+
+--
+-- Name: lecturers_quotevote_id_seq; Type: SEQUENCE SET; Schema: public; Owner: studentenportal
+--
+
+SELECT pg_catalog.setval('lecturers_quotevote_id_seq', 12, true);
+
+
+--
+-- Data for Name: oauth2_accesstoken; Type: TABLE DATA; Schema: public; Owner: studentenportal
+--
+
+COPY oauth2_accesstoken (id, user_id, token, client_id, expires, scope) FROM stdin;
+\.
+
+
+--
+-- Name: oauth2_accesstoken_id_seq; Type: SEQUENCE SET; Schema: public; Owner: studentenportal
+--
+
+SELECT pg_catalog.setval('oauth2_accesstoken_id_seq', 1, false);
+
+
+--
+-- Data for Name: oauth2_client; Type: TABLE DATA; Schema: public; Owner: studentenportal
+--
+
+COPY oauth2_client (id, user_id, url, redirect_uri, client_id, client_secret, client_type, name) FROM stdin;
+\.
+
+
+--
+-- Name: oauth2_client_id_seq; Type: SEQUENCE SET; Schema: public; Owner: studentenportal
+--
+
+SELECT pg_catalog.setval('oauth2_client_id_seq', 1, false);
+
+
+--
+-- Data for Name: oauth2_grant; Type: TABLE DATA; Schema: public; Owner: studentenportal
+--
+
+COPY oauth2_grant (id, user_id, client_id, code, expires, redirect_uri, scope) FROM stdin;
+\.
+
+
+--
+-- Name: oauth2_grant_id_seq; Type: SEQUENCE SET; Schema: public; Owner: studentenportal
+--
+
+SELECT pg_catalog.setval('oauth2_grant_id_seq', 1, false);
+
+
+--
+-- Data for Name: oauth2_refreshtoken; Type: TABLE DATA; Schema: public; Owner: studentenportal
+--
+
+COPY oauth2_refreshtoken (id, user_id, token, access_token_id, client_id, expired) FROM stdin;
+\.
+
+
+--
+-- Name: oauth2_refreshtoken_id_seq; Type: SEQUENCE SET; Schema: public; Owner: studentenportal
+--
+
+SELECT pg_catalog.setval('oauth2_refreshtoken_id_seq', 1, false);
+
+
+--
+-- Data for Name: registration_registrationprofile; Type: TABLE DATA; Schema: public; Owner: studentenportal
+--
+
+COPY registration_registrationprofile (id, user_id, activation_key) FROM stdin;
+\.
+
+
+--
+-- Name: registration_registrationprofile_id_seq; Type: SEQUENCE SET; Schema: public; Owner: studentenportal
+--
+
+SELECT pg_catalog.setval('registration_registrationprofile_id_seq', 1, false);
+
+
+--
+-- Data for Name: south_migrationhistory; Type: TABLE DATA; Schema: public; Owner: studentenportal
+--
+
+COPY south_migrationhistory (id, app_name, migration, applied) FROM stdin;
+1	easy_thumbnails	0001_initial	2017-01-16 17:26:15.345034+00
+2	easy_thumbnails	0002_filename_indexes	2017-01-16 17:26:15.394378+00
+3	easy_thumbnails	0003_auto__add_storagenew	2017-01-16 17:26:15.48477+00
+4	easy_thumbnails	0004_auto__add_field_source_storage_new__add_field_thumbnail_storage_new	2017-01-16 17:26:15.549722+00
+5	easy_thumbnails	0005_storage_fks_null	2017-01-16 17:26:15.642507+00
+6	easy_thumbnails	0006_copy_storage	2017-01-16 17:26:15.667986+00
+7	easy_thumbnails	0007_storagenew_fks_not_null	2017-01-16 17:26:15.740231+00
+8	easy_thumbnails	0008_auto__del_field_source_storage__del_field_thumbnail_storage	2017-01-16 17:26:15.758551+00
+9	easy_thumbnails	0009_auto__del_storage	2017-01-16 17:26:15.772328+00
+10	easy_thumbnails	0010_rename_storage	2017-01-16 17:26:15.791026+00
+11	easy_thumbnails	0011_auto__add_field_source_storage_hash__add_field_thumbnail_storage_hash	2017-01-16 17:26:15.88005+00
+12	easy_thumbnails	0012_build_storage_hashes	2017-01-16 17:26:15.897115+00
+13	easy_thumbnails	0013_auto__del_storage__del_field_source_storage__del_field_thumbnail_stora	2017-01-16 17:26:15.935843+00
+14	easy_thumbnails	0014_auto__add_unique_source_name_storage_hash__add_unique_thumbnail_name_s	2017-01-16 17:26:15.970113+00
+15	easy_thumbnails	0015_auto__del_unique_thumbnail_name_storage_hash__add_unique_thumbnail_sou	2017-01-16 17:26:16.009802+00
+16	front	0001_initial	2017-01-16 17:26:16.237683+00
+17	oauth2	0001_initial	2017-01-16 17:26:16.471428+00
+18	oauth2	0002_auto__chg_field_client_user	2017-01-16 17:26:16.534409+00
+19	oauth2	0003_auto__add_field_client_name	2017-01-16 17:26:16.618725+00
+20	documents	0001_initial	2017-01-16 17:26:17.093045+00
+21	lecturers	0001_initial	2017-01-16 17:26:17.46669+00
+22	lecturers	0002_auto__add_course	2017-01-16 17:26:17.557067+00
+23	documents	0002_auto__m2m_table_for_course	2017-01-16 17:26:17.733874+00
+24	documents	0003_auto__add_field_document_flattr_disabled	2017-01-16 17:26:17.86532+00
+25	events	0001_initial	2017-01-16 17:26:18.194254+00
+26	lecturers	0003_remove_modulereview	2017-01-16 17:26:18.291493+00
+\.
+
+
+--
+-- Name: south_migrationhistory_id_seq; Type: SEQUENCE SET; Schema: public; Owner: studentenportal
+--
+
+SELECT pg_catalog.setval('south_migrationhistory_id_seq', 26, true);
+
+
+--
+-- Name: auth_group_name_key; Type: CONSTRAINT; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_group
+    ADD CONSTRAINT auth_group_name_key UNIQUE (name);
+
+
+--
+-- Name: auth_group_permissions_group_id_permission_id_key; Type: CONSTRAINT; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_group_id_permission_id_key UNIQUE (group_id, permission_id);
+
+
+--
+-- Name: auth_group_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_group_pkey; Type: CONSTRAINT; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_group
+    ADD CONSTRAINT auth_group_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_permission_content_type_id_codename_key; Type: CONSTRAINT; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_permission
+    ADD CONSTRAINT auth_permission_content_type_id_codename_key UNIQUE (content_type_id, codename);
+
+
+--
+-- Name: auth_permission_pkey; Type: CONSTRAINT; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_permission
+    ADD CONSTRAINT auth_permission_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_admin_log_pkey; Type: CONSTRAINT; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+ALTER TABLE ONLY django_admin_log
+    ADD CONSTRAINT django_admin_log_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_content_type_app_label_model_key; Type: CONSTRAINT; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+ALTER TABLE ONLY django_content_type
+    ADD CONSTRAINT django_content_type_app_label_model_key UNIQUE (app_label, model);
+
+
+--
+-- Name: django_content_type_pkey; Type: CONSTRAINT; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+ALTER TABLE ONLY django_content_type
+    ADD CONSTRAINT django_content_type_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_session_pkey; Type: CONSTRAINT; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+ALTER TABLE ONLY django_session
+    ADD CONSTRAINT django_session_pkey PRIMARY KEY (session_key);
+
+
+--
+-- Name: documents_document_pkey; Type: CONSTRAINT; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+ALTER TABLE ONLY documents_document
+    ADD CONSTRAINT documents_document_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: documents_documentcat_documentcategory_id_6e38e3d02b507d23_uniq; Type: CONSTRAINT; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+ALTER TABLE ONLY documents_documentcategory_courses
+    ADD CONSTRAINT documents_documentcat_documentcategory_id_6e38e3d02b507d23_uniq UNIQUE (documentcategory_id, course_id);
+
+
+--
+-- Name: documents_documentcat_documentcategory_id_6ff42fef31a40ef7_uniq; Type: CONSTRAINT; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+ALTER TABLE ONLY documents_documentcategory_lecturers
+    ADD CONSTRAINT documents_documentcat_documentcategory_id_6ff42fef31a40ef7_uniq UNIQUE (documentcategory_id, lecturer_id);
+
+
+--
+-- Name: documents_documentcategory_courses_pkey; Type: CONSTRAINT; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+ALTER TABLE ONLY documents_documentcategory_courses
+    ADD CONSTRAINT documents_documentcategory_courses_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: documents_documentcategory_lecturers_pkey; Type: CONSTRAINT; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+ALTER TABLE ONLY documents_documentcategory_lecturers
+    ADD CONSTRAINT documents_documentcategory_lecturers_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: documents_documentcategory_name_key; Type: CONSTRAINT; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+ALTER TABLE ONLY documents_documentcategory
+    ADD CONSTRAINT documents_documentcategory_name_key UNIQUE (name);
+
+
+--
+-- Name: documents_documentcategory_pkey; Type: CONSTRAINT; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+ALTER TABLE ONLY documents_documentcategory
+    ADD CONSTRAINT documents_documentcategory_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: documents_documentdownload_pkey; Type: CONSTRAINT; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+ALTER TABLE ONLY documents_documentdownload
+    ADD CONSTRAINT documents_documentdownload_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: documents_documentrating_pkey; Type: CONSTRAINT; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+ALTER TABLE ONLY documents_documentrating
+    ADD CONSTRAINT documents_documentrating_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: documents_documentrating_user_id_72901291b6ae02a5_uniq; Type: CONSTRAINT; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+ALTER TABLE ONLY documents_documentrating
+    ADD CONSTRAINT documents_documentrating_user_id_72901291b6ae02a5_uniq UNIQUE (user_id, document_id);
+
+
+--
+-- Name: easy_thumbnails_source_name_7549c98cc6dd6969_uniq; Type: CONSTRAINT; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+ALTER TABLE ONLY easy_thumbnails_source
+    ADD CONSTRAINT easy_thumbnails_source_name_7549c98cc6dd6969_uniq UNIQUE (name, storage_hash);
+
+
+--
+-- Name: easy_thumbnails_source_pkey; Type: CONSTRAINT; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+ALTER TABLE ONLY easy_thumbnails_source
+    ADD CONSTRAINT easy_thumbnails_source_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: easy_thumbnails_thumbnail_pkey; Type: CONSTRAINT; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+ALTER TABLE ONLY easy_thumbnails_thumbnail
+    ADD CONSTRAINT easy_thumbnails_thumbnail_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: easy_thumbnails_thumbnail_source_id_1f50d53db8191480_uniq; Type: CONSTRAINT; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+ALTER TABLE ONLY easy_thumbnails_thumbnail
+    ADD CONSTRAINT easy_thumbnails_thumbnail_source_id_1f50d53db8191480_uniq UNIQUE (source_id, name, storage_hash);
+
+
+--
+-- Name: events_event_pkey; Type: CONSTRAINT; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+ALTER TABLE ONLY events_event
+    ADD CONSTRAINT events_event_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: front_user_groups_pkey; Type: CONSTRAINT; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+ALTER TABLE ONLY front_user_groups
+    ADD CONSTRAINT front_user_groups_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: front_user_groups_user_id_385ef041e2b5eed4_uniq; Type: CONSTRAINT; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+ALTER TABLE ONLY front_user_groups
+    ADD CONSTRAINT front_user_groups_user_id_385ef041e2b5eed4_uniq UNIQUE (user_id, group_id);
+
+
+--
+-- Name: front_user_pkey; Type: CONSTRAINT; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+ALTER TABLE ONLY front_user
+    ADD CONSTRAINT front_user_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: front_user_user_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+ALTER TABLE ONLY front_user_user_permissions
+    ADD CONSTRAINT front_user_user_permissions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: front_user_user_permissions_user_id_f520d12104326a3_uniq; Type: CONSTRAINT; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+ALTER TABLE ONLY front_user_user_permissions
+    ADD CONSTRAINT front_user_user_permissions_user_id_f520d12104326a3_uniq UNIQUE (user_id, permission_id);
+
+
+--
+-- Name: front_user_username_key; Type: CONSTRAINT; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+ALTER TABLE ONLY front_user
+    ADD CONSTRAINT front_user_username_key UNIQUE (username);
+
+
+--
+-- Name: lecturers_course_abbreviation_key; Type: CONSTRAINT; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+ALTER TABLE ONLY lecturers_course
+    ADD CONSTRAINT lecturers_course_abbreviation_key UNIQUE (abbreviation);
+
+
+--
+-- Name: lecturers_course_pkey; Type: CONSTRAINT; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+ALTER TABLE ONLY lecturers_course
+    ADD CONSTRAINT lecturers_course_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: lecturers_lecturer_abbreviation_key; Type: CONSTRAINT; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+ALTER TABLE ONLY lecturers_lecturer
+    ADD CONSTRAINT lecturers_lecturer_abbreviation_key UNIQUE (abbreviation);
+
+
+--
+-- Name: lecturers_lecturer_pkey; Type: CONSTRAINT; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+ALTER TABLE ONLY lecturers_lecturer
+    ADD CONSTRAINT lecturers_lecturer_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: lecturers_lecturerrating_pkey; Type: CONSTRAINT; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+ALTER TABLE ONLY lecturers_lecturerrating
+    ADD CONSTRAINT lecturers_lecturerrating_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: lecturers_lecturerrating_user_id_34f93cc7d6a1de91_uniq; Type: CONSTRAINT; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+ALTER TABLE ONLY lecturers_lecturerrating
+    ADD CONSTRAINT lecturers_lecturerrating_user_id_34f93cc7d6a1de91_uniq UNIQUE (user_id, lecturer_id, category);
+
+
+--
+-- Name: lecturers_quote_pkey; Type: CONSTRAINT; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+ALTER TABLE ONLY lecturers_quote
+    ADD CONSTRAINT lecturers_quote_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: lecturers_quotevote_pkey; Type: CONSTRAINT; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+ALTER TABLE ONLY lecturers_quotevote
+    ADD CONSTRAINT lecturers_quotevote_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: lecturers_quotevote_user_id_788ed2af0e1fc66d_uniq; Type: CONSTRAINT; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+ALTER TABLE ONLY lecturers_quotevote
+    ADD CONSTRAINT lecturers_quotevote_user_id_788ed2af0e1fc66d_uniq UNIQUE (user_id, quote_id);
+
+
+--
+-- Name: oauth2_accesstoken_pkey; Type: CONSTRAINT; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+ALTER TABLE ONLY oauth2_accesstoken
+    ADD CONSTRAINT oauth2_accesstoken_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: oauth2_client_pkey; Type: CONSTRAINT; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+ALTER TABLE ONLY oauth2_client
+    ADD CONSTRAINT oauth2_client_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: oauth2_grant_pkey; Type: CONSTRAINT; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+ALTER TABLE ONLY oauth2_grant
+    ADD CONSTRAINT oauth2_grant_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: oauth2_refreshtoken_access_token_id_key; Type: CONSTRAINT; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+ALTER TABLE ONLY oauth2_refreshtoken
+    ADD CONSTRAINT oauth2_refreshtoken_access_token_id_key UNIQUE (access_token_id);
+
+
+--
+-- Name: oauth2_refreshtoken_pkey; Type: CONSTRAINT; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+ALTER TABLE ONLY oauth2_refreshtoken
+    ADD CONSTRAINT oauth2_refreshtoken_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: registration_registrationprofile_pkey; Type: CONSTRAINT; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+ALTER TABLE ONLY registration_registrationprofile
+    ADD CONSTRAINT registration_registrationprofile_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: registration_registrationprofile_user_id_key; Type: CONSTRAINT; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+ALTER TABLE ONLY registration_registrationprofile
+    ADD CONSTRAINT registration_registrationprofile_user_id_key UNIQUE (user_id);
+
+
+--
+-- Name: south_migrationhistory_pkey; Type: CONSTRAINT; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+ALTER TABLE ONLY south_migrationhistory
+    ADD CONSTRAINT south_migrationhistory_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_group_name_like; Type: INDEX; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+CREATE INDEX auth_group_name_like ON auth_group USING btree (name varchar_pattern_ops);
+
+
+--
+-- Name: auth_group_permissions_group_id; Type: INDEX; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+CREATE INDEX auth_group_permissions_group_id ON auth_group_permissions USING btree (group_id);
+
+
+--
+-- Name: auth_group_permissions_permission_id; Type: INDEX; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+CREATE INDEX auth_group_permissions_permission_id ON auth_group_permissions USING btree (permission_id);
+
+
+--
+-- Name: auth_permission_content_type_id; Type: INDEX; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+CREATE INDEX auth_permission_content_type_id ON auth_permission USING btree (content_type_id);
+
+
+--
+-- Name: django_admin_log_content_type_id; Type: INDEX; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+CREATE INDEX django_admin_log_content_type_id ON django_admin_log USING btree (content_type_id);
+
+
+--
+-- Name: django_admin_log_user_id; Type: INDEX; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+CREATE INDEX django_admin_log_user_id ON django_admin_log USING btree (user_id);
+
+
+--
+-- Name: django_session_expire_date; Type: INDEX; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+CREATE INDEX django_session_expire_date ON django_session USING btree (expire_date);
+
+
+--
+-- Name: django_session_session_key_like; Type: INDEX; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+CREATE INDEX django_session_session_key_like ON django_session USING btree (session_key varchar_pattern_ops);
+
+
+--
+-- Name: documents_document_category_id; Type: INDEX; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+CREATE INDEX documents_document_category_id ON documents_document USING btree (category_id);
+
+
+--
+-- Name: documents_document_uploader_id; Type: INDEX; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+CREATE INDEX documents_document_uploader_id ON documents_document USING btree (uploader_id);
+
+
+--
+-- Name: documents_documentcategory_courses_course_id; Type: INDEX; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+CREATE INDEX documents_documentcategory_courses_course_id ON documents_documentcategory_courses USING btree (course_id);
+
+
+--
+-- Name: documents_documentcategory_courses_documentcategory_id; Type: INDEX; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+CREATE INDEX documents_documentcategory_courses_documentcategory_id ON documents_documentcategory_courses USING btree (documentcategory_id);
+
+
+--
+-- Name: documents_documentcategory_lecturers_documentcategory_id; Type: INDEX; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+CREATE INDEX documents_documentcategory_lecturers_documentcategory_id ON documents_documentcategory_lecturers USING btree (documentcategory_id);
+
+
+--
+-- Name: documents_documentcategory_lecturers_lecturer_id; Type: INDEX; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+CREATE INDEX documents_documentcategory_lecturers_lecturer_id ON documents_documentcategory_lecturers USING btree (lecturer_id);
+
+
+--
+-- Name: documents_documentdownload_document_id; Type: INDEX; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+CREATE INDEX documents_documentdownload_document_id ON documents_documentdownload USING btree (document_id);
+
+
+--
+-- Name: documents_documentdownload_document_id_19ca52e71085c0c3; Type: INDEX; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+CREATE INDEX documents_documentdownload_document_id_19ca52e71085c0c3 ON documents_documentdownload USING btree (document_id, "timestamp", ip);
+
+
+--
+-- Name: documents_documentdownload_ip; Type: INDEX; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+CREATE INDEX documents_documentdownload_ip ON documents_documentdownload USING btree (ip);
+
+
+--
+-- Name: documents_documentrating_document_id; Type: INDEX; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+CREATE INDEX documents_documentrating_document_id ON documents_documentrating USING btree (document_id);
+
+
+--
+-- Name: documents_documentrating_user_id; Type: INDEX; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+CREATE INDEX documents_documentrating_user_id ON documents_documentrating USING btree (user_id);
+
+
+--
+-- Name: easy_thumbnails_source_name; Type: INDEX; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+CREATE INDEX easy_thumbnails_source_name ON easy_thumbnails_source USING btree (name);
+
+
+--
+-- Name: easy_thumbnails_source_storage_hash; Type: INDEX; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+CREATE INDEX easy_thumbnails_source_storage_hash ON easy_thumbnails_source USING btree (storage_hash);
+
+
+--
+-- Name: easy_thumbnails_thumbnail_name; Type: INDEX; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+CREATE INDEX easy_thumbnails_thumbnail_name ON easy_thumbnails_thumbnail USING btree (name);
+
+
+--
+-- Name: easy_thumbnails_thumbnail_source_id; Type: INDEX; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+CREATE INDEX easy_thumbnails_thumbnail_source_id ON easy_thumbnails_thumbnail USING btree (source_id);
+
+
+--
+-- Name: easy_thumbnails_thumbnail_storage_hash; Type: INDEX; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+CREATE INDEX easy_thumbnails_thumbnail_storage_hash ON easy_thumbnails_thumbnail USING btree (storage_hash);
+
+
+--
+-- Name: events_event_author_id; Type: INDEX; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+CREATE INDEX events_event_author_id ON events_event USING btree (author_id);
+
+
+--
+-- Name: front_user_groups_group_id; Type: INDEX; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+CREATE INDEX front_user_groups_group_id ON front_user_groups USING btree (group_id);
+
+
+--
+-- Name: front_user_groups_user_id; Type: INDEX; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+CREATE INDEX front_user_groups_user_id ON front_user_groups USING btree (user_id);
+
+
+--
+-- Name: front_user_user_permissions_permission_id; Type: INDEX; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+CREATE INDEX front_user_user_permissions_permission_id ON front_user_user_permissions USING btree (permission_id);
+
+
+--
+-- Name: front_user_user_permissions_user_id; Type: INDEX; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+CREATE INDEX front_user_user_permissions_user_id ON front_user_user_permissions USING btree (user_id);
+
+
+--
+-- Name: front_user_username_like; Type: INDEX; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+CREATE INDEX front_user_username_like ON front_user USING btree (username varchar_pattern_ops);
+
+
+--
+-- Name: lecturers_course_abbreviation_like; Type: INDEX; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+CREATE INDEX lecturers_course_abbreviation_like ON lecturers_course USING btree (abbreviation varchar_pattern_ops);
+
+
+--
+-- Name: lecturers_lecturer_abbreviation_like; Type: INDEX; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+CREATE INDEX lecturers_lecturer_abbreviation_like ON lecturers_lecturer USING btree (abbreviation varchar_pattern_ops);
+
+
+--
+-- Name: lecturers_lecturerrating_category; Type: INDEX; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+CREATE INDEX lecturers_lecturerrating_category ON lecturers_lecturerrating USING btree (category);
+
+
+--
+-- Name: lecturers_lecturerrating_category_like; Type: INDEX; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+CREATE INDEX lecturers_lecturerrating_category_like ON lecturers_lecturerrating USING btree (category varchar_pattern_ops);
+
+
+--
+-- Name: lecturers_lecturerrating_lecturer_id; Type: INDEX; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+CREATE INDEX lecturers_lecturerrating_lecturer_id ON lecturers_lecturerrating USING btree (lecturer_id);
+
+
+--
+-- Name: lecturers_lecturerrating_rating; Type: INDEX; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+CREATE INDEX lecturers_lecturerrating_rating ON lecturers_lecturerrating USING btree (rating);
+
+
+--
+-- Name: lecturers_lecturerrating_user_id; Type: INDEX; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+CREATE INDEX lecturers_lecturerrating_user_id ON lecturers_lecturerrating USING btree (user_id);
+
+
+--
+-- Name: lecturers_quote_author_id; Type: INDEX; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+CREATE INDEX lecturers_quote_author_id ON lecturers_quote USING btree (author_id);
+
+
+--
+-- Name: lecturers_quote_lecturer_id; Type: INDEX; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+CREATE INDEX lecturers_quote_lecturer_id ON lecturers_quote USING btree (lecturer_id);
+
+
+--
+-- Name: lecturers_quotevote_quote_id; Type: INDEX; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+CREATE INDEX lecturers_quotevote_quote_id ON lecturers_quotevote USING btree (quote_id);
+
+
+--
+-- Name: lecturers_quotevote_user_id; Type: INDEX; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+CREATE INDEX lecturers_quotevote_user_id ON lecturers_quotevote USING btree (user_id);
+
+
+--
+-- Name: oauth2_accesstoken_client_id; Type: INDEX; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+CREATE INDEX oauth2_accesstoken_client_id ON oauth2_accesstoken USING btree (client_id);
+
+
+--
+-- Name: oauth2_accesstoken_user_id; Type: INDEX; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+CREATE INDEX oauth2_accesstoken_user_id ON oauth2_accesstoken USING btree (user_id);
+
+
+--
+-- Name: oauth2_client_user_id; Type: INDEX; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+CREATE INDEX oauth2_client_user_id ON oauth2_client USING btree (user_id);
+
+
+--
+-- Name: oauth2_grant_client_id; Type: INDEX; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+CREATE INDEX oauth2_grant_client_id ON oauth2_grant USING btree (client_id);
+
+
+--
+-- Name: oauth2_grant_user_id; Type: INDEX; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+CREATE INDEX oauth2_grant_user_id ON oauth2_grant USING btree (user_id);
+
+
+--
+-- Name: oauth2_refreshtoken_client_id; Type: INDEX; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+CREATE INDEX oauth2_refreshtoken_client_id ON oauth2_refreshtoken USING btree (client_id);
+
+
+--
+-- Name: oauth2_refreshtoken_user_id; Type: INDEX; Schema: public; Owner: studentenportal; Tablespace: 
+--
+
+CREATE INDEX oauth2_refreshtoken_user_id ON oauth2_refreshtoken USING btree (user_id);
+
+
+--
+-- Name: access_token_id_refs_id_b5577697; Type: FK CONSTRAINT; Schema: public; Owner: studentenportal
+--
+
+ALTER TABLE ONLY oauth2_refreshtoken
+    ADD CONSTRAINT access_token_id_refs_id_b5577697 FOREIGN KEY (access_token_id) REFERENCES oauth2_accesstoken(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_group_permissions_permission_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: studentenportal
+--
+
+ALTER TABLE ONLY auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_permission_id_fkey FOREIGN KEY (permission_id) REFERENCES auth_permission(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: author_id_refs_id_cce16564; Type: FK CONSTRAINT; Schema: public; Owner: studentenportal
+--
+
+ALTER TABLE ONLY lecturers_quote
+    ADD CONSTRAINT author_id_refs_id_cce16564 FOREIGN KEY (author_id) REFERENCES front_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: author_id_refs_id_d163efa7; Type: FK CONSTRAINT; Schema: public; Owner: studentenportal
+--
+
+ALTER TABLE ONLY events_event
+    ADD CONSTRAINT author_id_refs_id_d163efa7 FOREIGN KEY (author_id) REFERENCES front_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: category_id_refs_id_6f13a5dd; Type: FK CONSTRAINT; Schema: public; Owner: studentenportal
+--
+
+ALTER TABLE ONLY documents_document
+    ADD CONSTRAINT category_id_refs_id_6f13a5dd FOREIGN KEY (category_id) REFERENCES documents_documentcategory(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: client_id_refs_id_098c2f19; Type: FK CONSTRAINT; Schema: public; Owner: studentenportal
+--
+
+ALTER TABLE ONLY oauth2_grant
+    ADD CONSTRAINT client_id_refs_id_098c2f19 FOREIGN KEY (client_id) REFERENCES oauth2_client(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: client_id_refs_id_3730d4ce; Type: FK CONSTRAINT; Schema: public; Owner: studentenportal
+--
+
+ALTER TABLE ONLY oauth2_refreshtoken
+    ADD CONSTRAINT client_id_refs_id_3730d4ce FOREIGN KEY (client_id) REFERENCES oauth2_client(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: client_id_refs_id_dffc817d; Type: FK CONSTRAINT; Schema: public; Owner: studentenportal
+--
+
+ALTER TABLE ONLY oauth2_accesstoken
+    ADD CONSTRAINT client_id_refs_id_dffc817d FOREIGN KEY (client_id) REFERENCES oauth2_client(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: content_type_id_refs_id_d043b34a; Type: FK CONSTRAINT; Schema: public; Owner: studentenportal
+--
+
+ALTER TABLE ONLY auth_permission
+    ADD CONSTRAINT content_type_id_refs_id_d043b34a FOREIGN KEY (content_type_id) REFERENCES django_content_type(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: course_id_refs_id_6e0be908; Type: FK CONSTRAINT; Schema: public; Owner: studentenportal
+--
+
+ALTER TABLE ONLY documents_documentcategory_courses
+    ADD CONSTRAINT course_id_refs_id_6e0be908 FOREIGN KEY (course_id) REFERENCES lecturers_course(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: django_admin_log_content_type_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: studentenportal
+--
+
+ALTER TABLE ONLY django_admin_log
+    ADD CONSTRAINT django_admin_log_content_type_id_fkey FOREIGN KEY (content_type_id) REFERENCES django_content_type(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: document_id_refs_id_0ab3a74d; Type: FK CONSTRAINT; Schema: public; Owner: studentenportal
+--
+
+ALTER TABLE ONLY documents_documentrating
+    ADD CONSTRAINT document_id_refs_id_0ab3a74d FOREIGN KEY (document_id) REFERENCES documents_document(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: document_id_refs_id_759bc952; Type: FK CONSTRAINT; Schema: public; Owner: studentenportal
+--
+
+ALTER TABLE ONLY documents_documentdownload
+    ADD CONSTRAINT document_id_refs_id_759bc952 FOREIGN KEY (document_id) REFERENCES documents_document(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: documentcategory_id_refs_id_488eb9d5; Type: FK CONSTRAINT; Schema: public; Owner: studentenportal
+--
+
+ALTER TABLE ONLY documents_documentcategory_lecturers
+    ADD CONSTRAINT documentcategory_id_refs_id_488eb9d5 FOREIGN KEY (documentcategory_id) REFERENCES documents_documentcategory(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: documentcategory_id_refs_id_5891b153; Type: FK CONSTRAINT; Schema: public; Owner: studentenportal
+--
+
+ALTER TABLE ONLY documents_documentcategory_courses
+    ADD CONSTRAINT documentcategory_id_refs_id_5891b153 FOREIGN KEY (documentcategory_id) REFERENCES documents_documentcategory(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: group_id_refs_id_897928ca; Type: FK CONSTRAINT; Schema: public; Owner: studentenportal
+--
+
+ALTER TABLE ONLY front_user_groups
+    ADD CONSTRAINT group_id_refs_id_897928ca FOREIGN KEY (group_id) REFERENCES auth_group(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: group_id_refs_id_f4b32aac; Type: FK CONSTRAINT; Schema: public; Owner: studentenportal
+--
+
+ALTER TABLE ONLY auth_group_permissions
+    ADD CONSTRAINT group_id_refs_id_f4b32aac FOREIGN KEY (group_id) REFERENCES auth_group(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: lecturer_id_refs_id_0ded3382; Type: FK CONSTRAINT; Schema: public; Owner: studentenportal
+--
+
+ALTER TABLE ONLY lecturers_quote
+    ADD CONSTRAINT lecturer_id_refs_id_0ded3382 FOREIGN KEY (lecturer_id) REFERENCES lecturers_lecturer(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: lecturer_id_refs_id_a1105233; Type: FK CONSTRAINT; Schema: public; Owner: studentenportal
+--
+
+ALTER TABLE ONLY lecturers_lecturerrating
+    ADD CONSTRAINT lecturer_id_refs_id_a1105233 FOREIGN KEY (lecturer_id) REFERENCES lecturers_lecturer(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: lecturer_id_refs_id_f11a823e; Type: FK CONSTRAINT; Schema: public; Owner: studentenportal
+--
+
+ALTER TABLE ONLY documents_documentcategory_lecturers
+    ADD CONSTRAINT lecturer_id_refs_id_f11a823e FOREIGN KEY (lecturer_id) REFERENCES lecturers_lecturer(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: permission_id_refs_id_c1f5615e; Type: FK CONSTRAINT; Schema: public; Owner: studentenportal
+--
+
+ALTER TABLE ONLY front_user_user_permissions
+    ADD CONSTRAINT permission_id_refs_id_c1f5615e FOREIGN KEY (permission_id) REFERENCES auth_permission(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: quote_id_refs_id_5e9765b0; Type: FK CONSTRAINT; Schema: public; Owner: studentenportal
+--
+
+ALTER TABLE ONLY lecturers_quotevote
+    ADD CONSTRAINT quote_id_refs_id_5e9765b0 FOREIGN KEY (quote_id) REFERENCES lecturers_quote(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: source_id_refs_id_0df57a91; Type: FK CONSTRAINT; Schema: public; Owner: studentenportal
+--
+
+ALTER TABLE ONLY easy_thumbnails_thumbnail
+    ADD CONSTRAINT source_id_refs_id_0df57a91 FOREIGN KEY (source_id) REFERENCES easy_thumbnails_source(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: uploader_id_refs_id_fe34fe90; Type: FK CONSTRAINT; Schema: public; Owner: studentenportal
+--
+
+ALTER TABLE ONLY documents_document
+    ADD CONSTRAINT uploader_id_refs_id_fe34fe90 FOREIGN KEY (uploader_id) REFERENCES front_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: user_id_refs_id_17c2f244; Type: FK CONSTRAINT; Schema: public; Owner: studentenportal
+--
+
+ALTER TABLE ONLY front_user_user_permissions
+    ADD CONSTRAINT user_id_refs_id_17c2f244 FOREIGN KEY (user_id) REFERENCES front_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: user_id_refs_id_6a550fab; Type: FK CONSTRAINT; Schema: public; Owner: studentenportal
+--
+
+ALTER TABLE ONLY oauth2_refreshtoken
+    ADD CONSTRAINT user_id_refs_id_6a550fab FOREIGN KEY (user_id) REFERENCES front_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: user_id_refs_id_87c74249; Type: FK CONSTRAINT; Schema: public; Owner: studentenportal
+--
+
+ALTER TABLE ONLY documents_documentrating
+    ADD CONSTRAINT user_id_refs_id_87c74249 FOREIGN KEY (user_id) REFERENCES front_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: user_id_refs_id_9d4b8317; Type: FK CONSTRAINT; Schema: public; Owner: studentenportal
+--
+
+ALTER TABLE ONLY oauth2_client
+    ADD CONSTRAINT user_id_refs_id_9d4b8317 FOREIGN KEY (user_id) REFERENCES front_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: user_id_refs_id_9eb89c1e; Type: FK CONSTRAINT; Schema: public; Owner: studentenportal
+--
+
+ALTER TABLE ONLY lecturers_lecturerrating
+    ADD CONSTRAINT user_id_refs_id_9eb89c1e FOREIGN KEY (user_id) REFERENCES front_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: user_id_refs_id_be5fe241; Type: FK CONSTRAINT; Schema: public; Owner: studentenportal
+--
+
+ALTER TABLE ONLY oauth2_grant
+    ADD CONSTRAINT user_id_refs_id_be5fe241 FOREIGN KEY (user_id) REFERENCES front_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: user_id_refs_id_c4b4c655; Type: FK CONSTRAINT; Schema: public; Owner: studentenportal
+--
+
+ALTER TABLE ONLY lecturers_quotevote
+    ADD CONSTRAINT user_id_refs_id_c4b4c655 FOREIGN KEY (user_id) REFERENCES front_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: user_id_refs_id_c561f583; Type: FK CONSTRAINT; Schema: public; Owner: studentenportal
+--
+
+ALTER TABLE ONLY oauth2_accesstoken
+    ADD CONSTRAINT user_id_refs_id_c561f583 FOREIGN KEY (user_id) REFERENCES front_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: user_id_refs_id_f947bc46; Type: FK CONSTRAINT; Schema: public; Owner: studentenportal
+--
+
+ALTER TABLE ONLY front_user_groups
+    ADD CONSTRAINT user_id_refs_id_f947bc46 FOREIGN KEY (user_id) REFERENCES front_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: public; Type: ACL; Schema: -; Owner: postgres
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM postgres;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+--
+-- PostgreSQL database dump complete
+--
+
