@@ -33,5 +33,5 @@ clean-dev: stop-dev
 clean-production: stop-production
 	docker-compose --file docker-compose-production.yml rm
 
-tests: start-dev
-	docker-compose exec studentenportal-dev ./test.sh
+tests:
+	docker-compose run studentenportal-dev ./test.sh
