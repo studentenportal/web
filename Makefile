@@ -34,4 +34,4 @@ clean-production: stop-production
 	docker-compose --file docker-compose-production.yml rm
 
 tests:
-	docker-compose run studentenportal-dev ./test.sh
+	docker-compose run --rm studentenportal-dev ./test.sh
