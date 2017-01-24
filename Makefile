@@ -12,7 +12,7 @@ Dockerfile-production: Dockerfile-base
 
 start-dev:
 	docker-compose create
-	docker-compose start
+	docker-compose up -d
 
 start-production:
 	docker-compose --file docker-compose-production.yml create
