@@ -4,12 +4,17 @@ python:
     - 2.7
 services:
   - docker
-
+env:
+    - CONTAINER_COVERAGE_HOME_DIR=/srv/www/studentenportal
 install:
-    - pip install coveralls==0.4.2
+    - pip install coveralls==1.1
     - make Dockerfile-base
     - make Dockerfile-dev
 
 script:
     - make tests
+    # coverage.py stores absolute paths of the "observed" files. This is done within the `make test`
+    # command. We upload the test coverage via travis to coveralls.io. The paths within the container
+    # and on travis are not the same. Therefore, it has to be rewritten.
+    - sed -i -e 's/'$(echo $CONTAINER_COVERAGE_HOME_DIR | sed -r 's/\//\\\//g')'/'$(echo $TRAVIS_BUILD_DIR | sed -r 's/\//\\\//g')'/g' .coverage
     - coveralls
