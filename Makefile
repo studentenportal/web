@@ -10,8 +10,7 @@ Dockerfile-dev: Dockerfile-base
 Dockerfile-production: Dockerfile-base
 	docker build -t studentenportal/studentenportal -f Dockerfile-production .
 
-start-dev:
-	docker-compose create
+start-dev: Dockerfile-dev
 	docker-compose up -d
 
 start-production:
@@ -33,5 +32,5 @@ clean-dev: stop-dev
 clean-production: stop-production
 	docker-compose --file docker-compose-production.yml rm
 
-tests:
+tests: Dockerfile-dev
 	docker-compose run --rm studentenportal-dev ./test.sh
