@@ -18,6 +18,27 @@ Sofern du diese installiert hast, kannst du wie folgt vorgehen:
 
 Beenden kannst du die Entwicklungsumgebung mit `make stop-dev`.
 
+### Logs anschauen
+
+Mit dem Kommando `docker-compose logs` kannst du dir die Logs anzeigen lassen.
+
+## Testbenutzer
+Die Registrierung von neuen Benutzern versendet in der Testumgebung keine E-Mails. Diese werden aber in die Logs geschrieben (Siehe Absatz `Logs anschauen`).
+
+### Administrator
+```
+Username: user0
+Email:    user0@localhost
+Password: user0
+```
+
+### Student
+```
+Username: user1
+Email:    user1@localhost
+Password: user1
+```
+
 
 ## Spezialfälle
 ### Änderungen an der `Dockerfile-base`
