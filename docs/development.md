@@ -12,7 +12,7 @@ Sofern du diese installiert hast, kannst du wie folgt vorgehen:
 1. `git clone https://github.com/studentenportal/web.git studentenportal`
 2. `cd studentenportal`
 3. `make start-dev`
-4. Das Studentenportal ist jetzt unter http://localhost:8000 verfügbar.
+4. Das Studentenportal ist jetzt unter [http://localhost:8000](http://localhost:8000) verfügbar.
 5. Bei Änderungen am Code, kannst du das Studentenportal mit `make restart-dev` neu starten.
 6. Tests mit `make tests` ausführen
 

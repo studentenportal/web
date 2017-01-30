@@ -18,6 +18,10 @@ Featurevorschläge sind willkommen! Aktuell geplante Features und Featurewünsch
 können auf dem [GitHub Issue-Tracker](https://github.com/studentenportal/web/issues) eingesehen und
 erstellt werden.
 
+## Mithelfen: Entwicklungsumgebung und Dokumentationen
+
+Mehr Informationen zur [Entwicklungsumgebung](https://github.com/studentenportal/web/blob/master/docs/development.md) sowie weitere Dokumentationen findest du im Ordner [docs](https://github.com/studentenportal/web/tree/master/docs).
+
 ## Fragen
 
 Bei Fragen wende dich an team@studentenportal.ch oder [@studportal_hsr](https://twitter.com/studportal_hsr).
