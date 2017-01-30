@@ -4,7 +4,7 @@
 
 Die Entwicklungsumgebung hat zwei Abhängigkeiten:
 
-- Docker
+- Docker & docker-compose
 - make
 
 Sofern du diese installiert hast, kannst du wie folgt vorgehen:
@@ -27,3 +27,19 @@ Bei Änderungen an der `Dockerfile-base` muss vor dem Starten zuerst das Baseima
 ```bash
 make Dockerfile-base
 ```
+
+### Update 
+Falls ein Datenbankfehler auftritt, weil das Schema sich geändert hat:
+
+1. `python manage.py syncdb`
+2. `python manage.py migrate`
+
+### Twitter
+Wenn du die Twitter Einbindung nutzen willst, musst du im Twitter Developer Center eine
+App erstellen und folgende Umgebungsvariablen setzen:
+
+- `TWITTER_CONSUMER_KEY`
+- `TWITTER_CONSUMER_SECRET`
+- `TWITTER_ACCESS_KEY`
+- `TWITTER_ACCESS_SECRET`
+
