@@ -11,22 +11,19 @@ services:
     image: postgres:9.3
     restart: always
     environment:
-      TODO: "asdf"
       POSTGRES_PASSWORD: "k9F1bbHiW4o9By1A6tvL"
       POSTGRES_USER: "studentenportal"
 
   studentenportal-dev:
-    # TODO: Mail logging backend
     links:
       - postgres-dev
     image: studentenportal/studentenportal-dev
-    restart: on-failure:3
     volumes:
       - ./:/srv/www/studentenportal
     ports:
       - 8000:8000
     environment:
-      DB_HOST: postgres-dev
-      DB_USER: studentenportal
-      DB_PASSWORD: k9F1bbHiW4o9By1A6tvL
+      DB_HOST: "postgres-dev"
+      DB_USER: "studentenportal"
+      DB_PASSWORD: "k9F1bbHiW4o9By1A6tvL"
       DJANGO_DEBUG: "True"
