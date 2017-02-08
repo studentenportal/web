@@ -2,7 +2,6 @@
 # Additional packages for dev are added here.
 FROM studentenportal/studentenportal-base
 
-RUN apt-get install postgresql-client
 VOLUME ["/srv/www/studentenportal/"]
 
 ADD requirements/local.txt /tmp/requirements/local.txt
