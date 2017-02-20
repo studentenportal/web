@@ -1,4 +1,4 @@
-.PHONY: Dockerfile-base Dockerfile-dev Dockerfile-production start-dev start-production restart-dev restart-production stop-dev stop-production clean-dev clean-production tests
+.PHONY: Dockerfile Dockerfile-base Dockerfile-dev Dockerfile-production start restart stop clean tests
 
 Dockerfile: Dockerfile-dev
 Dockerfile-base:
@@ -10,27 +10,16 @@ Dockerfile-dev: Dockerfile-base
 Dockerfile-production: Dockerfile-base
 	docker build -t studentenportal/studentenportal -f Dockerfile-production .
 
-start-dev: Dockerfile-dev
+start: Dockerfile-dev
 	docker-compose up -d
 
-start-production:
-	docker-compose --file docker-compose-production.yml create
-	docker-compose --file docker-compose-production.yml start
+restart: stop start
 
-restart-dev: stop-dev start-dev
-restart-production: stop-production start-production
-
-stop-dev:
+stop:
 	docker-compose stop
 
-stop-production:
-	docker-compose --file docker-compose-production.yml stop
-
-clean-dev: stop-dev
+clean: stop
 	docker-compose rm
-
-clean-production: stop-production
-	docker-compose --file docker-compose-production.yml rm
 
 tests: Dockerfile-dev
 	docker-compose run --rm studentenportal-dev ./test.sh
