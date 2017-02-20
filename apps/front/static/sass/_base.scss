@@ -93,7 +93,7 @@ button, a.button, input, select, textarea {
 
 //Clear everything in a form group
 .control-group {
-  @include pie-clearfix;
+    @include pie-clearfix;
 }
 
 label {
@@ -164,7 +164,7 @@ input[type="file"] {
 }
 
 /* ===RESPONSIVE FORMS=== */
-@media (min-width: rem-to-em(70rem, $font-size-browser)) {
+@media (min-width: 70rem) {
   .form-horizontal {
     label, p.help-block, ul.errorlist {
       float: left;

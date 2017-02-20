@@ -1,0 +1,29 @@
+#
+# studentenportal-dev:8000  ----- studentenportal-dev-media:/srv/www//studentenportal/media
+#  ||                       \
+#  ||                        ---- ./:/srv/www//studentenportal/
+#  ||
+# postgres-dev ----- postgres-dev-data:/var/lib/postgresql/data
+#
+version: '2'
+services:
+  postgres-dev:
+    image: postgres:9.3
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: "k9F1bbHiW4o9By1A6tvL"
+      POSTGRES_USER: "studentenportal"
+
+  studentenportal-dev:
+    links:
+      - postgres-dev
+    image: studentenportal/studentenportal-dev
+    volumes:
+      - ./:/srv/www/studentenportal
+    ports:
+      - 8000:8000
+    environment:
+      DB_HOST: "postgres-dev"
+      DB_USER: "studentenportal"
+      DB_PASSWORD: "k9F1bbHiW4o9By1A6tvL"
+      DJANGO_DEBUG: "True"

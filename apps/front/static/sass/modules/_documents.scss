@@ -155,7 +155,7 @@
     //Force all too long links to break
     .details a { word-break: break-all; }
 
-    @media (max-width: rem-to-em(62rem, $font-size-browser)) {
+    @media (max-width: 62rem) {
         //This is a flexbox "hack" so that the image appears above the button on mobile view
         //We cannot solve this by rearranging the html because we want the button
         //to appear above the thumbnail on bigger screens
@@ -180,7 +180,7 @@
     }
 
     //Expand to bigger layout when space allows it
-    @media (min-width: rem-to-em(62rem, $font-size-browser)) {
+    @media (min-width: 62rem) {
         .details {
             width: 70%;
             float: left;

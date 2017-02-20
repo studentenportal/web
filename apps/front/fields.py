@@ -15,7 +15,7 @@ class CaseInsensitiveSlugField(models.SlugField):
     description = _('A SlugField that uses the PostgreSQL CITEXT type for \
                      case insensitive comparison.')
 
-    def db_type(self, connectoin):
+    def db_type(self, connection):
         return 'CITEXT'
 
 

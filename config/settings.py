@@ -135,7 +135,11 @@ COMPRESS_JS_FILTERS = [
 COMPRESS_OFFLINE = not DEBUG
 
 COMPRESS_PRECOMPILERS = (
-    ('text/scss', 'sass --scss --compass {infile} {outfile}'),
+    ('text/scss',
+     'python -mscss '
+     ' --load-path "apps/front/static/sass/compass/compass/stylesheets"'    # Legacy :(
+     ' --load-path "apps/front/static/sass/compass/blueprint/stylesheets"'  # sory...
+     ' -C -o {outfile} {infile}'),
 )
 
 # List of callables that know how to import templates from various sources.
@@ -153,7 +157,8 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.static",
     "django.core.context_processors.request",
     "django.contrib.messages.context_processors.messages",
-    "apps.front.context_processors.global_stats"
+    "apps.front.context_processors.global_stats",
+    "apps.front.context_processors.debug",
 )
 
 MIDDLEWARE_CLASSES = (

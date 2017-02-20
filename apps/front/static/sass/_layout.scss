@@ -11,12 +11,15 @@
     @include box-shadow(0 0 3px 2px #ccc);
 }
 
-%wrapper {
-    padding: 0 $gutter;
-    @media (min-width: rem-to-em(100.24rem, $font-size-browser)) {
-        max-width: 100.24rem;
+@media (min-width: 64.375rem) {
+    .header, .main, .footer {
+        max-width: 103rem;
         margin: 0 auto;
     }
+}
+
+.header, .main, .footer {
+    padding: 0 $gutter;
 }
 
 %responsive-padding {
@@ -36,7 +39,7 @@ body {
 //The whole top part of the website includes the header as well
 .top {
     padding: 0;
-    background-image: url('../img/hsr@2x.jpg');
+    background-image: url('../../img/hsr@2x.jpg');
     background-position: center;
     background-repeat:no-repeat;
     background-size: cover;
@@ -113,7 +116,7 @@ body {
     }
 
     //iPhones have a very small width so the header size should adapt to it
-    @media (max-width: rem-to-em(33rem, $font-size-browser)) {
+    @media (max-width: 33rem) {
         .branding h1 {
             font-size: 2.7rem;
             line-height: 1.3 * 2.7rem;
@@ -161,4 +164,9 @@ body {
     &:before {
         clear: left;
     }
+}
+
+// Show if in DEBUG mode
+.is-dev-environment > *{
+  color: red!important;;
 }

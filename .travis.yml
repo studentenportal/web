@@ -1,14 +1,18 @@
+sudo: required
 language: python
 python:
     - 2.7
+services:
+  - docker
+env:
+    - CONTAINER_COVERAGE_HOME_DIR=/srv/www/studentenportal
 install:
-    - pip install -r requirements/base.txt
-    - pip install -r requirements/testing.txt
-before_script:
-    - psql -c "CREATE ROLE studentenportal NOSUPERUSER LOGIN CREATEDB PASSWORD 'studentenportal';" -U postgres
-    - psql -c "CREATE DATABASE studentenportal OWNER studentenportal;" -U postgres
-    - psql -d template1 -c "CREATE EXTENSION citext;" -U postgres
-    - python manage.py collectstatic --noinput --link
+    - pip install coveralls==1.1
+
 script:
-    - ./test.sh
+    - make tests
+    # coverage.py stores absolute paths of the "observed" files. This is done within the `make test`
+    # command. We upload the test coverage via travis to coveralls.io. The paths within the container
+    # and on travis are not the same. Therefore, it has to be rewritten.
+    - sed -i -e "s#${CONTAINER_COVERAGE_HOME_DIR}#${TRAVIS_BUILD_DIR}#g" .coverage
     - coveralls

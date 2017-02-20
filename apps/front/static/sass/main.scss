@@ -66,10 +66,6 @@ $gutter: 1rem;
     @return ($target/$context)+0em;
 }
 
-@function rem-to-em($target, $context) {
-    @return ($target/$context)+0em;
-}
-
 @mixin global-box-sizing() {
     // apply a natural box layout model to all elements
     //but allowing components to change
