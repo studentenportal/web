@@ -1,0 +1,9 @@
+[Unit]
+Description=Renew studentenportal let's encrypt certificates with dehydrated
+Requires=nginx.service
+OnFailure=status-email-root@%n.service
+
+[Service]
+Type=oneshot
+ExecStartPre-=wget https://raw.githubusercontent.com/lukas2511/dehydrated/master/dehydrated -O /etc/dehydrated/dehydrated
+ExecStart=/usr/bin/docker exec nginx /etc/dehydrated/dehydrated --config /etc/dehydrated/config --cron > /dev/null

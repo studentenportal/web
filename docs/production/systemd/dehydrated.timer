@@ -1,0 +1,9 @@
+[Unit]
+Description=Renew studentenportal let's encrypt certificates with dehydrated
+
+[Timer]
+OnCalendar=daily
+Persistent=true     
+
+[Install]
+wantedBy=timers.target
