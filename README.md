@@ -26,7 +26,6 @@ Mehr Informationen zur [Entwicklungsumgebung](https://github.com/studentenportal
 
 Bei Fragen wende dich an team@studentenportal.ch oder [@studportal_hsr](https://twitter.com/studportal_hsr).
 
-
 ## Lizenz
 
 Der Code wird unter der [AGPLv3](http://www.gnu.org/licenses/agpl-3.0.html)

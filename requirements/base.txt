@@ -5,6 +5,7 @@ django-extensions
 psycopg2==2.5.2
 South==0.8.4
 Unipath==1.0
+python-dateutil==2.6.0
 
 # Useful/important apps
 django-messagegroups==0.4.3
