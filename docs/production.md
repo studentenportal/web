@@ -24,6 +24,27 @@ systemctl enable studentenportal-postgres.service
 systemctl start studentenportal-postgres.service
 ```
 
+## Rollator
+
+Add a new user used for triggering the re-deployment. 
+
+```
+useradd rollator -d /home/rollator
+mkdir -m 700 /home/rollator/.ssh/
+ln -s /opt/studentenportal/docs/production/openssh/ /home/rollator/.ssh/config
+cp PATH_TO_PUBLIC_KEY /home/rollator/.ssh/config/authorized_keys
+chown -R rollator /home/rollator/.ssh/
+```
+
+Install and enable the systemd service:
+
+```bash
+
+systemctl link docs/production/systemd/rollator-studentenportal.service
+systemctl enable rollator-studentenportal.service
+systemctl start rollator-studentenportal.service
+```
+
 ## Studentenportal
 
 Create and edit configuration file:
