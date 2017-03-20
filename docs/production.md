@@ -1,3 +1,13 @@
+# Installation
+
+## Prerequisites
+
+* Systemd (already installed in Ubuntu > 16.04)
+* [Docker](https://docs.docker.com/engine/installation/linux/ubuntu/#install-docker)
+* inotify `sudo apt-get install inotify-tools`
+* OpenSSH Server - probably pre-installed. Otherwise install it on Ubuntu via `sudo apt-get install openssh-server`
+
+
 # Configuration
 
 ```bash
