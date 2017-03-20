@@ -1,0 +1,15 @@
+[Unit]
+Description=Rollator for studentenportal
+After=docker.service
+Requires=docker.service
+After=studentenportal.service
+
+[Service]
+TimeoutStartSec=0
+ExecStart=./TODO/PATH/rollator.bash ${LOCKFILE} ${IMAGE} ${SERVICE}
+Environment=LOCKFILE=/home/rollator/
+Environment=IMAGE=studentenportal/studentenportal
+Environment=SERVICE=studentenportal.service
+
+[Install]
+WantedBy=multi-user.target
