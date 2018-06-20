@@ -2,7 +2,7 @@
 #  of the studentenportal.
 # Images have the same versioning as the studentenportal itself,
 #  and are uploaded to dockerhub.
-FROM studentenportal/studentenportal-base
+FROM studentenportal/base
 
 VOLUME ["srv/www/studentenportal/static"]
 

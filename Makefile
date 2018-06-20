@@ -1,13 +1,10 @@
-.PHONY: Dockerfile Dockerfile-base Dockerfile-dev Dockerfile-production start restart stop clean tests
+.PHONY: Dockerfile Dockerfile-dev Dockerfile-production start restart stop clean tests
 
 Dockerfile: Dockerfile-dev
-Dockerfile-base:
-	docker build -t studentenportal/studentenportal-base -f Dockerfile-base .
-
-Dockerfile-dev: Dockerfile-base
+Dockerfile-dev:
 	docker build -t studentenportal/studentenportal-dev -f Dockerfile-dev .
 
-Dockerfile-production: Dockerfile-base
+Dockerfile-production:
 	docker build -t studentenportal/studentenportal -f Dockerfile-production .
 
 start: Dockerfile-dev
