@@ -1,0 +1,16 @@
+[Unit]
+Description=nginx
+After=docker.service
+Requires=docker.service
+
+[Service]
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker kill nginx
+ExecStartPre=-/usr/bin/docker rm nginx
+ExecStartPre=/usr/bin/docker pull nginx
+ExecReload=docker kill -s HUP nginx
+ExecStart=/usr/bin/docker run --name nginx --volumes-from studentenportal:ro --volume /etc/dehydrated:/etc/dehydrated --volume /etc/nginx:/etc/nginx:ro --publish 8080:80 --publish 8443:443 nginx 
+ExecStop=/usr/bin/docker stop nginx
+
+[Install]
+WantedBy=multi-user.target

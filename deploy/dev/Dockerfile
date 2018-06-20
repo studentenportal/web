@@ -1,6 +1,6 @@
 # This file create a "studentenportal" image for the dev environment.
 # Additional packages for dev are added here.
-FROM studentenportal/studentenportal-base
+FROM studentenportal/base:2.7-0
 
 VOLUME ["/srv/www/studentenportal/"]
 
@@ -13,4 +13,4 @@ RUN pip install -r /tmp/requirements/testing.txt
 ENV PATH /usr/local/bin/:$PATH
 
 USER studentenportal
-CMD ["./start-dev.sh"]
+CMD ["./deploy/dev/start.sh"]

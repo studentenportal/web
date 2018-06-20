@@ -1,0 +1,17 @@
+[Unit]
+Description=Postgres
+After=docker.service
+Requires=docker.service
+
+[Service]
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker kill postgres
+ExecStartPre=-/usr/bin/docker rm postgres
+ExecStartPre=/usr/bin/docker pull postgres:9.3
+#TODO: Is there all data (DB name?) that must be there?
+ExecStart=/usr/bin/docker run --name studenportal-postgres --env-file /etc/studentenportal.env postgres:9.3
+ExecStartPost=/usr/bin/docker exec studentenportal-postgres psql -d studentenportal -c 'CREATE EXTENSION IF NOT EXISTS citext;'
+ExecStop=/usr/bin/docker stop studentenportal-postgres
+
+[Install]
+WantedBy=multi-user.target

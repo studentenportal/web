@@ -1,0 +1,8 @@
+[Unit]
+Description=status email for %i to root
+
+[Service]
+Type=oneshot
+ExecStart=/bin/bash -c 'systemctl status --full "%i" | mail -s "%i" root'
+User=nobody
+Group=systemd-journal

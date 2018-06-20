@@ -1,0 +1,18 @@
+[Unit]
+Description=Studentenportal
+After=docker.service
+After=studentenportal-postgres.service
+After=nginx.service
+Requires=docker.service
+Requires=studentenportal-postgres.service
+
+[Service]
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker kill studentenportal
+ExecStartPre=-/usr/bin/docker rm studentenportal
+ExecStartPre=/usr/bin/docker pull studentenportal/studentenportal
+ExecStart=/usr/bin/docker run --name studentenportal --link postgres --link nginx --env-file /etc/studentenportal.env studentenportal/studentenportal
+ExecStop=/usr/bin/docker stop studentenportal
+
+[Install]
+WantedBy=multi-user.target
