@@ -1,3 +1,4 @@
+# Note that this docker-compose file is only for development!
 #
 # studentenportal:8000  ----- studentenportal-media:/srv/www/studentenportal/media
 #  ||                       \
@@ -20,7 +21,7 @@ services:
     image: studentenportal/dev:latest
     build:
       context: .
-      dockerfile: deploy/Dockerfile-dev
+      dockerfile: deploy/dev/Dockerfile
     volumes:
       - ./:/srv/www/studentenportal
     ports:
