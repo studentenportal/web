@@ -1,7 +1,4 @@
 sudo: required
-language: python
-python:
-    - 2.7
 services:
   - docker
 env:
@@ -10,7 +7,7 @@ install:
     - pip install coveralls==1.1
 
 script:
-    - make tests
+    - docker-compose run --rm studentenportal ./deploy/dev/test.sh
     # coverage.py stores absolute paths of the "observed" files. This is done within the `make test`
     # command. We upload the test coverage via travis to coveralls.io. The paths within the container
     # and on travis are not the same. Therefore, it has to be rewritten.
