@@ -13,4 +13,4 @@ RUN pip install -r /tmp/requirements/testing.txt
 ENV PATH /usr/local/bin/:$PATH
 
 USER studentenportal
-CMD ["./deploy/start-dev.sh"]
+CMD ["./deploy/dev/start.sh"]

@@ -10,8 +10,8 @@ ADD requirements/production.txt /tmp/requirements/production.txt
 RUN pip install -r /tmp/requirements/production.txt
 
 # We only add a minimal set of files needed for production.
-ADD apps config LICENSE.txt manage.py setup.py deploy/start-production.sh /srv/www/studentenportal/
+ADD apps config LICENSE.txt manage.py setup.py deploy/production/start.sh /srv/www/studentenportal/
 RUN chown -R studentenportal:studentenportal /srv/www/studentenportal/
 
 USER studentenportal
-CMD ["./start-production.sh"]
+CMD ["./start.sh"]
