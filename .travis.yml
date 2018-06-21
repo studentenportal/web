@@ -15,6 +15,7 @@ install:
     - pip install coveralls==1.1
 
 script:
+    - whoami; id; echo '----------------------------'
     - docker-compose up -d
     - docker-compose run --rm studentenportal ./deploy/dev/test.sh
     - docker-compose stop
