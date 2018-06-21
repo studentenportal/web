@@ -1,4 +1,9 @@
 sudo: required
+# python is required for the direct execution of coveralls
+language: python
+python:
+  - "3.3"
+
 services:
   - docker
 env:
