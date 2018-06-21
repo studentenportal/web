@@ -2,5 +2,8 @@
 # Expects DOCKER_TAGS to be set.
 set -ex
 
-TAGS_CMD=`for tag in $DOCKER_TAGS; do echo -n "--tag='$tag' "; done`
-docker build --file=./deploy/production/Dockerfile $TAGS_CMD
+docker build --file=./deploy/production/Dockerfile studentenportal/studentenportal
+
+for tag in $DOCKER_TAGS; do
+    docker tag studentenportal/studentenportal $tag
+done
