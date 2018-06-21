@@ -13,8 +13,6 @@ RUN pip install -r /tmp/requirements/production.txt
 ADD apps config LICENSE.txt manage.py setup.py deploy/production/start.sh /srv/www/studentenportal/
 RUN chown -R studentenportal:studentenportal /srv/www/studentenportal/
 
-#TODO
 WORKDIR /srv/www/studentenportal
 USER studentenportal
-
 CMD ["./start.sh"]
