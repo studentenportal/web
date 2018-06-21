@@ -8,8 +8,8 @@ services:
   - docker
 env:
     - CONTAINER_COVERAGE_HOME_DIR=/srv/www/studentenportal
-    - RELEASE=`git describe --tags`
-    - DOCKER_TAGS="studentenportal/studentenportal:latest studentenportal/studentenportal:${RELEASE}"
+      RELEASE=`git describe --tags`
+      DOCKER_TAGS="studentenportal/studentenportal:latest studentenportal/studentenportal:${RELEASE}"
 
 install:
     - pip install coveralls==1.1
