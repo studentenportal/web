@@ -29,7 +29,7 @@ script:
 
 deploy:
     on:
-      branch: docker-deployment
-      #tags: true
+      branch: master
+      tags: true
     provider: script
     script: ./deploy/production/travis-deploy.bash
