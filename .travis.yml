@@ -28,8 +28,8 @@ script:
     - ./deploy/production/travis-build.bash
 
 deploy:
-    on:
-        branch: master
-        tags: true
+    #    on:
+    #      branch: master
+    #      tags: true
     provider: script
     script: ./deploy/production/travis-deploy.bash
