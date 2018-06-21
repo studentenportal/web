@@ -23,7 +23,7 @@ script:
     # and on travis are not the same. Therefore, it has to be rewritten.
     - sed -i -e "s#${CONTAINER_COVERAGE_HOME_DIR}#${TRAVIS_BUILD_DIR}#g" .coverage
     - coveralls
-    - ./deploy/production/build.bash
+    - ./deploy/production/travis-build.bash
 
 deploy:
     on:
