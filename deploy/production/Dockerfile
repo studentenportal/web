@@ -10,15 +10,16 @@ RUN groupadd -g $GID studentenportal
 RUN useradd --home /home/studentenportal -u $UID -g $GID -M studentenportal
 
 COPY requirements/ /tmp/requirements/
-RUN pip --quiet install -r /tmp/requirements/base.txt -r /tmp/requirements/production.txt && rm -r /tm/requirements
+RUN pip --quiet install -r /tmp/requirements/base.txt -r /tmp/requirements/production.txt && rm -r /tmp/requirements
 
 RUN mkdir -p /srv/www/studentenportal
 WORKDIR /srv/www/studentenportal
 
 # We only add a minimal set of files needed for production.
 RUN mkdir media static
-# TODO: Does this copy the contents of apps into ...portal/ or the whole folder?
-COPY apps config LICENSE.txt manage.py setup.py deploy/production/start.sh /srv/www/studentenportal/
+COPY LICENSE.txt manage.py setup.py deploy/production/start.sh /srv/www/studentenportal/
+COPY apps /srv/www/studentenportal/apps/
+COPY config /srv/www/studentenportal/config/
 RUN chown -R studentenportal:studentenportal /srv/www/studentenportal/
 
 VOLUME ["/srv/www/studentenportal/media"]
