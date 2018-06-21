@@ -1,1 +1,382 @@
-[{"pk": 1, "model": "contenttypes.contenttype", "fields": {"model": "permission", "name": "permission", "app_label": "auth"}}, {"pk": 2, "model": "contenttypes.contenttype", "fields": {"model": "group", "name": "group", "app_label": "auth"}}, {"pk": 3, "model": "contenttypes.contenttype", "fields": {"model": "contenttype", "name": "content type", "app_label": "contenttypes"}}, {"pk": 4, "model": "contenttypes.contenttype", "fields": {"model": "session", "name": "session", "app_label": "sessions"}}, {"pk": 5, "model": "contenttypes.contenttype", "fields": {"model": "migrationhistory", "name": "migration history", "app_label": "south"}}, {"pk": 6, "model": "contenttypes.contenttype", "fields": {"model": "logentry", "name": "log entry", "app_label": "admin"}}, {"pk": 7, "model": "contenttypes.contenttype", "fields": {"model": "registrationprofile", "name": "registration profile", "app_label": "registration"}}, {"pk": 8, "model": "contenttypes.contenttype", "fields": {"model": "source", "name": "source", "app_label": "easy_thumbnails"}}, {"pk": 9, "model": "contenttypes.contenttype", "fields": {"model": "thumbnail", "name": "thumbnail", "app_label": "easy_thumbnails"}}, {"pk": 10, "model": "contenttypes.contenttype", "fields": {"model": "user", "name": "user", "app_label": "front"}}, {"pk": 11, "model": "contenttypes.contenttype", "fields": {"model": "client", "name": "client", "app_label": "oauth2"}}, {"pk": 12, "model": "contenttypes.contenttype", "fields": {"model": "grant", "name": "grant", "app_label": "oauth2"}}, {"pk": 13, "model": "contenttypes.contenttype", "fields": {"model": "accesstoken", "name": "access token", "app_label": "oauth2"}}, {"pk": 14, "model": "contenttypes.contenttype", "fields": {"model": "refreshtoken", "name": "refresh token", "app_label": "oauth2"}}, {"pk": 15, "model": "contenttypes.contenttype", "fields": {"model": "documentcategory", "name": "Modul", "app_label": "documents"}}, {"pk": 16, "model": "contenttypes.contenttype", "fields": {"model": "document", "name": "document", "app_label": "documents"}}, {"pk": 17, "model": "contenttypes.contenttype", "fields": {"model": "documentdownload", "name": "document download", "app_label": "documents"}}, {"pk": 18, "model": "contenttypes.contenttype", "fields": {"model": "documentrating", "name": "document rating", "app_label": "documents"}}, {"pk": 19, "model": "contenttypes.contenttype", "fields": {"model": "lecturer", "name": "lecturer", "app_label": "lecturers"}}, {"pk": 20, "model": "contenttypes.contenttype", "fields": {"model": "lecturerrating", "name": "lecturer rating", "app_label": "lecturers"}}, {"pk": 21, "model": "contenttypes.contenttype", "fields": {"model": "quote", "name": "quote", "app_label": "lecturers"}}, {"pk": 22, "model": "contenttypes.contenttype", "fields": {"model": "quotevote", "name": "quote vote", "app_label": "lecturers"}}, {"pk": 23, "model": "contenttypes.contenttype", "fields": {"model": "course", "name": "course", "app_label": "lecturers"}}, {"pk": 24, "model": "contenttypes.contenttype", "fields": {"model": "event", "name": "event", "app_label": "events"}}, {"pk": "nt21d3kx4678z5c2fti8icqt0upsydiu", "model": "sessions.session", "fields": {"expire_date": "2017-01-30T20:54:39.145", "session_data": "NWIzMDM4NmY2YTgxNGE2MGM4NzRiZDkwMjBlNGRmNTljNmE2NDM4Yjp7fQ=="}}, {"pk": "o6z2rjhrnt52dhkx5bakmwf3xdnfqjtn", "model": "sessions.session", "fields": {"expire_date": "2017-01-30T19:14:03.049", "session_data": "ZjBiNjQzOGRhNDhhMDU0NzZiZWFjYTJlOTI2ZDc5YzVlMjRlZGNiMTp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImNvbmZpZy5iYWNrZW5kcy5DYXNlSW5zZW5zaXRpdmVNb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2lkIjoxfQ=="}}, {"pk": 1, "model": "south.migrationhistory", "fields": {"applied": "2017-01-16T18:26:15.345", "app_name": "easy_thumbnails", "migration": "0001_initial"}}, {"pk": 2, "model": "south.migrationhistory", "fields": {"applied": "2017-01-16T18:26:15.394", "app_name": "easy_thumbnails", "migration": "0002_filename_indexes"}}, {"pk": 3, "model": "south.migrationhistory", "fields": {"applied": "2017-01-16T18:26:15.484", "app_name": "easy_thumbnails", "migration": "0003_auto__add_storagenew"}}, {"pk": 4, "model": "south.migrationhistory", "fields": {"applied": "2017-01-16T18:26:15.549", "app_name": "easy_thumbnails", "migration": "0004_auto__add_field_source_storage_new__add_field_thumbnail_storage_new"}}, {"pk": 5, "model": "south.migrationhistory", "fields": {"applied": "2017-01-16T18:26:15.642", "app_name": "easy_thumbnails", "migration": "0005_storage_fks_null"}}, {"pk": 6, "model": "south.migrationhistory", "fields": {"applied": "2017-01-16T18:26:15.667", "app_name": "easy_thumbnails", "migration": "0006_copy_storage"}}, {"pk": 7, "model": "south.migrationhistory", "fields": {"applied": "2017-01-16T18:26:15.740", "app_name": "easy_thumbnails", "migration": "0007_storagenew_fks_not_null"}}, {"pk": 8, "model": "south.migrationhistory", "fields": {"applied": "2017-01-16T18:26:15.758", "app_name": "easy_thumbnails", "migration": "0008_auto__del_field_source_storage__del_field_thumbnail_storage"}}, {"pk": 9, "model": "south.migrationhistory", "fields": {"applied": "2017-01-16T18:26:15.772", "app_name": "easy_thumbnails", "migration": "0009_auto__del_storage"}}, {"pk": 10, "model": "south.migrationhistory", "fields": {"applied": "2017-01-16T18:26:15.791", "app_name": "easy_thumbnails", "migration": "0010_rename_storage"}}, {"pk": 11, "model": "south.migrationhistory", "fields": {"applied": "2017-01-16T18:26:15.880", "app_name": "easy_thumbnails", "migration": "0011_auto__add_field_source_storage_hash__add_field_thumbnail_storage_hash"}}, {"pk": 12, "model": "south.migrationhistory", "fields": {"applied": "2017-01-16T18:26:15.897", "app_name": "easy_thumbnails", "migration": "0012_build_storage_hashes"}}, {"pk": 13, "model": "south.migrationhistory", "fields": {"applied": "2017-01-16T18:26:15.935", "app_name": "easy_thumbnails", "migration": "0013_auto__del_storage__del_field_source_storage__del_field_thumbnail_stora"}}, {"pk": 14, "model": "south.migrationhistory", "fields": {"applied": "2017-01-16T18:26:15.970", "app_name": "easy_thumbnails", "migration": "0014_auto__add_unique_source_name_storage_hash__add_unique_thumbnail_name_s"}}, {"pk": 15, "model": "south.migrationhistory", "fields": {"applied": "2017-01-16T18:26:16.009", "app_name": "easy_thumbnails", "migration": "0015_auto__del_unique_thumbnail_name_storage_hash__add_unique_thumbnail_sou"}}, {"pk": 16, "model": "south.migrationhistory", "fields": {"applied": "2017-01-16T18:26:16.237", "app_name": "front", "migration": "0001_initial"}}, {"pk": 17, "model": "south.migrationhistory", "fields": {"applied": "2017-01-16T18:26:16.471", "app_name": "oauth2", "migration": "0001_initial"}}, {"pk": 18, "model": "south.migrationhistory", "fields": {"applied": "2017-01-16T18:26:16.534", "app_name": "oauth2", "migration": "0002_auto__chg_field_client_user"}}, {"pk": 19, "model": "south.migrationhistory", "fields": {"applied": "2017-01-16T18:26:16.618", "app_name": "oauth2", "migration": "0003_auto__add_field_client_name"}}, {"pk": 20, "model": "south.migrationhistory", "fields": {"applied": "2017-01-16T18:26:17.093", "app_name": "documents", "migration": "0001_initial"}}, {"pk": 21, "model": "south.migrationhistory", "fields": {"applied": "2017-01-16T18:26:17.466", "app_name": "lecturers", "migration": "0001_initial"}}, {"pk": 22, "model": "south.migrationhistory", "fields": {"applied": "2017-01-16T18:26:17.557", "app_name": "lecturers", "migration": "0002_auto__add_course"}}, {"pk": 23, "model": "south.migrationhistory", "fields": {"applied": "2017-01-16T18:26:17.733", "app_name": "documents", "migration": "0002_auto__m2m_table_for_course"}}, {"pk": 24, "model": "south.migrationhistory", "fields": {"applied": "2017-01-16T18:26:17.865", "app_name": "documents", "migration": "0003_auto__add_field_document_flattr_disabled"}}, {"pk": 25, "model": "south.migrationhistory", "fields": {"applied": "2017-01-16T18:26:18.194", "app_name": "events", "migration": "0001_initial"}}, {"pk": 26, "model": "south.migrationhistory", "fields": {"applied": "2017-01-16T18:26:18.291", "app_name": "lecturers", "migration": "0003_remove_modulereview"}}, {"pk": 1, "model": "easy_thumbnails.source", "fields": {"name": "event_pictures/2017/logo.png", "storage_hash": "f9bde26a1556cd667f742bd34ec7c55e", "modified": "2017-01-16T20:30:35.641"}}, {"pk": 2, "model": "easy_thumbnails.source", "fields": {"name": "event_pictures/2042/cabcardthetare-thumb.jpg", "storage_hash": "f9bde26a1556cd667f742bd34ec7c55e", "modified": "2017-01-16T20:34:47.110"}}, {"pk": 3, "model": "easy_thumbnails.source", "fields": {"name": "lecturers/42.jpg", "storage_hash": "f9bde26a1556cd667f742bd34ec7c55e", "modified": "2017-01-16T20:48:23.133"}}, {"pk": 1, "model": "easy_thumbnails.thumbnail", "fields": {"source": 1, "name": "event_pictures/2017/logo.png.600x500_q85.jpg", "storage_hash": "d26becbf46ac48eda79c7a39a13a02dd", "modified": "2017-01-16T20:30:36.946"}}, {"pk": 2, "model": "easy_thumbnails.thumbnail", "fields": {"source": 2, "name": "event_pictures/2042/cabcardthetare-thumb.jpg.600x500_q85.jpg", "storage_hash": "d26becbf46ac48eda79c7a39a13a02dd", "modified": "2017-01-16T20:34:48.435"}}, {"pk": 3, "model": "easy_thumbnails.thumbnail", "fields": {"source": 3, "name": "lecturers/42.jpg.120x160_q85_crop.jpg", "storage_hash": "d26becbf46ac48eda79c7a39a13a02dd", "modified": "2017-01-16T20:51:49.888"}}, {"pk": 4, "model": "easy_thumbnails.thumbnail", "fields": {"source": 3, "name": "lecturers/42.jpg.34x45_q85_crop.jpg", "storage_hash": "d26becbf46ac48eda79c7a39a13a02dd", "modified": "2017-01-16T20:52:23.114"}}, {"pk": 5, "model": "easy_thumbnails.thumbnail", "fields": {"source": 3, "name": "lecturers/42.jpg.75x100_q85_crop.jpg", "storage_hash": "d26becbf46ac48eda79c7a39a13a02dd", "modified": "2017-01-16T20:52:43.116"}}, {"pk": 1, "model": "documents.documentcategory", "fields": {"courses": [], "lecturers": [42], "name": "Rech1", "description": "Recherche f\u00fcr Anf\u00e4nger"}}, {"pk": 2, "model": "documents.documentcategory", "fields": {"courses": [], "lecturers": [99], "name": "Phil1", "description": "Philatelie 1"}}, {"pk": 1, "model": "documents.documentdownload", "fields": {"timestamp": "2017-01-16T19:33:26.220", "document": 1, "ip": "172.21.0.1"}}, {"pk": 2, "model": "documents.documentdownload", "fields": {"timestamp": "2017-01-16T20:13:21.348", "document": 2, "ip": "172.21.0.1"}}, {"pk": 42, "model": "lecturers.lecturer", "fields": {"function": "Detektiv", "first_name": "John", "last_name": "Watson", "office": "221B", "title": "Dr.", "abbreviation": "JOW", "main_area": "Mord", "subjects": "", "department": "Wissenschaftliche Recherche", "email": "jwatson@localhost"}}, {"pk": 99, "model": "lecturers.lecturer", "fields": {"function": "Antrieb", "first_name": "Maria", "last_name": "Musterfrau", "office": "99.001A", "title": "Frau Dr. Prof. Phil.", "abbreviation": "MAM", "main_area": "Fuelmanager", "subjects": "", "department": "Raketenwissenschaften", "email": "mmusterfrau@localhost"}}, {"pk": 1, "model": "auth.permission", "fields": {"codename": "add_permission", "name": "Can add permission", "content_type": 1}}, {"pk": 2, "model": "auth.permission", "fields": {"codename": "change_permission", "name": "Can change permission", "content_type": 1}}, {"pk": 3, "model": "auth.permission", "fields": {"codename": "delete_permission", "name": "Can delete permission", "content_type": 1}}, {"pk": 4, "model": "auth.permission", "fields": {"codename": "add_group", "name": "Can add group", "content_type": 2}}, {"pk": 5, "model": "auth.permission", "fields": {"codename": "change_group", "name": "Can change group", "content_type": 2}}, {"pk": 6, "model": "auth.permission", "fields": {"codename": "delete_group", "name": "Can delete group", "content_type": 2}}, {"pk": 7, "model": "auth.permission", "fields": {"codename": "add_contenttype", "name": "Can add content type", "content_type": 3}}, {"pk": 8, "model": "auth.permission", "fields": {"codename": "change_contenttype", "name": "Can change content type", "content_type": 3}}, {"pk": 9, "model": "auth.permission", "fields": {"codename": "delete_contenttype", "name": "Can delete content type", "content_type": 3}}, {"pk": 10, "model": "auth.permission", "fields": {"codename": "add_session", "name": "Can add session", "content_type": 4}}, {"pk": 11, "model": "auth.permission", "fields": {"codename": "change_session", "name": "Can change session", "content_type": 4}}, {"pk": 12, "model": "auth.permission", "fields": {"codename": "delete_session", "name": "Can delete session", "content_type": 4}}, {"pk": 13, "model": "auth.permission", "fields": {"codename": "add_migrationhistory", "name": "Can add migration history", "content_type": 5}}, {"pk": 14, "model": "auth.permission", "fields": {"codename": "change_migrationhistory", "name": "Can change migration history", "content_type": 5}}, {"pk": 15, "model": "auth.permission", "fields": {"codename": "delete_migrationhistory", "name": "Can delete migration history", "content_type": 5}}, {"pk": 16, "model": "auth.permission", "fields": {"codename": "add_logentry", "name": "Can add log entry", "content_type": 6}}, {"pk": 17, "model": "auth.permission", "fields": {"codename": "change_logentry", "name": "Can change log entry", "content_type": 6}}, {"pk": 18, "model": "auth.permission", "fields": {"codename": "delete_logentry", "name": "Can delete log entry", "content_type": 6}}, {"pk": 19, "model": "auth.permission", "fields": {"codename": "add_registrationprofile", "name": "Can add registration profile", "content_type": 7}}, {"pk": 20, "model": "auth.permission", "fields": {"codename": "change_registrationprofile", "name": "Can change registration profile", "content_type": 7}}, {"pk": 21, "model": "auth.permission", "fields": {"codename": "delete_registrationprofile", "name": "Can delete registration profile", "content_type": 7}}, {"pk": 22, "model": "auth.permission", "fields": {"codename": "add_source", "name": "Can add source", "content_type": 8}}, {"pk": 23, "model": "auth.permission", "fields": {"codename": "change_source", "name": "Can change source", "content_type": 8}}, {"pk": 24, "model": "auth.permission", "fields": {"codename": "delete_source", "name": "Can delete source", "content_type": 8}}, {"pk": 25, "model": "auth.permission", "fields": {"codename": "add_thumbnail", "name": "Can add thumbnail", "content_type": 9}}, {"pk": 26, "model": "auth.permission", "fields": {"codename": "change_thumbnail", "name": "Can change thumbnail", "content_type": 9}}, {"pk": 27, "model": "auth.permission", "fields": {"codename": "delete_thumbnail", "name": "Can delete thumbnail", "content_type": 9}}, {"pk": 28, "model": "auth.permission", "fields": {"codename": "add_user", "name": "Can add user", "content_type": 10}}, {"pk": 29, "model": "auth.permission", "fields": {"codename": "change_user", "name": "Can change user", "content_type": 10}}, {"pk": 30, "model": "auth.permission", "fields": {"codename": "delete_user", "name": "Can delete user", "content_type": 10}}, {"pk": 31, "model": "auth.permission", "fields": {"codename": "add_client", "name": "Can add client", "content_type": 11}}, {"pk": 32, "model": "auth.permission", "fields": {"codename": "change_client", "name": "Can change client", "content_type": 11}}, {"pk": 33, "model": "auth.permission", "fields": {"codename": "delete_client", "name": "Can delete client", "content_type": 11}}, {"pk": 34, "model": "auth.permission", "fields": {"codename": "add_grant", "name": "Can add grant", "content_type": 12}}, {"pk": 35, "model": "auth.permission", "fields": {"codename": "change_grant", "name": "Can change grant", "content_type": 12}}, {"pk": 36, "model": "auth.permission", "fields": {"codename": "delete_grant", "name": "Can delete grant", "content_type": 12}}, {"pk": 37, "model": "auth.permission", "fields": {"codename": "add_accesstoken", "name": "Can add access token", "content_type": 13}}, {"pk": 38, "model": "auth.permission", "fields": {"codename": "change_accesstoken", "name": "Can change access token", "content_type": 13}}, {"pk": 39, "model": "auth.permission", "fields": {"codename": "delete_accesstoken", "name": "Can delete access token", "content_type": 13}}, {"pk": 40, "model": "auth.permission", "fields": {"codename": "add_refreshtoken", "name": "Can add refresh token", "content_type": 14}}, {"pk": 41, "model": "auth.permission", "fields": {"codename": "change_refreshtoken", "name": "Can change refresh token", "content_type": 14}}, {"pk": 42, "model": "auth.permission", "fields": {"codename": "delete_refreshtoken", "name": "Can delete refresh token", "content_type": 14}}, {"pk": 43, "model": "auth.permission", "fields": {"codename": "add_documentcategory", "name": "Can add Modul", "content_type": 15}}, {"pk": 44, "model": "auth.permission", "fields": {"codename": "change_documentcategory", "name": "Can change Modul", "content_type": 15}}, {"pk": 45, "model": "auth.permission", "fields": {"codename": "delete_documentcategory", "name": "Can delete Modul", "content_type": 15}}, {"pk": 46, "model": "auth.permission", "fields": {"codename": "add_document", "name": "Can add document", "content_type": 16}}, {"pk": 47, "model": "auth.permission", "fields": {"codename": "change_document", "name": "Can change document", "content_type": 16}}, {"pk": 48, "model": "auth.permission", "fields": {"codename": "delete_document", "name": "Can delete document", "content_type": 16}}, {"pk": 49, "model": "auth.permission", "fields": {"codename": "add_documentdownload", "name": "Can add document download", "content_type": 17}}, {"pk": 50, "model": "auth.permission", "fields": {"codename": "change_documentdownload", "name": "Can change document download", "content_type": 17}}, {"pk": 51, "model": "auth.permission", "fields": {"codename": "delete_documentdownload", "name": "Can delete document download", "content_type": 17}}, {"pk": 52, "model": "auth.permission", "fields": {"codename": "add_documentrating", "name": "Can add document rating", "content_type": 18}}, {"pk": 53, "model": "auth.permission", "fields": {"codename": "change_documentrating", "name": "Can change document rating", "content_type": 18}}, {"pk": 54, "model": "auth.permission", "fields": {"codename": "delete_documentrating", "name": "Can delete document rating", "content_type": 18}}, {"pk": 55, "model": "auth.permission", "fields": {"codename": "add_lecturer", "name": "Can add lecturer", "content_type": 19}}, {"pk": 56, "model": "auth.permission", "fields": {"codename": "change_lecturer", "name": "Can change lecturer", "content_type": 19}}, {"pk": 57, "model": "auth.permission", "fields": {"codename": "delete_lecturer", "name": "Can delete lecturer", "content_type": 19}}, {"pk": 58, "model": "auth.permission", "fields": {"codename": "add_lecturerrating", "name": "Can add lecturer rating", "content_type": 20}}, {"pk": 59, "model": "auth.permission", "fields": {"codename": "change_lecturerrating", "name": "Can change lecturer rating", "content_type": 20}}, {"pk": 60, "model": "auth.permission", "fields": {"codename": "delete_lecturerrating", "name": "Can delete lecturer rating", "content_type": 20}}, {"pk": 61, "model": "auth.permission", "fields": {"codename": "add_quote", "name": "Can add quote", "content_type": 21}}, {"pk": 62, "model": "auth.permission", "fields": {"codename": "change_quote", "name": "Can change quote", "content_type": 21}}, {"pk": 63, "model": "auth.permission", "fields": {"codename": "delete_quote", "name": "Can delete quote", "content_type": 21}}, {"pk": 64, "model": "auth.permission", "fields": {"codename": "add_quotevote", "name": "Can add quote vote", "content_type": 22}}, {"pk": 65, "model": "auth.permission", "fields": {"codename": "change_quotevote", "name": "Can change quote vote", "content_type": 22}}, {"pk": 66, "model": "auth.permission", "fields": {"codename": "delete_quotevote", "name": "Can delete quote vote", "content_type": 22}}, {"pk": 67, "model": "auth.permission", "fields": {"codename": "add_course", "name": "Can add course", "content_type": 23}}, {"pk": 68, "model": "auth.permission", "fields": {"codename": "change_course", "name": "Can change course", "content_type": 23}}, {"pk": 69, "model": "auth.permission", "fields": {"codename": "delete_course", "name": "Can delete course", "content_type": 23}}, {"pk": 70, "model": "auth.permission", "fields": {"codename": "add_event", "name": "Can add event", "content_type": 24}}, {"pk": 71, "model": "auth.permission", "fields": {"codename": "change_event", "name": "Can change event", "content_type": 24}}, {"pk": 72, "model": "auth.permission", "fields": {"codename": "delete_event", "name": "Can delete event", "content_type": 24}}, {"pk": 1, "model": "front.user", "fields": {"username": "user0", "first_name": "0Firstname", "last_name": "0Lastname (Admin)", "flattr": "gbnewby", "twitter": "gutenberg_org", "is_active": true, "is_superuser": true, "is_staff": true, "last_login": "2017-01-16T20:50:07.773", "groups": [], "user_permissions": [], "password": "pbkdf2_sha256$12000$lsoo78F9ZTy4$bITXRF2m8eU73EXC8VgRoIlot6xWa41fFeI04kAHqdM=", "email": "user0@localhost", "date_joined": "2017-01-16T18:30:50.696"}}, {"pk": 2, "model": "front.user", "fields": {"username": "user1", "first_name": "1Firstname", "last_name": "1Surname", "flattr": "", "twitter": "", "is_active": true, "is_superuser": false, "is_staff": false, "last_login": "2017-01-16T20:31:38.673", "groups": [], "user_permissions": [], "password": "pbkdf2_sha256$12000$n8Awpgtfun9n$jzPqHsFc1N8tOaT1ypJ1DRLdm5SBILyL2tUnyf/IIJ0=", "email": "user1@localhost", "date_joined": "2017-01-16T19:47:39"}}, {"pk": 1, "model": "documents.document", "fields": {"category": 1, "upload_date": "2017-01-16T19:31:26.464", "name": "Sherlock Holmes", "license": 1, "url": "https://www.gutenberg.org/ebooks/1661", "dtype": 4, "flattr_disabled": true, "original_filename": "pg1661-images.epub", "change_date": "2017-01-16T19:31:26.472", "document": "documents/rech1/2017-01-16_19-31-26.epub", "uploader": 1, "public": true, "description": "Upload from user0: .epub file."}}, {"pk": 2, "model": "documents.document", "fields": {"category": 1, "upload_date": "2017-01-16T20:13:15.409", "name": "Sherlock Holmes (PDF)", "license": 5, "url": "", "dtype": 4, "flattr_disabled": false, "original_filename": "The Adventures of Sherlock Holmes.pdf", "change_date": "2017-01-16T20:13:15.421", "document": "documents/rech1/2017-01-16_20-13-15.pdf", "uploader": 2, "public": false, "description": "Upload from user1: .pdf file."}}, {"pk": 1, "model": "documents.documentrating", "fields": {"rating": 4, "document": 2, "user": 1}}, {"pk": 1, "model": "events.event", "fields": {"picture": "event_pictures/2017/logo.png", "description": "Tomorrow, there is a coding party!", "end_date": "2017-01-18", "author": 1, "url": "https://secret.onion/", "start_time": "21:30:00", "summary": "Coding Party", "end_time": "22:00:00", "start_date": "2017-01-09", "location": "Secret Location"}}, {"pk": 2, "model": "events.event", "fields": {"picture": "event_pictures/2042/cabcardthetare-thumb.jpg", "description": "Live performance of The Coding Duo", "end_date": null, "author": 2, "url": "https://studentenportal.ch/", "start_time": "02:30:00", "summary": "The Coding Duo", "end_time": null, "start_date": "2042-04-02", "location": "The Internet"}}, {"pk": 3, "model": "events.event", "fields": {"picture": "", "description": "Learn you node", "end_date": null, "author": 2, "url": "", "start_time": "21:30:00", "summary": "Some boring event", "end_time": null, "start_date": "2019-09-13", "location": ""}}, {"pk": 1, "model": "lecturers.lecturerrating", "fields": {"lecturer": 99, "category": "d", "user": 1, "rating": 7}}, {"pk": 2, "model": "lecturers.lecturerrating", "fields": {"lecturer": 99, "category": "m", "user": 1, "rating": 8}}, {"pk": 3, "model": "lecturers.lecturerrating", "fields": {"lecturer": 99, "category": "f", "user": 1, "rating": 6}}, {"pk": 4, "model": "lecturers.lecturerrating", "fields": {"lecturer": 42, "category": "f", "user": 1, "rating": 10}}, {"pk": 5, "model": "lecturers.lecturerrating", "fields": {"lecturer": 42, "category": "m", "user": 1, "rating": 6}}, {"pk": 6, "model": "lecturers.lecturerrating", "fields": {"lecturer": 42, "category": "d", "user": 1, "rating": 3}}, {"pk": 7, "model": "lecturers.lecturerrating", "fields": {"lecturer": 42, "category": "d", "user": 2, "rating": 5}}, {"pk": 8, "model": "lecturers.lecturerrating", "fields": {"lecturer": 42, "category": "m", "user": 2, "rating": 10}}, {"pk": 9, "model": "lecturers.lecturerrating", "fields": {"lecturer": 42, "category": "f", "user": 2, "rating": 9}}, {"pk": 1, "model": "lecturers.quote", "fields": {"lecturer": 42, "date": "2017-01-16T20:21:27.951", "quote": "You know my methods, Watson.", "comment": "Quotes Sherlock Holmes", "author": 2}}, {"pk": 2, "model": "lecturers.quote", "fields": {"lecturer": 42, "date": "2017-01-16T20:22:46.334", "quote": "\"Excellent!\" I cried. \"Elementary,\",", "comment": "said he.", "author": 2}}, {"pk": 3, "model": "lecturers.quote", "fields": {"lecturer": 99, "date": "2017-01-16T20:24:44.002", "quote": "Ich bin durch den fiktiven Personalausweis und ebensolchen Reisepass zu bundesweiter Bekanntheit gelangt.", "comment": "", "author": 1}}, {"pk": 1, "model": "lecturers.quotevote", "fields": {"vote": true, "quote": 1, "user": 2}}, {"pk": 2, "model": "lecturers.quotevote", "fields": {"vote": true, "quote": 2, "user": 2}}, {"pk": 4, "model": "lecturers.quotevote", "fields": {"vote": true, "quote": 2, "user": 1}}, {"pk": 12, "model": "lecturers.quotevote", "fields": {"vote": true, "quote": 3, "user": 1}}, {"pk": 1, "model": "admin.logentry", "fields": {"action_flag": 1, "action_time": "2017-01-16T18:37:17.974", "object_repr": "Musterfrau Maria", "object_id": "99", "change_message": "", "user": 1, "content_type": 19}}, {"pk": 2, "model": "admin.logentry", "fields": {"action_flag": 1, "action_time": "2017-01-16T18:38:57.264", "object_repr": "Watson John", "object_id": "42", "change_message": "", "user": 1, "content_type": 19}}, {"pk": 3, "model": "admin.logentry", "fields": {"action_flag": 2, "action_time": "2017-01-16T18:40:02.825", "object_repr": "Watson John", "object_id": "42", "change_message": "office ge\u00e4ndert.", "user": 1, "content_type": 19}}, {"pk": 4, "model": "admin.logentry", "fields": {"action_flag": 1, "action_time": "2017-01-16T19:51:51.515", "object_repr": "user1", "object_id": "2", "change_message": "", "user": 1, "content_type": 10}}]
+[
+    {
+        "pk": 1,
+        "model": "documents.documentcategory",
+        "fields": {
+            "courses": [
+
+            ],
+            "lecturers": [
+                42
+            ],
+            "name": "Rech1",
+            "description": "Recherche für Anfänger"
+        }
+    },
+    {
+        "pk": 2,
+        "model": "documents.documentcategory",
+        "fields": {
+            "courses": [
+
+            ],
+            "lecturers": [
+                99
+            ],
+            "name": "Phil1",
+            "description": "Philatelie 1"
+        }
+    },
+    {
+        "pk": 1,
+        "model": "documents.documentdownload",
+        "fields": {
+            "timestamp": "2017-01-16T19:33:26.220",
+            "document": 1,
+            "ip": "172.21.0.1"
+        }
+    },
+    {
+        "pk": 2,
+        "model": "documents.documentdownload",
+        "fields": {
+            "timestamp": "2017-01-16T20:13:21.348",
+            "document": 2,
+            "ip": "172.21.0.1"
+        }
+    },
+    {
+        "pk": 42,
+        "model": "lecturers.lecturer",
+        "fields": {
+            "function": "Detektiv",
+            "first_name": "John",
+            "last_name": "Watson",
+            "office": "221B",
+            "title": "Dr.",
+            "abbreviation": "JOW",
+            "main_area": "Mord",
+            "subjects": "",
+            "department": "Wissenschaftliche Recherche",
+            "email": "jwatson@localhost"
+        }
+    },
+    {
+        "pk": 99,
+        "model": "lecturers.lecturer",
+        "fields": {
+            "function": "Antrieb",
+            "first_name": "Maria",
+            "last_name": "Musterfrau",
+            "office": "99.001A",
+            "title": "Frau Dr. Prof. Phil.",
+            "abbreviation": "MAM",
+            "main_area": "Fuelmanager",
+            "subjects": "",
+            "department": "Raketenwissenschaften",
+            "email": "mmusterfrau@localhost"
+        }
+    },
+    {
+        "pk": 1,
+        "model": "front.user",
+        "fields": {
+            "username": "user0",
+            "first_name": "0Firstname",
+            "last_name": "0Lastname (Admin)",
+            "flattr": "gbnewby",
+            "twitter": "gutenberg_org",
+            "is_active": true,
+            "is_superuser": true,
+            "is_staff": true,
+            "last_login": "2017-01-16T20:50:07.773",
+            "groups": [
+
+            ],
+            "user_permissions": [
+
+            ],
+            "password": "pbkdf2_sha256$12000$lsoo78F9ZTy4$bITXRF2m8eU73EXC8VgRoIlot6xWa41fFeI04kAHqdM=",
+            "email": "user0@localhost",
+            "date_joined": "2017-01-16T18:30:50.696"
+        }
+    },
+    {
+        "pk": 2,
+        "model": "front.user",
+        "fields": {
+            "username": "user1",
+            "first_name": "1Firstname",
+            "last_name": "1Surname",
+            "flattr": "",
+            "twitter": "",
+            "is_active": true,
+            "is_superuser": false,
+            "is_staff": false,
+            "last_login": "2017-01-16T20:31:38.673",
+            "groups": [
+
+            ],
+            "user_permissions": [
+
+            ],
+            "password": "pbkdf2_sha256$12000$n8Awpgtfun9n$jzPqHsFc1N8tOaT1ypJ1DRLdm5SBILyL2tUnyf/IIJ0=",
+            "email": "user1@localhost",
+            "date_joined": "2017-01-16T19:47:39"
+        }
+    },
+    {
+        "pk": 1,
+        "model": "documents.document",
+        "fields": {
+            "category": 1,
+            "upload_date": "2017-01-16T19:31:26.464",
+            "name": "Sherlock Holmes",
+            "license": 1,
+            "url": "https://www.gutenberg.org/ebooks/1661",
+            "dtype": 4,
+            "flattr_disabled": true,
+            "original_filename": "pg1661-images.epub",
+            "change_date": "2017-01-16T19:31:26.472",
+            "document": "documents/rech1/2017-01-16_19-31-26.epub",
+            "uploader": 1,
+            "public": true,
+            "description": "Upload from user0: .epub file."
+        }
+    },
+    {
+        "pk": 2,
+        "model": "documents.document",
+        "fields": {
+            "category": 1,
+            "upload_date": "2017-01-16T20:13:15.409",
+            "name": "Sherlock Holmes (PDF)",
+            "license": 5,
+            "url": "",
+            "dtype": 4,
+            "flattr_disabled": false,
+            "original_filename": "The Adventures of Sherlock Holmes.pdf",
+            "change_date": "2017-01-16T20:13:15.421",
+            "document": "documents/rech1/2017-01-16_20-13-15.pdf",
+            "uploader": 2,
+            "public": false,
+            "description": "Upload from user1: .pdf file."
+        }
+    },
+    {
+        "pk": 1,
+        "model": "documents.documentrating",
+        "fields": {
+            "rating": 4,
+            "document": 2,
+            "user": 1
+        }
+    },
+    {
+        "pk": 1,
+        "model": "events.event",
+        "fields": {
+            "picture": "event_pictures/2017/logo.png",
+            "description": "Tomorrow, there is a coding party!",
+            "end_date": "2017-01-18",
+            "author": 1,
+            "url": "https://secret.onion/",
+            "start_time": "21:30:00",
+            "summary": "Coding Party",
+            "end_time": "22:00:00",
+            "start_date": "2017-01-09",
+            "location": "Secret Location"
+        }
+    },
+    {
+        "pk": 2,
+        "model": "events.event",
+        "fields": {
+            "picture": "event_pictures/2042/cabcardthetare-thumb.jpg",
+            "description": "Live performance of The Coding Duo",
+            "end_date": null,
+            "author": 2,
+            "url": "https://studentenportal.ch/",
+            "start_time": "02:30:00",
+            "summary": "The Coding Duo",
+            "end_time": null,
+            "start_date": "2042-04-02",
+            "location": "The Internet"
+        }
+    },
+    {
+        "pk": 3,
+        "model": "events.event",
+        "fields": {
+            "picture": "",
+            "description": "Learn you node",
+            "end_date": null,
+            "author": 2,
+            "url": "",
+            "start_time": "21:30:00",
+            "summary": "Some boring event",
+            "end_time": null,
+            "start_date": "2019-09-13",
+            "location": ""
+        }
+    },
+    {
+        "pk": 1,
+        "model": "lecturers.lecturerrating",
+        "fields": {
+            "lecturer": 99,
+            "category": "d",
+            "user": 1,
+            "rating": 7
+        }
+    },
+    {
+        "pk": 2,
+        "model": "lecturers.lecturerrating",
+        "fields": {
+            "lecturer": 99,
+            "category": "m",
+            "user": 1,
+            "rating": 8
+        }
+    },
+    {
+        "pk": 3,
+        "model": "lecturers.lecturerrating",
+        "fields": {
+            "lecturer": 99,
+            "category": "f",
+            "user": 1,
+            "rating": 6
+        }
+    },
+    {
+        "pk": 4,
+        "model": "lecturers.lecturerrating",
+        "fields": {
+            "lecturer": 42,
+            "category": "f",
+            "user": 1,
+            "rating": 10
+        }
+    },
+    {
+        "pk": 5,
+        "model": "lecturers.lecturerrating",
+        "fields": {
+            "lecturer": 42,
+            "category": "m",
+            "user": 1,
+            "rating": 6
+        }
+    },
+    {
+        "pk": 6,
+        "model": "lecturers.lecturerrating",
+        "fields": {
+            "lecturer": 42,
+            "category": "d",
+            "user": 1,
+            "rating": 3
+        }
+    },
+    {
+        "pk": 7,
+        "model": "lecturers.lecturerrating",
+        "fields": {
+            "lecturer": 42,
+            "category": "d",
+            "user": 2,
+            "rating": 5
+        }
+    },
+    {
+        "pk": 8,
+        "model": "lecturers.lecturerrating",
+        "fields": {
+            "lecturer": 42,
+            "category": "m",
+            "user": 2,
+            "rating": 10
+        }
+    },
+    {
+        "pk": 9,
+        "model": "lecturers.lecturerrating",
+        "fields": {
+            "lecturer": 42,
+            "category": "f",
+            "user": 2,
+            "rating": 9
+        }
+    },
+    {
+        "pk": 1,
+        "model": "lecturers.quote",
+        "fields": {
+            "lecturer": 42,
+            "date": "2017-01-16T20:21:27.951",
+            "quote": "You know my methods, Watson.",
+            "comment": "Quotes Sherlock Holmes",
+            "author": 2
+        }
+    },
+    {
+        "pk": 2,
+        "model": "lecturers.quote",
+        "fields": {
+            "lecturer": 42,
+            "date": "2017-01-16T20:22:46.334",
+            "quote": "\"Excellent!\" I cried. \"Elementary,\",",
+            "comment": "said he.",
+            "author": 2
+        }
+    },
+    {
+        "pk": 3,
+        "model": "lecturers.quote",
+        "fields": {
+            "lecturer": 99,
+            "date": "2017-01-16T20:24:44.002",
+            "quote": "Ich bin durch den fiktiven Personalausweis und ebensolchen Reisepass zu bundesweiter Bekanntheit gelangt.",
+            "comment": "",
+            "author": 1
+        }
+    },
+    {
+        "pk": 1,
+        "model": "lecturers.quotevote",
+        "fields": {
+            "vote": true,
+            "quote": 1,
+            "user": 2
+        }
+    },
+    {
+        "pk": 2,
+        "model": "lecturers.quotevote",
+        "fields": {
+            "vote": true,
+            "quote": 2,
+            "user": 2
+        }
+    },
+    {
+        "pk": 4,
+        "model": "lecturers.quotevote",
+        "fields": {
+            "vote": true,
+            "quote": 2,
+            "user": 1
+        }
+    },
+    {
+        "pk": 12,
+        "model": "lecturers.quotevote",
+        "fields": {
+            "vote": true,
+            "quote": 3,
+            "user": 1
+        }
+    }
+]
