@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export	DB_HOST="postgres" \
+export DB_HOST="postgres" \
 	DB_USER="${POSTGRES_USER}" \
 	DB_NAME="${POSTGRES_DB_NAME}" \
 	DB_PASSWORD="${POSTGRES_PASSWORD}" \
@@ -16,7 +16,7 @@ do
   sleep 1
 done
 
-python manage.py syncdb
-python manage.py migrate --all
+python manage.py migrate front
+python manage.py migrate
 
 gunicorn config.wsgi:application -n studentenportal -b 0.0.0.0:8000 -w 4 --log-level warning
