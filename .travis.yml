@@ -10,12 +10,13 @@ env:
     - CONTAINER_COVERAGE_HOME_DIR=/srv/www/studentenportal
       RELEASE=`git describe --tags`
       DOCKER_TAGS="studentenportal/studentenportal:latest studentenportal/studentenportal:${RELEASE}"
+      UID=`id -u`
+      GID=`id -g`
 
 install:
     - pip install coveralls==1.1
 
 script:
-    - whoami; id; echo '----------------------------'
     - docker-compose up -d
     - docker-compose run --rm studentenportal ./deploy/dev/test.sh
     - docker-compose stop

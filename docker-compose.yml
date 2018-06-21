@@ -6,7 +6,7 @@
 #  ||
 # postgres ----- postgres-data:/var/lib/postgresql/data
 #
-version: '2'
+version: '3.2'
 services:
   postgres:
     image: postgres:9.3
@@ -22,6 +22,9 @@ services:
     build:
       context: .
       dockerfile: deploy/dev/Dockerfile
+      args:
+          - UID=${UID-1000}
+          - GID=${GID-1000}
     volumes:
       - ./:/srv/www/studentenportal
     ports:
