@@ -3,6 +3,9 @@ services:
   - docker
 env:
     - CONTAINER_COVERAGE_HOME_DIR=/srv/www/studentenportal
+    - RELEASE=`git describe --tags`
+    - DOCKER_TAGS="studentenportal/studentenportal:latest studentenportal/studentenportal:${RELEASE}"
+
 install:
     - pip install coveralls==1.1
 
@@ -13,3 +16,11 @@ script:
     # and on travis are not the same. Therefore, it has to be rewritten.
     - sed -i -e "s#${CONTAINER_COVERAGE_HOME_DIR}#${TRAVIS_BUILD_DIR}#g" .coverage
     - coveralls
+    - ./deploy/production/build.bash
+
+deploy:
+    on:
+        branch: master
+        tags: true
+    provider: script
+    script: ./deploy/production/travis-deploy.bash
