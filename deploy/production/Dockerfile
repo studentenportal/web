@@ -10,7 +10,7 @@ RUN groupadd -g $GID studentenportal
 RUN useradd --home /home/studentenportal -u $UID -g $GID -M studentenportal
 
 COPY requirements/ /tmp/requirements/
-RUN pip install -r /tmp/requirements/base.txt -r /tmp/requirements/production.txt && rm -r /tm/requirements
+RUN pip --quiet install -r /tmp/requirements/base.txt -r /tmp/requirements/production.txt && rm -r /tm/requirements
 
 RUN mkdir -p /srv/www/studentenportal
 WORKDIR /srv/www/studentenportal
