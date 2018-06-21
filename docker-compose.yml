@@ -1,29 +1,41 @@
+# Note that this docker-compose file is only for development!
 #
-# studentenportal-dev:8000  ----- studentenportal-dev-media:/srv/www//studentenportal/media
+# studentenportal:8000  ----- studentenportal-media:/srv/www/studentenportal/media
 #  ||                       \
-#  ||                        ---- ./:/srv/www//studentenportal/
+#  ||                        ---- ./:/srv/www/studentenportal/
 #  ||
-# postgres-dev ----- postgres-dev-data:/var/lib/postgresql/data
+# postgres ----- postgres-data:/var/lib/postgresql/data
 #
-version: '2'
+version: '3.2'
 services:
-  postgres-dev:
+  postgres:
     image: postgres:9.3
     restart: always
     environment:
       POSTGRES_PASSWORD: "k9F1bbHiW4o9By1A6tvL"
       POSTGRES_USER: "studentenportal"
+    networks:
+        - studentenportal-dev
 
-  studentenportal-dev:
-    links:
-      - postgres-dev
-    image: studentenportal/studentenportal-dev
+  studentenportal:
+    image: studentenportal/dev:latest
+    build:
+      context: .
+      dockerfile: deploy/dev/Dockerfile
+      args:
+          - UID=${UID-1000}
+          - GID=${GID-1000}
     volumes:
       - ./:/srv/www/studentenportal
     ports:
       - 8000:8000
     environment:
-      DB_HOST: "postgres-dev"
+      DB_HOST: "postgres"
       DB_USER: "studentenportal"
       DB_PASSWORD: "k9F1bbHiW4o9By1A6tvL"
       DJANGO_DEBUG: "True"
+    networks:
+      - studentenportal-dev
+
+networks:
+  studentenportal-dev:

@@ -2,21 +2,18 @@
 
 ## Einrichten der Entwicklungsumgebung
 
-Die Entwicklungsumgebung hat zwei Abhängigkeiten:
-
-- Docker & docker-compose
-- make
+Die Entwicklungsumgebung benötigt [Docker & docker-compose](https://www.docker.com/).
 
 Sofern du diese installiert hast, kannst du wie folgt vorgehen:
 
 1. `git clone https://github.com/studentenportal/web.git studentenportal`
 2. `cd studentenportal`
-3. `make start`
+3. `docker-compose up -d`
 4. Das Studentenportal ist jetzt unter [http://localhost:8000](http://localhost:8000) verfügbar.
-5. Bei Änderungen am Code, kannst du das Studentenportal mit `make restart` neu starten.
-6. Tests mit `make tests` ausführen
+5. Bei Änderungen am Code, kannst du das Studentenportal mit `docker-compose restart studentenportal` neu starten.
+6. Tests mit `docker-compose run --rm studentenportal ./deploy/dev/test.sh` ausführen
 
-Beenden kannst du die Entwicklungsumgebung mit `make stop`.
+Beenden kannst du die Entwicklungsumgebung mit `docker-compose stop`.
 
 ### Logs anschauen
 
@@ -41,19 +38,9 @@ Password: user1
 
 
 ## Spezialfälle
-### Änderungen an der `Dockerfile-base`
+### Änderungen an Dockerfiles oder requirements
 
-Bei Änderungen an der `Dockerfile-base` muss vor dem Starten zuerst das Baseimage neu gebaut werden:
-
-```bash
-make Dockerfile-base
-```
-
-### Update 
-Falls ein Datenbankfehler auftritt, weil das Schema sich geändert hat:
-
-1. `python manage.py syncdb`
-2. `python manage.py migrate`
+Werden requirements oder Dockerfiles angepasst, müssen die Docker-Container mit `docker-compose build` neu gebaut werden.
 
 ### Twitter
 Wenn du die Twitter Einbindung nutzen willst, musst du im Twitter Developer Center eine

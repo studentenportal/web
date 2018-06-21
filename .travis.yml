@@ -1,18 +1,35 @@
 sudo: required
+# python is required for the direct execution of coveralls
 language: python
 python:
-    - 2.7
+  - "3.3"
+
 services:
   - docker
 env:
     - CONTAINER_COVERAGE_HOME_DIR=/srv/www/studentenportal
+      RELEASE=`git describe --tags`
+      DOCKER_TAGS="studentenportal/studentenportal:latest studentenportal/studentenportal:${RELEASE}"
+      UID=`id -u`
+      GID=`id -g`
+
 install:
     - pip install coveralls==1.1
 
 script:
-    - make tests
+    - docker-compose up -d
+    - docker-compose run --rm studentenportal ./deploy/dev/test.sh
+    - docker-compose stop
     # coverage.py stores absolute paths of the "observed" files. This is done within the `make test`
     # command. We upload the test coverage via travis to coveralls.io. The paths within the container
     # and on travis are not the same. Therefore, it has to be rewritten.
     - sed -i -e "s#${CONTAINER_COVERAGE_HOME_DIR}#${TRAVIS_BUILD_DIR}#g" .coverage
     - coveralls
+    - ./deploy/production/travis-build.bash
+
+deploy:
+    on:
+      branch: master
+      tags: true
+    provider: script
+    script: ./deploy/production/travis-deploy.bash
