@@ -76,7 +76,9 @@ $gutter: 1rem;
 }
 
 /* ===RESET=== */
-@import "compass/reset";
+@import "reset";
+@include global-reset;
+
 @include global-box-sizing;
 @import "icons";
 @import "base";
