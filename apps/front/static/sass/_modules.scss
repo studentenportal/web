@@ -1,11 +1,10 @@
-// @import "compass/css3/flexbox";
 @import "compass/css3/images";
 
 /* ===AUTHOR===*/
 .author, a[rel="author"] { font-size: 1.1rem; }
 
-//Set h3 to normal lineheight and pull it down 1rem
-//so that the author can be placed right below it
+// Set h3 to normal lineheight and pull it down 1rem
+// so that the author can be placed right below it
 @mixin adapt-heading-to-author {
     h3 {
         line-height: 1;
@@ -21,7 +20,7 @@ $color-search-background: #E1E5E8;
     @include clearfix;
     margin-bottom: 1em;
     width: 100%;
-    max-width: 70rem; //The search button looks ugly if it's too big
+    max-width: 70rem; // The search button looks ugly if it's too big
 
     > input, > button { height: 2.5em; }
 
@@ -45,7 +44,7 @@ $color-search-background: #E1E5E8;
         color: #fff;
         background: $color-dark-accent;
 
-        //Create the triangle
+        // Create the triangle
         &:before {
             content: '';
             position: absolute;
@@ -100,7 +99,7 @@ $color-search-background: #E1E5E8;
 %list-card {
     @include pie-clearfix;
     margin-top: 1em;
-    //Use only half padding because border reserves already
+    // Use only half padding because border reserves already
     padding: 0.5rem;
     min-height: 4em;
     position: relative;
@@ -180,7 +179,7 @@ $color-vote: map-get($color-voting, "vote");
     @extend %list-card;
     @include adapt-heading-to-author;
 
-    //Force all really long links to break
+    // Force all really long links to break
     .summary {
         a { word-break: break-all; }
     }

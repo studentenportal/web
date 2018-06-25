@@ -31,19 +31,18 @@
 
 
 /* ===LAYOUT STRUCTURE=== */
-
 body {
 
 }
 
-//The whole top part of the website includes the header as well
+// The whole top part of the website includes the header as well
 .top {
     padding: 0;
     background-image: url('../../img/hsr@2x.jpg');
     background-position: center;
-    background-repeat:no-repeat;
+    background-repeat: no-repeat;
     background-size: cover;
-    //Height cannot be fixed because the navigation needs space to flex
+    // Height cannot be fixed because the navigation needs space to flex
     min-height: 25rem;
 }
 
@@ -87,7 +86,7 @@ body {
     .header-actions {
         @include pie-clearfix;
 
-        //Special links like user home or login/logout
+        // Special links like user home or login/logout
         > a {
             float: right;
             padding: $gutter/2;
@@ -106,8 +105,8 @@ body {
         @media (min-width: 46em) {
             float: right;
 
-            //By making the header actions float to left
-            //the account link and logout link will swap places
+            // By making the header actions float to left
+            // the account link and logout link will swap places
             > a {
                 float: left;
                 margin-left: $gutter/2;
@@ -115,7 +114,7 @@ body {
         }
     }
 
-    //iPhones have a very small width so the header size should adapt to it
+    // iPhones have a very small width so the header size should adapt to it
     @media (max-width: 33rem) {
         .branding h1 {
             font-size: 2.7rem;
@@ -168,5 +167,5 @@ body {
 
 // Show if in DEBUG mode
 .is-dev-environment > *{
-  color: red!important;;
+  color: red !important;
 }

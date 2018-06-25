@@ -1,7 +1,6 @@
 @import "compass";
 
 // ===COLORS=== //
-
 $color-gray: #D2DDE5;
 $color-background: #fff;
 
@@ -51,7 +50,6 @@ $color-alerts: (
 );
 
 // ===VARS=== //
-
 $font-title: 'Droid Sans', sans-serif;
 $font-text: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
 
@@ -68,7 +66,7 @@ $gutter: 1rem;
 
 @mixin global-box-sizing() {
     // apply a natural box layout model to all elements
-    //but allowing components to change
+    // but allowing components to change
     html {
         box-sizing: border-box;
     }

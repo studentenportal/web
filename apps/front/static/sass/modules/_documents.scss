@@ -6,8 +6,8 @@
     @include clearfix;
     @extend %box;
 
-    //Otherwise the color of the link would override the color
-    //ot the heading
+    // Otherwise the color of the link would override the color
+    // ot the heading
     .summary {
         > a, > a:visited { color: inherit; }
     }
@@ -126,10 +126,10 @@
             min-height: 3.4rem;
             position: relative;
 
-            //The text can grow really long and has to be hidden in this case
+            // The text can grow really long and has to be hidden in this case
             overflow: hidden;
 
-            //Correct position of file icons
+            // Correct position of file icons
             > div {
                 position: absolute;
                 top: 0.2rem;
@@ -140,7 +140,7 @@
             }
         }
 
-        //Generate the different background colors for the filetypes
+        // Generate the different background colors for the filetypes
         @each $ext, $color in $color-filetypes {
             .download-action.#{$ext} {
                 background-color: $color;
@@ -152,19 +152,19 @@
         }
     }
 
-    //Force all too long links to break
+    // Force all too long links to break
     .details a { word-break: break-all; }
 
     @media (max-width: 62rem) {
-        //This is a flexbox "hack" so that the image appears above the button on mobile view
-        //We cannot solve this by rearranging the html because we want the button
-        //to appear above the thumbnail on bigger screens
+        // This is a flexbox "hack" so that the image appears above the button on mobile view
+        // We cannot solve this by rearranging the html because we want the button
+        // to appear above the thumbnail on bigger screens
         .download {
             @include display-flex();
             @include flex-direction(column-reverse);
         }
 
-        //Correct position of report flag
+        // Correct position of report flag
         .report {
             top: $gutter;
             bottom: auto;
@@ -179,7 +179,7 @@
         }
     }
 
-    //Expand to bigger layout when space allows it
+    // Expand to bigger layout when space allows it
     @media (min-width: 62rem) {
         .details {
             width: 70%;
@@ -201,10 +201,10 @@
             }
         }
 
-        //This is a very hacky approach to optimize
-        //the size of the filename and filesize
-        //so that the filename is displayed if the space is sufficient
-        //This should be solved in a better way...
+        // This is a very hacky approach to optimize
+        // the size of the filename and filesize
+        // so that the filename is displayed if the space is sufficient
+        // This should be solved in a better way...
         span.filename {
             white-space: nowrap;
             overflow: hidden;

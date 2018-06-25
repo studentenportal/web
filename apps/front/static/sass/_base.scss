@@ -3,9 +3,9 @@
 
 /* ===TYPOGRAPHY=== */
 html {
-  //Make the old sizing trick
-  //All other sizes will use rem to refer to this measure
-  //http://snook.ca/archives/html_and_css/font-size-with-rem
+  // Make the old sizing trick
+  // All other sizes will use rem to refer to this measure
+  // http://snook.ca/archives/html_and_css/font-size-with-rem
   font-size: 62.5%;
 }
 
@@ -66,22 +66,23 @@ ul > li {
 }
 
 /* ===LINKS=== */
-
 a {
   color: $color-dark-accent;
   text-decoration: none;
   outline: 0;
 }
-a:hover, a:focus { color: $color-darker-accent; }
 
+a:hover, a:focus {
+  color: $color-darker-accent;
+}
 
 /* ===FORMS=== */
 form, fieldset { margin-bottom: $gutter; }
 
 button, a.button, input, select, textarea {
   font-family: $font-text;
-  //All buttons and input elements should be the same font-size
-  //as the user specified, otherwise mobile browsers will zoom in
+  // All buttons and input elements should be the same font-size
+  // as the user specified, otherwise mobile browsers will zoom in
   font-size: $font-size-browser;
   padding: 0.8*$gutter 1.2*$gutter;
   outline: none;
@@ -91,7 +92,7 @@ button, a.button, input, select, textarea {
   }
 }
 
-//Clear everything in a form group
+// Clear everything in a form group
 .control-group {
     @include pie-clearfix;
 }
@@ -122,25 +123,25 @@ ul.errorlist {
   }
 }
 
-//Checkbox has to float left, so that the box is not centered
-//and help blocks can align afterwards
+// Checkbox has to float left, so that the box is not centered
+// and help blocks can align afterwards
 input[type="checkbox"] {
   width: auto;
   float: left;
 }
 
-//Help block should have the same font size as
-//normal text because it aligns directly to the checkbox
+// Help block should have the same font size as
+// normal text because it aligns directly to the checkbox
 input[type="checkbox"] + p.help-block {
   font-size: $font-size-base;
 }
 
-//Hide the default upload button in webkit browsers
+// Hide the default upload button in webkit browsers
 input[type="file"]::-webkit-file-upload-button {
   visibility: hidden;
 }
 
-//Display our own upload button that is based on button-primary
+// Display our own upload button that is based on button-primary
 input[type="file"] {
   position: relative;
 
@@ -170,12 +171,13 @@ input[type="file"] {
       float: left;
       width: 30%;
     }
+
     input, textarea, select {
       float: right;
       width: 70%;
     }
 
-    //Should be moved to documents
+    // Should be moved to documents
     #id_license + p.help-block {
       width: 70%;
       float: right;
@@ -186,9 +188,9 @@ input[type="file"] {
       width: auto;
     }
 
-    //Move help block on the same baseline as the
-    //checkbox and make it small enough to fit on the same
-    //line
+    // Move help block on the same baseline as the
+    // checkbox and make it small enough to fit on the same
+    // line
     input[type="checkbox"] + p.help-block {
       width: 65%;
       float: right;
