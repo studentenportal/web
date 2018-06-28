@@ -85,9 +85,9 @@ class UserViewTest(TestCase):
         self.user2 = mommy.make(User, first_name='Another', last_name='Guy',
                                       email='test2@studentenportal.ch')
         self.doc1 = mommy.make_recipe('apps.documents.document_summary', name='Document 1',
-                         description='The first document.', uploader=self.user1)
+                         description='The first document.', uploader=self.user1, document='a.pdf')
         self.doc2 = mommy.make_recipe('apps.documents.document_summary', name='Document 2',
-                         description='The second document.', uploader=self.user2)
+                         description='The second document.', uploader=self.user2, document='b.pdf')
         # setUp
         login(self)
 

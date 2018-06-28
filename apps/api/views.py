@@ -24,13 +24,13 @@ def api_root(request, format=None):
 
 # GET
 class UserList(generics.ListAPIView):
-    model = get_user_model()
+    queryset = get_user_model().objects.all()
     serializer_class = serializers.UserSerializer
 
 
 # GET / PUT / PATCH
 class UserDetail(generics.RetrieveUpdateAPIView):
-    model = get_user_model()
+    queryset = get_user_model().objects.all()
     serializer_class = serializers.UserSerializer
     owner_username_field = 'username'
     permission_classes = (
@@ -53,16 +53,16 @@ class LecturerDetail(generics.RetrieveAPIView):
 
 # GET / POST
 class QuoteList(generics.ListCreateAPIView):
-    model = models.Quote
+    queryset = models.Quote.objects.all()
     serializer_class = serializers.QuoteSerializer
 
-    def pre_save(self, obj):
-        obj.author = self.request.user
+    def perform_create(self, serializer):
+        serializer.save(author=self.request.user)
 
 
 # GET / PUT / PATCH
 class QuoteDetail(generics.RetrieveUpdateAPIView):
-    model = models.Quote
+    queryset = models.Quote.objects.all()
     serializer_class = serializers.QuoteSerializer
     owner_obj_field = 'author'
     permission_classes = (

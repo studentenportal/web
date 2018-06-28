@@ -25,7 +25,7 @@ requests==1.2.3
 vobject==0.8.2
 
 # API
-djangorestframework==2.3.12
+djangorestframework>=3.6,<3.7
 
 # Twitter
 tweepy==2.2
