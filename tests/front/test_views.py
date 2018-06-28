@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import print_function, division, absolute_import, unicode_literals
 
+import pytest
+
 from django.test import TestCase
 from django.core import mail
 from django.core.urlresolvers import reverse
@@ -16,11 +18,13 @@ def login(self):
     self.client.login(username='testuser', password='test')
 
 
+@pytest.mark.django_db
 def test_home_view(client):
     response = client.get('/')
     assert response.status_code == 200
 
 
+@pytest.mark.django_db
 def test_profile_view_unauth_redirect(client):
     """An unauthenticated user should not get access to the profile detail page."""
     response = client.get('/profil/')
