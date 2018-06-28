@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import print_function, division, absolute_import, unicode_literals
 
-from django.test import TestCase
+import pytest
+from django.test import TransactionTestCase
 from django.core.urlresolvers import reverse
 from django.contrib.auth import get_user_model
 
@@ -18,19 +19,17 @@ def login(self):
     self.client.login(username='testuser', password='test')
 
 
-class DocumentDownloadTest(TestCase):
-    def setUp(self):
-        # setUpClass
-        mommy.make_recipe('apps.front.user')
+@pytest.mark.usefixtures('auth_client')
+class DocumentDownloadTest(TransactionTestCase):
 
-    def testSummaryServed(self):
+    def test_summary_served(self):
         """Assert that the summaries get served, even without login."""
         doc = mommy.make_recipe('apps.documents.document_summary')
         url = reverse('documents:document_download', args=(doc.category.name, doc.pk))
         response = self.client.get(url)
         assert response.status_code == 200
 
-    def testExamRequireLogin(self):
+    def test_exam_require_login(self):
         """Assert that the exams require login."""
         doc = mommy.make_recipe('apps.documents.document_exam')
         url = reverse('documents:document_download', args=(doc.category.name, doc.pk))
@@ -38,7 +37,7 @@ class DocumentDownloadTest(TestCase):
         category_path = reverse('documents:document_list', args=(doc.category.name.lower(),))
         self.assertRedirects(response, '/accounts/login/?next=%s' % category_path)
 
-    def testExamServed(self):
+    def test_exam_served(self):
         """Assert that the exams get served when logged in."""
         login(self)
         doc = mommy.make_recipe('apps.documents.document_exam')
@@ -46,7 +45,7 @@ class DocumentDownloadTest(TestCase):
         response = self.client.get(url)
         assert response.status_code == 200
 
-    def testUmlautDocumentServed(self):
+    def test_umlaut_document_served(self):
         """Test whether documents with umlauts in their original filename can
         be served."""
         doc = mommy.make_recipe('apps.documents.document_summary', original_filename='Füübäär Søreņ')
@@ -55,57 +54,56 @@ class DocumentDownloadTest(TestCase):
         assert response.status_code == 200
 
 
-class DocumentcategoryListViewTest(TestCase):
-    def setUp(self):
+class DocumentcategoryListViewTest(TransactionTestCase):
+
+    @pytest.fixture(autouse=True)
+    def set_up(self, client):
         # setUpClass
-        mommy.make_recipe('apps.front.user')
         mommy.make_recipe('apps.documents.document_summary')
         mommy.make_recipe('apps.documents.document_summary')
         mommy.make_recipe('apps.documents.document_exam')
         mommy.make_recipe('apps.documents.document_software')
         mommy.make_recipe('apps.documents.document_learning_aid')
         # setUp
-        self.response = self.client.get(reverse('documents:documentcategory_list'))
+        self.response = client.get(reverse('documents:documentcategory_list'))
 
-    def testTitle(self):
+    def test_title(self):
         self.assertContains(self.response, '<h1>Dokumente</h1>')
 
-    def testModuleName(self):
+    def test_module_name(self):
         """Test whether the module An1I appears in the list."""
         self.assertContains(self.response, '<em class="abbreviation">An1I</em>')
         self.assertContains(self.response, 'Analysis 1 für Informatiker')
 
-    def testUserAddButton(self):
+    def test_user_add_button(self):
         """Test whether the add button is shown when and only when the user is logged in."""
         self.assertNotContains(self.response, 'Modul hinzufügen')
         login(self)
         logged_in_response = self.client.get(reverse('documents:documentcategory_list'))
         self.assertContains(logged_in_response, 'Modul hinzufügen')
 
-    def testCounts(self):
+    def test_counts(self):
         """Test whether the category counts are correct."""
         self.assertContains(self.response, '<span class="icon-doc"></span>2 Zusammenfassungen')
         self.assertContains(self.response, '<span class="icon-test"></span>1 Prüfung')
         self.assertContains(self.response, '<span class="icon-doc-alt"></span>2 Andere')
 
 
-class DocumentcategoryAddViewTest(TestCase):
+@pytest.mark.usefixtures('auth_client')
+class DocumentcategoryAddViewTest(TransactionTestCase):
+
     taburl = '/dokumente/add/'
 
-    def setUp(self):
-        mommy.make_recipe('apps.front.user')
-        login(self)
-
-    def testLoginRequired(self):
+    def test_login_required(self):
         self.client.logout()
         response = self.client.get(self.taburl)
         self.assertRedirects(response, '/accounts/login/?next=%s' % self.taburl)
 
-    def testTitle(self):
+    def test_title(self):
         response = self.client.get(self.taburl)
         self.assertContains(response, 'Modul hinzufügen')
 
-    def testAdd(self):
+    def test_add(self):
         data = {
             'name': 'Prog2',
             'description': 'Programmieren 2',
@@ -115,29 +113,31 @@ class DocumentcategoryAddViewTest(TestCase):
         response2 = self.client.get('/dokumente/prog2/')
         self.assertContains(response2, '<h1>Dokumente Prog2</h1>')
 
-    def testAddInvalid(self):
+    def test_add_invalid(self):
         dc_form = forms.DocumentCategoryForm({'name': u'MöKomÄP', 'description': u'MoKomAP with invalid name'})
         assert not dc_form.is_valid()
         dc_form = forms.DocumentCategoryForm({'name': u'MoKomAP', 'description': u'MoKomAP with valid name'})
         assert dc_form.is_valid()
 
-    def testAddDuplicate(self):
+    def test_add_duplicate(self):
         """Test whether DocumentCategory name field is unique"""
         models.DocumentCategory.objects.create(name='test', description='Test category')
         dc_form = forms.DocumentCategoryForm({'name': 'test', 'description': 'Another test category'})
         assert not dc_form.is_valid()
 
-    def testAddInsensitiveDuplicate(self):
+    def test_add_insensitive_duplicate(self):
         """Test whether DocumentCategory name field is unique in any case"""
         models.DocumentCategory.objects.create(name='test', description='Test category')
         dc_form = forms.DocumentCategoryForm({'name': 'Test', 'description': 'Another test category'})
         assert not dc_form.is_valid()
 
 
-class DocumentListViewTest(TestCase):
-    def setUp(self):
+class DocumentListViewTest(TransactionTestCase):
+
+    @pytest.mark.fixture(autouse=True)
+    def set_up(self, user):
         # setUpClass
-        self.user1 = mommy.make_recipe('apps.front.user')
+        self.user1 = user
         self.user2 = mommy.make(User, first_name='Another', last_name='Guy', flattr='guy')
         self.doc1 = mommy.make_recipe('apps.documents.document_summary',
                 name='Analysis 1 Theoriesammlung',
@@ -158,43 +158,43 @@ class DocumentListViewTest(TestCase):
         self.url = reverse('documents:document_list', args=(self.category.name.lower(),))
         self.response = self.client.get(self.url)
 
-    def testTitle(self):
+    def test_title(self):
         self.assertContains(self.response, '<h1>Dokumente An1I</h1>')
 
-    def testDocumentTitle(self):
+    def test_document_title(self):
         soup = BeautifulSoup(self.response.content)
         div_details = soup.find('h3', text='Analysis 1 Theoriesammlung').find_parent('div').prettify()
         assert '<h3 property="dct:title" xmlns:dct="http://purl.org/dc/terms/">\n  Analysis 1 Theoriesammlung\n </h3>' in div_details
         assert '<span class="label-summary">\n   Zusammenfassung\n  </span>' in div_details
 
-    def testDocumentLicense(self):
+    def test_document_license(self):
         soup = BeautifulSoup(self.response.content)
         div_details = soup.find('h3', text='Analysis 1 Theoriesammlung').find_parent('div').prettify()
         assert '<a href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.de" rel="license" ' + \
                       u'title="Veröffentlicht unter der CC BY-NC-SA 3.0 Lizenz">' in div_details
         assert ' <span class="label-license">\n    CC BY-NC-SA 3.0\n   </span>' in div_details
 
-    def testDocumentFlattr(self):
+    def test_document_flattr(self):
         soup = BeautifulSoup(self.response.content)
         div_flattr = soup.find('h3', text='Title with Flattr').find_parent('div').prettify()
         div_noflattr = soup.find('h3', text='Title Noflattr').find_parent('div').prettify()
         assert 'Flattr this' in div_flattr
         assert 'Flattr this' not in div_noflattr
 
-    def testUploaderName(self):
+    def test_uploader_name(self):
         self.assertContains(self.response, 'Another Guy')
 
-    def testDescription(self):
+    def test_description(self):
         self.assertContains(self.response, 'Theorie aus dem AnI1-Skript auf 8 Seiten')
 
-    def testUploadDate(self):
+    def test_upload_date(self):
         self.assertContains(self.response, '18.12.2011')
 
-    def testEditButtonLoggedOut(self):
+    def test_edit_button_logged_out(self):
         url = reverse('documents:document_edit', args=(self.doc1.category.name.lower(), self.doc1.pk))
         self.assertNotContains(self.response, 'href="{}"'.format(url))
 
-    def testEditButtonLoggedIn(self):
+    def test_edit_button_logged_in(self):
         login(self)
         url1 = reverse('documents:document_edit', args=(self.doc1.category.name.lower(), self.doc1.pk))
         url2 = reverse('documents:document_edit', args=(self.doc2.category.name.lower(), self.doc2.pk))
@@ -202,11 +202,11 @@ class DocumentListViewTest(TestCase):
         self.assertContains(response, 'href="{}"'.format(url1))
         self.assertNotContains(response, 'href="{}"'.format(url2))
 
-    def testDeleteButtonLoggedOut(self):
+    def test_delete_button_logged_out(self):
         url = reverse('documents:document_delete', args=(self.doc1.category.name.lower(), self.doc1.pk))
         self.assertNotContains(self.response, 'href="{}"'.format(url))
 
-    def testDeleteButtonLoggedIn(self):
+    def test_delete_button_logged_in(self):
         login(self)
         url1 = reverse('documents:document_delete', args=(self.doc1.category.name.lower(), self.doc1.pk))
         url2 = reverse('documents:document_delete', args=(self.doc2.category.name.lower(), self.doc2.pk))
@@ -214,7 +214,7 @@ class DocumentListViewTest(TestCase):
         self.assertContains(response, 'href="{}"'.format(url1))
         self.assertNotContains(response, 'href="{}"'.format(url2))
 
-    def testDownloadCount(self):
+    def test_download_count(self):
         doc = mommy.make_recipe('apps.documents.document_summary')
         dl_url = reverse('documents:document_download', args=(doc.category.name.lower(), doc.pk))
 
@@ -242,7 +242,7 @@ class DocumentListViewTest(TestCase):
         document2 = anchor2.find_parent('article').prettify()
         assert "1 Download" in document2
 
-    def testNullValueUploader(self):
+    def test_null_value_uploader(self):
         """Test whether a document without an uploader does not raise an error."""
         doc = mommy.make_recipe('apps.documents.document_summary',
                 name='Analysis 1 Theoriesammlung',
