@@ -2,8 +2,8 @@
 from __future__ import print_function, division, absolute_import, unicode_literals
 
 import datetime
+import collections
 
-from django.test import TransactionTestCase
 from django.core.exceptions import ValidationError
 from django.contrib.auth import get_user_model
 from django.db import IntegrityError
@@ -17,41 +17,53 @@ import pytest
 User = get_user_model()
 
 
-class DocumentModelTest(TransactionTestCase):
-    def setUp(self):
-        self.john = mommy.make(User, username='john')
-        self.marc = mommy.make(User, username='marc')
-        self.pete = mommy.make(User, username='pete')
-        self.document = models.Document.objects.create(
+class TestDocumentModel:
+
+    @pytest.fixture
+    def john(self, db):
+        return mommy.make(User, username='john')
+
+    @pytest.fixture
+    def marc(self, db):
+        return mommy.make(User, username='marc')
+
+    @pytest.fixture
+    def pete(self, db):
+        return mommy.make(User, username='pete')
+
+    @pytest.fixture
+    def document(self, john, marc, pete, db):
+        document = models.Document.objects.create(
                 name='Analysis 1 Theoriesammlung',
                 dtype=models.Document.DTypes.SUMMARY,
                 description='Dieses Dokument ist eine Zusammenfassung der \
                     Theorie aus dem AnI1-Skript auf 8 Seiten. Das Dokument ist \
                     in LaTeX gesetzt, Source ist hier: http://j.mp/fjtleh - \
                     Gute Ergänzungen sind erwünscht!',
-                uploader=self.john,
+                uploader=john,
                 flattr_disabled=True)
-        self.document.DocumentRating.create(user=self.marc, rating=5)
-        self.document.DocumentRating.create(user=self.pete, rating=2)
+        document.DocumentRating.create(user=marc, rating=5)
+        document.DocumentRating.create(user=pete, rating=2)
+        return document
 
-    def testBasicProperties(self):
-        assert self.document.name == 'Analysis 1 Theoriesammlung'
-        assert self.document.description.startswith('Dieses Dokument')
-        assert self.document.dtype == models.Document.DTypes.SUMMARY
-        assert isinstance(self.document.uploader, User)
+    def test_basic_properties(self, document):
+        assert document.name == 'Analysis 1 Theoriesammlung'
+        assert document.description.startswith('Dieses Dokument')
+        assert document.dtype == models.Document.DTypes.SUMMARY
+        assert isinstance(document.uploader, User)
 
-    def testUploadDate(self):
+    def test_upload_date(self, document):
         """Check whether upload date has been set."""
-        assert isinstance(self.document.upload_date, datetime.datetime)
+        assert isinstance(document.upload_date, datetime.datetime)
 
-    def testRatingAverage(self):
+    def test_rating_average(self, document):
         """Test the document rating average calculation."""
-        assert self.document.DocumentRating.count() == 2
-        assert self.document.rating() == 4
-        assert self.document.rating_exact() == 3.5
+        assert document.DocumentRating.count() == 2
+        assert document.rating() == 4
+        assert document.rating_exact() == 3.5
 
-    def testRatingValidation(self):
-        dr = models.DocumentRating.objects.get(document=self.document, user=self.marc)
+    def test_rating_validation(self, document, marc):
+        dr = models.DocumentRating.objects.get(document=document, user=marc)
         dr.rating = 11
         with pytest.raises(ValidationError):
             dr.full_clean()
@@ -59,19 +71,20 @@ class DocumentModelTest(TransactionTestCase):
         with pytest.raises(ValidationError):
             dr.full_clean()
 
-    def testRatingAuthorValidation(self):
+    def test_rating_author_validation(self, document, john):
         """A user may not rate his own uploads."""
-        dr = models.DocumentRating(document=self.document, user=self.john)
+        dr = models.DocumentRating(document=document, user=john)
         with pytest.raises(ValidationError):
             dr.full_clean()
 
-    def testDuplicateRatingsValidation(self):
+    def test_duplicate_ratings_validation(self, document, marc):
         """A user cannot rate the same document twice."""
-        dr = models.DocumentRating(document=self.document, user=self.marc)
+        dr = models.DocumentRating(document=document, user=marc)
         with pytest.raises(IntegrityError):
             dr.save()
 
-    def testNullValueUploader(self):
+    @pytest.mark.django_db
+    def test_null_value_uploader(self):
         d = models.Document()
         d.name = 'spam'
         d.description = 'ham'
@@ -79,40 +92,43 @@ class DocumentModelTest(TransactionTestCase):
         try:
             d.save()
         except IntegrityError:
-            self.fail("A document with no uploader should not throw an IntegrityError.")
+            pytest.fail("A document with no uploader should not throw an IntegrityError.")
 
-    def testDownloadCount(self):
-        models.DocumentDownload.objects.create(document=self.document, ip='127.0.0.1')
-        models.DocumentDownload.objects.create(document=self.document, ip='192.168.1.2')
-        models.DocumentDownload.objects.create(document=self.document, ip='2001::8a2e:7334')
-        assert 3 == self.document.downloadcount()
+    def test_download_count(self, document):
+        models.DocumentDownload.objects.create(document=document, ip='127.0.0.1')
+        models.DocumentDownload.objects.create(document=document, ip='192.168.1.2')
+        models.DocumentDownload.objects.create(document=document, ip='2001::8a2e:7334')
+        assert document.downloadcount() == 3
 
-    def testLicenseDetailsCC(self):
+    @pytest.mark.django_db
+    def test_license_details_cc(self):
         """Test the details of a CC license."""
         summary = models.Document.DTypes.SUMMARY
         doc1 = models.Document.objects.create(name='CC-BY doc', dtype=summary,
                 license=models.Document.LICENSES.cc3_by)
         doc2 = models.Document.objects.create(name='CC-BY-NC-SA doc', dtype=summary,
                 license=models.Document.LICENSES.cc3_by_nc_sa)
-        assert 'CC BY 3.0' == doc1.get_license_display()
-        assert 'CC BY-NC-SA 3.0' == doc2.get_license_display()
+        assert doc1.get_license_display() == 'CC BY 3.0'
+        assert doc2.get_license_display() == 'CC BY-NC-SA 3.0'
         details1 = doc1.license_details()
         details2 = doc2.license_details()
-        assert 'http://creativecommons.org/licenses/by/3.0/deed.de' == details1['url']
-        assert 'http://i.creativecommons.org/l/by/3.0/80x15.png' == details1['icon']
-        assert 'http://creativecommons.org/licenses/by-nc-sa/3.0/deed.de' == details2['url']
-        assert 'http://i.creativecommons.org/l/by-nc-sa/3.0/80x15.png' == details2['icon']
+        assert details1['url'] == 'http://creativecommons.org/licenses/by/3.0/deed.de'
+        assert details1['icon'] == 'http://i.creativecommons.org/l/by/3.0/80x15.png'
+        assert details2['url'] == 'http://creativecommons.org/licenses/by-nc-sa/3.0/deed.de'
+        assert details2['icon'] == 'http://i.creativecommons.org/l/by-nc-sa/3.0/80x15.png'
 
-    def testLicenseDetailsPD(self):
+    @pytest.mark.django_db
+    def test_license_details_pd(self):
         """Test the details of a PD (CC0) license."""
         doc = models.Document.objects.create(name='PD doc', dtype=models.Document.DTypes.SUMMARY,
                 license=models.Document.LICENSES.pd)
         details = doc.license_details()
-        assert 'Public Domain' == doc.get_license_display()
-        assert 'http://creativecommons.org/publicdomain/zero/1.0/deed.de' == details['url']
-        assert 'http://i.creativecommons.org/p/zero/1.0/80x15.png' == details['icon']
+        assert doc.get_license_display() == 'Public Domain'
+        assert details['url'] == 'http://creativecommons.org/publicdomain/zero/1.0/deed.de'
+        assert details['icon'] == 'http://i.creativecommons.org/p/zero/1.0/80x15.png'
 
-    def testLicenseDetailsNone(self):
+    @pytest.mark.django_db
+    def test_license_details_none(self):
         """Test the details of a document without a license."""
         doc = models.Document.objects.create(name='PD doc', dtype=models.Document.DTypes.SUMMARY)
         details = doc.license_details()
@@ -120,20 +136,18 @@ class DocumentModelTest(TransactionTestCase):
         assert details['url'] is None
         assert details['icon'] is None
 
-    def testFlattrDisabled(self):
-        assert self.document.flattr_disabled
+    def test_flattr_disabled(self, document):
+        assert document.flattr_disabled
 
 
-class UserModelTest(TransactionTestCase):
-    def setUp(self):
-        self.john = User.objects.create(username='john')
-        self.marc = User.objects.create(username='marc', first_name=u'Marc')
-        self.pete = User.objects.create(username='pete', last_name=u'Peterson')
-        self.mike = User.objects.create(username='mike', first_name=u'Mike', last_name=u'Müller')
-
-    def testName(self):
-        """Test whether the custom name function returns the correct string."""
-        assert self.john.name() == u'john'
-        assert self.marc.name() == u'Marc'
-        assert self.pete.name() == u'Peterson'
-        assert self.mike.name() == u'Mike Müller'
+@pytest.mark.django_db
+def test_user_model():
+    """Test whether the custom name function returns the correct string."""
+    john = User.objects.create(username='john')
+    marc = User.objects.create(username='marc', first_name=u'Marc')
+    pete = User.objects.create(username='pete', last_name=u'Peterson')
+    mike = User.objects.create(username='mike', first_name=u'Mike', last_name=u'Müller')
+    assert john.name() == u'john'
+    assert marc.name() == u'Marc'
+    assert pete.name() == u'Peterson'
+    assert mike.name() == u'Mike Müller'
