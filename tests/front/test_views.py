@@ -16,17 +16,15 @@ def login(self):
     self.client.login(username='testuser', password='test')
 
 
-class HomeViewTest(TestCase):
-    def testHTTP200(self):
-        response = self.client.get('/')
-        assert response.status_code == 200
+def test_home_view(client):
+    response = client.get('/')
+    assert response.status_code == 200
 
 
-class ProfileViewTest(TestCase):
-    def testUnauthRedirect(self):
-        """An unauthenticated user should not get access to the profile detail page."""
-        response = self.client.get('/profil/')
-        assert response.status_code == 302
+def test_profile_view_unauth_redirect(client):
+    """An unauthenticated user should not get access to the profile detail page."""
+    response = client.get('/profil/')
+    assert response.status_code == 302
 
 
 class LoginTest(TestCase):
