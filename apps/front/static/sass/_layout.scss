@@ -3,7 +3,6 @@
 @import "compass/css3";
 
 /* ===LAYOUT MIXINS=== */
-
 %box {
     padding: $gutter;
     margin-bottom: $gutter;
@@ -31,9 +30,6 @@
 
 
 /* ===LAYOUT STRUCTURE=== */
-body {
-
-}
 
 // The whole top part of the website includes the header as well
 .top {
