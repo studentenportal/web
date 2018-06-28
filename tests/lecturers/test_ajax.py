@@ -31,19 +31,19 @@ class VoteQuoteTest(TestCase):
         self.client.login(username='fakename', password='fakepwd')
 
         response = self.sendRequest({'vote': 'down', 'quote_pk': quote.pk})
-        self.assertEqual(response.status_code, 200)
-        self.assertNotEqual(response.content, 'DAJAXICE_EXCEPTION', 'Dajaxice exception occured.')
-        self.assertEqual(models.QuoteVote.objects.count(), 1)
-        self.assertEqual(quote.vote_sum(), -1)
+        assert response.status_code == 200
+        assert response.content != 'DAJAXICE_EXCEPTION', 'Dajaxice exception occured.'
+        assert models.QuoteVote.objects.count() == 1
+        assert quote.vote_sum() == -1
 
         response = self.sendRequest({'vote': 'up', 'quote_pk': quote.pk})
-        self.assertEqual(response.status_code, 200)
-        self.assertNotEqual(response.content, 'DAJAXICE_EXCEPTION', 'Dajaxice exception occured.')
-        self.assertEqual(models.QuoteVote.objects.count(), 1)
-        self.assertEqual(quote.vote_sum(), 1)
+        assert response.status_code == 200
+        assert response.content != 'DAJAXICE_EXCEPTION', 'Dajaxice exception occured.'
+        assert models.QuoteVote.objects.count() == 1
+        assert quote.vote_sum() == 1
 
         response = self.sendRequest({'vote': 'remove', 'quote_pk': quote.pk})
-        self.assertEqual(response.status_code, 200)
-        self.assertNotEqual(response.content, 'DAJAXICE_EXCEPTION', 'Dajaxice exception occured.')
-        self.assertEqual(models.QuoteVote.objects.count(), 0)
-        self.assertEqual(quote.vote_sum(), 0)
+        assert response.status_code == 200
+        assert response.content != 'DAJAXICE_EXCEPTION', 'Dajaxice exception occured.'
+        assert models.QuoteVote.objects.count() == 0
+        assert quote.vote_sum() == 0

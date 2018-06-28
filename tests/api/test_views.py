@@ -52,18 +52,18 @@ class AuthenticationTest(BaseTest):
             except NoReverseMatch:
                 url = reverse('api:' + target, args=(1,))
             resp = self.client.get(url)
-            self.assertEqual(resp.status_code, 403,
-                    'Status code for %s is %d instead of 403.' % (url, resp.status_code))
+            assert resp.status_code == 403, \
+                    'Status code for %s is %d instead of 403.' % (url, resp.status_code)
             data = json.loads(resp.content)
-            self.assertEqual(data, {
+            assert data == {
                 'detail': 'Authentication credentials were not provided.'
-            })
+            }
 
     def testSessionAuth(self):
         url = reverse('api:quote_list')
         login(self)
         resp = self.client.get(url)
-        self.assertEqual(resp.status_code, 200)
+        assert resp.status_code == 200
 
     def testOAuth2(self):
         # Create an OAuth2 Client object
@@ -85,9 +85,9 @@ class AuthenticationTest(BaseTest):
         # Try to access API
         url = reverse('api:quote_list')
         resp1 = self.client.get(url)
-        self.assertEqual(resp1.status_code, 403)
+        assert resp1.status_code == 403
         resp2 = self.client.get(url, HTTP_AUTHORIZATION='Bearer {}'.format(data['access_token']))
-        self.assertEqual(resp2.status_code, 200)
+        assert resp2.status_code == 200
 
 
 class UserViewTest(AuthenticatedTest):
@@ -96,37 +96,37 @@ class UserViewTest(AuthenticatedTest):
         urls = [reverse('api:user_list'), reverse('api:user_detail', args=(self.user.pk,))]
         for url in urls:
             resp = self.client.get(url)
-            self.assertEqual(resp.status_code, 200,
-                    'Status code for %s is %d instead of 200.' % (url, resp.status_code))
+            assert resp.status_code == 200, \
+                    'Status code for %s is %d instead of 200.' % (url, resp.status_code)
 
     def testListData(self):
         users = [mommy.make(User) for i in xrange(3)]
         url = reverse('api:user_list')
         resp = self.client.get(url)
         data = json.loads(resp.content)
-        self.assertEqual(len(data['results']), data['count'])
-        self.assertEqual(data['count'], User.objects.count())
+        assert len(data['results']) == data['count']
+        assert data['count'] == User.objects.count()
 
     def testDetailData(self):
         url = reverse('api:user_detail', args=(self.user.pk,))
         resp = self.client.get(url)
         data = json.loads(resp.content)
-        self.assertTrue(data['url'].startswith('http://'))
+        assert data['url'].startswith('http://')
         attrs = ['username', 'first_name', 'last_name', 'email', 'flattr', 'twitter']
         for attr in attrs:
-            self.assertEqual(data[attr], getattr(self.user, attr))
+            assert data[attr] == getattr(self.user, attr)
 
     def testListMethods(self):
         url = reverse('api:user_list')
         resp = self.client.head(url)
         allow = set(resp.get('Allow').split(', '))
-        self.assertEqual(allow, set(['GET', 'HEAD', 'OPTIONS']))
+        assert allow == set(['GET', 'HEAD', 'OPTIONS'])
 
     def testDetailMethods(self):
         url = reverse('api:user_detail', args=(self.user.pk,))
         resp = self.client.head(url)
         allow = set(resp.get('Allow').split(', '))
-        self.assertEqual(allow, set(['GET', 'PUT', 'HEAD', 'OPTIONS', 'PATCH']))
+        assert allow == set(['GET', 'PUT', 'HEAD', 'OPTIONS', 'PATCH'])
 
     def testUpdatePermissions(self):
         """It should only be possible to edit own user."""
@@ -137,17 +137,17 @@ class UserViewTest(AuthenticatedTest):
         data2 = {'username': 'test2', 'email': 'test2@example.com'}
         resp1 = self.client.put(url1, json.dumps(data1), 'application/json')
         resp2 = self.client.put(url2, json.dumps(data2), 'application/json')
-        self.assertEqual(resp1.status_code, 200)
-        self.assertEqual(resp2.status_code, 403)
+        assert resp1.status_code == 200
+        assert resp2.status_code == 403
 
     def testUsernameChange(self):
         """You should not be able to change your own username."""
         url = reverse('api:user_detail', args=(self.user.pk,))
         data = {'username': 'a_new_username', 'email': self.user.email}
         resp = self.client.put(url, json.dumps(data), 'application/json')
-        self.assertEqual(resp.status_code, 200)
+        assert resp.status_code == 200
         newuser = User.objects.get(pk=self.user.pk)
-        self.assertEqual(self.user.username, newuser.username)
+        assert self.user.username == newuser.username
 
 
 class LecturerViewTest(AuthenticatedTest):
@@ -160,8 +160,8 @@ class LecturerViewTest(AuthenticatedTest):
         urls = [reverse('api:lecturer_list'), reverse('api:lecturer_detail', args=(self.lecturer.pk,))]
         for url in urls:
             resp = self.client.get(url)
-            self.assertEqual(resp.status_code, 200,
-                    'Status code for %s is %d instead of 200.' % (url, resp.status_code))
+            assert resp.status_code == 200, \
+                    'Status code for %s is %d instead of 200.' % (url, resp.status_code)
 
     def testDetailData(self):
         [mommy.make(Quote, lecturer=self.lecturer) for i in xrange(3)]
@@ -170,29 +170,29 @@ class LecturerViewTest(AuthenticatedTest):
         resp = self.client.get(url)
         data = json.loads(resp.content)
 
-        self.assertTrue(data['url'].startswith('http://'))
+        assert data['url'].startswith('http://')
 
         attrs = ['title', 'last_name', 'first_name', 'abbreviation',
                  'department', 'function', 'main_area', 'subjects', 'email',
                  'office']
         for attr in attrs:
-            self.assertEqual(data[attr], getattr(self.lecturer, attr))
+            assert data[attr] == getattr(self.lecturer, attr)
 
-        self.assertEqual(len(data['quotes']), self.lecturer.Quote.count())
+        assert len(data['quotes']) == self.lecturer.Quote.count()
         for quote in data['quotes']:
-            self.assertTrue(quote.startswith('http://'))
+            assert quote.startswith('http://')
 
     def testListMethods(self):
         url = reverse('api:lecturer_list')
         resp = self.client.head(url)
         allow = set(resp.get('Allow').split(', '))
-        self.assertEqual(allow, set(['GET', 'HEAD', 'OPTIONS']))
+        assert allow == set(['GET', 'HEAD', 'OPTIONS'])
 
     def testDetailMethods(self):
         url = reverse('api:lecturer_detail', args=(self.lecturer.pk,))
         resp = self.client.head(url)
         allow = set(resp.get('Allow').split(', '))
-        self.assertEqual(allow, set(['GET', 'HEAD', 'OPTIONS']))
+        assert allow == set(['GET', 'HEAD', 'OPTIONS'])
 
 
 class QuoteViewTest(AuthenticatedTest):
@@ -205,30 +205,30 @@ class QuoteViewTest(AuthenticatedTest):
         urls = [reverse('api:quote_list'), reverse('api:quote_detail', args=(self.quote.pk,))]
         for url in urls:
             resp = self.client.get(url)
-            self.assertEqual(resp.status_code, 200,
-                    'Status code for %s is %d instead of 200.' % (url, resp.status_code))
+            assert resp.status_code == 200, \
+                    'Status code for %s is %d instead of 200.' % (url, resp.status_code)
 
     def testDetailData(self):
         url = reverse('api:quote_detail', args=(self.quote.pk,))
         resp = self.client.get(url)
         data = json.loads(resp.content)
-        self.assertTrue(data['url'].startswith('http://'))
-        self.assertTrue(data['lecturer'].startswith('http://'))
-        self.assertEqual(data['lecturer_name'], self.quote.lecturer.name())
-        self.assertEqual(data['date'][:10], self.quote.date.date().isoformat())
-        self.assertEqual(data['comment'], self.quote.comment)
+        assert data['url'].startswith('http://')
+        assert data['lecturer'].startswith('http://')
+        assert data['lecturer_name'] == self.quote.lecturer.name()
+        assert data['date'][:10] == self.quote.date.date().isoformat()
+        assert data['comment'] == self.quote.comment
 
     def testListMethods(self):
         url = reverse('api:quote_list')
         resp = self.client.head(url)
         allow = set(resp.get('Allow').split(', '))
-        self.assertEqual(allow, set(['GET', 'POST', 'HEAD', 'OPTIONS']))
+        assert allow == set(['GET', 'POST', 'HEAD', 'OPTIONS'])
 
     def testDetailMethods(self):
         url = reverse('api:quote_detail', args=(self.quote.pk,))
         resp = self.client.head(url)
         allow = set(resp.get('Allow').split(', '))
-        self.assertEqual(allow, set(['GET', 'PUT', 'HEAD', 'OPTIONS', 'PATCH']))
+        assert allow == set(['GET', 'PUT', 'HEAD', 'OPTIONS', 'PATCH'])
 
     def testAutoAuthorPOST(self):
         """Assert that the author is automatically set to the currently logged
@@ -242,22 +242,22 @@ class QuoteViewTest(AuthenticatedTest):
             'quote': 'This is a test.',
             'comment': 'No author'
         })
-        self.assertEqual(resp.status_code, 201)
+        assert resp.status_code == 201
         resp = self.client.post(url, {
             'lecturer': reverse('api:lecturer_detail', args=(lecturer.pk,)),
             'author': reverse('api:user_detail', args=(other_user.pk,)),
             'quote': 'This is a test.',
             'comment': 'With author'
         })
-        self.assertEqual(resp.status_code, 201)
+        assert resp.status_code == 201
         # Assert that two quotes were created.
         quote1 = Quote.objects.filter(comment='No author')
         quote2 = Quote.objects.filter(comment='With author')
-        self.assertTrue(quote1.exists())
-        self.assertTrue(quote2.exists())
+        assert quote1.exists()
+        assert quote2.exists()
         # Assert that the author is the currently logged in user
-        self.assertEqual(quote1.get().author, self.user)
-        self.assertEqual(quote2.get().author, self.user)
+        assert quote1.get().author == self.user
+        assert quote2.get().author == self.user
 
     def testAutoAuthorPUT(self):
         """Assert that the author is automatically set to the currently logged
@@ -273,11 +273,11 @@ class QuoteViewTest(AuthenticatedTest):
         }
         resp = self.client.put(url, json.dumps(data), 'application/json')
         # Assert that the PUT request was processed
-        self.assertEqual(resp.status_code, 200)
+        assert resp.status_code == 200
         # Comment should be changed, but not the author
         newquote = Quote.objects.get(pk=self.quote.pk)
-        self.assertEqual(newquote.comment, 'newcomment')
-        self.assertEqual(newquote.author, self.user)
+        assert newquote.comment == 'newcomment'
+        assert newquote.author == self.user
 
     def testUpdatePermissions(self):
         """It should only be possible to edit own quotes."""
@@ -292,8 +292,8 @@ class QuoteViewTest(AuthenticatedTest):
         }
         resp1 = self.client.put(url1, json.dumps(data), 'application/json')
         resp2 = self.client.put(url2, json.dumps(data), 'application/json')
-        self.assertEqual(resp1.status_code, 200)
-        self.assertEqual(resp2.status_code, 403)
+        assert resp1.status_code == 200
+        assert resp2.status_code == 403
 
     def testAuthorChange(self):
         """You should not be able to change the author of a quote."""
@@ -306,6 +306,6 @@ class QuoteViewTest(AuthenticatedTest):
             'author': reverse('api:user_detail', args=(another_user.pk,)),
         }
         resp = self.client.put(url, json.dumps(data), 'application/json')
-        self.assertEqual(resp.status_code, 200)
+        assert resp.status_code == 200
         newquote = Quote.objects.get(pk=self.quote.pk)
-        self.assertEqual(self.quote.author, newquote.author)
+        assert self.quote.author == newquote.author

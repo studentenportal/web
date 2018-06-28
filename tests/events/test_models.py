@@ -26,11 +26,11 @@ class EventModelTest(TestCase):
             start_time=datetime.time(hour=19, minute=30),
             end_time=datetime.time(hour=23, minute=59))
 
-        self.assertEqual(event.summary, 'Testbar')
-        self.assertIsNone(event.end_date)
-        self.assertEqual(event.author.username, 'testuser')
-        self.assertTrue(event.is_over())
-        self.assertIsNone(event.days_until())
+        assert event.summary == 'Testbar'
+        assert event.end_date is None
+        assert event.author.username == 'testuser'
+        assert event.is_over()
+        assert event.days_until() is None
 
     def testAllDayEvent(self):
         user = mommy.make(User)
@@ -42,12 +42,12 @@ class EventModelTest(TestCase):
             start_date=start_date,
             end_date=start_date + datetime.timedelta(days=1))
 
-        self.assertEqual(event.summary, 'In a year')
-        self.assertIsNone(event.start_time)
-        self.assertIsNone(event.end_time)
-        self.assertFalse(event.is_over())
-        self.assertTrue(event.all_day())
-        self.assertEqual(event.days_until(), 365)
+        assert event.summary == 'In a year'
+        assert event.start_time is None
+        assert event.end_time is None
+        assert not event.is_over()
+        assert event.all_day()
+        assert event.days_until() == 365
 
     def testNullValueAuthor(self):
         event = models.Event()

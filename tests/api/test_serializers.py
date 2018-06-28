@@ -18,7 +18,7 @@ class UserSerializerTest(TestCase):
         serializer = serializers.UserSerializer(user)
         data = serializer.data
         url = reverse('api:user_detail', args=(user.pk,))
-        self.assertEqual(data, {
+        assert data == {
             'url': url,
             'username': user.username,
             'first_name': user.first_name,
@@ -26,4 +26,4 @@ class UserSerializerTest(TestCase):
             'email': user.email,
             'flattr': 'flttr',
             'twitter': 'twttr'
-        })
+        }

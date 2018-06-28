@@ -60,7 +60,7 @@ class EventsViewTest(TestCase):
             start_time=datetime.time(hour=19, minute=30),
             end_time=datetime.time(hour=23, minute=59))
         response = self.client.get(self.taburl)
-        self.assertEqual(response.status_code, 200)
+        assert response.status_code == 200
 
 
 class EventDetailViewTest(TestCase):

@@ -28,7 +28,7 @@ class DocumentDownloadTest(TestCase):
         doc = mommy.make_recipe('apps.documents.document_summary')
         url = reverse('documents:document_download', args=(doc.category.name, doc.pk))
         response = self.client.get(url)
-        self.assertEqual(response.status_code, 200)
+        assert response.status_code == 200
 
     def testExamRequireLogin(self):
         """Assert that the exams require login."""
@@ -44,7 +44,7 @@ class DocumentDownloadTest(TestCase):
         doc = mommy.make_recipe('apps.documents.document_exam')
         url = reverse('documents:document_download', args=(doc.category.name, doc.pk))
         response = self.client.get(url)
-        self.assertEqual(response.status_code, 200)
+        assert response.status_code == 200
 
     def testUmlautDocumentServed(self):
         """Test whether documents with umlauts in their original filename can
@@ -52,7 +52,7 @@ class DocumentDownloadTest(TestCase):
         doc = mommy.make_recipe('apps.documents.document_summary', original_filename='Füübäär Søreņ')
         url = reverse('documents:document_download', args=(doc.category.name, doc.pk))
         response = self.client.get(url)
-        self.assertEqual(response.status_code, 200)
+        assert response.status_code == 200
 
 
 class DocumentcategoryListViewTest(TestCase):
@@ -117,21 +117,21 @@ class DocumentcategoryAddViewTest(TestCase):
 
     def testAddInvalid(self):
         dc_form = forms.DocumentCategoryForm({'name': u'MöKomÄP', 'description': u'MoKomAP with invalid name'})
-        self.assertFalse(dc_form.is_valid())
+        assert not dc_form.is_valid()
         dc_form = forms.DocumentCategoryForm({'name': u'MoKomAP', 'description': u'MoKomAP with valid name'})
-        self.assertTrue(dc_form.is_valid())
+        assert dc_form.is_valid()
 
     def testAddDuplicate(self):
         """Test whether DocumentCategory name field is unique"""
         models.DocumentCategory.objects.create(name='test', description='Test category')
         dc_form = forms.DocumentCategoryForm({'name': 'test', 'description': 'Another test category'})
-        self.assertFalse(dc_form.is_valid())
+        assert not dc_form.is_valid()
 
     def testAddInsensitiveDuplicate(self):
         """Test whether DocumentCategory name field is unique in any case"""
         models.DocumentCategory.objects.create(name='test', description='Test category')
         dc_form = forms.DocumentCategoryForm({'name': 'Test', 'description': 'Another test category'})
-        self.assertFalse(dc_form.is_valid())
+        assert not dc_form.is_valid()
 
 
 class DocumentListViewTest(TestCase):
@@ -164,22 +164,22 @@ class DocumentListViewTest(TestCase):
     def testDocumentTitle(self):
         soup = BeautifulSoup(self.response.content)
         div_details = soup.find('h3', text='Analysis 1 Theoriesammlung').find_parent('div').prettify()
-        self.assertIn('<h3 property="dct:title" xmlns:dct="http://purl.org/dc/terms/">\n  Analysis 1 Theoriesammlung\n </h3>', div_details)
-        self.assertIn('<span class="label-summary">\n   Zusammenfassung\n  </span>', div_details)
+        assert '<h3 property="dct:title" xmlns:dct="http://purl.org/dc/terms/">\n  Analysis 1 Theoriesammlung\n </h3>' in div_details
+        assert '<span class="label-summary">\n   Zusammenfassung\n  </span>' in div_details
 
     def testDocumentLicense(self):
         soup = BeautifulSoup(self.response.content)
         div_details = soup.find('h3', text='Analysis 1 Theoriesammlung').find_parent('div').prettify()
-        self.assertIn('<a href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.de" rel="license" ' +
-                      u'title="Veröffentlicht unter der CC BY-NC-SA 3.0 Lizenz">', div_details)
-        self.assertIn(' <span class="label-license">\n    CC BY-NC-SA 3.0\n   </span>', div_details)
+        assert '<a href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.de" rel="license" ' + \
+                      u'title="Veröffentlicht unter der CC BY-NC-SA 3.0 Lizenz">' in div_details
+        assert ' <span class="label-license">\n    CC BY-NC-SA 3.0\n   </span>' in div_details
 
     def testDocumentFlattr(self):
         soup = BeautifulSoup(self.response.content)
         div_flattr = soup.find('h3', text='Title with Flattr').find_parent('div').prettify()
         div_noflattr = soup.find('h3', text='Title Noflattr').find_parent('div').prettify()
-        self.assertIn('Flattr this', div_flattr)
-        self.assertNotIn('Flattr this', div_noflattr)
+        assert 'Flattr this' in div_flattr
+        assert 'Flattr this' not in div_noflattr
 
     def testUploaderName(self):
         self.assertContains(self.response, 'Another Guy')
@@ -223,7 +223,7 @@ class DocumentListViewTest(TestCase):
         soup0 = BeautifulSoup(response0.content)
         anchor0 = soup0.find('a', href=dl_url)
         document0 = anchor0.find_parent('article').prettify()
-        self.assertIn("0 Downloads", document0)
+        assert "0 Downloads" in document0
 
         # First download
         self.client.get(dl_url)
@@ -231,7 +231,7 @@ class DocumentListViewTest(TestCase):
         soup1 = BeautifulSoup(response1.content)
         anchor1 = soup1.find('a', href=dl_url)
         document1 = anchor1.find_parent('article').prettify()
-        self.assertIn("1 Download", document1)
+        assert "1 Download" in document1
 
         # Second download. Downloadcount shouldn't increase, as request was
         # done from the same IP
@@ -240,7 +240,7 @@ class DocumentListViewTest(TestCase):
         soup2 = BeautifulSoup(response2.content)
         anchor2 = soup2.find('a', href=dl_url)
         document2 = anchor2.find_parent('article').prettify()
-        self.assertIn("1 Download", document2)
+        assert "1 Download" in document2
 
     def testNullValueUploader(self):
         """Test whether a document without an uploader does not raise an error."""

@@ -19,14 +19,14 @@ def login(self):
 class HomeViewTest(TestCase):
     def testHTTP200(self):
         response = self.client.get('/')
-        self.assertEqual(response.status_code, 200)
+        assert response.status_code == 200
 
 
 class ProfileViewTest(TestCase):
     def testUnauthRedirect(self):
         """An unauthenticated user should not get access to the profile detail page."""
         response = self.client.get('/profil/')
-        self.assertEqual(response.status_code, 302)
+        assert response.status_code == 302
 
 
 class LoginTest(TestCase):
@@ -42,16 +42,16 @@ class LoginTest(TestCase):
 
     def testLogin(self):
         r1 = self.client.get('/zitate/')
-        self.assertEqual(r1.status_code, 302)
+        assert r1.status_code == 302
         login(self)
         r2 = self.client.get('/zitate/')
-        self.assertEqual(r2.status_code, 200)
+        assert r2.status_code == 200
 
     def testCaseInsensitveLogin(self):
         r1 = self.client.post(self.url, {'username': 'testuser', 'password': 'test'})
-        self.assertEqual(r1.status_code, 302)
+        assert r1.status_code == 302
         r2 = self.client.post(self.url, {'username': 'Testuser', 'password': 'test'})
-        self.assertEqual(r2.status_code, 302)
+        assert r2.status_code == 302
 
 
 class RegistrationViewTest(TestCase):
@@ -72,9 +72,9 @@ class RegistrationViewTest(TestCase):
             'password2': 'testpass',
         })
         self.assertRedirects(response, '/accounts/register/complete/')
-        self.assertTrue(User.objects.filter(username='testuser').exists())
-        self.assertEqual(len(mail.outbox), 1)
-        self.assertEqual(mail.outbox[0].subject, '[studentenportal.ch] Aktivierung')
+        assert User.objects.filter(username='testuser').exists()
+        assert len(mail.outbox) == 1
+        assert mail.outbox[0].subject == '[studentenportal.ch] Aktivierung'
 
 
 class UserViewTest(TestCase):
@@ -144,11 +144,11 @@ class UserProfileViewTest(TestCase):
         })
         self.assertRedirects(response, '/profil/')
         user = User.objects.get(username='testuser')
-        self.assertEqual('test@example.com', user.email)
-        self.assertEqual('John', user.first_name)
-        self.assertEqual('Doe', user.last_name)
-        self.assertEqual('jdoe', user.twitter)
-        self.assertEqual('johndoe', user.flattr)
+        assert 'test@example.com' == user.email
+        assert 'John' == user.first_name
+        assert 'Doe' == user.last_name
+        assert 'jdoe' == user.twitter
+        assert 'johndoe' == user.flattr
 
 
 class StatsViewTest(TestCase):
