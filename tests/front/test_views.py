@@ -146,11 +146,11 @@ class UserProfileViewTest(TestCase):
         })
         self.assertRedirects(response, '/profil/')
         user = User.objects.get(username='testuser')
-        assert 'test@example.com' == user.email
-        assert 'John' == user.first_name
-        assert 'Doe' == user.last_name
-        assert 'jdoe' == user.twitter
-        assert 'johndoe' == user.flattr
+        assert user.email == 'test@example.com'
+        assert user.first_name == 'John'
+        assert user.last_name == 'Doe'
+        assert user.twitter == 'jdoe'
+        assert user.flattr == 'johndoe'
 
 
 class StatsViewTest(TestCase):

@@ -98,7 +98,7 @@ class TestDocumentModel:
         models.DocumentDownload.objects.create(document=document, ip='127.0.0.1')
         models.DocumentDownload.objects.create(document=document, ip='192.168.1.2')
         models.DocumentDownload.objects.create(document=document, ip='2001::8a2e:7334')
-        assert 3 == document.downloadcount()
+        assert document.downloadcount() == 3
 
     @pytest.mark.django_db
     def test_license_details_cc(self):
@@ -108,14 +108,14 @@ class TestDocumentModel:
                 license=models.Document.LICENSES.cc3_by)
         doc2 = models.Document.objects.create(name='CC-BY-NC-SA doc', dtype=summary,
                 license=models.Document.LICENSES.cc3_by_nc_sa)
-        assert 'CC BY 3.0' == doc1.get_license_display()
-        assert 'CC BY-NC-SA 3.0' == doc2.get_license_display()
+        assert doc1.get_license_display() == 'CC BY 3.0'
+        assert doc2.get_license_display() == 'CC BY-NC-SA 3.0'
         details1 = doc1.license_details()
         details2 = doc2.license_details()
-        assert 'http://creativecommons.org/licenses/by/3.0/deed.de' == details1['url']
-        assert 'http://i.creativecommons.org/l/by/3.0/80x15.png' == details1['icon']
-        assert 'http://creativecommons.org/licenses/by-nc-sa/3.0/deed.de' == details2['url']
-        assert 'http://i.creativecommons.org/l/by-nc-sa/3.0/80x15.png' == details2['icon']
+        assert details1['url'] == 'http://creativecommons.org/licenses/by/3.0/deed.de'
+        assert details1['icon'] == 'http://i.creativecommons.org/l/by/3.0/80x15.png'
+        assert details2['url'] == 'http://creativecommons.org/licenses/by-nc-sa/3.0/deed.de'
+        assert details2['icon'] == 'http://i.creativecommons.org/l/by-nc-sa/3.0/80x15.png'
 
     @pytest.mark.django_db
     def test_license_details_pd(self):
@@ -123,9 +123,9 @@ class TestDocumentModel:
         doc = models.Document.objects.create(name='PD doc', dtype=models.Document.DTypes.SUMMARY,
                 license=models.Document.LICENSES.pd)
         details = doc.license_details()
-        assert 'Public Domain' == doc.get_license_display()
-        assert 'http://creativecommons.org/publicdomain/zero/1.0/deed.de' == details['url']
-        assert 'http://i.creativecommons.org/p/zero/1.0/80x15.png' == details['icon']
+        assert doc.get_license_display() == 'Public Domain'
+        assert details['url'] == 'http://creativecommons.org/publicdomain/zero/1.0/deed.de'
+        assert details['icon'] == 'http://i.creativecommons.org/p/zero/1.0/80x15.png'
 
     @pytest.mark.django_db
     def test_license_details_none(self):
