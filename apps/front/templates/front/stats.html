@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 {% load tabs %}
-{% load macros %}
 
 {% block title %}Statistiken{% endblock %}
 
@@ -19,30 +18,22 @@
 
     <h2>Dozenten</h2>
 
-    {% macro lecturer_top lecturer %}
-        <li>Top: {% if lecturer %}<a href="{% url 'lecturers:lecturer_detail' lecturer.pk %}">{{ lecturer.name }}</a>{% else %}-{% endif %}</li>
-    {% endmacro %}
-
-    {% macro lecturer_flop lecturer %}
-        <li>Flop: {% if lecturer %}<a href="{% url 'lecturers:lecturer_detail' lecturer.pk %}">{{ lecturer.name }}</a>{% else %}-{% endif %}</li>
-    {% endmacro %}
-
     <h3>Didaktisch</h3>
     <ul>
-        {% usemacro lecturer_top lecturer_top_d %}
-        {% usemacro lecturer_flop lecturer_flop_d %}
+        {% include 'front/stats_lecturer_top.html' with lecturer=lecturer_top_d %}
+        {% include 'front/stats_lecturer_flop.html' with lecturer=lecturer_flop_d %}
     </ul>
 
     <h3>Menschlich</h3>
     <ul>
-        {% usemacro lecturer_top lecturer_top_m %}
-        {% usemacro lecturer_flop lecturer_flop_m %}
+        {% include 'front/stats_lecturer_top.html' with lecturer=lecturer_top_m %}
+        {% include 'front/stats_lecturer_flop.html' with lecturer=lecturer_flop_m %}
     </ul>
 
     <h3>Fachlich</h3>
     <ul>
-        {% usemacro lecturer_top lecturer_top_f %}
-        {% usemacro lecturer_flop lecturer_flop_f %}
+        {% include 'front/stats_lecturer_top.html' with lecturer=lecturer_top_f %}
+        {% include 'front/stats_lecturer_flop.html' with lecturer=lecturer_flop_f %}
     </ul>
 
     <h3>Meiste Zitate</h3>
