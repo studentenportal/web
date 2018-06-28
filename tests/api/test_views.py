@@ -9,8 +9,6 @@ from django.core.urlresolvers import reverse, NoReverseMatch
 from django.contrib.auth import get_user_model
 
 from model_mommy import mommy
-from provider.constants import CONFIDENTIAL
-from provider.oauth2 import models as oauth2_models
 
 from apps.lecturers.models import Quote, Lecturer
 
@@ -64,30 +62,6 @@ class AuthenticationTest(BaseTest):
         login(self)
         resp = self.client.get(url)
         self.assertEqual(resp.status_code, 200)
-
-    def testOAuth2(self):
-        # Create an OAuth2 Client object
-        oauth2_client = mommy.make(oauth2_models.Client,
-            user=self.user,
-            url='http://example.com/',
-            redirect_uri='http://example.com/',
-            client_type=CONFIDENTIAL,
-        )
-        # Obtain access token via POST
-        resp = self.client.post(reverse('oauth2:access_token'), {
-            'client_id': oauth2_client.client_id,
-            'client_secret': oauth2_client.client_secret,
-            'grant_type': 'password',
-            'username': 'testuser',
-            'password': 'test',
-        })
-        data = json.loads(resp.content)
-        # Try to access API
-        url = reverse('api:quote_list')
-        resp1 = self.client.get(url)
-        self.assertEqual(resp1.status_code, 403)
-        resp2 = self.client.get(url, HTTP_AUTHORIZATION='Bearer {}'.format(data['access_token']))
-        self.assertEqual(resp2.status_code, 200)
 
 
 class UserViewTest(AuthenticatedTest):

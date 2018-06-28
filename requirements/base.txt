@@ -26,7 +26,6 @@ vobject==0.8.2
 
 # API
 djangorestframework==2.3.12
-django-oauth2-provider==0.2.6
 
 # Twitter
 tweepy==2.2

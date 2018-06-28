@@ -202,8 +202,6 @@ INSTALLED_APPS = (
     'mathfilters',
     'easy_thumbnails',
     'rest_framework',
-    'provider',
-    'provider.oauth2',
 
     # Own apps
     'apps.front',
@@ -305,7 +303,6 @@ REST_FRAMEWORK = {
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.OAuth2Authentication',
     ),
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
