@@ -17,6 +17,8 @@
     <script src="{{ STATIC_URL }}js/jquery-2.1.0.js"></script>
     {% dajaxice_js_import %}
 
+    {% block meta %}{% endblock meta %}
+
     {% block styles %}
         {% compress css %}
         <link rel="stylesheet" type="text/scss" href="{{ STATIC_URL }}sass/main.scss" />

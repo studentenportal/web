@@ -1,4 +1,4 @@
-{% extends 'front/base.html' %}
+{% extends 'base.html' %}
 {% load tabs %}
 {% load thumbnail %}
 
@@ -28,7 +28,7 @@
             Gelöschter User
         {% endif %}
     </em></p>
-    
+
     {{ event.description|urlize|linebreaks }}
 
     <ul class="blacklist unstyled">
