@@ -25,19 +25,10 @@
     padding: 0 $gutter;
 }
 
-%responsive-padding {
-    padding: 0 $gutter;
-    margin-left: -$gutter;
-    margin-right: -$gutter;
-    margin-bottom: $gutter;
-}
-
-
 /* ===LAYOUT STRUCTURE=== */
 
 // The whole top part of the website includes the header as well
 .top {
-    padding: 0;
     background-image: url('../../img/hsr@2x.jpg');
     background-position: center;
     background-repeat: no-repeat;
