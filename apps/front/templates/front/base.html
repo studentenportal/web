@@ -20,7 +20,6 @@
     {% block styles %}
         {% compress css %}
         <link rel="stylesheet" type="text/scss" href="{{ STATIC_URL }}sass/main.scss" />
-        <link rel="stylesheet" href="{{ STATIC_URL }}css/responsive-nav.css" />
         {% endcompress %}
     {% endblock %}
 
@@ -36,9 +35,6 @@
         <header class="header">
             <div class="branding">
                 <a href="{% url 'home' %}"{% if DEBUG %} class="is-dev-environment"{% endif %}><h1><em>studenten</em>portal</h1></a>
-            </div>
-            <div class="header-actions">
-                <a href="#nav" title="Menü" id="toggle" class="nav-toggle closed icon-list"></a>
             </div>
             <nav id="nav" class="nav-collapse">
                 <ul>
@@ -97,8 +93,6 @@
     </footer>
     {% block scripts %}
         {% compress js %}
-        <!-- Libraries -->
-        <script src="{{ STATIC_URL }}js/responsive-nav.js"></script>
         <!-- Custom scripts-->
         <script src="{{ STATIC_URL }}js/studentenportal.js"></script>
         {% endcompress %}

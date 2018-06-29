@@ -40,15 +40,10 @@
     background-size: cover;
     // Height cannot be fixed because the navigation needs space to flex
     min-height: 25rem;
-}
-
-.header {
-    @include clearfix;
-    @extend %wrapper;
+    border-bottom: 0.5rem $color-header-link solid;
 }
 
 .main {
-    @extend %wrapper;
     margin-top: $gutter;
 }
 
@@ -60,16 +55,15 @@
 
 /* ===HEADER=== */
 .header {
-    padding: $gutter;
     background-color: $color-header-background;
+    display: flex;
+    flex-direction: column;
 
-    .branding {
-        float: left;
-        padding-right: $gutter;
-        h1 {
-            color: $color-branding;
-        }
+    > .branding {
+        align-self: center;
+        margin: 1rem auto 1rem auto;
     }
+}
 
     @media (max-width: 46em) {
         padding: $gutter/2 0;
@@ -82,78 +76,65 @@
     .header-actions {
         @include pie-clearfix;
 
-        // Special links like user home or login/logout
-        > a {
-            float: right;
-            padding: $gutter/2;
-            font-size: 3.2rem;
-            color: $color-header-link;
+/* ===NAVIGATION=== */
+@mixin active-nav-item() {
+    background-color: $color-header-link;
 
-            &:hover {
-                color: $color-header-link-hover;
-            }
-        }
-
-        .login-button {
-            display: block;
-        }
-
-        @media (min-width: 46em) {
-            float: right;
-
-            // By making the header actions float to left
-            // the account link and logout link will swap places
-            > a {
-                float: left;
-                margin-left: $gutter/2;
-            }
-        }
-    }
-
-    // iPhones have a very small width so the header size should adapt to it
-    @media (max-width: 33rem) {
-        .branding h1 {
-            font-size: 2.7rem;
-            line-height: 1.3 * 2.7rem;
-        }
-        .header-actions > a {
-            font-size: 2.7rem;
-        }
-        .icon-logout:before, .icon-login:before, .icon-user:before {
-            top: 0.35em;
-        }
+    > a {
+        color: white;
     }
 }
 
-/* ===NAVIGATION=== */
-.nav-collapse {
-    background-color: $color-navigation-background;
-    @include pie-clearfix;
+nav {
+    font-size: 0; // fix against spaces between inline elements
+    display: flex;
+    flex: 0 1 100%;
 
-    li {
-        margin: 0;
-        padding: 0;
+    flex-wrap: wrap;
+    flex-direction: column;
 
-        a {
-            font-size: $font-size-browser;
-            padding: $gutter 0.75rem;
-            display: block;
-            background-color: $color-navigation-background;
-            color: $color-navigation-link;
+    > ul > li {
+        height: 5rem;
+        white-space: nowrap;
+        padding-left: 2rem; // Reset from base
 
-            &:before {
-                font-size: 0.75em;
-                padding-right: 0.5em;
-            }
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
 
-            @media (min-width: 46em) {
-                float: left;
-            }
+        > a {
+            font-size: 1.25 * $font-size-base;
+            display: inline-block;
+        }
+
+        &:hover {
+            @include active-nav-item();
         }
     }
 
-    li.active a {
-        background-color: $color-navigation-background-active;
+    > ul > li.active {
+        @include active-nav-item();
+    }
+}
+
+@media all and (min-width: 1080px) {
+    .header {
+        flex-direction: row;
+
+        > .branding {
+            margin: auto 2rem;
+        }
+    }
+
+    nav > ul > li {
+        position: relative;
+        display: inline-block;
+        height: 7rem;
+        padding: 0 2rem;
+
+        > a {
+            line-height: 7rem;
+        }
     }
 
     &:before {
