@@ -141,7 +141,7 @@ nav {
     }
 }
 
-// Show if in DEBUG mode
-.is-dev-environment > *{
+// Show if the application is running in development mode
+.is-dev-environment > * {
   color: red !important;
 }
