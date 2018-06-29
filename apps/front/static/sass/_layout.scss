@@ -51,12 +51,6 @@
     margin-top: $gutter;
 }
 
-.footer {
-    @extend %wrapper;
-    margin-top: 3*$gutter;
-    margin-bottom: $gutter;
-}
-
 /* ===HEADER=== */
 .header {
     background-color: $color-header-background;
@@ -69,16 +63,20 @@
     }
 }
 
-    @media (max-width: 46em) {
-        padding: $gutter/2 0;
-        .branding {
-            padding-left: $gutter/2;
-            padding-right: 0;
-        }
+/* ===FOOTER=== */
+footer {
+    margin-top: 3 * $gutter;
+    display: flex;
+    flex-direction: column;
+
+    > :first-child {
+        margin-bottom: $gutter;
     }
 
-    .header-actions {
-        @include pie-clearfix;
+    .main-sponsor-logo img {
+        height: 1.5em;
+    }
+}
 
 /* ===NAVIGATION=== */
 @mixin active-nav-item() {
@@ -141,8 +139,14 @@ nav {
         }
     }
 
-    &:before {
-        clear: left;
+    footer {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: baseline;
+
+        > :first-child {
+            margin-bottom: 0;
+        }
     }
 }
 
