@@ -15,13 +15,13 @@
 }
 
 @media (min-width: 64.375rem) {
-    .header, .main, .footer {
-        max-width: 103rem;
+    header, .main, footer {
+        max-width: 130rem;
         margin: 0 auto;
     }
 }
 
-.header, .main, .footer {
+.main, footer {
     padding: 0 $gutter;
 }
 
