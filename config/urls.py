@@ -1,4 +1,3 @@
-from registration.views import RegistrationView
 from dajaxice.core import dajaxice_autodiscover, dajaxice_config
 from django.conf.urls import patterns, include, url
 from django.conf import settings
@@ -32,7 +31,6 @@ urlpatterns += patterns('',
 
 # Auth pages
 urlpatterns += patterns('',
-    url(r'^accounts/register/$', RegistrationView.as_view(), {'backend': 'apps.front.registration_backends.HsrEmailBackend'}, name='register'),
     url(r'^accounts/', include('registration.backends.default.urls')),
 )
 

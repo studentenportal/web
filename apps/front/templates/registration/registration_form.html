@@ -15,7 +15,8 @@
         <h1>Registrieren</h1>
     </header>
 
-    <p>Diese Registrierung ist Studenten mit einer HSR-Email-Adresse vorbehalten.</p>
+    <p>Diese Registrierung ist Studenten mit einer HSR-Email-Adresse
+    (<code>username@hsr.ch</code>) vorbehalten.</p>
 
     {% if form.non_field_errors %}
         <div class="alert-error">
@@ -26,8 +27,8 @@
 
     <form method="post" action="">{% csrf_token %}
         <fieldset>
-        <input type="text" name="{{ form.username.name }}" id="id_{{ form.username.name }}" placeholder="{{ form.username.label }}" required>
-        {% if form.username.errors %}<span class="help-inline">{{ form.username.errors }}</span>{% endif %}
+        <input type="text" name="{{ form.email.name }}" id="id_{{ form.email.name }}" placeholder="{{ form.email.label }}" required>
+        {% if form.email.errors %}<span class="help-inline">{{ form.email.errors }}</span>{% endif %}
 
         <input type="password" name="{{ form.password1.name }}" id="id_{{ form.password1.name }}" placeholder="{{ form.password1.label }}" required>
         {% if form.password1.errors %}<span class="help-inline">{{ form.password1.errors }}</span>{% endif %}

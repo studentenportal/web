@@ -19,7 +19,7 @@
     {% if request.GET.next %}
         <br><div class="alert-error"><strong>Bitte einloggen!</strong>
             Die gewünschte Seite ist nur für registrierte Personen zugänglich.
-            <a href="{% url 'register' %}">Registrieren?</a>
+            <a href="{% url 'registration_register' %}">Registrieren?</a>
         </div>
     {% endif %}
 
@@ -30,7 +30,7 @@
             <br><br>
             <strong>Hinweis:</strong> Da das Studentenportal unabhängig von der
             HSR ist, kann hier nicht das HSR-Login direkt verwendet werden.
-            Stattdessen muss ein separater Account <a href="{% url 'register' %}">erstellt werden</a>.
+            Stattdessen muss ein separater Account <a href="{% url 'registration_register' %}">erstellt werden</a>.
         </div>
 
     {% endif %}
@@ -46,7 +46,7 @@
 
             <br clear="all" />
 
-            <a class="button" href="{% url 'register' %}">Registrieren?</a>
+            <a class="button" href="{% url 'registration_register' %}">Registrieren?</a>
             <button class="button button-primary" type="submit">Login</button>
             <input type="hidden" name="next" value="{{ next }}">
         </fieldset>
