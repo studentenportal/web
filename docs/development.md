@@ -2,7 +2,8 @@
 
 ## Einrichten der Entwicklungsumgebung
 
-Die Entwicklungsumgebung benötigt [Docker & docker-compose](https://www.docker.com/).
+Die Entwicklungsumgebung benötigt [Docker &
+docker-compose](https://www.docker.com/).
 
 Sofern du diese installiert hast, kannst du wie folgt vorgehen:
 
@@ -20,9 +21,13 @@ Beenden kannst du die Entwicklungsumgebung mit `docker-compose stop`.
 Mit dem Kommando `docker-compose logs` kannst du dir die Logs anzeigen lassen.
 
 ## Testbenutzer
-Die Registrierung von neuen Benutzern versendet in der Testumgebung keine E-Mails. Diese werden aber in die Logs geschrieben (Siehe Absatz `Logs anschauen`).
+
+Die Registrierung von neuen Benutzern versendet in der Testumgebung keine
+E-Mails. Diese werden aber in die Logs geschrieben (Siehe Absatz `Logs
+anschauen`).
 
 ### Administrator
+
 ```
 Username: user0
 Email:    user0@localhost
@@ -30,6 +35,7 @@ Password: user0
 ```
 
 ### Student
+
 ```
 Username: user1
 Email:    user1@localhost
@@ -38,16 +44,18 @@ Password: user1
 
 
 ## Spezialfälle
+
 ### Änderungen an Dockerfiles oder requirements
 
-Werden requirements oder Dockerfiles angepasst, müssen die Docker-Container mit `docker-compose build` neu gebaut werden.
+Werden requirements oder Dockerfiles angepasst, müssen die Docker-Container mit
+`docker-compose build` neu gebaut werden.
 
 ### Twitter
-Wenn du die Twitter Einbindung nutzen willst, musst du im Twitter Developer Center eine
-App erstellen und folgende Umgebungsvariablen setzen:
+
+Wenn du die Twitter Einbindung nutzen willst, musst du im Twitter Developer
+Center eine App erstellen und folgende Umgebungsvariablen setzen:
 
 - `TWITTER_CONSUMER_KEY`
 - `TWITTER_CONSUMER_SECRET`
 - `TWITTER_ACCESS_KEY`
 - `TWITTER_ACCESS_SECRET`
-
