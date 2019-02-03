@@ -197,7 +197,6 @@ INSTALLED_APPS = (
     # Third party apps
     'compressor',
     'apps.tabs',
-    'registration',
     'dajaxice',
     'mathfilters',
     'easy_thumbnails',
@@ -214,6 +213,7 @@ INSTALLED_APPS = (
 
     # Overridable 3rd party apps
     'messagegroups',
+    'registration',
 
     # Django admin (overrideable templates)
     'django.contrib.admin',
