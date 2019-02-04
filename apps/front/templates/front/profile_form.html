@@ -13,6 +13,13 @@
     href="https://flattr.com/">Flattr</a>- Benutzername verwendet um bei
     deinen Zusammenfassungen jeweils einen Spende-Button anzuzeigen.</p>
 
+    <p>Deine E-Mail-Adresse kann nicht von dir selber bearbeitet werden. Falls
+    du sie ändern möchtest (z.B. um nach dem Studium weiterhin Zugang zum
+    Studentenportal zu haben), kontaktieren einen Admin unter
+    <a href="mailto:team@studentenportal.ch">team@studentenportal.ch</a>.</p>
+
+    <p>Möchtest du dein Passwort ändern? Das kannst du <a href="{% url 'auth_password_change' %}">hier</a> tun.</p>
+
     <br>
 
     <form class="form-horizontal" method="post" action="{% url 'profile' %}">
@@ -23,5 +30,4 @@
         <input type="hidden" name="next" value="{{ next }}">
     </form>
 
-    <p>Möchtest du dein Passwort ändern? Das kannst du <a href="{% url 'auth_password_change' %}">hier</a> tun.</p>
 {% endblock %}

@@ -13,9 +13,10 @@ USERNAME_RE = re.compile(r'^[a-zA-Z-_]+$')
 
 
 class ProfileForm(forms.ModelForm):
+    # Note: Don't allow users to change their own e-mail!
     class Meta:
         model = get_user_model()
-        fields = ('email', 'first_name', 'last_name', 'twitter', 'flattr')
+        fields = ('first_name', 'last_name', 'twitter', 'flattr')
 
 
 class PasswordForm(forms.Form):
