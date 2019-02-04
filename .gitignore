@@ -13,3 +13,4 @@ venv/
 .cache/
 .sass-cache/
 *.egg-info/
+.pytest_cache/

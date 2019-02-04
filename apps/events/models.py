@@ -7,14 +7,14 @@ from django.db import models
 from django.conf import settings
 
 
+def picture_file_name(instance, filename):
+    """Where to put a newly uploaded picture."""
+    return '/'.join(['event_pictures', str(instance.start_date.year), filename])
+
 class Event(models.Model):
     """An event.
     If end_date is null, then assume end_date = start_date.
     """
-
-    def picture_file_name(instance, filename):
-        """Where to put a newly uploaded picture."""
-        return '/'.join(['event_pictures', str(instance.start_date.year), filename])
 
     author = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='Event', null=True,
             on_delete=models.SET_NULL)

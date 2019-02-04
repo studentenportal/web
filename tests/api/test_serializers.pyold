@@ -17,13 +17,13 @@ class UserSerializerTest(TestCase):
         user = mommy.make(get_user_model(), flattr='flttr', twitter='twttr')
         serializer = serializers.UserSerializer(user)
         data = serializer.data
-        url = reverse('api:user_detail', args=(user.pk,))
         self.assertEqual(data, {
-            'url': url,
+            'id': user.pk,
             'username': user.username,
             'first_name': user.first_name,
             'last_name': user.last_name,
             'email': user.email,
             'flattr': 'flttr',
-            'twitter': 'twttr'
+            'twitter': 'twttr',
+            'quotes': [],
         })

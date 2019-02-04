@@ -8,38 +8,32 @@ from django.contrib.auth import get_user_model
 from apps.lecturers import models
 
 
-class UserSerializer(serializers.HyperlinkedModelSerializer):
-    url = serializers.HyperlinkedIdentityField(view_name='api:user_detail')
-    username = serializers.Field()
-    quotes = serializers.HyperlinkedRelatedField(many=True, read_only=True, source='Quote',
-            view_name='api:quote_detail')
-    flattr = serializers.CharField(source='flattr', blank=True)
-    twitter = serializers.CharField(source='twitter', blank=True)
+class UserSerializer(serializers.ModelSerializer):
+    username = serializers.ReadOnlyField()
+    quotes = serializers.PrimaryKeyRelatedField(many=True, read_only=True, source='Quote')
+    flattr = serializers.CharField(allow_blank=True)
+    twitter = serializers.CharField(allow_blank=True)
 
     class Meta:
         model = get_user_model()
-        fields = ('url', 'username', 'first_name', 'last_name', 'email',
-                  'flattr', 'twitter')
+        fields = ('id', 'username', 'first_name', 'last_name', 'email',
+                  'flattr', 'twitter', 'quotes')
 
 
-class LecturerSerializer(serializers.HyperlinkedModelSerializer):
-    url = serializers.HyperlinkedIdentityField(view_name='api:lecturer_detail')
-    quotes = serializers.HyperlinkedRelatedField(many=True, read_only=True, source='Quote',
-            view_name='api:quote_detail')
+class LecturerSerializer(serializers.ModelSerializer):
+    quotes = serializers.PrimaryKeyRelatedField(many=True, read_only=True, source='Quote')
 
     class Meta:
         model = models.Lecturer
-        fields = ('url', 'title', 'last_name', 'first_name', 'abbreviation',
+        fields = ('id', 'title', 'last_name', 'first_name', 'abbreviation',
                   'department', 'function', 'main_area', 'subjects', 'email',
                   'office', 'quotes')
 
 
-class QuoteSerializer(serializers.HyperlinkedModelSerializer):
-    url = serializers.HyperlinkedIdentityField(view_name='api:quote_detail')
-    lecturer = serializers.HyperlinkedRelatedField(view_name='api:lecturer_detail')
-    lecturer_name = serializers.Field(source='lecturer.name')
-    quote_votes = serializers.PrimaryKeyRelatedField(many=True)
+class QuoteSerializer(serializers.ModelSerializer):
+    lecturer = serializers.PrimaryKeyRelatedField(queryset=models.Lecturer.objects.all())
+    lecturer_name = serializers.ReadOnlyField(source='lecturer.name')
 
     class Meta:
         model = models.Quote
-        fields = ('url', 'lecturer', 'lecturer_name', 'date', 'quote', 'comment')
+        fields = ('id', 'lecturer', 'lecturer_name', 'date', 'quote', 'comment')

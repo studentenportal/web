@@ -4,7 +4,9 @@
 [![Coverage Status](https://coveralls.io/repos/github/studentenportal/web/badge.svg)](https://coveralls.io/github/studentenportal/web)
 [![Code Health](https://landscape.io/github/studentenportal/web/master/landscape.png)](https://landscape.io/github/studentenportal/web/master)
 
-Das Studentenportal ist DIE Austauschplattform für Lernhilfen aller Art und viels mehr von Studierenden der [Hochschule für Technik Rapperswil](https://www.hsr.ch/).
+Das Studentenportal ist DIE Austauschplattform für Lernhilfen aller Art und
+viels mehr von Studierenden der [Hochschule für Technik
+Rapperswil](https://www.hsr.ch/).
 
 ## Features
 
@@ -15,16 +17,21 @@ Das Studentenportal ist DIE Austauschplattform für Lernhilfen aller Art und vie
 - Flattr Integration
 
 Featurevorschläge sind willkommen! Aktuell geplante Features und Featurewünsche
-können auf dem [GitHub Issue-Tracker](https://github.com/studentenportal/web/issues) eingesehen und
+können auf dem [GitHub
+Issue-Tracker](https://github.com/studentenportal/web/issues) eingesehen und
 erstellt werden.
 
 ## Mithelfen: Entwicklungsumgebung und Dokumentationen
 
-Mehr Informationen zur [Entwicklungsumgebung](https://github.com/studentenportal/web/blob/master/docs/development.md) sowie weitere Dokumentationen findest du im Ordner [docs](https://github.com/studentenportal/web/tree/master/docs).
+Mehr Informationen zur
+[Entwicklungsumgebung](https://github.com/studentenportal/web/blob/master/docs/development.md)
+sowie weitere Dokumentationen findest du im Ordner
+[docs](https://github.com/studentenportal/web/tree/master/docs).
 
 ## Fragen
 
-Bei Fragen wende dich an team@studentenportal.ch oder [@studportal_hsr](https://twitter.com/studportal_hsr).
+Bei Fragen wende dich an team@studentenportal.ch oder
+[@studportal_hsr](https://twitter.com/studportal_hsr).
 
 ## Lizenz
 

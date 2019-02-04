@@ -1,4 +1,4 @@
-{% extends 'front/base.html' %}
+{% extends 'base.html' %}
 {% load tabs %}
 
 {% block bodyclass %}home{% endblock %}
@@ -24,7 +24,7 @@
         anderen Studenten teilen.</p>
 
         {% if not user.is_authenticated %}
-        <a class="button icon-user" href="{% url 'register' %}">Registrieren</a>
+        <a class="button icon-user" href="{% url 'registration_register' %}">Registrieren</a>
         {% endif %}
     </article>
 

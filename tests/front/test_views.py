@@ -60,14 +60,16 @@ class RegistrationViewTest(TestCase):
     def testRegistrationPage(self):
         response = self.client.get(self.registration_url)
         self.assertContains(response, '<h1>Registrieren</h1>')
-        self.assertContains(response, 'Diese Registrierung ist Studenten mit einer HSR-Email-Adresse vorbehalten')
+        self.assertContains(response, 'Diese Registrierung ist Studenten mit einer HSR-Email-Adresse')
         self.assertContains(response, '<form')
 
     def testRegistration(self):
-        """Test that a registration is successful and that an activation email
-        is sent."""
+        """
+        Test that a registration is successful and that an activation email is
+        sent.
+        """
         response = self.client.post(self.registration_url, {
-            'username': 'testuser',
+            'email': 'testuser@hsr.ch',
             'password1': 'testpass',
             'password2': 'testpass',
         })
@@ -75,6 +77,57 @@ class RegistrationViewTest(TestCase):
         self.assertTrue(User.objects.filter(username='testuser').exists())
         self.assertEqual(len(mail.outbox), 1)
         self.assertEqual(mail.outbox[0].subject, '[studentenportal.ch] Aktivierung')
+
+    def testRegistrationBadUsername(self):
+        """
+        Test that a registration with a bad username returns an error.
+        """
+        response = self.client.post(self.registration_url, {
+            'email': 'a+++@hsr.ch',
+            'password1': 'testpass',
+            'password2': 'testpass',
+        })
+        assert response.status_code == 200
+        assert u'Ungültige E-Mail' in response.content.decode('utf8')
+
+    def testRegistrationBadDomain(self):
+        """
+        Test that a registration with a non-hsr.ch Domain return an error.
+        """
+        response = self.client.post(self.registration_url, {
+            'email': 'ameier@zhaw.ch',
+            'password1': 'testpass',
+            'password2': 'testpass',
+        })
+        assert response.status_code == 200
+        assert u'Registrierung ist Studenten mit einer @hsr.ch-Mailadresse vorbehalten' \
+                in response.content.decode('utf8')
+
+    def testRegistrationDoubleUsername(self):
+        """
+        Test that a registration with a bad username returns an error.
+        """
+        mommy.make(User, username='a', email='abc@hsr.ch')
+        response = self.client.post(self.registration_url, {
+            'email': 'a@hsr.ch',
+            'password1': 'testpass',
+            'password2': 'testpass',
+        })
+        assert response.status_code == 200
+        assert u'Benutzer &quot;a&quot; existiert bereits' in response.content.decode('utf8')
+
+    def testRegistrationDoubleEmail(self):
+        """
+        Test that a registration with a bad username returns an error.
+        """
+        mommy.make(User, username='abc', email='a@hsr.ch')
+        response = self.client.post(self.registration_url, {
+            'email': 'a@hsr.ch',
+            'password1': 'testpass',
+            'password2': 'testpass',
+        })
+        assert response.status_code == 200
+        assert u'Benutzer mit dieser E-Mail existiert bereits.' in response.content.decode('utf8')
 
 
 class UserViewTest(TestCase):
@@ -85,9 +138,9 @@ class UserViewTest(TestCase):
         self.user2 = mommy.make(User, first_name='Another', last_name='Guy',
                                       email='test2@studentenportal.ch')
         self.doc1 = mommy.make_recipe('apps.documents.document_summary', name='Document 1',
-                         description='The first document.', uploader=self.user1)
+                         description='The first document.', uploader=self.user1, document='a.pdf')
         self.doc2 = mommy.make_recipe('apps.documents.document_summary', name='Document 2',
-                         description='The second document.', uploader=self.user2)
+                         description='The second document.', uploader=self.user2, document='b.pdf')
         # setUp
         login(self)
 
@@ -144,11 +197,11 @@ class UserProfileViewTest(TestCase):
         })
         self.assertRedirects(response, '/profil/')
         user = User.objects.get(username='testuser')
-        self.assertEqual('test@example.com', user.email)
-        self.assertEqual('John', user.first_name)
-        self.assertEqual('Doe', user.last_name)
-        self.assertEqual('jdoe', user.twitter)
-        self.assertEqual('johndoe', user.flattr)
+        assert user.email == 'test@studentenportal.ch'  # No change!
+        assert user.first_name == 'John'
+        assert user.last_name == 'Doe'
+        assert user.twitter == 'jdoe'
+        assert user.flattr == 'johndoe'
 
 
 class StatsViewTest(TestCase):

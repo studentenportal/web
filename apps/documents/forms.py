@@ -13,6 +13,7 @@ from . import models
 class DocumentCategoryForm(forms.ModelForm):
     class Meta:
         model = models.DocumentCategory
+        fields = ('name', 'description')
 
 
 class DocumentEditForm(forms.ModelForm):
