@@ -174,7 +174,7 @@ class DocumentDownload(View):
         # Serve file
         filename = unicodedata.normalize('NFKD', doc.original_filename) \
                               .encode('us-ascii', 'ignore')
-        attachment = "inline" if filename.lower().endswith('.pdf') == True else "attachment"
+        attachment = "inline" if filename.lower().endswith('.pdf') else "attachment"
         httpResponse = sendfile(request, doc.document.path)
         httpResponse['Content-Disposition'] = '%s; filename="%s"' % (attachment, filename)
         return httpResponse
