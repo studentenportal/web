@@ -174,9 +174,10 @@ class DocumentDownload(View):
         # Serve file
         filename = unicodedata.normalize('NFKD', doc.original_filename) \
                               .encode('us-ascii', 'ignore')
-        attachment = not filename.lower().endswith('.pdf')
-        return sendfile(request, doc.document.path,
-                attachment=attachment, attachment_filename=filename)
+        attachment = "inline" if filename.lower().endswith('.pdf') == True else "attachment"
+        httpRequest = sendfile(request, doc.document.path)
+        httpRequest['Content-Disposition'] = '%s; filename="%s"' % (attachment, filename)
+        return httpRequest
 
 
 class DocumentThumbnail(View):
