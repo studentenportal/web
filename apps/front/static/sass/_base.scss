@@ -225,11 +225,43 @@ button.button-primary, .button.button-primary {
 .readonly { opacity: .7; }
 
 .main-sponsor-logo {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+
   float: right;
-  margin: -0.5em;
+
   img {
-     height: 3em;
+     height: 3rem;
+     margin-top: -1rem;
   }
 }
 
+.footer {
+  overflow: display;
+}
 
+.footer:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.main-sponsor-logo::after {
+  clear: both;
+}
+
+div.sponsors-logos {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  a > img {
+    display: inline-block;
+    max-width: 17em;
+    max-height: 5em;
+    margin: 1em;
+  }
+  a.button {
+    margin: 1em;
+  }
+}
