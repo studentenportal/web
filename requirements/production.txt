@@ -1,7 +1,7 @@
 -r base.txt
 
 # Webserver
-gunicorn==0.17.4
+gunicorn==19.5.0
 
 # Newrelic
 newrelic==2.6.0.5
