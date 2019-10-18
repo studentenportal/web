@@ -1,5 +1,5 @@
 # Base system
-Django==1.8.16
+Django==1.11.23
 Pillow==2.6.1
 django-extensions
 psycopg2==2.7.5
