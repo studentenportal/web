@@ -23,8 +23,7 @@ def require_env(name):
 PROJECT_ROOT = Path(__file__).ancestor(2)
 
 ADMINS = (
-    ('Lukas', 'me@lukasmartinelli.ch'),
-    ('Simon', 'saspeed@gmail.com'),
+    ('Studentenportal Team', 'team@studentenportal.ch'),
 )
 
 MANAGERS = ADMINS
