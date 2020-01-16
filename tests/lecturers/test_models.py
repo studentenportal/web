@@ -11,6 +11,7 @@ from django.db import IntegrityError
 from model_mommy import mommy
 
 from apps.lecturers import models
+import pytest
 
 
 User = get_user_model()
@@ -28,12 +29,12 @@ class LecturerModelTest(TestCase):
 
     def testRatings(self):
         """Test whether ratings are calculated correctly."""
-        self.assertEqual(self.lecturer.avg_rating_d(), 7)
-        self.assertEqual(self.lecturer.avg_rating_m(), 10)
-        self.assertEqual(self.lecturer.avg_rating_f(), 0)
+        assert self.lecturer.avg_rating_d() == 7
+        assert self.lecturer.avg_rating_m() == 10
+        assert self.lecturer.avg_rating_f() == 0
 
     def testName(self):
-        self.assertEqual(self.lecturer.name(), 'Prof. Dr. Krakaduku David')
+        assert self.lecturer.name() == 'Prof. Dr. Krakaduku David'
 
     def testManager(self):
         mommy.make(models.Lecturer, pk=10, function='Dozent')
@@ -41,12 +42,12 @@ class LecturerModelTest(TestCase):
         mommy.make(models.Lecturer, pk=12, function='Projektmitarbeiterin')
         all_lecturers = models.Lecturer.objects.all()
         real_lecturers = models.Lecturer.real_objects.all()
-        self.assertIn(10, all_lecturers.values_list('pk', flat=True))
-        self.assertIn(11, all_lecturers.values_list('pk', flat=True))
-        self.assertIn(12, all_lecturers.values_list('pk', flat=True))
-        self.assertIn(10, real_lecturers.values_list('pk', flat=True))
-        self.assertNotIn(11, real_lecturers.values_list('pk', flat=True))
-        self.assertNotIn(12, real_lecturers.values_list('pk', flat=True))
+        assert 10 in all_lecturers.values_list('pk', flat=True)
+        assert 11 in all_lecturers.values_list('pk', flat=True)
+        assert 12 in all_lecturers.values_list('pk', flat=True)
+        assert 10 in real_lecturers.values_list('pk', flat=True)
+        assert 11 not in real_lecturers.values_list('pk', flat=True)
+        assert 12 not in real_lecturers.values_list('pk', flat=True)
 
 
 class LecturerRatingModelTest(TestCase):
@@ -70,24 +71,24 @@ class LecturerRatingModelTest(TestCase):
     def testAddSimpleRating(self):
         """Test whether a simple valid rating can be added."""
         self.create_default_rating()
-        self.assertEqual(models.LecturerRating.objects.count(), 1)
+        assert models.LecturerRating.objects.count() == 1
 
     def testAddInvalidCategory(self):
         """Test whether only a valid category can be added."""
-        with self.assertRaises(ValidationError):
+        with pytest.raises(ValidationError):
             self.create_default_rating(category=u'x')
 
     def testAddInvalidRating(self):
         """Test whether invalid ratings raise validation errors."""
-        with self.assertRaises(ValidationError):
+        with pytest.raises(ValidationError):
             self.create_default_rating(rating=11)
-        with self.assertRaises(ValidationError):
+        with pytest.raises(ValidationError):
             self.create_default_rating(rating=0)
 
     def testUniqueTogether(self):
         """Test the unique_together constraint."""
         self.create_default_rating()
-        with self.assertRaises(ValidationError):
+        with pytest.raises(ValidationError):
             self.create_default_rating(rating=6)
 
 
@@ -106,8 +107,8 @@ class QuoteModelTest(TestCase):
         q.comment = "Eine Bemerkung zum Kommentar"
         q.save()
         after = datetime.datetime.now()
-        self.assertTrue(before < q.date < after)
-        self.assertTrue(q.date_available())
+        assert before < q.date < after
+        assert q.date_available()
 
     def testNullValueAuthor(self):
         q = models.Quote()
@@ -127,4 +128,4 @@ class QuoteModelTest(TestCase):
         q.quote = 'spam'
         q.comment = 'ham'
         q.date = datetime.datetime(1970, 1, 1)
-        self.assertFalse(q.date_available())
+        assert not q.date_available()

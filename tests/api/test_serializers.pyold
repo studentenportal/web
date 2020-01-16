@@ -17,7 +17,7 @@ class UserSerializerTest(TestCase):
         user = mommy.make(get_user_model(), flattr='flttr', twitter='twttr')
         serializer = serializers.UserSerializer(user)
         data = serializer.data
-        self.assertEqual(data, {
+        assert data == {
             'id': user.pk,
             'username': user.username,
             'first_name': user.first_name,
@@ -26,4 +26,4 @@ class UserSerializerTest(TestCase):
             'flattr': 'flttr',
             'twitter': 'twttr',
             'quotes': [],
-        })
+        }

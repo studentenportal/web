@@ -11,6 +11,7 @@ from django.db import IntegrityError
 from model_mommy import mommy
 
 from apps.documents import models
+import pytest
 
 
 User = get_user_model()
@@ -34,37 +35,41 @@ class DocumentModelTest(TransactionTestCase):
         self.document.DocumentRating.create(user=self.pete, rating=2)
 
     def testBasicProperties(self):
-        self.assertEqual(self.document.name, 'Analysis 1 Theoriesammlung')
-        self.assertTrue(self.document.description.startswith('Dieses Dokument'))
-        self.assertEqual(self.document.dtype, models.Document.DTypes.SUMMARY)
-        self.assertTrue(isinstance(self.document.uploader, User))
+        assert self.document.name == 'Analysis 1 Theoriesammlung'
+        assert self.document.description.startswith('Dieses Dokument')
+        assert self.document.dtype == models.Document.DTypes.SUMMARY
+        assert isinstance(self.document.uploader, User)
 
     def testUploadDate(self):
         """Check whether upload date has been set."""
-        self.assertTrue(isinstance(self.document.upload_date, datetime.datetime))
+        assert isinstance(self.document.upload_date, datetime.datetime)
 
     def testRatingAverage(self):
         """Test the document rating average calculation."""
-        self.assertEqual(self.document.DocumentRating.count(), 2)
-        self.assertEqual(self.document.rating(), 4)
-        self.assertEqual(self.document.rating_exact(), 3.5)
+        assert self.document.DocumentRating.count() == 2
+        assert self.document.rating() == 4
+        assert self.document.rating_exact() == 3.5
 
     def testRatingValidation(self):
         dr = models.DocumentRating.objects.get(document=self.document, user=self.marc)
         dr.rating = 11
-        self.assertRaises(ValidationError, dr.full_clean)
+        with pytest.raises(ValidationError):
+            dr.full_clean()
         dr.rating = 0
-        self.assertRaises(ValidationError, dr.full_clean)
+        with pytest.raises(ValidationError):
+            dr.full_clean()
 
     def testRatingAuthorValidation(self):
         """A user may not rate his own uploads."""
         dr = models.DocumentRating(document=self.document, user=self.john)
-        self.assertRaises(ValidationError, dr.full_clean)
+        with pytest.raises(ValidationError):
+            dr.full_clean()
 
     def testDuplicateRatingsValidation(self):
         """A user cannot rate the same document twice."""
         dr = models.DocumentRating(document=self.document, user=self.marc)
-        self.assertRaises(IntegrityError, dr.save)
+        with pytest.raises(IntegrityError):
+            dr.save()
 
     def testNullValueUploader(self):
         d = models.Document()
@@ -80,7 +85,7 @@ class DocumentModelTest(TransactionTestCase):
         models.DocumentDownload.objects.create(document=self.document, ip='127.0.0.1')
         models.DocumentDownload.objects.create(document=self.document, ip='192.168.1.2')
         models.DocumentDownload.objects.create(document=self.document, ip='2001::8a2e:7334')
-        self.assertEqual(3, self.document.downloadcount())
+        assert 3 == self.document.downloadcount()
 
     def testLicenseDetailsCC(self):
         """Test the details of a CC license."""
@@ -89,34 +94,34 @@ class DocumentModelTest(TransactionTestCase):
                 license=models.Document.LICENSES.cc3_by)
         doc2 = models.Document.objects.create(name='CC-BY-NC-SA doc', dtype=summary,
                 license=models.Document.LICENSES.cc3_by_nc_sa)
-        self.assertEqual('CC BY 3.0', doc1.get_license_display())
-        self.assertEqual('CC BY-NC-SA 3.0', doc2.get_license_display())
+        assert 'CC BY 3.0' == doc1.get_license_display()
+        assert 'CC BY-NC-SA 3.0' == doc2.get_license_display()
         details1 = doc1.license_details()
         details2 = doc2.license_details()
-        self.assertEqual('http://creativecommons.org/licenses/by/3.0/deed.de', details1['url'])
-        self.assertEqual('http://i.creativecommons.org/l/by/3.0/80x15.png', details1['icon'])
-        self.assertEqual('http://creativecommons.org/licenses/by-nc-sa/3.0/deed.de', details2['url'])
-        self.assertEqual('http://i.creativecommons.org/l/by-nc-sa/3.0/80x15.png', details2['icon'])
+        assert 'http://creativecommons.org/licenses/by/3.0/deed.de' == details1['url']
+        assert 'http://i.creativecommons.org/l/by/3.0/80x15.png' == details1['icon']
+        assert 'http://creativecommons.org/licenses/by-nc-sa/3.0/deed.de' == details2['url']
+        assert 'http://i.creativecommons.org/l/by-nc-sa/3.0/80x15.png' == details2['icon']
 
     def testLicenseDetailsPD(self):
         """Test the details of a PD (CC0) license."""
         doc = models.Document.objects.create(name='PD doc', dtype=models.Document.DTypes.SUMMARY,
                 license=models.Document.LICENSES.pd)
         details = doc.license_details()
-        self.assertEqual('Public Domain', doc.get_license_display())
-        self.assertEqual('http://creativecommons.org/publicdomain/zero/1.0/deed.de', details['url'])
-        self.assertEqual('http://i.creativecommons.org/p/zero/1.0/80x15.png', details['icon'])
+        assert 'Public Domain' == doc.get_license_display()
+        assert 'http://creativecommons.org/publicdomain/zero/1.0/deed.de' == details['url']
+        assert 'http://i.creativecommons.org/p/zero/1.0/80x15.png' == details['icon']
 
     def testLicenseDetailsNone(self):
         """Test the details of a document without a license."""
         doc = models.Document.objects.create(name='PD doc', dtype=models.Document.DTypes.SUMMARY)
         details = doc.license_details()
-        self.assertIsNone(doc.get_license_display())
-        self.assertIsNone(details['url'])
-        self.assertIsNone(details['icon'])
+        assert doc.get_license_display() is None
+        assert details['url'] is None
+        assert details['icon'] is None
 
     def testFlattrDisabled(self):
-        self.assertTrue(self.document.flattr_disabled)
+        assert self.document.flattr_disabled
 
 
 class UserModelTest(TransactionTestCase):
@@ -128,7 +133,7 @@ class UserModelTest(TransactionTestCase):
 
     def testName(self):
         """Test whether the custom name function returns the correct string."""
-        self.assertEqual(self.john.name(), u'john')
-        self.assertEqual(self.marc.name(), u'Marc')
-        self.assertEqual(self.pete.name(), u'Peterson')
-        self.assertEqual(self.mike.name(), u'Mike Müller')
+        assert self.john.name() == u'john'
+        assert self.marc.name() == u'Marc'
+        assert self.pete.name() == u'Peterson'
+        assert self.mike.name() == u'Mike Müller'
