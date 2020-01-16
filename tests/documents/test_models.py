@@ -62,12 +62,10 @@ class TestDocumentModel:
         assert document.rating() == 4
         assert document.rating_exact() == 3.5
 
-    def test_rating_validation(self, document, marc):
+    @pytest.mark.parametrize('rating', [11, 0])
+    def test_rating_validation(self, document, marc, rating):
         dr = models.DocumentRating.objects.get(document=document, user=marc)
-        dr.rating = 11
-        with pytest.raises(ValidationError):
-            dr.full_clean()
-        dr.rating = 0
+        dr.rating = rating
         with pytest.raises(ValidationError):
             dr.full_clean()
 
