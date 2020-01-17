@@ -1,6 +1,6 @@
 model_mommy==1.6
 
-coverage>=5.0,<5.1
+coverage>=4.5,<5.0
 six==1.14.0
 pytest>=4.6,<5
 pytest-django>=3.8,<3.9
