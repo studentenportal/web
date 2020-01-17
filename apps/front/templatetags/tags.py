@@ -33,12 +33,6 @@ def get_range1(value):
 
 
 @register.filter
-def index(value, arg):
-    """Return specified index of subscriptable element."""
-    return value[int(arg)]
-
-
-@register.filter
 def lookup(dictionary, index):
     """Return index from dict."""
     if index in dictionary:
@@ -67,17 +61,6 @@ def filetype_class(ext):
 def is_author(doc, user):
     """Returns whether the current user is the uploader of the given doc"""
     return doc.uploader == user
-
-
-@register.filter()
-def field_type(field):
-    type_name = field.field.__class__.__name__
-    types = {
-        "FileField": "file",
-        "TypedChoiceField": "checkbox",
-        "CharField": "text"
-    }
-    return types[type_name] if type_name in types else type_name
 
 
 @register.filter()
