@@ -11,7 +11,7 @@ from django.contrib.auth import get_user_model
 
 from model_mommy import mommy
 
-from apps.lecturers.models import Quote, Lecturer
+from apps.lecturers.models import Quote, QuoteVote, Lecturer
 
 
 User = get_user_model()
@@ -260,3 +260,45 @@ class TestQuoteView:
         assert resp.status_code == 200, resp.content
         newquote = Quote.objects.get(pk=quote.pk)
         assert quote.author == newquote.author
+
+
+class TestQuoteVote:
+
+    @pytest.fixture
+    def quote(self, db, user):
+        return mommy.make(Quote, author=user)
+
+    @pytest.fixture
+    def url(self, quote):
+        return reverse('api:quote_vote', args=(quote.pk,))
+
+    def test_login_required(self, client, url):
+        """It shouldn't be possible to vote on a quote without login."""
+        resp = client.post(url, {'vote': 'up'})
+
+        assert resp.status_code == 401
+        data = json.loads(resp.content)
+        assert data == {
+            'detail': 'Anmeldedaten fehlen.',
+        }
+
+    @pytest.fixture
+    def voter(self, auth_client, url, quote):
+        def _check_vote(vote, vote_count, vote_sum):
+            resp = auth_client.post(url, {'vote': vote})
+            assert resp.status_code == 200
+            assert json.loads(resp.content) == {
+                'quote_pk': quote.pk,
+                'vote': vote,
+                'vote_count': vote_count,
+                'vote_sum': vote_sum,
+            }
+            assert QuoteVote.objects.count() == vote_count
+            assert quote.vote_sum() == vote_sum
+
+        return _check_vote
+
+    def test_voting(self, voter):
+        voter('down', 1, -1)
+        voter('up', 1, 1)
+        voter('remove', 0, 0)

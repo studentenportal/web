@@ -33,7 +33,8 @@ class LecturerSerializer(serializers.ModelSerializer):
 class QuoteSerializer(serializers.ModelSerializer):
     lecturer = serializers.PrimaryKeyRelatedField(queryset=models.Lecturer.objects.all())
     lecturer_name = serializers.ReadOnlyField(source='lecturer.name')
+    votes = serializers.ReadOnlyField(source='vote_sum')
 
     class Meta:
         model = models.Quote
-        fields = ('id', 'lecturer', 'lecturer_name', 'date', 'quote', 'comment')
+        fields = ('id', 'lecturer', 'lecturer_name', 'date', 'quote', 'comment', 'votes')

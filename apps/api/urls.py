@@ -14,6 +14,7 @@ v1_api = patterns('',
     url(r'^lecturers/(?P<pk>-?\d+)$', views.LecturerDetail.as_view(), name='lecturer_detail'),
     url(r'^quotes$', views.QuoteList.as_view(), name='quote_list'),
     url(r'^quotes/(?P<pk>-?\d+)$', views.QuoteDetail.as_view(), name='quote_detail'),
+    url(r'^quotes/(?P<pk>-?\d+)/vote$', views.QuoteVote.as_view(), name='quote_vote'),
 )
 
 urlpatterns = patterns('',

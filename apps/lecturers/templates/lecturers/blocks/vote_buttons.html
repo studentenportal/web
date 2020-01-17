@@ -1,6 +1,6 @@
 {% load mathfilters %}
 
-<div class="votebuttons" data-quote-pk="{{ quote.pk }}" title="{{ quote.vote_count }} Votes">
+<div class="votebuttons" data-quote-pk="{{ quote.pk }}" data-url="{% url 'api:quote_vote' quote.pk %}" title="{{ quote.vote_count }} Votes">
     <div class="icon-arrow-up upvote{% if quote.voted_up %} active{% endif %}"></div>
     <span class="vote_sum">{{ quote.upvote_count|sub:quote.downvote_count }}</span>
     <div class="icon-arrow-down downvote{% if quote.voted_down %} active{% endif %}"></div>

@@ -2,11 +2,14 @@
 from __future__ import print_function, division, absolute_import, unicode_literals
 
 from django.contrib.auth import get_user_model
+from django.shortcuts import get_object_or_404
+from django.http import HttpResponseBadRequest, JsonResponse
 
 from rest_framework import generics, permissions
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
+from rest_framework.views import APIView
 
 from apps.lecturers import models
 from . import permissions as custom_permissions
@@ -69,3 +72,35 @@ class QuoteDetail(generics.RetrieveUpdateAPIView):
         permissions.IsAuthenticated,
         custom_permissions.IsOwnerOrReadOnly,
     )
+
+
+# POST
+class QuoteVote(APIView):
+
+    def post(self, request, pk):
+        quote = get_object_or_404(models.Quote, pk=pk)
+        vote = request.POST.get('vote')
+
+        if vote not in ['up', 'down', 'remove']:
+            return HttpResponseBadRequest('Expected up/down/remove for vote')
+
+        if vote == 'remove':
+            models.QuoteVote.objects.get(user=request.user, quote=quote).delete()
+        else:
+            try:
+                vote_obj = models.QuoteVote.objects.get(
+                    user=request.user, quote=quote)
+            except models.QuoteVote.DoesNotExist:
+                vote_obj = models.QuoteVote()
+                vote_obj.user = request.user
+                vote_obj.quote = quote
+            vote_obj.vote = vote == 'up'
+            vote_obj.save()
+
+        data = {
+            'quote_pk': quote.pk,
+            'vote': vote,
+            'vote_count': quote.QuoteVote.count(),
+            'vote_sum': quote.vote_sum()
+        }
+        return JsonResponse(data)
