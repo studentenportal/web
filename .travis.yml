@@ -14,7 +14,7 @@ env:
       GID=`id -g`
 
 install:
-    - pip install coveralls==1.1
+    - pip install coveralls==1.10.0
 
 script:
     - docker-compose up -d
