@@ -4,7 +4,7 @@ from django.conf import settings
 from django.views.generic import TemplateView
 from django.contrib import admin
 from apps.front import views
-#from apps.api import urls as api_urls
+from apps.api import urls as api_urls
 from apps.events import urls as event_urls
 from apps.documents import urls as document_urls
 from apps.lecturers import urls as lecturer_urls
@@ -45,10 +45,10 @@ urlpatterns += patterns('',
     url(dajaxice_config.dajaxice_url, include('dajaxice.urls')),
 )
 
-# API  # Disabled for now, see #193
-#urlpatterns += patterns('',
-#    url(r'^api/', include(api_urls, namespace='api')),
-#)
+# API
+urlpatterns += patterns('',
+    url(r'^api/', include(api_urls, namespace='api')),
+)
 
 # Static pages
 urlpatterns += patterns('',

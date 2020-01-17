@@ -198,7 +198,7 @@ INSTALLED_APPS = (
     'dajaxice',
     'mathfilters',
     'easy_thumbnails',
-    #'rest_framework',  # Disabled for now, see #193
+    'rest_framework',
 
     # Own apps
     'apps.front',
@@ -206,7 +206,7 @@ INSTALLED_APPS = (
     'apps.events',
     'apps.lecturers',
     'apps.tweets',
-    #'apps.api',  # Disabled for now, see #193
+    'apps.api',
     'apps.user_stats',
 
     # Overridable 3rd party apps
@@ -293,21 +293,21 @@ else:
 LOGIN_REDIRECT_URL = '/'
 AUTHENTICATION_BACKENDS = ('config.backends.CaseInsensitiveModelBackend',)
 
-# API (disabled for now, see #193)
-# REST_FRAMEWORK = {
-#     'DEFAULT_RENDERER_CLASSES': (
-#         'rest_framework.renderers.JSONRenderer',
-#         'rest_framework.renderers.BrowsableAPIRenderer',
-#     ),
-#     'DEFAULT_AUTHENTICATION_CLASSES': (
-#         'rest_framework.authentication.SessionAuthentication',
-#     ),
-#     'DEFAULT_PERMISSION_CLASSES': (
-#         'rest_framework.permissions.IsAuthenticated',
-#     ),
-#     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
-#     'PAGE_SIZE': 20
-# }
+# API
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.SessionAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 20
+}
 OAUTH_EXPIRE_DELTA = datetime.timedelta(days=90)
 OAUTH_ENFORCE_SECURE = not DEBUG
 
