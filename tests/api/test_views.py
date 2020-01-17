@@ -2,6 +2,7 @@
 from __future__ import print_function, division, absolute_import, unicode_literals
 
 import json
+import base64
 
 import pytest
 from django.test.client import Client
@@ -28,8 +29,8 @@ class TestAuthentication:
             except NoReverseMatch:
                 url = reverse('api:' + target, args=(1,))
             resp = client.get(url)
-            assert resp.status_code == 403, \
-                    'Status code for %s is %d instead of 403.' % (url, resp.status_code)
+            assert resp.status_code == 401, \
+                    'Status code for %s is %d instead of 401.' % (url, resp.status_code)
             data = json.loads(resp.content)
             assert data == {
                 'detail': 'Anmeldedaten fehlen.',
@@ -38,6 +39,12 @@ class TestAuthentication:
     def test_session_auth(self, auth_client):
         url = reverse('api:quote_list')
         resp = auth_client.get(url)
+        assert resp.status_code == 200
+
+    def test_basic_auth(self, client, user, db):
+        url = reverse('api:quote_list')
+        auth = 'Basic ' + base64.b64encode('testuser:test')
+        resp = client.get(url, HTTP_AUTHORIZATION=auth)
         assert resp.status_code == 200
 
 
