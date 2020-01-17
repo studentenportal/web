@@ -52,7 +52,6 @@ urlpatterns += patterns('',
 
 # Static pages
 urlpatterns += patterns('',
-    url(r'^tipps/$', TemplateView.as_view(template_name='front/tips.html'), name='tips'),
     url(r'^sitemap\.xml$', TemplateView.as_view(template_name='front/sitemap.xml'), name='sitemap'),
 )
 
