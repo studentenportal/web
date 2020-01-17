@@ -14,7 +14,7 @@ env:
       GID=`id -g`
 
 install:
-    - pip install coveralls==1.10.0
+    - pip install -r requirements/testing.txt  # For coveralls/coverage
 
 script:
     - docker-compose up -d
