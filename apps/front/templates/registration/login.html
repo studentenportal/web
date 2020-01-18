@@ -38,7 +38,7 @@
     {% endif %}
 
 
-    <form method="post" action="{% url 'django.contrib.auth.views.login' %}">
+    <form method="post" action="{% url 'auth_login' %}">
         {% csrf_token %}
         <fieldset>
             <input type="text" name="{{ form.username.name }}" id="id_{{ form.username.name }}" placeholder="{{ form.username.label }}">
