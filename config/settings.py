@@ -51,7 +51,7 @@ LANGUAGE_CODE = 'de-ch'
 SITE_ID = 1
 
 # Security
-CSRF_COOKIE_HTTPONLY = False  # Don't enable, dajaxice needs cookie access!
+CSRF_COOKIE_HTTPONLY = True
 if not DEBUG:
     ALLOWED_HOSTS = ['studentenportal.ch', 'www.studentenportal.ch']
     CSRF_COOKIE_SECURE = True
@@ -117,7 +117,6 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     'compressor.finders.CompressorFinder',
-    'dajaxice.finders.DajaxiceFinder',
     #'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
@@ -195,7 +194,6 @@ INSTALLED_APPS = (
     # Third party apps
     'compressor',
     'apps.tabs',
-    'dajaxice',
     'mathfilters',
     'easy_thumbnails',
     'rest_framework',
@@ -255,11 +253,6 @@ LOGGING = {
             'handlers': ['console'],
             'propagate': False,
         },
-        'dajaxice': {
-            'level': 'WARNING',
-            'handlers': ['console'],
-            'propagate': False,
-        },
     }
 }
 if not DEBUG:
@@ -267,11 +260,6 @@ if not DEBUG:
         'level': 'WARNING',
         'handlers': ['mail_admins', 'console'],
         'propagate': False,
-    }
-    LOGGING['loggers']['dajaxice'] = {
-        'handlers': ['mail_admins'],
-        'level': 'WARNING',
-        'propagate': True,
     }
 
 # Email

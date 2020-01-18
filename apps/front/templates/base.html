@@ -1,7 +1,6 @@
 {% load compress %}
 {% load tabs %}
 {% load messagegroups %}
-{% load dajaxice_templatetags %}
 {% load analytics %}
 <!DOCTYPE html>
 <html>
@@ -37,8 +36,6 @@
             });
         })();
     </script>
-
-    {% dajaxice_js_import %}
 
     {% block meta %}{% endblock meta %}
 

@@ -1,4 +1,3 @@
-from dajaxice.core import dajaxice_autodiscover, dajaxice_config
 from django.conf.urls import patterns, include, url
 from django.conf import settings
 from django.views.generic import TemplateView
@@ -11,7 +10,6 @@ from apps.lecturers import urls as lecturer_urls
 from apps.tweets import urls as tweet_urls
 
 admin.autodiscover()
-dajaxice_autodiscover()
 
 # Dynamic pages
 urlpatterns = patterns('apps.front.views',
@@ -38,11 +36,6 @@ urlpatterns += patterns('',
 urlpatterns += patterns('',
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^admin/', include(admin.site.urls)),
-)
-
-# AJAX
-urlpatterns += patterns('',
-    url(dajaxice_config.dajaxice_url, include('dajaxice.urls')),
 )
 
 # API
