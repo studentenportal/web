@@ -71,7 +71,7 @@ class QuoteAdd(LoginRequiredMixin, CreateView):
             self.lecturer = None
         return super(QuoteAdd, self).dispatch(request, *args, **kwargs)
 
-    def get_form(self, form_class):
+    def get_form(self, form_class=form_class):
         """Add the pk as first argument to the form."""
         return form_class(self.kwargs.get('pk'), **self.get_form_kwargs())
 
