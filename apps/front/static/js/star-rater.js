@@ -9,8 +9,9 @@ $(function() {
     };
     var lecturerRatingCallback = function(data) {
         var rating_count_text = data.rating_count == 1 ? ' Bewertung' : ' Bewertungen';
-        $('label[for="rating_' + data.category +'"]').attr('title', data.rating_count + rating_count_text);
-        $('.lrating-' + data.category + '-avg').text(data.rating_avg);
+        var label = $('label[for="rating_' + data.category +'"]');
+        label.attr('title', data.rating_count + rating_count_text);
+        label.text(data.rating_avg);
     };
     $('[name="rating_d"]').change(function() {
         submitScore("d", $(this).val());
