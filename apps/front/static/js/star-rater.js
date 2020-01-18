@@ -1,11 +1,11 @@
 $(function() {
-    var lecturer_pk = $('h1.lecturer-name').attr('data-lecturer-pk');
+    var lecturer_elem = $('h1.lecturer-name');
+    var lecturer_pk = lecturer_elem.attr('data-lecturer-pk');
+    var url = lecturer_elem.attr('data-rating-url');
+
     var submitScore = function(category, score) {
-        Dajaxice.apps.lecturers.rate_lecturer(
-            lecturerRatingCallback, {
-                'lecturer_pk': lecturer_pk, 'category': category, 'score': score
-            }
-        );
+        var data = {'category': category, 'score': score};
+        $.post(url, data, lecturerRatingCallback);
     };
     var lecturerRatingCallback = function(data) {
         var rating_count_text = data.rating_count == 1 ? ' Bewertung' : ' Bewertungen';

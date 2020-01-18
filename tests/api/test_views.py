@@ -302,3 +302,61 @@ class TestQuoteVote:
         voter('down', 1, -1)
         voter('up', 1, 1)
         voter('remove', 0, 0)
+
+
+class TestLecturerRate:
+
+    @pytest.fixture
+    def lecturer(self, db, user):
+        return mommy.make(Lecturer)
+
+    @pytest.fixture
+    def url(self, lecturer):
+        return reverse('api:lecturer_rate', args=(lecturer.pk,))
+
+    def test_login_required(self, client, url):
+        """It shouldn't be possible to rate a lecturer without login."""
+        resp = client.post(url, {'category': 'd', 'score': '5'})
+
+        assert resp.status_code == 401
+        data = json.loads(resp.content)
+        assert data == {'detail': 'Anmeldedaten fehlen.'}
+
+    @pytest.mark.parametrize('data', [
+        # Missing data
+        {},
+        {'category': 'd'},
+        {'score': '5'},
+        # Invalid categories
+        {'category': 'donald', 'score': 1},
+        {'category': 'x', 'score': 1},
+        {'category': '', 'score': 1},
+        # Invalid scores
+        {'category': 'd', 'score': -1},
+        {'category': 'd', 'score': 0},
+        {'category': 'd', 'score': 11},
+    ])
+    def test_invalid_data(self, data, auth_client, url):
+        resp = auth_client.post(url, data)
+        assert resp.status_code == 400
+        assert resp.content == 'Validierungsfehler'
+
+    @pytest.fixture
+    def rater(self, auth_client, url):
+        def _check_rating(category, score):
+            data = {'category': category, 'score': score}
+            resp = auth_client.post(url, data)
+            assert resp.status_code == 200
+            assert json.loads(resp.content) == {
+                'category': category,
+                'rating_count': 1,
+                'rating_avg': score,
+            }
+
+        return _check_rating
+
+    def test_rating(self, rater):
+        rater('d', 5)
+        rater('d', 4)
+        rater('m', 6)
+        rater('f', 10)

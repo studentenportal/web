@@ -4,6 +4,7 @@ from __future__ import print_function, division, absolute_import, unicode_litera
 from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponseBadRequest, JsonResponse
+from django.core.exceptions import ValidationError
 
 from rest_framework import generics, permissions
 from rest_framework.decorators import api_view
@@ -102,5 +103,39 @@ class QuoteVote(APIView):
             'vote': vote,
             'vote_count': quote.QuoteVote.count(),
             'vote_sum': quote.vote_sum()
+        }
+        return JsonResponse(data)
+
+
+# POST
+class LecturerRate(APIView):
+
+    def post(self, request, pk):
+        lecturer = get_object_or_404(models.Lecturer, pk=pk)
+        score = request.POST.get('score')
+        category = request.POST.get('category')
+
+        params = {
+            'user': request.user,
+            'lecturer_id': lecturer.pk,
+            'category': category,
+        }
+        try:
+            rating = models.LecturerRating.objects.get(**params)
+        except models.LecturerRating.DoesNotExist:
+            rating = models.LecturerRating(**params)
+
+        rating.rating = score
+        try:
+            rating.full_clean()  # validation
+        except ValidationError:
+            return HttpResponseBadRequest('Validierungsfehler')
+
+        rating.save()
+
+        data = {
+            'category': category,
+            'rating_avg': lecturer._avg_rating(category),
+            'rating_count': lecturer._rating_count(category),
         }
         return JsonResponse(data)
