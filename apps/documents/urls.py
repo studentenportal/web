@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import print_function, division, absolute_import, unicode_literals
 
-from django.conf.urls import patterns, url
+from django.conf.urls import url
 from django.contrib import admin
 
 from . import views
@@ -9,7 +9,7 @@ from . import views
 admin.autodiscover()
 
 # Dynamic pages
-urlpatterns = patterns('',
+urlpatterns = [
     url(r'^$', views.DocumentcategoryList.as_view(), name='documentcategory_list'),
     url(r'^add/$', views.DocumentcategoryAdd.as_view(), name='documentcategory_add'),
     url(r'^(?P<category>[^\/]+)/$', views.DocumentList.as_view(), name='document_list'),
@@ -22,5 +22,4 @@ urlpatterns = patterns('',
     url(r'^(?P<category>[^\/]+)/(?P<pk>-?\d+)/rate/$', views.DocumentRate.as_view(), name='document_rate'),
     url(r'^(?P<category>[^\/]+)/(?P<pk>-?\d+)/report/$', views.DocumentReport.as_view(), name='document_report'),
     url(r'^(?P<category>[^\/]+)/ajax_rating_block/(?P<pk>-?\d+)/$', views.document_rating, name='document_rating_ajax'),
-
-)
+]
