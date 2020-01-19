@@ -15,7 +15,7 @@ User = get_user_model()
 
 
 def login(self):
-    self.client.login(username='testuser', password='test')
+    assert self.client.login(username='testuser', password='test')
 
 
 class DocumentDownloadTest(TestCase):

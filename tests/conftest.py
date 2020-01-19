@@ -14,5 +14,5 @@ def user(db):
 
 @pytest.fixture
 def auth_client(client, user):
-    client.login(username='testuser', password='test')
+    assert client.login(username='testuser', password='test')
     return client
