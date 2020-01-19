@@ -2,6 +2,7 @@
 from __future__ import print_function, division, absolute_import, unicode_literals
 
 import os
+import sys
 import datetime
 
 from unipath import Path
@@ -132,7 +133,7 @@ COMPRESS_OFFLINE = not DEBUG
 
 COMPRESS_PRECOMPILERS = (
     ('text/scss',
-     'python -mscss '
+     '{} -mscss '.format(sys.executable) +
      ' --load-path "apps/front/static/sass/compass/compass/stylesheets"'    # Legacy :(
      ' --load-path "apps/front/static/sass/compass/blueprint/stylesheets"'  # sory...
      ' -C -o {outfile} {infile}'),
