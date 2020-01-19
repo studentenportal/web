@@ -6,7 +6,7 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth import get_user_model
 
 from bs4 import BeautifulSoup
-from model_mommy import mommy
+from model_bakery import baker
 
 from apps.documents import models, forms
 
@@ -21,18 +21,18 @@ def login(self):
 class DocumentDownloadTest(TestCase):
     def setUp(self):
         # setUpClass
-        mommy.make_recipe('apps.front.user')
+        baker.make_recipe('apps.front.user')
 
     def testSummaryServed(self):
         """Assert that the summaries get served, even without login."""
-        doc = mommy.make_recipe('apps.documents.document_summary')
+        doc = baker.make_recipe('apps.documents.document_summary')
         url = reverse('documents:document_download', args=(doc.category.name, doc.pk))
         response = self.client.get(url)
         assert response.status_code == 200
 
     def testExamRequireLogin(self):
         """Assert that the exams require login."""
-        doc = mommy.make_recipe('apps.documents.document_exam')
+        doc = baker.make_recipe('apps.documents.document_exam')
         url = reverse('documents:document_download', args=(doc.category.name, doc.pk))
         response = self.client.get(url)
         category_path = reverse('documents:document_list', args=(doc.category.name.lower(),))
@@ -41,7 +41,7 @@ class DocumentDownloadTest(TestCase):
     def testExamServed(self):
         """Assert that the exams get served when logged in."""
         login(self)
-        doc = mommy.make_recipe('apps.documents.document_exam')
+        doc = baker.make_recipe('apps.documents.document_exam')
         url = reverse('documents:document_download', args=(doc.category.name, doc.pk))
         response = self.client.get(url)
         assert response.status_code == 200
@@ -49,7 +49,7 @@ class DocumentDownloadTest(TestCase):
     def testUmlautDocumentServed(self):
         """Test whether documents with umlauts in their original filename can
         be served."""
-        doc = mommy.make_recipe('apps.documents.document_summary', original_filename='Füübäär Søreņ')
+        doc = baker.make_recipe('apps.documents.document_summary', original_filename='Füübäär Søreņ')
         url = reverse('documents:document_download', args=(doc.category.name, doc.pk))
         response = self.client.get(url)
         assert response.status_code == 200
@@ -58,12 +58,12 @@ class DocumentDownloadTest(TestCase):
 class DocumentcategoryListViewTest(TestCase):
     def setUp(self):
         # setUpClass
-        mommy.make_recipe('apps.front.user')
-        mommy.make_recipe('apps.documents.document_summary')
-        mommy.make_recipe('apps.documents.document_summary')
-        mommy.make_recipe('apps.documents.document_exam')
-        mommy.make_recipe('apps.documents.document_software')
-        mommy.make_recipe('apps.documents.document_learning_aid')
+        baker.make_recipe('apps.front.user')
+        baker.make_recipe('apps.documents.document_summary')
+        baker.make_recipe('apps.documents.document_summary')
+        baker.make_recipe('apps.documents.document_exam')
+        baker.make_recipe('apps.documents.document_software')
+        baker.make_recipe('apps.documents.document_learning_aid')
         # setUp
         self.response = self.client.get(reverse('documents:documentcategory_list'))
 
@@ -93,7 +93,7 @@ class DocumentcategoryAddViewTest(TestCase):
     taburl = '/dokumente/add/'
 
     def setUp(self):
-        mommy.make_recipe('apps.front.user')
+        baker.make_recipe('apps.front.user')
         login(self)
 
     def testLoginRequired(self):
@@ -137,21 +137,21 @@ class DocumentcategoryAddViewTest(TestCase):
 class DocumentListViewTest(TestCase):
     def setUp(self):
         # setUpClass
-        self.user1 = mommy.make_recipe('apps.front.user')
-        self.user2 = mommy.make(User, first_name='Another', last_name='Guy', flattr='guy')
-        self.doc1 = mommy.make_recipe('apps.documents.document_summary',
+        self.user1 = baker.make_recipe('apps.front.user')
+        self.user2 = baker.make(User, first_name='Another', last_name='Guy', flattr='guy')
+        self.doc1 = baker.make_recipe('apps.documents.document_summary',
                 name='Analysis 1 Theoriesammlung',
                 description='Theorie aus dem AnI1-Skript auf 8 Seiten',
                 uploader=self.user1,
                 upload_date='2011-12-18 01:28:52',
                 change_date='2011-12-18 01:28:52',
                 license=5)
-        self.doc2 = mommy.make_recipe('apps.documents.document_summary',
+        self.doc2 = baker.make_recipe('apps.documents.document_summary',
                 uploader=self.user2, name='Title with Flattr')
-        self.doc3 = mommy.make_recipe('apps.documents.document_exam', uploader=self.user1)
-        self.doc4 = mommy.make_recipe('apps.documents.document_software', uploader=self.user1)
-        self.doc5 = mommy.make_recipe('apps.documents.document_learning_aid', uploader=self.user1)
-        self.doc6 = mommy.make_recipe('apps.documents.document_summary',
+        self.doc3 = baker.make_recipe('apps.documents.document_exam', uploader=self.user1)
+        self.doc4 = baker.make_recipe('apps.documents.document_software', uploader=self.user1)
+        self.doc5 = baker.make_recipe('apps.documents.document_learning_aid', uploader=self.user1)
+        self.doc6 = baker.make_recipe('apps.documents.document_summary',
                 uploader=self.user2, name='Title Noflattr', flattr_disabled=True)
         self.category = self.doc1.category
         # setUp
@@ -215,7 +215,7 @@ class DocumentListViewTest(TestCase):
         self.assertNotContains(response, 'href="{}"'.format(url2))
 
     def testDownloadCount(self):
-        doc = mommy.make_recipe('apps.documents.document_summary')
+        doc = baker.make_recipe('apps.documents.document_summary')
         dl_url = reverse('documents:document_download', args=(doc.category.name.lower(), doc.pk))
 
         # No downloads yet
@@ -244,7 +244,7 @@ class DocumentListViewTest(TestCase):
 
     def testNullValueUploader(self):
         """Test whether a document without an uploader does not raise an error."""
-        doc = mommy.make_recipe('apps.documents.document_summary',
+        doc = baker.make_recipe('apps.documents.document_summary',
                 name='Analysis 1 Theoriesammlung',
                 description='Dieses Dokument ist eine Zusammenfassung der',
                 uploader=None)

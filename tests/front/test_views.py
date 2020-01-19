@@ -8,7 +8,7 @@ from django.core import mail
 from django.core.urlresolvers import reverse
 from django.contrib.auth import get_user_model
 
-from model_mommy import mommy
+from model_bakery import baker
 
 
 User = get_user_model()
@@ -36,7 +36,7 @@ class LoginTest(TestCase):
 
     def setUp(self):
         # setUpClass
-        mommy.make_recipe('apps.front.user')
+        baker.make_recipe('apps.front.user')
 
     def testTitle(self):
         r = self.client.get(self.url)
@@ -109,7 +109,7 @@ class RegistrationViewTest(TestCase):
         """
         Test that a registration with a bad username returns an error.
         """
-        mommy.make(User, username='a', email='abc@hsr.ch')
+        baker.make(User, username='a', email='abc@hsr.ch')
         response = self.client.post(self.registration_url, {
             'email': 'a@hsr.ch',
             'password1': 'testpass',
@@ -122,7 +122,7 @@ class RegistrationViewTest(TestCase):
         """
         Test that a registration with a bad username returns an error.
         """
-        mommy.make(User, username='abc', email='a@hsr.ch')
+        baker.make(User, username='abc', email='a@hsr.ch')
         response = self.client.post(self.registration_url, {
             'email': 'a@hsr.ch',
             'password1': 'testpass',
@@ -136,12 +136,12 @@ class UserViewTest(TestCase):
 
     def setUp(self):
         # setUpClass
-        self.user1 = mommy.make_recipe('apps.front.user')
-        self.user2 = mommy.make(User, first_name='Another', last_name='Guy',
+        self.user1 = baker.make_recipe('apps.front.user')
+        self.user2 = baker.make(User, first_name='Another', last_name='Guy',
                                       email='test2@studentenportal.ch')
-        self.doc1 = mommy.make_recipe('apps.documents.document_summary', name='Document 1',
+        self.doc1 = baker.make_recipe('apps.documents.document_summary', name='Document 1',
                          description='The first document.', uploader=self.user1, document='a.pdf')
-        self.doc2 = mommy.make_recipe('apps.documents.document_summary', name='Document 2',
+        self.doc2 = baker.make_recipe('apps.documents.document_summary', name='Document 2',
                          description='The second document.', uploader=self.user2, document='b.pdf')
         # setUp
         login(self)
@@ -184,7 +184,7 @@ class UserViewTest(TestCase):
 class UserProfileViewTest(TestCase):
     def setUp(self):
         # setUpClass
-        mommy.make_recipe('apps.front.user')
+        baker.make_recipe('apps.front.user')
         # setUp
         login(self)
 
@@ -211,7 +211,7 @@ class StatsViewTest(TestCase):
 
     def setUp(self):
         # setUpClass
-        mommy.make_recipe('apps.front.user')
+        baker.make_recipe('apps.front.user')
 
     def testLoginRequired(self):
         response = self.client.get(self.taburl)

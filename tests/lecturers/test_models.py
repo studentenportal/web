@@ -7,7 +7,7 @@ from django.core.exceptions import ValidationError
 from django.contrib.auth import get_user_model
 from django.db import IntegrityError
 
-from model_mommy import mommy
+from model_bakery import baker
 
 from apps.lecturers import models
 import pytest
@@ -20,13 +20,13 @@ class TestLecturerModel:
 
     @pytest.fixture
     def lecturer(self, db):
-        lecturer = mommy.make(models.Lecturer, title='Prof. Dr.',
+        lecturer = baker.make(models.Lecturer, title='Prof. Dr.',
             first_name='David',
             last_name='Krakaduku',
         )
-        mommy.make(models.LecturerRating, lecturer=lecturer, category='d', rating=5)
-        mommy.make(models.LecturerRating, lecturer=lecturer, category='d', rating=8)
-        mommy.make(models.LecturerRating, lecturer=lecturer, category='m', rating=10)
+        baker.make(models.LecturerRating, lecturer=lecturer, category='d', rating=5)
+        baker.make(models.LecturerRating, lecturer=lecturer, category='d', rating=8)
+        baker.make(models.LecturerRating, lecturer=lecturer, category='m', rating=10)
         return lecturer
 
     def test_ratings(self, lecturer):
@@ -40,9 +40,9 @@ class TestLecturerModel:
 
     @pytest.mark.django_db
     def test_manager(self):
-        mommy.make(models.Lecturer, pk=10, function='Dozent')
-        mommy.make(models.Lecturer, pk=11, department='Gebäudemanagement')
-        mommy.make(models.Lecturer, pk=12, function='Projektmitarbeiterin')
+        baker.make(models.Lecturer, pk=10, function='Dozent')
+        baker.make(models.Lecturer, pk=11, department='Gebäudemanagement')
+        baker.make(models.Lecturer, pk=12, function='Projektmitarbeiterin')
         all_lecturers = models.Lecturer.objects.all()
         real_lecturers = models.Lecturer.real_objects.all()
         assert 10 in all_lecturers.values_list('pk', flat=True)
@@ -57,8 +57,8 @@ class TestLecturerRatingModel:
 
     @pytest.fixture(autouse=True)
     def create_objects(self, db):
-        mommy.make(User)
-        mommy.make(models.Lecturer)
+        baker.make(User)
+        baker.make(models.Lecturer)
 
     def create_default_rating(self, category=u'd', rating=5):
         """Helper function to create a default rating."""
@@ -107,8 +107,8 @@ class TestQuoteModel:
                  "ja nicht, dass längere Zitate hier keinen Platz haben :)")
         before = datetime.datetime.now()
         q = models.Quote()
-        q.author = mommy.make(User)
-        q.lecturer = mommy.make(models.Lecturer)
+        q.author = baker.make(User)
+        q.lecturer = baker.make(models.Lecturer)
         q.quote = quote
         q.comment = "Eine Bemerkung zum Kommentar"
         q.save()
@@ -119,7 +119,7 @@ class TestQuoteModel:
     @pytest.mark.django_db
     def test_null_value_author(self):
         q = models.Quote()
-        q.lecturer = mommy.make(models.Lecturer)
+        q.lecturer = baker.make(models.Lecturer)
         q.quote = 'spam'
         q.comment = 'ham'
         try:
@@ -131,8 +131,8 @@ class TestQuoteModel:
     def test_1970_quote(self):
         """Check whether a quote from 1970-1-1 is marked as date_available=False."""
         q = models.Quote()
-        q.lecturer = mommy.make(models.Lecturer)
-        q.author = mommy.make(User)
+        q.lecturer = baker.make(models.Lecturer)
+        q.author = baker.make(User)
         q.quote = 'spam'
         q.comment = 'ham'
         q.date = datetime.datetime(1970, 1, 1)

@@ -8,7 +8,7 @@ from django.core.exceptions import ValidationError
 from django.contrib.auth import get_user_model
 from django.db import IntegrityError
 
-from model_mommy import mommy
+from model_bakery import baker
 
 from apps.documents import models
 import pytest
@@ -21,15 +21,15 @@ class TestDocumentModel:
 
     @pytest.fixture
     def john(self, db):
-        return mommy.make(User, username='john')
+        return baker.make(User, username='john')
 
     @pytest.fixture
     def marc(self, db):
-        return mommy.make(User, username='marc')
+        return baker.make(User, username='marc')
 
     @pytest.fixture
     def pete(self, db):
-        return mommy.make(User, username='pete')
+        return baker.make(User, username='pete')
 
     @pytest.fixture
     def document(self, john, marc, pete, db):

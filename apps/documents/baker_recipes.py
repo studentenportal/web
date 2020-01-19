@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import print_function, division, absolute_import, unicode_literals
 
-from model_mommy import mommy
-from model_mommy.recipe import Recipe
+from model_bakery import baker
+from model_bakery.recipe import Recipe
 
 from apps.documents import models as document_models
 
@@ -18,7 +18,7 @@ def documentcategory_get_or_create():
     dc = document_models.DocumentCategory.objects.filter(name='An1I')
     if dc.exists():
         return dc.get()
-    return mommy.make_recipe('apps.documents.documentcategory')
+    return baker.make_recipe('apps.documents.documentcategory')
 
 
 document_summary = Recipe(document_models.Document,

@@ -5,7 +5,7 @@ import pytest
 from django.core.urlresolvers import reverse
 from django.contrib.auth import get_user_model
 
-from model_mommy import mommy
+from model_bakery import baker
 
 from apps.api import serializers
 
@@ -13,7 +13,7 @@ from apps.api import serializers
 @pytest.mark.django_db
 def test_serialization():
     """A simple serialization test case."""
-    user = mommy.make(get_user_model(), flattr='flttr', twitter='twttr')
+    user = baker.make(get_user_model(), flattr='flttr', twitter='twttr')
     serializer = serializers.UserSerializer(user)
     data = serializer.data
     assert data == {

@@ -8,7 +8,7 @@ from django.contrib.auth import get_user_model
 from django.core.urlresolvers import reverse
 
 import pytest
-from model_mommy import mommy
+from model_bakery import baker
 
 from apps.events import models
 
@@ -19,17 +19,17 @@ User = get_user_model()
 
 @pytest.fixture
 def test_events(transactional_db):
-    user1 = mommy.make(get_user_model(), username='user1', first_name='User', last_name='1')
-    user2 = mommy.make(get_user_model(), username='user2')
+    user1 = baker.make(get_user_model(), username='user1', first_name='User', last_name='1')
+    user2 = baker.make(get_user_model(), username='user2')
 
     dt1 = datetime.datetime(2012, 12, 21, 20, 0)
     dt2 = datetime.datetime(2012, 12, 22, 10, 0)
 
-    mommy.make(models.Event, summary='Weltuntergang',
+    baker.make(models.Event, summary='Weltuntergang',
             start_date=dt1.date(), start_time=dt1.time(),
             end_date=dt2.date(), end_time=dt2.time(),
             location='Gebäude 1', author=user1)
-    mommy.make(models.Event, summary='Afterparty',
+    baker.make(models.Event, summary='Afterparty',
             start_date=dt2.date(), start_time=dt2.time(),
             end_date=dt2.date(),
             author=user2)
@@ -65,7 +65,7 @@ class EventsViewTest(TestCase):
 
 class EventDetailViewTest(TestCase):
     def setUp(self):
-        self.user = mommy.make_recipe('apps.front.user')
+        self.user = baker.make_recipe('apps.front.user')
         self.event = models.Event.objects.create(
             id=1,
             summary='Testbar',

@@ -5,7 +5,7 @@ from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.contrib.auth import get_user_model
 
-from model_mommy import mommy
+from model_bakery import baker
 
 from apps.lecturers import models
 
@@ -22,8 +22,8 @@ class LecturerListViewTest(TestCase):
         self.assertRedirects(response, '/accounts/login/?next=/dozenten/')
 
     def testContent(self):
-        mommy.make_recipe('apps.front.user')
-        mommy.make_recipe('apps.lecturers.lecturer')
+        baker.make_recipe('apps.front.user')
+        baker.make_recipe('apps.lecturers.lecturer')
         login(self)
         response = self.client.get('/dozenten/')
         self.assertContains(response, '<h1>Unsere Dozenten</h1>')
@@ -33,8 +33,8 @@ class LecturerListViewTest(TestCase):
 class LecturerDetailViewTest(TestCase):
     def setUp(self):
         # setUpClass
-        mommy.make_recipe('apps.front.user')
-        self.lecturer = mommy.make_recipe('apps.lecturers.lecturer')
+        baker.make_recipe('apps.front.user')
+        self.lecturer = baker.make_recipe('apps.lecturers.lecturer')
         self.url = reverse('lecturers:lecturer_detail', args=(self.lecturer.pk,))
 
     def testLoginRequired(self):
@@ -63,8 +63,8 @@ class LecturerDetailViewTest(TestCase):
 class QuoteAddViewTest(TestCase):
     def setUp(self):
         # setUpClass
-        mommy.make_recipe('apps.front.user')
-        mommy.make_recipe('apps.lecturers.lecturer')
+        baker.make_recipe('apps.front.user')
+        baker.make_recipe('apps.lecturers.lecturer')
         # setUp
         login(self)
 
@@ -107,7 +107,7 @@ class QuoteAddViewTest(TestCase):
 class QuoteViewTest(TestCase):
     def setUp(self):
         # setUpClass
-        mommy.make_recipe('apps.front.user')
+        baker.make_recipe('apps.front.user')
         # setUp
         login(self)
         self.response = self.client.get('/zitate/')
@@ -117,14 +117,14 @@ class QuoteViewTest(TestCase):
 
     def testQuoteInList(self):
         """Test whether an added quote shows up in the list."""
-        mommy.make(models.Quote, quote='spam', comment='ham')
+        baker.make(models.Quote, quote='spam', comment='ham')
         response = self.client.get('/zitate/')
         self.assertContains(response, 'spam')
         self.assertContains(response, 'ham')
 
     def testNullValueAuthor(self):
         """Test whether a quote without an author does not raise an error."""
-        mommy.make(models.Quote, quote='spam', comment='ham', author=None)
+        baker.make(models.Quote, quote='spam', comment='ham', author=None)
         response = self.client.get('/zitate/')
         self.assertContains(response, 'spam')
         self.assertContains(response, 'ham')

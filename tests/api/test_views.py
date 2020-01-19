@@ -9,7 +9,7 @@ from django.test.client import Client
 from django.core.urlresolvers import reverse, NoReverseMatch
 from django.contrib.auth import get_user_model
 
-from model_mommy import mommy
+from model_bakery import baker
 
 from apps.lecturers.models import Quote, QuoteVote, Lecturer
 
@@ -58,7 +58,7 @@ class TestUserView:
                     'Status code for %s is %d instead of 200.' % (url, resp.status_code)
 
     def test_list_data(self, auth_client):
-        users = [mommy.make(User) for i in xrange(3)]
+        users = [baker.make(User) for i in xrange(3)]
         url = reverse('api:user_list')
         resp = auth_client.get(url)
         data = json.loads(resp.content)
@@ -87,7 +87,7 @@ class TestUserView:
 
     def test_update_permissions(self, user, auth_client):
         """It should only be possible to edit own user."""
-        another_user = mommy.make(User)
+        another_user = baker.make(User)
         url1 = reverse('api:user_detail', args=(user.pk,))
         url2 = reverse('api:user_detail', args=(another_user.pk,))
         data1 = {'username': 'test1', 'email': 'test1@example.com'}
@@ -111,7 +111,7 @@ class TestLecturerView:
 
     @pytest.fixture
     def lecturer(self, db):
-        return mommy.make(Lecturer)
+        return baker.make(Lecturer)
 
     def test_status_code(self, lecturer, auth_client):
         urls = [reverse('api:lecturer_list'), reverse('api:lecturer_detail', args=(lecturer.pk,))]
@@ -121,7 +121,7 @@ class TestLecturerView:
                     'Status code for %s is %d instead of 200.' % (url, resp.status_code)
 
     def test_detail_data(self, lecturer, auth_client, db):
-        [mommy.make(Quote, lecturer=lecturer) for i in xrange(3)]
+        [baker.make(Quote, lecturer=lecturer) for i in xrange(3)]
 
         url = reverse('api:lecturer_detail', args=(lecturer.pk,))
         resp = auth_client.get(url)
@@ -152,7 +152,7 @@ class TestQuoteView:
 
     @pytest.fixture
     def quote(self, db, user):
-        return mommy.make(Quote, author=user)
+        return baker.make(Quote, author=user)
 
     def test_status_code(self, auth_client, quote):
         urls = [reverse('api:quote_list'), reverse('api:quote_detail', args=(quote.pk,))]
@@ -187,8 +187,8 @@ class TestQuoteView:
         in user on POST."""
         # Insert two quotes
         url = reverse('api:quote_list')
-        lecturer = mommy.make(Lecturer)
-        other_user = mommy.make(User)
+        lecturer = baker.make(Lecturer)
+        other_user = baker.make(User)
         resp = auth_client.post(url, {
             'lecturer': lecturer.pk,
             'quote': 'This is a test.',
@@ -216,7 +216,7 @@ class TestQuoteView:
         in user on PUT."""
         # Update existing quote with new comment and author
         url = reverse('api:quote_detail', args=(quote.pk,))
-        other_user = mommy.make(User)
+        other_user = baker.make(User)
         data = {
             'lecturer': quote.lecturer.pk,
             'quote': quote.quote,
@@ -233,7 +233,7 @@ class TestQuoteView:
 
     def test_update_permissions(self, auth_client, quote):
         """It should only be possible to edit own quotes."""
-        quote2 = mommy.make(Quote)
+        quote2 = baker.make(Quote)
         url1 = reverse('api:quote_detail', args=(quote.pk,))
         url2 = reverse('api:quote_detail', args=(quote2.pk,))
         data = {
@@ -249,7 +249,7 @@ class TestQuoteView:
     def test_author_change(self, auth_client, quote):
         """You should not be able to change the author of a quote."""
         url = reverse('api:quote_detail', args=(quote.pk,))
-        another_user = mommy.make(User)
+        another_user = baker.make(User)
         data = {
             'lecturer': quote.lecturer.pk,
             'quote': quote.quote,
@@ -266,7 +266,7 @@ class TestQuoteVote:
 
     @pytest.fixture
     def quote(self, db, user):
-        return mommy.make(Quote, author=user)
+        return baker.make(Quote, author=user)
 
     @pytest.fixture
     def url(self, quote):
@@ -308,7 +308,7 @@ class TestLecturerRate:
 
     @pytest.fixture
     def lecturer(self, db, user):
-        return mommy.make(Lecturer)
+        return baker.make(Lecturer)
 
     @pytest.fixture
     def url(self, lecturer):

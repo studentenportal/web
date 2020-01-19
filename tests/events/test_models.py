@@ -7,7 +7,7 @@ import pytest
 from django.contrib.auth import get_user_model
 from django.db import IntegrityError
 
-from model_mommy import mommy
+from model_bakery import baker
 
 from apps.events import models
 
@@ -17,7 +17,7 @@ User = get_user_model()
 class TestEventModel:
 
     def test_date_time_event(self):
-        user = mommy.make(User, username='testuser')
+        user = baker.make(User, username='testuser')
         event = models.Event.objects.create(
             summary='Testbar',
             description=u'This is a bar where people drink and party to \
@@ -34,7 +34,7 @@ class TestEventModel:
         assert event.days_until() is None
 
     def test_all_day_event(self):
-        user = mommy.make(User)
+        user = baker.make(User)
         start_date = datetime.date.today() + datetime.timedelta(days=365)
         event = models.Event.objects.create(
             summary='In a year',

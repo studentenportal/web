@@ -1,4 +1,4 @@
-model_mommy==1.6
+model-bakery==1.0.2
 
 coverage>=4.5,<5.0
 six==1.14.0
