@@ -46,8 +46,8 @@
         {% include 'lecturers/blocks/pagination.html' %}
 
         {% for quote in quotes %}
-            <article class="quote {% if quote.author_id = user.pk %}quote-edit{% endif %}">
-            {% if quote.author_id = user.pk %}
+            <article class="quote {% if quote.author_id == user.pk %}quote-edit{% endif %}">
+            {% if quote.author_id == user.pk %}
                 <div class="edit">
                     {% include 'lecturers/blocks/quote_delete_button.html' with small_button=1 %}
                 </div>

@@ -33,7 +33,7 @@
             {% if object.last_name %}<li><strong>Name:</strong> {{ object.last_name }}</li>{% endif %}
             <li><strong>E-Mail:</strong> {{ object.email }}</li>
         </ul>
-        {% if object.pk = user.pk %}
+        {% if object.pk == user.pk %}
             <a class="button button-primary" href="{% url 'profile' %}">Benutzerprofil bearbeiten</a>
         {% endif %}
     </div>

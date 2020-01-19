@@ -3,7 +3,7 @@
 
 {% if documents %}
     {% for doc in documents %}
-    <article class="document {% if doc.uploader = user %}document-edit{% endif %}">
+    <article class="document {% if doc.uploader == user %}document-edit{% endif %}">
         {% if doc|is_author:user %}
         <div class="edit">
             <a class="button icon-edit" title="Bearbeiten" href="{% url 'documents:document_edit' doc.category.name|slugify doc.pk %}">
@@ -19,7 +19,7 @@
                 {% if standalone %} {# Show category as tag #}
                     <span class="label">{{ doc.category.name }}</span>
                 {% endif %}
-                <span class="label-{% if doc.dtype = 1 %}summary{% elif doc.dtype = 2 %}exam{% else %}other{% endif %}">
+                <span class="label-{% if doc.dtype == 1 %}summary{% elif doc.dtype == 2 %}exam{% else %}other{% endif %}">
                     {{ doc.get_dtype_display }}
                 </span>
                 {% with doc.license_details as license %}

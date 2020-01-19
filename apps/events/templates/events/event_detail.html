@@ -49,7 +49,7 @@
         </div>
     {% endif %}
 
-    {% if event.author = user %}
+    {% if event.author == user %}
     <p>
         <a href="{% url 'events:event_edit' event.pk %}" class="btn"><i class="icon-pencil"></i> Bearbeiten</a>
         <a href="{% url 'events:event_delete' event.pk %}" class="btn btn-danger"><i class="icon-trash icon-white"></i> Löschen</a>
