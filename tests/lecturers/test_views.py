@@ -72,14 +72,15 @@ class QuoteAddViewTest(TestCase):
         """Test the form that is shown if no lecturer is preselected."""
         response = self.client.get('/zitate/add/')
         self.assertContains(response, '<h1>Zitat hinzufügen</h1>')
-        self.assertContains(response, '<option value="" selected="selected">---------</option>')
+        self.assertContains(response, '<option value="" selected>---------</option>')
+
 
     def testPrefilledForm(self):
         """Test the form that is shown if a lecturer is preselected."""
         response = self.client.get('/zitate/1337/add/')
         self.assertContains(response, '<h1>Zitat hinzufügen</h1>')
-        self.assertContains(response, '<select id="id_lecturer" name="lecturer">')
-        self.assertContains(response, '<option value="1337" selected="selected">Krakaduku David</option>')
+        self.assertContains(response, '<select name="lecturer" required id="id_lecturer">')
+        self.assertContains(response, '<option value="1337" selected>Krakaduku David</option>')
 
     def testFormSubmission(self):
         """Test whether a quote submission gets saved correctly."""
