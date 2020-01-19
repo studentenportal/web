@@ -9,6 +9,6 @@ from model_bakery.recipe import Recipe
 User = get_user_model()
 user = Recipe(User,
     username='testuser',
-    password='sha1$4b2d5$c6ff8b2ff002131f58cfb0a5b43a6681a0b723b3',
+    password='pbkdf2_sha256$36000$pFltpNNB0Q2H$zd9qOeVuvJUzaxeELpx/Bn10Fgsoq50QDdCljAFNZ58=',
     email='test@studentenportal.ch',
 )
