@@ -31,8 +31,7 @@ class TestAuthentication:
             resp = client.get(url)
             assert resp.status_code == 401, \
                     'Status code for %s is %d instead of 401.' % (url, resp.status_code)
-            data = json.loads(resp.content)
-            assert data == {
+            assert resp.json() == {
                 'detail': 'Anmeldedaten fehlen.',
             }
 
@@ -61,14 +60,14 @@ class TestUserView:
         users = [baker.make(User) for i in xrange(3)]
         url = reverse('api:user_list')
         resp = auth_client.get(url)
-        data = json.loads(resp.content)
+        data = resp.json()
         assert len(data['results']) == data['count']
         assert data['count'] == User.objects.count()
 
     def test_detail_data(self, user, auth_client):
         url = reverse('api:user_detail', args=(user.pk,))
         resp = auth_client.get(url)
-        data = json.loads(resp.content)
+        data = resp.json()
         attrs = ['id', 'username', 'first_name', 'last_name', 'email', 'flattr', 'twitter']
         for attr in attrs:
             assert data[attr] == getattr(user, attr)
@@ -125,7 +124,7 @@ class TestLecturerView:
 
         url = reverse('api:lecturer_detail', args=(lecturer.pk,))
         resp = auth_client.get(url)
-        data = json.loads(resp.content)
+        data = resp.json()
 
         attrs = ['id', 'title', 'last_name', 'first_name', 'abbreviation',
                  'department', 'function', 'main_area', 'subjects', 'email',
@@ -164,7 +163,7 @@ class TestQuoteView:
     def test_detail_data(self, auth_client, quote):
         url = reverse('api:quote_detail', args=(quote.pk,))
         resp = auth_client.get(url)
-        data = json.loads(resp.content)
+        data = resp.json()
         assert data['lecturer'] == quote.lecturer.pk
         assert data['lecturer_name'] == quote.lecturer.name()
         assert data['date'][:10] == quote.date.date().isoformat()
@@ -277,8 +276,7 @@ class TestQuoteVote:
         resp = client.post(url, {'vote': 'up'})
 
         assert resp.status_code == 401
-        data = json.loads(resp.content)
-        assert data == {
+        assert resp.json() == {
             'detail': 'Anmeldedaten fehlen.',
         }
 
@@ -287,7 +285,7 @@ class TestQuoteVote:
         def _check_vote(vote, vote_count, vote_sum):
             resp = auth_client.post(url, {'vote': vote})
             assert resp.status_code == 200
-            assert json.loads(resp.content) == {
+            assert resp.json() == {
                 'quote_pk': quote.pk,
                 'vote': vote,
                 'vote_count': vote_count,
@@ -319,8 +317,7 @@ class TestLecturerRate:
         resp = client.post(url, {'category': 'd', 'score': '5'})
 
         assert resp.status_code == 401
-        data = json.loads(resp.content)
-        assert data == {'detail': 'Anmeldedaten fehlen.'}
+        assert resp.json() == {'detail': 'Anmeldedaten fehlen.'}
 
     @pytest.mark.parametrize('data', [
         # Missing data
@@ -347,7 +344,7 @@ class TestLecturerRate:
             data = {'category': category, 'score': score}
             resp = auth_client.post(url, data)
             assert resp.status_code == 200
-            assert json.loads(resp.content) == {
+            assert resp.json() == {
                 'category': category,
                 'rating_count': 1,
                 'rating_avg': score,
