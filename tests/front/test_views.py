@@ -7,6 +7,10 @@ from django.test import TestCase
 from django.core import mail
 from django.urls import reverse
 from django.contrib.auth import get_user_model
+from django.db import transaction
+
+from pytest_django.asserts import assertRedirects
+
 
 from model_bakery import baker
 
@@ -56,6 +60,29 @@ class LoginTest(TestCase):
         assert r2.status_code == 302
 
 
+@pytest.mark.django_db(transaction=True)
+def test_registration(client):
+    """
+    Test that a registration is successful and that an activation email is
+    sent.
+
+    Needs to use a transaction because the mail is sent on on_commit.
+    """
+    registration_url = '/accounts/register/'
+
+    response = client.post(registration_url, {
+        'email': 'testuser@hsr.ch',
+        'password1': 'testpass',
+        'password2': 'testpass',
+    })
+    assertRedirects(response, '/accounts/register/complete/')
+    assert User.objects.filter(username='testuser').exists()
+
+    transaction.commit()
+    assert len(mail.outbox) == 1
+    assert mail.outbox[0].subject == '[studentenportal.ch] Aktivierung'
+
+
 class RegistrationViewTest(TestCase):
     registration_url = '/accounts/register/'
 
@@ -64,21 +91,6 @@ class RegistrationViewTest(TestCase):
         self.assertContains(response, '<h1>Registrieren</h1>')
         self.assertContains(response, 'Diese Registrierung ist Studenten mit einer HSR-Email-Adresse')
         self.assertContains(response, '<form')
-
-    def testRegistration(self):
-        """
-        Test that a registration is successful and that an activation email is
-        sent.
-        """
-        response = self.client.post(self.registration_url, {
-            'email': 'testuser@hsr.ch',
-            'password1': 'testpass',
-            'password2': 'testpass',
-        })
-        self.assertRedirects(response, '/accounts/register/complete/')
-        assert User.objects.filter(username='testuser').exists()
-        assert len(mail.outbox) == 1
-        assert mail.outbox[0].subject == '[studentenportal.ch] Aktivierung'
 
     def testRegistrationBadUsername(self):
         """
