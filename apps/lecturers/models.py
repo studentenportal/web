@@ -145,7 +145,7 @@ class Quote(models.Model):
 
 
 class QuoteVote(models.Model):
-    """Lecturer quotes."""
+    """Lecturer quote votes."""
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='QuoteVote',
                              on_delete=models.CASCADE)
     quote = models.ForeignKey(Quote, related_name='QuoteVote',
@@ -161,7 +161,7 @@ class QuoteVote(models.Model):
 
 
 class Course(models.Model):
-    """A possible degree course. At the moment only one lecturer is possible"""
+    """A possible degree course. At the moment only one lecturer is possible."""
     id = models.IntegerField('Studiengang ID', primary_key=True)
     abbreviation = models.CharField('Abkürzung', max_length=10, unique=True)
     name = models.CharField('Titel', max_length=50)
