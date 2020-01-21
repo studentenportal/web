@@ -17,5 +17,5 @@ class User(AbstractUser):
         """Return either full user first and last name or the username, if no
         further data is found."""
         if self.first_name or self.last_name:
-            return ' '.join(filter(None, [self.first_name, self.last_name]))
+            return ' '.join(part for part in [self.first_name, self.last_name] if part)
         return self.username

@@ -57,7 +57,7 @@ class TestUserView:
                     'Status code for %s is %d instead of 200.' % (url, resp.status_code)
 
     def test_list_data(self, auth_client):
-        users = [baker.make(User) for i in xrange(3)]
+        users = [baker.make(User) for i in range(3)]
         url = reverse('api:user_list')
         resp = auth_client.get(url)
         data = resp.json()
@@ -120,7 +120,7 @@ class TestLecturerView:
                     'Status code for %s is %d instead of 200.' % (url, resp.status_code)
 
     def test_detail_data(self, lecturer, auth_client, db):
-        [baker.make(Quote, lecturer=lecturer) for i in xrange(3)]
+        [baker.make(Quote, lecturer=lecturer) for i in range(3)]
 
         url = reverse('api:lecturer_detail', args=(lecturer.pk,))
         resp = auth_client.get(url)

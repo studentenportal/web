@@ -23,7 +23,7 @@ class Command(BaseCommand):
         User = get_user_model()
         datetimes = User.objects.values_list('date_joined', flat=True) \
                                 .order_by('date_joined')
-        dates = map(lambda d: d.date(), datetimes)
+        dates = [dt.date() for dt in datetimes]
 
         # Get some auxilliary values
         min_date = date2num(dates[0])

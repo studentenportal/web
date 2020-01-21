@@ -35,8 +35,8 @@ class Lecturer(models.Model):
     real_objects = managers.RealLecturerManager()
 
     def name(self):
-        parts = filter(None, [self.title, self.last_name, self.first_name])
-        return ' '.join(parts)
+        parts = [self.title, self.last_name, self.first_name]
+        return ' '.join(p for p in parts if p)
 
     def photo(self):
         """Try to see if a photo with the name <self.id>.jpg exists. If it
