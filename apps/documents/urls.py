@@ -8,6 +8,8 @@ from . import views
 
 admin.autodiscover()
 
+app_name = 'documents'
+
 # Dynamic pages
 urlpatterns = [
     url(r'^$', views.DocumentcategoryList.as_view(), name='documentcategory_list'),

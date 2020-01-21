@@ -8,6 +8,8 @@ from . import views
 
 admin.autodiscover()
 
+app_name = 'tweets'
+
 # Dynamic pages
 urlpatterns = [
     url(r'^$', views.TweetList.as_view(), name='tweet_list'),

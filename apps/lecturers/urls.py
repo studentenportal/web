@@ -4,6 +4,8 @@ from apps.lecturers import views
 
 admin.autodiscover()
 
+app_name = 'lecturers'
+
 # Dynamic pages
 urlpatterns = [
     url(r'^dozenten/$', views.LecturerList.as_view(), name='lecturer_list'),
