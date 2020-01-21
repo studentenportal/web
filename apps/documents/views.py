@@ -174,7 +174,7 @@ class DocumentDownload(View):
         # Serve file
         filename = unicodedata.normalize('NFKD', doc.original_filename) \
                               .encode('us-ascii', 'ignore')
-        attachment = not filename.lower().endswith('.pdf')
+        attachment = not filename.lower().endswith(b'.pdf')
         return sendfile(request, doc.document.path,
                 attachment=attachment, attachment_filename=filename)
 

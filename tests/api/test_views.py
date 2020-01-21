@@ -42,7 +42,7 @@ class TestAuthentication:
 
     def test_basic_auth(self, client, user, db):
         url = reverse('api:quote_list')
-        auth = 'Basic ' + base64.b64encode('testuser:test')
+        auth = b'Basic ' + base64.b64encode(b'testuser:test')
         resp = client.get(url, HTTP_AUTHORIZATION=auth)
         assert resp.status_code == 200
 
@@ -336,7 +336,7 @@ class TestLecturerRate:
     def test_invalid_data(self, data, auth_client, url):
         resp = auth_client.post(url, data)
         assert resp.status_code == 400
-        assert resp.content == 'Validierungsfehler'
+        assert resp.content == b'Validierungsfehler'
 
     @pytest.fixture
     def rater(self, auth_client, url):

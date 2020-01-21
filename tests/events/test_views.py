@@ -102,7 +102,7 @@ class EventDetailViewTest(TestCase):
 @pytest.mark.django_db(transaction=True)
 def test_ical_event1(client, test_events):
     response = client.get(reverse('events:event_calendar'))
-    event = response.content.split('BEGIN:VEVENT')[1]
+    event = response.content.decode('utf-8').split('BEGIN:VEVENT')[1]
     assert 'SUMMARY:Weltuntergang' in event
     assert 'DTSTART:20121221T200000' in event
     assert 'DTEND:20121222T100000' in event
@@ -112,7 +112,7 @@ def test_ical_event1(client, test_events):
 @pytest.mark.django_db(transaction=True)
 def test_ical_event2(client, test_events):
     response = client.get(reverse('events:event_calendar'))
-    event = response.content.split('BEGIN:VEVENT')[2]
+    event = response.content.decode('utf-8').split('BEGIN:VEVENT')[2]
     assert 'SUMMARY:Afterparty' in event
     assert 'DTSTART:20121222T100000' in event
     assert 'DTEND:20121222T235959' in event
