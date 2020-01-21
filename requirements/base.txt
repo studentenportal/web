@@ -1,7 +1,6 @@
 # Base system
 Django>=1.11,<1.12
 psycopg2==2.8.4
-Unipath==1.1
 python-dateutil==2.8.1
 
 # Useful/important apps
