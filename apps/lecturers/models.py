@@ -64,7 +64,7 @@ class Lecturer(models.Model):
         qs = self.LecturerRating.filter(category=category)
         if qs.exists():
             ratings = qs.values_list('rating', flat=True)
-            return int(round(float(sum(ratings)) / len(ratings)))
+            return int(sum(ratings) / len(ratings) + 0.5)  # always round .5 up
         return 0
 
     def _rating_count(self, category):
