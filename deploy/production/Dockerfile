@@ -2,7 +2,7 @@
 #  of the studentenportal.
 # Images have the same versioning as the studentenportal itself,
 #  and are uploaded to dockerhub.
-FROM studentenportal/base:2.7-1
+FROM studentenportal/base:3.7-0
 ARG UID=1000
 ARG GID=1000
 
@@ -10,7 +10,7 @@ RUN groupadd -g $GID studentenportal
 RUN useradd --home /home/studentenportal -u $UID -g $GID -M studentenportal
 
 COPY requirements/ /tmp/requirements/
-RUN pip --quiet install -r /tmp/requirements/base.txt -r /tmp/requirements/production.txt && rm -r /tmp/requirements
+RUN python3 -m pip --quiet install -r /tmp/requirements/base.txt -r /tmp/requirements/production.txt && rm -r /tmp/requirements
 
 RUN mkdir -p /srv/www/studentenportal
 WORKDIR /srv/www/studentenportal

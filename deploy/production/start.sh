@@ -16,7 +16,8 @@ do
   sleep 1
 done
 
-python manage.py migrate front
-python manage.py migrate
+python3 manage.py migrate front
+python3 manage.py migrate
 
+# FIXME Python 3?
 gunicorn config.wsgi:application -n studentenportal -b 0.0.0.0:8000 -w 4 --log-level warning
