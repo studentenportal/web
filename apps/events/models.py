@@ -51,5 +51,5 @@ class Event(models.Model):
         delta = self.start_date - date.today()
         return delta.days if delta.days > 0 else None
 
-    def __unicode__(self):
+    def __str__(self):
         return '%s %s' % (self.start_date, self.summary)

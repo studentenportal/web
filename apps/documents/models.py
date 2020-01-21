@@ -41,7 +41,7 @@ class DocumentCategory(models.Model):
         excludes = [Document.DTypes.EXAM, Document.DTypes.SUMMARY]
         return self.Document.exclude(dtype__in=excludes).count()
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     class Meta:
@@ -169,7 +169,7 @@ class Document(models.Model):
             self.change_date = datetime.now()
         return super(Document, self).save(*args, **kwargs)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     class Meta:
@@ -205,7 +205,7 @@ class DocumentRating(models.Model):
         if self.user == self.document.uploader:
             raise ValidationError('A user cannot rate his own uploads.')
 
-    def __unicode__(self):
+    def __str__(self):
         fmt_args = self.user.username, self.document.name, self.rating
         return 'User %s Document %s Rating %u' % fmt_args
 

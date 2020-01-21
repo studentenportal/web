@@ -88,7 +88,7 @@ class Lecturer(models.Model):
     def rating_count_f(self):
         return self._rating_count('f')
 
-    def __unicode__(self):
+    def __str__(self):
         return '%s %s' % (self.last_name, self.first_name)
 
     class Meta:
@@ -108,7 +108,7 @@ class LecturerRating(models.Model):
     category = models.CharField(max_length=1, choices=CATEGORY_CHOICES, db_index=True)
     rating = models.PositiveSmallIntegerField(validators=RATING_VALIDATORS, db_index=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return '%s %s%u' % (self.lecturer, self.category, self.rating)
 
     class Meta:
@@ -133,7 +133,7 @@ class Quote(models.Model):
         down = self.QuoteVote.filter(vote=False).count()
         return up - down
 
-    def __unicode__(self):
+    def __str__(self):
         return '[%s] %s...' % (self.lecturer, self.quote[:30])
 
     class Meta:
@@ -147,7 +147,7 @@ class QuoteVote(models.Model):
     quote = models.ForeignKey(Quote, related_name='QuoteVote')
     vote = models.BooleanField(help_text='True = upvote, False = downvote')
 
-    def __unicode__(self):
+    def __str__(self):
         fmt_args = self.user.username, 'up' if self.vote else 'down', self.quote.pk
         return 'User %s votes %s quote %s' % fmt_args
 
@@ -161,5 +161,5 @@ class Course(models.Model):
     abbreviation = models.CharField('Abkürzung', max_length=10, unique=True)
     name = models.CharField('Titel', max_length=50)
 
-    def __unicode__(self):
+    def __str__(self):
         return '%s (%s)' % (self.name, self.abbreviation)
