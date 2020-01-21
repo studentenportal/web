@@ -162,20 +162,20 @@ class DocumentListViewTest(TestCase):
         self.assertContains(self.response, '<h1>Dokumente An1I</h1>')
 
     def testDocumentTitle(self):
-        soup = BeautifulSoup(self.response.content)
+        soup = BeautifulSoup(self.response.content, 'html.parser')
         div_details = soup.find('h3', text='Analysis 1 Theoriesammlung').find_parent('div').prettify()
         assert '<h3 property="dct:title" xmlns:dct="http://purl.org/dc/terms/">\n  Analysis 1 Theoriesammlung\n </h3>' in div_details
         assert '<span class="label-summary">\n   Zusammenfassung\n  </span>' in div_details
 
     def testDocumentLicense(self):
-        soup = BeautifulSoup(self.response.content)
+        soup = BeautifulSoup(self.response.content, 'html.parser')
         div_details = soup.find('h3', text='Analysis 1 Theoriesammlung').find_parent('div').prettify()
         assert '<a href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.de" rel="license" ' + \
                       u'title="Veröffentlicht unter der CC BY-NC-SA 3.0 Lizenz">' in div_details
         assert ' <span class="label-license">\n    CC BY-NC-SA 3.0\n   </span>' in div_details
 
     def testDocumentFlattr(self):
-        soup = BeautifulSoup(self.response.content)
+        soup = BeautifulSoup(self.response.content, 'html.parser')
         div_flattr = soup.find('h3', text='Title with Flattr').find_parent('div').prettify()
         div_noflattr = soup.find('h3', text='Title Noflattr').find_parent('div').prettify()
         assert 'Flattr this' in div_flattr
@@ -220,7 +220,7 @@ class DocumentListViewTest(TestCase):
 
         # No downloads yet
         response0 = self.client.get(self.url)
-        soup0 = BeautifulSoup(response0.content)
+        soup0 = BeautifulSoup(response0.content, 'html.parser')
         anchor0 = soup0.find('a', href=dl_url)
         document0 = anchor0.find_parent('article').prettify()
         assert "0 Downloads" in document0
@@ -228,7 +228,7 @@ class DocumentListViewTest(TestCase):
         # First download
         self.client.get(dl_url)
         response1 = self.client.get(self.url)
-        soup1 = BeautifulSoup(response1.content)
+        soup1 = BeautifulSoup(response1.content, 'html.parser')
         anchor1 = soup1.find('a', href=dl_url)
         document1 = anchor1.find_parent('article').prettify()
         assert "1 Download" in document1
@@ -237,7 +237,7 @@ class DocumentListViewTest(TestCase):
         # done from the same IP
         self.client.get(dl_url)
         response2 = self.client.get(self.url)
-        soup2 = BeautifulSoup(response2.content)
+        soup2 = BeautifulSoup(response2.content, 'html.parser')
         anchor2 = soup2.find('a', href=dl_url)
         document2 = anchor2.find_parent('article').prettify()
         assert "1 Download" in document2
