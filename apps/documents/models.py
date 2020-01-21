@@ -179,7 +179,8 @@ class Document(models.Model):
 
 class DocumentDownload(models.Model):
     """Tracks a download of a document."""
-    document = models.ForeignKey(Document, related_name='DocumentDownload', db_index=True)
+    document = models.ForeignKey(Document, related_name='DocumentDownload', db_index=True,
+                                 on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now_add=True, editable=False)
     ip = models.GenericIPAddressField(unpack_ipv4=True, editable=False, db_index=True)
 
@@ -196,8 +197,10 @@ class DocumentRating(models.Model):
 
     """
     RATING_VALIDATORS = [MaxValueValidator(10), MinValueValidator(1)]
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='DocumentRating')
-    document = models.ForeignKey(Document, related_name='DocumentRating')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='DocumentRating',
+                             on_delete=models.CASCADE)
+    document = models.ForeignKey(Document, related_name='DocumentRating',
+                                 on_delete=models.CASCADE)
     rating = models.PositiveSmallIntegerField(validators=RATING_VALIDATORS)
 
     # Custom model validation

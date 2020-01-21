@@ -59,7 +59,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('rating', models.PositiveSmallIntegerField(validators=[django.core.validators.MaxValueValidator(10), django.core.validators.MinValueValidator(1)])),
-                ('document', models.ForeignKey(related_name='DocumentRating', to='documents.Document')),
+                ('document', models.ForeignKey(related_name='DocumentRating', to='documents.Document', on_delete=django.db.models.deletion.CASCADE)),
             ],
         ),
     ]

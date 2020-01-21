@@ -47,8 +47,8 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('category', models.CharField(db_index=True, max_length=1, choices=[('d', 'Didaktisch'), ('m', 'Menschlich'), ('f', 'Fachlich')])),
                 ('rating', models.PositiveSmallIntegerField(db_index=True, validators=[django.core.validators.MaxValueValidator(10), django.core.validators.MinValueValidator(1)])),
-                ('lecturer', models.ForeignKey(related_name='LecturerRating', to='lecturers.Lecturer')),
-                ('user', models.ForeignKey(related_name='LecturerRating', to=settings.AUTH_USER_MODEL)),
+                ('lecturer', models.ForeignKey(related_name='LecturerRating', to='lecturers.Lecturer', on_delete=django.db.models.deletion.CASCADE)),
+                ('user', models.ForeignKey(related_name='LecturerRating', to=settings.AUTH_USER_MODEL, on_delete=django.db.models.deletion.CASCADE)),
             ],
         ),
         migrations.CreateModel(
@@ -59,7 +59,7 @@ class Migration(migrations.Migration):
                 ('quote', models.TextField(verbose_name='Zitat')),
                 ('comment', models.TextField(default='', verbose_name='Bemerkung', blank=True)),
                 ('author', models.ForeignKey(related_name='Quote', on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL, null=True)),
-                ('lecturer', models.ForeignKey(related_name='Quote', verbose_name='Dozent', to='lecturers.Lecturer')),
+                ('lecturer', models.ForeignKey(related_name='Quote', verbose_name='Dozent', to='lecturers.Lecturer', on_delete=django.db.models.deletion.CASCADE)),
             ],
             options={
                 'ordering': ['-date'],
@@ -71,8 +71,8 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('vote', models.BooleanField(help_text='True = upvote, False = downvote')),
-                ('quote', models.ForeignKey(related_name='QuoteVote', to='lecturers.Quote')),
-                ('user', models.ForeignKey(related_name='QuoteVote', to=settings.AUTH_USER_MODEL)),
+                ('quote', models.ForeignKey(related_name='QuoteVote', to='lecturers.Quote', on_delete=django.db.models.deletion.CASCADE)),
+                ('user', models.ForeignKey(related_name='QuoteVote', to=settings.AUTH_USER_MODEL, on_delete=django.db.models.deletion.CASCADE)),
             ],
         ),
         migrations.AlterUniqueTogether(

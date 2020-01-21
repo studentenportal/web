@@ -103,8 +103,10 @@ class LecturerRating(models.Model):
         ('f', 'Fachlich'))
     RATING_VALIDATORS = [MaxValueValidator(10), MinValueValidator(1)]
 
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='LecturerRating')
-    lecturer = models.ForeignKey(Lecturer, related_name='LecturerRating')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='LecturerRating',
+                             on_delete=models.CASCADE)
+    lecturer = models.ForeignKey(Lecturer, related_name='LecturerRating',
+                                 on_delete=models.CASCADE)
     category = models.CharField(max_length=1, choices=CATEGORY_CHOICES, db_index=True)
     rating = models.PositiveSmallIntegerField(validators=RATING_VALIDATORS, db_index=True)
 
@@ -119,7 +121,8 @@ class Quote(models.Model):
     """Lecturer quotes."""
     author = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='Quote', null=True,
             on_delete=models.SET_NULL)
-    lecturer = models.ForeignKey(Lecturer, verbose_name='Dozent', related_name='Quote')
+    lecturer = models.ForeignKey(Lecturer, verbose_name='Dozent', related_name='Quote',
+                                 on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
     quote = models.TextField('Zitat')
     comment = models.TextField('Bemerkung', default='', blank=True)
@@ -143,8 +146,10 @@ class Quote(models.Model):
 
 class QuoteVote(models.Model):
     """Lecturer quotes."""
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='QuoteVote')
-    quote = models.ForeignKey(Quote, related_name='QuoteVote')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='QuoteVote',
+                             on_delete=models.CASCADE)
+    quote = models.ForeignKey(Quote, related_name='QuoteVote',
+                              on_delete=models.CASCADE)
     vote = models.BooleanField(help_text='True = upvote, False = downvote')
 
     def __str__(self):
