@@ -274,7 +274,7 @@ else:
 
 # Auth
 LOGIN_REDIRECT_URL = '/'
-AUTHENTICATION_BACKENDS = ('config.backends.CaseInsensitiveModelBackend',)
+AUTHENTICATION_BACKENDS = ['django.contrib.auth.backends.ModelBackend']
 
 # API
 REST_FRAMEWORK = {
