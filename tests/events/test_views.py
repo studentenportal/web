@@ -5,7 +5,7 @@ import datetime
 
 from django.test import TestCase
 from django.contrib.auth import get_user_model
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 
 import pytest
 from model_bakery import baker

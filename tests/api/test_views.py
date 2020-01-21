@@ -6,7 +6,7 @@ import base64
 
 import pytest
 from django.test.client import Client
-from django.core.urlresolvers import reverse, NoReverseMatch
+from django.urls import reverse, NoReverseMatch
 from django.contrib.auth import get_user_model
 
 from model_bakery import baker
