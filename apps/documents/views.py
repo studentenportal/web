@@ -28,7 +28,7 @@ from django.template.defaultfilters import slugify
 
 from sendfile import sendfile
 
-from . import models, forms, helpers
+from . import models, forms
 from apps.front.mixins import LoginRequiredMixin
 from apps.front.message_levels import EVENT
 
@@ -166,11 +166,10 @@ class DocumentDownload(View):
                                 kwargs={'category': slugify(doc.category.name)})
                 ))
         # Log download
-        ip = helpers.get_client_ip(request)
         timerange = datetime.datetime.now() - datetime.timedelta(1)
-        filters = {'document': doc, 'ip': ip, 'timestamp__gt': timerange}
+        filters = {'document': doc, 'timestamp__gt': timerange}
         if not models.DocumentDownload.objects.filter(**filters).exists():
-            models.DocumentDownload.objects.create(document=doc, ip=ip)
+            models.DocumentDownload.objects.create(document=doc)
         # Serve file
         filename = unicodedata.normalize('NFKD', doc.original_filename) \
                               .encode('us-ascii', 'ignore')

@@ -182,11 +182,10 @@ class DocumentDownload(models.Model):
     document = models.ForeignKey(Document, related_name='DocumentDownload', db_index=True,
                                  on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now_add=True, editable=False)
-    ip = models.GenericIPAddressField(unpack_ipv4=True, editable=False, db_index=True)
 
     class Meta:
         index_together = [
-            ('document', 'timestamp', 'ip'),
+            ('document', 'timestamp'),
         ]
 
 

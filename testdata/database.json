@@ -32,8 +32,7 @@
         "model": "documents.documentdownload",
         "fields": {
             "timestamp": "2017-01-16T19:33:26.220",
-            "document": 1,
-            "ip": "172.21.0.1"
+            "document": 1
         }
     },
     {
@@ -41,8 +40,7 @@
         "model": "documents.documentdownload",
         "fields": {
             "timestamp": "2017-01-16T20:13:21.348",
-            "document": 2,
-            "ip": "172.21.0.1"
+            "document": 2
         }
     },
     {
