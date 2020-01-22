@@ -174,9 +174,13 @@ class DocumentDownload(View):
         filename = unicodedata.normalize('NFKD', doc.original_filename) \
                               .encode('ascii', 'ignore')
         attachment = b'inline' if filename.lower().endswith(b'.pdf') else b'attachment'
-        httpResponse = sendfile(request, doc.document.path)
-        httpResponse['Content-Disposition'] = b'%s; filename="%s"' % (attachment, filename)
-        return httpResponse
+        response = sendfile(request, doc.document.path)
+        # NOTE: The Content-Disposition header is much more complex with UTF-8
+        # filenames, but we've made sure the filename only contains ASCII
+        # above.
+        response['Content-Disposition'] = b'%s; filename="%s"' % (attachment, filename)
+
+        return response
 
 
 class DocumentThumbnail(View):
