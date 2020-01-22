@@ -28,10 +28,14 @@ Mehr Informationen zur
 sowie weitere Dokumentationen findest du im Ordner
 [docs](https://github.com/studentenportal/web/tree/master/docs).
 
-## Fragen
+## Fragen / Team
 
 Bei Fragen wende dich an team@studentenportal.ch oder
 [@studportal_hsr](https://twitter.com/studportal_hsr).
+
+Alle Personen, die bisher am Studentenportal mitgearbeitet haben, findest du
+unter
+[Contributors](https://github.com/studentenportal/web/graphs/contributors).
 
 ## Lizenz
 
