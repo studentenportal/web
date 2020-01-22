@@ -16,7 +16,7 @@ class ProfileForm(forms.ModelForm):
     # Note: Don't allow users to change their own e-mail!
     class Meta:
         model = get_user_model()
-        fields = ('first_name', 'last_name', 'twitter', 'flattr')
+        fields = ('first_name', 'last_name', 'flattr')
 
 
 class PasswordForm(forms.Form):

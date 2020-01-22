@@ -22,6 +22,3 @@ vobject==0.9.6.1
 
 # API
 djangorestframework>=3.11,<3.12
-
-# Twitter
-tweepy==3.8

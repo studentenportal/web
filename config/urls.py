@@ -9,7 +9,6 @@ from apps.api import urls as api_urls
 from apps.events import urls as event_urls
 from apps.documents import urls as document_urls
 from apps.lecturers import urls as lecturer_urls
-from apps.tweets import urls as tweet_urls
 
 admin.autodiscover()
 
@@ -23,7 +22,6 @@ urlpatterns = [
     # Own apps
     url(r'^events/', include(event_urls)),
     url(r'^dokumente/', include(document_urls)),
-    url(r'tweets/', include(tweet_urls)),
     url(r'', include(lecturer_urls)),
 
     # Auth pages
