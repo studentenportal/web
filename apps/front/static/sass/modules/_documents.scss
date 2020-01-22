@@ -75,24 +75,6 @@
         }
     }
 
-    .report {
-        cursor: pointer;
-        font-size: 0.9rem;
-        position: absolute;
-        right: $gutter;
-        bottom: $gutter;
-        padding: .2rem .6rem 0;
-        @include border-radius(.2em);
-
-        @include transition(background 0.2s);
-        background-color: $color-dark-accent;
-        &:hover { background-color: $color-darker-accent; }
-
-        a.icon-flag:before {
-            color: #fff;
-        }
-    }
-
     .drating {
         @include pie-clearfix;
         .star-rating {
@@ -162,12 +144,6 @@
         .download {
             @include display-flex();
             @include flex-direction(column-reverse);
-        }
-
-        //Correct position of report flag
-        .report {
-            top: $gutter;
-            bottom: auto;
         }
 
         .labels {

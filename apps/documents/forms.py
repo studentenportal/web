@@ -58,15 +58,3 @@ class DocumentAddForm(DocumentEditForm):
     class Meta(DocumentEditForm.Meta):
         fields = ('name', 'description', 'url', 'dtype', 'document', 'license',
                   'public', 'flattr_disabled')
-
-
-class DocumentReportForm(forms.Form):
-    name = forms.CharField()
-    email = forms.EmailField()
-    reason = forms.ChoiceField(choices=(
-        ('other', 'Sonstiges'),
-        ('wrong_category', 'Falsche Kategorie'),
-        ('outdated', 'Veraltet'),
-        ('bad_content', 'Schlechter Inhalt'),
-    ), label='Begründung')
-    comment = forms.CharField(label='Kommentar', widget=forms.Textarea())

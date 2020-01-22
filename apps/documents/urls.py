@@ -22,6 +22,5 @@ urlpatterns = [
     url(r'^(?P<category>[^\/]+)/(?P<pk>-?\d+)/edit/$', views.DocumentEdit.as_view(), name='document_edit'),
     url(r'^(?P<category>[^\/]+)/(?P<pk>-?\d+)/delete/$', views.DocumentDelete.as_view(), name='document_delete'),
     url(r'^(?P<category>[^\/]+)/(?P<pk>-?\d+)/rate/$', views.DocumentRate.as_view(), name='document_rate'),
-    url(r'^(?P<category>[^\/]+)/(?P<pk>-?\d+)/report/$', views.DocumentReport.as_view(), name='document_report'),
     url(r'^(?P<category>[^\/]+)/ajax_rating_block/(?P<pk>-?\d+)/$', views.document_rating, name='document_rating_ajax'),
 ]

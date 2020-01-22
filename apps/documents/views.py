@@ -296,47 +296,6 @@ class DocumentRate(LoginRequiredMixin, SingleObjectMixin, View):
         return HttpResponse('Bewertung wurde aktualisiert.')
 
 
-class DocumentReport(DocumentcategoryMixin, SingleObjectMixin, FormView):
-    model = models.Document
-    form_class = forms.DocumentReportForm
-    template_name = 'documents/document_report.html'
-    context_object_name = 'document'
-
-    def dispatch(self, request, *args, **kwargs):
-        self.object = self.get_object()  # TODO can probably be removed in django 1.6
-        return super(DocumentReport, self).dispatch(request, *args, **kwargs)
-
-    def get_initial(self):
-        if self.request.user.is_authenticated:
-            return {
-                'name': self.request.user.name(),
-                'email': self.request.user.email,
-            }
-
-    def get_success_url(self):
-        """Redirect to documentcategory page."""
-        messages.add_message(self.request, messages.SUCCESS,
-            'Vielen Dank, das Dokument wurde erfolgreich gemeldet.')
-        messages.add_message(self.request, EVENT, 'document_report')
-        return reverse('documents:document_list', args=[self.category])
-
-    def form_valid(self, form):
-        subject = '[studentenportal.ch] Neue Dokument-Meldung'
-        sender = settings.DEFAULT_FROM_EMAIL
-        receivers = [a[1] for a in settings.ADMINS]
-        msg_tpl = 'Es gibt eine neue Meldung zum Dokument "{document.name}" ' + \
-                  '(PK {document.pk}):\n\n' + \
-                  'Melder: {name} ({email})\n' + \
-                  'Grund: {reason}\n' + \
-                  'Nachricht: {comment}\n\n' + \
-                  'Link auf Dokument: https://studentenportal.ch{url}'
-        admin_url = reverse('admin:documents_document_change', args=(self.object.pk,))
-        msg = msg_tpl.format(document=self.object, url=admin_url, **form.cleaned_data)
-        send_mail(subject, msg, sender, receivers, fail_silently=False)
-
-        return super(DocumentReport, self).form_valid(form)
-
-
 def document_rating(request, category, pk):
     """AJAX view that returns the document_rating_summary block. This is used
     to update the text after changing a rating via JavaScript."""
