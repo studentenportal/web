@@ -3,13 +3,13 @@ from __future__ import print_function, division, absolute_import, unicode_litera
 
 import datetime
 from dateutil.relativedelta import relativedelta
-from urlparse import urlsplit, urlunsplit
+from urllib.parse import urlsplit, urlunsplit
 
 from django.views.generic import View, TemplateView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib import messages
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.http import HttpResponse
 from django.http import HttpResponseForbidden
 

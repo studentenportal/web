@@ -41,7 +41,7 @@ class DocumentCategory(models.Model):
         excludes = [Document.DTypes.EXAM, Document.DTypes.SUMMARY]
         return self.Document.exclude(dtype__in=excludes).count()
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     class Meta:
@@ -169,7 +169,7 @@ class Document(models.Model):
             self.change_date = datetime.now()
         return super(Document, self).save(*args, **kwargs)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     class Meta:
@@ -179,7 +179,8 @@ class Document(models.Model):
 
 class DocumentDownload(models.Model):
     """Tracks a download of a document."""
-    document = models.ForeignKey(Document, related_name='DocumentDownload', db_index=True)
+    document = models.ForeignKey(Document, related_name='DocumentDownload', db_index=True,
+                                 on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now_add=True, editable=False)
     ip = models.GenericIPAddressField(unpack_ipv4=True, editable=False, db_index=True)
 
@@ -196,8 +197,10 @@ class DocumentRating(models.Model):
 
     """
     RATING_VALIDATORS = [MaxValueValidator(10), MinValueValidator(1)]
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='DocumentRating')
-    document = models.ForeignKey(Document, related_name='DocumentRating')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='DocumentRating',
+                             on_delete=models.CASCADE)
+    document = models.ForeignKey(Document, related_name='DocumentRating',
+                                 on_delete=models.CASCADE)
     rating = models.PositiveSmallIntegerField(validators=RATING_VALIDATORS)
 
     # Custom model validation
@@ -205,7 +208,7 @@ class DocumentRating(models.Model):
         if self.user == self.document.uploader:
             raise ValidationError('A user cannot rate his own uploads.')
 
-    def __unicode__(self):
+    def __str__(self):
         fmt_args = self.user.username, self.document.name, self.rating
         return 'User %s Document %s Rating %u' % fmt_args
 

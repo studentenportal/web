@@ -8,6 +8,8 @@ from . import views
 
 admin.autodiscover()
 
+app_name = 'events'
+
 # Dynamic pages
 urlpatterns = [
     url(r'^$', views.EventList.as_view(), name='event_list'),

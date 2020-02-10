@@ -5,6 +5,7 @@ omit =
     */migrations/*
     */tests/*
     */management/commands/*
+relative_files = True
 
 [report]
 # Regexes for lines to exclude from consideration

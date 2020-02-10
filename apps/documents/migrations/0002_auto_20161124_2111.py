@@ -18,12 +18,12 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='documentrating',
             name='user',
-            field=models.ForeignKey(related_name='DocumentRating', to=settings.AUTH_USER_MODEL),
+            field=models.ForeignKey(related_name='DocumentRating', to=settings.AUTH_USER_MODEL, on_delete=django.db.models.deletion.CASCADE),
         ),
         migrations.AddField(
             model_name='documentdownload',
             name='document',
-            field=models.ForeignKey(related_name='DocumentDownload', to='documents.Document'),
+            field=models.ForeignKey(related_name='DocumentDownload', to='documents.Document', on_delete=django.db.models.deletion.CASCADE),
         ),
         migrations.AddField(
             model_name='documentcategory',

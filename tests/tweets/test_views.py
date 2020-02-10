@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 from collections import namedtuple
 
 from django.test import TestCase
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 
 from mock import patch
 

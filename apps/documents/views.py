@@ -12,7 +12,7 @@ from django.conf import settings
 from django.contrib import messages
 from django.contrib.syndication.views import Feed
 from django.db.models import Count
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.core.exceptions import ObjectDoesNotExist, ValidationError
 from django.core.mail import send_mail
 from django.http import HttpResponse
@@ -116,7 +116,7 @@ class DocumentList(DocumentcategoryMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super(DocumentList, self).get_context_data(**kwargs)
-        if self.request.user.is_authenticated():
+        if self.request.user.is_authenticated:
             ratings = models.DocumentRating.objects.filter(user=self.request.user)
             context['ratings'] = dict([(r.document.pk, r.rating) for r in ratings])
         return context
@@ -159,7 +159,7 @@ class DocumentDownload(View):
         doc = get_object_or_404(models.Document, pk=self.kwargs.get('pk'))
         # If document is an exam or marked as non-public, require login
         if doc.dtype == doc.DTypes.EXAM or doc.public is False:
-            if not self.request.user.is_authenticated():
+            if not self.request.user.is_authenticated:
                 return redirect('%s?next=%s' % (
                         reverse('auth_login'),
                         reverse('documents:document_list',
@@ -174,7 +174,7 @@ class DocumentDownload(View):
         # Serve file
         filename = unicodedata.normalize('NFKD', doc.original_filename) \
                               .encode('us-ascii', 'ignore')
-        attachment = not filename.lower().endswith('.pdf')
+        attachment = not filename.lower().endswith(b'.pdf')
         return sendfile(request, doc.document.path,
                 attachment=attachment, attachment_filename=filename)
 
@@ -308,7 +308,7 @@ class DocumentReport(DocumentcategoryMixin, SingleObjectMixin, FormView):
         return super(DocumentReport, self).dispatch(request, *args, **kwargs)
 
     def get_initial(self):
-        if self.request.user.is_authenticated():
+        if self.request.user.is_authenticated:
             return {
                 'name': self.request.user.name(),
                 'email': self.request.user.email,
@@ -343,7 +343,7 @@ def document_rating(request, category, pk):
     to update the text after changing a rating via JavaScript."""
     if not request.is_ajax():
         return HttpResponseBadRequest('XMLHttpRequest expected.')
-    if not request.user.is_authenticated():
+    if not request.user.is_authenticated:
         return HttpResponseForbidden('Login required')
     template = 'front/blocks/document_rating_summary.html'
     context = {'doc': get_object_or_404(models.Document, pk=pk, category__name=category)}

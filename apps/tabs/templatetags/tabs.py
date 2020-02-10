@@ -78,7 +78,7 @@ class IfActiveTabNode(template.Node):
 def activetab(parser, token):
     bits = token.contents.split()[1:]
     if len(bits) not in (1, 2):
-        raise template.TemplateSyntaxError, "Invalid number of arguments"
+        raise template.TemplateSyntaxError("Invalid number of arguments")
     if len(bits) == 1:
         namespace = None
         name = bits[0]
@@ -100,7 +100,7 @@ def ifactivetab(parser, token):
     else:
         nodelist_false = template.NodeList()
     if len(bits) not in (1, 2):
-        raise template.TemplateSyntaxError, "Invalid number of arguments"
+        raise template.TemplateSyntaxError("Invalid number of arguments")
     if len(bits) == 1:
         namespace = None
         name = bits[0]

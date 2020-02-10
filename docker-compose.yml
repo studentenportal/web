@@ -9,7 +9,7 @@
 version: '3.2'
 services:
   postgres:
-    image: postgres:9.3
+    image: postgres:12
     restart: always
     environment:
       POSTGRES_PASSWORD: "k9F1bbHiW4o9By1A6tvL"

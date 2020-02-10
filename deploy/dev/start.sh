@@ -7,8 +7,8 @@ do
 done
 
 PGPASSWORD=$DB_PASSWORD psql -h $DB_HOST -U $DB_USER -d studentenportal -c 'CREATE EXTENSION IF NOT EXISTS citext;'
-python manage.py migrate front
-python manage.py migrate
-python manage.py loaddata ./testdata/database.json
+python3 manage.py migrate front
+python3 manage.py migrate
+python3 manage.py loaddata ./testdata/database.json
 cp -R ./testdata/media/* media/
-python manage.py runserver 0.0.0.0:8000
+python3 manage.py runserver 0.0.0.0:8000

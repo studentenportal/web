@@ -5,7 +5,7 @@ import os
 import sys
 import datetime
 
-from unipath import Path
+from pathlib import Path
 
 from django.core.exceptions import ImproperlyConfigured
 
@@ -21,7 +21,7 @@ def require_env(name):
     return value
 
 
-PROJECT_ROOT = Path(__file__).ancestor(2)
+PROJECT_ROOT = Path(__file__).parents[1]
 
 ADMINS = (
     ('Studentenportal Team', 'team@studentenportal.ch'),
@@ -81,7 +81,7 @@ if SECRET_KEY == 'DEBUG_SECRET_KEY' and DEBUG is False:
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
-MEDIA_ROOT = env('DJANGO_MEDIA_ROOT', PROJECT_ROOT.child('media'))
+MEDIA_ROOT = env('DJANGO_MEDIA_ROOT', PROJECT_ROOT / 'media')
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
@@ -92,7 +92,7 @@ MEDIA_URL = '/media/'
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/home/media/media.lawrence.com/static/"
-STATIC_ROOT = env('DJANGO_STATIC_ROOT', PROJECT_ROOT.child('static'))
+STATIC_ROOT = env('DJANGO_STATIC_ROOT', PROJECT_ROOT / 'static')
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
@@ -157,16 +157,18 @@ TEMPLATES = [{
     }
 }]
 
-MIDDLEWARE_CLASSES = (
-    'django.middleware.common.CommonMiddleware',
+MIDDLEWARE = []
+if DEBUG_TOOLBAR:
+    MIDDLEWARE.append('debug_toolbar.middleware.DebugToolbarMiddleware')
+MIDDLEWARE += [
+    'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-)
-if DEBUG_TOOLBAR:
-    MIDDLEWARE_CLASSES += ('debug_toolbar.middleware.DebugToolbarMiddleware',)
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
 
 ROOT_URLCONF = 'config.urls'
 
@@ -272,7 +274,7 @@ else:
 
 # Auth
 LOGIN_REDIRECT_URL = '/'
-AUTHENTICATION_BACKENDS = ('config.backends.CaseInsensitiveModelBackend',)
+AUTHENTICATION_BACKENDS = ['django.contrib.auth.backends.ModelBackend']
 
 # API
 REST_FRAMEWORK = {

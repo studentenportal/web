@@ -21,20 +21,20 @@ urlpatterns = [
     url(r'^statistiken/$', views.Stats.as_view(), name='stats'),
 
     # Own apps
-    url(r'^events/', include(event_urls, namespace='events')),
-    url(r'^dokumente/', include(document_urls, namespace='documents')),
-    url(r'tweets/', include(tweet_urls, namespace='tweets')),
-    url(r'', include(lecturer_urls, namespace='lecturers')),
+    url(r'^events/', include(event_urls)),
+    url(r'^dokumente/', include(document_urls)),
+    url(r'tweets/', include(tweet_urls)),
+    url(r'', include(lecturer_urls)),
 
     # Auth pages
     url(r'^accounts/', include('registration.backends.default.urls')),
 
     # Admin pages
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
-    url(r'^admin/', include(admin.site.urls)),
+    url(r'^admin/', admin.site.urls),
 
     # API
-    url(r'^api/', include(api_urls, namespace='api')),
+    url(r'^api/', include(api_urls)),
 
     # Static pages
     url(r'^sitemap\.xml$', TemplateView.as_view(template_name='front/sitemap.xml'), name='sitemap'),
@@ -44,4 +44,10 @@ if settings.DEBUG:
     urlpatterns += [
         url(r'static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}),
         url(r'media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
+    ]
+
+if settings.DEBUG_TOOLBAR:
+    import debug_toolbar
+    urlpatterns += [
+        url(r'^__debug__/', include(debug_toolbar.urls)),
     ]

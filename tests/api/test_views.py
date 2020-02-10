@@ -6,7 +6,7 @@ import base64
 
 import pytest
 from django.test.client import Client
-from django.core.urlresolvers import reverse, NoReverseMatch
+from django.urls import reverse, NoReverseMatch
 from django.contrib.auth import get_user_model
 
 from model_bakery import baker
@@ -42,7 +42,7 @@ class TestAuthentication:
 
     def test_basic_auth(self, client, user, db):
         url = reverse('api:quote_list')
-        auth = 'Basic ' + base64.b64encode('testuser:test')
+        auth = b'Basic ' + base64.b64encode(b'testuser:test')
         resp = client.get(url, HTTP_AUTHORIZATION=auth)
         assert resp.status_code == 200
 
@@ -57,7 +57,7 @@ class TestUserView:
                     'Status code for %s is %d instead of 200.' % (url, resp.status_code)
 
     def test_list_data(self, auth_client):
-        users = [baker.make(User) for i in xrange(3)]
+        users = [baker.make(User) for i in range(3)]
         url = reverse('api:user_list')
         resp = auth_client.get(url)
         data = resp.json()
@@ -120,7 +120,7 @@ class TestLecturerView:
                     'Status code for %s is %d instead of 200.' % (url, resp.status_code)
 
     def test_detail_data(self, lecturer, auth_client, db):
-        [baker.make(Quote, lecturer=lecturer) for i in xrange(3)]
+        [baker.make(Quote, lecturer=lecturer) for i in range(3)]
 
         url = reverse('api:lecturer_detail', args=(lecturer.pk,))
         resp = auth_client.get(url)
@@ -336,7 +336,7 @@ class TestLecturerRate:
     def test_invalid_data(self, data, auth_client, url):
         resp = auth_client.post(url, data)
         assert resp.status_code == 400
-        assert resp.content == 'Validierungsfehler'
+        assert resp.content == b'Validierungsfehler'
 
     @pytest.fixture
     def rater(self, auth_client, url):

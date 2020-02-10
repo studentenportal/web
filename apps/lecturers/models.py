@@ -35,8 +35,8 @@ class Lecturer(models.Model):
     real_objects = managers.RealLecturerManager()
 
     def name(self):
-        parts = filter(None, [self.title, self.last_name, self.first_name])
-        return ' '.join(parts)
+        parts = [self.title, self.last_name, self.first_name]
+        return ' '.join(p for p in parts if p)
 
     def photo(self):
         """Try to see if a photo with the name <self.id>.jpg exists. If it
@@ -64,7 +64,7 @@ class Lecturer(models.Model):
         qs = self.LecturerRating.filter(category=category)
         if qs.exists():
             ratings = qs.values_list('rating', flat=True)
-            return int(round(float(sum(ratings)) / len(ratings)))
+            return int(sum(ratings) / len(ratings) + 0.5)  # always round .5 up
         return 0
 
     def _rating_count(self, category):
@@ -88,7 +88,7 @@ class Lecturer(models.Model):
     def rating_count_f(self):
         return self._rating_count('f')
 
-    def __unicode__(self):
+    def __str__(self):
         return '%s %s' % (self.last_name, self.first_name)
 
     class Meta:
@@ -103,12 +103,14 @@ class LecturerRating(models.Model):
         ('f', 'Fachlich'))
     RATING_VALIDATORS = [MaxValueValidator(10), MinValueValidator(1)]
 
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='LecturerRating')
-    lecturer = models.ForeignKey(Lecturer, related_name='LecturerRating')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='LecturerRating',
+                             on_delete=models.CASCADE)
+    lecturer = models.ForeignKey(Lecturer, related_name='LecturerRating',
+                                 on_delete=models.CASCADE)
     category = models.CharField(max_length=1, choices=CATEGORY_CHOICES, db_index=True)
     rating = models.PositiveSmallIntegerField(validators=RATING_VALIDATORS, db_index=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return '%s %s%u' % (self.lecturer, self.category, self.rating)
 
     class Meta:
@@ -119,7 +121,8 @@ class Quote(models.Model):
     """Lecturer quotes."""
     author = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='Quote', null=True,
             on_delete=models.SET_NULL)
-    lecturer = models.ForeignKey(Lecturer, verbose_name='Dozent', related_name='Quote')
+    lecturer = models.ForeignKey(Lecturer, verbose_name='Dozent', related_name='Quote',
+                                 on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
     quote = models.TextField('Zitat')
     comment = models.TextField('Bemerkung', default='', blank=True)
@@ -133,7 +136,7 @@ class Quote(models.Model):
         down = self.QuoteVote.filter(vote=False).count()
         return up - down
 
-    def __unicode__(self):
+    def __str__(self):
         return '[%s] %s...' % (self.lecturer, self.quote[:30])
 
     class Meta:
@@ -142,12 +145,14 @@ class Quote(models.Model):
 
 
 class QuoteVote(models.Model):
-    """Lecturer quotes."""
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='QuoteVote')
-    quote = models.ForeignKey(Quote, related_name='QuoteVote')
+    """Lecturer quote votes."""
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='QuoteVote',
+                             on_delete=models.CASCADE)
+    quote = models.ForeignKey(Quote, related_name='QuoteVote',
+                              on_delete=models.CASCADE)
     vote = models.BooleanField(help_text='True = upvote, False = downvote')
 
-    def __unicode__(self):
+    def __str__(self):
         fmt_args = self.user.username, 'up' if self.vote else 'down', self.quote.pk
         return 'User %s votes %s quote %s' % fmt_args
 
@@ -156,10 +161,10 @@ class QuoteVote(models.Model):
 
 
 class Course(models.Model):
-    """A possible degree course. At the moment only one lecturer is possible"""
+    """A possible degree course. At the moment only one lecturer is possible."""
     id = models.IntegerField('Studiengang ID', primary_key=True)
     abbreviation = models.CharField('Abkürzung', max_length=10, unique=True)
     name = models.CharField('Titel', max_length=50)
 
-    def __unicode__(self):
+    def __str__(self):
         return '%s (%s)' % (self.name, self.abbreviation)

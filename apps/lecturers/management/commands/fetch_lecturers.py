@@ -20,7 +20,7 @@ from apps.lecturers.models import Lecturer
 def unicode_csv_reader(utf8_data, dialect=csv.excel, **kwargs):
     csv_reader = csv.reader(utf8_data, dialect=dialect, **kwargs)
     for row in csv_reader:
-        yield [unicode(cell, 'latin1') for cell in row]
+        yield [cell.encode('latin1') for cell in row]
 
 
 class HsrWebsite(object):
@@ -127,7 +127,7 @@ class Command(BaseCommand):
         reader = unicode_csv_reader(f, delimiter=b';')
         # The last element added to the list is a little hack, because all
         # rows except the title row have a trailing semicolon.
-        titles = [t.lower().replace(' ', '_') for t in reader.next()] + ['empty']
+        titles = [t.lower().replace(' ', '_') for t in next(reader)] + ['empty']
         Person = namedtuple('Person', titles)
         for p in map(Person._make, reader):
             parsed_count += 1

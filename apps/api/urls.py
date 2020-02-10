@@ -6,6 +6,9 @@ from rest_framework.urlpatterns import format_suffix_patterns
 from apps.api import views
 
 
+app_name = 'api'
+
+
 v1_api = [
     url(r'^$', views.api_root, name='api_root'),
     url(r'^users$', views.UserList.as_view(), name='user_list'),
@@ -19,6 +22,6 @@ v1_api = [
 ]
 
 urlpatterns = [
-    url(r'^', include('rest_framework.urls', namespace='rest_framework')),
+    url(r'^', include('rest_framework.urls')),
     url(r'^v1/', include(format_suffix_patterns(v1_api))),
 ]

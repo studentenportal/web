@@ -39,7 +39,7 @@ class Command(CommandOutputMixin, NoArgsCommand):
             sys.exit(1)
 
         self.printO('Please visit {0} in your browser.'.format(redirect_url))
-        verifier = raw_input('Enter PIN: ')
+        verifier = input('Enter PIN: ')
 
         try:
             auth.get_access_token(verifier)
