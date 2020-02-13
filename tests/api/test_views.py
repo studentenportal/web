@@ -68,7 +68,7 @@ class TestUserView:
         url = reverse('api:user_detail', args=(user.pk,))
         resp = auth_client.get(url)
         data = resp.json()
-        attrs = ['id', 'username', 'first_name', 'last_name', 'email', 'flattr', 'twitter']
+        attrs = ['id', 'username', 'first_name', 'last_name', 'email', 'flattr']
         for attr in attrs:
             assert data[attr] == getattr(user, attr)
 

@@ -36,7 +36,6 @@ class CustomUserManager(BaseUserManager):
 
 class User(AbstractUser):
     """The user model."""
-    twitter = models.CharField('Twitter Benutzername', max_length=24, blank=True)
     flattr = models.CharField('Flattr Benutzername', max_length=128, blank=True,
             help_text=mark_safe('Falls angegeben, wird bei deinen Zusammenfassungen jeweils ein '
             '<a href="https://flattr.com/">Flattr</a> Button angezeigt.'))

@@ -49,13 +49,3 @@ Password: user1
 
 Werden requirements oder Dockerfiles angepasst, müssen die Docker-Container mit
 `docker-compose build` neu gebaut werden.
-
-### Twitter
-
-Wenn du die Twitter Einbindung nutzen willst, musst du im Twitter Developer
-Center eine App erstellen und folgende Umgebungsvariablen setzen:
-
-- `TWITTER_CONSUMER_KEY`
-- `TWITTER_CONSUMER_SECRET`
-- `TWITTER_ACCESS_KEY`
-- `TWITTER_ACCESS_SECRET`

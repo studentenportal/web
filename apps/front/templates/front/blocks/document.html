@@ -82,9 +82,6 @@
                 <p><em>Datei nicht verfügbar</em></p>
             {% endif %}
         </div>
-        <div class="report">
-            <a class="icon-flag" title="Melden" href="{% url 'documents:document_report' doc.category.name|slugify doc.pk %}"></a>
-        </div>
     </article>
 
     {% endfor %}

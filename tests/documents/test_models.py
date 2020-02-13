@@ -93,9 +93,9 @@ class TestDocumentModel:
             pytest.fail("A document with no uploader should not throw an IntegrityError.")
 
     def test_download_count(self, document):
-        models.DocumentDownload.objects.create(document=document, ip='127.0.0.1')
-        models.DocumentDownload.objects.create(document=document, ip='192.168.1.2')
-        models.DocumentDownload.objects.create(document=document, ip='2001::8a2e:7334')
+        models.DocumentDownload.objects.create(document=document)
+        models.DocumentDownload.objects.create(document=document)
+        models.DocumentDownload.objects.create(document=document)
         assert document.downloadcount() == 3
 
     @pytest.mark.django_db
