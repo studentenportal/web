@@ -172,10 +172,15 @@ class DocumentDownload(View):
             models.DocumentDownload.objects.create(document=doc)
         # Serve file
         filename = unicodedata.normalize('NFKD', doc.original_filename) \
-                              .encode('us-ascii', 'ignore')
-        attachment = not filename.lower().endswith(b'.pdf')
-        return sendfile(request, doc.document.path,
-                attachment=attachment, attachment_filename=filename)
+                              .encode('ascii', 'ignore')
+        attachment = b'inline' if filename.lower().endswith(b'.pdf') else b'attachment'
+        response = sendfile(request, doc.document.path)
+        # NOTE: The Content-Disposition header is much more complex with UTF-8
+        # filenames, but we've made sure the filename only contains ASCII
+        # above.
+        response['Content-Disposition'] = b'%s; filename="%s"' % (attachment, filename)
+
+        return response
 
 
 class DocumentThumbnail(View):

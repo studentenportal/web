@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 from __future__ import print_function, division, absolute_import, unicode_literals
 
+from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import TestCase
 from django.urls import reverse
 from django.contrib.auth import get_user_model
 
+import pytest
 from bs4 import BeautifulSoup
 from model_bakery import baker
 
@@ -46,13 +48,24 @@ class DocumentDownloadTest(TestCase):
         response = self.client.get(url)
         assert response.status_code == 200
 
-    def testUmlautDocumentServed(self):
-        """Test whether documents with umlauts in their original filename can
-        be served."""
-        doc = baker.make_recipe('apps.documents.document_summary', original_filename='Füübäär Søreņ')
-        url = reverse('documents:document_download', args=(doc.category.name, doc.pk))
-        response = self.client.get(url)
-        assert response.status_code == 200
+
+@pytest.mark.parametrize('filename, expected', [
+    ('summary.txt', 'attachment; filename="summary.txt"'),
+    ('summary.pdf', 'inline; filename="summary.pdf"'),
+    ('Füübäär Søreņ.txt', 'attachment; filename="Fuubaar Sren.txt"'),
+    ('Füübäär Søreņ.pdf', 'inline; filename="Fuubaar Sren.pdf"'),
+])
+@pytest.mark.django_db
+def test_content_disposition(client, filename, expected):
+    category = baker.make_recipe('apps.documents.documentcategory')
+    doc = models.Document.objects.create(dtype=models.Document.DTypes.SUMMARY,
+                                         category=category,
+                                         document=SimpleUploadedFile(filename, b'hello world'))
+
+    url = reverse('documents:document_download', args=(doc.category.name, doc.pk))
+    response = client.get(url)
+    assert response.status_code == 200
+    assert response['Content-Disposition'] == expected
 
 
 class DocumentcategoryListViewTest(TestCase):
