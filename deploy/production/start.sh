@@ -18,6 +18,7 @@ done
 
 python3 manage.py migrate front
 python3 manage.py migrate
+python3 manage.py collectstatic
 
 # FIXME Python 3?
 gunicorn config.wsgi:application -n studentenportal -b 0.0.0.0:8000 -w 4 --log-level warning

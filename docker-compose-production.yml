@@ -8,3 +8,88 @@
 #  |___ webserver:80,:443  #TODO: TLS-frontend nginx or haproxy? let's encrypt auto TLS deployment?
 #   
 #TODO
+
+version: '3.7'
+services:
+
+# nginx - reverse proxy
+  nginx:
+    image: studentenportal-nginx
+
+    build:
+      context: .
+      dockerfile: deploy/production/nginx/Dockerfile
+      args:
+          - UID=${UID-1000}
+          - GID=${GID-1000}
+
+# postgres - Database server
+  postgres:
+    image: postgres:12
+
+    volumes:
+      - "/data/docker/postgres:/var/lib/postgresql/data:rw"
+
+    env_file:
+      ~/studentenportal.env
+
+    networks:
+        studentenportal-prod:
+          aliases:
+            - database
+            - postgres
+
+    restart_policy:
+      condition: on-failure
+      delay: 1s
+      max_attempts: 5
+      window: 20s
+
+    # resources:
+    #   limits:
+    #     cpus: "0.25"
+    #     memory: "1G"
+    #   reservations:
+    #     cpus: "0.125"
+    #     memory: "750M"
+
+# studentenportal - Application server with python
+  studentenportal:
+    image: studentenportal/dev:latest
+
+    build:
+      context: .
+      dockerfile: deploy/production/Dockerfile
+      args:
+          - UID=${UID-1000}
+          - GID=${GID-1000}
+
+    volumes:
+      - "/srv/www/media:/srv/www/media"
+
+    env_file:
+      ~/studentenportal.env
+
+    networks:
+      studentenportal-prod:
+        aliases:
+          - application
+
+    restart_policy:
+      condition: on-failure
+      delay: 1s
+      max_attempts: 5
+      window: 20s
+
+    # resources:
+    #   limits:
+    #     cpus: "0.25"
+    #     memory: "1G"
+    #   reservations:
+    #     cpus: "0.125"
+    #     memory: "750M"
+
+networks:
+  studentenportal-prod:
+    driver: bridge
+    internal: true
