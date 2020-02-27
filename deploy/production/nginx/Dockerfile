@@ -24,5 +24,4 @@ RUN ln -s /etc/ssl/certs/ssl-cert-snakeoil.pem \
 RUN ln -s /etc/ssl/private/ssl-cert-snakeoil.key \
     /etc/dehydrated/certs/studentenportal.ch/privkey.pem
 
-VOLUME [ "/etc/nginx/sites" ]
 VOLUME [ "/etc/dehydrated" ]

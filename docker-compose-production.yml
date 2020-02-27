@@ -33,6 +33,11 @@ services:
       - 80:80
       - 443:443
 
+    volumes:
+      # HOST_OR_NAME:CONTAINER
+      - "/home/studentenportal/media:/srv/www/studentenportal/media"
+      - "studentenportal-static:/srv/www/studentenportal/static"
+
     networks:
       studentenportal-prod:
         aliases:
@@ -69,8 +74,9 @@ services:
           - GID=${GID-1000}
 
     volumes:
-      # HOST:CONTAINER
+      # HOST_OR_NAME:CONTAINER
       - "/home/studentenportal/media:/srv/www/studentenportal/media"
+      - "studentenportal-static:/srv/www/studentenportal/static"
 
     env_file:
       ~/studentenportal.env
@@ -85,3 +91,6 @@ services:
 networks:
   studentenportal-prod:
     driver: bridge
+
+volumes:
+  studentenportal-static:
