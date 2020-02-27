@@ -36,6 +36,7 @@ services:
     volumes:
       # HOST_OR_NAME:CONTAINER
       - "/home/studentenportal/media:/srv/www/studentenportal/media"
+      - "studentenportal-dehydrated:/etc/dehydrated"
       - "studentenportal-static:/srv/www/studentenportal/static"
 
     networks:
@@ -94,3 +95,4 @@ networks:
 
 volumes:
   studentenportal-static:
+  studentenportal-dehydrated:
