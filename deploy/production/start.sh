@@ -16,6 +16,8 @@ do
   sleep 1
 done
 
+PGPASSWORD=$DB_PASSWORD psql -h $DB_HOST -U $DB_USER -d $DB_NAME -c 'CREATE EXTENSION IF NOT EXISTS citext;'
+
 python3 manage.py migrate front
 python3 manage.py migrate
 python3 manage.py collectstatic
