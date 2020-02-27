@@ -9,7 +9,7 @@
 #   
 #TODO
 
-version: '3.7'
+version: '3.5'
 services:
 
 # nginx - reverse proxy
@@ -39,19 +39,7 @@ services:
             - database
             - postgres
 
-    restart_policy:
-      condition: on-failure
-      delay: 1s
-      max_attempts: 5
-      window: 20s
-
-    # resources:
-    #   limits:
-    #     cpus: "0.25"
-    #     memory: "1G"
-    #   reservations:
-    #     cpus: "0.125"
-    #     memory: "750M"
+    restart: on-failure
 
 # studentenportal - Application server with python
   studentenportal:
@@ -75,19 +63,7 @@ services:
         aliases:
           - application
 
-    restart_policy:
-      condition: on-failure
-      delay: 1s
-      max_attempts: 5
-      window: 20s
-
-    # resources:
-    #   limits:
-    #     cpus: "0.25"
-    #     memory: "1G"
-    #   reservations:
-    #     cpus: "0.125"
-    #     memory: "750M"
+    restart: on-failure
 
 networks:
   studentenportal-prod:
