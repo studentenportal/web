@@ -29,6 +29,15 @@ services:
           - UID=${UID-1000}
           - GID=${GID-1000}
 
+    ports:
+      - 80:80
+      - 443:443
+
+    networks:
+      studentenportal-prod:
+        aliases:
+          - application
+
 # postgres - Database server
   postgres:
     image: postgres:12
@@ -76,4 +85,3 @@ services:
 networks:
   studentenportal-prod:
     driver: bridge
-    internal: true
