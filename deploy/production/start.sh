@@ -6,8 +6,8 @@ export DB_HOST="postgres" \
 	DB_PASSWORD="${POSTGRES_PASSWORD}" \
 	DJANGO_SETTINGS_MODULE="config.settings" \
 	DJANGO_DEBUG="false" \
-	DJANGO_STATIC_ROOT="/srv/www/static" \
-	DJANGO_MEDIA_ROOT="/srv/www/media" \
+	DJANGO_STATIC_ROOT="/srv/www/studentenportal/static" \
+	DJANGO_MEDIA_ROOT="/srv/www/studentenportal/media" \
 	PORT="8000"
 
 # Wait for postgres
