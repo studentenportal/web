@@ -87,7 +87,7 @@ BASEDIR=/etc/dehydrated/
 #
 # BASEDIR and WELLKNOWN variables are exported and can be used in an external program
 # default: <unset>
-#HOOK=
+HOOK=/etc/dehydrated/hook.sh
 
 # Chain clean_challenge|deploy_challenge arguments together into one hook call per certificate (default: no)
 #HOOK_CHAIN="no"

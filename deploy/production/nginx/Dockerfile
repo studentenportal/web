@@ -6,11 +6,13 @@ RUN apt-get update && apt-get install -y apt-utils
 
 RUN apt-get install -y curl bash openssl
 ADD https://raw.githubusercontent.com/dehydrated-io/dehydrated/${DEHYDRATED_VERSION}/dehydrated /usr/local/bin/
-RUN chmod a+x /usr/local/bin/dehydrated && \
-    mkdir -p /var/www/dehydrated \
-             /etc/dehydrated/certs/studentenportal.ch
 ADD deploy/production/nginx/dehydrated/config /etc/dehydrated/
 ADD deploy/production/nginx/dehydrated/domains.txt /etc/dehydrated/
+ADD deploy/production/nginx/dehydrated/hook.sh /etc/dehydrated/
+RUN chmod a+x /usr/local/bin/dehydrated \
+              /etc/dehydrated/hook.sh && \
+    mkdir -p /var/www/dehydrated \
+             /etc/dehydrated/certs/studentenportal.ch
 
 ADD deploy/production/nginx/default.conf /etc/nginx/conf.d/
 ADD https://ssl-config.mozilla.org/ffdhe2048.txt /etc/nginx/dhparam.pem
