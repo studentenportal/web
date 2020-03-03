@@ -14,6 +14,11 @@
 # - POSTGRES_USER (e.g. studentenportal)
 # - POSTGRES_PASSWORD (e.g. hunter2)
 # - SECRET_KEY (for Django)
+#
+# If there's no mailserver on localhost, it should additionally set:
+# - DJANGO_EMAIL_HOST (with STARTTLS)
+# - DJANGO_EMAIL_HOST_USER
+# - DJANGO_EMAIL_HOST_PASSWORD
 
 version: '3.5'
 services:
