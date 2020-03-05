@@ -2,7 +2,7 @@
 from __future__ import print_function, division, absolute_import, unicode_literals
 
 from django.db import models
-from django.contrib.auth.models import AbstractUser, BaseUserManager
+from django.contrib.auth.models import AbstractUser, UserManager
 from django.utils.safestring import mark_safe
 
 
@@ -16,7 +16,7 @@ def strip_mail_part(username):
     return username
 
 
-class CustomUserManager(BaseUserManager):
+class CustomUserManager(UserManager):
 
     """
     By default, django.contrib.auth does case _sensitive_ username authentication, which isn't what is
