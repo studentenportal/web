@@ -1,9 +1,7 @@
 #!/bin/bash
 
-export DB_HOST="postgres" \
-	DB_USER="${POSTGRES_USER}" \
-	DB_NAME="${POSTGRES_DB_NAME}" \
-	DB_PASSWORD="${POSTGRES_PASSWORD}" \
+
+export POSTGRES_HOST="postgres" \
 	DJANGO_SETTINGS_MODULE="config.settings" \
 	DJANGO_DEBUG="false" \
 	DJANGO_STATIC_ROOT="/srv/www/studentenportal/static" \
@@ -11,12 +9,12 @@ export DB_HOST="postgres" \
 	PORT="8000"
 
 # Wait for postgres
-while ! curl http://$DB_HOST:5432/ 2>&1 | grep '52' > /dev/null
+while ! curl http://$POSTGRES_HOST:5432/ 2>&1 | grep '52' > /dev/null
 do
   sleep 1
 done
 
-PGPASSWORD=$DB_PASSWORD psql -h $DB_HOST -U $DB_USER -d $DB_NAME -c 'CREATE EXTENSION IF NOT EXISTS citext;'
+PGPASSWORD=$POSTGRES_PASSWORD psql -h $POSTGRES_HOST -U $POSTGRES_USER -d $POSTGRES_DB_NAME -c 'CREATE EXTENSION IF NOT EXISTS citext;'
 
 python3 manage.py migrate front
 python3 manage.py migrate

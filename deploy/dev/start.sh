@@ -1,12 +1,12 @@
 #!/bin/bash
 
 # Wait for postgres
-while ! curl http://$DB_HOST:5432/ 2>&1 | grep '52' > /dev/null
+while ! curl http://$POSTGRES_HOST:5432/ 2>&1 | grep '52' > /dev/null
 do
   sleep 1
 done
 
-PGPASSWORD=$DB_PASSWORD psql -h $DB_HOST -U $DB_USER -d studentenportal -c 'CREATE EXTENSION IF NOT EXISTS citext;'
+PGPASSWORD=$POSTGRES_PASSWORD psql -h $POSTGRES_HOST -U $POSTGRES_USER -d studentenportal -c 'CREATE EXTENSION IF NOT EXISTS citext;'
 python3 manage.py migrate front
 python3 manage.py migrate
 python3 manage.py loaddata ./testdata/database.json

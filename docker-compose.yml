@@ -30,9 +30,9 @@ services:
     ports:
       - 8000:8000
     environment:
-      DB_HOST: "postgres"
-      DB_USER: "studentenportal"
-      DB_PASSWORD: "k9F1bbHiW4o9By1A6tvL"
+      POSTGRES_HOST: "postgres"
+      POSTGRES_USER: "studentenportal"
+      POSTGRES_PASSWORD: "k9F1bbHiW4o9By1A6tvL"
       DJANGO_DEBUG: "True"
     networks:
       - studentenportal-dev
