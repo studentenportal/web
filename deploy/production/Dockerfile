@@ -3,8 +3,8 @@
 # Images have the same versioning as the studentenportal itself,
 #  and are uploaded to dockerhub.
 FROM studentenportal/base:3.7-0
-ARG UID=1000
-ARG GID=1000
+ARG UID=1001
+ARG GID=1001
 
 RUN groupadd -g $GID studentenportal
 RUN useradd --home /home/studentenportal -u $UID -g $GID -M studentenportal
