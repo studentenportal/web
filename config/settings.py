@@ -259,6 +259,7 @@ if not DEBUG:
 
 # Email
 DEFAULT_FROM_EMAIL = 'Studentenportal <noreply@studentenportal.ch>'
+SERVER_EMAIL = DEFAULT_FROM_EMAIL
 if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 else:
