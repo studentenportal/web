@@ -30,9 +30,6 @@ services:
     build:
       context: .
       dockerfile: deploy/production/nginx/Dockerfile
-      args:
-          - UID=${UID-1000}
-          - GID=${GID-1000}
 
     ports:
       - 80:80
