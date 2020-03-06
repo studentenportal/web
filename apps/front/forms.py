@@ -9,7 +9,7 @@ from django.contrib.auth import get_user_model
 from registration.forms import RegistrationForm
 
 
-USERNAME_RE = re.compile(r'^[a-zA-Z-_]+$')
+USERNAME_RE = re.compile(r'^[a-zA-Z0-9-_]+$')
 
 
 class ProfileForm(forms.ModelForm):
@@ -53,7 +53,7 @@ class HsrRegistrationForm(RegistrationForm):
         # Ensure that the username part is valid
         if not USERNAME_RE.match(email_user):
             raise forms.ValidationError(
-                    'Ungültige E-Mail, Benutzername darf nur a-z, A-Z, - und _ enthalten.')
+                    'Ungültige E-Mail, Benutzername darf nur a-z, A-Z, 0-9, - und _ enthalten.')
 
         # Ensure that user with this username does not exist yet
         # (We can't do this in the `clean_username` method since the `username`
