@@ -15,6 +15,7 @@ RUN chmod a+x /usr/local/bin/dehydrated \
              /etc/dehydrated/certs/studentenportal.ch
 
 ADD deploy/production/nginx/default.conf /etc/nginx/conf.d/
+ADD deploy/production/nginx/nginx.conf /etc/nginx/
 ADD https://ssl-config.mozilla.org/ffdhe2048.txt /etc/nginx/dhparam.pem
 
 # Set up self-signed snakeoil certificate which later gets replaced by the real
