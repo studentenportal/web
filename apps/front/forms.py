@@ -52,8 +52,11 @@ class HsrRegistrationForm(RegistrationForm):
 
         # Ensure that the username part is valid
         if not USERNAME_RE.match(email_user):
-            raise forms.ValidationError(
-                    'Ungültige E-Mail, Benutzername darf nur a-z, A-Z, 0-9, - und _ enthalten.')
+            msg = 'Ungültige E-Mail, Benutzername darf nur a-z, A-Z, 0-9, - und _ enthalten.'
+            if '.' in email_user:
+                msg += ' Nutze bitte mmuster@hsr.ch statt melanie.muster@hsr.ch.'
+
+            raise forms.ValidationError(msg)
 
         # Ensure that user with this username does not exist yet
         # (We can't do this in the `clean_username` method since the `username`

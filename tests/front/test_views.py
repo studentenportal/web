@@ -102,7 +102,23 @@ class RegistrationViewTest(TestCase):
             'password2': 'testpass',
         })
         assert response.status_code == 200
-        assert u'Ungültige E-Mail' in response.content.decode('utf8')
+        content = response.content.decode('utf8')
+        assert u'Ungültige E-Mail' in content
+        assert u'Nutze bitte' not in content
+
+    def testRegistrationLongUsername(self):
+        """
+        Test that a registration with a long username returns an error.
+        """
+        response = self.client.post(self.registration_url, {
+            'email': 'foo.bar@hsr.ch',
+            'password1': 'testpass',
+            'password2': 'testpass',
+        })
+        assert response.status_code == 200
+        content = response.content.decode('utf8')
+        assert u'Ungültige E-Mail' in content
+        assert u'Nutze bitte' in content
 
     def testRegistrationBadDomain(self):
         """
