@@ -10,7 +10,7 @@ RUN groupadd -g $GID studentenportal
 RUN useradd --home /home/studentenportal -u $UID -g $GID -M studentenportal
 
 COPY requirements/ /tmp/requirements/
-RUN python3 -m pip --quiet install -U pip setuptools wheel
+RUN python3 -m pip --quiet install -U pip 'setuptools<46' wheel
 RUN python3 -m pip --quiet install -r /tmp/requirements/base.txt -r /tmp/requirements/production.txt && rm -r /tmp/requirements
 
 RUN mkdir -p /srv/www/studentenportal
