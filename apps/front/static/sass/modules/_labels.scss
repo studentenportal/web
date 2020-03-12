@@ -62,12 +62,6 @@
     background-color: #302F2F;
 }
 
-.label-flattr {
-    @extend .label;
-    @include fix-icon-position-in-label;
-    background-color: #89b058;
-}
-
 .label-didactic {
     @extend .label;
     background-color: #f0ad4e;

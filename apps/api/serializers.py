@@ -11,12 +11,11 @@ from apps.lecturers import models
 class UserSerializer(serializers.ModelSerializer):
     username = serializers.ReadOnlyField()
     quotes = serializers.PrimaryKeyRelatedField(many=True, read_only=True, source='Quote')
-    flattr = serializers.CharField(allow_blank=True)
 
     class Meta:
         model = get_user_model()
         fields = ('id', 'username', 'first_name', 'last_name', 'email',
-                  'flattr', 'quotes')
+                  'quotes')
 
 
 class LecturerSerializer(serializers.ModelSerializer):

@@ -14,7 +14,6 @@ Rapperswil](https://www.hsr.ch/).
 - Events mit iCal Export
 - Faire Dozentenbewertungen
 - Unterrichtszitate
-- Flattr Integration
 
 Featurevorschläge sind willkommen! Aktuell geplante Features und Featurewünsche
 können auf dem [GitHub

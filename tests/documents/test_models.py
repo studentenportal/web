@@ -40,8 +40,7 @@ class TestDocumentModel:
                     Theorie aus dem AnI1-Skript auf 8 Seiten. Das Dokument ist \
                     in LaTeX gesetzt, Source ist hier: http://j.mp/fjtleh - \
                     Gute Ergänzungen sind erwünscht!',
-                uploader=john,
-                flattr_disabled=True)
+                uploader=john)
         document.DocumentRating.create(user=marc, rating=5)
         document.DocumentRating.create(user=pete, rating=2)
         return document
@@ -133,9 +132,6 @@ class TestDocumentModel:
         assert doc.get_license_display() is None
         assert details['url'] is None
         assert details['icon'] is None
-
-    def test_flattr_disabled(self, document):
-        assert document.flattr_disabled
 
 
 @pytest.mark.django_db
