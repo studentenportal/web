@@ -1,3 +1,1 @@
-new.studentenportal.ch > studentenportal.ch
-# studentenportal.ch
-# www.studentenportal.ch
+studentenportal.ch www.studentenportal.ch > studentenportal.ch
