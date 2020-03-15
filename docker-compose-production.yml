@@ -1,24 +1,4 @@
-#  
-# studentenportal ----- studentenportal-media:/var/www/studentenportal/media
-#  ||__
-#  | __ postgres ----- postgres-data:/var/lib/postgresql/data
-#  ||__
-#  | __ mailserver #TODO: postfix?
-#  ||__
-#  |___ webserver:80,:443  #TODO: TLS-frontend nginx or haproxy? let's encrypt auto TLS deployment?
-#   
-#TODO
-
-# ~/studentenportal.env should set:
-# - POSTGRES_DB_NAME (e.g. studentenportal)
-# - POSTGRES_USER (e.g. studentenportal)
-# - POSTGRES_PASSWORD (e.g. hunter2)
-# - SECRET_KEY (for Django)
-#
-# If there's no mailserver on localhost, it should additionally set:
-# - DJANGO_EMAIL_HOST (with STARTTLS)
-# - DJANGO_EMAIL_HOST_USER
-# - DJANGO_EMAIL_HOST_PASSWORD
+# See https://github.com/studentenportal/deploy2020 for deployment docs.
 
 version: '3.5'
 services:
@@ -44,7 +24,7 @@ services:
     networks:
       studentenportal-prod:
         aliases:
-          - application
+          - webserver
 
 # postgres - Database server
   postgres:
@@ -62,8 +42,6 @@ services:
           aliases:
             - database
             - postgres
-
-    restart: on-failure
 
 # studentenportal - Application server with python
   studentenportal:
@@ -89,7 +67,11 @@ services:
         aliases:
           - application
 
-    restart: on-failure
+    restart: unless-stopped
+
+    depends_on:
+      - postgres
+      - nginx
 
 networks:
   studentenportal-prod:

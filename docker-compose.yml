@@ -36,6 +36,8 @@ services:
       DJANGO_DEBUG: "True"
     networks:
       - studentenportal-dev
+    depends_on:
+      - postgres
 
 networks:
   studentenportal-dev:
