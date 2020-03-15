@@ -17,7 +17,7 @@ setup(
     version=VERSION,
     include_package_data=True,
     license='AGPLv3',
-    description='VSHSR Studentenportal',
+    description=r'open\HSR Studentenportal',
     long_description='Dies ist ein re-launch des VSHSR Studentenportals. Es ' + \
         'hat das alte Portal im Frühling 2012 abgelöst und soll es in Sachen Ruhm' + \
         'und Ehre weit überholen.',
