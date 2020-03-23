@@ -26,6 +26,9 @@ services:
         aliases:
           - webserver
 
+    depends_on:
+      - studentenportal
+
 # postgres - Database server
   postgres:
     image: postgres:12
@@ -71,7 +74,6 @@ services:
 
     depends_on:
       - postgres
-      - nginx
 
 networks:
   studentenportal-prod:
