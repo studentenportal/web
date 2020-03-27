@@ -6,9 +6,9 @@ on:
       - master
   pull_request:
   schedule:
-    # Schedule monthly checks on master, to ensure that CI does not silently break
-    # when nothing is pushed for a while.
-    - cron: '30 3 1 * *'
+    # Schedule weekly builds on master, to ensure that the Docker image gets
+    # rebuilt regularly (in order to include security fixes in the base image).
+    - cron: '5 4 * * 5'
 
 jobs:
 
@@ -17,17 +17,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Fetch repository tags (for git describe to work)
-        run: git fetch --prune --unshallow
 
       - name: Fix permissions of working directory
         run: chmod 777 .
-      - name: Start containers with docker-compose 
-        run: |
-          export RELEASE=$(git describe --tags)
-          export DOCKER_TAGS="studentenportal/studentenportal:latest studentenportal/studentenportal:${RELEASE}"
-          export CONTAINER_COVERAGE_HOME_DIR=/srv/www/studentenportal
-          docker-compose up -d
+      - name: Start containers with docker-compose
+        run: docker-compose up -d
+        env:
+          CONTAINER_COVERAGE_HOME_DIR: /srv/www/studentenportal
       - name: Check running containers
         run: docker ps
 
@@ -38,3 +34,27 @@ jobs:
         uses: codecov/codecov-action@v1
         with:
           token: ${{secrets.CODECOV_TOKEN}}
+
+  publish:
+    name: publish docker image
+    runs-on: ubuntu-latest
+    env:
+      DOCKER_USERNAME: "${{ secrets.DOCKER_USERNAME }}"
+      DOCKER_PASSWORD: "${{ secrets.DOCKER_PASSWORD }}"
+    if: github.ref == 'refs/heads/master'
+    steps:
+      - uses: actions/checkout@v2
+      - name: Fetch repository tags (for git describe to work)
+        run: git fetch --prune --unshallow
+
+      # Build and push docker image
+      # Make sure that the DOCKER_USERNAME and DOCKER_PASSWORD secret variables are set
+      - name: Export env vars
+        run: |
+          export RELEASE=$(git describe --tags)
+          if [ -z "$RELEASE" ]; then echo "Could not determine release name"; exit 1; fi
+          echo "export DOCKER_TAGS='studentenportal/web:latest studentenportal/web:${RELEASE}'" >> .ci-env
+      - name: Build Docker image
+        run: source .ci-env && bash deploy/production/ci-build.sh
+      - name: Publish Docker image
+        run: source .ci-env && bash deploy/production/ci-publish.sh
