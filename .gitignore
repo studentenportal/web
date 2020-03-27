@@ -11,7 +11,7 @@ venv/
 .venv2/
 .idea
 .coverage
-.coveralls.yml
+coverage.xml
 .cache/
 .sass-cache/
 *.egg-info/

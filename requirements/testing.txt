@@ -7,4 +7,3 @@ pytest-django>=3.8,<3.9
 pytest-pep8>=1.0.6,<1.1
 pytest-cov>=2.8,<2.9
 pytest-pythonpath>=0.7,<0.8
-coveralls==1.11.0

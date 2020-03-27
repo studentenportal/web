@@ -1,7 +1,7 @@
 # Studentenportal 2.0
 
 [![Build Status](https://secure.travis-ci.org/studentenportal/web.png?branch=master)](http://travis-ci.org/studentenportal/web)
-[![Coverage Status](https://coveralls.io/repos/github/studentenportal/web/badge.svg)](https://coveralls.io/github/studentenportal/web)
+[![Coverage Status](https://codecov.io/gh/studentenportal/web/branch/master/graphs/badge.svg)](https://codecov.io/github/studentenportal/web/)
 [![Code Health](https://landscape.io/github/studentenportal/web/master/landscape.png)](https://landscape.io/github/studentenportal/web/master)
 
 Das Studentenportal ist DIE Austauschplattform für Lernhilfen aller Art und
