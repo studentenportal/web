@@ -32,4 +32,9 @@ jobs:
         run: docker ps
 
       - name: Run tests
-        run: docker-compose run --rm studentenportal ./deploy/dev/test.sh
+        run: docker-compose run --rm studentenportal ./deploy/dev/test.sh --coverage-xml
+
+      - name: Upload coverage to codecov.io
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{secrets.CODECOV_TOKEN}}
