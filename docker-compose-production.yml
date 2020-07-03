@@ -26,6 +26,8 @@ services:
         aliases:
           - webserver
 
+    restart: unless-stopped
+
     depends_on:
       - studentenportal
 
@@ -45,6 +47,8 @@ services:
           aliases:
             - database
             - postgres
+
+    restart: unless-stopped
 
 # studentenportal - Application server with python
   studentenportal:
