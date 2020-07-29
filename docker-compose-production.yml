@@ -21,6 +21,9 @@ services:
       - "studentenportal-dehydrated:/etc/dehydrated"
       - "studentenportal-static:/srv/www/studentenportal/static"
 
+    environment:
+      com.centurylinklabs.watchtower.enable: "false"  # Must be built manually for now, since it's not published to Docker Hub
+
     networks:
       studentenportal-prod:
         aliases:
@@ -52,14 +55,7 @@ services:
 
 # studentenportal - Application server with python
   studentenportal:
-    image: studentenportal/dev:latest
-
-    build:
-      context: .
-      dockerfile: deploy/production/Dockerfile
-      args:
-          - UID=${UID-1001}
-          - GID=${GID-1001}
+    image: studentenportal/web:latest
 
     volumes:
       # HOST_OR_NAME:CONTAINER
