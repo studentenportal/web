@@ -42,6 +42,7 @@ jobs:
       DOCKER_USERNAME: "${{ secrets.DOCKER_USERNAME }}"
       DOCKER_PASSWORD: "${{ secrets.DOCKER_PASSWORD }}"
     if: github.ref == 'refs/heads/master'
+    needs: test
     steps:
       - uses: actions/checkout@v2
       - name: Fetch repository tags (for git describe to work)
