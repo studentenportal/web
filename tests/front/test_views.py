@@ -89,7 +89,7 @@ class RegistrationViewTest(TestCase):
     def testRegistrationPage(self):
         response = self.client.get(self.registration_url)
         self.assertContains(response, '<h1>Registrieren</h1>')
-        self.assertContains(response, 'Diese Registrierung ist Studenten mit einer HSR-Email-Adresse')
+        self.assertContains(response, 'Diese Registrierung ist Studenten mit einer HSR- oder OST-Email-Adresse')
         self.assertContains(response, '<form')
 
     def testRegistrationBadUsername(self):
@@ -106,7 +106,7 @@ class RegistrationViewTest(TestCase):
         assert u'Ungültige E-Mail' in content
         assert u'Nutze bitte' not in content
 
-    def testRegistrationLongUsername(self):
+    def testRegistrationLongUsernameHsr(self):
         """
         Test that a registration with a long username returns an error.
         """
@@ -120,6 +120,30 @@ class RegistrationViewTest(TestCase):
         assert u'Ungültige E-Mail' in content
         assert u'Nutze bitte' in content
 
+    def testRegistrationLongUsernameOst(self):
+        """
+        Test that a registration with a long OST username works.
+        """
+        response = self.client.post(self.registration_url, {
+            'email': 'foo.bar@ost.ch',
+            'password1': 'testpass',
+            'password2': 'testpass',
+        })
+        assert response.status_code == 302
+
+    def testRegistrationShortUsernameOst(self):
+        """
+        Test that a registration with a short OST username fails.
+        """
+        response = self.client.post(self.registration_url, {
+            'email': 'foobar@ost.ch',
+            'password1': 'testpass',
+            'password2': 'testpass',
+        })
+        assert response.status_code == 200
+        content = response.content.decode('utf8')
+        assert u'Ungültige E-Mail' in content
+
     def testRegistrationBadDomain(self):
         """
         Test that a registration with a non-hsr.ch Domain return an error.
@@ -130,7 +154,7 @@ class RegistrationViewTest(TestCase):
             'password2': 'testpass',
         })
         assert response.status_code == 200
-        assert u'Registrierung ist Studenten mit einer @hsr.ch-Mailadresse vorbehalten' \
+        assert u'Registrierung ist Studierenden mit einer @ost.ch oder @hsr.ch-Mailadresse vorbehalten' \
                 in response.content.decode('utf8')
 
     def testRegistrationDoubleUsername(self):
