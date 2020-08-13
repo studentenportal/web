@@ -20,5 +20,11 @@ done
 export PYTHONPATH=$(pwd)
 
 PGPASSWORD="$POSTGRES_PASSWORD" psql -h "$POSTGRES_HOST" -U "$POSTGRES_USER" -d template1 -c 'CREATE EXTENSION IF NOT EXISTS citext;'
-coverage run --source apps -m pytest "$@" && echo && coverage report
+coverage run --source apps -m pytest "$@"
+pytest_exit=$?
+
+echo
+(( pytest_exit == 0 )) && coverage report
 if [[ "$generate_xml" == 1 ]]; then echo "Generating XML coverage file"; coverage xml; fi
+
+exit "$pytest_exit"
