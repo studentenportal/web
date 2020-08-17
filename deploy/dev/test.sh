@@ -23,7 +23,7 @@ PGPASSWORD="$POSTGRES_PASSWORD" psql -h "$POSTGRES_HOST" -U "$POSTGRES_USER" -d 
 coverage run --source apps -m pytest "$@"
 pytest_exit=$?
 
-echo
+echo ""
 (( pytest_exit == 0 )) && coverage report
 if [[ "$generate_xml" == 1 ]]; then echo "Generating XML coverage file"; coverage xml; fi
 
