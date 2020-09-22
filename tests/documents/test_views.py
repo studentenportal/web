@@ -27,7 +27,7 @@ class DocumentDownloadTest(TestCase):
 
     def testSummaryServed(self):
         """Assert that the summaries get served, even without login."""
-        doc = baker.make_recipe('apps.documents.document_summary')
+        doc = baker.make_recipe('apps.documents.document_summary', public=True)
         url = reverse('documents:document_download', args=(doc.category.name, doc.pk))
         response = self.client.get(url)
         assert response.status_code == 200
@@ -60,7 +60,8 @@ def test_content_disposition(client, filename, expected):
     category = baker.make_recipe('apps.documents.documentcategory')
     doc = models.Document.objects.create(dtype=models.Document.DTypes.SUMMARY,
                                          category=category,
-                                         document=SimpleUploadedFile(filename, b'hello world'))
+                                         document=SimpleUploadedFile(filename, b'hello world'),
+                                         public=True)
 
     url = reverse('documents:document_download', args=(doc.category.name, doc.pk))
     response = client.get(url)
@@ -219,7 +220,7 @@ class DocumentListViewTest(TestCase):
         self.assertNotContains(response, 'href="{}"'.format(url2))
 
     def testDownloadCount(self):
-        doc = baker.make_recipe('apps.documents.document_summary')
+        doc = baker.make_recipe('apps.documents.document_summary', public=True)
         dl_url = reverse('documents:document_download', args=(doc.category.name.lower(), doc.pk))
 
         # No downloads yet
