@@ -49,6 +49,7 @@ class TestDocumentModel:
         assert document.name == 'Analysis 1 Theoriesammlung'
         assert document.description.startswith('Dieses Dokument')
         assert document.dtype == models.Document.DTypes.SUMMARY
+        assert not document.public
         assert isinstance(document.uploader, User)
 
     def test_upload_date(self, document):
