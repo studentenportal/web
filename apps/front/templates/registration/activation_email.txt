@@ -6,7 +6,7 @@ du darfst dir für diese Leistung selbst auf die Schulter klopfen!
 Um den Vorgang abzuschliessen (zuerst die Arbeit, dann das Vergnügen)
 musst du deinen Account noch bestätigen.
 
-{{ protocol }}://{{site.domain}}/accounts/activate/{{ activation_key }}
+https://{{site.domain}}/accounts/activate/{{ activation_key }}
 
 Du hast {{ expiration_days }} Tage Zeit um dies zu tun, ansonsten
 wird der Account gesperrt und du hast verloren.
