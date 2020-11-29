@@ -10,6 +10,7 @@ import django.contrib.auth.models
 class Migration(migrations.Migration):
 
     dependencies = [
+        ('front', '0000_setup'),
         ('auth', '0006_require_contenttypes_0002'),
     ]
 
