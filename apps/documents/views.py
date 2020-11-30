@@ -8,13 +8,11 @@ import unicodedata
 from collections import defaultdict
 import logging
 
-from django.conf import settings
 from django.contrib import messages
 from django.contrib.syndication.views import Feed
 from django.db.models import Count
 from django.urls import reverse
 from django.core.exceptions import ObjectDoesNotExist, ValidationError
-from django.core.mail import send_mail
 from django.http import HttpResponse
 from django.http import HttpResponseForbidden, HttpResponseServerError, HttpResponseBadRequest
 from django.views.decorators.csrf import csrf_exempt
