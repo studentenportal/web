@@ -30,7 +30,6 @@ from . import models, forms
 from apps.front.mixins import LoginRequiredMixin
 from apps.front.message_levels import EVENT
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -48,7 +47,7 @@ class DocumentcategoryList(TemplateView):
         # To reduce number of queries, prefetch aggregated count values from the
         # document model. The query returns the count for each (category, dtype) pair.
         category_counts = models.Document.objects.values('category', 'dtype') \
-                                .order_by().annotate(count=Count('dtype'))
+            .order_by().annotate(count=Count('dtype'))
 
         # Create counts dictionary ({category_id: {dtype: count, dtype: count, ...}})
         counts = defaultdict(lambda: defaultdict(int))
@@ -87,7 +86,7 @@ class DocumentcategoryAdd(LoginRequiredMixin, CreateView):
 
     def get_success_url(self):
         messages.add_message(self.request, messages.SUCCESS,
-            'Modul "%s" wurde erfolgreich hinzugefügt.' % self.object.name)
+                             'Modul "%s" wurde erfolgreich hinzugefügt.' % self.object.name)
         return reverse('documents:documentcategory_list')
 
 
@@ -133,7 +132,7 @@ class DocumentFeed(Feed):
 
     def item_link(self, item):
         return reverse('documents:document_download',
-                kwargs={'category': slugify(item.category.name), 'pk': item.pk})
+                       kwargs={'category': slugify(item.category.name), 'pk': item.pk})
 
     def item_description(self, item):
         return item.description
@@ -159,9 +158,9 @@ class DocumentDownload(View):
         if doc.dtype == doc.DTypes.EXAM or doc.public is False:
             if not self.request.user.is_authenticated:
                 return redirect('%s?next=%s' % (
-                        reverse('auth_login'),
-                        reverse('documents:document_list',
-                                kwargs={'category': slugify(doc.category.name)})
+                    reverse('auth_login'),
+                    reverse('documents:document_list',
+                            kwargs={'category': slugify(doc.category.name)})
                 ))
         # Log download
         timerange = datetime.datetime.now() - datetime.timedelta(1)
@@ -170,7 +169,7 @@ class DocumentDownload(View):
             models.DocumentDownload.objects.create(document=doc)
         # Serve file
         filename = unicodedata.normalize('NFKD', doc.original_filename) \
-                              .encode('ascii', 'ignore')
+            .encode('ascii', 'ignore')
         attachment = b'inline' if filename.lower().endswith(b'.pdf') else b'attachment'
         response = sendfile(request, doc.document.path, encoding='ascii')
         # NOTE: The Content-Disposition header is much more complex with UTF-8
@@ -206,9 +205,9 @@ class DocumentThumbnail(View):
                 logger.error('Thumbnail for {0} could not be created: {1}'
                              .format(doc.document.path, e))
 
-        filename = unicodedata.normalize('NFKD', thumbnail_path).encode('us-ascii', 'ignore')
+        filename = unicodedata.normalize('NFKD', thumbnail_path)
         return sendfile(request, thumbnail_path,
-                        attachment=False, attachment_filename=filename, encoding='us-ascii')
+                        attachment=False, attachment_filename=filename)
 
 
 class DocumentAddEditMixin(object):
@@ -222,7 +221,7 @@ class DocumentAddEditMixin(object):
     def get_success_url(self):
         """Redirect to documentcategory page."""
         messages.add_message(self.request, messages.SUCCESS,
-            self.success_message)
+                             self.success_message)
         if hasattr(self, 'event_type') and self.event_type:
             messages.add_message(self.request, EVENT, self.event_type)
         return reverse('documents:document_list', args=[self.category])
@@ -264,7 +263,7 @@ class DocumentDelete(LoginRequiredMixin, DocumentcategoryMixin, DeleteView):
     def get_success_url(self):
         """Redirect to documentcategory page."""
         messages.add_message(self.request, messages.SUCCESS,
-            'Dokument wurde erfolgreich gelöscht.')
+                             'Dokument wurde erfolgreich gelöscht.')
         messages.add_message(self.request, EVENT, 'document_delete')
         return reverse('documents:document_list', args=[self.category])
 
