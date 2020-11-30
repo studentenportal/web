@@ -9,7 +9,6 @@ from pathlib import Path
 
 from django.core.exceptions import ImproperlyConfigured
 
-
 env = os.environ.get
 true_values = ['1', 'true', 'y', 'yes', 1, True]
 
@@ -104,7 +103,7 @@ STATIC_URL = '/static/'
 # URL prefix for admin static files -- CSS, JavaScript and images.
 # Make sure to use a trailing slash.
 # Examples: "http://foo.com/static/admin/", "/static/admin/".
-#ADMIN_MEDIA_PREFIX = '/static/admin/'
+# ADMIN_MEDIA_PREFIX = '/static/admin/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
@@ -119,7 +118,7 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     'compressor.finders.CompressorFinder',
-    #'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    # 'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
 COMPRESS_CSS_FILTERS = [
@@ -136,7 +135,7 @@ COMPRESS_OFFLINE = not DEBUG
 COMPRESS_PRECOMPILERS = (
     ('text/scss',
      '{} -mscss '.format(sys.executable) +
-     ' --load-path "apps/front/static/sass/compass/compass/stylesheets"'    # Legacy :(
+     ' --load-path "apps/front/static/sass/compass/compass/stylesheets"'  # Legacy :(
      ' --load-path "apps/front/static/sass/compass/blueprint/stylesheets"'  # sory...
      ' -C -o {outfile} {infile}'),
 )
@@ -170,13 +169,14 @@ MIDDLEWARE += [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_downloadview.SmartDownloadMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
-MAX_UPLOAD_SIZE = 1024 * 1024 * 20 # 20MB
+MAX_UPLOAD_SIZE = 1024 * 1024 * 20  # 20MB
 FILE_UPLOAD_PERMISSIONS = 0o644  # Default with Django 3.0
 
 AUTH_USER_MODEL = 'front.User'
@@ -272,13 +272,15 @@ else:
         EMAIL_HOST_PASSWORD = env('DJANGO_EMAIL_HOST_PASSWORD')
         EMAIL_USE_TLS = True
 
-# Sendfile
+# django_downloadview
 if DEBUG:
-    SENDFILE_BACKEND = 'sendfile.backends.development'
-else:
-    SENDFILE_BACKEND = 'sendfile.backends.nginx'
-    SENDFILE_ROOT = os.path.join(MEDIA_ROOT, 'documents')
-    SENDFILE_URL = MEDIA_URL + 'documents/'
+    DOWNLOADVIEW_BACKEND = "django_downloadview.nginx.XAccelRedirectMiddleware"
+DOWNLOADVIEW_RULES = [
+    {
+        "source_url": MEDIA_URL,
+        "destination_url": '/documents',
+    }
+]
 
 # Auth
 LOGIN_REDIRECT_URL = '/'
@@ -316,6 +318,8 @@ GOOGLE_ANALYTICS_CODE = env('GOOGLE_ANALYTICS_CODE', None)
 # DEBUG TOOLBAR
 def show_debug_toolbar(request):
     return DEBUG_TOOLBAR
+
+
 DEBUG_TOOLBAR_CONFIG = {
     'INTERCEPT_REDIRECTS': False,
     'SHOW_TOOLBAR_CALLBACK': 'config.settings.show_debug_toolbar',

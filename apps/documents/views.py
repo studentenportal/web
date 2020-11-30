@@ -24,7 +24,7 @@ from django.utils.decorators import method_decorator
 from django.shortcuts import redirect, get_object_or_404, render
 from django.template.defaultfilters import slugify
 
-from sendfile import sendfile
+from django_downloadview.shortcuts import sendfile
 
 from . import models, forms
 from apps.front.mixins import LoginRequiredMixin
@@ -172,7 +172,7 @@ class DocumentDownload(View):
         filename = unicodedata.normalize('NFKD', doc.original_filename) \
                               .encode('ascii', 'ignore')
         attachment = b'inline' if filename.lower().endswith(b'.pdf') else b'attachment'
-        response = sendfile(request, doc.document.path)
+        response = sendfile(request, doc.document.path, encoding='ascii')
         # NOTE: The Content-Disposition header is much more complex with UTF-8
         # filenames, but we've made sure the filename only contains ASCII
         # above.
@@ -208,7 +208,7 @@ class DocumentThumbnail(View):
 
         filename = unicodedata.normalize('NFKD', thumbnail_path).encode('us-ascii', 'ignore')
         return sendfile(request, thumbnail_path,
-                        attachment=False, attachment_filename=filename)
+                        attachment=False, attachment_filename=filename, encoding='us-ascii')
 
 
 class DocumentAddEditMixin(object):
