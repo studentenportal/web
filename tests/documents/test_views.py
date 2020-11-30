@@ -69,6 +69,24 @@ def test_content_disposition(client, filename, expected):
     assert response['Content-Disposition'] == expected
 
 
+@pytest.mark.parametrize('filename, expected', [
+    ('summary.pdf', 'inline; filename="summary.pdf"'),
+])
+@pytest.mark.django_db
+def test_document_thumbnail_view(client, filename, expected):
+    category = baker.make_recipe('apps.documents.documentcategory')
+    doc = models.Document.objects.create(dtype=models.Document.DTypes.SUMMARY,
+                                         category=category,
+                                         document=SimpleUploadedFile(filename, b'hello world'),
+                                         public=True)
+
+    url = reverse('documents:document_thumbnail', args=(doc.category.name, doc.pk))
+    response = client.get(url)
+    print(response)
+    assert response.status_code == 200
+    assert response['Content-Disposition'] == expected
+
+
 class DocumentcategoryListViewTest(TestCase):
     def setUp(self):
         # setUpClass
