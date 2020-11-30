@@ -55,6 +55,8 @@ CSRF_COOKIE_HTTPONLY = True
 if not DEBUG:
     ALLOWED_HOSTS = ['studentenportal.ch', 'www.studentenportal.ch']
     CSRF_COOKIE_SECURE = True
+    CSRF_COOKIE_SAMESITE = 'Strict'
+    SESSION_COOKIE_SECURE = True
 
 # If you set this to False, Django will make some optimizations so as not
 # to load the internationalization machinery.
