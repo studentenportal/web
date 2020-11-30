@@ -273,8 +273,7 @@ else:
         EMAIL_USE_TLS = True
 
 # django_downloadview
-if DEBUG:
-    DOWNLOADVIEW_BACKEND = "django_downloadview.nginx.XAccelRedirectMiddleware"
+DOWNLOADVIEW_BACKEND = "django_downloadview.nginx.XAccelRedirectMiddleware"
 DOWNLOADVIEW_RULES = [
     {
         "source_url": MEDIA_URL,
