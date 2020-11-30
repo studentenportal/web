@@ -2,19 +2,17 @@
 from __future__ import unicode_literals
 
 from django.db import migrations, models
-import django.utils.timezone
-import django.core.validators
 import django.contrib.auth.models
-
+from django.contrib.postgres.operations import CITextExtension
 
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('front', '0000_setup'),
         ('auth', '0006_require_contenttypes_0002'),
     ]
 
     operations = [
+        CITextExtension(),
         migrations.CreateModel(
             name='User',
             fields=[

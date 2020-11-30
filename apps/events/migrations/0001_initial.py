@@ -7,10 +7,6 @@ import apps.events.models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('front', '0000_setup'),
-    ]
-
     operations = [
         migrations.CreateModel(
             name='Event',

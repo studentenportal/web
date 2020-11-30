@@ -10,7 +10,6 @@ import django.core.validators
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('front', '0000_setup'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
