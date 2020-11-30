@@ -185,7 +185,7 @@ class DocumentThumbnail(View):
         """Generate a thumbnail of the first page of a PDF by using imagemagick.
         :param document_path Path of the PDF to create thumbnail from
         :param thumbnail_path Path where to save the thumbnail
-        :returns Tuple with wether operation was successful and message from stdout
+        :returns Tuple with whether operation was successful and message from stdout
         """
         params = ["-thumbnail", "400", document_path + "[0]", "-trim", thumbnail_path]
         proc = subprocess.check_output(["convert"] + params, stderr=subprocess.STDOUT)

@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
 from __future__ import print_function, division, absolute_import, unicode_literals
 
-from django.core.files.uploadedfile import SimpleUploadedFile
+from base64 import b64decode
+
+from django.core.files.uploadedfile import SimpleUploadedFile, InMemoryUploadedFile
+from django.core.files.base import ContentFile
 from django.test import TestCase
 from django.urls import reverse
 from django.contrib.auth import get_user_model
@@ -11,7 +14,6 @@ from bs4 import BeautifulSoup
 from model_bakery import baker
 
 from apps.documents import models, forms
-
 
 User = get_user_model()
 
@@ -62,29 +64,26 @@ def test_content_disposition(client, filename, expected):
                                          category=category,
                                          document=SimpleUploadedFile(filename, b'hello world'),
                                          public=True)
-
     url = reverse('documents:document_download', args=(doc.category.name, doc.pk))
     response = client.get(url)
     assert response.status_code == 200
     assert response['Content-Disposition'] == expected
 
 
-@pytest.mark.parametrize('filename, expected', [
-    ('summary.pdf', 'inline; filename="summary.pdf"'),
-])
 @pytest.mark.django_db
-def test_document_thumbnail_view(client, filename, expected):
+def test_document_thumbnail_view(client):
+    image_data = "R0lGODlhAQABAIABAP8AAP///yH5BAEAAAEALAAAAAABAAEAAAICRAEAOw=="
+    image_data_b64 = b64decode(image_data)
+    image_file = ContentFile(image_data_b64, 'one.PDF')
     category = baker.make_recipe('apps.documents.documentcategory')
-    doc = models.Document.objects.create(dtype=models.Document.DTypes.SUMMARY,
-                                         category=category,
-                                         document=SimpleUploadedFile(filename, b'hello world'),
-                                         public=True)
+    simple_uploaded_pdf = SimpleUploadedFile(image_file.name, image_file.read(), content_type="image/pdf")
 
+    doc = models.Document.objects.create(dtype=models.Document.DTypes.SUMMARY, category=category,
+                                         document=simple_uploaded_pdf)
     url = reverse('documents:document_thumbnail', args=(doc.category.name, doc.pk))
     response = client.get(url)
-    print(response)
+
     assert response.status_code == 200
-    assert response['Content-Disposition'] == expected
 
 
 class DocumentcategoryListViewTest(TestCase):
@@ -172,14 +171,14 @@ class DocumentListViewTest(TestCase):
         self.user1 = baker.make_recipe('apps.front.user')
         self.user2 = baker.make(User, first_name='Another', last_name='Guy')
         self.doc1 = baker.make_recipe('apps.documents.document_summary',
-                name='Analysis 1 Theoriesammlung',
-                description='Theorie aus dem AnI1-Skript auf 8 Seiten',
-                uploader=self.user1,
-                upload_date='2011-12-18 01:28:52',
-                change_date='2011-12-18 01:28:52',
-                license=5)
+                                      name='Analysis 1 Theoriesammlung',
+                                      description='Theorie aus dem AnI1-Skript auf 8 Seiten',
+                                      uploader=self.user1,
+                                      upload_date='2011-12-18 01:28:52',
+                                      change_date='2011-12-18 01:28:52',
+                                      license=5)
         self.doc2 = baker.make_recipe('apps.documents.document_summary',
-                uploader=self.user2, name='Title')
+                                      uploader=self.user2, name='Title')
         self.doc3 = baker.make_recipe('apps.documents.document_exam', uploader=self.user1)
         self.doc4 = baker.make_recipe('apps.documents.document_software', uploader=self.user1)
         self.doc5 = baker.make_recipe('apps.documents.document_learning_aid', uploader=self.user1)
@@ -201,7 +200,7 @@ class DocumentListViewTest(TestCase):
         soup = BeautifulSoup(self.response.content, 'html.parser')
         div_details = soup.find('h3', text='Analysis 1 Theoriesammlung').find_parent('div').prettify()
         assert '<a href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.de" rel="license" ' + \
-                      u'title="Veröffentlicht unter der CC BY-NC-SA 3.0 Lizenz">' in div_details
+               u'title="Veröffentlicht unter der CC BY-NC-SA 3.0 Lizenz">' in div_details
         assert ' <span class="label-license">\n    CC BY-NC-SA 3.0\n   </span>' in div_details
 
     def testUploaderName(self):
@@ -268,9 +267,9 @@ class DocumentListViewTest(TestCase):
     def testNullValueUploader(self):
         """Test whether a document without an uploader does not raise an error."""
         doc = baker.make_recipe('apps.documents.document_summary',
-                name='Analysis 1 Theoriesammlung',
-                description='Dieses Dokument ist eine Zusammenfassung der',
-                uploader=None)
+                                name='Analysis 1 Theoriesammlung',
+                                description='Dieses Dokument ist eine Zusammenfassung der',
+                                uploader=None)
         url = reverse('documents:document_list', args=(doc.category.name.lower(),))
         response = self.client.get(url)
         self.assertContains(response, 'Analysis 1 Theoriesammlung')
