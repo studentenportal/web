@@ -5,8 +5,7 @@
 [![Code Health](https://landscape.io/github/studentenportal/web/master/landscape.png)](https://landscape.io/github/studentenportal/web/master)
 
 Das Studentenportal ist DIE Austauschplattform für Lernhilfen aller Art und
-viels mehr von Studierenden der [Hochschule für Technik
-Rapperswil](https://www.hsr.ch/).
+viels mehr von Studierenden der [OST - Ostschweizer Fachhochschule](https://www.ost.ch/).
 
 ## Features
 
