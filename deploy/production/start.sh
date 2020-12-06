@@ -14,8 +14,6 @@ do
   sleep 1
 done
 
-PGPASSWORD=$POSTGRES_PASSWORD psql -h $POSTGRES_HOST -U $POSTGRES_USER -d $POSTGRES_DB_NAME -c 'CREATE EXTENSION IF NOT EXISTS citext;'
-
 python3 manage.py migrate front
 python3 manage.py migrate
 python3 manage.py collectstatic --clear --no-input -v 0

@@ -8,10 +8,6 @@ import apps.front.fields
 
 
 class Migration(migrations.Migration):
-
-    dependencies = [
-    ]
-
     operations = [
         migrations.CreateModel(
             name='Document',

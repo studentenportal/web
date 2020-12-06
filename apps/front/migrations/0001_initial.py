@@ -2,10 +2,8 @@
 from __future__ import unicode_literals
 
 from django.db import migrations, models
-import django.utils.timezone
-import django.core.validators
 import django.contrib.auth.models
-
+from django.contrib.postgres.operations import CITextExtension
 
 class Migration(migrations.Migration):
 
@@ -14,6 +12,7 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
+        CITextExtension(),
         migrations.CreateModel(
             name='User',
             fields=[
