@@ -11,8 +11,8 @@ Sofern du diese installiert hast, kannst du wie folgt vorgehen:
 2. `cd studentenportal`
 3. `docker-compose up -d`
 4. Das Studentenportal ist jetzt unter [http://localhost:8000](http://localhost:8000) verfügbar.
-5. Bei Änderungen am Code, kannst du das Studentenportal mit `docker-compose restart studentenportal` neu starten.
-6. Tests mit `docker-compose run --rm studentenportal ./deploy/dev/test.sh` ausführen
+5. Bei Änderungen am Code, kannst du das Studentenportal mit `docker-compose restart studentenportal_dev` neu starten.
+6. Tests mit `docker-compose run --rm studentenportal_dev ./deploy/dev/test.sh` ausführen
 
 Beenden kannst du die Entwicklungsumgebung mit `docker-compose stop`.
 
@@ -48,4 +48,4 @@ Password: user1
 ### Änderungen an Dockerfiles oder requirements
 
 Werden requirements oder Dockerfiles angepasst, müssen die Docker-Container mit
-`docker-compose build` neu gebaut werden.
+`docker-compose build --no-cache` neu gebaut werden.
