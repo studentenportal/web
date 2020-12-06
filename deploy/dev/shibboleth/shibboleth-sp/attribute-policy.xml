@@ -1,0 +1,164 @@
+<AttributeFilterPolicyGroup
+    xmlns="urn:mace:shibboleth:2.0:afp"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+    <!--
+        SWITCHaai federation attribute policy configuration file
+        Based on SWITCHaai Attribute Specification 1.6 from 2017-04-11
+        Last update: 2018-07-04
+    -->
+
+    <!-- Shared rule for affiliation values. -->
+    <PermitValueRule id="eduPersonAffiliationValues" xsi:type="OR">
+        <Rule xsi:type="Value" value="faculty"/>
+        <Rule xsi:type="Value" value="student"/>
+        <Rule xsi:type="Value" value="staff"/>
+        <Rule xsi:type="Value" value="alum"/>
+        <Rule xsi:type="Value" value="member"/>
+        <Rule xsi:type="Value" value="affiliate"/>
+        <!-- The value 'employee' is not allowed in SWITCHaai -->
+        <!-- <Rule xsi:type="Value" value="employee"/> -->
+        <Rule xsi:type="Value" value="library-walk-in"/>
+    </PermitValueRule>
+
+    <!--
+    Shared rule for all "scoped" attributes, but you'll have to manually apply it inside
+    an AttributeRule for each attribute you want to check.
+    -->
+    <PermitValueRule id="ScopingRules" xsi:type="AND">
+        <Rule xsi:type="NOT">
+            <Rule xsi:type="ValueRegex" regex="@"/>
+        </Rule>
+        <Rule xsi:type="ScopeMatchesShibMDScope"/>
+    </PermitValueRule>
+
+    <AttributeFilterPolicy>
+        <!-- This policy is in effect in all cases. -->
+        <PolicyRequirementRule xsi:type="ANY"/>
+
+        <!-- Filter out undefined affiliations and ensure only one primary. -->
+        <AttributeRule attributeID="scoped-affiliation">
+            <PermitValueRule xsi:type="AND">
+                <RuleReference ref="eduPersonAffiliationValues"/>
+                <RuleReference ref="ScopingRules"/>
+            </PermitValueRule>
+        </AttributeRule>
+
+        <AttributeRule attributeID="affiliation">
+            <PermitValueRuleReference ref="eduPersonAffiliationValues"/>
+        </AttributeRule>
+
+        <AttributeRule attributeID="eduPersonUniqueId">
+            <PermitValueRuleReference ref="ScopingRules"/>
+        </AttributeRule>
+
+        <AttributeRule attributeID="primary-affiliation">
+            <PermitValueRuleReference ref="eduPersonAffiliationValues"/>
+        </AttributeRule>
+
+        <AttributeRule attributeID="subject-id">
+            <PermitValueRuleReference ref="ScopingRules"/>
+        </AttributeRule>
+
+        <AttributeRule attributeID="pairwise-id">
+            <PermitValueRuleReference ref="ScopingRules"/>
+        </AttributeRule>
+
+        <AttributeRule attributeID="principalName">
+            <PermitValueRuleReference ref="ScopingRules"/>
+        </AttributeRule>
+
+        <AttributeRule attributeID="uniqueID">
+            <PermitValueRuleReference ref="ScopingRules"/>
+        </AttributeRule>
+
+        <!-- Regular expression filter for E-mail -->
+        <AttributeRule attributeID="mail">
+            <PermitValueRule xsi:type="ValueRegex" regex="^.+@.+$" />
+        </AttributeRule>
+
+        <!-- Value filter for Home organization type -->
+        <AttributeRule attributeID="homeOrganizationType">
+            <PermitValueRule xsi:type="OR">
+                 <Rule xsi:type="Value" value="university"/>
+                 <Rule xsi:type="Value" value="uas"/>
+                 <Rule xsi:type="Value" value="hospital"/>
+                 <Rule xsi:type="Value" value="library"/>
+                 <Rule xsi:type="Value" value="tertiaryb"/>
+                 <Rule xsi:type="Value" value="uppersecondary"/>
+                 <Rule xsi:type="Value" value="vho"/>
+                 <Rule xsi:type="Value" value="others"/>
+            </PermitValueRule>
+        </AttributeRule>
+
+        <!-- Regular expression filter for Study level -->
+        <AttributeRule attributeID="studyLevel">
+            <PermitValueRule xsi:type="ValueRegex" regex="^\d+\-\d+$" />
+        </AttributeRule>
+
+        <!-- Regular expression filter for Staff category -->
+        <AttributeRule attributeID="staffCategory">
+            <PermitValueRule xsi:type="ValueRegex" regex="^\d+$" />
+        </AttributeRule>
+
+        <!-- Regular expression filter for Matriculation number -->
+        <AttributeRule attributeID="matriculationNumber">
+            <PermitValueRule xsi:type="ValueRegex" regex="^\d{8}$" />
+        </AttributeRule>
+
+        <!-- Regular expression filter for Date of birth -->
+        <AttributeRule attributeID="dateOfBirth">
+            <PermitValueRule xsi:type="ValueRegex" regex="^\d{8}$" />
+        </AttributeRule>
+
+        <!-- Value filter for Gender -->
+        <AttributeRule attributeID="gender">
+            <PermitValueRule xsi:type="OR">
+                 <Rule xsi:type="Value" value="0"/>
+                 <Rule xsi:type="Value" value="1"/>
+                 <Rule xsi:type="Value" value="2"/>
+                 <Rule xsi:type="Value" value="9"/>
+            </PermitValueRule>
+        </AttributeRule>
+
+        <!-- Regular expression filter for Study branch 1 -->
+        <AttributeRule attributeID="studyBranch1">
+            <PermitValueRule xsi:type="ValueRegex" regex="^\d+$" />
+        </AttributeRule>
+
+        <!-- Regular expression filter for Study branch 2 -->
+        <AttributeRule attributeID="studyBranch2">
+            <PermitValueRule xsi:type="ValueRegex" regex="^\d+$" />
+        </AttributeRule>
+
+        <!-- Regular expression filter for Study branch 3 -->
+        <AttributeRule attributeID="studyBranch3">
+            <PermitValueRule xsi:type="ValueRegex" regex="^\d+$" />
+        </AttributeRule>
+
+        <!-- Regular expression filter for Card UID -->
+        <AttributeRule attributeID="cardUID">
+            <PermitValueRule xsi:type="ValueRegex" regex="^.+@.+$" />
+        </AttributeRule>
+
+        <!-- Require NameQualifier/SPNameQualifier match IdP and SP entityID respectively. -->
+        <AttributeRule attributeID="persistent-id">
+            <PermitValueRule xsi:type="NameIDQualifierString"/>
+        </AttributeRule>
+
+        <!-- Enforce that the value of swissEduPersonHomeOrganization is a valid Scope. -->
+        <AttributeRule attributeID="swissEduPersonHomeOrganization">
+            <PermitValueRule xsi:type="ValueMatchesShibMDScope" />
+        </AttributeRule>
+
+        <!-- Enforce that the values of schacHomeOrganization are a valid Scope. -->
+        <AttributeRule attributeID="schacHomeOrganization">
+            <PermitValueRule xsi:type="ValueMatchesShibMDScope" />
+        </AttributeRule>
+
+        <!-- Catch-all that passes everything else through unmolested. -->
+        <AttributeRule attributeID="*" permitAny="true"/>
+
+    </AttributeFilterPolicy>
+
+</AttributeFilterPolicyGroup>

@@ -8,7 +8,7 @@
 #
 version: '3.5'
 services:
-  postgres:
+  postgres_dev:
     image: postgres:12
     restart: always
     environment:
@@ -17,7 +17,18 @@ services:
     networks:
         - studentenportal-dev
 
-  studentenportal:
+  shibboleth_dev:
+    image: studentenportal_dev-shibboleth
+    build:
+      context: ./deploy/dev/shibboleth/
+      dockerfile: Dockerfile
+    ports:
+      - 80:80
+      - 443:443
+    networks:
+        - studentenportal-dev
+
+  studentenportal_dev:
     image: studentenportal/dev:latest
     build:
       context: .
@@ -30,14 +41,14 @@ services:
     ports:
       - 8000:8000
     environment:
-      POSTGRES_HOST: "postgres"
+      POSTGRES_HOST: "postgres_dev"
       POSTGRES_USER: "studentenportal"
       POSTGRES_PASSWORD: "k9F1bbHiW4o9By1A6tvL"
       DJANGO_DEBUG: "True"
     networks:
       - studentenportal-dev
     depends_on:
-      - postgres
+      - postgres_dev
 
 networks:
   studentenportal-dev:

@@ -1,0 +1,371 @@
+<Attributes xmlns="urn:mace:shibboleth:2.0:attribute-map" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+    <!--
+        SWITCHaai federation attribute map configuration file
+        Based on SWITCHaai Attribute Specification 1.6 from 2017-04-11
+        Last update: 2018-07-06
+
+        Earlier versions included the SAML1 attribute names in the
+        urn:mace namespace, this is no longer included in this version.
+        SAML2 attribute names use the urn:oid namespace only.
+    -->
+
+    <!--
+        Until version 2.5 the Shibboleth Service Provider supported the use
+        of attribute aliases that could be used to make an attribute available
+        under multiple names. However, this feature was deprecated in version
+        2.5. To use an alternative mechanism, please have a look at:
+
+        https://wiki.shibboleth.net/confluence/display/SHIB2/NativeSPAttributeResolver
+    -->
+
+    <!-- New standard identifier attributes for SAML. -->
+
+    <Attribute name="urn:oasis:names:tc:SAML:attribute:subject-id" id="subject-id">
+        <AttributeDecoder xsi:type="ScopedAttributeDecoder" caseSensitive="false"/>
+    </Attribute>
+
+    <Attribute name="urn:oasis:names:tc:SAML:attribute:pairwise-id" id="pairwise-id">
+        <AttributeDecoder xsi:type="ScopedAttributeDecoder" caseSensitive="false"/>
+    </Attribute>
+
+
+    <!-- Legacy pairwise identifier attribute / NameID format, intended to be replaced
+         by the simpler pairwise-id attribute.  -->
+
+    <!-- The eduPerson attribute version (eduPersonTargetedID, note the OID-style name): -->
+    <Attribute name="urn:oid:1.3.6.1.4.1.5923.1.1.1.10" id="persistent-id">
+        <AttributeDecoder xsi:type="NameIDAttributeDecoder" formatter="$NameQualifier!$SPNameQualifier!$Name" defaultQualifiers="true"/>
+    </Attribute>
+
+    <!-- SAML 2.0 NameID Format: -->
+    <Attribute name="urn:oasis:names:tc:SAML:2.0:nameid-format:persistent" id="persistent-id">
+        <AttributeDecoder xsi:type="NameIDAttributeDecoder" formatter="$NameQualifier!$SPNameQualifier!$Name" defaultQualifiers="true"/>
+    </Attribute>
+
+    <!-- The following list is structured like the 'SWITCHaai Attributes' web page:
+         https://www.switch.ch/aai/support/documents/attributes/ -->
+
+
+    <!-- Core attributes -->
+
+    <!-- SWITCHaai Core Attributes -->
+
+    <!-- Affiliation -->
+    <!-- to maintain backwards compatibility in SWITCHaai, the id is
+         "affiliation" instead of "unscoped-affiliation" -->
+    <Attribute name="urn:oid:1.3.6.1.4.1.5923.1.1.1.1" id="affiliation">
+        <AttributeDecoder xsi:type="StringAttributeDecoder" caseSensitive="false"/>
+    </Attribute>
+
+    <!-- E-mail -->
+    <Attribute name="urn:oid:0.9.2342.19200300.100.1.3" id="mail"/>
+
+    <!-- Given name -->
+    <Attribute name="urn:oid:2.5.4.42" id="givenName"/>
+
+    <!-- Home organization -->
+    <Attribute name="urn:oid:2.16.756.1.2.5.1.1.4" id="homeOrganization">
+        <AttributeDecoder xsi:type="StringAttributeDecoder" caseSensitive="false"/>
+    </Attribute>
+
+    <!-- Home organization type -->
+    <Attribute name="urn:oid:2.16.756.1.2.5.1.1.5" id="homeOrganizationType">
+        <AttributeDecoder xsi:type="StringAttributeDecoder" caseSensitive="false"/>
+    </Attribute>
+
+    <!-- Scoped affiliation -->
+    <!-- to maintain backwards compatibility in SWITCHaai, the id is
+         "scoped-affiliation" instead of "affiliation" -->
+    <Attribute name="urn:oid:1.3.6.1.4.1.5923.1.1.1.9" id="scoped-affiliation">
+        <AttributeDecoder xsi:type="ScopedAttributeDecoder" caseSensitive="false"/>
+    </Attribute>
+
+    <!-- Surname -->
+    <Attribute name="urn:oid:2.5.4.4" id="surname"/>
+
+    <!-- Targeted ID/Persistent ID -->
+    <!-- see above: Attribute Persistent ID (eduPersonTargetedID) -->
+
+    <!-- Unique ID -->
+    <Attribute name="urn:oid:2.16.756.1.2.5.1.1.1" id="uniqueID">
+        <AttributeDecoder xsi:type="ScopedAttributeDecoder" caseSensitive="false"/>
+    </Attribute>
+
+
+    <!-- Interfederation Core Attributes -->
+
+    <!-- Common Name -->
+    <Attribute name="urn:oid:2.5.4.3" id="cn"/>
+
+    <!-- Display Name -->
+    <Attribute name="urn:oid:2.16.840.1.113730.3.1.241" id="displayName"/>
+
+    <!-- eduPerson Unique ID -->
+    <Attribute name="urn:oid:1.3.6.1.4.1.5923.1.1.1.13" id="eduPersonUniqueId">
+        <AttributeDecoder xsi:type="ScopedAttributeDecoder" caseSensitive="false"/>
+    </Attribute>
+
+    <!-- Principal name -->
+    <Attribute name="urn:oid:1.3.6.1.4.1.5923.1.1.1.6" id="principalName">
+         <AttributeDecoder xsi:type="ScopedAttributeDecoder" caseSensitive="false"/>
+    </Attribute>
+
+    <!-- SCHAC home organization -->
+    <Attribute name="urn:oid:1.3.6.1.4.1.25178.1.2.9" id="schacHomeOrganization">
+        <AttributeDecoder xsi:type="StringAttributeDecoder" caseSensitive="false"/>
+    </Attribute>
+
+    <!-- SCHAC home organisation type -->
+    <Attribute name="urn:oid:1.3.6.1.4.1.25178.1.2.10" id="schacHomeOrganizationType">
+        <AttributeDecoder xsi:type="StringAttributeDecoder" caseSensitive="false"/>
+    </Attribute>
+
+
+    <!-- Other attributes -->
+
+    <!-- swissEduPerson, swissLibraryPerson, swissEduID Other attributes -->
+
+    <!-- Card UID -->
+    <Attribute name="urn:oid:2.16.756.1.2.5.1.1.12" id="cardUID"/>
+
+    <!-- Date of birth -->
+    <Attribute name="urn:oid:2.16.756.1.2.5.1.1.2" id="dateOfBirth"/>
+
+    <!-- Gender -->
+    <Attribute name="urn:oid:2.16.756.1.2.5.1.1.3" id="gender"/>
+
+    <!-- Library Patron Affiliation -->
+    <Attribute name="urn:oid:2.16.756.1.2.5.1.1.1023" id="swissLibraryPersonAffiliation">
+        <AttributeDecoder xsi:type="StringAttributeDecoder" caseSensitive="false"/>
+    </Attribute>
+
+    <!-- Library Patron Residence -->
+    <Attribute name="urn:oid:2.16.756.1.2.5.1.1.1025" id="swissLibraryPersonResidence">
+        <AttributeDecoder xsi:type="StringAttributeDecoder" caseSensitive="false"/>
+    </Attribute>
+
+    <!-- Matriculation number -->
+    <Attribute name="urn:oid:2.16.756.1.2.5.1.1.11" id="matriculationNumber"/>
+
+    <!-- Staff category -->
+    <Attribute name="urn:oid:2.16.756.1.2.5.1.1.10" id="staffCategory"/>
+
+    <!-- Study branch 1 -->
+    <Attribute name="urn:oid:2.16.756.1.2.5.1.1.6" id="studyBranch1"/>
+
+    <!-- Study branch 2 -->
+    <Attribute name="urn:oid:2.16.756.1.2.5.1.1.7" id="studyBranch2"/>
+
+    <!-- Study branch 3 -->
+    <Attribute name="urn:oid:2.16.756.1.2.5.1.1.8" id="studyBranch3"/>
+
+    <!-- Study level -->
+    <Attribute name="urn:oid:2.16.756.1.2.5.1.1.9" id="studyLevel"/>
+
+    <!-- Swiss edu-ID internal identifier -->
+    <Attribute name="urn:oid:2.16.756.1.2.5.1.1.13" id="Swiss_edu-ID"/>
+
+
+    <!-- International Other Attributes -->
+
+    <!-- Assurance profile -->
+    <Attribute name="urn:oid:1.3.6.1.4.1.5923.1.1.1.11" id="assurance"/>
+
+    <!-- Business phone number -->
+    <Attribute name="urn:oid:2.5.4.20" id="telephoneNumber"/>
+
+    <!-- Business postal address -->
+    <Attribute name="urn:oid:2.5.4.16" id="postalAddress"/>
+
+    <!-- Employee number -->
+    <Attribute name="urn:oid:2.16.840.1.113730.3.1.3" id="employeeNumber"/>
+
+    <!-- Entitlement -->
+    <Attribute name="urn:oid:1.3.6.1.4.1.5923.1.1.1.7" id="entitlement"/>
+
+    <!-- Home postal address -->
+    <Attribute name="urn:oid:0.9.2342.19200300.100.1.39" id="homePostalAddress"/>
+
+    <!-- Member of -->
+    <Attribute name="urn:oid:1.3.6.1.4.1.5923.1.5.1.1" id="isMemberOf"/>
+
+    <!-- Mobile phone number -->
+    <Attribute name="urn:oid:0.9.2342.19200300.100.1.41" id="mobile"/>
+
+    <!-- Nick name -->
+    <Attribute name="urn:oid:1.3.6.1.4.1.5923.1.1.1.2" id="nickname"/>
+
+    <!-- ORCID identifier -->
+    <Attribute name="urn:oid:1.3.6.1.4.1.5923.1.1.1.16" id="orcid"/>
+
+    <!-- Organization path -->
+    <Attribute name="urn:oid:1.3.6.1.4.1.5923.1.1.1.3" id="org-dn"/>
+
+    <!-- Organizational unit -->
+    <Attribute name="urn:oid:2.5.4.11" id="ou"/>
+
+    <!-- Organizational unit path -->
+    <Attribute name="urn:oid:1.3.6.1.4.1.5923.1.1.1.4" id="orgunit-dn"/>
+
+    <!-- Preferred Language -->
+    <Attribute name="urn:oid:2.16.840.1.113730.3.1.39" id="preferredLanguage"/>
+
+    <!-- Primary affiliation -->
+    <Attribute name="urn:oid:1.3.6.1.4.1.5923.1.1.1.5" id="primary-affiliation">
+        <AttributeDecoder xsi:type="StringAttributeDecoder" caseSensitive="false"/>
+    </Attribute>
+
+    <!-- Primary organizational unit -->
+    <Attribute name="urn:oid:1.3.6.1.4.1.5923.1.1.1.8" id="primary-orgunit-dn"/>
+
+    <!-- Private phone number -->
+    <Attribute name="urn:oid:0.9.2342.19200300.100.1.20" id="homePhone"/>
+
+    <!-- SSH Public Key -->
+    <Attribute name="urn:oid:1.3.6.1.4.1.24552.500.1.1.1.13" id="sshPublicKey"/>
+
+    <!-- User ID -->
+    <Attribute name="urn:oid:0.9.2342.19200300.100.1.1" id="uid"/>
+
+
+    <!-- Local attributes -->
+
+    <!-- enble the attributes that your SP is able to handle -->
+
+    <!-- Fernuni Imap Password -->
+    <!--
+    <Attribute name="urn:oid:2.16.756.1.2.5.1.1.1024" id="fschImapPW"/>
+    -->
+
+    <!-- FFHS user type -->
+    <!--
+    <Attribute name="urn:oid:2.16.756.1.2.5.1.1.1022" id="UserType"/>
+    -->
+
+    <!-- FHNW Abrechnungskostenstelle -->
+    <!--
+    <Attribute name="urn:oid:2.16.756.1.2.5.1.1.1007" id="fhnwAbrKst"/>
+    -->
+
+    <!-- FHNW detailed affiliation -->
+    <!--
+    <Attribute name="urn:oid:2.16.756.1.2.5.1.1.1008" id="fhnwDetailedAffiliation"/>
+    -->
+
+    <!-- FHNW IDPerson (Evento) -->
+    <!--
+    <Attribute name="urn:oid:2.16.756.1.2.5.1.1.1009" id="fhnwIDPerson"/>
+    -->
+
+    <!-- FHNW Organisationseinheit aus Metadirectory -->
+    <!--
+    <Attribute name="urn:oid:2.16.756.1.2.5.1.1.1013" id="fhnwOeID"/>
+    -->
+
+    <!-- FHNW SAP additional user information -->
+    <!--
+    <Attribute name="urn:oid:2.16.756.1.2.5.1.1.1011" id="fhnwSapUserInfo"/>
+    -->
+
+    <!-- FHNW SAP UserID -->
+    <!--
+    <Attribute name="urn:oid:2.16.756.1.2.5.1.1.1010" id="fhnwSapUserID"/>
+    -->
+
+    <!-- FHNW user principal name (ActiveDirectory) -->
+    <!--
+    <Attribute name="urn:oid:2.16.756.1.2.5.1.1.1012" id="fhnwUPN"/>
+    -->
+
+    <!-- Primary group ID -->
+    <!--
+    <Attribute name="urn:oid:1.3.6.1.4.1.7165.2.1.15" id="primaryGroupID"/>
+    -->
+
+    <!-- SWITCH edu-ID Affiliation Profile -->
+    <!--
+    <Attribute name="urn:oid:2.16.756.1.2.5.1.1.1028" id="swissEduIDAffiliationProfile"/>
+    -->
+
+    <!-- SWITCH edu-ID Associated E-Mail -->
+    <!--
+    <Attribute name="urn:oid:2.16.756.1.2.5.1.1.17" id="swissEduIDAssociatedMail"/>
+    -->
+
+    <!-- SWITCH edu-ID Assurance Level -->
+    <!--
+    <Attribute name="urn:oid:2.16.756.1.2.5.1.1.1027" id="swissEduIDAssuranceLevel"/>
+    -->
+
+    <!-- SWITCH edu-ID Linked Affiliation -->
+    <!--
+    <Attribute name="urn:oid:2.16.756.1.2.5.1.1.1029" id="swissEduIDLinkedAffiliation"/>
+    -->
+
+    <!-- SWITCH edu-ID Linked Affiliation E-Mail -->
+    <!--
+    <Attribute name="urn:oid:2.16.756.1.2.5.1.1.1031" id="swissEduIDLinkedAffiliationMail"/>
+    -->
+
+    <!-- SWITCH edu-ID Active User -->
+    <!--
+    <Attribute name="urn:oid:2.16.756.1.2.5.1.1.1026" id="swissEduIDUsage1y"/>
+    -->
+
+    <!-- Uni Basel personal public id -->
+    <!--
+    <Attribute name="urn:oid:1.3.6.1.4.1.22865.10.1.1.93" id="unibasChPublicId"/>
+    -->
+
+    <!-- Uni Basel specific roles -->
+    <!--
+    <Attribute name="urn:oid:1.3.6.1.4.1.22865.10.1.1.19" id="unibasChRoles"/>
+    -->
+
+    <!-- UniBE Authorization attribute -->
+    <!--
+    <Attribute name="urn:oid:2.16.756.1.2.5.1.1.1000" id="uniBEApplAuthorisation"/>
+    -->
+
+    <!-- UniGE Organization unit code -->
+    <!--
+    <Attribute name="urn:oid:2.16.756.1.2.5.1.1.1004" id="unigeOuCode"/>
+    -->
+
+    <!-- UniL faculte principale -->
+    <!--
+    <Attribute name="urn:oid:2.16.756.1.2.5.1.1.1006" id="unilFacultePrincipale"/>
+    -->
+
+    <!-- UniL group membership -->
+    <!--
+    <Attribute name="urn:oid:2.16.756.1.2.5.1.1.1003" id="unilMemberOf"/>
+    -->
+
+    <!-- UZH SAP staff user ID -->
+    <!--
+    <Attribute name="urn:oid:1.3.6.1.4.1.11817.1.1.2.27" id="uzhSAPUserIdStaff"/>
+    -->
+
+    <!-- UZH SAP user ID -->
+    <!--
+    <Attribute name="urn:oid:1.3.6.1.4.1.11817.1.1.2.13" id="uzhSAPUserId"/>
+    -->
+
+    <!-- ZHAW Department Code -->
+    <!--
+    <Attribute name="urn:oid:2.16.756.1.2.5.1.1.1015" id="zhawDepartmentCode"/>
+    -->
+
+    <!-- ZHAW Institute Code -->
+    <!--
+    <Attribute name="urn:oid:2.16.756.1.2.5.1.1.1016" id="zhawInstituteCode"/>
+    -->
+
+    <!-- ZHAW Institute Name -->
+    <!--
+    <Attribute name="urn:oid:2.16.756.1.2.5.1.1.1017" id="zhawInstitute"/>
+    -->
+
+</Attributes>

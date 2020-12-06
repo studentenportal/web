@@ -1,0 +1,155 @@
+<SPConfig xmlns="urn:mace:shibboleth:3.0:native:sp:config"
+    xmlns:conf="urn:mace:shibboleth:3.0:native:sp:config"
+    xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata"
+    clockSkew="180">
+
+    <OutOfProcess tranLogFormat="%u|%s|%IDP|%i|%ac|%t|%attr|%n|%b|%E|%S|%SS|%L|%UA|%a" />
+
+
+    <!-- The ApplicationDefaults element is where most of Shibboleth's SAML bits are defined. -->
+    <ApplicationDefaults entityID="https://studentenportal.ch/shibboleth"
+                         homeURL="https://studentenportal.ch/Shibboleth.sso/Session"
+                         REMOTE_USER="persistent-id uniqueID"
+                         cipherSuites="DEFAULT:!EXP:!LOW:!aNULL:!eNULL:!DES:!IDEA:!SEED:!RC4:!3DES:!kRSA:!SSLv2:!SSLv3:!TLSv1:!TLSv1.1">
+
+        <!--
+        Controls session lifetimes, address checks, cookie handling, and the protocol handlers.
+        Each Application has an effectively unique handlerURL, which defaults to "/Shibboleth.sso"
+        and should be a relative path, with the SP computing the full value based on the virtual
+        host. Using handlerSSL="true" will force the protocol to be https. You should also set
+        cookieProps to "https" for SSL-only sites. Note that while we default checkAddress to
+        "false", this makes an assertion stolen in transit easier for attackers to misuse.
+        -->
+        <Sessions lifetime="28800"
+                  timeout="3600"
+                  relayState="ss:mem"
+                  checkAddress="false"
+                  consistentAddress="true"
+                  handlerSSL="true"
+                  redirectLimit="host"
+                  cookieProps="https">
+
+            <!--
+            Configures SSO for a default IdP. To properly allow for >1 IdP, remove
+            entityID property and adjust discoveryURL to point to discovery service.
+            You can also override entityID on /Login query string, or in RequestMap/htaccess.
+            -->
+            <SSO discoveryProtocol="SAMLDS"
+                 discoveryURL="https://wayf.switch.ch/SWITCHaai/WAYF">
+              SAML2
+            </SSO>
+
+            <!-- SAML and local-only logout. -->
+            <Logout>SAML2 Local</Logout>
+
+            <!-- Administrative logout. -->
+            <LogoutInitiator type="Admin"
+                             Location="/Logout/Admin"
+                             acl="127.0.0.1 ::1" />
+
+            <!-- Extension service that generates "approximate" metadata based on SP configuration. -->
+            <Handler type="MetadataGenerator"
+                     Location="/Metadata"
+                     signing="false"/>
+
+            <!-- Status reporting service.
+                 The first IPv4/IPv6 address pair allows access from local host.
+                 The remaining addresses are used by the AAI Resource Registry operated by SWITCH -->
+            <Handler type="Status"
+                     Location="/Status"
+                     acl="127.0.0.1/32 ::1/128 130.59.118.224/32 2001:620:0:1006::255/128 130.59.198.12/32 2001:620:0:3006::256/128"/>
+
+            <!-- Session diagnostic service. -->
+            <Handler type="Session"
+                     Location="/Session"
+                     showAttributeValues="false"/>
+
+            <!-- JSON feed of discovery information. -->
+            <Handler type="DiscoveryFeed"
+                     Location="/DiscoFeed"/>
+        </Sessions>
+
+        <!--
+        Allows overriding of error template information/filenames. You can
+        also add your own attributes with values that can be plugged into the
+        templates, e.g., helpLocation below.
+        -->
+        <Errors access="accessError.html"
+                supportContact="aai@studentenportal.ch"
+                helpLocation="https://www.switch.ch/aai/help"
+                logoLocation="https://www.switch.ch/aai/design/images/SWITCHaai.gif"
+                styleSheet="https://www.switch.ch/aai/design/shib-error.css"/>
+
+        <!-- Download and verify SWITCHaai metadata -->
+        <MetadataProvider type="XML"
+                          validate="true"
+                          url="http://metadata.aai.switch.ch/metadata.switchaai+idp.xml"
+                          backingFilePath="metadata.switchaai+idp.xml"
+                          reloadInterval="3600">
+            <MetadataFilter type="RequireValidUntil"
+                            maxValidityInterval="604800"/>
+            <MetadataFilter type="Signature" verifyBackup="false">
+                <TrustEngine type="StaticPKIX"
+                             certificate="SWITCHaaiRootCA.crt.pem"
+                             verifyDepth="2"
+                             checkRevocation="fullChain"
+                             policyMappingInhibit="true"
+                             anyPolicyInhibit="true">
+                      <TrustedName>SWITCHaai Metadata Signer</TrustedName>
+                      <PolicyOID>2.16.756.1.2.6.7</PolicyOID>
+               </TrustEngine>
+            </MetadataFilter>
+            <MetadataFilter type="EntityRoleWhiteList">
+                <RetainedRole>md:IDPSSODescriptor</RetainedRole>
+                <RetainedRole>md:AttributeAuthorityDescriptor</RetainedRole>
+            </MetadataFilter>
+        </MetadataProvider>
+
+
+        <!-- Map to extract attributes from SAML assertions. -->
+        <AttributeExtractor type="XML"
+                            validate="true"
+                            reloadChanges="false"
+                            path="attribute-map.xml"/>
+
+
+        <!-- Use a SAML query if no attributes are supplied during SSO. -->
+        <AttributeResolver type="Query"
+                           subjectMatch="true"/>
+
+        <!-- Default filtering policy for recognized attributes, lets other data pass -->
+        <AttributeFilter type="XML"
+                         validate="true"
+                         reloadChanges="false"
+                         path="attribute-policy.xml"/>
+
+        <!--
+        Certificate/Private key pairs are read in sequence.
+        Unless specificially defined only the first
+        CredentialResolver is used for attribute requests.
+        -->
+        <CredentialResolver type="Chaining">
+             <!-- Active certificate -->
+             <CredentialResolver type="File"
+                                 key="/etc/shibboleth/sp-key.pem"
+                                 certificate="/etc/shibboleth/sp-cert.pem"/>
+        </CredentialResolver>
+
+        <!--
+        The default settings can be overridden by creating ApplicationOverride elements.
+        -->
+    </ApplicationDefaults>
+
+    <!-- Policies that determine how to process and authenticate runtime messages. -->
+    <SecurityPolicyProvider type="XML"
+                            validate="true"
+                            reloadChanges="false"
+                            path="security-policy.xml"/>
+
+    <!-- Low-level configuration about protocols and bindings available for use. -->
+    <ProtocolProvider type="XML"
+                      validate="true"
+                      reloadChanges="false"
+                      path="protocols.xml"/>
+
+</SPConfig>
