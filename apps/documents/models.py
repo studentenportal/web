@@ -194,8 +194,8 @@ class DocumentRating(models.Model):
 
     """
     RATING_VALIDATORS = [MaxValueValidator(10), MinValueValidator(1)]
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='DocumentRating',
-                             on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='DocumentRating', null=True,
+                             on_delete=models.SET_NULL)
     document = models.ForeignKey(Document, related_name='DocumentRating',
                                  on_delete=models.CASCADE)
     rating = models.PositiveSmallIntegerField(validators=RATING_VALIDATORS)

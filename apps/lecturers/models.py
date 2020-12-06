@@ -103,8 +103,8 @@ class LecturerRating(models.Model):
         ('f', 'Fachlich'))
     RATING_VALIDATORS = [MaxValueValidator(10), MinValueValidator(1)]
 
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='LecturerRating',
-                             on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='LecturerRating', null=True,
+                             on_delete=models.SET_NULL)
     lecturer = models.ForeignKey(Lecturer, related_name='LecturerRating',
                                  on_delete=models.CASCADE)
     category = models.CharField(max_length=1, choices=CATEGORY_CHOICES, db_index=True)
@@ -146,8 +146,8 @@ class Quote(models.Model):
 
 class QuoteVote(models.Model):
     """Lecturer quote votes."""
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='QuoteVote',
-                             on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='QuoteVote', null=True,
+                             on_delete=models.SET_NULL)
     quote = models.ForeignKey(Quote, related_name='QuoteVote',
                               on_delete=models.CASCADE)
     vote = models.BooleanField(help_text='True = upvote, False = downvote')
