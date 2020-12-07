@@ -39,7 +39,7 @@
                     </a>
                 {% endif %}
             </div>
-            <h3 xmlns:dct="http://purl.org/dc/terms/" property="dct:title">{{ doc.name }}</h3>
+            <h3 property="dct:title">{{ doc.name }}</h3>
             <p class="author">von {% if doc.uploader %}<a rel="author" href="{% url 'user' doc.uploader.pk doc.uploader.username|slugify %}">{{ doc.uploader.name }}</a>{% endif %}
             (<span>{{ doc.downloadcount }} Download{{ doc.downloadcount|pluralize:"s" }}</span>)</p>
             {% if user.is_authenticated %}

@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
-from __future__ import (absolute_import, division, print_function,
-                        unicode_literals)
+from __future__ import absolute_import, division, print_function, unicode_literals
 
 import datetime
 import logging
@@ -13,16 +12,24 @@ from django.contrib import messages
 from django.contrib.syndication.views import Feed
 from django.core.exceptions import ObjectDoesNotExist, ValidationError
 from django.db.models import Count
-from django.http import (HttpResponse, HttpResponseBadRequest,
-                         HttpResponseForbidden, HttpResponseServerError)
+from django.http import (
+    HttpResponse,
+    HttpResponseBadRequest,
+    HttpResponseForbidden,
+    HttpResponseServerError,
+)
 from django.shortcuts import get_object_or_404, redirect, render
 from django.template.defaultfilters import slugify
 from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import TemplateView, View
-from django.views.generic.edit import (CreateView, DeleteView, FormView,
-                                       SingleObjectMixin, UpdateView)
+from django.views.generic.edit import (
+    CreateView,
+    DeleteView,
+    SingleObjectMixin,
+    UpdateView,
+)
 from django.views.generic.list import ListView
 from django_downloadview.shortcuts import sendfile
 
