@@ -1,9 +1,9 @@
 model-bakery==1.1.0
 
-coverage>=5.0,<5.1
+coverage==5.0.4
 six==1.14.0
-pytest>=5.4,<5.5
-pytest-django>=3.8,<3.9
-pytest-pep8>=1.0.6,<1.1
-pytest-cov>=2.8,<2.9
-pytest-pythonpath>=0.7,<0.8
+pytest==5.4.3
+pytest-django==3.8.0
+pytest-pep8==1.0.6
+pytest-cov==2.8.1
+pytest-pythonpath==0.7.3
