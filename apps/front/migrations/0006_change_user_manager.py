@@ -8,15 +8,15 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('front', '0005_remove_user_twitter'),
+        ("front", "0005_remove_user_twitter"),
     ]
 
     operations = [
         migrations.AlterModelManagers(
-            name='user',
+            name="user",
             managers=[
-                ('users', apps.front.models.CustomUserManager()),
-                ('objects', django.contrib.auth.models.UserManager()),
+                ("users", apps.front.models.CustomUserManager()),
+                ("objects", django.contrib.auth.models.UserManager()),
             ],
         ),
     ]

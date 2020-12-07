@@ -2,8 +2,8 @@ from django import template
 
 register = template.Library()
 
-ACTIVE_TAB_NAME = 'ACTIVETABS'
-DEFAULT_NAMESPACE = 'default'
+ACTIVE_TAB_NAME = "ACTIVETABS"
+DEFAULT_NAMESPACE = "default"
 
 
 def get_active_tabs(context):
@@ -28,7 +28,6 @@ def is_active_tab(context, namespace, name):
 
 
 class ActiveTabNode(template.Node):
-
     def __init__(self, name, namespace=None):
         if namespace is None:
             namespace = DEFAULT_NAMESPACE
@@ -46,7 +45,7 @@ class ActiveTabNode(template.Node):
             name = None
 
         set_active_tab(context, namespace, name)
-        return ''
+        return ""
 
 
 class IfActiveTabNode(template.Node):
@@ -87,15 +86,17 @@ def activetab(parser, token):
         name = bits[1]
 
     return ActiveTabNode(name, namespace)
-activetab = register.tag('activetab', activetab)
+
+
+activetab = register.tag("activetab", activetab)
 
 
 def ifactivetab(parser, token):
     bits = token.contents.split()[1:]
-    nodelist_true = parser.parse(('else', 'endifactivetab'))
+    nodelist_true = parser.parse(("else", "endifactivetab"))
     token = parser.next_token()
-    if token.contents == 'else':
-        nodelist_false = parser.parse(('endifactivetab',))
+    if token.contents == "else":
+        nodelist_false = parser.parse(("endifactivetab",))
         parser.delete_first_token()
     else:
         nodelist_false = template.NodeList()
@@ -108,4 +109,6 @@ def ifactivetab(parser, token):
         namespace = bits[0]
         name = bits[1]
     return IfActiveTabNode(nodelist_true, nodelist_false, name, namespace)
-ifactivetab = register.tag('ifactivetab', ifactivetab)
+
+
+ifactivetab = register.tag("ifactivetab", ifactivetab)

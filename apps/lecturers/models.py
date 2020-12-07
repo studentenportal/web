@@ -19,15 +19,20 @@ class Lecturer(models.Model):
     and the filename should be <abbreviation>.jpg.
 
     """
-    id = models.IntegerField('HSR ID', primary_key=True)
-    title = models.CharField('Titel', max_length=32, null=True, blank=True)
-    last_name = models.CharField('Name', max_length=255)
-    first_name = models.CharField('Vorname', max_length=255)
-    abbreviation = models.CharField('Kürzel', max_length=10, unique=True)
-    department = models.CharField('Abteilung', max_length=100, null=True, blank=True)
-    function = models.CharField('Funktion', max_length=255, null=True, blank=True)
-    main_area = models.CharField('Fachschwerpunkt', max_length=255, null=True, blank=True)
-    subjects = models.CharField(max_length=50, null=True, blank=True)  # todo add to frontend
+
+    id = models.IntegerField("HSR ID", primary_key=True)
+    title = models.CharField("Titel", max_length=32, null=True, blank=True)
+    last_name = models.CharField("Name", max_length=255)
+    first_name = models.CharField("Vorname", max_length=255)
+    abbreviation = models.CharField("Kürzel", max_length=10, unique=True)
+    department = models.CharField("Abteilung", max_length=100, null=True, blank=True)
+    function = models.CharField("Funktion", max_length=255, null=True, blank=True)
+    main_area = models.CharField(
+        "Fachschwerpunkt", max_length=255, null=True, blank=True
+    )
+    subjects = models.CharField(
+        max_length=50, null=True, blank=True
+    )  # todo add to frontend
     email = models.EmailField(null=True, blank=True)
     office = models.CharField(max_length=20, null=True, blank=True)
 
@@ -36,24 +41,24 @@ class Lecturer(models.Model):
 
     def name(self):
         parts = [self.title, self.last_name, self.first_name]
-        return ' '.join(p for p in parts if p)
+        return " ".join(p for p in parts if p)
 
     def photo(self):
         """Try to see if a photo with the name <self.id>.jpg exists. If it
         does, return the corresponding URL. If it doesn't, return None."""
-        path = os.path.join('lecturers', '%s.jpg' % self.id)
+        path = os.path.join("lecturers", "%s.jpg" % self.id)
         fullpath = os.path.join(settings.MEDIA_ROOT, path)
         return path if os.path.exists(fullpath) else None
 
     def oldphotos(self):
         """Try to see whether there are more pictures in the folder
         ``lecturers/old/<self.id>/``..."""
-        path = os.path.join('lecturers', 'old', str(self.id))
+        path = os.path.join("lecturers", "old", str(self.id))
         fullpath = os.path.join(settings.MEDIA_ROOT, path)
         oldphotos = []
         if os.path.exists(fullpath):
             for filename in os.listdir(fullpath):
-                if re.match(r'^[0-9]+\.jpg$', filename):
+                if re.match(r"^[0-9]+\.jpg$", filename):
                     filepath = os.path.join(path, filename)
                     oldphotos.append(filepath)
         return oldphotos
@@ -63,7 +68,7 @@ class Lecturer(models.Model):
         """Calculate the average rating for the given category."""
         qs = self.LecturerRating.filter(category=category)
         if qs.exists():
-            ratings = qs.values_list('rating', flat=True)
+            ratings = qs.values_list("rating", flat=True)
             return int(sum(ratings) / len(ratings) + 0.5)  # always round .5 up
         return 0
 
@@ -71,61 +76,72 @@ class Lecturer(models.Model):
         return self.LecturerRating.filter(category=category).count()
 
     def avg_rating_d(self):
-        return self._avg_rating('d')
+        return self._avg_rating("d")
 
     def avg_rating_m(self):
-        return self._avg_rating('m')
+        return self._avg_rating("m")
 
     def avg_rating_f(self):
-        return self._avg_rating('f')
+        return self._avg_rating("f")
 
     def rating_count_d(self):
-        return self._rating_count('d')
+        return self._rating_count("d")
 
     def rating_count_m(self):
-        return self._rating_count('m')
+        return self._rating_count("m")
 
     def rating_count_f(self):
-        return self._rating_count('f')
+        return self._rating_count("f")
 
     def __str__(self):
-        return '%s %s' % (self.last_name, self.first_name)
+        return "%s %s" % (self.last_name, self.first_name)
 
     class Meta:
-        ordering = ['last_name']
+        ordering = ["last_name"]
 
 
 class LecturerRating(models.Model):
     """A lecturer rating. Max 1 per user, category and lecturer."""
-    CATEGORY_CHOICES = (
-        ('d', 'Didaktisch'),
-        ('m', 'Menschlich'),
-        ('f', 'Fachlich'))
+
+    CATEGORY_CHOICES = (("d", "Didaktisch"), ("m", "Menschlich"), ("f", "Fachlich"))
     RATING_VALIDATORS = [MaxValueValidator(10), MinValueValidator(1)]
 
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='LecturerRating', null=True,
-                             on_delete=models.SET_NULL)
-    lecturer = models.ForeignKey(Lecturer, related_name='LecturerRating',
-                                 on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        related_name="LecturerRating",
+        null=True,
+        on_delete=models.SET_NULL,
+    )
+    lecturer = models.ForeignKey(
+        Lecturer, related_name="LecturerRating", on_delete=models.CASCADE
+    )
     category = models.CharField(max_length=1, choices=CATEGORY_CHOICES, db_index=True)
-    rating = models.PositiveSmallIntegerField(validators=RATING_VALIDATORS, db_index=True)
+    rating = models.PositiveSmallIntegerField(
+        validators=RATING_VALIDATORS, db_index=True
+    )
 
     def __str__(self):
-        return '%s %s%u' % (self.lecturer, self.category, self.rating)
+        return "%s %s%u" % (self.lecturer, self.category, self.rating)
 
     class Meta:
-        unique_together = ('user', 'lecturer', 'category')
+        unique_together = ("user", "lecturer", "category")
 
 
 class Quote(models.Model):
     """Lecturer quotes."""
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='Quote', null=True,
-            on_delete=models.SET_NULL)
-    lecturer = models.ForeignKey(Lecturer, verbose_name='Dozent', related_name='Quote',
-                                 on_delete=models.CASCADE)
+
+    author = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        related_name="Quote",
+        null=True,
+        on_delete=models.SET_NULL,
+    )
+    lecturer = models.ForeignKey(
+        Lecturer, verbose_name="Dozent", related_name="Quote", on_delete=models.CASCADE
+    )
     date = models.DateTimeField(auto_now_add=True)
-    quote = models.TextField('Zitat')
-    comment = models.TextField('Bemerkung', default='', blank=True)
+    quote = models.TextField("Zitat")
+    comment = models.TextField("Bemerkung", default="", blank=True)
 
     def date_available(self):
         return self.date != datetime(1970, 1, 1)
@@ -137,34 +153,39 @@ class Quote(models.Model):
         return up - down
 
     def __str__(self):
-        return '[%s] %s...' % (self.lecturer, self.quote[:30])
+        return "[%s] %s..." % (self.lecturer, self.quote[:30])
 
     class Meta:
-        ordering = ['-date']
-        get_latest_by = 'date'
+        ordering = ["-date"]
+        get_latest_by = "date"
 
 
 class QuoteVote(models.Model):
     """Lecturer quote votes."""
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='QuoteVote', null=True,
-                             on_delete=models.SET_NULL)
-    quote = models.ForeignKey(Quote, related_name='QuoteVote',
-                              on_delete=models.CASCADE)
-    vote = models.BooleanField(help_text='True = upvote, False = downvote')
+
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        related_name="QuoteVote",
+        null=True,
+        on_delete=models.SET_NULL,
+    )
+    quote = models.ForeignKey(Quote, related_name="QuoteVote", on_delete=models.CASCADE)
+    vote = models.BooleanField(help_text="True = upvote, False = downvote")
 
     def __str__(self):
-        fmt_args = self.user.username, 'up' if self.vote else 'down', self.quote.pk
-        return 'User %s votes %s quote %s' % fmt_args
+        fmt_args = self.user.username, "up" if self.vote else "down", self.quote.pk
+        return "User %s votes %s quote %s" % fmt_args
 
     class Meta:
-        unique_together = ('user', 'quote')
+        unique_together = ("user", "quote")
 
 
 class Course(models.Model):
     """A possible degree course. At the moment only one lecturer is possible."""
-    id = models.IntegerField('Studiengang ID', primary_key=True)
-    abbreviation = models.CharField('Abkürzung', max_length=10, unique=True)
-    name = models.CharField('Titel', max_length=50)
+
+    id = models.IntegerField("Studiengang ID", primary_key=True)
+    abbreviation = models.CharField("Abkürzung", max_length=10, unique=True)
+    name = models.CharField("Titel", max_length=50)
 
     def __str__(self):
-        return '%s (%s)' % (self.name, self.abbreviation)
+        return "%s (%s)" % (self.name, self.abbreviation)

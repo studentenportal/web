@@ -14,10 +14,12 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
             return True
 
         # Write permissions are only allowed to the owner of the snippet
-        if hasattr(view, 'owner_obj_field'):
+        if hasattr(view, "owner_obj_field"):
             return getattr(obj, view.owner_obj_field) == request.user
-        elif hasattr(view, 'owner_username_field'):
+        elif hasattr(view, "owner_username_field"):
             return getattr(obj, view.owner_username_field) == request.user.username
         else:
-            raise AttributeError('Either `owner_obj_field` or `owner_username_field` ' +
-                                 'need to be set on the view class.')
+            raise AttributeError(
+                "Either `owner_obj_field` or `owner_username_field` "
+                + "need to be set on the view class."
+            )

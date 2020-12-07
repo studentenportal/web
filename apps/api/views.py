@@ -17,13 +17,15 @@ from . import permissions as custom_permissions
 from . import serializers
 
 
-@api_view(('GET',))
+@api_view(("GET",))
 def api_root(request, format=None):
-    return Response({
-        'users': reverse('api:user_list', request=request, format=format),
-        'lecturers': reverse('api:lecturer_list', request=request, format=format),
-        'quotes': reverse('api:quote_list', request=request, format=format),
-    })
+    return Response(
+        {
+            "users": reverse("api:user_list", request=request, format=format),
+            "lecturers": reverse("api:lecturer_list", request=request, format=format),
+            "quotes": reverse("api:quote_list", request=request, format=format),
+        }
+    )
 
 
 # GET
@@ -36,7 +38,7 @@ class UserList(generics.ListAPIView):
 class UserDetail(generics.RetrieveUpdateAPIView):
     queryset = get_user_model().objects.all()
     serializer_class = serializers.UserSerializer
-    owner_username_field = 'username'
+    owner_username_field = "username"
     permission_classes = (
         permissions.IsAuthenticated,
         custom_permissions.IsOwnerOrReadOnly,
@@ -68,7 +70,7 @@ class QuoteList(generics.ListCreateAPIView):
 class QuoteDetail(generics.RetrieveUpdateAPIView):
     queryset = models.Quote.objects.all()
     serializer_class = serializers.QuoteSerializer
-    owner_obj_field = 'author'
+    owner_obj_field = "author"
     permission_classes = (
         permissions.IsAuthenticated,
         custom_permissions.IsOwnerOrReadOnly,
@@ -77,48 +79,45 @@ class QuoteDetail(generics.RetrieveUpdateAPIView):
 
 # POST
 class QuoteVote(APIView):
-
     def post(self, request, pk):
         quote = get_object_or_404(models.Quote, pk=pk)
-        vote = request.POST.get('vote')
+        vote = request.POST.get("vote")
 
-        if vote not in ['up', 'down', 'remove']:
-            return HttpResponseBadRequest('Expected up/down/remove for vote')
+        if vote not in ["up", "down", "remove"]:
+            return HttpResponseBadRequest("Expected up/down/remove for vote")
 
-        if vote == 'remove':
+        if vote == "remove":
             models.QuoteVote.objects.get(user=request.user, quote=quote).delete()
         else:
             try:
-                vote_obj = models.QuoteVote.objects.get(
-                    user=request.user, quote=quote)
+                vote_obj = models.QuoteVote.objects.get(user=request.user, quote=quote)
             except models.QuoteVote.DoesNotExist:
                 vote_obj = models.QuoteVote()
                 vote_obj.user = request.user
                 vote_obj.quote = quote
-            vote_obj.vote = vote == 'up'
+            vote_obj.vote = vote == "up"
             vote_obj.save()
 
         data = {
-            'quote_pk': quote.pk,
-            'vote': vote,
-            'vote_count': quote.QuoteVote.count(),
-            'vote_sum': quote.vote_sum()
+            "quote_pk": quote.pk,
+            "vote": vote,
+            "vote_count": quote.QuoteVote.count(),
+            "vote_sum": quote.vote_sum(),
         }
         return JsonResponse(data)
 
 
 # POST
 class LecturerRate(APIView):
-
     def post(self, request, pk):
         lecturer = get_object_or_404(models.Lecturer, pk=pk)
-        score = request.POST.get('score')
-        category = request.POST.get('category')
+        score = request.POST.get("score")
+        category = request.POST.get("category")
 
         params = {
-            'user': request.user,
-            'lecturer_id': lecturer.pk,
-            'category': category,
+            "user": request.user,
+            "lecturer_id": lecturer.pk,
+            "category": category,
         }
         try:
             rating = models.LecturerRating.objects.get(**params)
@@ -129,13 +128,13 @@ class LecturerRate(APIView):
         try:
             rating.full_clean()  # validation
         except ValidationError:
-            return HttpResponseBadRequest('Validierungsfehler')
+            return HttpResponseBadRequest("Validierungsfehler")
 
         rating.save()
 
         data = {
-            'category': category,
-            'rating_avg': lecturer._avg_rating(category),
-            'rating_count': lecturer._rating_count(category),
+            "category": category,
+            "rating_avg": lecturer._avg_rating(category),
+            "rating_count": lecturer._rating_count(category),
         }
         return JsonResponse(data)

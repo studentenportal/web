@@ -8,18 +8,28 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('lecturers', '0001_initial'),
+        ("lecturers", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='lecturerrating',
-            name='user',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='LecturerRating', to=settings.AUTH_USER_MODEL),
+            model_name="lecturerrating",
+            name="user",
+            field=models.ForeignKey(
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="LecturerRating",
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
         migrations.AlterField(
-            model_name='quotevote',
-            name='user',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='QuoteVote', to=settings.AUTH_USER_MODEL),
+            model_name="quotevote",
+            name="user",
+            field=models.ForeignKey(
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="QuoteVote",
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
     ]

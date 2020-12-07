@@ -11,20 +11,27 @@ import django.db.models.manager
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('front', '0002_auto_20200119_1707'),
+        ("front", "0002_auto_20200119_1707"),
     ]
 
     operations = [
         migrations.AlterModelManagers(
-            name='user',
+            name="user",
             managers=[
-                ('users', django.db.models.manager.Manager()),
-                ('objects', django.contrib.auth.models.UserManager()),
+                ("users", django.db.models.manager.Manager()),
+                ("objects", django.contrib.auth.models.UserManager()),
             ],
         ),
         migrations.AlterField(
-            model_name='user',
-            name='username',
-            field=models.CharField(error_messages={'unique': 'A user with that username already exists.'}, help_text='Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.', max_length=150, unique=True, validators=[django.contrib.auth.validators.UnicodeUsernameValidator()], verbose_name='username'),
+            model_name="user",
+            name="username",
+            field=models.CharField(
+                error_messages={"unique": "A user with that username already exists."},
+                help_text="Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.",
+                max_length=150,
+                unique=True,
+                validators=[django.contrib.auth.validators.UnicodeUsernameValidator()],
+                verbose_name="username",
+            ),
         ),
     ]

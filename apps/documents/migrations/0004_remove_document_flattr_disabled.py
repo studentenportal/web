@@ -6,12 +6,12 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('documents', '0003_auto_20200122_1624'),
+        ("documents", "0003_auto_20200122_1624"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='document',
-            name='flattr_disabled',
+            model_name="document",
+            name="flattr_disabled",
         ),
     ]

@@ -6,16 +6,16 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('documents', '0002_auto_20161124_2111'),
+        ("documents", "0002_auto_20161124_2111"),
     ]
 
     operations = [
         migrations.AlterIndexTogether(
-            name='documentdownload',
-            index_together={('document', 'timestamp')},
+            name="documentdownload",
+            index_together={("document", "timestamp")},
         ),
         migrations.RemoveField(
-            model_name='documentdownload',
-            name='ip',
+            model_name="documentdownload",
+            name="ip",
         ),
     ]
