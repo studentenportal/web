@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-from __future__ import print_function, division, absolute_import, unicode_literals
+from __future__ import (absolute_import, division, print_function,
+                        unicode_literals)
 
 import datetime
 
-from django.test import TestCase
-from django.contrib.auth import get_user_model
-from django.urls import reverse
-
 import pytest
+from django.contrib.auth import get_user_model
+from django.test import TestCase
+from django.urls import reverse
 from model_bakery import baker
 
 from apps.events import models

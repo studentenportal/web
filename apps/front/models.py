@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
-from __future__ import print_function, division, absolute_import, unicode_literals
+from __future__ import (absolute_import, division, print_function,
+                        unicode_literals)
 
-from django.db import models
 from django.contrib.auth.models import AbstractUser, UserManager
+from django.db import models
 from django.utils.safestring import mark_safe
 
 

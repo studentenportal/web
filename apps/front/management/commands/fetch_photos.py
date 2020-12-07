@@ -1,16 +1,19 @@
 # -*- coding: utf-8 -*-
-from __future__ import print_function, division, absolute_import, unicode_literals
+from __future__ import (absolute_import, division, print_function,
+                        unicode_literals)
+
+import getpass
+import sys
+import time
+from collections import namedtuple
+from optparse import make_option
 
 import requests
-import time
-import sys
-import getpass
-from collections import namedtuple
 from bs4 import BeautifulSoup
-from optparse import make_option
-from django.core.management.base import BaseCommand
-from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
+from django.core.files.storage import default_storage
+from django.core.management.base import BaseCommand
+
 from apps.lecturers.models import Lecturer
 
 

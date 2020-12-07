@@ -1,19 +1,18 @@
 # -*- coding: utf-8 -*-
-from __future__ import print_function, division, absolute_import, unicode_literals
+from __future__ import (absolute_import, division, print_function,
+                        unicode_literals)
 
 import datetime
-from dateutil.relativedelta import relativedelta
 from urllib.parse import urlsplit, urlunsplit
 
-from django.views.generic import View, TemplateView
-from django.views.generic.detail import DetailView
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.contrib import messages
-from django.urls import reverse
-from django.http import HttpResponse
-from django.http import HttpResponseForbidden
-
 import vobject
+from dateutil.relativedelta import relativedelta
+from django.contrib import messages
+from django.http import HttpResponse, HttpResponseForbidden
+from django.urls import reverse
+from django.views.generic import TemplateView, View
+from django.views.generic.detail import DetailView
+from django.views.generic.edit import CreateView, DeleteView, UpdateView
 
 from apps.events import forms, models
 from apps.front.mixins import LoginRequiredMixin

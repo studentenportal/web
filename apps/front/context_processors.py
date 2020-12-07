@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
-from __future__ import print_function, division, absolute_import, unicode_literals
+from __future__ import (absolute_import, division, print_function,
+                        unicode_literals)
 
+from django.conf import settings
+
+from apps.documents import models as document_models
 from apps.front import models
 from apps.lecturers import models as lecturer_models
-from apps.documents import models as document_models
-from django.conf import settings
 
 
 def global_stats(request):

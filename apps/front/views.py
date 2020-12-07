@@ -1,21 +1,23 @@
 # -*- coding: utf-8 -*-
-from __future__ import print_function, division, absolute_import, unicode_literals
+from __future__ import (absolute_import, division, print_function,
+                        unicode_literals)
 
 import datetime
 
-from django.contrib.auth import get_user_model
 from django.contrib import messages
+from django.contrib.auth import get_user_model
 from django.db.models import Count
 from django.urls import reverse
 from django.views.generic import TemplateView
-from django.views.generic.edit import UpdateView
 from django.views.generic.detail import DetailView
+from django.views.generic.edit import UpdateView
 
-from . import forms, models
-from apps.lecturers import models as lecturer_models
 from apps.documents import models as document_models
 from apps.events import models as event_models
 from apps.front.mixins import LoginRequiredMixin
+from apps.lecturers import models as lecturer_models
+
+from . import forms, models
 
 
 class Home(TemplateView):

@@ -1,19 +1,20 @@
 # -*- coding: utf-8 -*-
-from __future__ import print_function, division, absolute_import, unicode_literals
+from __future__ import (absolute_import, division, print_function,
+                        unicode_literals)
 
 from base64 import b64decode
 
-from django.core.files.uploadedfile import SimpleUploadedFile, InMemoryUploadedFile
-from django.core.files.base import ContentFile
-from django.test import TestCase
-from django.urls import reverse
-from django.contrib.auth import get_user_model
-
 import pytest
 from bs4 import BeautifulSoup
+from django.contrib.auth import get_user_model
+from django.core.files.base import ContentFile
+from django.core.files.uploadedfile import (InMemoryUploadedFile,
+                                            SimpleUploadedFile)
+from django.test import TestCase
+from django.urls import reverse
 from model_bakery import baker
 
-from apps.documents import models, forms
+from apps.documents import forms, models
 
 User = get_user_model()
 

@@ -1,10 +1,8 @@
 # -*- coding: utf-8 -*-
 from django.conf.urls import include, url
-
 from rest_framework.urlpatterns import format_suffix_patterns
 
 from apps.api import views
-
 
 app_name = "api"
 

@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.db import migrations, models
 import django.core.validators
+from django.db import migrations, models
+
 import apps.documents.models
 import apps.front.fields
 

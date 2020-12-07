@@ -1,17 +1,16 @@
 # -*- coding: utf-8 -*-
-from __future__ import print_function, division, absolute_import, unicode_literals
+from __future__ import (absolute_import, division, print_function,
+                        unicode_literals)
 
 import datetime
 
-from django.core.exceptions import ValidationError
+import pytest
 from django.contrib.auth import get_user_model
+from django.core.exceptions import ValidationError
 from django.db import IntegrityError
-
 from model_bakery import baker
 
 from apps.lecturers import models
-import pytest
-
 
 User = get_user_model()
 

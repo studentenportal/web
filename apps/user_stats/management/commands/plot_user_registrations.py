@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-from __future__ import print_function, division, absolute_import, unicode_literals
+from __future__ import (absolute_import, division, print_function,
+                        unicode_literals)
 
 from optparse import make_option
 
-from django.core.management.base import BaseCommand
-from django.contrib.auth import get_user_model
-
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
+from django.contrib.auth import get_user_model
+from django.core.management.base import BaseCommand
 from matplotlib.dates import date2num
 
 

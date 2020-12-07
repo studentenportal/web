@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
-from __future__ import print_function, division, absolute_import, unicode_literals
+from __future__ import (absolute_import, division, print_function,
+                        unicode_literals)
 
-import re
 import os
+import re
 from datetime import datetime
 
 from django.conf import settings
-from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
+from django.db import models
 
 from apps.lecturers import managers
 

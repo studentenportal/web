@@ -1,19 +1,15 @@
 # -*- coding: utf-8 -*-
-from __future__ import print_function, division, absolute_import, unicode_literals
+from __future__ import (absolute_import, division, print_function,
+                        unicode_literals)
 
 import pytest
-
-from django.test import TestCase
-from django.core import mail
-from django.urls import reverse
 from django.contrib.auth import get_user_model
+from django.core import mail
 from django.db import transaction
-
-from pytest_django.asserts import assertRedirects
-
-
+from django.test import TestCase
+from django.urls import reverse
 from model_bakery import baker
-
+from pytest_django.asserts import assertRedirects
 
 User = get_user_model()
 
