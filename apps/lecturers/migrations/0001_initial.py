@@ -216,10 +216,10 @@ class Migration(migrations.Migration):
         ),
         migrations.AlterUniqueTogether(
             name="quotevote",
-            unique_together=set([("user", "quote")]),
+            unique_together={("user", "quote")},
         ),
         migrations.AlterUniqueTogether(
             name="lecturerrating",
-            unique_together=set([("user", "lecturer", "category")]),
+            unique_together={("user", "lecturer", "category")},
         ),
     ]

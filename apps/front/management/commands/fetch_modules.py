@@ -77,7 +77,7 @@ class Command(CommandOutputMixin, NoArgsCommand):
             soup = BeautifulSoup(r.content)
 
             def get_course(row):
-                return re.match("(.*)\(", row.find("strong").text).group(1).strip()
+                return re.match(r"(.*)\(", row.find("strong").text).group(1).strip()
 
             table = soup.find("tbody", id=re.compile("^modul"))
             course_table = soup.find("tbody", id=re.compile("^kategorieZuordnungen"))
@@ -99,7 +99,7 @@ class Command(CommandOutputMixin, NoArgsCommand):
             self.stderr.write("Abort.")
             sys.exit(1)
         except:
-            self.stderr.write("Could not parse {0}: {1}".format(url, sys.exc_info()[0]))
+            self.stderr.write("Could not parse {}: {}".format(url, sys.exc_info()[0]))
 
     def parse_modules(self, url):
         """
@@ -127,7 +127,7 @@ class Command(CommandOutputMixin, NoArgsCommand):
             self.stderr.write("Abort.")
             sys.exit(1)
         except:
-            self.stderr.write("Could not parse {0}: {1}".format(url, sys.exc_info()[0]))
+            self.stderr.write("Could not parse {}: {}".format(url, sys.exc_info()[0]))
 
     def update_document_category(self, module):
         """Update courses and lecturers of an existing DocumentCategory.
@@ -140,7 +140,7 @@ class Command(CommandOutputMixin, NoArgsCommand):
             category.save()
         except DocumentCategory.DoesNotExist:
             self.stderr.write(
-                "Could not find category {0}: {1}".format(
+                "Could not find category {}: {}".format(
                     module["name"], sys.exc_info()[0]
                 )
             )
@@ -159,13 +159,13 @@ class Command(CommandOutputMixin, NoArgsCommand):
                 category.lecturers.add(lecturer)
             except lecturer_models.Lecturer.DoesNotExist:
                 self.stderr.write(
-                    "Could not find lecturer {0} {1}: {2}".format(
+                    "Could not find lecturer {} {}: {}".format(
                         first_name, last_name, sys.exc_info()[0]
                     )
                 )
         else:
             self.stderr.write(
-                "First and last name of module {0} with lecturer {1} cannot be read".format(
+                "First and last name of module {} with lecturer {} cannot be read".format(
                     module["name"], full_name
                 )
             )
@@ -180,7 +180,7 @@ class Command(CommandOutputMixin, NoArgsCommand):
                 course = lecturer_models.Course.objects.get(name=course_name)
                 category.courses.add(course)
             except lecturer_models.Course.DoesNotExist:
-                self.stderr.write("Could not find course {0}".format(course_name))
+                self.stderr.write("Could not find course {}".format(course_name))
 
     def create_document_category(self, module):
         """

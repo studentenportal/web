@@ -265,7 +265,7 @@ class UserViewTest(TestCase):
             response, 'property="dct:title">{}</h3>'.format(self.doc2.name)
         )
         # Category should be displayed
-        self.assertContains(response, "{0}</span>".format(category))
+        self.assertContains(response, "{}</span>".format(category))
 
     def testOtherDocuments(self):
         url = reverse("user", args=(self.user2.pk, self.user2.username))
@@ -280,7 +280,7 @@ class UserViewTest(TestCase):
             response, 'property="dct:title">{}</h3>'.format(self.doc1.name)
         )
         # Category should be displayed
-        self.assertContains(response, "{0}</span>".format(category))
+        self.assertContains(response, "{}</span>".format(category))
 
 
 class UserProfileViewTest(TestCase):

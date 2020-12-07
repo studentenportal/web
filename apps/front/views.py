@@ -58,7 +58,7 @@ class User(LoginRequiredMixin, DetailView):
         )
         if self.request.user.is_authenticated:
             ratings = document_models.DocumentRating.objects.filter(user=user)
-            context["ratings"] = dict([(r.document.pk, r.rating) for r in ratings])
+            context["ratings"] = {r.document.pk: r.rating for r in ratings}
         return context
 
 

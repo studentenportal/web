@@ -135,7 +135,7 @@ class DocumentList(DocumentcategoryMixin, ListView):
         context = super(DocumentList, self).get_context_data(**kwargs)
         if self.request.user.is_authenticated:
             ratings = models.DocumentRating.objects.filter(user=self.request.user)
-            context["ratings"] = dict([(r.document.pk, r.rating) for r in ratings])
+            context["ratings"] = {r.document.pk: r.rating for r in ratings}
         return context
 
 
@@ -230,13 +230,13 @@ class DocumentThumbnail(View):
         if not doc.document.path.lower().endswith(".pdf"):
             return HttpResponseBadRequest("File has to be a PDF to create a thumbnail")
 
-        thumbnail_path = "{0}.png".format(doc.document.path)
+        thumbnail_path = "{}.png".format(doc.document.path)
         if not os.path.exists(thumbnail_path):
             try:
                 self.generate_thumbnail(doc.document.path, thumbnail_path)
             except subprocess.CalledProcessError as e:
                 logger.error(
-                    "Thumbnail for {0} could not be created: {1}".format(
+                    "Thumbnail for {} could not be created: {}".format(
                         doc.document.path, e
                     )
                 )

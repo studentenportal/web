@@ -90,7 +90,7 @@ class UnterrichtWebsite(object):
     ):
         assert self.logged_in(), "Not logged in. Please call login()."
         url = "https://unterricht.hsr.ch/CurrentSem/Reporting/Registrations/Module?\
-        organizationUnitId={0}&courseUnitId={1};{2};{3}".format(
+        organizationUnitId={}&courseUnitId={};{};{}".format(
             organization_id, module_id, course_id, course_unit_id
         )
         r = self.s.get(url)
@@ -163,7 +163,7 @@ class Command(BaseCommand):
                 with default_storage.open(path) as f:
                     fcontent = f.read()
                     if fcontent == photo.getvalue():
-                        self.printO("EXISTS: %s (%s)" % (lecturer.name(), path))
+                        self.printO("EXISTS: {} ({})".format(lecturer.name(), path))
                         skipped_count += 1
                         continue  # Identic photo already exists
                     # File will be overwritten, save a backup of it
@@ -175,10 +175,10 @@ class Command(BaseCommand):
                     default_storage.save(
                         bkuppath, ContentFile(fcontent)
                     )  # Write to backup
-                    self.printO("UPDATE: %s (%s)" % (lecturer.name(), path))
+                    self.printO("UPDATE: {} ({})".format(lecturer.name(), path))
                     updated_count += 1
             else:
-                self.printO("ADD: %s (%s)" % (lecturer.name(), path))
+                self.printO("ADD: {} ({})".format(lecturer.name(), path))
                 added_count += 1
 
             # Save photo to media storage

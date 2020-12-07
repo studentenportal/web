@@ -31,7 +31,7 @@ class Lecturer(LoginRequiredMixin, DetailView):
         ratings = models.LecturerRating.objects.filter(
             lecturer=self.get_object(), user=self.request.user
         )
-        ratings_dict = dict([(r.category, r.rating) for r in ratings])
+        ratings_dict = {r.category: r.rating for r in ratings}
         for cat in ["d", "m", "f"]:
             context["rating_%c" % cat] = ratings_dict.get(cat)
 

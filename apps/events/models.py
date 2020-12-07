@@ -70,4 +70,4 @@ class Event(models.Model):
         return delta.days if delta.days > 0 else None
 
     def __str__(self):
-        return "%s %s" % (self.start_date, self.summary)
+        return "{} {}".format(self.start_date, self.summary)
