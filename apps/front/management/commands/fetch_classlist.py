@@ -58,7 +58,7 @@ class Command(BaseCommand):
                 lecturer = course_unit_list.content.find_all("a", {"class": "a58"})[
                     0
                 ].text
-                match = re.match("(.*)\((.*)\)", lecturer)
+                match = re.match(r"(.*)\((.*)\)", lecturer)
 
                 abbr = match.groups(2)
                 name = match.groups(1)
@@ -67,7 +67,7 @@ class Command(BaseCommand):
                     lecturers[abbr] = name
             except:
                 self.stderr.write(
-                    "Could not parse lecturers in {0};{1};{2}: {3}".format(
+                    "Could not parse lecturers in {};{};{}: {}".format(
                         module_id, course_id, unit_id, sys.exc_info()[0]
                     )
                 )
@@ -104,14 +104,14 @@ class Command(BaseCommand):
             }
         except:
             self.stderr.write(
-                "Could not parse module {0}: {1}".format(module_id, sys.exc_info()[0])
+                "Could not parse module {}: {}".format(module_id, sys.exc_info()[0])
             )
 
     def get_document_category(self, abbr):
         try:
             return document_models.DocumentCategory.objects.get(name=abbr)
         except document_models.DocumentCategory.DoesNotExist:
-            self.stderr.write("Could not find DocumentCategory {0}".format(abbr))
+            self.stderr.write("Could not find DocumentCategory {}".format(abbr))
 
     def add_lecturers_to_document_category(self, lecturers, category):
         """Try to find all the lecturers in the database and add them to the
@@ -129,9 +129,7 @@ class Command(BaseCommand):
                 added_lecturers.append(name)
             except lecturer_models.Lecturer.DoesNotExist:
                 failed_lecturers.append(name)
-                self.stderr.write(
-                    "Could not find Lecturer {0} ({1})".format(name, abbr)
-                )
+                self.stderr.write("Could not find Lecturer {} ({})".format(name, abbr))
 
         category.save()
         return (added_lecturers, failed_lecturers)
@@ -176,7 +174,7 @@ class Command(BaseCommand):
                 added_lecturers.extend(lecturer_results[0])
                 failed_lecturers.extend(lecturer_results[1])
                 self.stdout.write(
-                    "Added {0} lecturer to module {1} and {2} failed".format(
+                    "Added {} lecturer to module {} and {} failed".format(
                         len(lecturer_results[0]),
                         module["abbr"],
                         len(lecturer_results[1]),
@@ -192,27 +190,25 @@ class Command(BaseCommand):
         failed_lecturers = set(failed_lecturers)
 
         self.stdout.write(
-            "Updated {0} modules: {1}".format(
+            "Updated {} modules: {}".format(
                 len(updated_categories), ",".join(updated_categories)
             )
         )
         self.stdout.write(
-            "Failed {0} modules: {1}".format(
+            "Failed {} modules: {}".format(
                 len(failed_categories), ",".join(failed_categories)
             )
         )
         self.stdout.write(
-            "Added {0} lecturers: {1}".format(
+            "Added {} lecturers: {}".format(
                 len(added_lecturers), ",".join(added_lecturers)
             )
         )
         self.stdout.write(
-            "Failed {0} lecturers: {1}".format(
+            "Failed {} lecturers: {}".format(
                 len(failed_lecturers), ",".join(failed_lecturers)
             )
         )
 
         end = time.time()
-        self.stdout.write(
-            "Used {0} to parse all the modules and lecturers.".format(end)
-        )
+        self.stdout.write("Used {} to parse all the modules and lecturers.".format(end))

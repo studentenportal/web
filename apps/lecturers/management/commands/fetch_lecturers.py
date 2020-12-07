@@ -75,7 +75,7 @@ class HsrWebsite(object):
             cols = row.find_all("td")
             if not cols:
                 raise RuntimeError("Person not found.")
-            fullname = "%s\xa0%s" % (last_name, first_name)
+            fullname = "{}\xa0{}".format(last_name, first_name)
             if cols[0].text.lower() != fullname.lower():
                 continue
             if room is not None:
@@ -144,7 +144,7 @@ class Command(BaseCommand):
         for p in map(Person._make, reader):
             parsed_count += 1
             if not p.initialen:
-                self.stdout.write("SKIP: %s, %s" % (p.name, p.vorname))
+                self.stdout.write("SKIP: {}, {}".format(p.name, p.vorname))
                 skipped_count += 1
                 continue  # Don't add people without an abbreviation
             hsr_id = hsr.get_person_id(p.vorname, p.name, p.raum)

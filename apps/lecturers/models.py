@@ -94,7 +94,7 @@ class Lecturer(models.Model):
         return self._rating_count("f")
 
     def __str__(self):
-        return "%s %s" % (self.last_name, self.first_name)
+        return "{} {}".format(self.last_name, self.first_name)
 
     class Meta:
         ordering = ["last_name"]
@@ -153,7 +153,7 @@ class Quote(models.Model):
         return up - down
 
     def __str__(self):
-        return "[%s] %s..." % (self.lecturer, self.quote[:30])
+        return "[{}] {}...".format(self.lecturer, self.quote[:30])
 
     class Meta:
         ordering = ["-date"]
@@ -188,4 +188,4 @@ class Course(models.Model):
     name = models.CharField("Titel", max_length=50)
 
     def __str__(self):
-        return "%s (%s)" % (self.name, self.abbreviation)
+        return "{} ({})".format(self.name, self.abbreviation)

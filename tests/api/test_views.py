@@ -80,13 +80,13 @@ class TestUserView:
         url = reverse("api:user_list")
         resp = auth_client.head(url)
         allow = set(resp.get("Allow").split(", "))
-        assert allow == set(["GET", "HEAD", "OPTIONS"])
+        assert allow == {"GET", "HEAD", "OPTIONS"}
 
     def test_detail_methods(self, user, auth_client):
         url = reverse("api:user_detail", args=(user.pk,))
         resp = auth_client.head(url)
         allow = set(resp.get("Allow").split(", "))
-        assert allow == set(["GET", "PUT", "HEAD", "OPTIONS", "PATCH"])
+        assert allow == {"GET", "PUT", "HEAD", "OPTIONS", "PATCH"}
 
     def test_update_permissions(self, user, auth_client):
         """It should only be possible to edit own user."""
@@ -155,13 +155,13 @@ class TestLecturerView:
         url = reverse("api:lecturer_list")
         resp = auth_client.head(url)
         allow = set(resp.get("Allow").split(", "))
-        assert allow == set(["GET", "HEAD", "OPTIONS"])
+        assert allow == {"GET", "HEAD", "OPTIONS"}
 
     def test_detail_methods(self, lecturer, auth_client):
         url = reverse("api:lecturer_detail", args=(lecturer.pk,))
         resp = auth_client.head(url)
         allow = set(resp.get("Allow").split(", "))
-        assert allow == set(["GET", "HEAD", "OPTIONS"])
+        assert allow == {"GET", "HEAD", "OPTIONS"}
 
 
 class TestQuoteView:
@@ -193,13 +193,13 @@ class TestQuoteView:
         url = reverse("api:quote_list")
         resp = auth_client.head(url)
         allow = set(resp.get("Allow").split(", "))
-        assert allow == set(["GET", "POST", "HEAD", "OPTIONS"])
+        assert allow == {"GET", "POST", "HEAD", "OPTIONS"}
 
     def test_detail_methods(self, auth_client, quote):
         url = reverse("api:quote_detail", args=(quote.pk,))
         resp = auth_client.head(url)
         allow = set(resp.get("Allow").split(", "))
-        assert allow == set(["GET", "PUT", "HEAD", "OPTIONS", "PATCH"])
+        assert allow == {"GET", "PUT", "HEAD", "OPTIONS", "PATCH"}
 
     def test_auto_author_POST(self, auth_client, user):
         """Assert that the author is automatically set to the currently logged

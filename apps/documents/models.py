@@ -59,7 +59,7 @@ def document_file_name(instance, filename):
     timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
     instance.original_filename = filename
     return "/".join(
-        ["documents", slugify(instance.category.name), "%s%s" % (timestamp, ext)]
+        ["documents", slugify(instance.category.name), "{}{}".format(timestamp, ext)]
     )
 
 

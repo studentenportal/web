@@ -66,10 +66,10 @@ class Migration(migrations.Migration):
         ),
         migrations.AlterUniqueTogether(
             name="documentrating",
-            unique_together=set([("user", "document")]),
+            unique_together={("user", "document")},
         ),
         migrations.AlterIndexTogether(
             name="documentdownload",
-            index_together=set([("document", "timestamp", "ip")]),
+            index_together={("document", "timestamp", "ip")},
         ),
     ]
