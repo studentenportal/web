@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
-from __future__ import (absolute_import, division, print_function,
-                        unicode_literals)
+from __future__ import absolute_import, division, print_function, unicode_literals
 
 from base64 import b64decode
 
@@ -8,8 +7,7 @@ import pytest
 from bs4 import BeautifulSoup
 from django.contrib.auth import get_user_model
 from django.core.files.base import ContentFile
-from django.core.files.uploadedfile import (InMemoryUploadedFile,
-                                            SimpleUploadedFile)
+from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import TestCase
 from django.urls import reverse
 from model_bakery import baker

@@ -1,13 +1,11 @@
 # -*- coding: utf-8 -*-
-from __future__ import (absolute_import, division, print_function,
-                        unicode_literals)
+from __future__ import absolute_import, division, print_function, unicode_literals
 
 import base64
 import json
 
 import pytest
 from django.contrib.auth import get_user_model
-from django.test.client import Client
 from django.urls import NoReverseMatch, reverse
 from model_bakery import baker
 

@@ -1,10 +1,7 @@
 # -*- coding: utf-8 -*-
-from __future__ import (absolute_import, division, print_function,
-                        unicode_literals)
+from __future__ import absolute_import, division, print_function, unicode_literals
 
 from django.contrib.auth.models import AbstractUser, UserManager
-from django.db import models
-from django.utils.safestring import mark_safe
 
 
 def strip_mail_part(username):
