@@ -8,18 +8,27 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('documents', '0004_remove_document_flattr_disabled'),
+        ("documents", "0004_remove_document_flattr_disabled"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='document',
-            name='public',
-            field=models.BooleanField(default=False, help_text='Soll man dieses Dokument ohne Login downloaden können?', verbose_name='Öffentlich'),
+            model_name="document",
+            name="public",
+            field=models.BooleanField(
+                default=False,
+                help_text="Soll man dieses Dokument ohne Login downloaden können?",
+                verbose_name="Öffentlich",
+            ),
         ),
         migrations.AlterField(
-            model_name='documentrating',
-            name='user',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='DocumentRating', to=settings.AUTH_USER_MODEL),
+            model_name="documentrating",
+            name="user",
+            field=models.ForeignKey(
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="DocumentRating",
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
     ]

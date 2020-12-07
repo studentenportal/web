@@ -37,7 +37,7 @@ def lookup(dictionary, index):
     """Return index from dict."""
     if index in dictionary:
         return dictionary[index]
-    return ''
+    return ""
 
 
 @register.filter
@@ -66,6 +66,6 @@ def is_author(doc, user):
 @register.filter()
 def pagination_slice(page_range, page_number):
     if page_number > 3:
-        return page_range[page_number - 2:page_number + 1]
+        return page_range[page_number - 2 : page_number + 1]
     else:
         return page_range[0:3]

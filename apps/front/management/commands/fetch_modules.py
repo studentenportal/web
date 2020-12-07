@@ -14,28 +14,60 @@ from apps.documents.models import DocumentCategory
 from apps.front.mixins import CommandOutputMixin
 from apps.lecturers import models as lecturer_models
 
-blacklist = ['3D-Vis', 'DigT1', 'DigT2', 'MaTechM1', 'MaTechM2', 'ElMasch', 'StReiseR', 'SE2P',
-             'MathSem' 'AdpaFw', 'AdpaFwUe', 'ChallP', 'ChallP1', 'ChallP2', 'CEng_MT',
-             'CEng_PJ1', 'CEng_PJ2', 'CM_Block', 'ZeiWo', 'WibS']
+blacklist = [
+    "3D-Vis",
+    "DigT1",
+    "DigT2",
+    "MaTechM1",
+    "MaTechM2",
+    "ElMasch",
+    "StReiseR",
+    "SE2P",
+    "MathSem" "AdpaFw",
+    "AdpaFwUe",
+    "ChallP",
+    "ChallP1",
+    "ChallP2",
+    "CEng_MT",
+    "CEng_PJ1",
+    "CEng_PJ2",
+    "CM_Block",
+    "ZeiWo",
+    "WibS",
+]
 
-course_specialisations = {"Energy and Environment", "Spatial Development & Landscape Architecture",
-                    "Civil Engineering & Building Technology", "Industrial Technologies",
-                    "Information and Communication Technologies", "Automation und Robotik",
-                    "Public Planning, Construction and Building Technology", "Simulationstechnik",
-                    "Application Design - Cloud Solutions", "Software Engineering",
-                    "Betrieb- und Instandhaltung", "Maschinenbau-Informatik", "Produktentwicklung",
-                    "Kunststofftechnik", "Network, Security & Cloud-Infrastructure"
-                    "Planung und Entwurf urbaner Freiräume", "Landschaftsbau- und Management",
-                    "Landschaftsentwicklung und Gestaltung"}
+course_specialisations = {
+    "Energy and Environment",
+    "Spatial Development & Landscape Architecture",
+    "Civil Engineering & Building Technology",
+    "Industrial Technologies",
+    "Information and Communication Technologies",
+    "Automation und Robotik",
+    "Public Planning, Construction and Building Technology",
+    "Simulationstechnik",
+    "Application Design - Cloud Solutions",
+    "Software Engineering",
+    "Betrieb- und Instandhaltung",
+    "Maschinenbau-Informatik",
+    "Produktentwicklung",
+    "Kunststofftechnik",
+    "Network, Security & Cloud-Infrastructure" "Planung und Entwurf urbaner Freiräume",
+    "Landschaftsbau- und Management",
+    "Landschaftsentwicklung und Gestaltung",
+}
 
 
 class Command(CommandOutputMixin, NoArgsCommand):
-    help = 'Fetch module descriptions and write them to the database.'
-    option_list = NoArgsCommand.option_list + (make_option('--update',
-                                               action='store_true',
-                                               dest='update',
-                                               default=False,
-                                               help='Update existing modules'),)
+    help = "Fetch module descriptions and write them to the database."
+    option_list = NoArgsCommand.option_list + (
+        make_option(
+            "--update",
+            action="store_true",
+            dest="update",
+            default=False,
+            help="Update existing modules",
+        ),
+    )
 
     def parse_module_detail_page(self, url):
         """
@@ -46,26 +78,26 @@ class Command(CommandOutputMixin, NoArgsCommand):
             soup = BeautifulSoup(r.content)
 
             def get_course(row):
-                return re.match('(.*)\(', row.find('strong').text).group(1).strip()
+                return re.match("(.*)\(", row.find("strong").text).group(1).strip()
 
-            table = soup.find('tbody', id=re.compile('^modul'))
-            course_table = soup.find('tbody', id=re.compile('^kategorieZuordnungen'))
-            course_rows = course_table.find_all('div', {'class': 'katZuordnung'})
+            table = soup.find("tbody", id=re.compile("^modul"))
+            course_table = soup.find("tbody", id=re.compile("^kategorieZuordnungen"))
+            course_rows = course_table.find_all("div", {"class": "katZuordnung"})
             courses = {get_course(row) for row in course_rows}
 
-            ects_points_row = table.find('tr', id=re.compile('^Kreditpunkte'))
-            objectives_row = table.find('tr', id=re.compile('^Lernziele'))
-            lecturer_row = table.find('tr', id=re.compile('^dozent'))
+            ects_points_row = table.find("tr", id=re.compile("^Kreditpunkte"))
+            objectives_row = table.find("tr", id=re.compile("^Lernziele"))
+            lecturer_row = table.find("tr", id=re.compile("^dozent"))
 
             return {
-                'ects_points': int(ects_points_row.find_all('td')[1].text),
-                'objectives': objectives_row.find_all('td')[1].string,
-                'lecturer': lecturer_row.find_all('td')[1].text,
-                'courses': {c for c in courses if c not in course_specialisations}
+                "ects_points": int(ects_points_row.find_all("td")[1].text),
+                "objectives": objectives_row.find_all("td")[1].string,
+                "lecturer": lecturer_row.find_all("td")[1].text,
+                "courses": {c for c in courses if c not in course_specialisations}
                 # Skip all courses that are only specialications and not real courses
             }
         except KeyboardInterrupt:
-            self.stderr.write('Abort.')
+            self.stderr.write("Abort.")
             sys.exit(1)
         except:
             self.stderr.write("Could not parse {0}: {1}".format(url, sys.exc_info()[0]))
@@ -78,22 +110,22 @@ class Command(CommandOutputMixin, NoArgsCommand):
         try:
             r = requests.get(url)
             soup = BeautifulSoup(r.content)
-            table = soup.find('table')
-            rows = table.find_all('tr', recursive=False)
+            table = soup.find("table")
+            rows = table.find_all("tr", recursive=False)
 
             for row in rows[1:]:  # Skip heading row
-                cols = row.find_all('td', recursive=False)
+                cols = row.find_all("td", recursive=False)
 
                 yield {
-                    "url": cols[0].a['href'].strip(),
+                    "url": cols[0].a["href"].strip(),
                     "description": cols[0].text.strip(),
                     "full_name": cols[1].text.strip(),
-                    "name": cols[1].text.split('_', 1)[1].strip(),
+                    "name": cols[1].text.split("_", 1)[1].strip(),
                     "dates": cols[2].text.strip(),
-                    "detail": self.parse_module_detail_page(cols[0].a['href'].strip())
+                    "detail": self.parse_module_detail_page(cols[0].a["href"].strip()),
                 }
         except KeyboardInterrupt:
-            self.stderr.write('Abort.')
+            self.stderr.write("Abort.")
             sys.exit(1)
         except:
             self.stderr.write("Could not parse {0}: {1}".format(url, sys.exc_info()[0]))
@@ -108,26 +140,36 @@ class Command(CommandOutputMixin, NoArgsCommand):
             self.add_lecturer_to_document_category(category, module)
             category.save()
         except DocumentCategory.DoesNotExist:
-            self.stderr.write("Could not find category {0}: {1}"
-                              .format(module["name"], sys.exc_info()[0]))
+            self.stderr.write(
+                "Could not find category {0}: {1}".format(
+                    module["name"], sys.exc_info()[0]
+                )
+            )
 
     def add_lecturer_to_document_category(self, category, module):
         """Searches for the main lecturer and adds it to the DocumentCategory if he exists"""
         full_name = module["detail"]["lecturer"]
-        match = re.match('(.*) (.*)', full_name)
+        match = re.match("(.*) (.*)", full_name)
         if match:
             first_name = match.group(1)
             last_name = match.group(2)
             try:
-                lecturer = lecturer_models.Lecturer.objects.get(first_name=first_name,
-                                                                last_name=last_name)
+                lecturer = lecturer_models.Lecturer.objects.get(
+                    first_name=first_name, last_name=last_name
+                )
                 category.lecturers.add(lecturer)
             except lecturer_models.Lecturer.DoesNotExist:
-                self.stderr.write("Could not find lecturer {0} {1}: {2}"
-                                  .format(first_name, last_name, sys.exc_info()[0]))
+                self.stderr.write(
+                    "Could not find lecturer {0} {1}: {2}".format(
+                        first_name, last_name, sys.exc_info()[0]
+                    )
+                )
         else:
-            self.stderr.write("First and last name of module {0} with lecturer {1} cannot be read"
-                              .format(module["name"], full_name))
+            self.stderr.write(
+                "First and last name of module {0} with lecturer {1} cannot be read".format(
+                    module["name"], full_name
+                )
+            )
 
     def add_courses_to_document_category(self, category, module):
         """
@@ -151,8 +193,8 @@ class Command(CommandOutputMixin, NoArgsCommand):
             return False
         except DocumentCategory.DoesNotExist:
             category = DocumentCategory.objects.create(
-                name=module["name"],
-                description=module["description"])
+                name=module["name"], description=module["description"]
+            )
             self.add_lecturer_to_document_category(category, module)
             self.add_courses_to_document_category(category, module)
             category.save()
@@ -167,47 +209,49 @@ class Command(CommandOutputMixin, NoArgsCommand):
         added_count = 0
         update_count = 0
 
-        for module in self.parse_modules('http://studien.hsr.ch/'):
+        for module in self.parse_modules("http://studien.hsr.ch/"):
             # Skip conditions
             if module["name"] in blacklist:
-                self.stdout.write('Skipping %s (blacklisted)' % module["name"])
+                self.stdout.write("Skipping %s (blacklisted)" % module["name"])
                 blacklisted_count += 1
                 continue
-            if not module["full_name"].startswith('M_'):
-                self.stdout.write('Skipping %s (invalid module name)' % module["name"])
+            if not module["full_name"].startswith("M_"):
+                self.stdout.write("Skipping %s (invalid module name)" % module["name"])
                 invalid_count += 1
                 continue
-            if 'nicht durchgeführt' in module["dates"]:
-                self.stdout.write('Skipping %s (no valid dates)' % module["name"])
+            if "nicht durchgeführt" in module["dates"]:
+                self.stdout.write("Skipping %s (no valid dates)" % module["name"])
                 invalid_count += 1
                 continue
-            if 'Seminar' in module["description"] or \
-                    module["description"].startswith('Bachelor-Arbeit') or \
-                    module["description"].startswith('Studienarbeit') or \
-                    module["description"].startswith('Projektarbeit') or \
-                    module["description"].startswith('Masterarbeit') or \
-                    module["description"].startswith('Diplomarbeit'):
-                self.stdout.write('Skipping %s (project or seminary)' % module["name"])
+            if (
+                "Seminar" in module["description"]
+                or module["description"].startswith("Bachelor-Arbeit")
+                or module["description"].startswith("Studienarbeit")
+                or module["description"].startswith("Projektarbeit")
+                or module["description"].startswith("Masterarbeit")
+                or module["description"].startswith("Diplomarbeit")
+            ):
+                self.stdout.write("Skipping %s (project or seminary)" % module["name"])
                 invalid_count += 1
                 continue
 
             parsed_count += 1
 
             if self.create_document_category(module):
-                self.stdout.write('Added %s' % module["name"])
+                self.stdout.write("Added %s" % module["name"])
                 added_count += 1
             else:
                 if options["update"]:
                     self.update_document_category(module)
-                    self.stdout.write('Updated %s' % module["name"])
+                    self.stdout.write("Updated %s" % module["name"])
                     update_count += 1
                 else:
-                    self.stdout.write(u'Skipping %s (already exists)' % module["name"])
+                    self.stdout.write("Skipping %s (already exists)" % module["name"])
                     existing_count += 1
 
-        self.stdout.write(u'\nParsed %u modules.' % parsed_count)
-        self.stdout.write(u'Added %u modules.' % added_count)
-        self.stdout.write(u'Updated %u modules.' % update_count)
-        self.stdout.write(u'Skipped %u modules (already exist).' % existing_count)
-        self.stdout.write(u'Skipped %u modules (blacklist).' % blacklisted_count)
-        self.stdout.write(u'Skipped %u modules (invalid).' % invalid_count)
+        self.stdout.write("\nParsed %u modules." % parsed_count)
+        self.stdout.write("Added %u modules." % added_count)
+        self.stdout.write("Updated %u modules." % update_count)
+        self.stdout.write("Skipped %u modules (already exist)." % existing_count)
+        self.stdout.write("Skipped %u modules (blacklist)." % blacklisted_count)
+        self.stdout.write("Skipped %u modules (invalid)." % invalid_count)

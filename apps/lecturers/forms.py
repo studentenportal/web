@@ -13,8 +13,8 @@ class QuoteForm(forms.ModelForm):
         for the dropdown."""
         super(QuoteForm, self).__init__(*args, **kwargs)
         if lecturer_id:
-            self.fields['lecturer'].initial = lecturer_id
+            self.fields["lecturer"].initial = lecturer_id
 
     class Meta:
         model = models.Quote
-        exclude = ('author', 'date')
+        exclude = ("author", "date")

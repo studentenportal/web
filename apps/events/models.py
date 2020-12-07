@@ -9,31 +9,49 @@ from django.conf import settings
 
 def picture_file_name(instance, filename):
     """Where to put a newly uploaded picture."""
-    return '/'.join(['event_pictures', str(instance.start_date.year), filename])
+    return "/".join(["event_pictures", str(instance.start_date.year), filename])
+
 
 class Event(models.Model):
     """An event.
     If end_date is null, then assume end_date = start_date.
     """
 
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='Event', null=True,
-            on_delete=models.SET_NULL)
-    summary = models.CharField('Titel', max_length=64)
-    description = models.TextField('Beschreibung')
-    start_date = models.DateField('Startdatum',
-            help_text='Format: dd.mm.YYYY')
-    start_time = models.TimeField('Startzeit', null=True, blank=True,
-            help_text='Format: hh:mm')
-    end_date = models.DateField('Enddatum', null=True, blank=True,
-            help_text='Format: dd.mm.YYYY')
-    end_time = models.TimeField('Endzeit', null=True, blank=True,
-            help_text='Format: hh:mm')
-    location = models.CharField('Ort', max_length=80, null=True, blank=True,
-            help_text='Veranstaltungsort, zB "Gebäude 3" oder "Bären Rapperswil"')
-    url = models.URLField('URL', null=True, blank=True,
-            help_text='URL zu Veranstaltungs-Website')
-    picture = models.ImageField('Bild/Flyer', upload_to=picture_file_name, null=True, blank=True,
-            help_text='Bild oder Flyer')
+    author = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        related_name="Event",
+        null=True,
+        on_delete=models.SET_NULL,
+    )
+    summary = models.CharField("Titel", max_length=64)
+    description = models.TextField("Beschreibung")
+    start_date = models.DateField("Startdatum", help_text="Format: dd.mm.YYYY")
+    start_time = models.TimeField(
+        "Startzeit", null=True, blank=True, help_text="Format: hh:mm"
+    )
+    end_date = models.DateField(
+        "Enddatum", null=True, blank=True, help_text="Format: dd.mm.YYYY"
+    )
+    end_time = models.TimeField(
+        "Endzeit", null=True, blank=True, help_text="Format: hh:mm"
+    )
+    location = models.CharField(
+        "Ort",
+        max_length=80,
+        null=True,
+        blank=True,
+        help_text='Veranstaltungsort, zB "Gebäude 3" oder "Bären Rapperswil"',
+    )
+    url = models.URLField(
+        "URL", null=True, blank=True, help_text="URL zu Veranstaltungs-Website"
+    )
+    picture = models.ImageField(
+        "Bild/Flyer",
+        upload_to=picture_file_name,
+        null=True,
+        blank=True,
+        help_text="Bild oder Flyer",
+    )
 
     def is_over(self):
         """Return whether the start_date has already passed or not.
@@ -52,4 +70,4 @@ class Event(models.Model):
         return delta.days if delta.days > 0 else None
 
     def __str__(self):
-        return '%s %s' % (self.start_date, self.summary)
+        return "%s %s" % (self.start_date, self.summary)

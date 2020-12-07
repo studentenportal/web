@@ -7,7 +7,7 @@ from apps.lecturers import models
 
 
 class QuoteAdmin(admin.ModelAdmin):
-    list_filter = ('author', 'lecturer')
+    list_filter = ("author", "lecturer")
 
 
 admin.site.register(models.Course)

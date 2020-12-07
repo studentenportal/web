@@ -7,12 +7,12 @@ from . import models
 
 
 class DocumentAdmin(admin.ModelAdmin):
-    list_filter = ('category', 'uploader')
-    search_fields = ('name', 'description')
+    list_filter = ("category", "uploader")
+    search_fields = ("name", "description")
 
 
 class DocumentCategoryAdmin(admin.ModelAdmin):
-    list_display = ('name', 'description')
+    list_display = ("name", "description")
     search_fields = list_display
 
 

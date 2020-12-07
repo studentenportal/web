@@ -17,46 +17,49 @@ from apps.front.message_levels import EVENT
 
 class Lecturer(LoginRequiredMixin, DetailView):
     model = models.Lecturer
-    context_object_name = 'lecturer'
+    context_object_name = "lecturer"
 
     def get_context_data(self, **kwargs):
         context = super(Lecturer, self).get_context_data(**kwargs)
 
         # Quotes / QuoteVotes
-        context['quotes'] = helpers.extend_quotes_with_votes(
-            self.object.Quote.all(),
-            self.request.user.pk
+        context["quotes"] = helpers.extend_quotes_with_votes(
+            self.object.Quote.all(), self.request.user.pk
         )
 
         # Ratings
         ratings = models.LecturerRating.objects.filter(
-            lecturer=self.get_object(), user=self.request.user)
+            lecturer=self.get_object(), user=self.request.user
+        )
         ratings_dict = dict([(r.category, r.rating) for r in ratings])
-        for cat in ['d', 'm', 'f']:
-            context['rating_%c' % cat] = ratings_dict.get(cat)
+        for cat in ["d", "m", "f"]:
+            context["rating_%c" % cat] = ratings_dict.get(cat)
 
         return context
 
 
 class LecturerList(LoginRequiredMixin, ListView):
     queryset = models.Lecturer.real_objects.all()
-    context_object_name = 'lecturers'
+    context_object_name = "lecturers"
 
     def get_context_data(self, **kwargs):
         context = super(LecturerList, self).get_context_data(**kwargs)
-        quotecounts = models.Quote.objects.values_list('lecturer').annotate(Count('pk')).order_by()
-        context['quotecounts'] = dict(quotecounts)
+        quotecounts = (
+            models.Quote.objects.values_list("lecturer")
+            .annotate(Count("pk"))
+            .order_by()
+        )
+        context["quotecounts"] = dict(quotecounts)
         return context
 
 
 class QuoteList(LoginRequiredMixin, ListView):
-    context_object_name = 'quotes'
+    context_object_name = "quotes"
     paginate_by = 50
 
     def get_queryset(self):
         return helpers.extend_quotes_with_votes(
-            models.Quote.objects.all(),
-            self.request.user.pk
+            models.Quote.objects.all(), self.request.user.pk
         )
 
 
@@ -66,18 +69,18 @@ class QuoteAdd(LoginRequiredMixin, CreateView):
 
     def dispatch(self, request, *args, **kwargs):
         try:
-            self.lecturer = models.Lecturer.objects.get(pk=kwargs.get('pk'))
+            self.lecturer = models.Lecturer.objects.get(pk=kwargs.get("pk"))
         except (ObjectDoesNotExist, ValueError):
             self.lecturer = None
         return super(QuoteAdd, self).dispatch(request, *args, **kwargs)
 
     def get_form(self, form_class=form_class):
         """Add the pk as first argument to the form."""
-        return form_class(self.kwargs.get('pk'), **self.get_form_kwargs())
+        return form_class(self.kwargs.get("pk"), **self.get_form_kwargs())
 
     def get_context_data(self, **kwargs):
         context = super(QuoteAdd, self).get_context_data(**kwargs)
-        context['lecturer'] = self.lecturer
+        context["lecturer"] = self.lecturer
         return context
 
     def form_valid(self, form):
@@ -92,18 +95,21 @@ class QuoteAdd(LoginRequiredMixin, CreateView):
         if not is_edit:
             # Automatically upvote own quote
             models.QuoteVote.objects.create(
-                user=self.request.user, quote=self.object, vote=True,
+                user=self.request.user,
+                quote=self.object,
+                vote=True,
             )
         return super(QuoteAdd, self).form_valid(form)
 
     def get_success_url(self):
         """Redirect to quotes or lecturer page."""
-        messages.add_message(self.request, messages.SUCCESS,
-            'Zitat wurde erfolgreich hinzugefügt.')
-        messages.add_message(self.request, EVENT, 'quote_add')
+        messages.add_message(
+            self.request, messages.SUCCESS, "Zitat wurde erfolgreich hinzugefügt."
+        )
+        messages.add_message(self.request, EVENT, "quote_add")
         if self.lecturer:
-            return reverse('lecturers:lecturer_detail', args=[self.lecturer.pk])
-        return reverse('lecturers:quote_list')
+            return reverse("lecturers:lecturer_detail", args=[self.lecturer.pk])
+        return reverse("lecturers:quote_list")
 
 
 class QuoteDelete(LoginRequiredMixin, DeleteView):
@@ -113,11 +119,12 @@ class QuoteDelete(LoginRequiredMixin, DeleteView):
         handler = super(QuoteDelete, self).dispatch(request, *args, **kwargs)
         # Only allow deletion if current user is owner
         if self.object.author != request.user:
-            return HttpResponseForbidden('Du darfst keine fremden Quotes löschen.')
+            return HttpResponseForbidden("Du darfst keine fremden Quotes löschen.")
         return handler
 
     def get_success_url(self):
-        messages.add_message(self.request, messages.SUCCESS,
-            'Zitat wurde erfolgreich gelöscht.')
-        messages.add_message(self.request, EVENT, 'quote_delete')
-        return reverse('lecturers:quote_list')
+        messages.add_message(
+            self.request, messages.SUCCESS, "Zitat wurde erfolgreich gelöscht."
+        )
+        messages.add_message(self.request, EVENT, "quote_delete")
+        return reverse("lecturers:quote_list")

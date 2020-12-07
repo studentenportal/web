@@ -11,8 +11,8 @@ def strip_mail_part(username):
     Users might try to login with their email. To support that
     we can simply strip the mail part from the username
     """
-    if '@' in username:
-        return username.split('@')[0]
+    if "@" in username:
+        return username.split("@")[0]
     return username
 
 
@@ -43,5 +43,5 @@ class User(AbstractUser):
         """Return either full user first and last name or the username, if no
         further data is found."""
         if self.first_name or self.last_name:
-            return ' '.join(part for part in [self.first_name, self.last_name] if part)
+            return " ".join(part for part in [self.first_name, self.last_name] if part)
         return self.username

@@ -16,10 +16,12 @@ def extend_quotes_with_votes(quotes, user_pk):
             WHERE lecturers_quotevote.quote_id = lecturers_quote.id"
     count_base_query = count_query + " AND vote = '%s'"
 
-    return quotes.extra(select={
-        'voted_up': vote_base_query % ('t', user_pk),
-        'voted_down': vote_base_query % ('f', user_pk),
-        'vote_count': count_query,
-        'upvote_count': count_base_query % 't',
-        'downvote_count': count_base_query % 'f',
-    },)
+    return quotes.extra(
+        select={
+            "voted_up": vote_base_query % ("t", user_pk),
+            "voted_down": vote_base_query % ("f", user_pk),
+            "vote_count": count_query,
+            "upvote_count": count_base_query % "t",
+            "downvote_count": count_base_query % "f",
+        },
+    )

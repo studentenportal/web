@@ -13,48 +13,68 @@ from . import models
 class DocumentCategoryForm(forms.ModelForm):
     class Meta:
         model = models.DocumentCategory
-        fields = ('name', 'description')
+        fields = ("name", "description")
 
 
 class DocumentEditForm(forms.ModelForm):
-
     def clean_document(self):
-        document = self.cleaned_data['document']
-        if hasattr(document, '_size'):
+        document = self.cleaned_data["document"]
+        if hasattr(document, "_size"):
             if document.size > settings.MAX_UPLOAD_SIZE:
-                error_msg = 'Bitte Dateigrösse unter %s halten. Aktuelle Dateigrösse ist %s'
-                sizes = filesizeformat(settings.MAX_UPLOAD_SIZE), filesizeformat(document._size)
+                error_msg = (
+                    "Bitte Dateigrösse unter %s halten. Aktuelle Dateigrösse ist %s"
+                )
+                sizes = filesizeformat(settings.MAX_UPLOAD_SIZE), filesizeformat(
+                    document._size
+                )
                 raise forms.ValidationError(error_msg % sizes)
         return document
 
     def clean(self):
         cleaned_data = super(DocumentEditForm, self).clean()
-        public = cleaned_data.get('public')
-        dtype = cleaned_data.get('dtype')
+        public = cleaned_data.get("public")
+        dtype = cleaned_data.get("dtype")
 
         # Verify that exams are non-public
         if dtype == models.Document.DTypes.EXAM and public is True:
-            self._errors['public'] = self.error_class(['Prüfungen dürfen nicht öffentlich sein.'])
-            del cleaned_data['public']
+            self._errors["public"] = self.error_class(
+                ["Prüfungen dürfen nicht öffentlich sein."]
+            )
+            del cleaned_data["public"]
 
         return cleaned_data
 
     def save(self, *args, **kwargs):
         """Override save method, set change_date to now only if pdf is actually updated."""
-        if 'document' in self.changed_data:
+        if "document" in self.changed_data:
             self.instance.change_date = datetime.now()
         return super(DocumentEditForm, self).save(*args, **kwargs)
 
     class Meta:
         model = models.Document
-        fields = ('name', 'description', 'url', 'category', 'dtype', 'document',
-                  'license', 'public')
+        fields = (
+            "name",
+            "description",
+            "url",
+            "category",
+            "dtype",
+            "document",
+            "license",
+            "public",
+        )
         widgets = {
-            'description': forms.Textarea(),
+            "description": forms.Textarea(),
         }
 
 
 class DocumentAddForm(DocumentEditForm):
     class Meta(DocumentEditForm.Meta):
-        fields = ('name', 'description', 'url', 'dtype', 'document', 'license',
-                  'public')
+        fields = (
+            "name",
+            "description",
+            "url",
+            "dtype",
+            "document",
+            "license",
+            "public",
+        )
