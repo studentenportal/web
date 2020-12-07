@@ -1,16 +1,17 @@
 # -*- coding: utf-8 -*-
-from __future__ import print_function, division, absolute_import, unicode_literals
+from __future__ import (absolute_import, division, print_function,
+                        unicode_literals)
 
+import getpass
 import re
 import sys
 import time
-import getpass
 from optparse import make_option
 
 from django.core.management.base import BaseCommand
 
-from apps.front.management.commands.fetch_photos import UnterrichtWebsite
 from apps.documents import models as document_models
+from apps.front.management.commands.fetch_photos import UnterrichtWebsite
 from apps.lecturers import models as lecturer_models
 
 

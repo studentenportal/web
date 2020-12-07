@@ -1,18 +1,17 @@
 # -*- coding: utf-8 -*-
-from __future__ import print_function, division, absolute_import, unicode_literals
+from __future__ import (absolute_import, division, print_function,
+                        unicode_literals)
 
-import json
 import base64
+import json
 
 import pytest
-from django.test.client import Client
-from django.urls import reverse, NoReverseMatch
 from django.contrib.auth import get_user_model
-
+from django.test.client import Client
+from django.urls import NoReverseMatch, reverse
 from model_bakery import baker
 
-from apps.lecturers.models import Quote, QuoteVote, Lecturer
-
+from apps.lecturers.models import Lecturer, Quote, QuoteVote
 
 User = get_user_model()
 

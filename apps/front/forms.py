@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*-
-from __future__ import print_function, division, absolute_import, unicode_literals
+from __future__ import (absolute_import, division, print_function,
+                        unicode_literals)
 
 import re
 
 from django import forms
 from django.contrib.auth import get_user_model
-
 from registration.forms import RegistrationForm
-
 
 USERNAME_REGEXES = {
     "hsr.ch": re.compile(r"^[a-zA-Z0-9-_]+$"),

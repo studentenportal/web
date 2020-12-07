@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-from __future__ import print_function, division, absolute_import, unicode_literals
+from __future__ import (absolute_import, division, print_function,
+                        unicode_literals)
 
 from django.contrib.auth import get_user_model
-from django.shortcuts import get_object_or_404
-from django.http import HttpResponseBadRequest, JsonResponse
 from django.core.exceptions import ValidationError
-
+from django.http import HttpResponseBadRequest, JsonResponse
+from django.shortcuts import get_object_or_404
 from rest_framework import generics, permissions
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -13,6 +13,7 @@ from rest_framework.reverse import reverse
 from rest_framework.views import APIView
 
 from apps.lecturers import models
+
 from . import permissions as custom_permissions
 from . import serializers
 

@@ -1,18 +1,19 @@
 # -*- coding: utf-8 -*-
-from __future__ import print_function, division, absolute_import, unicode_literals
+from __future__ import (absolute_import, division, print_function,
+                        unicode_literals)
 
 from django.contrib import messages
-from django.db.models import Count
-from django.urls import reverse
 from django.core.exceptions import ObjectDoesNotExist
+from django.db.models import Count
 from django.http import HttpResponseForbidden
+from django.urls import reverse
+from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, DeleteView
 from django.views.generic.list import ListView
-from django.views.generic.detail import DetailView
 
-from apps.lecturers import forms, models, helpers
-from apps.front.mixins import LoginRequiredMixin
 from apps.front.message_levels import EVENT
+from apps.front.mixins import LoginRequiredMixin
+from apps.lecturers import forms, helpers, models
 
 
 class Lecturer(LoginRequiredMixin, DetailView):

@@ -1,5 +1,6 @@
 from django.conf.urls import url
 from django.contrib import admin
+
 from apps.lecturers import views
 
 admin.autodiscover()

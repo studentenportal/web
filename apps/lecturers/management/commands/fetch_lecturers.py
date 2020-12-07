@@ -1,18 +1,18 @@
 # -*- coding: utf-8 -*-
-from __future__ import print_function, division, absolute_import, unicode_literals
+from __future__ import (absolute_import, division, print_function,
+                        unicode_literals)
 
-import re
 import csv
 import getpass
-from StringIO import StringIO
+import re
 from collections import namedtuple
 from optparse import make_option
 
-from django.core.management.base import BaseCommand
-from django.core.exceptions import ObjectDoesNotExist
-
 import requests
 from bs4 import BeautifulSoup
+from django.core.exceptions import ObjectDoesNotExist
+from django.core.management.base import BaseCommand
+from StringIO import StringIO
 
 from apps.lecturers.models import Lecturer
 

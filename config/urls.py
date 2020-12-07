@@ -1,13 +1,13 @@
-from django.conf.urls import include, url
 from django.conf import settings
+from django.conf.urls import include, url
+from django.contrib import admin
 from django.views.generic import TemplateView
 from django.views.static import serve
-from django.contrib import admin
 
-from apps.front import views
 from apps.api import urls as api_urls
-from apps.events import urls as event_urls
 from apps.documents import urls as document_urls
+from apps.events import urls as event_urls
+from apps.front import views
 from apps.lecturers import urls as lecturer_urls
 
 admin.autodiscover()

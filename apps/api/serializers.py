@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-from __future__ import print_function, division, absolute_import, unicode_literals
-
-from rest_framework import serializers
+from __future__ import (absolute_import, division, print_function,
+                        unicode_literals)
 
 from django.contrib.auth import get_user_model
+from rest_framework import serializers
 
 from apps.lecturers import models
 
