@@ -22,7 +22,7 @@ erstellt werden.
 ## Mithelfen: Entwicklungsumgebung und Dokumentationen
 
 Mehr Informationen zur
-[Entwicklungsumgebung](https://github.com/studentenportal/web/blob/master/docs/CONTRIBUTING.md)
+[Entwicklungsumgebung](docs/CONTRIBUTING.md)
 sowie weitere Dokumentationen findest du im Ordner
 [docs](https://github.com/studentenportal/web/tree/master/docs).
 
