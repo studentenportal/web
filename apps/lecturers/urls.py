@@ -11,6 +11,7 @@ app_name = "lecturers"
 urlpatterns = [
     url(r"^dozenten/$", views.LecturerList.as_view(), name="lecturer_list"),
     url(r"^dozenten/(?P<pk>-?\d+)/$", views.Lecturer.as_view(), name="lecturer_detail"),
+    url(r"^dozenten/add/$", views.LecturerAdd.as_view(), name="lecturer_add"),
     url(r"^zitate/$", views.QuoteList.as_view(), name="quote_list"),
     url(r"^zitate/add/$", views.QuoteAdd.as_view(), name="quote_add"),
     url(
