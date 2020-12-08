@@ -54,7 +54,12 @@
 
     <p>Legende für Bewertungen (1-10 Punkte): <span class="label-didactic">didaktisch</span> <span class="label-humanly">menschlich</span> <span class="label-technical">fachlich</span></p>
 
-    <hr>
+
+    {% if user.is_authenticated %}
+        <p><a class="button button-primary" href="{% url 'lecturers:lecturer_add' %}">
+            <i class="icon-plus-sign icon-white"></i> Dozent hinzufügen
+        </a></p>
+    {% endif %}
 
     <div id="lecturers">
         <form action="#" class="search-box">
