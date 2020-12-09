@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, division, print_function, unicode_literals
 
+import pytest
 from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.urls import reverse
@@ -57,6 +58,19 @@ class LecturerDetailViewTest(TestCase):
         response = self.client.get(self.url)
         self.assertContains(response, "1.337")
         self.assertContains(response, "krakaduku@hsr.ch")
+
+
+def test_lecturer_add(auth_client):
+    response = auth_client.post(
+        "/dozenten/add/",
+        {
+            "title": "Dr",
+            "last_name": "Einstein",
+            "first_name": "Albert",
+            "abbreviation": "ale",
+        },
+    )
+    assert response.status_code == 200
 
 
 class QuoteAddViewTest(TestCase):

@@ -19,7 +19,7 @@ class LecturerForm(forms.ModelForm):
             "main_area",
             "subjects",
             "email",
-            "office"
+            "office",
         )
 
 

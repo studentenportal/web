@@ -65,6 +65,7 @@ class LecturerAdd(LoginRequiredMixin, CreateView):
         )
         return reverse("lecturers:lecturer_list")
 
+
 class QuoteList(LoginRequiredMixin, ListView):
     context_object_name = "quotes"
     paginate_by = 50
