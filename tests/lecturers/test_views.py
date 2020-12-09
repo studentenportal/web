@@ -60,17 +60,27 @@ class LecturerDetailViewTest(TestCase):
         self.assertContains(response, "krakaduku@hsr.ch")
 
 
+@pytest.mark.django_db
 def test_lecturer_add(auth_client):
+    first_name = "Albert"
+
+    lecturers = models.Lecturer.objects.filter(first_name=first_name)
+    assert len(lecturers) == 0
+
     response = auth_client.post(
         "/dozenten/add/",
         {
             "title": "Dr",
             "last_name": "Einstein",
-            "first_name": "Albert",
+            "first_name": first_name,
             "abbreviation": "ale",
         },
     )
-    assert response.status_code == 200
+    print("response: ", response)
+    lecturers = models.Lecturer.objects.filter(first_name=first_name)
+
+    assert len(lecturers) == 1
+    assert response.status_code == 302
 
 
 class QuoteAddViewTest(TestCase):
