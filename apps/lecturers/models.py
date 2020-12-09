@@ -20,7 +20,7 @@ class Lecturer(models.Model):
 
     """
 
-    id = models.IntegerField("HSR ID", primary_key=True)
+    id = models.AutoField("HSR ID", primary_key=True)
     title = models.CharField("Titel", max_length=32, null=True, blank=True)
     last_name = models.CharField("Name", max_length=255)
     first_name = models.CharField("Vorname", max_length=255)
