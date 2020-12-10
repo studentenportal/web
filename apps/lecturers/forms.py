@@ -20,6 +20,7 @@ class LecturerForm(forms.ModelForm):
             "subjects",
             "email",
             "office",
+            "picture",
         )
 
 
