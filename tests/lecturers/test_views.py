@@ -83,6 +83,12 @@ def test_lecturer_add(auth_client):
     assert response.status_code == 302
 
 
+def test_lecturer_add_button_available(auth_client):
+    response = auth_client.get("/dozenten/")
+
+    assert "Dozent hinzufügen" in response.content.decode("utf-8")
+
+
 class QuoteAddViewTest(TestCase):
     def setUp(self):
         # setUpClass
