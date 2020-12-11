@@ -9,7 +9,7 @@ RUN useradd --home /home/studentenportal -u $UID -g $GID -M studentenportal
 
 COPY requirements/ /tmp/requirements/
 RUN python3 -m pip --quiet install -U pip setuptools wheel
-RUN python3 -m pip --quiet install -r /tmp/requirements/base.txt -r /tmp/requirements/local.txt -r /tmp/requirements/testing.txt
+RUN python3 -m pip --quiet install -r /tmp/requirements/base/requirements.txt -r /tmp/requirements/local/requirements.txt -r /tmp/requirements/testing/requirements.txt
 
 RUN mkdir -p /srv/www/studentenportal
 WORKDIR /srv/www/studentenportal
