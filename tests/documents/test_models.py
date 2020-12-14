@@ -57,7 +57,6 @@ class TestDocumentModel:
         """Test the document rating average calculation."""
         assert document.DocumentRating.count() == 2
         assert document.rating() == 4
-        assert document.rating_exact() == 3.5
 
     @pytest.mark.parametrize("rating", [11, 0])
     def test_rating_validation(self, document, marc, rating):

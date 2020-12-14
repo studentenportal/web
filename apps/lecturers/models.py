@@ -8,6 +8,7 @@ from datetime import datetime
 from django.conf import settings
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
+from django.db.models.functions import Coalesce, Round
 
 from apps.lecturers import managers
 
@@ -77,14 +78,13 @@ class Lecturer(models.Model):
                     oldphotos.append(filepath)
         return oldphotos
 
-    # TODO rename to _rating_avg
     def _avg_rating(self, category):
         """Calculate the average rating for the given category."""
-        qs = self.LecturerRating.filter(category=category)
-        if qs.exists():
-            ratings = qs.values_list("rating", flat=True)
-            return int(sum(ratings) / len(ratings) + 0.5)  # always round .5 up
-        return 0
+        return (
+            self.LecturerRating.filter(category=category)
+            .aggregate(avg=Coalesce(Round(models.Avg("rating")), models.Value(0)))
+            .get("avg", 0)
+        )
 
     def _rating_count(self, category):
         return self.LecturerRating.filter(category=category).count()
