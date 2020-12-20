@@ -11,7 +11,7 @@ django-model-utils==4.0.0
 django_compressor==2.4
 django-mathfilters==1.0.0
 easy-thumbnails==2.7.1
-pyScss==1.3.6
+pyScss==1.3.7
 
 # Parsing
 beautifulsoup4==4.8.2
