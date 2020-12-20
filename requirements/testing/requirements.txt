@@ -5,5 +5,5 @@ six==1.14.0
 pytest==5.4.3
 pytest-django==4.1.0
 pytest-pep8==1.0.6
-pytest-cov==2.8.1
+pytest-cov==2.10.1
 pytest-pythonpath==0.7.3
