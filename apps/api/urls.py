@@ -23,8 +23,12 @@ v1_api = [
         name="lecturer_rate",
     ),
     re_path(r"^quotes$", views.QuoteList.as_view(), name="quote_list"),
-    re_path(r"^quotes/(?P<pk>-?\d+)$", views.QuoteDetail.as_view(), name="quote_detail"),
-    re_path(r"^quotes/(?P<pk>-?\d+)/vote$", views.QuoteVote.as_view(), name="quote_vote"),
+    re_path(
+        r"^quotes/(?P<pk>-?\d+)$", views.QuoteDetail.as_view(), name="quote_detail"
+    ),
+    re_path(
+        r"^quotes/(?P<pk>-?\d+)/vote$", views.QuoteVote.as_view(), name="quote_vote"
+    ),
 ]
 
 urlpatterns = [

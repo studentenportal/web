@@ -4,6 +4,7 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+
 class CaseInsensitiveSlugField(models.SlugField):
     """
     A SlugField that uses the PostgreSQL CITEXT type for

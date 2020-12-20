@@ -13,8 +13,12 @@ app_name = "documents"
 # Dynamic pages
 urlpatterns = [
     re_path(r"^$", views.DocumentcategoryList.as_view(), name="documentcategory_list"),
-    re_path(r"^add/$", views.DocumentcategoryAdd.as_view(), name="documentcategory_add"),
-    re_path(r"^(?P<category>[^\/]+)/$", views.DocumentList.as_view(), name="document_list"),
+    re_path(
+        r"^add/$", views.DocumentcategoryAdd.as_view(), name="documentcategory_add"
+    ),
+    re_path(
+        r"^(?P<category>[^\/]+)/$", views.DocumentList.as_view(), name="document_list"
+    ),
     re_path(r"^(?P<category>[^\/]+)/rss$", views.DocumentFeed(), name="document_feed"),
     re_path(
         r"^(?P<category>[^\/]+)/(?P<pk>-?\d+)/$",
