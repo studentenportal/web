@@ -5,7 +5,7 @@ python-dateutil==2.8.1
 
 # Useful/important apps
 django-messagegroups==0.4.5
-django-registration-redux==2.7
+django-registration-redux==2.8
 django-downloadview==2.1.1
 django-model-utils==4.1.1
 django_compressor==2.4
