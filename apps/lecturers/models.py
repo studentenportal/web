@@ -60,7 +60,7 @@ class Lecturer(models.Model):
         if self.picture:
             path = self.picture.name
         else:
-            path = os.path.join("lecturers", "%s.jpg" % self.id)
+            path = os.path.join("lecturers", f"{self.id}.jpg")
         full_path = os.path.join(settings.MEDIA_ROOT, path)
         return path if os.path.exists(full_path) else None
 
