@@ -14,7 +14,7 @@ from apps.lecturers import managers
 
 def lecturer_directory_path(instance, filename):
     # file will be uploaded to MEDIA_ROOT/lecturers/<filename>
-    return "lecturers/{}".format(filename)
+    return f"lecturers/{filename}"
 
 
 class Lecturer(models.Model):
