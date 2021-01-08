@@ -1,24 +1,23 @@
 # Base system
 Django==2.2.17
-psycopg2==2.8.4
+psycopg2==2.8.6
 python-dateutil==2.8.1
 
 # Useful/important apps
 django-messagegroups==0.4.5
-django-registration-redux==2.7
+django-registration-redux==2.8
 django-downloadview==2.1.1
-django-model-utils==4.0.0
+django-model-utils==4.1.1
 django_compressor==2.4
 django-mathfilters==1.0.0
-easy-thumbnails==2.7
-pyScss==1.3.6
+easy-thumbnails==2.7.1
+pyScss==1.3.7
 
 # Parsing
-beautifulsoup4==4.8.2
-requests==2.23.0
+beautifulsoup4==4.9.3
 
 # Calendar
 vobject==0.9.6.1
 
 # API
-djangorestframework==3.11.2
+djangorestframework==3.12.2

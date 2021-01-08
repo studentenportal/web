@@ -15,7 +15,7 @@ from apps.lecturers import managers
 
 def lecturer_directory_path(instance, filename):
     # file will be uploaded to MEDIA_ROOT/lecturers/<filename>
-    return "lecturers/{}".format(filename)
+    return f"lecturers/{filename}"
 
 
 class Lecturer(models.Model):
@@ -26,7 +26,7 @@ class Lecturer(models.Model):
 
     """
 
-    id = models.AutoField("HSR ID", primary_key=True)
+    id = models.AutoField("ID", primary_key=True)
     title = models.CharField("Titel", max_length=32, null=True, blank=True)
     last_name = models.CharField("Name", max_length=255)
     first_name = models.CharField("Vorname", max_length=255)
@@ -61,7 +61,7 @@ class Lecturer(models.Model):
         if self.picture:
             path = self.picture.name
         else:
-            path = os.path.join("lecturers", "%s.jpg" % self.id)
+            path = os.path.join("lecturers", f"{self.id}.jpg")
         full_path = os.path.join(settings.MEDIA_ROOT, path)
         return path if os.path.exists(full_path) else None
 

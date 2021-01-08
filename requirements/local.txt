@@ -1,7 +1,0 @@
--r base.txt
-
-# Debug toolbar
-django-debug-toolbar==2.2
-
-# Interactive debugger
-ipdb
