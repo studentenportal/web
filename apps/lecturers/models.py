@@ -80,7 +80,7 @@ class Lecturer(models.Model):
 
     def _avg_rating(self, category):
         """Calculate the average rating for the given category."""
-        return (
+        return int(
             self.LecturerRating.filter(category=category)
             .aggregate(avg=Coalesce(Round(models.Avg("rating")), models.Value(0)))
             .get("avg", 0)
