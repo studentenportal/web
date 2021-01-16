@@ -53,6 +53,19 @@ class LecturerList(LoginRequiredMixin, ListView):
         return context
 
 
+class LecturerAdd(LoginRequiredMixin, CreateView):
+    model = models.Lecturer
+    form_class = forms.LecturerForm
+
+    def get_success_url(self):
+        messages.add_message(
+            self.request,
+            messages.SUCCESS,
+            'Dozent "%s" wurde erfolgreich hinzugefügt.' % self.object.name,
+        )
+        return reverse("lecturers:lecturer_list")
+
+
 class QuoteList(LoginRequiredMixin, ListView):
     context_object_name = "quotes"
     paginate_by = 50

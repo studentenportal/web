@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, division, print_function, unicode_literals
 
+import pytest
 from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.urls import reverse
@@ -57,6 +58,35 @@ class LecturerDetailViewTest(TestCase):
         response = self.client.get(self.url)
         self.assertContains(response, "1.337")
         self.assertContains(response, "krakaduku@hsr.ch")
+
+
+@pytest.mark.django_db
+def test_lecturer_add(auth_client):
+    first_name = "Albert"
+
+    lecturers = models.Lecturer.objects.filter(first_name=first_name)
+    assert len(lecturers) == 0
+
+    response = auth_client.post(
+        "/dozenten/add/",
+        {
+            "title": "Dr",
+            "last_name": "Einstein",
+            "first_name": first_name,
+            "abbreviation": "ale",
+        },
+    )
+    print("response: ", response)
+    lecturers = models.Lecturer.objects.filter(first_name=first_name)
+
+    assert len(lecturers) == 1
+    assert response.status_code == 302
+
+
+def test_lecturer_add_button_available(auth_client):
+    response = auth_client.get("/dozenten/")
+
+    assert "Dozent hinzufügen" in response.content.decode("utf-8")
 
 
 class QuoteAddViewTest(TestCase):

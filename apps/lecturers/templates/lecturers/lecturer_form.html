@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load tabs %}
+{% load compress %}
+
+{% block title %}Dozent erfassen{% endblock %}
+
+{% block navigation %}
+    {% activetab 'navigation' 'lecturers' %}
+    {{ block.super }}
+{% endblock %}
+
+{% block breadcrumbs %}
+    <a href="{% url 'lecturers:lecturer_list' %}">Dozent</a> &raquo; Dozent erfassen
+{% endblock %}
+
+{% block content %}
+
+    <div class="page-header">
+        <h1>Dozent erfassen</h1>
+    </div>
+
+    <form method="POST" enctype="multipart/form-data" class="form-horizontal">{% csrf_token %}
+        {% include 'lib/form_loop.html' %}
+        <div class="form-actions">
+            <button type="submit" class="button button-primary">Eintragen</button>
+            <a href="{% url 'lecturers:lecturer_list' %}" class="button">Abbrechen</a>
+        </div>
+    </form>
+{% endblock %}

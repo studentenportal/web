@@ -12,6 +12,11 @@ from django.db import models
 from apps.lecturers import managers
 
 
+def lecturer_directory_path(instance, filename):
+    # file will be uploaded to MEDIA_ROOT/lecturers/<filename>
+    return f"lecturers/{filename}"
+
+
 class Lecturer(models.Model):
     """A lecturer at HSR.
 
@@ -20,7 +25,7 @@ class Lecturer(models.Model):
 
     """
 
-    id = models.IntegerField("HSR ID", primary_key=True)
+    id = models.AutoField("ID", primary_key=True)
     title = models.CharField("Titel", max_length=32, null=True, blank=True)
     last_name = models.CharField("Name", max_length=255)
     first_name = models.CharField("Vorname", max_length=255)
@@ -35,6 +40,12 @@ class Lecturer(models.Model):
     )  # todo add to frontend
     email = models.EmailField(null=True, blank=True)
     office = models.CharField(max_length=20, null=True, blank=True)
+    picture = models.ImageField(
+        "Bild",
+        upload_to=lecturer_directory_path,
+        null=True,
+        blank=True,
+    )
 
     objects = models.Manager()
     real_objects = managers.RealLecturerManager()
@@ -46,9 +57,12 @@ class Lecturer(models.Model):
     def photo(self):
         """Try to see if a photo with the name <self.id>.jpg exists. If it
         does, return the corresponding URL. If it doesn't, return None."""
-        path = os.path.join("lecturers", "%s.jpg" % self.id)
-        fullpath = os.path.join(settings.MEDIA_ROOT, path)
-        return path if os.path.exists(fullpath) else None
+        if self.picture:
+            path = self.picture.name
+        else:
+            path = os.path.join("lecturers", f"{self.id}.jpg")
+        full_path = os.path.join(settings.MEDIA_ROOT, path)
+        return path if os.path.exists(full_path) else None
 
     def oldphotos(self):
         """Try to see whether there are more pictures in the folder

@@ -6,6 +6,24 @@ from django import forms
 from apps.lecturers import models
 
 
+class LecturerForm(forms.ModelForm):
+    class Meta:
+        model = models.Lecturer
+        fields = (
+            "title",
+            "last_name",
+            "first_name",
+            "abbreviation",
+            "department",
+            "function",
+            "main_area",
+            "subjects",
+            "email",
+            "office",
+            "picture",
+        )
+
+
 class QuoteForm(forms.ModelForm):
     def __init__(self, lecturer_id, *args, **kwargs):
         """This form takes a lecturer_id or None as the first argument.
