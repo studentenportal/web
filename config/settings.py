@@ -178,7 +178,6 @@ ROOT_URLCONF = "config.urls"
 MESSAGE_STORAGE = "django.contrib.messages.storage.session.SessionStorage"
 
 MAX_UPLOAD_SIZE = 1024 * 1024 * 20  # 20MB
-FILE_UPLOAD_PERMISSIONS = 0o644  # Default with Django 3.0
 
 AUTH_USER_MODEL = "front.User"
 
