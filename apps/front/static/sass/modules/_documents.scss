@@ -218,3 +218,20 @@
 .document-edit {
     padding-top: 0;
 }
+
+.document-rating-table {
+    table-layout: fixed;
+    width: 100%;
+    max-width: 52rem;
+
+    th {
+        vertical-align: top;
+        word-wrap: break-word;
+        width: 16rem;
+    }
+
+    th + th {
+        border: none;
+        width: auto;
+    }
+}

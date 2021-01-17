@@ -44,10 +44,25 @@
             (<span>{{ doc.downloadcount }} Download{{ doc.downloadcount|pluralize:"s" }}</span>)</p>
             {% if user.is_authenticated %}
             <form class="drating" data-rating="{{ ratings|lookup:doc.pk }}" data-url="{% url 'documents:document_rate' doc.category.name|slugify doc.pk %}" data-summary-url="{% url 'documents:document_rating_ajax' doc.category.name|slugify doc.pk %}">
-                {% include 'lecturers/blocks/star_rating.html' with name="drating" rating=doc.rating range=10|get_range1 disabled=doc|is_author:user %}
-                <label for="drating">
-                {% include 'front/blocks/document_rating_summary.html' %}
-                </label>
+                <table class="document-rating-table">
+                    <tbody>
+                    <tr class="author">
+                        <th>Durchschnitt</th>
+                        <th>Deine Bewertung</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="drating" class="label-document-rating"
+                                   title="{{ doc.DocumentRating.count }} Bewertung{{ doc.DocumentRating.count|pluralize:" en" }}">
+                            {{ doc.rating|default:'-' }}
+                            </label>
+                        </td>
+                        <td>
+                            {% include 'lecturers/blocks/star_rating.html' with name="drating" rating=doc.rating range=10|get_range1 disabled=doc|is_author:user %}
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
             </form>
             {% endif %}
             <p>
