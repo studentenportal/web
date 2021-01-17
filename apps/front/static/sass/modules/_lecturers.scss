@@ -139,7 +139,7 @@
     margin-top: $gutter;
     h3 {
         display: inline-block;
-        width: 10rem;
+        width: 12rem;
     }
 
     li {
@@ -170,14 +170,14 @@
 .properties {
     table-layout: fixed;
     width: 100%;
-    max-width: 50rem;
+    max-width: 52rem;
 
     td {
         vertical-align: top;
         padding: $gutter/2 $gutter;
         border-right: 1px dashed darken($color-cornflower-blue, 20%);
         word-wrap: break-word;
-        width: 15rem;
+        width: 16rem;
     }
 
     td + td {

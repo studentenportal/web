@@ -9,20 +9,20 @@
 {% block bodyclass %}lecturer_detail{% endblock %}
 
 {% block navigation %}
-    {% activetab 'navigation' 'lecturers' %}
-    {{ block.super }}
+{% activetab 'navigation' 'lecturers' %}
+{{ block.super }}
 {% endblock %}
 
 {% block breadcrumbs %}
-    <a href="{% url 'lecturers:lecturer_list' %}">Dozenten</a> &raquo; {{ lecturer.name }}
+<a href="{% url 'lecturers:lecturer_list' %}">Dozenten</a> &raquo; {{ lecturer.name }}
 {% endblock %}
 
 {% block scripts %}
-    {{ block.super }}
-    {% compress js %}
-        <script src="{{ STATIC_URL }}js/star-rater.js"></script>
-        <script src="{{ STATIC_URL }}js/quote_votes.js"></script>
-        <script type="text/javascript">
+{{ block.super }}
+{% compress js %}
+<script src="{{ STATIC_URL }}js/star-rater.js"></script>
+<script src="{{ STATIC_URL }}js/quote_votes.js"></script>
+<script type="text/javascript">
             $(document).ready(function() {
                 $('.oldphotos img').click(function() {
                     var path = $(this).attr('data-path');
@@ -30,147 +30,181 @@
                     $('.pictures>img.thumbnail[data-path="' + path + '"]').removeClass('hidden');
                 });
             });
-        </script>
-    {% endcompress %}
+
+
+
+
+
+
+
+</script>
+{% endcompress %}
 {% endblock %}
 
 {% block content %}
-    <article>
+<article>
     <div class="lecturer-profile">
         <div class="info">
-            <h1 class="lecturer-name" data-lecturer-pk="{{ lecturer.pk }}" data-rating-url="{% url 'api:lecturer_rate' lecturer.pk %}">{{ lecturer.name }}</h1>
+            <h1 class="lecturer-name" data-lecturer-pk="{{ lecturer.pk }}"
+                data-rating-url="{% url 'api:lecturer_rate' lecturer.pk %}">{{ lecturer.name }}</h1>
             {% if lecturer.description %}
-                <p>{{ lecturer.description }}</p
-            {% endif %}
+            <p>{{ lecturer.description }}</p
+                    {% endif %}
             <table class="properties">
                 <tbody>
-                    {% if lecturer.abbreviation %}
-                    <tr>
-                        <td>Kürzel:</td>
-                        <td>{{ lecturer.abbreviation }}</td>
-                    </tr>
-                    {% endif %}
-                    {% if lecturer.department %}
-                    <tr>
-                        <td>Abteilung:</td>
-                        <td> {{ lecturer.department }}</td>
-                    </tr>
-                    {% endif %}
-                    {% if lecturer.function %}
-                    <tr>
-                        <td>Funktion:</td>
-                        <td>{{ lecturer.function }}</td>
-                    </tr>
-                    {% endif %}
-                    {% if lecturer.main_area %}
-                    <tr>
-                        <td>Fachschwerpunkt:</td>
-                        <td>{{ lecturer.main_area }}</td>
-                    </tr>
-                    {% endif %}
-                    {% if lecturer.subjects %}
-                    <tr>
-                        <td>Fächer:</td>
-                        <td>{{ lecturer.subjects }}</td>
-                    </tr>
-                    {% endif %}
-                    {% if lecturer.office %}
-                    <tr>
-                        <td>Büro:</td>
-                        <td>{{ lecturer.office }}</td>
-                    </tr>
-                    {% endif %}
-                    {% if lecturer.email %}
-                    <tr>
-                        <td>Email:</td>
-                        <td>{{ lecturer.email|urlize }}</td>
-                    </tr>
-                    {% endif %}
+                {% if lecturer.abbreviation %}
+                <tr>
+                    <td>Kürzel</td>
+                    <td>{{ lecturer.abbreviation }}</td>
+                </tr>
+                {% endif %}
+                {% if lecturer.department %}
+                <tr>
+                    <td>Abteilung</td>
+                    <td> {{ lecturer.department }}</td>
+                </tr>
+                {% endif %}
+                {% if lecturer.function %}
+                <tr>
+                    <td>Funktion</td>
+                    <td>{{ lecturer.function }}</td>
+                </tr>
+                {% endif %}
+                {% if lecturer.main_area %}
+                <tr>
+                    <td>Fachschwerpunkt</td>
+                    <td>{{ lecturer.main_area }}</td>
+                </tr>
+                {% endif %}
+                {% if lecturer.subjects %}
+                <tr>
+                    <td>Fächer</td>
+                    <td>{{ lecturer.subjects }}</td>
+                </tr>
+                {% endif %}
+                {% if lecturer.office %}
+                <tr>
+                    <td>Büro</td>
+                    <td>{{ lecturer.office }}</td>
+                </tr>
+                {% endif %}
+                {% if lecturer.email %}
+                <tr>
+                    <td>Email</td>
+                    <td>{{ lecturer.email|urlize }}</td>
+                </tr>
+                {% endif %}
                 </tbody>
             </table>
         </div>
         <div class="pictures">
             {# Main lecturer picture #}
             <img class="thumbnail" data-path="{{ lecturer.photo|default:'' }}"
-            {% if lecturer.photo %} src="{% thumbnail lecturer.photo 120x160 crop %}"{% endif %}
-            {% if not lecturer.photo %} src="{{ STATIC_URL }}img/120x160.gif"{% endif %}
-            width="120" height="160">
+                 {% if lecturer.photo %} src="{% thumbnail lecturer.photo 120x160 crop %}" {% endif %}
+                 {% if not lecturer.photo %} src="{{ STATIC_URL }}img/120x160.gif" {% endif %}
+                 width="120" height="160">
 
             {# Old lecturer pictures (initially hidden) #}
             {% for photo in lecturer.oldphotos %}
-                <img class="thumbnail hidden" data-path="{{ photo }}"
-                src="{% thumbnail photo 120x160 crop %}" width="120" height="160">
+            <img class="thumbnail hidden" data-path="{{ photo }}"
+                 src="{% thumbnail photo 120x160 crop %}" width="120" height="160">
             {% endfor %}
 
             {# Small thumbnails #}
             {% if lecturer.oldphotos %}
-                <div class="oldphotos">
-                    <img data-path="{{ lecturer.photo }}"
-                    src="{% thumbnail lecturer.photo 36x36 crop %}">
-                    {% for photo in lecturer.oldphotos %}
-                        <img data-path="{{ photo }}"
-                        src="{% thumbnail photo 36x36 crop %}" width="36" height="36">
-                    {% endfor %}
-                </div>
+            <div class="oldphotos">
+                <img data-path="{{ lecturer.photo }}"
+                     src="{% thumbnail lecturer.photo 36x36 crop %}">
+                {% for photo in lecturer.oldphotos %}
+                <img data-path="{{ photo }}"
+                     src="{% thumbnail photo 36x36 crop %}" width="36" height="36">
+                {% endfor %}
+            </div>
             {% endif %}
         </div>
     </div>
     <div class="rate">
         <h2>Bewerten</h2>
-        <ul>
-            <li>
-                <label for="rating_d" class="label-didactic" title="{{ lecturer.rating_count_d }} Bewertung{{ lecturer.rating_count_d|pluralize:"en" }}">
-                    {{ lecturer.avg_rating_d|default:'-' }}
-                </label>
-                <h3>Didaktisch</h3>
-                {% include 'lecturers/blocks/star_rating.html' with name="rating_d" rating=rating_d range=10|get_range1 %}
-            </li>
-            <li>
-                <label for="rating_m" class="label-humanly" title="{{ lecturer.rating_count_m }} Bewertung{{ lecturer.rating_count_m|pluralize:"en" }}">
-                    {{ lecturer.avg_rating_m|default:'-' }}
-                </label>
-                <h3>Menschlich</h3>
-                {% include 'lecturers/blocks/star_rating.html' with name="rating_m" rating=rating_m range=10|get_range1 %}
-            </li>
-            <li>
-                <label for="rating_f" class="label-technical" title="{{ lecturer.rating_count_f }} Bewertung{{ lecturer.rating_count_f|pluralize:"en" }}">
-                    {{ lecturer.avg_rating_f|default:'-' }}
-                </label>
-                <h3>Fachlich</h3>
-                {% include 'lecturers/blocks/star_rating.html' with name="rating_f" rating=rating_f range=10|get_range1 %}
-            </li>
-        </ul>
+        <table class="properties">
+            <tbody>
+                <tr>
+                    <td>Kompetenz</td>
+                    <td>Durchschnitt</td>
+                    <td>Deine Bewertung</td>
+                </tr>
+                <tr>
+                    <td>
+                        <h3>Didaktisch</h3>
+                    </td>
+                    <td>
+                        <label for="rating_d" class="label-didactic" title="{{ lecturer.rating_count_d }} Bewertung{{ lecturer.rating_count_d|pluralize:" en" }}">
+                        {{ lecturer.avg_rating_d|default:'-' }}
+                        </label>
+                    </td>
+                    <td>
+                        {% include 'lecturers/blocks/star_rating.html' with name="rating_d" rating=rating_d range=10|get_range1 %}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <h3>Menschlich</h3>
+                    </td>
+                    <td>
+                        <label for="rating_m" class="label-humanly" title="{{ lecturer.rating_count_m }} Bewertung{{ lecturer.rating_count_m|pluralize:" en" }}">
+                        {{ lecturer.avg_rating_m|default:'-' }}
+                        </label>
+                    </td>
+                    <td>
+                        {% include 'lecturers/blocks/star_rating.html' with name="rating_m" rating=rating_m range=10|get_range1 %}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <h3>Fachlich</h3>
+                    </td>
+                    <td>
+                        <label for="rating_f" class="label-technical" title="{{ lecturer.rating_count_f }} Bewertung{{ lecturer.rating_count_f|pluralize:" en" }}">
+                        {{ lecturer.avg_rating_f|default:'-' }}
+                        </label>
+                    </td>
+                    <td>
+                        {% include 'lecturers/blocks/star_rating.html' with name="rating_f" rating=rating_f range=10|get_range1 %}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
     <div class="quotes">
         <h2>Zitate</h2>
-        <a class="button button-primary" href="{% url 'lecturers:lecturer_quote_add' lecturer.pk %}">Zitat hinzufügen</a>
+        <a class="button button-primary" href="{% url 'lecturers:lecturer_quote_add' lecturer.pk %}">Zitat
+            hinzufügen</a>
         {% if quotes %}
-            {% for quote in quotes %}
-            <article class="quote quote-no-lecturer {% if quote.author_id == user.pk %}quote-edit{% endif %}">
-                {% if quote.author_id == user.pk %}
-                    <div class="edit">
-                        {% include 'lecturers/blocks/quote_delete_button.html' with small_button=1 %}
-                    </div>
+        {% for quote in quotes %}
+        <article class="quote quote-no-lecturer {% if quote.author_id == user.pk %}quote-edit{% endif %}">
+            {% if quote.author_id == user.pk %}
+            <div class="edit">
+                {% include 'lecturers/blocks/quote_delete_button.html' with small_button=1 %}
+            </div>
+            {% endif %}
+            {% include 'lecturers/blocks/vote_buttons.html' %}
+            <div class="quote-wrapper">
+                <blockquote cite="{% url 'lecturers:lecturer_detail' quote.lecturer_id %}">
+                    <p>{{ quote.quote }}</p>
+                </blockquote>
+                {% if quote.comment %}
+                <p class="comment">
+                    {{ quote.comment|linebreaksbr }}
+                </p>
                 {% endif %}
-                {% include 'lecturers/blocks/vote_buttons.html' %}
-                <div class="quote-wrapper">
-                    <blockquote cite="{% url 'lecturers:lecturer_detail' quote.lecturer_id %}">
-                        <p>{{ quote.quote }}</p>
-                    </blockquote>
-                    {% if quote.comment %}
-                    <p class="comment">
-                        {{ quote.comment|linebreaksbr }}
-                    </p>
-                    {% endif %}
-                    <div class="citation">
-                        {% if quote.date_available %}am {{ quote.date|date:"d. M.Y" }}{% endif %}
-                    </div>
+                <div class="citation">
+                    {% if quote.date_available %}am {{ quote.date|date:"d. M.Y" }}{% endif %}
                 </div>
-            </article>
-            {% endfor %}
+            </div>
+        </article>
+        {% endfor %}
         {% else %}
-            <p><em>Keine Zitate gefunden.</em></p>
+        <p><em>Keine Zitate gefunden.</em></p>
         {% endif %}
     </div>
-    </article>
+</article>
 {% endblock %}
