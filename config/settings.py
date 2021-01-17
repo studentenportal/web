@@ -152,6 +152,7 @@ TEMPLATES = [
                 "django.template.context_processors.media",
                 "django.template.context_processors.static",
                 "django.template.context_processors.tz",
+                "django.template.context_processors.request",
                 "apps.front.context_processors.global_stats",
                 "apps.front.context_processors.debug",
             ]
