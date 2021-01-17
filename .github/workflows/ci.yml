@@ -34,6 +34,12 @@ jobs:
         uses: codecov/codecov-action@v1
         with:
           token: ${{secrets.CODECOV_TOKEN}}
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+      - uses: psf/black@stable
 
   publish:
     name: publish docker image
@@ -42,7 +48,9 @@ jobs:
       DOCKER_USERNAME: "${{ secrets.DOCKER_USERNAME }}"
       DOCKER_PASSWORD: "${{ secrets.DOCKER_PASSWORD }}"
     if: github.ref == 'refs/heads/master'
-    needs: test
+    needs:
+      - test
+      - lint
     steps:
       - uses: actions/checkout@v2
       - name: Fetch repository tags (for git describe to work)
