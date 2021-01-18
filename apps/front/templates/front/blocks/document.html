@@ -52,13 +52,16 @@
                     </tr>
                     <tr>
                         <td>
-                            <label for="drating" class="label-document-rating"
-                                   title="{{ doc.DocumentRating.count }} Bewertung{{ doc.DocumentRating.count|pluralize:" en" }}">
-                            {{ doc.rating|default:'-' }}
+                            <label for="drating" class="label-document-rating" title="{{ doc.DocumentRating.count }} Bewertung{{ doc.DocumentRating.count|pluralize:" en" }}">
+                                {% include 'front/blocks/document_rating_summary.html' %}
                             </label>
                         </td>
                         <td>
-                            {% include 'lecturers/blocks/star_rating.html' with name="drating" rating=doc.rating range=10|get_range1 disabled=doc|is_author:user %}
+                            {% if doc|is_author:user  %}
+                                Eigene Dokumente werden nicht bewertet.
+                            {% else %}
+                                {% include 'lecturers/blocks/star_rating.html' with name="drating" rating=doc.self_rating range=10|get_range1 %}
+                            {% endif %}
                         </td>
                     </tr>
                     </tbody>
