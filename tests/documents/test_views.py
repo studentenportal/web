@@ -17,8 +17,17 @@ from apps.documents import forms, models
 User = get_user_model()
 
 
-def login(self):
-    assert self.client.login(username="testuser", password="test")
+def login_user(client, username="testuser", password="test"):
+    assert client.login(username=username, password=password)
+
+
+def generate_pdf():
+    image_data = "R0lGODlhAQABAIABAP8AAP///yH5BAEAAAEALAAAAAABAAEAAAICRAEAOw=="
+    image_data_b64 = b64decode(image_data)
+    image_file = ContentFile(image_data_b64, "one.PDF")
+    return SimpleUploadedFile(
+        image_file.name, image_file.read(), content_type="image/pdf"
+    )
 
 
 class DocumentDownloadTest(TestCase):
@@ -45,7 +54,7 @@ class DocumentDownloadTest(TestCase):
 
     def testExamServed(self):
         """Assert that the exams get served when logged in."""
-        login(self)
+        login_user(self.client)
         doc = baker.make_recipe("apps.documents.document_exam")
         url = reverse("documents:document_download", args=(doc.category.name, doc.pk))
         response = self.client.get(url)
@@ -78,13 +87,8 @@ def test_content_disposition(client, filename, expected):
 
 @pytest.mark.django_db
 def test_document_thumbnail_view(client):
-    image_data = "R0lGODlhAQABAIABAP8AAP///yH5BAEAAAEALAAAAAABAAEAAAICRAEAOw=="
-    image_data_b64 = b64decode(image_data)
-    image_file = ContentFile(image_data_b64, "one.PDF")
     category = baker.make_recipe("apps.documents.documentcategory")
-    simple_uploaded_pdf = SimpleUploadedFile(
-        image_file.name, image_file.read(), content_type="image/pdf"
-    )
+    simple_uploaded_pdf = generate_pdf()
 
     doc = models.Document.objects.create(
         dtype=models.Document.DTypes.SUMMARY,
@@ -120,7 +124,7 @@ class DocumentcategoryListViewTest(TestCase):
     def testUserAddButton(self):
         """Test whether the add button is shown when and only when the user is logged in."""
         self.assertNotContains(self.response, "Modul hinzufügen")
-        login(self)
+        login_user(self.client)
         logged_in_response = self.client.get(reverse("documents:documentcategory_list"))
         self.assertContains(logged_in_response, "Modul hinzufügen")
 
@@ -138,7 +142,7 @@ class DocumentcategoryAddViewTest(TestCase):
 
     def setUp(self):
         baker.make_recipe("apps.front.user")
-        login(self)
+        login_user(self.client)
 
     def testLoginRequired(self):
         self.client.logout()
@@ -271,7 +275,7 @@ class DocumentListViewTest(TestCase):
         self.assertNotContains(self.response, 'href="{}"'.format(url))
 
     def testEditButtonLoggedIn(self):
-        login(self)
+        login_user(client=self.client)
         url1 = reverse(
             "documents:document_edit",
             args=(self.doc1.category.name.lower(), self.doc1.pk),
@@ -292,7 +296,7 @@ class DocumentListViewTest(TestCase):
         self.assertNotContains(self.response, 'href="{}"'.format(url))
 
     def testDeleteButtonLoggedIn(self):
-        login(self)
+        login_user(self.client)
         url1 = reverse(
             "documents:document_delete",
             args=(self.doc1.category.name.lower(), self.doc1.pk),
@@ -347,3 +351,8 @@ class DocumentListViewTest(TestCase):
         response = self.client.get(url)
         self.assertContains(response, "Analysis 1 Theoriesammlung")
         self.assertContains(response, "Dieses Dokument ist eine Zusammenfassung der")
+
+    def testInformationForRatingOnOwnDocuments(self):
+        login_user(client=self.client, username=self.user1.name(), password="test")
+        response = self.client.get(self.url)
+        self.assertContains(response, "Eigene Dokumente werden nicht bewertet.")
