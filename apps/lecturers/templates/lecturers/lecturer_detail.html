@@ -45,8 +45,7 @@
 <article>
     <div class="lecturer-profile">
         <div class="info">
-            <h1 class="lecturer-name" data-lecturer-pk="{{ lecturer.pk }}"
-                data-rating-url="{% url 'api:lecturer_rate' lecturer.pk %}">{{ lecturer.name }}</h1>
+            <h1 class="lecturer-name" data-lecturer-pk="{{ lecturer.pk }}" data-rating-url="{% url 'api:lecturer_rate' lecturer.pk %}">{{ lecturer.name }}</h1>
             {% if lecturer.description %}
             <p>{{ lecturer.description }}</p
                     {% endif %}
