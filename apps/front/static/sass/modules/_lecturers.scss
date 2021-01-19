@@ -152,7 +152,7 @@
     .label-didactic, .label-humanly, .label-technical {
         font-size: 2rem;
         line-height: 3rem;
-        width: 3.4rem;
+        width: 6.8rem;
         display: inline-block;
     }
 }
@@ -183,6 +183,25 @@
     td + td {
         border: none;
         width: auto;
+    }
+}
+
+.rating-table {
+    table-layout: fixed;
+    width: 100%;
+    max-width: 64rem;
+
+    td {
+        vertical-align: top;
+        padding: $gutter/2 $gutter;
+        border-right: 1px dashed darken($color-cornflower-blue, 20%);
+        word-wrap: break-word;
+        width: 16rem;
+    }
+
+    td + td {
+        border: none;
+        width: 32rem;
     }
 }
 

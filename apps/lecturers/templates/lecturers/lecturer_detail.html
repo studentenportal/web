@@ -124,24 +124,24 @@
     </div>
     <div class="rate">
         <h2>Bewerten</h2>
-        <table class="properties">
+        <table class="rating-table">
             <tbody>
                 <tr>
                     <td>Kompetenz</td>
-                    <td>Durchschnitt</td>
                     <td>Deine Bewertung</td>
+                    <td>Durchschnitt (#{{ lecturer.rating_count_d }})</td>
                 </tr>
                 <tr>
                     <td>
                         <h3>Didaktisch</h3>
                     </td>
                     <td>
-                        <label for="rating_d" class="label-didactic" title="{{ lecturer.rating_count_d }} Bewertung{{ lecturer.rating_count_d|pluralize:" en" }}">
-                        {{ lecturer.avg_rating_d|default:'-' }}
-                        </label>
+                        {% include 'lecturers/blocks/star_rating.html' with name="rating_d" rating=rating_d range=10|get_range1 %}
                     </td>
                     <td>
-                        {% include 'lecturers/blocks/star_rating.html' with name="rating_d" rating=rating_d range=10|get_range1 %}
+                        <label for="rating_d" class="label-didactic" title="{{ lecturer.rating_count_d }} Bewertung{{ lecturer.rating_count_d|pluralize:" en" }}">
+                        {{ lecturer.avg_rating_d|default:'-' }}/10
+                        </label>
                     </td>
                 </tr>
                 <tr>
@@ -149,12 +149,12 @@
                         <h3>Menschlich</h3>
                     </td>
                     <td>
-                        <label for="rating_m" class="label-humanly" title="{{ lecturer.rating_count_m }} Bewertung{{ lecturer.rating_count_m|pluralize:" en" }}">
-                        {{ lecturer.avg_rating_m|default:'-' }}
-                        </label>
+                        {% include 'lecturers/blocks/star_rating.html' with name="rating_m" rating=rating_m range=10|get_range1 %}
                     </td>
                     <td>
-                        {% include 'lecturers/blocks/star_rating.html' with name="rating_m" rating=rating_m range=10|get_range1 %}
+                        <label for="rating_m" class="label-humanly" title="{{ lecturer.rating_count_m }} Bewertung{{ lecturer.rating_count_m|pluralize:" en" }}">
+                        {{ lecturer.avg_rating_m|default:'-' }}/10
+                        </label>
                     </td>
                 </tr>
                 <tr>
@@ -162,12 +162,12 @@
                         <h3>Fachlich</h3>
                     </td>
                     <td>
-                        <label for="rating_f" class="label-technical" title="{{ lecturer.rating_count_f }} Bewertung{{ lecturer.rating_count_f|pluralize:" en" }}">
-                        {{ lecturer.avg_rating_f|default:'-' }}
-                        </label>
+                        {% include 'lecturers/blocks/star_rating.html' with name="rating_f" rating=rating_f range=10|get_range1 %}
                     </td>
                     <td>
-                        {% include 'lecturers/blocks/star_rating.html' with name="rating_f" rating=rating_f range=10|get_range1 %}
+                        <label for="rating_f" class="label-technical" title="{{ lecturer.rating_count_f }} Bewertung{{ lecturer.rating_count_f|pluralize:" en" }}">
+                        {{ lecturer.avg_rating_f|default:'-' }}/10
+                        </label>
                     </td>
                 </tr>
             </tbody>
