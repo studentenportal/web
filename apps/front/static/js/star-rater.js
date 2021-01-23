@@ -11,7 +11,7 @@ $(function() {
         var rating_count_text = data.rating_count == 1 ? ' Bewertung' : ' Bewertungen';
         var label = $('label[for="rating_' + data.category +'"]');
         label.attr('title', data.rating_count + rating_count_text);
-        label.text(data.rating_avg);
+        label.text(data.rating_avg + "/10");
     };
     $('[name="rating_d"]').change(function() {
         submitScore("d", $(this).val());
@@ -28,6 +28,7 @@ $(function() {
 $(function() {
     $('.drating').each(function(){
         var rating = $(this);
+        var document_pk = rating.attr('data-document-pk');
         rating.find('[name="drating"]').change(function() {
             var score = $(this).val();
             var url = rating.attr('data-url');
@@ -42,9 +43,16 @@ $(function() {
                     alert(errorThrown + ': ' + jqXHR.responseText);
                 },
                 success: function(data, textStatus, jqXHR) {
-                    // Update average rating etc...
+                    // Update average rating
                     var summary_label = rating.find('label[for="drating"]');
                     summary_label.load(summary_url)
+                    // Update self rating
+                    var match = url.match(new RegExp("/dokumente/"+ "(.*)" + "/" + "(.*)" + "/rate/"));
+                    if(match.length == 3){
+                        var document_pk = match[2]
+                        var self_rating_label = $('label[for="self_rating_' + document_pk +'"]');
+                        self_rating_label.text("Deine Bewertung (" +score + "/10)");
+                    }
                 }
             });
         });

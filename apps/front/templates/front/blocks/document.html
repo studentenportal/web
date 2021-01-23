@@ -47,26 +47,29 @@
                 <table class="document-rating-table">
                     <tbody>
                     <tr class="author">
+                        <th>
+                            {% if not doc|is_author:user  %}
+                                <label for="self_rating_{{ doc.pk }}">Deine Bewertung ({{ doc.self_rating|default:'-' }}/10)</label>
+                            {% endif %}
+                        </th>
                         <th>Durchschnitt</th>
-                        <th>Deine Bewertung</th>
                     </tr>
                     <tr>
+                        <td>
+                            {% if not doc|is_author:user  %}
+                                {% include 'lecturers/blocks/star_rating.html' with name="drating" rating=doc.self_rating range=10|get_range1 %}
+                            {% endif %}
+                        </td>
                         <td>
                             <label for="drating" class="label-document-rating" title="{{ doc.DocumentRating.count }} Bewertung{{ doc.DocumentRating.count|pluralize:" en" }}">
                                 {% include 'front/blocks/document_rating_summary.html' %}
                             </label>
                         </td>
-                        <td>
-                            {% if doc|is_author:user  %}
-                                Eigene Dokumente werden nicht bewertet.
-                            {% else %}
-                                {% include 'lecturers/blocks/star_rating.html' with name="drating" rating=doc.self_rating range=10|get_range1 %}
-                            {% endif %}
-                        </td>
                     </tr>
                     </tbody>
                 </table>
             </form>
+            <p class="author">{{ doc.DocumentRating.count}} Bewertungen total</p>
             {% endif %}
             <p>
                 {% if doc.change_date %}
