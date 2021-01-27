@@ -50,7 +50,7 @@ $(function() {
                     var match = url.match(new RegExp("/dokumente/"+ "(.*)" + "/" + "(.*)" + "/rate/"));
                     if(match.length == 3){
                         var document_pk = match[2]
-                        var self_rating_label = $('label[for="self_rating_' + document_pk +'"]');
+                        var self_rating_label = $('td[for="self_rating_' + document_pk +'"]');
                         self_rating_label.text("Deine Bewertung (" +score + "/10)");
                     }
                 }
