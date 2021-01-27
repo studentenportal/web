@@ -352,7 +352,8 @@ class DocumentListViewTest(TestCase):
         self.assertContains(response, "Analysis 1 Theoriesammlung")
         self.assertContains(response, "Dieses Dokument ist eine Zusammenfassung der")
 
-    def testInformationForRatingOnOwnDocuments(self):
+    def testInformationForRatingOnDocuments(self):
         login_user(client=self.client, username=self.user1.name(), password="test")
         response = self.client.get(self.url)
-        self.assertContains(response, "Eigene Dokumente werden nicht bewertet.")
+        self.assertContains(response, "Durchschnitt")
+        self.assertContains(response, "Deine Bewertung")
