@@ -20,4 +20,4 @@ beautifulsoup4==4.9.3
 vobject==0.9.6.1
 
 # API
-djangorestframework==3.12.2
+djangorestframework==3.12.4
