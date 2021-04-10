@@ -136,6 +136,8 @@ class DocumentList(DocumentcategoryMixin, ListView):
         if self.request.user.is_authenticated:
             ratings = models.DocumentRating.objects.filter(user=self.request.user)
             context["ratings"] = {r.document.pk: r.rating for r in ratings}
+            for document in context["documents"]:
+                document.self_rating = context["ratings"].get(document.pk, None)
         return context
 
 

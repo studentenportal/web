@@ -77,6 +77,15 @@
     background-color: $color-fern;
 }
 
+.label-document-rating {
+    @extend .label;
+    background-color: $color-midnight-blue;
+    font-size: 2rem;
+    line-height: 3rem;
+    width: 6.8rem;
+    display: inline-block;
+}
+
 $courses: (
   e: #5CB870,
   i: #f0ad4e,

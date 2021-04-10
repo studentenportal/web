@@ -120,6 +120,28 @@
         }
     },
     {
+        "pk": 3,
+        "model": "front.user",
+        "fields": {
+            "username": "user2",
+            "first_name": "2Firstname",
+            "last_name": "2Surname",
+            "is_active": true,
+            "is_superuser": false,
+            "is_staff": false,
+            "last_login": "2020-01-01T19:47:39",
+            "groups": [
+
+            ],
+            "user_permissions": [
+
+            ],
+            "password": "pbkdf2_sha256$150000$z2UqSOjdVrGN$rlWCBLX2Q4aCEJ+okHGfCqbigZE+5wCnSEAkdkelztk=",
+            "email": "user2@localhost",
+            "date_joined": "2020-01-01T19:47:39"
+        }
+    },
+    {
         "pk": 1,
         "model": "documents.document",
         "fields": {

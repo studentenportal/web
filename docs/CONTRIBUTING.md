@@ -53,6 +53,11 @@ Email:    user1@localhost
 Password: user1
 ```
 
+```
+Username: user2
+Email:    user2@localhost
+Password: user2
+```
 ## Coding Guidelines
 ### Formatter
 Our codebase is formatted by [black](https://black.readthedocs.io/en/stable/).

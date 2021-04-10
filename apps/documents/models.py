@@ -8,6 +8,7 @@ from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
+from django.db.models.functions import Coalesce, Round
 from django.template.defaultfilters import slugify
 from django.utils.safestring import mark_safe
 from model_utils import Choices
@@ -142,18 +143,13 @@ class Document(models.Model):
         help_text="Soll man dieses Dokument ohne Login downloaden können?",
     )
 
-    def rating_exact(self):
-        """Return exact rating average."""
-        ratings = self.DocumentRating.values_list("rating", flat=True)
-        total = sum(ratings)
-        if len(ratings) > 0:
-            return float(total) / len(ratings)
-        else:
-            return 0
-
     def rating(self):
         """Return rounded rating average."""
-        return int(round(self.rating_exact()))
+        return int(
+            self.DocumentRating.all()
+            .aggregate(avg=Coalesce(Round(models.Avg("rating")), models.Value(0)))
+            .get("avg", 0)
+        )
 
     def filename(self):
         """Return filename of uploaded file without directories."""

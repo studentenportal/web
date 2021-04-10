@@ -1,1 +1,1 @@
-{{ doc.DocumentRating.count }} Bewertung{{ doc.DocumentRating.count|pluralize:"en" }}{% if doc.DocumentRating.count %} (Durchschnitt {{ doc.rating }}/10){% endif %}
+{{ doc.rating|default:'-' }}/10

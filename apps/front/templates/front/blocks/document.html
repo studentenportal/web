@@ -44,11 +44,36 @@
             (<span>{{ doc.downloadcount }} Download{{ doc.downloadcount|pluralize:"s" }}</span>)</p>
             {% if user.is_authenticated %}
             <form class="drating" data-rating="{{ ratings|lookup:doc.pk }}" data-url="{% url 'documents:document_rate' doc.category.name|slugify doc.pk %}" data-summary-url="{% url 'documents:document_rating_ajax' doc.category.name|slugify doc.pk %}">
-                {% include 'lecturers/blocks/star_rating.html' with name="drating" rating=doc.rating range=10|get_range1 disabled=doc|is_author:user %}
-                <label for="drating">
-                {% include 'front/blocks/document_rating_summary.html' %}
-                </label>
+                <table class="responsive-table document-rating-table">
+                    <thead>
+                        <tr>
+                            {% if not doc|is_author:user  %}
+                                <td for="self_rating_{{ doc.pk }}">
+                                    Deine Bewertung ({{ doc.self_rating|default:'-' }}/10)
+                                </td>
+                            {% endif %}
+                            <td>
+                                Durchschnitt
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        {% if not doc|is_author:user  %}
+                            <td class="star-rating">
+                                {% include 'lecturers/blocks/star_rating.html' with name="drating" rating=doc.self_rating range=10|get_range1 %}
+                            </td>
+                        {% endif %}
+                        <td>
+                            <label for="drating" class="label-document-rating" title="{{ doc.DocumentRating.count }} Bewertung{{ doc.DocumentRating.count|pluralize:" en" }}">
+                                {% include 'front/blocks/document_rating_summary.html' %}
+                            </label>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
             </form>
+            <p class="author">{{ doc.DocumentRating.count}} Bewertungen total</p>
             {% endif %}
             <p>
                 {% if doc.change_date %}

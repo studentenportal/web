@@ -218,3 +218,15 @@
 .document-edit {
     padding-top: 0;
 }
+
+.document-rating-table {
+    @media
+    only screen and (max-width: 760px),
+    (min-device-width: 768px) and (max-device-width: 1024px)  {
+        td {
+            padding-left: 0% !important;
+            margin-bottom: 0.8rem;
+        }
+    }
+
+}
