@@ -146,12 +146,13 @@ TEMPLATES = [
         "OPTIONS": {
             "context_processors": [
                 "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
                 "django.template.context_processors.debug",
                 "django.template.context_processors.i18n",
                 "django.template.context_processors.media",
                 "django.template.context_processors.static",
                 "django.template.context_processors.tz",
-                "django.contrib.messages.context_processors.messages",
+                "django.template.context_processors.request",
                 "apps.front.context_processors.global_stats",
                 "apps.front.context_processors.debug",
             ]
@@ -178,7 +179,6 @@ ROOT_URLCONF = "config.urls"
 MESSAGE_STORAGE = "django.contrib.messages.storage.session.SessionStorage"
 
 MAX_UPLOAD_SIZE = 1024 * 1024 * 20  # 20MB
-FILE_UPLOAD_PERMISSIONS = 0o644  # Default with Django 3.0
 
 AUTH_USER_MODEL = "front.User"
 
