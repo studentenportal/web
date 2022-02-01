@@ -1,4 +1,4 @@
-model-bakery==1.2.1
+model-bakery==1.4.0
 
 coverage==5.5
 six==1.15.0
