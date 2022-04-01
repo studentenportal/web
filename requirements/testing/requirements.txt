@@ -2,7 +2,7 @@ model-bakery==1.2.1
 
 coverage==5.5
 six==1.15.0
-pytest==6.2.2
+pytest==7.1.1
 pytest-django==4.1.0
 pytest-pep8==1.0.6
 pytest-cov==2.11.1
