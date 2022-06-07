@@ -229,7 +229,7 @@ class DocumentListViewTest(TestCase):
     def testDocumentTitle(self):
         soup = BeautifulSoup(self.response.content, "html.parser")
         div_details = (
-            soup.find("h3", text="Analysis 1 Theoriesammlung")
+            soup.find("h3", string="Analysis 1 Theoriesammlung")
             .find_parent("div")
             .prettify()
         )
@@ -244,7 +244,7 @@ class DocumentListViewTest(TestCase):
     def testDocumentLicense(self):
         soup = BeautifulSoup(self.response.content, "html.parser")
         div_details = (
-            soup.find("h3", text="Analysis 1 Theoriesammlung")
+            soup.find("h3", string="Analysis 1 Theoriesammlung")
             .find_parent("div")
             .prettify()
         )
