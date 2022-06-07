@@ -18,6 +18,7 @@ do
 done
 
 export PYTHONPATH=$(pwd)
+export FORCE_COLOR=1
 
 coverage run --source apps -m pytest "$@"
 pytest_exit=$?
