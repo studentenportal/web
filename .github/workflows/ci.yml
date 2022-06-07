@@ -10,6 +10,9 @@ on:
     # rebuilt regularly (in order to include security fixes in the base image).
     - cron: '5 4 * * 5'
 
+env:
+  FORCE_COLOR: "1"
+
 jobs:
 
   test:
