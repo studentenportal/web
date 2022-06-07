@@ -7,7 +7,7 @@ python-dateutil==2.8.2
 django-messagegroups==0.4.5
 django-registration-redux==2.9
 django-downloadview==2.1.1
-django-model-utils==4.1.1
+django-model-utils==4.2.0
 django_compressor==2.4
 django-mathfilters==1.0.0
 easy-thumbnails==2.7.1
