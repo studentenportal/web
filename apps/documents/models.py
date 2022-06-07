@@ -147,7 +147,7 @@ class Document(models.Model):
         """Return rounded rating average."""
         return int(
             self.DocumentRating.all()
-            .aggregate(avg=Coalesce(Round(models.Avg("rating")), models.Value(0)))
+            .aggregate(avg=Coalesce(Round(models.Avg("rating")), models.Value(0.0)))
             .get("avg", 0)
         )
 
