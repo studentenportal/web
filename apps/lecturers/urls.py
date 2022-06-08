@@ -3,7 +3,6 @@ from django.urls import re_path
 
 from apps.lecturers import views
 
-
 admin.autodiscover()
 
 app_name = "lecturers"

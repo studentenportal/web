@@ -1,8 +1,8 @@
 from django.conf import settings
 from django.contrib import admin
+from django.urls import include, re_path
 from django.views.generic import TemplateView
 from django.views.static import serve
-from django.urls import include, re_path
 
 from apps.api import urls as api_urls
 from apps.documents import urls as document_urls

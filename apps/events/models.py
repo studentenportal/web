@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-from __future__ import absolute_import, division, print_function, unicode_literals
-
 from datetime import date
 
 from django.conf import settings
@@ -70,4 +67,4 @@ class Event(models.Model):
         return delta.days if delta.days > 0 else None
 
     def __str__(self):
-        return "{} {}".format(self.start_date, self.summary)
+        return f"{self.start_date} {self.summary}"

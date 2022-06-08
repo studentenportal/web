@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-from __future__ import absolute_import, division, print_function, unicode_literals
-
 import re
 
 from django import forms
@@ -72,14 +69,12 @@ class HsrRegistrationForm(RegistrationForm):
         # (We can't do this in the `clean_username` method since the `username`
         # field will only be written in the `clean` method.)
         if User.objects.filter(username__iexact=email_user).exists():
-            raise forms.ValidationError(
-                'Benutzer "{}" existiert bereits.'.format(email_user)
-            )
+            raise forms.ValidationError(f'Benutzer "{email_user}" existiert bereits.')
 
         return email
 
     def clean(self):
-        cleaned = super(HsrRegistrationForm, self).clean()
+        cleaned = super().clean()
 
         # Determine the username based on the e-mail
         email = cleaned.get("email")

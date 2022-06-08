@@ -1,21 +1,18 @@
-# -*- coding: utf-8 -*-
-from __future__ import absolute_import, division, print_function, unicode_literals
-
 import sys
 
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
 
-class LoginRequiredMixin(object):
+class LoginRequiredMixin:
     """Ensures that user must be authenticated in order to access view."""
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
-        return super(LoginRequiredMixin, self).dispatch(*args, **kwargs)
+        return super().dispatch(*args, **kwargs)
 
 
-class CommandOutputMixin(object):
+class CommandOutputMixin:
     """Mixin to provide printO and printE methods."""
 
     def printO(self, msg):

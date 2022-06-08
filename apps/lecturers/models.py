@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-from __future__ import absolute_import, division, print_function, unicode_literals
-
 import os
 import re
 from datetime import datetime
@@ -108,7 +105,7 @@ class Lecturer(models.Model):
         return self._rating_count("f")
 
     def __str__(self):
-        return "{} {}".format(self.last_name, self.first_name)
+        return f"{self.last_name} {self.first_name}"
 
     class Meta:
         ordering = ["last_name"]
@@ -167,7 +164,7 @@ class Quote(models.Model):
         return up - down
 
     def __str__(self):
-        return "[{}] {}...".format(self.lecturer, self.quote[:30])
+        return f"[{self.lecturer}] {self.quote[:30]}..."
 
     class Meta:
         ordering = ["-date"]
@@ -202,4 +199,4 @@ class Course(models.Model):
     name = models.CharField("Titel", max_length=50)
 
     def __str__(self):
-        return "{} ({})".format(self.name, self.abbreviation)
+        return f"{self.name} ({self.abbreviation})"

@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-from __future__ import absolute_import, division, print_function, unicode_literals
-
 import datetime
 
 from django.contrib import messages
@@ -23,7 +20,7 @@ class Home(TemplateView):
     template_name = "front/home.html"
 
     def get_context_data(self, **kwargs):
-        context = super(Home, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         context["events_future"] = event_models.Event.objects.filter(
             start_date__gte=datetime.date.today()
         ).order_by("start_date", "start_time")
@@ -51,7 +48,7 @@ class User(LoginRequiredMixin, DetailView):
     template_name = "front/user_detail.html"
 
     def get_context_data(self, **kwargs):
-        context = super(User, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         user = self.get_object()
         context["lecturerratings"] = (
             user.LecturerRating.values_list("lecturer").distinct().count()
@@ -66,7 +63,7 @@ class Stats(LoginRequiredMixin, TemplateView):
     template_name = "front/stats.html"
 
     def get_context_data(self, **kwargs):
-        context = super(Stats, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
 
         # Lecturers
         base_query = "SELECT lecturer_id AS id \

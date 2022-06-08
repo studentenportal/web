@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-from __future__ import absolute_import, division, print_function, unicode_literals
-
 import datetime
 import os
 import sys
@@ -15,7 +12,7 @@ true_values = ["1", "true", "y", "yes", 1, True]
 def require_env(name):
     value = env(name)
     if not value:
-        raise ImproperlyConfigured("Missing {} env variable".format(name))
+        raise ImproperlyConfigured(f"Missing {name} env variable")
     return value
 
 
@@ -133,7 +130,7 @@ COMPRESS_OFFLINE = not DEBUG
 COMPRESS_PRECOMPILERS = (
     (
         "text/scss",
-        "{} -mscss ".format(sys.executable)
+        f"{sys.executable} -mscss "
         + ' --load-path "apps/front/static/sass/compass/compass/stylesheets"'  # Legacy :(
         ' --load-path "apps/front/static/sass/compass/blueprint/stylesheets"'  # sory...
         " -C -o {outfile} {infile}",

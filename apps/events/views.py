@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-from __future__ import absolute_import, division, print_function, unicode_literals
-
 import datetime
 from urllib.parse import urlsplit, urlunsplit
 
@@ -33,7 +30,7 @@ class EventAdd(LoginRequiredMixin, CreateView):
         self.object = form.save(commit=False)
         self.object.author = self.request.user
         self.object.save()
-        return super(EventAdd, self).form_valid(form)
+        return super().form_valid(form)
 
     def get_success_url(self):
         messages.add_message(
@@ -49,7 +46,7 @@ class EventEdit(LoginRequiredMixin, UpdateView):
     form_class = forms.EventForm
 
     def dispatch(self, request, *args, **kwargs):
-        handler = super(EventEdit, self).dispatch(request, *args, **kwargs)
+        handler = super().dispatch(request, *args, **kwargs)
         # Only allow editing if current user is owner
         if self.object.author != request.user:
             return HttpResponseForbidden("Du darfst keine fremden Events editieren.")
@@ -63,7 +60,7 @@ class EventDelete(LoginRequiredMixin, DeleteView):
     model = models.Event
 
     def dispatch(self, request, *args, **kwargs):
-        handler = super(EventDelete, self).dispatch(request, *args, **kwargs)
+        handler = super().dispatch(request, *args, **kwargs)
         # Only allow deletion if current user is owner
         if self.object.author != request.user:
             return HttpResponseForbidden("Du darfst keine fremden Events löschen.")
@@ -83,7 +80,7 @@ class EventList(TemplateView):
 
     def get_context_data(self, **kwargs):
         model = models.Event
-        context = super(EventList, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         context["events_future"] = model.objects.filter(
             start_date__gte=datetime.date.today()
         ).order_by("start_date", "start_time")

@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-from __future__ import absolute_import, division, print_function, unicode_literals
-
 from base64 import b64decode
 
 import pytest
@@ -272,7 +269,7 @@ class DocumentListViewTest(TestCase):
             "documents:document_edit",
             args=(self.doc1.category.name.lower(), self.doc1.pk),
         )
-        self.assertNotContains(self.response, 'href="{}"'.format(url))
+        self.assertNotContains(self.response, f'href="{url}"')
 
     def testEditButtonLoggedIn(self):
         login_user(client=self.client)
@@ -285,15 +282,15 @@ class DocumentListViewTest(TestCase):
             args=(self.doc2.category.name.lower(), self.doc2.pk),
         )
         response = self.client.get(self.url)
-        self.assertContains(response, 'href="{}"'.format(url1))
-        self.assertNotContains(response, 'href="{}"'.format(url2))
+        self.assertContains(response, f'href="{url1}"')
+        self.assertNotContains(response, f'href="{url2}"')
 
     def testDeleteButtonLoggedOut(self):
         url = reverse(
             "documents:document_delete",
             args=(self.doc1.category.name.lower(), self.doc1.pk),
         )
-        self.assertNotContains(self.response, 'href="{}"'.format(url))
+        self.assertNotContains(self.response, f'href="{url}"')
 
     def testDeleteButtonLoggedIn(self):
         login_user(self.client)
@@ -306,8 +303,8 @@ class DocumentListViewTest(TestCase):
             args=(self.doc2.category.name.lower(), self.doc2.pk),
         )
         response = self.client.get(self.url)
-        self.assertContains(response, 'href="{}"'.format(url1))
-        self.assertNotContains(response, 'href="{}"'.format(url2))
+        self.assertContains(response, f'href="{url1}"')
+        self.assertNotContains(response, f'href="{url2}"')
 
     def testDownloadCount(self):
         doc = baker.make_recipe("apps.documents.document_summary", public=True)

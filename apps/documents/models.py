@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-from __future__ import absolute_import, division, print_function, unicode_literals
-
 import os
 from datetime import datetime
 
@@ -59,9 +56,7 @@ def document_file_name(instance, filename):
     ext = os.path.splitext(filename)[1]
     timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
     instance.original_filename = filename
-    return "/".join(
-        ["documents", slugify(instance.category.name), "{}{}".format(timestamp, ext)]
-    )
+    return "/".join(["documents", slugify(instance.category.name), f"{timestamp}{ext}"])
 
 
 class Document(models.Model):
@@ -71,7 +66,7 @@ class Document(models.Model):
 
     """
 
-    class DTypes(object):
+    class DTypes:
         """Enum-style document type class."""
 
         SUMMARY = 1
@@ -197,7 +192,7 @@ class Document(models.Model):
         """Override save method to automatically set change_date at creation."""
         if not self.change_date:
             self.change_date = datetime.now()
-        return super(Document, self).save(*args, **kwargs)
+        return super().save(*args, **kwargs)
 
     def __str__(self):
         return self.name

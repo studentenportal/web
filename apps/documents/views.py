@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-from __future__ import absolute_import, division, print_function, unicode_literals
-
 import datetime
 import logging
 import os
@@ -45,7 +42,7 @@ class DocumentcategoryList(TemplateView):
     template_name = "documents/documentcategory_list.html"
 
     def get_context_data(self, **kwargs):
-        context = super(DocumentcategoryList, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
 
         # Get all categories
         categories = list(
@@ -108,7 +105,7 @@ class DocumentcategoryAdd(LoginRequiredMixin, CreateView):
         return reverse("documents:documentcategory_list")
 
 
-class DocumentcategoryMixin(object):
+class DocumentcategoryMixin:
     """Mixin that adds the current documentcategory object to the context.
     Provide the category slug in kwargs['category']."""
 
@@ -116,10 +113,10 @@ class DocumentcategoryMixin(object):
         self.category = get_object_or_404(
             models.DocumentCategory, name__iexact=kwargs["category"]
         )
-        return super(DocumentcategoryMixin, self).dispatch(request, *args, **kwargs)
+        return super().dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
-        context = super(DocumentcategoryMixin, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         context["documentcategory"] = self.category
         return context
 
@@ -132,7 +129,7 @@ class DocumentList(DocumentcategoryMixin, ListView):
         return models.Document.objects.filter(category=self.category)
 
     def get_context_data(self, **kwargs):
-        context = super(DocumentList, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         if self.request.user.is_authenticated:
             ratings = models.DocumentRating.objects.filter(user=self.request.user)
             context["ratings"] = {r.document.pk: r.rating for r in ratings}
@@ -232,7 +229,7 @@ class DocumentThumbnail(View):
         if not doc.document.path.lower().endswith(".pdf"):
             return HttpResponseBadRequest("File has to be a PDF to create a thumbnail")
 
-        thumbnail_path = "{}.png".format(doc.document.path)
+        thumbnail_path = f"{doc.document.path}.png"
         if not os.path.exists(thumbnail_path):
             try:
                 self.generate_thumbnail(doc.document.path, thumbnail_path)
@@ -249,11 +246,11 @@ class DocumentThumbnail(View):
         )
 
 
-class DocumentAddEditMixin(object):
+class DocumentAddEditMixin:
     model = models.Document
 
     def get_context_data(self, **kwargs):
-        context = super(DocumentAddEditMixin, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         context["exam_dtype_id"] = models.Document.DTypes.EXAM
         return context
 
@@ -281,7 +278,7 @@ class DocumentAdd(
         self.object.uploader = self.request.user
         self.object.category = self.category
         self.object.save()
-        return super(DocumentAdd, self).form_valid(form)
+        return super().form_valid(form)
 
 
 class DocumentEdit(
@@ -292,7 +289,7 @@ class DocumentEdit(
     event_type = "document_edit"
 
     def dispatch(self, request, *args, **kwargs):
-        handler = super(DocumentEdit, self).dispatch(request, *args, **kwargs)
+        handler = super().dispatch(request, *args, **kwargs)
         # Only allow editing if current user is owner
         if self.object.uploader != request.user:
             return HttpResponseForbidden("Du darfst keine fremden Uploads editieren.")
@@ -317,7 +314,7 @@ class DocumentRate(LoginRequiredMixin, SingleObjectMixin, View):
 
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
-        return super(DocumentRate, self).dispatch(request, *args, **kwargs)
+        return super().dispatch(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
         """Create or update the document rating."""

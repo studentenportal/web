@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-from __future__ import absolute_import, division, print_function, unicode_literals
-
 from datetime import datetime
 
 from django import forms
@@ -31,7 +28,7 @@ class DocumentEditForm(forms.ModelForm):
         return document
 
     def clean(self):
-        cleaned_data = super(DocumentEditForm, self).clean()
+        cleaned_data = super().clean()
         public = cleaned_data.get("public")
         dtype = cleaned_data.get("dtype")
 
@@ -48,7 +45,7 @@ class DocumentEditForm(forms.ModelForm):
         """Override save method, set change_date to now only if pdf is actually updated."""
         if "document" in self.changed_data:
             self.instance.change_date = datetime.now()
-        return super(DocumentEditForm, self).save(*args, **kwargs)
+        return super().save(*args, **kwargs)
 
     class Meta:
         model = models.Document

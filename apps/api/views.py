@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-from __future__ import absolute_import, division, print_function, unicode_literals
-
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
 from django.http import HttpResponseBadRequest, JsonResponse
@@ -13,8 +10,7 @@ from rest_framework.views import APIView
 
 from apps.lecturers import models
 
-from . import permissions as custom_permissions
-from . import serializers
+from . import permissions as custom_permissions, serializers
 
 
 @api_view(("GET",))

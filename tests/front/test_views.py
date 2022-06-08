@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-from __future__ import absolute_import, division, print_function, unicode_literals
-
 import pytest
 from django.contrib.auth import get_user_model
 from django.core import mail
@@ -257,30 +254,22 @@ class UserViewTest(TestCase):
         category = self.doc1.category.name
         response = self.client.get(url)
         # Own document should be listed
-        self.assertContains(
-            response, 'property="dct:title">{}</h3>'.format(self.doc1.name)
-        )
+        self.assertContains(response, f'property="dct:title">{self.doc1.name}</h3>')
         # Foreign document should not be listed
-        self.assertNotContains(
-            response, 'property="dct:title">{}</h3>'.format(self.doc2.name)
-        )
+        self.assertNotContains(response, f'property="dct:title">{self.doc2.name}</h3>')
         # Category should be displayed
-        self.assertContains(response, "{}</span>".format(category))
+        self.assertContains(response, f"{category}</span>")
 
     def testOtherDocuments(self):
         url = reverse("user", args=(self.user2.pk, self.user2.username))
         category = self.doc2.category.name
         response = self.client.get(url)
         # Own document should be listed
-        self.assertContains(
-            response, 'property="dct:title">{}</h3>'.format(self.doc2.name)
-        )
+        self.assertContains(response, f'property="dct:title">{self.doc2.name}</h3>')
         # Foreign document should not be listed
-        self.assertNotContains(
-            response, 'property="dct:title">{}</h3>'.format(self.doc1.name)
-        )
+        self.assertNotContains(response, f'property="dct:title">{self.doc1.name}</h3>')
         # Category should be displayed
-        self.assertContains(response, "{}</span>".format(category))
+        self.assertContains(response, f"{category}</span>")
 
 
 class UserProfileViewTest(TestCase):

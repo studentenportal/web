@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-from __future__ import absolute_import, division, print_function, unicode_literals
-
 from django.contrib import messages
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Count
@@ -20,7 +17,7 @@ class Lecturer(LoginRequiredMixin, DetailView):
     context_object_name = "lecturer"
 
     def get_context_data(self, **kwargs):
-        context = super(Lecturer, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
 
         # Quotes / QuoteVotes
         context["quotes"] = helpers.extend_quotes_with_votes(
@@ -43,7 +40,7 @@ class LecturerList(LoginRequiredMixin, ListView):
     context_object_name = "lecturers"
 
     def get_context_data(self, **kwargs):
-        context = super(LecturerList, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         quotecounts = (
             models.Quote.objects.values_list("lecturer")
             .annotate(Count("pk"))
@@ -85,14 +82,14 @@ class QuoteAdd(LoginRequiredMixin, CreateView):
             self.lecturer = models.Lecturer.objects.get(pk=kwargs.get("pk"))
         except (ObjectDoesNotExist, ValueError):
             self.lecturer = None
-        return super(QuoteAdd, self).dispatch(request, *args, **kwargs)
+        return super().dispatch(request, *args, **kwargs)
 
     def get_form(self, form_class=form_class):
         """Add the pk as first argument to the form."""
         return form_class(self.kwargs.get("pk"), **self.get_form_kwargs())
 
     def get_context_data(self, **kwargs):
-        context = super(QuoteAdd, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         context["lecturer"] = self.lecturer
         return context
 
@@ -112,7 +109,7 @@ class QuoteAdd(LoginRequiredMixin, CreateView):
                 quote=self.object,
                 vote=True,
             )
-        return super(QuoteAdd, self).form_valid(form)
+        return super().form_valid(form)
 
     def get_success_url(self):
         """Redirect to quotes or lecturer page."""
@@ -129,7 +126,7 @@ class QuoteDelete(LoginRequiredMixin, DeleteView):
     model = models.Quote
 
     def dispatch(self, request, *args, **kwargs):
-        handler = super(QuoteDelete, self).dispatch(request, *args, **kwargs)
+        handler = super().dispatch(request, *args, **kwargs)
         # Only allow deletion if current user is owner
         if self.object.author != request.user:
             return HttpResponseForbidden("Du darfst keine fremden Quotes löschen.")

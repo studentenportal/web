@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from django.db import models
 
 
@@ -9,7 +8,7 @@ class RealLecturerManager(models.Manager):
         function_excludes = ["Projektmitarbeiter", "Projektmitarbeiterin"]
         department_excludes = ["Gebäudemanagement"]
         return (
-            super(RealLecturerManager, self)
+            super()
             .get_queryset()
             .exclude(function__in=function_excludes)
             .exclude(department__in=department_excludes)
