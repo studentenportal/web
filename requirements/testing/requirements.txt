@@ -6,4 +6,3 @@ pytest==7.1.2
 pytest-django==4.5.2
 pytest-pep8==1.0.6
 pytest-cov==3.0.0
-pytest-pythonpath==0.7.3
