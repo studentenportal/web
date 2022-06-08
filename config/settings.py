@@ -180,7 +180,7 @@ MAX_UPLOAD_SIZE = 1024 * 1024 * 20  # 20MB
 
 AUTH_USER_MODEL = "front.User"
 
-DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 
 INSTALLED_APPS = (
     # Builtin apps
