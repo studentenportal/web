@@ -125,7 +125,7 @@ COMPRESS_FILTERS = {
     ],
     "js": [
         "compressor.filters.jsmin.JSMinFilter",
-    ]
+    ],
 }
 
 COMPRESS_OFFLINE = not DEBUG
