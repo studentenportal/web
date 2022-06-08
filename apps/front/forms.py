@@ -36,7 +36,7 @@ class HsrRegistrationForm(RegistrationForm):
     def clean_email(self):
         email = self.cleaned_data["email"]
 
-        # Only allow HSR e-mails
+        # Only allow HSR/OST e-mails
         email_domain = email.split("@")[1]
         if email_domain not in USERNAME_REGEXES:
             raise forms.ValidationError(

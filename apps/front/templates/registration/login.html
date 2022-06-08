@@ -16,7 +16,7 @@
         <h1>Login</h1>
     </header>
 
-    <p>Hinweis: Dein Benutzername ist der Teil vor dem "@" deiner HSR-Emailadresse.</p>
+    <p>Hinweis: Dein Benutzername ist der Teil vor dem "@" deiner OST-Emailadresse.</p>
 
     {% if request.GET.next %}
         <br><div class="alert-error"><strong>Bitte einloggen!</strong>
@@ -31,7 +31,7 @@
             Fehlerhafte Angaben. Bitte versuch es nochmals.
             <br><br>
             <strong>Hinweis:</strong> Da das Studentenportal unabhängig von der
-            HSR ist, kann hier nicht das HSR-Login direkt verwendet werden.
+            OST ist, kann hier nicht das OST-Login direkt verwendet werden.
             Stattdessen muss ein separater Account <a href="{% url 'registration_register' %}">erstellt werden</a>.
         </div>
 

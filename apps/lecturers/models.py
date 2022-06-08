@@ -16,7 +16,7 @@ def lecturer_directory_path(instance, filename):
 
 
 class Lecturer(models.Model):
-    """A lecturer at HSR.
+    """A lecturer at OST.
 
     If there is a photo of that lecturer, it should go into the media folder
     and the filename should be <abbreviation>.jpg.
