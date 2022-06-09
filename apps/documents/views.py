@@ -307,6 +307,13 @@ class DocumentDelete(LoginRequiredMixin, DocumentcategoryMixin, DeleteView):
         messages.add_message(self.request, EVENT, "document_delete")
         return reverse("documents:document_list", args=[self.category])
 
+    def dispatch(self, request, *args, **kwargs):
+        handler = super().dispatch(request, *args, **kwargs)
+        # Only allow deleting if current user is owner
+        if self.object.uploader != request.user:
+            return HttpResponseForbidden("Du darfst keine fremden Uploads löschen.")
+        return handler
+
 
 class DocumentRate(LoginRequiredMixin, SingleObjectMixin, View):
     model = models.Document
