@@ -56,6 +56,8 @@ class User(LoginRequiredMixin, DetailView):
         if self.request.user.is_authenticated:
             ratings = document_models.DocumentRating.objects.filter(user=user)
             context["ratings"] = {r.document.pk: r.rating for r in ratings}
+        # the logged in user, not the viewed one, accessed as "object"
+        context["user"] = self.request.user
         return context
 
 
