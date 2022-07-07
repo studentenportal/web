@@ -63,6 +63,7 @@ jobs:
           export RELEASE=$(git describe --tags)
           if [ -z "$RELEASE" ]; then echo "Could not determine release name"; exit 1; fi
           echo "export DOCKER_TAGS='studentenportal/web:latest studentenportal/web:${RELEASE}'" >> .ci-env
+          echo "export DOCKER_TAGS_NGINX='studentenportal/nginx:latest studentenportal/nginx:${RELEASE}'" >> .ci-env
       - name: Build Docker image
         run: source .ci-env && bash deploy/production/ci-build.sh
       - name: Publish Docker image
