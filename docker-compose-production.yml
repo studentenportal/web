@@ -5,7 +5,7 @@ services:
 
 # nginx - reverse proxy
   nginx:
-    image: studentenportal-nginx
+    image: studentenportal/nginx:latest
 
     build:
       context: .
