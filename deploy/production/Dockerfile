@@ -2,7 +2,7 @@
 #  of the studentenportal.
 # Images have the same versioning as the studentenportal itself,
 #  and are uploaded to dockerhub.
-FROM studentenportal/base:3.7-0
+FROM studentenportal/base:3.9-0
 ARG UID=1001
 ARG GID=1001
 

@@ -1,6 +1,6 @@
 # This file create a "studentenportal" image for the dev environment.
 # Additional packages for dev are added here.
-FROM studentenportal/base:3.7-0
+FROM studentenportal/base:3.9-0
 ARG UID=1000
 ARG GID=1000
 
