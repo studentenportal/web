@@ -1,6 +1,8 @@
-FROM nginx:1.17
+# Latest stable in August 2022
+# https://hub.docker.com/_/nginx/
+FROM nginx:1.22
 
-ARG DEHYDRATED_VERSION=v0.6.5
+ARG DEHYDRATED_VERSION=v0.7.0
 
 RUN apt-get update && apt-get install -y apt-utils
 
