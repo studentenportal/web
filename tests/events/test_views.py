@@ -87,7 +87,7 @@ class EventDetailViewTest(TestCase):
             start_time=datetime.time(hour=19, minute=30),
             end_time=datetime.time(hour=23, minute=59),
             location="Gebäude 13",
-            url="http://hsr.ch/",
+            url="https://ost.ch/",
         )
 
     def tearDown(self):
@@ -112,7 +112,7 @@ class EventDetailViewTest(TestCase):
         self.assertContains(response, "<strong>Ort:</strong>")
         self.assertContains(response, "Gebäude 13")
         self.assertContains(response, "<strong>Website:</strong>")
-        self.assertContains(response, "http://hsr.ch/")
+        self.assertContains(response, "https://ost.ch/")
 
 
 @pytest.mark.django_db(transaction=True)

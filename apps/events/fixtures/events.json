@@ -16,7 +16,7 @@
     "pk": 2, 
     "model": "events.event", 
     "fields": {
-      "description": "Der erste Tag der neuen.HSR Studenten.\r\n\r\nSiehe http://hsr.ch/", 
+      "description": "Der erste Tag der neuen OST Studenten.\r\n\r\nSiehe https://ost.ch/", 
       "end_date": null, 
       "author": 2, 
       "start_time": "10:00:00", 

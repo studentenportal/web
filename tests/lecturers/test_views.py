@@ -54,7 +54,7 @@ class LecturerDetailViewTest(TestCase):
         login(self)
         response = self.client.get(self.url)
         self.assertContains(response, "1.337")
-        self.assertContains(response, "krakaduku@hsr.ch")
+        self.assertContains(response, "kraka.duku@ost.ch")
 
 
 @pytest.mark.django_db

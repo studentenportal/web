@@ -9,7 +9,7 @@ lecturer = Recipe(
     first_name="David",
     last_name="Krakaduku",
     abbreviation="KRA",
-    email="krakaduku@hsr.ch",
+    email="kraka.duku@ost.ch",
     office="1.337",
     subjects="Quantenphysik, Mathematik für Mathematiker",
 )

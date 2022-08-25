@@ -4,10 +4,7 @@ from django import forms
 from django.contrib.auth import get_user_model
 from registration.forms import RegistrationForm
 
-USERNAME_REGEXES = {
-    "hsr.ch": re.compile(r"^[a-zA-Z0-9-_]+$"),
-    "ost.ch": re.compile(r"^[a-zA-Z0-9-_.]+$"),
-}
+USERNAME_REGEX = re.compile(r"^[a-zA-Z0-9-_.]+$")
 
 
 class ProfileForm(forms.ModelForm):
@@ -36,11 +33,11 @@ class HsrRegistrationForm(RegistrationForm):
     def clean_email(self):
         email = self.cleaned_data["email"]
 
-        # Only allow HSR/OST e-mails
+        # Only allow OST e-mails
         email_domain = email.split("@")[1]
-        if email_domain not in USERNAME_REGEXES:
+        if email_domain != "ost.ch":
             raise forms.ValidationError(
-                "Registrierung ist Studierenden mit einer @ost.ch oder @hsr.ch-Mailadresse vorbehalten."
+                "Registrierung ist Studierenden mit einer @ost.ch-Mailadresse vorbehalten."
             )
 
         User = get_user_model()
@@ -51,17 +48,13 @@ class HsrRegistrationForm(RegistrationForm):
 
         # Extract username from e-mail
         email_user = email.split("@")[0]
-        username_re = USERNAME_REGEXES[email_domain]
 
         # Ensure that the username part is valid
-        if not username_re.match(email_user):
-            msg = "Ungültige E-Mail, Benutzername darf nur a-z, A-Z, 0-9, - und _ enthalten."
-            if "." in email_user and email_domain == "hsr.ch":
-                msg += " Nutze bitte mmuster@hsr.ch statt melanie.muster@hsr.ch."
-
+        if not USERNAME_REGEX.match(email_user):
+            msg = "Ungültige E-Mail, Benutzername darf nur a-z, A-Z, 0-9, -, _ und . enthalten."
             raise forms.ValidationError(msg)
 
-        if email_domain == "ost.ch" and "." not in email_user:
+        if "." not in email_user:
             msg = "Ungültige E-Mail, Benutzername sollte . enthalten."
             raise forms.ValidationError(msg)
 

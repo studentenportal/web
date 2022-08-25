@@ -65,39 +65,40 @@ def test_registration(client):
     response = client.post(
         registration_url,
         {
-            "email": "testuser@hsr.ch",
+            "email": "test.user@ost.ch",
             "password1": "testpass",
             "password2": "testpass",
         },
     )
     assertRedirects(response, "/accounts/register/complete/")
-    assert User.objects.filter(username="testuser").exists()
+    assert User.objects.filter(username="test.user").exists()
 
     transaction.commit()
     assert len(mail.outbox) == 1
     assert mail.outbox[0].subject == "[studentenportal.ch] Aktivierung"
 
 
-class RegistrationViewTest(TestCase):
+class RegistrationViewTest:
+
     registration_url = "/accounts/register/"
 
     def testRegistrationPage(self):
-        response = self.client.get(self.registration_url)
+        response = client.get(self.registration_url)
         self.assertContains(response, "<h1>Registrieren</h1>")
         self.assertContains(
             response,
-            "Diese Registrierung ist Studenten mit einer HSR- oder OST-Email-Adresse",
+            "Diese Registrierung ist Studenten mit einer OST-Email-Adresse",
         )
         self.assertContains(response, "<form")
 
-    def testRegistrationBadUsername(self):
+    def testRegistrationBadUsername(self, client):
         """
         Test that a registration with a bad username returns an error.
         """
-        response = self.client.post(
+        response = client.post(
             self.registration_url,
             {
-                "email": "a+++@hsr.ch",
+                "email": "a.+++@ost.ch",
                 "password1": "testpass",
                 "password2": "testpass",
             },
@@ -105,30 +106,12 @@ class RegistrationViewTest(TestCase):
         assert response.status_code == 200
         content = response.content.decode("utf8")
         assert "Ungültige E-Mail" in content
-        assert "Nutze bitte" not in content
 
-    def testRegistrationLongUsernameHsr(self):
-        """
-        Test that a registration with a long username returns an error.
-        """
-        response = self.client.post(
-            self.registration_url,
-            {
-                "email": "foo.bar@hsr.ch",
-                "password1": "testpass",
-                "password2": "testpass",
-            },
-        )
-        assert response.status_code == 200
-        content = response.content.decode("utf8")
-        assert "Ungültige E-Mail" in content
-        assert "Nutze bitte" in content
-
-    def testRegistrationLongUsernameOst(self):
+    def testRegistrationLongUsernameOst(self, client):
         """
         Test that a registration with a long OST username works.
         """
-        response = self.client.post(
+        response = client.post(
             self.registration_url,
             {
                 "email": "foo.bar@ost.ch",
@@ -138,11 +121,11 @@ class RegistrationViewTest(TestCase):
         )
         assert response.status_code == 302
 
-    def testRegistrationShortUsernameOst(self):
+    def testRegistrationShortUsernameOst(self, client):
         """
         Test that a registration with a short OST username fails.
         """
-        response = self.client.post(
+        response = client.post(
             self.registration_url,
             {
                 "email": "foobar@ost.ch",
@@ -154,51 +137,52 @@ class RegistrationViewTest(TestCase):
         content = response.content.decode("utf8")
         assert "Ungültige E-Mail" in content
 
-    def testRegistrationBadDomain(self):
+    @pytest.mark.parametrize("domain", ["zhaw.ch", "hsr.ch"])
+    def testRegistrationBadDomain(self, client, domain):
         """
-        Test that a registration with a non-hsr.ch Domain return an error.
+        Test that a registration with a non-ost.ch Domain return an error.
         """
-        response = self.client.post(
+        response = client.post(
             self.registration_url,
             {
-                "email": "ameier@zhaw.ch",
+                "email": f"a.meier@{domain}",
                 "password1": "testpass",
                 "password2": "testpass",
             },
         )
         assert response.status_code == 200
         assert (
-            "Registrierung ist Studierenden mit einer @ost.ch oder @hsr.ch-Mailadresse vorbehalten"
+            "Registrierung ist Studierenden mit einer @ost.ch-Mailadresse vorbehalten"
             in response.content.decode("utf8")
         )
 
-    def testRegistrationDoubleUsername(self):
+    def testRegistrationDoubleUsername(self, client):
         """
-        Test that a registration with a bad username returns an error.
+        Test that a registration with a duplicate username returns an error.
         """
-        baker.make(User, username="a", email="abc@hsr.ch")
-        response = self.client.post(
+        baker.make(User, username="a.b", email="a.b@ost.ch")
+        response = client.post(
             self.registration_url,
             {
-                "email": "a@hsr.ch",
+                "email": "a.b@ost.ch",
                 "password1": "testpass",
                 "password2": "testpass",
             },
         )
         assert response.status_code == 200
-        assert "Benutzer &quot;a&quot; existiert bereits" in response.content.decode(
+        assert "Benutzer &quot;a.b&quot; existiert bereits" in response.content.decode(
             "utf8"
         )
 
-    def testRegistrationDoubleEmail(self):
+    def testRegistrationDoubleEmail(self, client):
         """
-        Test that a registration with a bad username returns an error.
+        Test that a registration with a duplicate email returns an error.
         """
-        baker.make(User, username="abc", email="a@hsr.ch")
-        response = self.client.post(
+        baker.make(User, username="abc", email="a.b.c@ost.ch")
+        response = client.post(
             self.registration_url,
             {
-                "email": "a@hsr.ch",
+                "email": "a.b.c@ost.ch",
                 "password1": "testpass",
                 "password2": "testpass",
             },

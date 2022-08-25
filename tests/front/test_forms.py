@@ -3,29 +3,15 @@ import pytest
 from apps.front import forms
 
 
-class TestUsernameRegex:
-    @pytest.mark.parametrize(
-        "username, valid",
-        [
-            ("mmueller", True),
-            ("m_mueller", True),
-            ("m-mueller", True),
-            ("m2mueller", True),
-            ("a+++", False),
-        ],
-    )
-    @pytest.mark.parametrize("domain", ["hsr.ch", "ost.ch"])
-    def test_common(self, domain, username, valid):
-        username_re = forms.USERNAME_REGEXES[domain]
-        assert bool(username_re.match(username)) == valid
-
-    @pytest.mark.parametrize(
-        "domain, dots_allowed",
-        [
-            ("hsr.ch", False),
-            ("ost.ch", True),
-        ],
-    )
-    def test_dots(self, domain, dots_allowed):
-        username_re = forms.USERNAME_REGEXES[domain]
-        assert bool(username_re.match("melanie.mueller")) == dots_allowed
+@pytest.mark.parametrize(
+    "username, valid",
+    [
+        ("m.mueller", True),
+        ("m.muel_ler", True),
+        ("m.muel-ler", True),
+        ("m.2mueller", True),
+        ("a.+++", False),
+    ],
+)
+def test_username_regex(username, valid):
+    assert bool(forms.USERNAME_REGEX.match(username)) == valid
