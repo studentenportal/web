@@ -1,4 +1,4 @@
-model-bakery==1.4.0
+model-bakery==1.7.0
 
 coverage==6.4.2
 pytest==7.1.2
