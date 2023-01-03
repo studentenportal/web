@@ -1,6 +1,6 @@
 model-bakery==1.9.0
 
-coverage==6.5.0
+coverage==7.0.1
 pytest==7.2.0
 pytest-django==4.5.2
 pytest-pep8==1.0.6
