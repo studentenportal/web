@@ -2,9 +2,8 @@
 source =
     apps
 omit =
-    */migrations/*
-    */tests/*
-    */management/commands/*
+    apps/*/migrations/*
+    apps/*/management/commands/*
 relative_files = True
 
 [report]
