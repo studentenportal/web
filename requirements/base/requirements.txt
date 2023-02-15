@@ -14,7 +14,7 @@ easy-thumbnails==2.8.4
 pyScss==1.4.0
 
 # Parsing
-beautifulsoup4==4.11.1
+beautifulsoup4==4.11.2
 
 # Calendar
 vobject==0.9.6.1
