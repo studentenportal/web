@@ -7,7 +7,6 @@ import apps.front.models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("front", "0005_remove_user_twitter"),
     ]

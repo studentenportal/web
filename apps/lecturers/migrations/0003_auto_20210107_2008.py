@@ -6,7 +6,6 @@ import apps.lecturers.models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("lecturers", "0002_auto_20201130_1115"),
     ]

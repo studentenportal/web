@@ -79,7 +79,6 @@ def test_registration(client):
 
 
 class RegistrationViewTest:
-
     registration_url = "/accounts/register/"
 
     def testRegistrationPage(self):

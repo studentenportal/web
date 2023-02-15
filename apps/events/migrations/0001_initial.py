@@ -4,7 +4,6 @@ import apps.events.models
 
 
 class Migration(migrations.Migration):
-
     operations = [
         migrations.CreateModel(
             name="Event",
