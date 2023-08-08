@@ -46,11 +46,7 @@ SITE_ID = 1
 # Security
 CSRF_COOKIE_HTTPONLY = True
 if not DEBUG:
-    ALLOWED_HOSTS = [
-        "studentenportal.ch",
-        "www.studentenportal.ch",
-        "studentenportal.cmpl.cc",
-    ]
+    ALLOWED_HOSTS = ["studentenportal.ch", "www.studentenportal.ch"]
     CSRF_COOKIE_SECURE = True
     CSRF_COOKIE_SAMESITE = "Strict"
     SESSION_COOKIE_SECURE = True
