@@ -1,6 +1,6 @@
 # Base system
 Django==3.2.19
-psycopg2==2.9.6
+psycopg2==2.9.7
 python-dateutil==2.8.2
 
 # Useful/important apps
