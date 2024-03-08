@@ -61,7 +61,7 @@
                 <p class="comment">{{ quote.comment|linebreaksbr }}</p>
                 {% endif %}
                 <div class="citation">
-                    von <a href="{% url 'lecturers:lecturer_detail' quote.lecturer_id %}">{{ quote.lecturer.name }}</a>{% if quote.date_available %} - {{ quote.date|date:"d. M.Y" }}{% endif %}
+                    von <a href="{% url 'lecturers:lecturer_detail' quote.lecturer_id %}">{{ quote.lecturer.name }}</a>{% if quote.date_available %} - {{ quote.date|date:"d. M. Y" }}{% endif %}
                 </div>
             </div>
             {% if quote.lecturer.photo %}
