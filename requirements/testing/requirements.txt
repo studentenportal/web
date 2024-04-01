@@ -4,4 +4,4 @@ coverage==7.4.0
 pytest==7.4.0
 pytest-django==4.5.2
 pytest-pep8==1.0.6
-pytest-cov==4.1.0
+pytest-cov==5.0.0
