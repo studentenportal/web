@@ -47,6 +47,7 @@ SITE_ID = 1
 CSRF_COOKIE_HTTPONLY = True
 if not DEBUG:
     ALLOWED_HOSTS = ["studentenportal.ch", "www.studentenportal.ch"]
+    CSRF_TRUSTED_ORIGINS = ALLOWED_HOSTS
     CSRF_COOKIE_SECURE = True
     CSRF_COOKIE_SAMESITE = "Strict"
     SESSION_COOKIE_SECURE = True
