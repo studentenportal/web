@@ -61,6 +61,8 @@ USE_I18N = True
 
 # migration to 5.0
 USE_TZ = False
+# migration to 6.0
+FORMS_URLFIELD_ASSUME_HTTPS = True
 
 DATABASES = {
     "default": {

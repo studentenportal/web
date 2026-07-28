@@ -220,7 +220,9 @@ class DocumentThumbnail(View):
         :returns Tuple with whether operation was successful and message from stdout
         """
         params = ["-thumbnail", "400", document_path + "[0]", "-trim", thumbnail_path]
-        proc = subprocess.check_output(["convert"] + params, stderr=subprocess.STDOUT)
+        proc = subprocess.check_output(
+            ["gm", "convert"] + params, stderr=subprocess.STDOUT
+        )
 
     def get(self, request, *args, **kwargs):
         doc = get_object_or_404(models.Document, pk=self.kwargs.get("pk"))

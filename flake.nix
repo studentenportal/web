@@ -47,7 +47,8 @@
           programs = {
             # python
             black.enable = true;
-            isort.enable = true;
+            # FIXME:
+            # isort.enable = true;
             # docker
             dockerfmt.enable = true;
             # yaml
@@ -66,6 +67,7 @@
       devShells = eachSystem (
         pkgs:
         let
+          # TODO: clean this up / make this work properly
           python = pkgs.python3;
           project = pyproject-nix.lib.project.loadRequirementsTxt {
             projectRoot = ./.;
