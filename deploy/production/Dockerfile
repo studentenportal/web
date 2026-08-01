@@ -4,7 +4,7 @@
 #  and are uploaded to dockerhub.
 
 ### builder ###
-FROM python:3.10 AS builder
+FROM python:3.14 AS builder
 
 RUN apt-get update && apt-get -y install \
     build-essential gcc g++ \
@@ -20,7 +20,7 @@ RUN python3 -m pip --quiet install --prefix=/install \
     -r /tmp/requirements/production/requirements.txt
 
 ### runtime ###
-FROM python:3.10-slim
+FROM python:3.14-slim
 
 RUN apt-get update && apt-get -y install --no-install-recommends \
     libpq5 libjpeg-progs graphicsmagick curl \
