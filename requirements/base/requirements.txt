@@ -1,5 +1,5 @@
 # Base system
-Django==5.0
+Django==6.0.7
 psycopg2==2.9.12
 python-dateutil==2.9.0
 
