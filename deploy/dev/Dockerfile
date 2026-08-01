@@ -2,7 +2,7 @@
 # Additional packages for dev are added here.
 
 ### builder ###
-FROM python:3.10 AS builder
+FROM python:3.14 AS builder
 
 RUN apt-get update && apt-get -y install \
     build-essential gcc g++ \
@@ -20,7 +20,7 @@ RUN python3 -m pip --quiet install --prefix=/install \
     -r /tmp/requirements/testing/requirements.txt
 
 ### runtime ###
-FROM python:3.10
+FROM python:3.14
 
 RUN apt-get update && apt-get -y install --no-install-recommends \
     libpq5 postgresql-client \
