@@ -1,13 +1,28 @@
+import re
+from datetime import timedelta
+
 import pytest
 from django.contrib.auth import get_user_model
 from django.core import mail
 from django.db import transaction
 from django.test import TestCase
 from django.urls import reverse
+from django.utils import timezone
 from model_bakery import baker
 from pytest_django.asserts import assertRedirects
+from registration.models import RegistrationProfile
 
 User = get_user_model()
+
+
+def make_inactive_user_profile(email, expired_days=0):
+    """Creates an inactive user with a RegistrationProfile and returns both."""
+    user = baker.make(User, username=email.split("@")[0], email=email, is_active=False)
+    if expired_days:
+        user.date_joined = timezone.now() - timedelta(days=expired_days)
+        user.save()
+    profile = RegistrationProfile.objects.create_profile(user)
+    return user, profile
 
 
 def login(self):
@@ -191,6 +206,96 @@ class RegistrationViewTest:
             "Benutzer mit dieser E-Mail existiert bereits."
             in response.content.decode("utf8")
         )
+
+
+class TestResendActivation:
+    url = "/accounts/resend-activation/"
+
+    @pytest.mark.django_db
+    def testSetsNewKey(self, client):
+        """Resending must store a new activation key and mail its URL."""
+        user, profile = make_inactive_user_profile("a.b@ost.ch")
+        old_key = profile.activation_key
+
+        response = client.post(self.url, {"email": "a.b@ost.ch"})
+        assertRedirects(response, "/accounts/resend-activation/complete/")
+
+        profile.refresh_from_db()
+        assert profile.activation_key != old_key
+        assert f"/accounts/activate/{profile.activation_key}" in mail.outbox[-1].body
+
+    @pytest.mark.django_db
+    def testExpiredProfileLinkActivates(self, client):
+        """
+        Resending for an expired profile must produce a working activation
+        link. Without a fresh activation window, the new key is expired as
+        soon as it is created (expiry is anchored on user.date_joined).
+        """
+        user, profile = make_inactive_user_profile("a.b@ost.ch", expired_days=30)
+
+        response = client.post(self.url, {"email": "a.b@ost.ch"})
+        assertRedirects(response, "/accounts/resend-activation/complete/")
+
+        match = re.search(r"accounts/activate/([\w-]+)", mail.outbox[-1].body)
+        assert match is not None
+
+        response = client.get(f"/accounts/activate/{match.group(1)}/")
+        assertRedirects(response, "/accounts/activate/complete/")
+
+        user.refresh_from_db()
+        profile.refresh_from_db()
+        assert user.is_active
+        assert profile.activated
+
+    @pytest.mark.django_db
+    def testExpiredResendResetsDateJoined(self, client):
+        """An expired resend gets a fresh activation window."""
+        user, _ = make_inactive_user_profile("a.b@ost.ch", expired_days=30)
+        client.post(self.url, {"email": "a.b@ost.ch"})
+        user.refresh_from_db()
+        assert timezone.now() - user.date_joined < timedelta(days=1)
+
+    @pytest.mark.django_db
+    def testFreshProfileKeepsDateJoined(self, client):
+        """A not-yet-expired profile keeps its original sign-up date."""
+        user, _ = make_inactive_user_profile("a.b@ost.ch")
+        before = user.date_joined
+        client.post(self.url, {"email": "a.b@ost.ch"})
+        user.refresh_from_db()
+        assert user.date_joined == before
+
+    @pytest.mark.django_db
+    def testUnknownEmail(self, client):
+        """Unknown e-mails are handled the same as known ones."""
+        response = client.post(self.url, {"email": "nobody@ost.ch"})
+        assertRedirects(response, "/accounts/resend-activation/complete/")
+        assert len(mail.outbox) == 0
+
+    @pytest.mark.django_db
+    def testAlreadyActivated(self, client):
+        """No new key or mail for already activated accounts."""
+        user, profile = make_inactive_user_profile("a.b@ost.ch")
+        profile.activated = True
+        profile.save()
+        old_key = profile.activation_key
+
+        response = client.post(self.url, {"email": "a.b@ost.ch"})
+        assertRedirects(response, "/accounts/resend-activation/complete/")
+        assert len(mail.outbox) == 0
+
+        profile.refresh_from_db()
+        assert profile.activation_key == old_key
+
+    @pytest.mark.django_db
+    def testDuplicateEmailDoesNotError(self, client):
+        """Two users with the same e-mail must not crash the form."""
+        make_inactive_user_profile("a.b@ost.ch")
+        user2 = baker.make(User, username="a.b.2", email="a.b@ost.ch", is_active=False)
+        RegistrationProfile.objects.create_profile(user2)
+
+        response = client.post(self.url, {"email": "a.b@ost.ch"})
+        assertRedirects(response, "/accounts/resend-activation/complete/")
+        assert len(mail.outbox) == 0
 
 
 class UserViewTest(TestCase):
