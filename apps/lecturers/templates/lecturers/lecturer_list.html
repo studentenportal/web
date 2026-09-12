@@ -12,17 +12,9 @@
     {{ block.super }}
     {% compress js %}
         <script src="{{ STATIC_URL }}js/blazy.js"></script>
-        <script src="{{ STATIC_URL }}js/list.js"></script>
         <script>
             (function() {
-                var bLazy = new Blazy();
-                var moduleList = new List('lecturers', {
-                    valueNames: ['name'],
-                    page: 9001
-                });
-                moduleList.on("searchComplete", function() {
-                    bLazy.revalidate();
-                });
+                new Blazy();
             })();
         </script>
     {% endcompress %}
@@ -61,13 +53,13 @@
         </a></p>
     {% endif %}
 
+    {% include 'front/blocks/pagination.html' %}
+
     <div id="lecturers">
-        <form action="#" class="search-box">
-            <input class="search" type="text" placeholder="Dozent suchen..." />
+        <form action="{% url 'lecturers:lecturer_list' %}" method="get" class="search-box">
+            <input class="search" type="text" name="q" value="{{ request.GET.q }}" placeholder="Dozent suchen..." />
             <button type="submit"><span class="icon-magnifying-glass"></span></button>
         </form>
-
-        {# TODO: pagination #}
 
         <div class="list">
             {% for lecturer in lecturers %}
@@ -89,6 +81,8 @@
             {% endfor %}
         </div>
     </div>
+
+    {% include 'front/blocks/pagination.html' %}
 
     {% if not lecturers %}
         <p><em>Keine passenden Dozenten gefunden.</em></p>

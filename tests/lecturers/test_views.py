@@ -26,6 +26,46 @@ class LecturerListViewTest(TestCase):
         self.assertContains(response, "<h1>Unsere Dozenten</h1>")
         self.assertContains(response, "David<br />Krakaduku")
 
+    def testSearch(self):
+        """Search must filter over all lecturers, not only the current page."""
+        baker.make_recipe("apps.front.user")
+        baker.make_recipe("apps.lecturers.lecturer")
+        baker.make(models.Lecturer, first_name="Albert", last_name="Einstein")
+        login(self)
+
+        response = self.client.get("/dozenten/", {"q": "krakaduku"})
+        self.assertContains(response, "David<br />Krakaduku")
+        self.assertNotContains(response, "Einstein")
+
+        response = self.client.get("/dozenten/", {"q": "einstein"})
+        self.assertContains(response, "Albert<br />Einstein")
+        self.assertNotContains(response, "Krakaduku")
+
+    def testSearchNoResults(self):
+        baker.make_recipe("apps.front.user")
+        baker.make_recipe("apps.lecturers.lecturer")
+        login(self)
+        response = self.client.get("/dozenten/", {"q": "doesnotexist"})
+        self.assertContains(response, "Keine passenden Dozenten gefunden.")
+
+    def testPagination(self):
+        baker.make_recipe("apps.front.user")
+        for i in range(55):
+            baker.make(models.Lecturer, abbreviation="b%03d" % i)
+        login(self)
+        response = self.client.get("/dozenten/")
+        self.assertContains(response, 'class="pagination"')
+        self.assertContains(response, "?page=2")
+
+    def testPaginationKeepsSearchQuery(self):
+        baker.make_recipe("apps.front.user")
+        for i in range(55):
+            baker.make(models.Lecturer, last_name="Smith", abbreviation="s%03d" % i)
+        login(self)
+        response = self.client.get("/dozenten/", {"q": "smith"})
+        self.assertContains(response, 'class="pagination"')
+        self.assertContains(response, "?q=smith&amp;page=2")
+
 
 class LecturerDetailViewTest(TestCase):
     def setUp(self):

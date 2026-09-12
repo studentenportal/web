@@ -70,3 +70,12 @@ def pagination_slice(page_range, page_number):
         return page_range[page_number - 2 : page_number + 1]
     else:
         return page_range[0:3]
+
+
+@register.simple_tag
+def page_query(request, page):
+    """Build a relative query string for the given page, keeping any other
+    current GET parameters (e.g. a search query) intact."""
+    params = request.GET.copy()
+    params["page"] = str(page)
+    return "?%s" % params.urlencode()
