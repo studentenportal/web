@@ -1,6 +1,6 @@
 from django.contrib import messages
 from django.core.exceptions import ObjectDoesNotExist
-from django.db.models import Count
+from django.db.models import Count, Q
 from django.urls import reverse
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, DeleteView
@@ -43,8 +43,17 @@ class Lecturer(LoginRequiredMixin, DetailView):
 
 
 class LecturerList(LoginRequiredMixin, ListView):
-    queryset = models.Lecturer.real_objects.all()
+    paginate_by = 50
     context_object_name = "lecturers"
+
+    def get_queryset(self):
+        queryset = models.Lecturer.real_objects.all()
+        query = self.request.GET.get("q", "").strip()
+        if query:
+            queryset = queryset.filter(
+                Q(first_name__icontains=query) | Q(last_name__icontains=query)
+            )
+        return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
