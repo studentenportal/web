@@ -7,7 +7,7 @@
 FROM python:3.10 AS builder
 
 RUN apt-get update && apt-get -y install \
-    build-essential gcc g++ \
+    build-essential gcc g++ procps less vim \
     python3-dev python3-setuptools python3-pip \
     libjpeg-progs graphicsmagick \
     libpq-dev ruby ruby-dev \

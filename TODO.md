@@ -48,6 +48,7 @@
   - [x] fix Django deprecation warnings (FORMS_URLFIELD_ASSUME_HTTPS, index_together in DocumentDownload)
   - [ ] update pg to 18/newest
   - [ ] fix Django deprecation warnings (FORMS_URLFIELD_ASSUME_HTTPS, index_together in DocumentDownload)
+  - [ ] nginx docker image update
 - [x] docker image
   - [x] update python:3.10 (+ remove unnecessary deps?)
   - [x] remove base image completely from web
