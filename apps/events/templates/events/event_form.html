@@ -20,6 +20,36 @@
         <link rel="stylesheet" href="{{ STATIC_URL }}css/picker/default.date.css">
         <link rel="stylesheet" href="{{ STATIC_URL }}css/picker/default.time.css">
     {% endcompress %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/easymde@2.18.0/dist/easymde.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        .editor-toolbar button:not(.button) {
+            all: unset;
+            color: #000;
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+        .editor-toolbar button:not(.button):hover,
+        .editor-toolbar button:not(.button).active {
+            background: #e6e6e6;
+            border-radius: 3px;
+        }
+        .editor-toolbar {
+            padding: 5px;
+        }
+        .editor-toolbar i.separator {
+            border-left: 1px solid #d9d9d9;
+            margin: 0 6px;
+        }
+        .EasyMDEContainer .CodeMirror {
+            height: 200px;
+        }
+    </style>
 {% endblock %}
 
 {% block scripts %}
@@ -102,7 +132,7 @@
         <h1>Event {{ event|yesno:"bearbeiten,erfassen" }}</h1>
     </div>
 
-    <form method="POST" enctype="multipart/form-data" class="form-horizontal">{% csrf_token %}
+    <form method="POST" enctype="multipart/form-data" class="form-horizontal" id="event-form">{% csrf_token %}
         {% include 'lib/form_loop.html' %}
         <div class="form-actions">
             <button type="submit" class="button button-primary">{{ event|yesno:"Speichern,Eintragen" }}</button>
@@ -113,4 +143,21 @@
             {% endif %}
         </div>
     </form>
+
+    <script src="https://cdn.jsdelivr.net/npm/easymde@2.18.0/dist/easymde.min.js"></script>
+    <script>
+        var descField = document.getElementById('id_description');
+        if (descField) {
+            descField.removeAttribute('required');
+            var easyMDE = new EasyMDE({
+                element: descField,
+                spellChecker: false,
+                status: false,
+                autoDownloadFontAwesome: false,
+            });
+            document.getElementById('event-form').addEventListener('submit', function() {
+                descField.value = easyMDE.value();
+            });
+        }
+    </script>
 {% endblock %}
