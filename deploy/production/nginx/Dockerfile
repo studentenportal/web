@@ -1,6 +1,6 @@
 # Latest stable in August 2022
 # https://hub.docker.com/_/nginx/
-FROM nginx:1.22
+FROM nginx:1.31
 
 ARG DEHYDRATED_VERSION=v0.7.0
 
