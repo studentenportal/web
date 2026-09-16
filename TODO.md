@@ -56,7 +56,10 @@
 - [x] lots of duplicated code between quotes & tipps due to @omega-800 's skill issues
 - [ ] svgs instead of fonts for icons
 - [x] add robots.txt
-- [ ] backup isn't working :((
+- [x] backup isn't working :((
+- [x] dozenten pagination
+- [ ] pagination everywhere there's a list
+- [ ] events RSS feed
 
 ## yeah...
 
@@ -66,6 +69,6 @@
 
 ## testing
 
-- [ ] Register a new user, resend activation email, verify it arrives
-- [ ] Wait for key to expire, resend — verify new key works
-- [ ] Submit form with unknown email — verify same success message shown
+- [x] Register a new user, resend activation email, verify it arrives
+- [x] Wait for key to expire, resend — verify new key works
+- [x] Submit form with unknown email — verify same success message shown
