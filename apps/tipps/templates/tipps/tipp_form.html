@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load tabs %}
 
-{% block title %}Tipp hinzufügen{% endblock %}
+{% block title %}{% if object %}Tipp bearbeiten{% else %}Tipp hinzufügen{% endif %}{% endblock %}
 
 {% block navigation %}
     {% activetab 'navigation' 'tipps' %}
@@ -9,15 +9,17 @@
 {% endblock %}
 
 {% block content %}
-    <div class="page-header">
-        <h1>Tipp hinzufügen</h1>
+    <div class="page-header" style="margin-bottom: 1.5em;">
+        <h1>{% if object %}Tipp bearbeiten{% else %}Tipp hinzufügen{% endif %}</h1>
     </div>
 
-    <form method="POST" class="form-horizontal">{% csrf_token %}
+    <form method="POST" class="form-horizontal" id="tipp-form">{% csrf_token %}
         {% include 'lib/form_loop.html' %}
         <div class="form-actions">
-            <button type="submit" class="button button-primary">Eintragen</button>
+            <button type="submit" class="button button-primary">{% if object %}Speichern{% else %}Eintragen{% endif %}</button>
             <a href="{% url 'tipps:tipp_list' %}" class="button">Abbrechen</a>
         </div>
     </form>
+
+    {% include 'lib/markdown_editor.html' with form_id='tipp-form' %}
 {% endblock %}

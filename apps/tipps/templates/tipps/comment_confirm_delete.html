@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load tabs %}
+
+{% block title %}Kommentar löschen{% endblock %}
+
+{% block navigation %}
+    {% activetab 'navigation' 'tipps' %}
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    <div class="page-header">
+        <h1>Kommentar löschen</h1>
+    </div>
+
+    <p>Möchtest du wirklich den folgenden Kommentar löschen?</p>
+
+    <ul>
+        <li><strong>Erfasst am</strong> {{ object.date|date }}</li>
+        <li><strong>Kommentar</strong> {{ object.text }}</li>
+    </ul>
+
+    <form method="post">{% csrf_token %}
+        <button type="submit" class="btn btn-danger">
+            <i class="icon-trash icon-white"></i> Ja, ich bin sicher.
+        </button>
+    </form>
+{% endblock %}

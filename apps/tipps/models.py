@@ -39,3 +39,23 @@ class TippVote(VoteModel):
 
     class Meta:
         unique_together = ("user", "tipp")
+
+
+class TippComment(models.Model):
+    """A comment on a tipp."""
+
+    tipp = models.ForeignKey(Tipp, on_delete=models.CASCADE, related_name="comments")
+    author = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        null=True,
+        related_name="tipp_comments",
+    )
+    text = models.TextField("Kommentar")
+    date = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["date"]
+
+    def __str__(self):
+        return f"Comment by {self.author} on Tipp {self.tipp_id}"

@@ -2,19 +2,19 @@
 {% if paginator.num_pages > 1 %}
 <ul class="pagination">
     {% if page_obj.has_previous %}
-        <li><a class="button" href="{% page_query request page_obj.previous_page_number %}">&laquo;</a></li>
+        <li><a class="button" href="?{% for key, value in request.GET.items %}{% if key != 'page' %}{{ key }}={{ value }}&{% endif %}{% endfor %}page={{ page_obj.previous_page_number }}">&laquo;</a></li>
     {% endif %}
 
     {% for num in page_obj.paginator.page_range|pagination_slice:page_obj.number %}
         {% if num == page_obj.number %}
             <li><a class="button button-primary" href="#">{{ num }}</a></li>
         {% else %}
-            <li><a class="button" href="{% page_query request num %}">{{ num }}</a></li>
+            <li><a class="button" href="?{% for key, value in request.GET.items %}{% if key != 'page' %}{{ key }}={{ value }}&{% endif %}{% endfor %}page={{ num }}">{{ num }}</a></li>
         {% endif %}
     {% endfor %}
 
     {% if page_obj.has_next %}
-        <li><a class="button" href="{% page_query request page_obj.next_page_number %}">&raquo;</a></li>
+        <li><a class="button" href="?{% for key, value in request.GET.items %}{% if key != 'page' %}{{ key }}={{ value }}&{% endif %}{% endfor %}page={{ page_obj.next_page_number }}">&raquo;</a></li>
     {% endif %}
 </ul>
 {% endif %}
