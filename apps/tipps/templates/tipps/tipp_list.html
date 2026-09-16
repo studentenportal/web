@@ -1,6 +1,7 @@
 {% extends 'base.html' %} {% load tabs %}
 {% load thumbnail %}
 {% load compress %}
+{% load md %}
 
 {% block title %}Tipps und Tricks{% endblock %}
 
@@ -20,11 +21,22 @@
 
 {% block content %}
 
-    <div class="page-header">
+    <div class="page-header" style="margin-bottom: 1.5em;">
         <h1>Tipps und Tricks</h1>
     </div>
 
-    <p>Tipps und Tricks</p>
+    <form method="get" action="{% url 'tipps:tipp_list' %}" class="search-form">
+        <input type="text" name="q" value="{{ search_query }}" placeholder="Tipps durchsuchen..." />
+        {% if current_sort != "votes" %}
+            <input type="hidden" name="sort" value="{{ current_sort }}" />
+        {% endif %}
+        <button type="submit" class="button">Suchen</button>
+    </form>
+
+    <div class="sort-toggle">
+        <a class="button{% if current_sort == 'votes' %} button-primary{% endif %}" href="?sort=votes{% if search_query %}&q={{ search_query|urlencode }}{% endif %}">Beliebteste</a>
+        <a class="button{% if current_sort == 'date' %} button-primary{% endif %}" href="?sort=date{% if search_query %}&q={{ search_query|urlencode }}{% endif %}">Neueste</a>
+    </div>
 
     {% if user.is_authenticated %}
         <a class="button button-primary" href="{% url 'tipps:tipp_add' %}">
@@ -40,6 +52,7 @@
         <article class="quote {% if tipp.author_id == user.pk %}quote-edit{% endif %}">
           {% if tipp.author_id == user.pk %}
               <div class="edit">
+                  <a class="button" href="{% url 'tipps:tipp_edit' tipp.pk %}">Bearbeiten</a>
                   {% url 'tipps:tipp_delete' tipp.pk as delete_url %}
                   {% include 'front/blocks/delete_button.html' with small_button=1 delete_url=delete_url %}
               </div>
@@ -53,8 +66,41 @@
             {% else %}
                 <span class="author">Gelöschter User</span>
             {% endif %}
-            <p>{{ tipp.description }}</p>
+            <div class="tipp-description">{{ tipp.description|render_markdown }}</div>
             <p>{{ tipp.date|date }}</p>
+          </div>
+          <div class="comments-section">
+            <button class="button comment-toggle" onclick="var el=document.getElementById('comments-{{ tipp.pk }}'); el.style.display = el.style.display === 'none' ? 'block' : 'none';">
+                {{ tipp.comment_count }} Kommentar{{ tipp.comment_count|pluralize:"e" }}
+            </button>
+            <div id="comments-{{ tipp.pk }}" style="display:none;">
+                {% for comment in tipp.comments.all %}
+                    <div class="comment">
+                        <p class="comment-meta">
+                            {% if comment.author %}
+                                <strong>{{ comment.author.name }}</strong>
+                            {% else %}
+                                <strong>Gelöschter User</strong>
+                            {% endif %}
+                            — {{ comment.date|date }}
+                            {% if comment.author_id == user.pk %}
+                                <a href="{% url 'tipps:tipp_comment_edit' comment.pk %}">Bearbeiten</a>
+                                <a href="{% url 'tipps:tipp_comment_delete' comment.pk %}">Löschen</a>
+                            {% elif user.is_staff %}
+                                <a href="{% url 'tipps:tipp_comment_delete' comment.pk %}">Löschen</a>
+                            {% endif %}
+                        </p>
+                        <p>{{ comment.text }}</p>
+                    </div>
+                {% endfor %}
+                {% if user.is_authenticated %}
+                    <form method="POST" action="{% url 'tipps:tipp_comment_add' tipp.pk %}" class="comment-form">
+                        {% csrf_token %}
+                        <textarea name="text" placeholder="Kommentar hinzufügen..." required></textarea>
+                        <button type="submit" class="button">Kommentar hinzufügen</button>
+                    </form>
+                {% endif %}
+            </div>
           </div>
         </article>
     {% endfor %}

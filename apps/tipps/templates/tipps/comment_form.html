@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load tabs %}
+
+{% block title %}Kommentar bearbeiten{% endblock %}
+
+{% block navigation %}
+    {% activetab 'navigation' 'tipps' %}
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    <div class="page-header">
+        <h1>Kommentar bearbeiten</h1>
+    </div>
+
+    <form method="POST" class="form-horizontal">{% csrf_token %}
+        {% include 'lib/form_loop.html' %}
+        <div class="form-actions">
+            <button type="submit" class="button button-primary">Speichern</button>
+            <a href="{% url 'tipps:tipp_list' %}" class="button">Abbrechen</a>
+        </div>
+    </form>
+{% endblock %}
