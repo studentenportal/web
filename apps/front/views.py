@@ -5,6 +5,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.sites.shortcuts import get_current_site
 from django.db.models import Count
 from django.urls import reverse, reverse_lazy
+from django.utils import timezone
 from django.views.generic import FormView, TemplateView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import UpdateView
@@ -73,7 +74,10 @@ class ResendActivation(FormView):
         site = get_current_site(self.request)
         try:
             profile = RegistrationProfile.objects.get(user__email__iexact=email)
-        except RegistrationProfile.DoesNotExist:
+        except (
+            RegistrationProfile.DoesNotExist,
+            RegistrationProfile.MultipleObjectsReturned,
+        ):
             # Don't reveal whether the email exists
             return super().form_valid(form)
 
@@ -81,6 +85,11 @@ class ResendActivation(FormView):
             return super().form_valid(form)
 
         # Always regenerate the key and resend — even if expired
+        if profile.activation_key_expired():
+            # Key validity is anchored on user.date_joined, so refresh it to
+            # give the new key a full activation window
+            profile.user.date_joined = timezone.now()
+            profile.user.save()
         profile.create_new_activation_key()
         profile.send_activation_email(site, self.request)
         return super().form_valid(form)
