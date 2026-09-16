@@ -64,7 +64,9 @@ class TestTippListSorting:
         content = response.content.decode()
         pos_new = content.index("New Tipp")
         pos_popular = content.index("Popular Tipp")
-        assert pos_new < pos_popular, "Newest tipp should appear first when sorting by date"
+        assert (
+            pos_new < pos_popular
+        ), "Newest tipp should appear first when sorting by date"
 
     def test_sort_toggle_links_present(self, auth_client, tipps_with_votes):
         response = auth_client.get("/tipps/")
@@ -81,8 +83,12 @@ class TestTippListSorting:
         )
         TippVote.objects.create(user=user, tipp=tipp_controversial, vote=True)
         TippVote.objects.create(user=user2, tipp=tipp_controversial, vote=True)
-        user3 = User.objects.create_user(username="u3", password="test", email="u3@test.ch")
-        user4 = User.objects.create_user(username="u4", password="test", email="u4@test.ch")
+        user3 = User.objects.create_user(
+            username="u3", password="test", email="u3@test.ch"
+        )
+        user4 = User.objects.create_user(
+            username="u4", password="test", email="u4@test.ch"
+        )
         TippVote.objects.create(user=user3, tipp=tipp_controversial, vote=False)
         TippVote.objects.create(user=user4, tipp=tipp_controversial, vote=False)
 
@@ -96,9 +102,9 @@ class TestTippListSorting:
         content = response.content.decode()
         pos_liked = content.index("Liked Tipp")
         pos_controversial = content.index("Controversial Tipp")
-        assert pos_liked < pos_controversial, (
-            "Tipp with higher vote_sum (1) should rank above controversial (0)"
-        )
+        assert (
+            pos_liked < pos_controversial
+        ), "Tipp with higher vote_sum (1) should rank above controversial (0)"
 
 
 @pytest.mark.django_db
@@ -192,9 +198,7 @@ class TestTippEdit:
         assert response.status_code == 403
 
     def test_anonymous_redirected_to_login(self, client, user):
-        tipp = Tipp.objects.create(
-            author=user, summary="Test", description="desc"
-        )
+        tipp = Tipp.objects.create(author=user, summary="Test", description="desc")
         response = client.get(f"/tipps/{tipp.pk}/edit/")
         assert response.status_code == 302
         assert "/accounts/login/" in response.url
@@ -215,7 +219,9 @@ class TestTippEdit:
 @pytest.fixture
 def staff_user(db):
     return User.objects.create_user(
-        username="admin", password="test", email="admin@studentenportal.ch",
+        username="admin",
+        password="test",
+        email="admin@studentenportal.ch",
         is_staff=True,
     )
 
@@ -350,7 +356,7 @@ class TestTippSecurity:
         response = auth_client.get("/tipps/")
         content = response.content.decode()
         assert "onerror" not in content or "&lt;" in content
-        assert '<img src=x onerror=' not in content
+        assert "<img src=x onerror=" not in content
 
     def test_xss_in_markdown_description_sanitized(self, auth_client, user):
         """Markdown description uses render_markdown with bleach — XSS stripped."""

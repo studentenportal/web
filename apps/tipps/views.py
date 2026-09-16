@@ -151,12 +151,16 @@ class TippCommentEdit(LoginRequiredMixin, UpdateView):
 
     def get(self, request, *args, **kwargs):
         if self.get_object().author != request.user:
-            return HttpResponseForbidden("Du darfst keine fremden Kommentare bearbeiten.")
+            return HttpResponseForbidden(
+                "Du darfst keine fremden Kommentare bearbeiten."
+            )
         return super().get(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
         if self.get_object().author != request.user:
-            return HttpResponseForbidden("Du darfst keine fremden Kommentare bearbeiten.")
+            return HttpResponseForbidden(
+                "Du darfst keine fremden Kommentare bearbeiten."
+            )
         return super().post(request, *args, **kwargs)
 
     def get_success_url(self):
