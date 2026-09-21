@@ -354,3 +354,84 @@ class DocumentListViewTest(TestCase):
         response = self.client.get(self.url)
         self.assertContains(response, "Durchschnitt")
         self.assertContains(response, "Deine Bewertung")
+
+
+### Standardized listing tests (pytest style) ###
+
+
+@pytest.mark.django_db
+def test_document_list_search(client):
+    baker.make_recipe(
+        "apps.documents.document_summary", name="Quantennotizen", description="d"
+    )
+    baker.make_recipe(
+        "apps.documents.document_exam", name="Alte Prüfung", description="d"
+    )
+    response = client.get("/dokumente/an1i/", {"q": "quanten"})
+    content = response.content.decode()
+    assert "Quantennotizen" in content
+    assert "Alte Prüfung" not in content
+
+
+@pytest.mark.django_db
+def test_document_list_dtype_filter(client):
+    baker.make_recipe("apps.documents.document_summary", name="Only Summary")
+    baker.make_recipe("apps.documents.document_exam", name="Only Exam")
+    response = client.get("/dokumente/an1i/", {"dtype": models.Document.DTypes.EXAM})
+    content = response.content.decode()
+    assert "Only Exam" in content
+    assert "Only Summary" not in content
+    # The toolbar offers every document type as a choice
+    for label in ("Zusammenfassung", "Prüfung", "Software", "Lernhilfe", "Testat"):
+        assert label in content
+
+
+@pytest.mark.django_db
+def test_document_list_sort(client):
+    import datetime
+
+    old = baker.make_recipe("apps.documents.document_summary", name="Alt Dokument")
+    new = baker.make_recipe("apps.documents.document_summary", name="Neu Dokument")
+    models.Document.objects.filter(pk=old.pk).update(
+        upload_date=datetime.datetime(2020, 1, 1)
+    )
+    models.Document.objects.filter(pk=new.pk).update(
+        upload_date=datetime.datetime(2024, 1, 1)
+    )
+    content = client.get("/dokumente/an1i/").content.decode()
+    assert content.index("Neu Dokument") < content.index("Alt Dokument")
+    content = client.get("/dokumente/an1i/", {"sort": "oldest"}).content.decode()
+    assert content.index("Alt Dokument") < content.index("Neu Dokument")
+
+
+@pytest.mark.django_db
+def test_document_list_pagination(client):
+    for i in range(55):
+        baker.make_recipe("apps.documents.document_summary", name="Dokument %02d" % i)
+    content = client.get("/dokumente/an1i/").content.decode()
+    assert 'class="pagination"' in content
+    assert "?page=2" in content
+    # Search + sort params must be kept on the pagination links
+    content = client.get(
+        "/dokumente/an1i/", {"q": "dokument", "sort": "oldest"}
+    ).content.decode()
+    assert "?q=dokument&amp;sort=oldest&amp;page=2" in content
+
+
+@pytest.mark.django_db
+def test_category_list_search(client):
+    baker.make_recipe("apps.documents.documentcategory")
+    models.DocumentCategory.objects.create(name="Mat1L", description="Mathematik")
+    content = client.get("/dokumente/", {"q": "mathe"}).content.decode()
+    assert "Mat1L" in content
+    assert "An1I" not in content
+
+
+@pytest.mark.django_db
+def test_category_list_sort_by_activity(client):
+    baker.make_recipe("apps.documents.documentcategory")
+    models.DocumentCategory.objects.create(name="Zzz", description="Zeta")
+    for i in range(2):
+        baker.make_recipe("apps.documents.document_summary")
+    content = client.get("/dokumente/", {"sort": "activity"}).content.decode()
+    assert content.index("An1I") < content.index("Zzz")

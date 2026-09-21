@@ -1,11 +1,12 @@
 from django.contrib import messages
-from django.db.models import Count, Q
+from django.db.models import Count, F
 from django.http import HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.views.generic.list import ListView
 
+from apps.front.listing import ListingMixin
 from apps.front.mixins import (
     AutoUpvoteCreateMixin,
     LoginRequiredMixin,
@@ -15,54 +16,25 @@ from apps.front.voting import VoteViewMixin, extend_with_votes
 from apps.tipps import forms, models
 
 
-class TippList(ListView):
-    paginate_by = 50
+class TippList(ListingMixin, ListView):
+    search_fields = ("summary", "description")
+    search_placeholder = "Tipps durchsuchen..."
+    sort_options = {
+        "votes": {
+            "label": "Beliebteste",
+            "order_by": [-(F("upvote_count") - F("downvote_count")), "-date"],
+        },
+        "date": {"label": "Neueste", "order_by": ["-date"]},
+    }
 
-    def get_queryset(self):
+    def get_base_queryset(self):
         qs = extend_with_votes(
-            models.Tipp.objects.all(),
-            "tipps_tippvote",
-            "tipp_id",
-            "tipps_tipp",
-            self.request.user.pk,
+            models.Tipp.objects.all(), models.TippVote, "tipp", self.request.user.pk
         )
-
-        # Search
-        q = self.request.GET.get("q", "").strip()
-        if q:
-            qs = qs.filter(Q(summary__icontains=q) | Q(description__icontains=q))
-
         # Annotate comment count and prefetch comments to avoid N+1 queries
-        qs = qs.annotate(comment_count=Count("comments")).prefetch_related(
+        return qs.annotate(comment_count=Count("comments")).prefetch_related(
             "comments", "comments__author"
         )
-
-        # Sort
-        sort = self.request.GET.get("sort", "votes")
-        if sort == "date":
-            qs = qs.order_by("-date")
-        else:
-            qs = qs.extra(
-                select={
-                    "vote_sum_sort": (
-                        "(SELECT COUNT(*) FROM tipps_tippvote"
-                        " WHERE tipps_tippvote.tipp_id = tipps_tipp.id AND vote = 't')"
-                        " - "
-                        "(SELECT COUNT(*) FROM tipps_tippvote"
-                        " WHERE tipps_tippvote.tipp_id = tipps_tipp.id AND vote = 'f')"
-                    )
-                },
-                order_by=["-vote_sum_sort", "-date"],
-            )
-
-        return qs
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["current_sort"] = self.request.GET.get("sort", "votes")
-        context["search_query"] = self.request.GET.get("q", "").strip()
-        context["comment_form"] = forms.TippCommentForm()
-        return context
 
 
 class TippAdd(LoginRequiredMixin, AutoUpvoteCreateMixin, CreateView):

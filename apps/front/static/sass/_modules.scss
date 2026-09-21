@@ -58,6 +58,51 @@ $color-search-background: #E1E5E8;
     }
 }
 
+/* ===LIST TOOLBAR=== */
+//Standardized search/filter/sort bar shown above all lists.
+.list-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: $gutter/2;
+    margin-bottom: 1em;
+
+    .list-toolbar-form {
+        display: flex;
+        flex: 1 1 auto;
+        align-items: center;
+        gap: $gutter/2;
+        margin-bottom: 0;
+    }
+
+    .search-box {
+        flex: 1 1 16rem;
+        max-width: 28rem;
+        margin-bottom: 0;
+    }
+
+    .filter-select {
+        width: auto;
+        height: 2.5em;
+        padding: 0 0.75em;
+        font-size: $font-size-browser;
+        border: 2px solid $color-border;
+
+        &:focus {
+            border-color: $color-dark-accent;
+        }
+    }
+
+    .sort-toggle {
+        display: flex;
+        align-items: center;
+
+        .button {
+            margin: 0 0 0 $gutter/2;
+        }
+    }
+}
+
 
 /* ===BIG DATE=== */
 // The look was inspired by http://dribbble.com/shots/351931-List-of-events-for-something

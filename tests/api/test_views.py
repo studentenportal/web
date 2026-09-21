@@ -381,3 +381,54 @@ class TestLecturerRate:
         rater("d", 4)
         rater("m", 6)
         rater("f", 10)
+
+
+@pytest.mark.django_db
+class TestApiListing:
+    """Search and ordering of the API lists (standardized listing)."""
+
+    def test_lecturer_search(self, auth_client):
+        baker.make(
+            Lecturer, first_name="David", last_name="Krakaduku", abbreviation="kra"
+        )
+        baker.make(
+            Lecturer, first_name="Albert", last_name="Einstein", abbreviation="ein"
+        )
+        resp = auth_client.get(reverse("api:lecturer_list") + "?q=krakaduku")
+        data = resp.json()
+        assert data["count"] == 1
+        assert data["results"][0]["last_name"] == "Krakaduku"
+
+    def test_lecturer_ordering(self, auth_client):
+        baker.make(Lecturer, last_name="Zebra", first_name="Z", abbreviation="zeb")
+        baker.make(Lecturer, last_name="Alpha", first_name="A", abbreviation="alp")
+        resp = auth_client.get(reverse("api:lecturer_list"))
+        assert [r["last_name"] for r in resp.json()["results"]] == ["Alpha", "Zebra"]
+        resp = auth_client.get(reverse("api:lecturer_list") + "?ordering=-last_name")
+        assert [r["last_name"] for r in resp.json()["results"]] == ["Zebra", "Alpha"]
+
+    def test_quote_search(self, auth_client):
+        lecturer = baker.make(Lecturer, abbreviation="qte")
+        baker.make(Quote, lecturer=lecturer, quote="spam quote")
+        baker.make(Quote, lecturer=lecturer, quote="egg quote")
+        resp = auth_client.get(reverse("api:quote_list") + "?q=spam")
+        data = resp.json()
+        assert data["count"] == 1
+        assert data["results"][0]["quote"] == "spam quote"
+
+    def test_user_search(self, auth_client):
+        User.objects.create_user(username="alice", password="x", email="alice@t.ch")
+        User.objects.create_user(username="bob", password="x", email="bob@t.ch")
+        resp = auth_client.get(reverse("api:user_list") + "?q=alice")
+        data = resp.json()
+        assert data["count"] == 1
+        assert data["results"][0]["username"] == "alice"
+
+    def test_default_pagination(self, auth_client):
+        for i in range(25):
+            baker.make(Lecturer, last_name="Last%02d" % i, abbreviation="l%02d" % i)
+        resp = auth_client.get(reverse("api:lecturer_list"))
+        data = resp.json()
+        assert data["count"] == 25
+        assert len(data["results"]) == 20
+        assert data["next"] is not None

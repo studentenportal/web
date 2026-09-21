@@ -58,7 +58,7 @@
 - [x] add robots.txt
 - [x] backup isn't working :((
 - [x] dozenten pagination
-- [ ] standardized search, filter, sort and pagination everywhere there's a list
+- [x] standardized search, filter, sort and pagination everywhere there's a list
 - [ ] events RSS feed
 
 ## yeah...

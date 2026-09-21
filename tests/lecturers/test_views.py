@@ -204,3 +204,167 @@ class QuoteViewTest(TestCase):
         response = self.client.get("/zitate/")
         self.assertContains(response, "spam")
         self.assertContains(response, "ham")
+
+
+### Standardized listing tests (pytest style) ###
+
+
+@pytest.mark.django_db
+def test_lecturer_list_sort_links(auth_client):
+    response = auth_client.get("/dozenten/")
+    content = response.content.decode()
+    assert 'href="?sort=name"' in content
+    assert 'href="?sort=quotes"' in content
+
+
+@pytest.mark.django_db
+def test_lecturer_list_default_sort_by_name(auth_client):
+    baker.make(models.Lecturer, first_name="Zoe", last_name="Zebra", abbreviation="zeb")
+    baker.make(models.Lecturer, first_name="Amy", last_name="Apple", abbreviation="apl")
+    response = auth_client.get("/dozenten/")
+    content = response.content.decode()
+    assert content.index("Apple") < content.index("Zebra")
+
+
+@pytest.mark.django_db
+def test_lecturer_list_sort_by_quote_count(auth_client, user):
+    few_quotes = baker.make(
+        models.Lecturer, first_name="Few", last_name="Quotes", abbreviation="few"
+    )
+    many_quotes = baker.make(
+        models.Lecturer, first_name="Many", last_name="Quoted", abbreviation="many"
+    )
+    models.Quote.objects.create(author=user, lecturer=few_quotes, quote="a", comment="")
+    for i in range(3):
+        models.Quote.objects.create(
+            author=user, lecturer=many_quotes, quote=f"b{i}", comment=""
+        )
+    response = auth_client.get("/dozenten/?sort=quotes")
+    content = response.content.decode()
+    assert content.index("Quoted") < content.index("Quotes")
+
+
+@pytest.mark.django_db
+def test_lecturer_list_quote_count_shown(auth_client, user):
+    lecturer = baker.make(
+        models.Lecturer, first_name="Cited", last_name="Prof", abbreviation="cited"
+    )
+    for i in range(3):
+        models.Quote.objects.create(
+            author=user, lecturer=lecturer, quote=f"q{i}", comment=""
+        )
+    response = auth_client.get("/dozenten/")
+    assert "3 Zitate" in response.content.decode()
+
+
+@pytest.mark.django_db
+def test_quote_list_search_by_text(auth_client, user):
+    lecturer = baker.make_recipe("apps.lecturers.lecturer")
+    models.Quote.objects.create(
+        author=user, lecturer=lecturer, quote="Spam quote", comment=""
+    )
+    models.Quote.objects.create(
+        author=user, lecturer=lecturer, quote="Egg quote", comment=""
+    )
+    response = auth_client.get("/zitate/?q=spam")
+    content = response.content.decode()
+    assert "Spam quote" in content
+    assert "Egg quote" not in content
+
+
+@pytest.mark.django_db
+def test_quote_list_search_by_lecturer_name(auth_client, user):
+    krakaduku = baker.make_recipe("apps.lecturers.lecturer")
+    other = baker.make(
+        models.Lecturer, first_name="Xara", last_name="Yolo", abbreviation="xy"
+    )
+    models.Quote.objects.create(
+        author=user, lecturer=krakaduku, quote="first q", comment=""
+    )
+    models.Quote.objects.create(
+        author=user, lecturer=other, quote="second q", comment=""
+    )
+    response = auth_client.get("/zitate/?q=krakaduku")
+    content = response.content.decode()
+    assert "first q" in content
+    assert "second q" not in content
+
+
+@pytest.mark.django_db
+def test_quote_list_default_sort_newest(auth_client, user):
+    import datetime
+
+    lecturer = baker.make_recipe("apps.lecturers.lecturer")
+    old = models.Quote.objects.create(
+        author=user, lecturer=lecturer, quote="older one", comment=""
+    )
+    more_recent = models.Quote.objects.create(
+        author=user, lecturer=lecturer, quote="recent one", comment=""
+    )
+    models.Quote.objects.filter(pk=old.pk).update(
+        date=datetime.datetime(2026, 1, 1, 12)
+    )
+    models.Quote.objects.filter(pk=more_recent.pk).update(
+        date=datetime.datetime(2026, 1, 2, 12)
+    )
+    response = auth_client.get("/zitate/")
+    content = response.content.decode()
+    assert content.index("recent one") < content.index("older one")
+
+
+@pytest.mark.django_db
+def test_quote_list_sort_by_votes(auth_client, user):
+    lecturer = baker.make_recipe("apps.lecturers.lecturer")
+    other = User.objects.create_user(username="voter", password="t", email="voter@t.ch")
+    unpopular = models.Quote.objects.create(
+        author=user, lecturer=lecturer, quote="unpopular q", comment=""
+    )
+    popular = models.Quote.objects.create(
+        author=user, lecturer=lecturer, quote="popular q", comment=""
+    )
+    models.QuoteVote.objects.create(user=user, quote=popular, vote=True)
+    models.QuoteVote.objects.create(user=other, quote=popular, vote=True)
+    models.QuoteVote.objects.create(user=user, quote=unpopular, vote=True)
+    response = auth_client.get("/zitate/?sort=votes")
+    content = response.content.decode()
+    assert content.index("popular q") < content.index("unpopular q")
+
+
+@pytest.mark.django_db
+def test_quote_list_filter_by_lecturer(auth_client, user):
+    l1 = baker.make_recipe("apps.lecturers.lecturer")
+    l2 = baker.make(
+        models.Lecturer, first_name="Xara", last_name="Yolo", abbreviation="xy"
+    )
+    models.Quote.objects.create(author=user, lecturer=l1, quote="l1 quote", comment="")
+    models.Quote.objects.create(author=user, lecturer=l2, quote="l2 quote", comment="")
+    response = auth_client.get("/zitate/", {"lecturer": l1.pk})
+    content = response.content.decode()
+    assert "l1 quote" in content
+    assert "l2 quote" not in content
+    # dropdown offers both lecturers
+    assert f'value="{l2.pk}"' in content
+
+
+@pytest.mark.django_db
+def test_quote_list_invalid_filter_ignored(auth_client, user):
+    lecturer = baker.make_recipe("apps.lecturers.lecturer")
+    models.Quote.objects.create(
+        author=user, lecturer=lecturer, quote="some quote", comment=""
+    )
+    response = auth_client.get("/zitate/", {"lecturer": 99999})
+    assert response.status_code == 200
+    assert "some quote" in response.content.decode()
+
+
+@pytest.mark.django_db
+def test_quote_list_pagination_preserves_params(auth_client, user):
+    lecturer = baker.make_recipe("apps.lecturers.lecturer")
+    for i in range(55):
+        models.Quote.objects.create(
+            author=user, lecturer=lecturer, quote=f"paging quote {i:02d}", comment=""
+        )
+    response = auth_client.get("/zitate/", {"q": "paging", "sort": "date"})
+    content = response.content.decode()
+    assert 'class="pagination"' in content
+    assert "?q=paging&amp;sort=date&amp;page=2" in content

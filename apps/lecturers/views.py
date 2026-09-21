@@ -1,11 +1,12 @@
 from django.contrib import messages
 from django.core.exceptions import ObjectDoesNotExist
-from django.db.models import Count, Q
+from django.db.models import Count, F
 from django.urls import reverse
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, DeleteView
 from django.views.generic.list import ListView
 
+from apps.front.listing import ListingMixin
 from apps.front.mixins import (
     AutoUpvoteCreateMixin,
     LoginRequiredMixin,
@@ -24,11 +25,7 @@ class Lecturer(LoginRequiredMixin, DetailView):
 
         # Quotes / QuoteVotes
         context["quotes"] = extend_with_votes(
-            self.object.Quote.all(),
-            "lecturers_quotevote",
-            "quote_id",
-            "lecturers_quote",
-            self.request.user.pk,
+            self.object.Quote.all(), models.QuoteVote, "quote", self.request.user.pk
         )
 
         # Ratings
@@ -42,28 +39,17 @@ class Lecturer(LoginRequiredMixin, DetailView):
         return context
 
 
-class LecturerList(LoginRequiredMixin, ListView):
-    paginate_by = 50
+class LecturerList(LoginRequiredMixin, ListingMixin, ListView):
     context_object_name = "lecturers"
+    search_fields = ("first_name", "last_name")
+    search_placeholder = "Dozent suchen..."
+    sort_options = {
+        "name": {"label": "Name", "order_by": ["last_name", "first_name"]},
+        "quotes": {"label": "Zitate", "order_by": ["-quote_count", "last_name"]},
+    }
 
-    def get_queryset(self):
-        queryset = models.Lecturer.real_objects.all()
-        query = self.request.GET.get("q", "").strip()
-        if query:
-            queryset = queryset.filter(
-                Q(first_name__icontains=query) | Q(last_name__icontains=query)
-            )
-        return queryset
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        quotecounts = (
-            models.Quote.objects.values_list("lecturer")
-            .annotate(Count("pk"))
-            .order_by()
-        )
-        context["quotecounts"] = dict(quotecounts)
-        return context
+    def get_base_queryset(self):
+        return models.Lecturer.real_objects.all().annotate(quote_count=Count("Quote"))
 
 
 class LecturerAdd(LoginRequiredMixin, CreateView):
@@ -79,18 +65,39 @@ class LecturerAdd(LoginRequiredMixin, CreateView):
         return reverse("lecturers:lecturer_list")
 
 
-class QuoteList(LoginRequiredMixin, ListView):
+class QuoteList(LoginRequiredMixin, ListingMixin, ListView):
     context_object_name = "quotes"
-    paginate_by = 50
+    search_fields = (
+        "quote",
+        "comment",
+        "lecturer__first_name",
+        "lecturer__last_name",
+    )
+    search_placeholder = "Zitate durchsuchen..."
+    sort_options = {
+        "date": {"label": "Neueste", "order_by": ["-date"]},
+        "votes": {
+            "label": "Beliebteste",
+            "order_by": [-(F("upvote_count") - F("downvote_count")), "-date"],
+        },
+    }
+    filter_options = {"lecturer": "lecturer"}
 
-    def get_queryset(self):
+    def get_base_queryset(self):
         return extend_with_votes(
-            models.Quote.objects.all(),
-            "lecturers_quotevote",
-            "quote_id",
-            "lecturers_quote",
-            self.request.user.pk,
+            models.Quote.objects.all(), models.QuoteVote, "quote", self.request.user.pk
         )
+
+    def get_filter_choices(self):
+        lecturers = models.Lecturer.real_objects.values_list(
+            "pk", "last_name", "first_name"
+        ).order_by("last_name", "first_name")
+        return {
+            "lecturer": [
+                (pk, ("%s %s" % (last_name, first_name)).strip())
+                for pk, last_name, first_name in lecturers
+            ]
+        }
 
 
 class QuoteAdd(LoginRequiredMixin, AutoUpvoteCreateMixin, CreateView):

@@ -20,7 +20,7 @@ from django.template.defaultfilters import slugify
 from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
-from django.views.generic import TemplateView, View
+from django.views.generic import View
 from django.views.generic.edit import (
     CreateView,
     DeleteView,
@@ -30,6 +30,7 @@ from django.views.generic.edit import (
 from django.views.generic.list import ListView
 from django_downloadview.shortcuts import sendfile
 
+from apps.front.listing import ListingMixin
 from apps.front.message_levels import EVENT
 from apps.front.mixins import LoginRequiredMixin
 
@@ -38,18 +39,26 @@ from . import forms, models
 logger = logging.getLogger(__name__)
 
 
-class DocumentcategoryList(TemplateView):
+class DocumentcategoryList(ListingMixin, ListView):
     template_name = "documents/documentcategory_list.html"
+    model = models.DocumentCategory
+    context_object_name = "categories"
+    search_fields = ("name", "description")
+    search_placeholder = "Modul suchen..."
+    sort_options = {
+        "name": {"label": "Name", "order_by": ["name"]},
+        "activity": {"label": "Aktivität", "order_by": ["-document_count", "name"]},
+    }
+
+    def get_base_queryset(self):
+        return (
+            models.DocumentCategory.objects.all()
+            .prefetch_related("lecturers", "courses")
+            .annotate(document_count=Count("Document"))
+        )
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
-        # Get all categories
-        categories = list(
-            models.DocumentCategory.objects.all()
-            .prefetch_related("lecturers")
-            .prefetch_related("courses")
-        )
 
         # To reduce number of queries, prefetch aggregated count values from the
         # document model. The query returns the count for each (category, dtype) pair.
@@ -68,9 +77,7 @@ class DocumentcategoryList(TemplateView):
 
         # Add counts to category objects
         simplecounts = defaultdict(dict)
-        empty_categories = []
-        nonempty_categories = []
-        for c in categories:
+        for c in context["object_list"]:
             d = simplecounts[c.pk]
             d["summary"] = counts[c.pk][models.Document.DTypes.SUMMARY]
             d["exam"] = counts[c.pk][models.Document.DTypes.EXAM]
@@ -81,13 +88,6 @@ class DocumentcategoryList(TemplateView):
             )
             d["total"] = sum(d.values())
 
-            # Sort by category activity
-            if d["total"] == 0:
-                empty_categories.append(c)
-            else:
-                nonempty_categories.append(c)
-
-        context["categories"] = nonempty_categories + empty_categories
         context["counts"] = simplecounts
         return context
 
@@ -121,12 +121,26 @@ class DocumentcategoryMixin:
         return context
 
 
-class DocumentList(DocumentcategoryMixin, ListView):
+class DocumentList(DocumentcategoryMixin, ListingMixin, ListView):
     template_name = "documents/document_list.html"
     context_object_name = "documents"
+    search_fields = ("name", "description")
+    search_placeholder = "Dokumente durchsuchen..."
+    sort_options = {
+        "newest": {"label": "Neueste", "order_by": ["-upload_date"]},
+        "oldest": {"label": "Älteste", "order_by": ["upload_date"]},
+        "downloads": {"label": "Downloads", "order_by": ["-download_count", "name"]},
+    }
+    filter_options = {"dtype": "dtype"}
 
-    def get_queryset(self):
-        return models.Document.objects.filter(category=self.category)
+    def get_base_queryset(self):
+        return models.Document.objects.filter(category=self.category).annotate(
+            download_count=Count("DocumentDownload")
+        )
+
+    def get_filter_choices(self):
+        dtype_field = models.Document._meta.get_field("dtype")
+        return {"dtype": [(str(value), label) for value, label in dtype_field.choices]}
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
