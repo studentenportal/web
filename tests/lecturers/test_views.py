@@ -64,7 +64,7 @@ class LecturerListViewTest(TestCase):
         login(self)
         response = self.client.get("/dozenten/", {"q": "smith"})
         self.assertContains(response, 'class="pagination"')
-        self.assertContains(response, "?q=smith&amp;page=2")
+        self.assertContains(response, "?q=smith&page=2")
 
 
 class LecturerDetailViewTest(TestCase):
