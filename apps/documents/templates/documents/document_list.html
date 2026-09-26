@@ -53,7 +53,11 @@
     <a class="button" href="{% url 'documents:document_feed' documentcategory.name|slugify  %}">RSS Feed abonnieren</a>
     </p>
 
+    {% include 'front/blocks/list_toolbar.html' %}
+
     {# Document list #}
+    {% include 'front/blocks/pagination.html' %}
     {% include 'front/blocks/document.html' %}
+    {% include 'front/blocks/pagination.html' %}
 
 {% endblock %}

@@ -73,9 +73,20 @@ def pagination_slice(page_range, page_number):
 
 
 @register.simple_tag
-def page_query(request, page):
-    """Build a relative query string for the given page, keeping any other
-    current GET parameters (e.g. a search query) intact."""
+def query_params(request, **overrides):
+    """Build a relative query string for the current URL.
+
+    Keeps all current GET parameters except "page" (dropped, so sort/filter
+    changes start on the first page) and applies the given overrides.
+    Parameters with empty values are dropped.
+    Returns "" if no parameters remain.
+    """
     params = request.GET.copy()
-    params["page"] = str(page)
-    return "?%s" % params.urlencode()
+    params.pop("page", None)
+    for key, value in overrides.items():
+        if value is None or value == "":
+            params.pop(key, None)
+        else:
+            params.setlist(key, [str(value)])
+    encoded = params.urlencode()
+    return "?%s" % encoded if encoded else ""

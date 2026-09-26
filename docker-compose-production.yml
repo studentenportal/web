@@ -14,8 +14,8 @@ services:
       - "/home/studentenportal/media:/srv/www/studentenportal/media"
       - "studentenportal-dehydrated:/etc/dehydrated"
       - "studentenportal-static:/srv/www/studentenportal/static"
-    environment:
-      com.centurylinklabs.watchtower.enable: "false" # Must be built manually for now, since it's not published to Docker Hub
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
     networks:
       studentenportal-prod:
         aliases:
@@ -30,6 +30,8 @@ services:
       # HOST:CONTAINER
       - "/home/studentenportal/postgres-data:/var/lib/postgresql/data"
     env_file: ~/studentenportal.env
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
     networks:
       studentenportal-prod:
         aliases:
@@ -44,6 +46,8 @@ services:
       - "/home/studentenportal/media:/srv/www/studentenportal/media"
       - "studentenportal-static:/srv/www/studentenportal/static"
     env_file: ~/studentenportal.env
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
     networks:
       studentenportal-prod:
         aliases:
@@ -51,6 +55,13 @@ services:
     restart: unless-stopped
     depends_on:
       - postgres
+  watchtower:
+    image: nickfedor/watchtower
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /root/.docker/config.json:/config.json
+    command: --interval 900
 networks:
   studentenportal-prod:
     driver: bridge

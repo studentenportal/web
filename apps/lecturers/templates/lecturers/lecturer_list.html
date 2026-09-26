@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 {% load tabs %}
-{% load tags %}
 {% load compress %}
 {% load thumbnail %}
 
@@ -53,14 +52,11 @@
         </a></p>
     {% endif %}
 
+    {% include 'front/blocks/list_toolbar.html' %}
+
     {% include 'front/blocks/pagination.html' %}
 
     <div id="lecturers">
-        <form action="{% url 'lecturers:lecturer_list' %}" method="get" class="search-box">
-            <input class="search" type="text" name="q" value="{{ request.GET.q }}" placeholder="Dozent suchen..." />
-            <button type="submit"><span class="icon-magnifying-glass"></span></button>
-        </form>
-
         <div class="list">
             {% for lecturer in lecturers %}
                 <article class="lecturer">
@@ -69,7 +65,7 @@
                     <img class="thumbnail b-lazy" src="{{ STATIC_URL }}img/120x160.gif"
                         {% if lecturer.photo %}data-src="{% thumbnail lecturer.photo 120x160 crop %}"{% endif %}
                     /></a>
-                    {% with quotecounts|lookup:lecturer.pk|default:0 as quotecount %}
+                    {% with lecturer.quote_count as quotecount %}
                     <p><a class="label" href="{% url 'lecturers:lecturer_detail' lecturer.pk %}#zitate">{{ quotecount }} Zitat{{ quotecount|pluralize:"e" }}</a>
                     <span class="label-didactic">{{ lecturer.avg_rating_d|default:'-' }}</span>
                     <span class="label-humanly">{{ lecturer.avg_rating_m|default:'-' }}</span>

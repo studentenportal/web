@@ -1,0 +1,28 @@
+{% load tags %}
+<div class="list-toolbar">
+    <form method="get" action="{{ list_action }}" class="list-toolbar-form">
+        <div class="search-box">
+            <input class="search" type="text" name="q" value="{{ search_query }}" placeholder="{{ search_placeholder }}" />
+            {% if current_sort %}
+                <input type="hidden" name="sort" value="{{ current_sort }}" />
+            {% endif %}
+            <button type="submit" title="Suchen"><span class="icon-magnifying-glass"></span></button>
+        </div>
+        {% for filter in filter_options %}
+            <select class="filter-select" name="{{ filter.param }}" onchange="this.form.submit()">
+                <option value="">Alle</option>
+                {% for value, label in filter.choices %}
+                    <option value="{{ value }}"{% if value == filter.value %} selected{% endif %}>{{ label }}</option>
+                {% endfor %}
+            </select>
+        {% endfor %}
+    </form>
+    {% if sort_options|length > 1 %}
+        <div class="sort-toggle">
+            {% for sort in sort_options %}
+                <a class="button{% if sort.active %} button-primary{% endif %}"
+                   href="{% query_params request sort=sort.value %}">{{ sort.label }}</a>
+            {% endfor %}
+        </div>
+    {% endif %}
+</div>

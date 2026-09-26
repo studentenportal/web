@@ -25,18 +25,7 @@
         <h1>Tipps und Tricks</h1>
     </div>
 
-    <form method="get" action="{% url 'tipps:tipp_list' %}" class="search-form">
-        <input type="text" name="q" value="{{ search_query }}" placeholder="Tipps durchsuchen..." />
-        {% if current_sort != "votes" %}
-            <input type="hidden" name="sort" value="{{ current_sort }}" />
-        {% endif %}
-        <button type="submit" class="button">Suchen</button>
-    </form>
-
-    <div class="sort-toggle">
-        <a class="button{% if current_sort == 'votes' %} button-primary{% endif %}" href="?sort=votes{% if search_query %}&q={{ search_query|urlencode }}{% endif %}">Beliebteste</a>
-        <a class="button{% if current_sort == 'date' %} button-primary{% endif %}" href="?sort=date{% if search_query %}&q={{ search_query|urlencode }}{% endif %}">Neueste</a>
-    </div>
+    {% include 'front/blocks/list_toolbar.html' %}
 
     {% if user.is_authenticated %}
         <a class="button button-primary" href="{% url 'tipps:tipp_add' %}">

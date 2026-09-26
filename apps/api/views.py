@@ -2,7 +2,7 @@ from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
 from django.http import HttpResponseBadRequest, JsonResponse
 from django.shortcuts import get_object_or_404
-from rest_framework import generics, permissions
+from rest_framework import filters, generics, permissions
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
@@ -13,6 +13,12 @@ from apps.lecturers import models
 
 from . import permissions as custom_permissions
 from . import serializers
+
+
+class QSearchFilter(filters.SearchFilter):
+    """SearchFilter that reads the search term from ?q= (site convention)."""
+
+    search_param = "q"
 
 
 @api_view(("GET",))
@@ -30,6 +36,10 @@ def api_root(request, format=None):
 class UserList(generics.ListAPIView):
     queryset = get_user_model().objects.all()
     serializer_class = serializers.UserSerializer
+    filter_backends = (QSearchFilter, filters.OrderingFilter)
+    search_fields = ("username", "email")
+    ordering_fields = ("username",)
+    ordering = ("username",)
 
 
 # GET / PUT / PATCH
@@ -47,6 +57,10 @@ class UserDetail(generics.RetrieveUpdateAPIView):
 class LecturerList(generics.ListAPIView):
     queryset = models.Lecturer.real_objects.all()
     serializer_class = serializers.LecturerSerializer
+    filter_backends = (QSearchFilter, filters.OrderingFilter)
+    search_fields = ("first_name", "last_name", "abbreviation")
+    ordering_fields = ("last_name", "first_name")
+    ordering = ("last_name", "first_name")
 
 
 # GET
@@ -59,6 +73,10 @@ class LecturerDetail(generics.RetrieveAPIView):
 class QuoteList(generics.ListCreateAPIView):
     queryset = models.Quote.objects.all()
     serializer_class = serializers.QuoteSerializer
+    filter_backends = (QSearchFilter, filters.OrderingFilter)
+    search_fields = ("quote", "comment", "lecturer__last_name")
+    ordering_fields = ("date",)
+    ordering = ("-date",)
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)

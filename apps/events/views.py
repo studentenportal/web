@@ -5,6 +5,7 @@ from urllib.parse import urlsplit, urlunsplit
 import vobject
 from dateutil.relativedelta import relativedelta
 from django.contrib import messages
+from django.core.paginator import Paginator
 from django.http import HttpResponse, HttpResponseForbidden, HttpResponseRedirect
 from django.urls import reverse
 from django.views.generic import TemplateView, View
@@ -12,6 +13,7 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 
 from apps.events import forms, models
+from apps.front.listing import ListingMixin
 from apps.front.mixins import LoginRequiredMixin
 
 
@@ -187,22 +189,30 @@ def add_recurring_events(events):
     )
 
 
-class EventList(TemplateView):
+class EventList(ListingMixin, TemplateView):
     template_name = "events/event_list.html"
+    search_fields = ("summary", "description", "location")
+    search_placeholder = "Events durchsuchen..."
+    past_page_size = 50
 
     def get_context_data(self, **kwargs):
-        model = models.Event
         context = super().get_context_data(**kwargs)
 
-        future, past = add_recurring_events(model.objects.all())
+        events = self.apply_search(models.Event.objects.all())
+        future, past = add_recurring_events(events)
 
         context["events_future"] = future
         # TODO: let user input the timeframe
-        context["events_past"] = [
+        past_events = [
             e
             for e in past
             if e.start_date > datetime.date.today() - relativedelta(years=10)
         ]
+        paginator = Paginator(past_events, self.past_page_size)
+        page_obj = paginator.get_page(self.request.GET.get("page", 1))
+        context["events_past"] = list(page_obj.object_list)
+        context["paginator"] = paginator
+        context["page_obj"] = page_obj
         http_url = self.request.build_absolute_uri(reverse("events:event_calendar"))
         context["current_year"] = datetime.date.today().year
         context["webcal_url"] = urlunsplit(urlsplit(http_url)._replace(scheme="webcal"))

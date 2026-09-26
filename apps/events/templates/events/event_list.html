@@ -31,7 +31,7 @@
         </a>
     </p>
 
-    <br />
+    {% include 'front/blocks/list_toolbar.html' %}
 
     <h2>Kommende Veranstaltungen</h2>
 
@@ -48,9 +48,11 @@
     {% if not events_past %}
         <p><em>Es wurden keine vergangenen Events gefunden.</em></p>
     {% else %}
+        {% include 'front/blocks/pagination.html' %}
         {% with events_past as object_list %}
             {% include 'events/blocks/event_table.html' %}
         {% endwith %}
+        {% include 'front/blocks/pagination.html' %}
     {% endif %}
 
     </section>

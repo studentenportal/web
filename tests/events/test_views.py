@@ -183,3 +183,64 @@ def test_ical_event2(client, test_events):
     assert "DTSTART:20121222T100000" in event
     assert "DTEND:20121222T235959" in event
     assert "COMMENT:Erfasst von user2" in event
+
+
+### Standardized listing tests (pytest style) ###
+
+
+@pytest.mark.django_db
+def test_event_list_search(client):
+    today = datetime.date.today()
+    models.Event.objects.create(
+        summary="Foo Bar",
+        description="d",
+        start_date=today + datetime.timedelta(days=1),
+    )
+    models.Event.objects.create(
+        summary="Baz Event",
+        description="d",
+        start_date=today + datetime.timedelta(days=2),
+    )
+    content = client.get("/events/", {"q": "baz"}).content.decode()
+    assert "Baz Event" in content
+    assert "Foo Bar" not in content
+
+
+@pytest.mark.django_db
+def test_event_list_search_past_events(client):
+    today = datetime.date.today()
+    models.Event.objects.create(
+        summary="Old Bar",
+        description="d",
+        start_date=today - datetime.timedelta(days=3),
+    )
+    models.Event.objects.create(
+        summary="Old Baz",
+        description="d",
+        start_date=today - datetime.timedelta(days=4),
+    )
+    content = client.get("/events/", {"q": "old"}).content.decode()
+    assert "Old Bar" in content
+    assert "Old Baz" in content
+    content = client.get("/events/", {"q": "bar"}).content.decode()
+    assert "Old Bar" in content
+    assert "Old Baz" not in content
+
+
+@pytest.mark.django_db
+def test_event_list_past_pagination(client):
+    today = datetime.date.today()
+    for i in range(55):
+        models.Event.objects.create(
+            summary="Past %02d" % i,
+            description="d",
+            start_date=today - datetime.timedelta(days=i + 1),
+        )
+    content = client.get("/events/").content.decode()
+    assert 'class="pagination"' in content
+    assert "?page=2" in content
+    # The oldest events only appear on the second page
+    content = client.get("/events/", {"page": 2}).content.decode()
+    assert "Past 54" in content
+    content = client.get("/events/").content.decode()
+    assert "Past 54" not in content
