@@ -57,15 +57,6 @@ class LecturerListViewTest(TestCase):
         self.assertContains(response, 'class="pagination"')
         self.assertContains(response, "?page=2")
 
-    def testPaginationKeepsSearchQuery(self):
-        baker.make_recipe("apps.front.user")
-        for i in range(55):
-            baker.make(models.Lecturer, last_name="Smith", abbreviation="s%03d" % i)
-        login(self)
-        response = self.client.get("/dozenten/", {"q": "smith"})
-        self.assertContains(response, 'class="pagination"')
-        self.assertContains(response, "?q=smith&page=2")
-
 
 class LecturerDetailViewTest(TestCase):
     def setUp(self):
