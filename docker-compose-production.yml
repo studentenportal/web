@@ -25,10 +25,10 @@ services:
       - studentenportal
       # postgres - Database server
   postgres:
-    image: postgres:13
+    image: postgres:18
     volumes:
       # HOST:CONTAINER
-      - "/home/studentenportal/postgres-data:/var/lib/postgresql/data"
+      - "/home/studentenportal/postgres-data:/var/lib/postgresql/18/docker"
     env_file: ~/studentenportal.env
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
