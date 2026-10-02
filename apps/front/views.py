@@ -29,6 +29,7 @@ class Home(TemplateView):
         ).order_by("start_date", "start_time")
         return context
 
+
 class Datenschutz(TemplateView):
     template_name = "front/datenschutz.html"
 
