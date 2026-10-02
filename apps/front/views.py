@@ -30,6 +30,10 @@ class Home(TemplateView):
         return context
 
 
+class Datenschutz(TemplateView):
+    template_name = "front/datenschutz.html"
+
+
 class Profile(LoginRequiredMixin, UpdateView):
     form_class = forms.ProfileForm
     template_name = "front/profile_form.html"
