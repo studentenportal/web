@@ -135,10 +135,14 @@ COMPRESS_OFFLINE = not DEBUG
 COMPRESS_PRECOMPILERS = (
     (
         "text/scss",
-        f"{sys.executable} -mscss "
-        + ' --load-path "apps/front/static/sass/compass/compass/stylesheets"'  # Legacy :(
-        ' --load-path "apps/front/static/sass/compass/blueprint/stylesheets"'  # sory...
-        " -C -o {outfile} {infile}",
+        "sass --no-source-map"
+        # ' --silence-deprecation import'
+        # ' --silence-deprecation if-function'
+        # ' --silence-deprecation slash-div'
+        # ' --silence-deprecation global-builtin'
+        ' --load-path="apps/front/static/sass/compass/compass/stylesheets"'  # Legacy :(
+        ' --load-path="apps/front/static/sass/compass/blueprint/stylesheets"'  # sory...
+        " {infile} {outfile}",
     ),
 )
 

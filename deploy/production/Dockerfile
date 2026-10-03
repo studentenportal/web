@@ -4,7 +4,7 @@
 #  and are uploaded to dockerhub.
 
 ### builder ###
-FROM python:3.10 AS builder
+FROM python:3.12 AS builder
 
 RUN apt-get update && apt-get -y install \
     build-essential gcc g++ procps less vim \
@@ -20,10 +20,18 @@ RUN python3 -m pip --quiet install --prefix=/install \
     -r /tmp/requirements/production/requirements.txt
 
 ### runtime ###
-FROM python:3.10-slim
+FROM python:3.12-slim
+
+ARG SASS_VERSION=1.105.1
 
 RUN apt-get update && apt-get -y install --no-install-recommends \
     libpq5 libjpeg-progs graphicsmagick curl \
+    && curl -fsSL -o /tmp/dart-sass.tar.gz \
+        "https://github.com/sass/dart-sass/releases/download/${SASS_VERSION}/dart-sass-${SASS_VERSION}-linux-x64.tar.gz" \
+    && tar -xzf /tmp/dart-sass.tar.gz -C /usr/local \
+    && ln -s /usr/local/dart-sass/sass /usr/local/bin/sass \
+    && rm /tmp/dart-sass.tar.gz \
+    && sass --version \
     && rm -rf /var/lib/apt/lists/*
 
 ARG UID=1001
