@@ -28,6 +28,7 @@ def send_event_notification(event):
             "event": event,
             "event_url": "%s%s"
             % (settings.SITE_URL, reverse("events:event_detail", args=[event.pk])),
+            "profile_url": "%s%s" % (settings.SITE_URL, reverse("profile")),
         }
         subject = render_to_string("events/event_notification_subject.txt", context)
         subject = "".join(subject.splitlines())

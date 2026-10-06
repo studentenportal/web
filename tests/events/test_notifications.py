@@ -53,6 +53,7 @@ def test_event_notification_sent_to_opted_in_users():
     assert "Test Event" in message.subject
     assert "Test Event" in message.body
     assert "Gebäude 1" in message.body
+    assert "https://studentenportal.ch/profil/" in message.body
 
 
 @pytest.mark.django_db

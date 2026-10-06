@@ -15,6 +15,7 @@ urlpatterns = [
     ),
     re_path(r"^dozenten/add/$", views.LecturerAdd.as_view(), name="lecturer_add"),
     re_path(r"^zitate/$", views.QuoteList.as_view(), name="quote_list"),
+    re_path(r"^zitate/rss$", views.QuoteFeed(), name="quote_feed"),
     re_path(r"^zitate/add/$", views.QuoteAdd.as_view(), name="quote_add"),
     re_path(
         r"^zitate/(?P<pk>-?\d+)/add/$",

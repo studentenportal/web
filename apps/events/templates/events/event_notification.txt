@@ -8,5 +8,8 @@ auf studentenportal.ch wurde ein neues Event erfasst:
     {% endif %}
     {{ event_url }}
 
+Möchtest du keine Event-Benachrichtigungen mehr erhalten, kannst du sie
+unter {{ profile_url }} deaktivieren.
+
 Cheers,
 Das Studentenportal
