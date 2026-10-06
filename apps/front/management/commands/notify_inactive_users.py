@@ -32,6 +32,9 @@ class Command(BaseCommand):
         for user in users:
             if user.inactivity_notices.filter(confirmed_at__isnull=True).exists():
                 continue
+            recipients = user.notification_addresses()
+            if not recipients:
+                continue
             notice = InactivityNotice.objects.create(user=user, token=uuid.uuid4().hex)
             context = {
                 "user": user,
@@ -46,7 +49,7 @@ class Command(BaseCommand):
                 subject,
                 body,
                 settings.DEFAULT_FROM_EMAIL,
-                [user.email],
+                recipients,
                 fail_silently=True,
             )
             sent += 1

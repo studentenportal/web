@@ -58,7 +58,7 @@
 - [x] backup isn't working :((
 - [x] dozenten pagination
 - [x] standardized search, filter, sort and pagination everywhere there's a list
-- [ ] events RSS feed
+- [x] events RSS feed
 
 ## yeah...
 
@@ -71,3 +71,11 @@
 - [x] Register a new user, resend activation email, verify it arrives
 - [x] Wait for key to expire, resend — verify new key works
 - [x] Submit form with unknown email — verify same success message shown
+
+## CRONJOB
+
+SHELL=/bin/sh
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+
+0 4 * * * studentenportal docker exec --user studentenportal studentenportal python3 manage.py notify_inactive_users >> /var/log/studentenportal-inactivity.log 2>&1
+15 4 * * * studentenportal docker exec --user studentenportal studentenportal python3 manage.py purge_inactive_users >> /var/log/studentenportal-inactivity.log 2>&1

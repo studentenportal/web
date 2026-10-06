@@ -1,0 +1,14 @@
+Hey {{ user.name|default:user.username }},
+
+deine E-Mail-Adresse auf studentenportal.ch wurde wie folgt geändert:
+
+    vorher: {{ old_email }}
+    neu:    {{ new_email }}
+
+Ab jetzt werden Benachrichtigungen an {{ new_email }} gesendet.
+
+Falls du diese Änderung nicht selbst vorgenommen hast, kontaktiere uns
+bitte umgehend unter team@studentenportal.ch.
+
+Cheers,
+Das Studentenportal

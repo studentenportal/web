@@ -1,9 +1,12 @@
 import datetime
 
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.sites.shortcuts import get_current_site
+from django.core.mail import send_mail
 from django.db.models import Count
+from django.template.loader import render_to_string
 from django.urls import reverse, reverse_lazy
 from django.utils import timezone
 from django.views.generic import FormView, TemplateView
@@ -13,6 +16,7 @@ from registration.models import RegistrationProfile
 
 from apps.documents import models as document_models
 from apps.events import models as event_models
+from apps.events.views import add_recurring_events
 from apps.front.mixins import LoginRequiredMixin
 from apps.lecturers import models as lecturer_models
 
@@ -24,9 +28,8 @@ class Home(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["events_future"] = event_models.Event.objects.filter(
-            start_date__gte=datetime.date.today()
-        ).order_by("start_date", "start_time")
+        events_future, _ = add_recurring_events(event_models.Event.objects.all())
+        context["events_future"] = events_future
         return context
 
 
@@ -34,19 +37,69 @@ class Datenschutz(TemplateView):
     template_name = "front/datenschutz.html"
 
 
+def send_email_change_notification(user, old_email, new_email):
+    """Confirm by e-mail that the user's main e-mail address was changed.
+
+    The old address is informed as well, so that a legitimate user notices
+    if someone else changes the e-mail of their account.
+    """
+    context = {
+        "user": user,
+        "old_email": old_email,
+        "new_email": new_email,
+    }
+    subject = render_to_string("front/email_change_notice_subject.txt", context)
+    subject = "".join(subject.splitlines())
+    body = render_to_string("front/email_change_notice.txt", context)
+    recipients = [new_email]
+    if old_email and old_email != new_email:
+        recipients.append(old_email)
+    send_mail(
+        subject,
+        body,
+        settings.DEFAULT_FROM_EMAIL,
+        recipients,
+        fail_silently=True,
+    )
+
+
 class Profile(LoginRequiredMixin, UpdateView):
     form_class = forms.ProfileForm
     template_name = "front/profile_form.html"
 
     def get_object(self, queryset=None):
-        """Gets the current user object."""
+        """Gets the current user object.
+
+        The current e-mail is captured here, because the form overwrites
+        ``self.object.email`` already during validation
+        (ModelForm.construct_instance).
+        """
         assert self.request.user, "request.user is empty."
+        self.old_email = self.request.user.email
         return self.request.user
 
+    def form_valid(self, form):
+        self.email_changed = form.cleaned_data["email"] != self.old_email
+        response = super().form_valid(form)
+        if self.email_changed:
+            send_email_change_notification(
+                self.object, self.old_email, self.object.email
+            )
+        return response
+
     def get_success_url(self):
-        messages.add_message(
-            self.request, messages.SUCCESS, "Profil wurde erfolgreich aktualisiert."
-        )
+        if getattr(self, "email_changed", False):
+            messages.add_message(
+                self.request,
+                messages.SUCCESS,
+                'Deine E-Mail-Adresse wurde auf "%s" geändert.' % self.object.email,
+            )
+        else:
+            messages.add_message(
+                self.request,
+                messages.SUCCESS,
+                "Profil wurde erfolgreich aktualisiert.",
+            )
         return reverse("profile")
 
 

@@ -11,7 +11,7 @@ damit er nicht gelöscht wird:
 {{ confirm_url }}
 
 Falls du deinen Account nicht mehr möchtest, kannst du einfach nichts
-tun – er wird dann automatisch gelöscht.
+tun - er wird dann automatisch gelöscht.
 
 Cheers,
 Das Studentenportal

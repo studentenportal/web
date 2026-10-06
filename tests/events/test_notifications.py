@@ -73,6 +73,46 @@ def test_event_notification_single_email_for_same_address():
 
 
 @pytest.mark.django_db
+def test_event_notification_personalized_per_user():
+    """Each opted-in user gets their own e-mail, addressed by their name."""
+    baker.make(
+        User,
+        username="anna.ann",
+        first_name="Anna",
+        last_name="Ann",
+        email="anna@ost.ch",
+    )
+    baker.make(
+        User,
+        username="ben.ben",
+        first_name="Ben",
+        last_name="Ben",
+        email="ben@ost.ch",
+    )
+
+    create_event()
+
+    assert len(mail.outbox) == 2
+    by_recipient = {message.to[0]: message for message in mail.outbox}
+    assert set(by_recipient) == {"anna@ost.ch", "ben@ost.ch"}
+    assert "Hey Anna Ann," in by_recipient["anna@ost.ch"].body
+    assert "Hey Ben Ben," in by_recipient["ben@ost.ch"].body
+    assert "Hey Anna Ann," not in by_recipient["ben@ost.ch"].body
+    assert "Hey Ben Ben," not in by_recipient["anna@ost.ch"].body
+
+
+@pytest.mark.django_db
+def test_event_notification_falls_back_to_username():
+    """Users without a first/last name are addressed by their username."""
+    baker.make(User, username="noname.user", email="noname@ost.ch")
+
+    create_event()
+
+    assert len(mail.outbox) == 1
+    assert "Hey noname.user," in mail.outbox[0].body
+
+
+@pytest.mark.django_db
 def test_event_notification_not_sent_when_disabled():
     baker.make(User, username="notify.me", email="notify@ost.ch")
 

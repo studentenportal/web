@@ -35,9 +35,9 @@ def test_notify_inactive_users():
     """Inactive users get a confirmation e-mail with a working link."""
     now = timezone.now()
     make_user("active.user", last_login=now - timedelta(days=1))
-    inactive = make_user("inactive.user", last_login=now - timedelta(days=120))
+    inactive = make_user("inactive.user", last_login=now - timedelta(days=400))
     never_logged_in = make_user(
-        "never.user", last_login=None, date_joined=now - timedelta(days=120)
+        "never.user", last_login=None, date_joined=now - timedelta(days=400)
     )
     fresh = make_user(
         "fresh.user", last_login=None, date_joined=now - timedelta(days=1)
@@ -58,7 +58,7 @@ def test_notify_inactive_users():
 def test_notify_inactive_users_link_confirms(client):
     """The link in the notification e-mail confirms the notice."""
     now = timezone.now()
-    make_user("inactive.user", last_login=now - timedelta(days=120))
+    make_user("inactive.user", last_login=now - timedelta(days=400))
     call_command("notify_inactive_users")
 
     body = mail.outbox[0].body
@@ -77,7 +77,7 @@ def test_notify_inactive_users_link_confirms(client):
 def test_notify_skips_users_with_pending_notice():
     """No second e-mail while a notice is still pending."""
     now = timezone.now()
-    user = make_user("pending.user", last_login=now - timedelta(days=120))
+    user = make_user("pending.user", last_login=now - timedelta(days=400))
     InactivityNotice.objects.create(user=user, token=uuid.uuid4().hex)
 
     call_command("notify_inactive_users")
@@ -89,10 +89,10 @@ def test_notify_skips_users_with_pending_notice():
 @pytest.mark.django_db
 def test_purge_deletes_unconfirmed_inactive_users():
     now = timezone.now()
-    doomed = make_user("doomed.user", last_login=now - timedelta(days=120))
+    doomed = make_user("doomed.user", last_login=now - timedelta(days=400))
     notice = InactivityNotice.objects.create(user=doomed, token=uuid.uuid4().hex)
     InactivityNotice.objects.filter(pk=notice.pk).update(
-        sent_at=now - timedelta(days=20)
+        sent_at=now - timedelta(days=100)
     )
 
     call_command("purge_inactive_users")
@@ -103,10 +103,10 @@ def test_purge_deletes_unconfirmed_inactive_users():
 @pytest.mark.django_db
 def test_purge_keeps_confirmed_users():
     now = timezone.now()
-    user = make_user("confirmed.user", last_login=now - timedelta(days=120))
+    user = make_user("confirmed.user", last_login=now - timedelta(days=400))
     notice = InactivityNotice.objects.create(user=user, token=uuid.uuid4().hex)
-    notice.sent_at = now - timedelta(days=20)
-    notice.confirmed_at = now - timedelta(days=19)
+    notice.sent_at = now - timedelta(days=100)
+    notice.confirmed_at = now - timedelta(days=99)
     notice.save()
 
     call_command("purge_inactive_users")
@@ -118,9 +118,9 @@ def test_purge_keeps_confirmed_users():
 def test_purge_keeps_recently_active_users():
     """A user that logged in after the notice was sent is kept."""
     now = timezone.now()
-    user = make_user("cameback.user", last_login=now - timedelta(days=120))
+    user = make_user("cameback.user", last_login=now - timedelta(days=400))
     InactivityNotice.objects.create(user=user, token=uuid.uuid4().hex)
-    InactivityNotice.objects.filter(user=user).update(sent_at=now - timedelta(days=20))
+    InactivityNotice.objects.filter(user=user).update(sent_at=now - timedelta(days=100))
     user.last_login = now - timedelta(days=1)
     user.save()
 
@@ -133,7 +133,7 @@ def test_purge_keeps_recently_active_users():
 def test_purge_keeps_fresh_notices():
     """Notices that are still within the confirmation period are kept."""
     now = timezone.now()
-    user = make_user("freshnotice.user", last_login=now - timedelta(days=120))
+    user = make_user("freshnotice.user", last_login=now - timedelta(days=400))
     InactivityNotice.objects.create(user=user, token=uuid.uuid4().hex)
 
     call_command("purge_inactive_users")

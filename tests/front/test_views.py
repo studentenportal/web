@@ -67,6 +67,74 @@ def test_profile_view_change_email(client):
 
 
 @pytest.mark.django_db
+def test_profile_view_email_change_confirmation(client):
+    """Changing the e-mail shows a confirmation message and sends a
+    confirmation e-mail to both the new and the old address."""
+    user = baker.make_recipe("apps.front.user")
+    client.force_login(user)
+    response = client.post(
+        "/profil/",
+        {
+            "first_name": "",
+            "last_name": "",
+            "email": "new.address@ost.ch",
+            "notification_email": "",
+            "receive_event_notifications": "on",
+        },
+        follow=True,
+    )
+    content = response.content.decode("utf-8")
+    assert (
+        "Deine E-Mail-Adresse wurde auf &quot;new.address@ost.ch&quot; geändert."
+        in content
+    )
+    assert len(mail.outbox) == 1
+    assert set(mail.outbox[0].to) == {"new.address@ost.ch", "test@studentenportal.ch"}
+    assert "E-Mail-Adresse wurde geändert" in mail.outbox[0].subject
+    assert "test@studentenportal.ch" in mail.outbox[0].body
+    assert "new.address@ost.ch" in mail.outbox[0].body
+
+
+@pytest.mark.django_db
+def test_profile_view_email_change_without_old_email(client):
+    """If the user had no e-mail before, only the new address is notified."""
+    user = baker.make_recipe("apps.front.user")
+    user.email = ""
+    user.save()
+    client.force_login(user)
+    client.post(
+        "/profil/",
+        {
+            "first_name": "",
+            "last_name": "",
+            "email": "new.address@ost.ch",
+            "notification_email": "",
+            "receive_event_notifications": "on",
+        },
+    )
+    assert len(mail.outbox) == 1
+    assert mail.outbox[0].to == ["new.address@ost.ch"]
+
+
+@pytest.mark.django_db
+def test_profile_view_no_notification_without_email_change(client):
+    """Changing profile fields other than the e-mail sends no e-mail."""
+    user = baker.make_recipe("apps.front.user")
+    client.force_login(user)
+    client.post(
+        "/profil/",
+        {
+            "first_name": "Test",
+            "last_name": "User",
+            "email": "test@studentenportal.ch",
+            "notification_email": "",
+            "receive_event_notifications": "on",
+        },
+    )
+    assert mail.outbox == []
+
+
+@pytest.mark.django_db
 def test_profile_view_email_lowercased(client):
     user = baker.make_recipe("apps.front.user")
     client.force_login(user)

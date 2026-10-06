@@ -287,8 +287,8 @@ EVENT_NOTIFICATIONS_ENABLED = True
 # INACTIVITY_CONFIRMATION_PERIOD_DAYS, the account gets deleted.
 # Run `manage.py notify_inactive_users` and `manage.py purge_inactive_users`
 # periodically (e.g. daily via cron).
-INACTIVITY_NOTICE_THRESHOLD_DAYS = 90
-INACTIVITY_CONFIRMATION_PERIOD_DAYS = 14
+INACTIVITY_NOTICE_THRESHOLD_DAYS = 365
+INACTIVITY_CONFIRMATION_PERIOD_DAYS = 90
 
 # django_downloadview
 DOWNLOADVIEW_BACKEND = "django_downloadview.nginx.XAccelRedirectMiddleware"

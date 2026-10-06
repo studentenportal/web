@@ -228,6 +228,32 @@ def test_event_list_search_past_events(client):
 
 
 @pytest.mark.django_db
+def test_rss_feed_contains_upcoming_events(client):
+    today = datetime.date.today()
+    models.Event.objects.create(
+        summary="Future Bar",
+        description="A bar in the future",
+        start_date=today + datetime.timedelta(days=1),
+        start_time=datetime.time(19, 0),
+        location="Gebäude 1",
+    )
+    models.Event.objects.create(
+        summary="Past Bar",
+        description="A bar in the past",
+        start_date=today - datetime.timedelta(days=1),
+    )
+    response = client.get(reverse("events:event_feed"))
+    assert response.status_code == 200
+    assert response["Content-Type"].startswith("application/rss+xml")
+    content = response.content.decode("utf-8")
+    assert "Future Bar" in content
+    assert "A bar in the future" in content
+    assert "Ort: Gebäude 1" in content
+    assert "/events/" in content
+    assert "Past Bar" not in content
+
+
+@pytest.mark.django_db
 def test_event_list_past_pagination(client):
     today = datetime.date.today()
     for i in range(55):

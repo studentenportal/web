@@ -1,4 +1,4 @@
-Hey,
+Hey {{ user.name|default:user.username }},
 
 auf studentenportal.ch wurde ein neues Event erfasst:
 
