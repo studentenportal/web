@@ -12,10 +12,48 @@ class ResendActivationForm(forms.Form):
 
 
 class ProfileForm(forms.ModelForm):
-    # Note: Don't allow users to change their own e-mail!
+    email = forms.EmailField(label="E-Mail-Adresse", required=True)
+
     class Meta:
         model = get_user_model()
-        fields = ("first_name", "last_name")
+        fields = (
+            "first_name",
+            "last_name",
+            "email",
+            "notification_email",
+            "receive_event_notifications",
+        )
+        labels = {
+            "email": "E-Mail-Adresse",
+            "notification_email": "Zusätzliche E-Mail-Adresse",
+            "receive_event_notifications": "Neue Events per E-Mail",
+        }
+
+    def clean_email(self):
+        email = self.cleaned_data["email"].strip().lower()
+        if (
+            get_user_model()
+            .objects.filter(email__iexact=email)
+            .exclude(pk=self.instance.pk)
+            .exists()
+        ):
+            raise forms.ValidationError("Benutzer mit dieser E-Mail existiert bereits.")
+        return email
+
+    def clean_notification_email(self):
+        email = self.cleaned_data["notification_email"].strip().lower()
+        return email
+
+    def clean(self):
+        cleaned_data = super().clean()
+        main = cleaned_data.get("email")
+        extra = cleaned_data.get("notification_email")
+        if main and extra and main == extra:
+            self.add_error(
+                "notification_email",
+                "Die zusätzliche E-Mail-Adresse muss sich von der Hauptadresse unterscheiden.",
+            )
+        return cleaned_data
 
 
 class PasswordForm(forms.Form):

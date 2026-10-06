@@ -1,0 +1,12 @@
+Hey,
+
+auf studentenportal.ch wurde ein neues Event erfasst:
+
+    {{ event.summary }}
+    {{ event.start_date|date:"D, d. F Y" }}{% if event.start_time %} {{ event.start_time|time:"H:i" }}{% endif %}{% if event.end_date %} - {{ event.end_date|date:"d. F Y" }}{% elif event.end_time %} - {{ event.end_time|time:"H:i" }}{% endif %}
+    {% if event.location %}Ort: {{ event.location }}
+    {% endif %}
+    {{ event_url }}
+
+Cheers,
+Das Studentenportal

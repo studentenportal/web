@@ -103,6 +103,27 @@ class ResendActivationComplete(TemplateView):
     template_name = "registration/resend_activation_complete.html"
 
 
+class ConfirmActive(TemplateView):
+    """Confirmation link for inactive users, sent by `notify_inactive_users`.
+
+    No login required: the (unguessable) token in the URL is the proof that
+    the user got the e-mail.
+    """
+
+    template_name = "front/inactivity_confirmed.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        notice = models.InactivityNotice.objects.filter(token=kwargs["token"]).first()
+        confirmed = False
+        if notice is not None and not notice.is_confirmed:
+            notice.confirmed_at = timezone.now()
+            notice.save(update_fields=["confirmed_at"])
+            confirmed = True
+        context["confirmed"] = confirmed
+        return context
+
+
 class Stats(LoginRequiredMixin, TemplateView):
     template_name = "front/stats.html"
 
