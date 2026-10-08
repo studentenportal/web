@@ -26,12 +26,6 @@ ARG SASS_VERSION=1.105.1
 
 RUN apt-get update && apt-get -y install --no-install-recommends \
     libpq5 libjpeg-progs graphicsmagick curl \
-    && curl -fsSL -o /tmp/dart-sass.tar.gz \
-        "https://github.com/sass/dart-sass/releases/download/${SASS_VERSION}/dart-sass-${SASS_VERSION}-linux-x64.tar.gz" \
-    && tar -xzf /tmp/dart-sass.tar.gz -C /usr/local \
-    && ln -s /usr/local/dart-sass/sass /usr/local/bin/sass \
-    && rm /tmp/dart-sass.tar.gz \
-    && sass --version \
     && rm -rf /var/lib/apt/lists/*
 
 ARG UID=1001

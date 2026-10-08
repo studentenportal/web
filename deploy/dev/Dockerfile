@@ -23,19 +23,9 @@ RUN python3 -m pip --quiet install --prefix=/install \
 FROM python:3.12
 
 ARG SASS_VERSION=1.105.1
-# TODO: remove npm
+
 RUN apt-get update && apt-get -y install --no-install-recommends \
-    libpq5 postgresql-client \
-    libjpeg-progs graphicsmagick \
-    curl dnsutils \
-    npm \
-    && npm install -g sass-migrator \
-    && curl -fsSL -o /tmp/dart-sass.tar.gz \
-        "https://github.com/sass/dart-sass/releases/download/${SASS_VERSION}/dart-sass-${SASS_VERSION}-linux-x64.tar.gz" \
-    && tar -xzf /tmp/dart-sass.tar.gz -C /usr/local \
-    && ln -s /usr/local/dart-sass/sass /usr/local/bin/sass \
-    && rm /tmp/dart-sass.tar.gz \
-    && sass --version \
+    libpq5 libjpeg-progs graphicsmagick curl dnsutils postgresql-client \
     && rm -rf /var/lib/apt/lists/*
 
 ARG UID=1000
