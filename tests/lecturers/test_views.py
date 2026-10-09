@@ -129,7 +129,9 @@ class QuoteAddViewTest(TestCase):
         """Test the form that is shown if no lecturer is preselected."""
         response = self.client.get("/zitate/add/")
         self.assertContains(response, "<h1>Zitat hinzufügen</h1>")
-        self.assertContains(response, '<option value="" selected>---------</option>')
+        self.assertContains(
+            response, '<option value="" selected>- Select an option -</option>'
+        )
 
     def testPrefilledForm(self):
         """Test the form that is shown if a lecturer is preselected."""
