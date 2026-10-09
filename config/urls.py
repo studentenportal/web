@@ -23,6 +23,7 @@ urlpatterns = [
         name="user",
     ),
     re_path(r"^statistiken/$", views.Stats.as_view(), name="stats"),
+    re_path(r"^datenschutz/$", views.Datenschutz.as_view(), name="datenschutz"),
     # Own apps
     re_path(r"^tipps/", include(tipp_urls)),
     re_path(r"^events/", include(event_urls)),
