@@ -1,0 +1,413 @@
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline
+}
+
+body {
+  line-height: 1
+}
+
+ol,
+ul {
+  list-style: none
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0
+}
+
+caption,
+th,
+td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle
+}
+
+q,
+blockquote {
+  quotes: none
+}
+
+q:before,
+q:after,
+blockquote:before,
+blockquote:after {
+  content: "";
+  content: none
+}
+
+a img {
+  border: none
+}
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
+  display: block
+}
+
+html {
+  box-sizing: border-box
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit
+}
+
+html {
+  font-size: 62.5%
+}
+
+body {
+  background: var(--color-white);
+  font-size: var(--font-size-base);
+  line-height: 1.82rem;
+  font-family: var(--font-body);
+  color: var(--color-text)
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+nav a {
+  font-family: var(--font-heading)
+}
+
+h1 {
+  font-size: var(--font-size-3xl);
+  font-weight: 400;
+  color: var(--color-primary);
+  line-height: 4.16rem
+}
+
+h2 {
+  font-size: 2.8rem;
+  line-height: 3.64rem
+}
+
+h3 {
+  font-size: var(--font-size-lg);
+  line-height: 2.6rem
+}
+
+h4 {
+  font-size: var(--font-size-md);
+  line-height: 2.08rem
+}
+
+em,
+strong {
+  font-weight: var(--font-weight-bold)
+}
+
+p {
+  margin: 0 auto 0.5em
+}
+
+hr {
+  border: solid var(--color-border);
+  border-width: 1px 0 0;
+  clear: both;
+  margin: 1rem 0 1.5rem;
+  height: 0
+}
+
+ul>li {
+  list-style: disc inside;
+  padding-left: 1rem
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  outline: 0
+}
+
+a:hover,
+a:focus {
+  color: var(--color-primary-dark)
+}
+
+form,
+fieldset {
+  margin-bottom: 1rem
+}
+
+button,
+a.button,
+input,
+select,
+textarea {
+  font-family: var(--font-body);
+  font-size: var(--font-size-md);
+  padding: 0.8rem 1.2rem;
+  outline: none
+}
+
+button:before,
+a.button:before,
+input:before,
+select:before,
+textarea:before {
+  padding-right: 0.5em
+}
+
+.control-group {
+  zoom: 1
+}
+
+.control-group:after {
+  content: "";
+  display: table;
+  clear: both
+}
+
+label {
+  color: var(--color-text-muted);
+  display: block;
+  margin-bottom: 0.5rem
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  -moz-transition-property: border-color;
+  -webkit-transition-property: border-color;
+  -o-transition-property: border-color;
+  transition-property: border-color;
+  -moz-transition-duration: var(--transition-base);
+  -webkit-transition-duration: var(--transition-base);
+  -o-transition-duration: var(--transition-base);
+  transition-duration: var(--transition-base);
+  border: var(--border-width) solid var(--color-border)
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--color-primary-dark)
+}
+
+.help-block {
+  font-size: var(--font-size-xs)
+}
+
+ul.errorlist li {
+  color: #b94a48;
+  list-style-type: none;
+  padding-left: 0;
+  font-size: var(--font-size-xs)
+}
+
+input[type="checkbox"] {
+  width: auto;
+  float: left
+}
+
+input[type="checkbox"]+p.help-block {
+  font-size: var(--font-size-base)
+}
+
+input[type="file"]::-webkit-file-upload-button {
+  visibility: hidden
+}
+
+input[type="file"] {
+  position: relative
+}
+
+input[type="file"]:before {
+  content: 'Browse';
+  display: inline-block;
+  color: var(--color-white);
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  -moz-transition: background var(--transition-fast);
+  -webkit-transition: background var(--transition-fast);
+  -o-transition: background var(--transition-fast);
+  transition: background var(--transition-fast);
+  background: var(--color-primary)
+}
+
+input[type="file"]:before:hover {
+  background: var(--color-primary-dark)
+}
+
+.form-horizontal .control-group {
+  margin-bottom: 1rem
+}
+
+@media (min-width:70rem) {
+
+  .form-horizontal .control-group>label,
+  .form-horizontal p.help-block,
+  .form-horizontal ul.errorlist {
+    float: left;
+    width: 30%
+  }
+
+  .form-horizontal p.help-block label {
+    float: none;
+    width: auto
+  }
+
+  .form-horizontal input,
+  .form-horizontal textarea,
+  .form-horizontal select,
+  .form-horizontal .EasyMDEContainer {
+    float: right;
+    width: 70%
+  }
+
+  .form-horizontal #id_license+p.help-block {
+    width: 70%;
+    float: right
+  }
+
+  .form-horizontal input[type="checkbox"] {
+    float: left;
+    width: auto
+  }
+
+  .form-horizontal input[type="checkbox"]+p.help-block {
+    width: 65%;
+    float: right
+  }
+}
+
+button,
+.button {
+  border: 0;
+  display: inline-block;
+  margin: 1rem;
+  margin-left: 0;
+  color: var(--color-white);
+  cursor: pointer;
+  -moz-transition: background var(--transition-fast);
+  -webkit-transition: background var(--transition-fast);
+  -o-transition: background var(--transition-fast);
+  transition: background var(--transition-fast);
+  background-color: var(--color-button)
+}
+
+button:hover,
+button:focus,
+button:active,
+.button:hover,
+.button:focus,
+.button:active {
+  background-color: var(--color-button-dark);
+  color: var(--color-white)
+}
+
+button.button-primary,
+.button.button-primary {
+  background-color: var(--color-primary)
+}
+
+button.button-primary:hover,
+button.button-primary:active,
+button.button-primary:focus,
+.button.button-primary:hover,
+.button.button-primary:active,
+.button.button-primary:focus {
+  background: var(--color-primary-dark)
+}
+
+.hidden {
+  display: none
+}
+
+.readonly {
+  opacity: 0.7
+}

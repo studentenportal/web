@@ -26,7 +26,7 @@ services:
     volumes:
       - ./:/srv/www/studentenportal
     ports:
-      - 8000:8000
+      - 8001:8000
     environment:
       POSTGRES_HOST: "postgres_dev"
       POSTGRES_USER: "studentenportal"

@@ -145,7 +145,6 @@
                     };
                   })
                   easy-thumbnails
-                  pyscss
                   beautifulsoup4
                   vobject
                   djangorestframework
