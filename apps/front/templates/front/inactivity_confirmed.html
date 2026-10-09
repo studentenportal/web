@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}Account bestätigen{% endblock %}
+
+{% block content %}
+    <div class="page-header">
+        <h1>Account bestätigen</h1>
+    </div>
+
+    {% if confirmed %}
+        <p>Perfekt! Dein Account wurde bestätigt und bleibt erhalten.</p>
+        <p><a class="button button-primary" href="{% url 'home' %}">Zur Startseite</a></p>
+    {% else %}
+        <p>Dieser Bestätigungslink ist ungültig oder wurde bereits verwendet.</p>
+        <p>
+            Falls dein Account trotz fehlender Bestätigung gelöscht wurde und du
+            ihn zurückhaben möchtest, kontaktiere uns unter
+            <a href="mailto:team@studentenportal.ch">team@studentenportal.ch</a>.
+        </p>
+    {% endif %}
+{% endblock %}

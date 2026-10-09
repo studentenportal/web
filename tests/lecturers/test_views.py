@@ -359,3 +359,33 @@ def test_quote_list_pagination_preserves_params(auth_client, user):
     content = response.content.decode()
     assert 'class="pagination"' in content
     assert "?q=paging&amp;sort=date&amp;page=2" in content
+
+
+@pytest.mark.django_db
+def test_quote_rss_feed(client):
+    """The quote feed is public and lists the newest quotes."""
+    import datetime
+
+    user = baker.make(User, username="quoter")
+    lecturer = baker.make_recipe("apps.lecturers.lecturer")
+    old = models.Quote.objects.create(
+        author=user, lecturer=lecturer, quote="older quote", comment="old comment"
+    )
+    new = models.Quote.objects.create(
+        author=user, lecturer=lecturer, quote="newer quote", comment=""
+    )
+    models.Quote.objects.filter(pk=old.pk).update(
+        date=datetime.datetime(2026, 1, 1, 12)
+    )
+    models.Quote.objects.filter(pk=new.pk).update(
+        date=datetime.datetime(2026, 1, 2, 12)
+    )
+    response = client.get(reverse("lecturers:quote_feed"))
+    assert response.status_code == 200
+    assert response["Content-Type"].startswith("application/rss+xml")
+    content = response.content.decode("utf-8")
+    assert "newer quote" in content
+    assert "older quote" in content
+    assert "old comment" in content
+    assert f"#quote-{new.pk}" in content
+    assert "newer quote" in content.split("older quote")[0]

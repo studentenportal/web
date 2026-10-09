@@ -12,9 +12,9 @@
     <article class="welcome-message">
 
         {% if not user.is_authenticated %}
-            <h3>Willkommen beim open\OST Studentenportal</h3>
+            <h1>Willkommen beim open\OST Studentenportal</h1>
         {% endif %}{% if user.is_authenticated %}
-            <h3>Willkommen {{ user.name }}!</h3>
+            <hm>Willkommen {{ user.name }}!</h1>
         {% endif %}
 
         <p>Dieses Portal ist für alle Studenten der <a href="https://www.ost.ch/">OST - Ostschweizer Fachhochschule</a> gedacht. Hier könnt ihr Informationen für euer Studium
@@ -28,14 +28,14 @@
 
     {% if events_future %}
         <section class="latest-events">
-            <h1>Kommende Veranstaltungen</h1>
+            <h2>Kommende Veranstaltungen</h2>
             {% with events_future as object_list %}
                 {% include 'events/blocks/event_table.html' %}
             {% endwith %}
         </section>
     {% endif %}
     <section class="latest-news">
-        <h1>News</h1>
+        <h2>News</h2>
 
         <article class="news">
             <time class="date" datetime="2026-09-01">
@@ -78,7 +78,7 @@
         </article>
     </section>
     <article class="contribute">
-        <h1>Mitmachen</h1>
+        <h2>Mitmachen</h2>
         <p>Das Studentenportal wurde von Studenten für Studenten entwickelt. Schau doch bei unserem <a href="https://github.com/studentenportal/web">Github Repo</a> rein!</p>
 	      <p>Falls du einen Fehler entdeckst oder eine Idee für das Studentenportal hast, <a href="https://github.com/studentenportal/web/issues/new">öffne einfach ein Ticket</a> oder sende eine E-Mail an {{ 'team@studentenportal.ch'|urlize }}</p>
         <a class="button" href="https://github.com/studentenportal/web/">Mitmachen</a>
@@ -86,7 +86,7 @@
     </article>
 
     <article class="sponsors">
-        <h1>Sponsoren</h1>
+        <h2>Sponsoren</h2>
         <div class="sponsors-logos">
             <a href="https://www.nine.ch/" target="_blank">
                 <img src="/static/img/sponsors/logo_nine.png" alt="Sponsor Logo Nine">
@@ -105,7 +105,7 @@
     </article>
 
     <article class="sponsors">
-        <h1>Partner</h1>
+        <h2>Partner</h2>
         <div class="sponsors-logos">
             <a href="https://www.coredump.ch/" target="_blank">
                 <img src="/static/img/sponsors/logo_coredump.svg" alt="Coredump Logo">
@@ -117,6 +117,11 @@
                 <img src="/static/img/sponsors/logo_bruhin_software.svg" alt="Bruhin Software">
             </a>
         </div>
+    </article>
+
+    <article class="administrative">
+        <h2>Administratives</h2>
+        <a class="button" href="{% url 'datenschutz' %}">Datenschutz</a>
     </article>
 
 {% endblock %}

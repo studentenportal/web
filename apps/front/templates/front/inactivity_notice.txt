@@ -1,0 +1,17 @@
+Hey {{ user.name|default:user.username }},
+
+dein Account auf studentenportal.ch ist seit über
+{{ threshold_days }} Tagen nicht mehr angemeldet worden. Damit wir
+inaktive Accounts aus der Datenbank entfernen können, müssen wir kurz
+checken, ob du deinen Account noch möchtest.
+
+Bitte bestätige deinen Account innert {{ confirmation_days }} Tagen,
+damit er nicht gelöscht wird:
+
+{{ confirm_url }}
+
+Falls du deinen Account nicht mehr möchtest, kannst du einfach nichts
+tun - er wird dann automatisch gelöscht.
+
+Cheers,
+Das Studentenportal

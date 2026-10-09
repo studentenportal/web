@@ -80,9 +80,63 @@ class User(AbstractUser):
 
     users = CustomUserManager()
 
+    notification_email = models.EmailField(
+        "Zusätzliche E-Mail-Adresse",
+        blank=True,
+        default="",
+        max_length=254,
+        help_text="Optionale zweite Adresse, an die Benachrichtigungen zusätzlich gesendet werden.",
+    )
+    receive_event_notifications = models.BooleanField(
+        "Neue Events per E-Mail",
+        default=True,
+        help_text="Ob du eine E-Mail erhalten möchtest, wenn ein neues Event erfasst wird.",
+    )
+
     def name(self):
         """Return either full user first and last name or the username, if no
         further data is found."""
         if self.first_name or self.last_name:
             return " ".join(part for part in [self.first_name, self.last_name] if part)
         return self.username
+
+    def notification_addresses(self):
+        """All e-mail addresses of this user that should receive
+        notifications (main address plus the optional additional one),
+        lowercased and de-duplicated."""
+        addresses = []
+        for address in (self.email, self.notification_email):
+            if address and address.lower() not in addresses:
+                addresses.append(address.lower())
+        return addresses
+
+
+class InactivityNotice(models.Model):
+    """A confirmation request sent to an inactive user.
+
+    The user has to confirm the account by following the link in the e-mail
+    (see `notify_inactive_users` / `purge_inactive_users`).
+    """
+
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="inactivity_notices",
+    )
+    token = models.CharField(max_length=64, unique=True)
+    sent_at = models.DateTimeField(auto_now_add=True)
+    confirmed_at = models.DateTimeField(null=True, blank=True)
+
+    @property
+    def is_confirmed(self):
+        return self.confirmed_at is not None
+
+    def confirmation_url(self):
+        from django.conf import settings as django_settings
+
+        from django.urls import reverse
+
+        return "%s%s" % (
+            django_settings.SITE_URL,
+            reverse("confirm_active", args=[self.token]),
+        )

@@ -272,6 +272,21 @@ else:
         EMAIL_HOST_PASSWORD = env("DJANGO_EMAIL_HOST_PASSWORD")
         EMAIL_USE_TLS = True
 
+# Absolute URL of the site, used to build links in e-mails sent without
+# an HTTP request (management commands, signals).
+SITE_URL = env("SITE_URL", "https://studentenportal.ch")
+
+# Event notifications: e-mail all opted-in users when a new event is created
+EVENT_NOTIFICATIONS_ENABLED = True
+
+# Inactive users: after INACTIVITY_NOTICE_THRESHOLD_DAYS without login a
+# confirmation e-mail is sent. If the user doesn't confirm within
+# INACTIVITY_CONFIRMATION_PERIOD_DAYS, the account gets deleted.
+# Run `manage.py notify_inactive_users` and `manage.py purge_inactive_users`
+# periodically (e.g. daily via cron).
+INACTIVITY_NOTICE_THRESHOLD_DAYS = 365
+INACTIVITY_CONFIRMATION_PERIOD_DAYS = 90
+
 # django_downloadview
 DOWNLOADVIEW_BACKEND = "django_downloadview.nginx.XAccelRedirectMiddleware"
 DOWNLOADVIEW_RULES = [
