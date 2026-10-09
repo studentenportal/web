@@ -11,7 +11,7 @@ django-model-utils==5.0.0
 django-compressor==4.6.0
 django-mathfilters==1.0.0
 easy-thumbnails==2.10.1
-markdown==3.10.2
+markdown==3.11
 bleach==6.2.0
 
 # Parsing
