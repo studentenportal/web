@@ -2,7 +2,7 @@
 # Additional packages for dev are added here.
 
 ### builder ###
-FROM python:3.10 AS builder
+FROM python:3.12 AS builder
 
 RUN apt-get update && apt-get -y install \
     build-essential gcc g++ \
@@ -20,12 +20,12 @@ RUN python3 -m pip --quiet install --prefix=/install \
     -r /tmp/requirements/testing/requirements.txt
 
 ### runtime ###
-FROM python:3.10
+FROM python:3.12
+
+ARG SASS_VERSION=1.105.1
 
 RUN apt-get update && apt-get -y install --no-install-recommends \
-    libpq5 postgresql-client \
-    libjpeg-progs graphicsmagick \
-    curl dnsutils \
+    libpq5 libjpeg-progs graphicsmagick curl dnsutils postgresql-client \
     && rm -rf /var/lib/apt/lists/*
 
 ARG UID=1000

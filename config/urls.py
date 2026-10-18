@@ -40,6 +40,11 @@ urlpatterns = [
         views.ResendActivationComplete.as_view(),
         name="resend_activation_complete",
     ),
+    re_path(
+        r"^accounts/confirm-active/(?P<token>[0-9a-f]{32})/$",
+        views.ConfirmActive.as_view(),
+        name="confirm_active",
+    ),
     re_path(r"^accounts/", include("registration.backends.default.urls")),
     # Admin pages
     re_path(r"^admin/doc/", include("django.contrib.admindocs.urls")),

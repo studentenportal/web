@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.contrib.syndication.views import Feed
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Count, F
 from django.urls import reverse
@@ -141,3 +142,31 @@ class QuoteDelete(LoginRequiredMixin, OwnerDeleteMixin, DeleteView):
     success_message = "Zitat wurde erfolgreich gelöscht."
     event_name = "quote_delete"
     success_url_name = "lecturers:quote_list"
+
+
+class QuoteFeed(Feed):
+    title = "Studentenportal Zitate"
+    description = "Dozenten-Zitate auf studentenportal.ch"
+    link = "/zitate/"
+
+    def items(self):
+        return models.Quote.objects.all().order_by("-date")[:20]
+
+    def item_title(self, item):
+        quote = " ".join(item.quote.split())
+        if len(quote) > 60:
+            return quote[:57].rstrip() + "..."
+        return quote
+
+    def item_description(self, item):
+        parts = [item.quote.strip()]
+        if item.comment:
+            parts.append("Bemerkung: %s" % item.comment.strip())
+        parts.append("von %s" % item.lecturer.name())
+        return "\n\n".join(parts)
+
+    def item_link(self, item):
+        return "%s#quote-%d" % (reverse("lecturers:quote_list"), item.pk)
+
+    def item_pubdate(self, item):
+        return item.date

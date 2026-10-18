@@ -5,6 +5,7 @@ from urllib.parse import urlsplit, urlunsplit
 import vobject
 from dateutil.relativedelta import relativedelta
 from django.contrib import messages
+from django.contrib.syndication.views import Feed
 from django.core.paginator import Paginator
 from django.http import HttpResponse, HttpResponseForbidden, HttpResponseRedirect
 from django.urls import reverse
@@ -251,3 +252,30 @@ class EventCalendar(View):
             if event.author:
                 vevent.add("comment").value = "Erfasst von %s" % event.author.name()
         return HttpResponse(cal.serialize(), content_type="text/calendar")
+
+
+class EventFeed(Feed):
+    title = "Studentenportal Events"
+    description = "Neue Events auf studentenportal.ch"
+    link = "/events/"
+
+    def items(self):
+        return models.Event.objects.filter(
+            start_date__gte=datetime.date.today()
+        ).order_by("start_date", "start_time")[:20]
+
+    def item_title(self, item):
+        return item.summary
+
+    def item_description(self, item):
+        if item.location:
+            return "%s\nOrt: %s" % (item.description, item.location)
+        return item.description
+
+    def item_link(self, item):
+        return reverse("events:event_detail", args=[item.pk])
+
+    def item_pubdate(self, item):
+        return datetime.datetime.combine(
+            item.start_date, item.start_time or datetime.time(0, 0)
+        )

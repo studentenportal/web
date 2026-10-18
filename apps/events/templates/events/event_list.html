@@ -29,6 +29,9 @@
         <a class="button" href="{{ webcal_url }}">
             <i class="icon-calendar"></i> Events abonnieren
         </a>
+        <a class="button" href="{% url 'events:event_feed' %}">
+            RSS Feed abonnieren
+        </a>
     </p>
 
     {% include 'front/blocks/list_toolbar.html' %}

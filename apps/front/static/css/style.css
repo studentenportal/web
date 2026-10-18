@@ -1,0 +1,46 @@
+@charset "UTF-8";
+
+:root {
+  --color-white: #fff;
+  --color-text: #333;
+  --color-text-muted: #666;
+  --color-border: #D2DDE5;
+  --color-shadow: #ccc;
+  --color-primary: #155183;
+  --color-primary-dark: #41586e;
+  --color-button: #91acc0;
+  --color-button-dark: #7194ad;
+  --color-success: #5CB870;
+  --color-warning: #f0ad4e;
+  --color-info: #428bca;
+  --color-cyan: #5bc0de;
+  --color-date-day: #7194ad;
+  --color-date-month: #91acc0;
+  --color-date-year: #b2c5d2;
+  --color-vote: #4F4A4A;
+
+  --font-body: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
+  --font-heading: "Droid Sans", sans-serif;
+  --font-icon: "studentenportal-icons";
+  --font-weight-bold: 700;
+
+  --font-size-xs: 1.1rem;
+  --font-size-base: 1.4rem;
+  --font-size-md: 1.6rem;
+  --font-size-lg: 2rem;
+  --font-size-xl: 2.7rem;
+  --font-size-2xl: 3rem;
+  --font-size-3xl: 3.2rem;
+
+  --line-height-label: 3rem;
+  --control-height: 2.5em;
+  --border-width: 2px;
+  --transition-fast: 0.2s;
+  --transition-base: 0.3s;
+  --box-shadow: 0 0 3px 2px var(--color-shadow);
+}
+
+@import "base.css";
+@import "icons.css";
+@import "pages.css";
+@import "responsive-nav.css";
