@@ -40,6 +40,9 @@
             Zitat hinzufügen
         </a>
     {% endif %}
+    <a class="button" href="{% url 'lecturers:quote_feed' %}">
+        RSS Feed abonnieren
+    </a>
 
     {% include 'front/blocks/list_toolbar.html' %}
 
@@ -48,7 +51,7 @@
         {% include 'front/blocks/pagination.html' %}
 
         {% for quote in quotes %}
-            <article class="quote {% if quote.author_id == user.pk %}quote-edit{% endif %}">
+            <article id="quote-{{ quote.pk }}" class="quote {% if quote.author_id == user.pk %}quote-edit{% endif %}">
                 {% if quote.author_id == user.pk %}
                     <div class="edit">
                         {% url 'lecturers:quote_delete' quote.pk as delete_url %}

@@ -23,6 +23,7 @@ urlpatterns = [
         name="user",
     ),
     re_path(r"^statistiken/$", views.Stats.as_view(), name="stats"),
+    re_path(r"^datenschutz/$", views.Datenschutz.as_view(), name="datenschutz"),
     # Own apps
     re_path(r"^tipps/", include(tipp_urls)),
     re_path(r"^events/", include(event_urls)),
@@ -38,6 +39,11 @@ urlpatterns = [
         r"^accounts/resend-activation/complete/$",
         views.ResendActivationComplete.as_view(),
         name="resend_activation_complete",
+    ),
+    re_path(
+        r"^accounts/confirm-active/(?P<token>[0-9a-f]{32})/$",
+        views.ConfirmActive.as_view(),
+        name="confirm_active",
     ),
     re_path(r"^accounts/", include("registration.backends.default.urls")),
     # Admin pages
