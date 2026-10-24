@@ -1,5 +1,6 @@
 import re
-from datetime import timedelta
+import uuid
+from datetime import date, timedelta
 
 import pytest
 from django.contrib.auth import get_user_model
@@ -11,6 +12,9 @@ from django.utils import timezone
 from model_bakery import baker
 from pytest_django.asserts import assertRedirects
 from registration.models import RegistrationProfile
+
+from apps.events import models as event_models
+from apps.front.models import InactivityNotice
 
 User = get_user_model()
 
@@ -40,6 +44,198 @@ def test_profile_view_unauth_redirect(client):
     """An unauthenticated user should not get access to the profile detail page."""
     response = client.get("/profil/")
     assert response.status_code == 302
+
+
+@pytest.mark.django_db
+def test_profile_view_change_email(client):
+    """Users can change their main e-mail address."""
+    user = baker.make_recipe("apps.front.user")
+    client.force_login(user)
+    response = client.post(
+        "/profil/",
+        {
+            "first_name": "Test",
+            "last_name": "User",
+            "email": "new.address@ost.ch",
+            "notification_email": "",
+            "receive_event_notifications": "on",
+        },
+    )
+    assertRedirects(response, "/profil/")
+    user.refresh_from_db()
+    assert user.email == "new.address@ost.ch"
+
+
+@pytest.mark.django_db
+def test_profile_view_email_change_confirmation(client):
+    """Changing the e-mail shows a confirmation message and sends a
+    confirmation e-mail to both the new and the old address."""
+    user = baker.make_recipe("apps.front.user")
+    client.force_login(user)
+    response = client.post(
+        "/profil/",
+        {
+            "first_name": "",
+            "last_name": "",
+            "email": "new.address@ost.ch",
+            "notification_email": "",
+            "receive_event_notifications": "on",
+        },
+        follow=True,
+    )
+    content = response.content.decode("utf-8")
+    assert (
+        "Deine E-Mail-Adresse wurde auf &quot;new.address@ost.ch&quot; geändert."
+        in content
+    )
+    assert len(mail.outbox) == 1
+    assert set(mail.outbox[0].to) == {"new.address@ost.ch", "test@studentenportal.ch"}
+    assert "E-Mail-Adresse wurde geändert" in mail.outbox[0].subject
+    assert "test@studentenportal.ch" in mail.outbox[0].body
+    assert "new.address@ost.ch" in mail.outbox[0].body
+
+
+@pytest.mark.django_db
+def test_profile_view_email_change_without_old_email(client):
+    """If the user had no e-mail before, only the new address is notified."""
+    user = baker.make_recipe("apps.front.user")
+    user.email = ""
+    user.save()
+    client.force_login(user)
+    client.post(
+        "/profil/",
+        {
+            "first_name": "",
+            "last_name": "",
+            "email": "new.address@ost.ch",
+            "notification_email": "",
+            "receive_event_notifications": "on",
+        },
+    )
+    assert len(mail.outbox) == 1
+    assert mail.outbox[0].to == ["new.address@ost.ch"]
+
+
+@pytest.mark.django_db
+def test_profile_view_no_notification_without_email_change(client):
+    """Changing profile fields other than the e-mail sends no e-mail."""
+    user = baker.make_recipe("apps.front.user")
+    client.force_login(user)
+    client.post(
+        "/profil/",
+        {
+            "first_name": "Test",
+            "last_name": "User",
+            "email": "test@studentenportal.ch",
+            "notification_email": "",
+            "receive_event_notifications": "on",
+        },
+    )
+    assert mail.outbox == []
+
+
+@pytest.mark.django_db
+def test_profile_view_email_lowercased(client):
+    user = baker.make_recipe("apps.front.user")
+    client.force_login(user)
+    client.post(
+        "/profil/",
+        {
+            "first_name": "",
+            "last_name": "",
+            "email": "NEW.Address@OST.CH",
+            "notification_email": "",
+            "receive_event_notifications": "on",
+        },
+    )
+    user.refresh_from_db()
+    assert user.email == "new.address@ost.ch"
+
+
+@pytest.mark.django_db
+def test_profile_view_email_taken(client):
+    """An e-mail address that is already in use by another user is rejected."""
+    user = baker.make_recipe("apps.front.user")
+    baker.make(User, username="other.user", email="other@ost.ch")
+    client.force_login(user)
+    response = client.post(
+        "/profil/",
+        {
+            "first_name": "",
+            "last_name": "",
+            "email": "OTHER@ost.ch",
+            "notification_email": "",
+            "receive_event_notifications": "on",
+        },
+    )
+    assert response.status_code == 200
+    assert "existiert bereits" in response.content.decode("utf-8")
+    user.refresh_from_db()
+    assert user.email == "test@studentenportal.ch"
+
+
+@pytest.mark.django_db
+def test_profile_view_notification_email_and_opt_out(client):
+    """Users can add an additional notification e-mail and opt out of
+    event notifications."""
+    user = baker.make_recipe("apps.front.user")
+    client.force_login(user)
+    response = client.post(
+        "/profil/",
+        {
+            "first_name": "",
+            "last_name": "",
+            "email": "test@studentenportal.ch",
+            "notification_email": "extra.address@ost.ch",
+            # Checkbox left unchecked: user opts out
+        },
+    )
+    assertRedirects(response, "/profil/")
+    user.refresh_from_db()
+    assert user.notification_email == "extra.address@ost.ch"
+    assert user.receive_event_notifications is False
+    assert user.notification_addresses() == [
+        "test@studentenportal.ch",
+        "extra.address@ost.ch",
+    ]
+
+
+@pytest.mark.django_db
+def test_profile_view_notification_email_must_differ(client):
+    user = baker.make_recipe("apps.front.user")
+    client.force_login(user)
+    response = client.post(
+        "/profil/",
+        {
+            "first_name": "",
+            "last_name": "",
+            "email": "test@studentenportal.ch",
+            "notification_email": "test@studentenportal.ch",
+            "receive_event_notifications": "on",
+        },
+    )
+    assert response.status_code == 200
+    assert "unterscheiden" in response.content.decode("utf-8")
+
+
+@pytest.mark.django_db
+def test_confirm_active_view(client):
+    """The confirmation link confirms the inactivity notice."""
+    user = baker.make(User, username="confirm.user", email="confirm@ost.ch")
+    notice = InactivityNotice.objects.create(user=user, token=uuid.uuid4().hex)
+    url = reverse("confirm_active", args=[notice.token])
+    response = client.get(url)
+    assert response.status_code == 200
+    assert "wurde bestätigt" in response.content.decode("utf-8")
+    notice.refresh_from_db()
+    assert notice.is_confirmed
+
+
+@pytest.mark.django_db
+def test_confirm_active_view_invalid_token(client):
+    response = client.get(reverse("confirm_active", args=["0" * 32]))
+    assert response.status_code == 200
+    assert "ungültig" in response.content.decode("utf-8")
 
 
 class LoginTest(TestCase):
@@ -372,7 +568,9 @@ class UserProfileViewTest(TestCase):
         response = self.client.post(
             "/profil/",
             {
-                "email": "test@example.com",
+                "email": "test@studentenportal.ch",
+                "notification_email": "",
+                "receive_event_notifications": "on",
                 "first_name": "John",
                 "last_name": "Doe",
             },
