@@ -18,6 +18,19 @@ from . import permissions as custom_permissions
 from . import serializers
 
 
+class AutoFilterMixin:
+    """Turns every request.query_params item into a Django filter."""
+
+    def filter_queryset(self, queryset):
+        qs = super().filter_queryset(queryset)
+        exclude = {"page", "limit", "offset", "ordering", "q", "public", "format"}
+        for param, value in self.request.query_params.items():
+            if param in exclude or value == "":
+                continue
+            qs = qs.filter(**{param: value})
+        return qs
+
+
 class QSearchFilter(filters.SearchFilter):
     """SearchFilter that reads the search term from ?q= (site convention)."""
 
@@ -48,7 +61,7 @@ class ApiRoot(APIView):
 
 
 # GET
-class UserList(generics.ListAPIView):
+class UserList(AutoFilterMixin, generics.ListAPIView):
     queryset = get_user_model().objects.all()
     serializer_class = serializers.UserListSerializer
     filter_backends = (QSearchFilter, filters.OrderingFilter)
@@ -75,7 +88,7 @@ class UserDetail(generics.RetrieveUpdateAPIView):
 
 
 # GET
-class LecturerList(generics.ListAPIView):
+class LecturerList(AutoFilterMixin, generics.ListAPIView):
     queryset = models.Lecturer.real_objects.all()
     serializer_class = serializers.LecturerSerializer
     filter_backends = (QSearchFilter, filters.OrderingFilter)
@@ -91,7 +104,7 @@ class LecturerDetail(generics.RetrieveAPIView):
 
 
 # GET / POST
-class QuoteList(generics.ListCreateAPIView):
+class QuoteList(AutoFilterMixin, generics.ListCreateAPIView):
     queryset = models.Quote.objects.all()
     serializer_class = serializers.QuoteSerializer
     filter_backends = (QSearchFilter, filters.OrderingFilter)
@@ -154,7 +167,7 @@ class LecturerRate(APIView):
         return JsonResponse(data)
 
 
-class DocumentCategoryList(generics.ListCreateAPIView):
+class DocumentCategoryList(AutoFilterMixin, generics.ListCreateAPIView):
     queryset = doc_models.DocumentCategory.objects.all()
     serializer_class = serializers.DocumentCategorySerializer
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
@@ -170,7 +183,7 @@ class DocumentCategoryDetail(generics.RetrieveAPIView):
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
 
-class DocumentList(generics.ListCreateAPIView):
+class DocumentList(AutoFilterMixin, generics.ListCreateAPIView):
     serializer_class = serializers.DocumentSerializer
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     filter_backends = (QSearchFilter, filters.OrderingFilter)
@@ -244,7 +257,7 @@ class DocumentRate(APIView):
         return JsonResponse(data)
 
 
-class EventList(generics.ListCreateAPIView):
+class EventList(AutoFilterMixin, generics.ListCreateAPIView):
     queryset = event_models.Event.objects.all()
     serializer_class = serializers.EventSerializer
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
@@ -267,7 +280,7 @@ class EventDetail(generics.RetrieveUpdateDestroyAPIView):
     )
 
 
-class TippList(generics.ListCreateAPIView):
+class TippList(AutoFilterMixin, generics.ListCreateAPIView):
     queryset = tipp_models.Tipp.objects.all()
     serializer_class = serializers.TippSerializer
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
@@ -297,7 +310,7 @@ class TippVote(VoteViewMixin):
     item_fk_name = "tipp"
 
 
-class TippCommentList(generics.ListCreateAPIView):
+class TippCommentList(AutoFilterMixin, generics.ListCreateAPIView):
     serializer_class = serializers.TippCommentSerializer
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 

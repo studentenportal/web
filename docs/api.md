@@ -4,7 +4,7 @@ The Studentenportal provides a REST API under `/api/v1/`. `GET` on the root
 lists all endpoints:
 
 ```
-http://localhost:8000/api/v1/
+https://studentenportal.ch/api/v1/
 ```
 
 All responses are JSON. List endpoints are paginated
@@ -24,7 +24,7 @@ Use your website credentials (username = your `@ost.ch` e-mail prefix,
 e.g. `vorname.nachname`; the full e-mail also works) with any HTTP client:
 
 ```bash
-curl -u vorname.nachname:passwort http://localhost:8000/api/v1/users
+curl -u vorname.nachname:passwort https://studentenportal.ch/api/v1/users
 ```
 
 For development, the test users from [CONTRIBUTING.md](CONTRIBUTING.md) can be
@@ -33,7 +33,7 @@ used, e.g. `user1` / `user1`.
 ### Session Authentication
 
 If you are logged in on the website, your browser session is also accepted by
-the API. This is how the Browsable API at `http://localhost:8000/api/v1/`
+the API. This is how the Browsable API at `https://studentenportal.ch/api/v1/`
 works. Write requests (POST/PATCH/PUT/DELETE) require a valid CSRF token,
 exactly like the website forms.
 
@@ -93,7 +93,7 @@ All list endpoints support:
 ### Read a public list
 
 ```bash
-curl "http://localhost:8000/api/v1/documents?ordering=-upload_date"
+curl "https://studentenportal.ch/api/v1/documents?ordering=-upload_date"
 ```
 
 ### Update your own event (JSON)
@@ -102,13 +102,13 @@ curl "http://localhost:8000/api/v1/documents?ordering=-upload_date"
 curl -u user1:user1 -X PATCH \
      -H "Content-Type: application/json" \
      -d '{"summary": "Neuer Titel"}' \
-     http://localhost:8000/api/v1/events/12
+     https://studentenportal.ch/api/v1/events/12
 ```
 
 ### Upload a document (multipart form data)
 
 ```bash
-curl -u user1:user1 -X POST http://localhost:8000/api/v1/documents \
+curl -u user1:user1 -X POST https://studentenportal.ch/api/v1/documents \
      -F name="Analysis 1 Zusammenfassung" \
      -F description="Zusammenfassung aus Vorlesung" \
      -F category=1 \
@@ -128,7 +128,7 @@ curl -u user1:user1 -X POST http://localhost:8000/api/v1/documents \
 ### Rate a document (1-10)
 
 ```bash
-curl -u user1:user1 -X POST -d score=9 http://localhost:8000/api/v1/documents/34/rate
+curl -u user1:user1 -X POST -d score=9 https://studentenportal.ch/api/v1/documents/34/rate
 ```
 
 A user cannot rate their own upload.
@@ -137,7 +137,7 @@ A user cannot rate their own upload.
 
 ```bash
 curl -u user1:user1 -X POST -d "category=d&score=8" \
-     http://localhost:8000/api/v1/lecturers/7/rate
+     https://studentenportal.ch/api/v1/lecturers/7/rate
 ```
 
 `category`: `d` = didaktisch, `m` = menschlich, `f` = fachlich.
@@ -145,7 +145,7 @@ curl -u user1:user1 -X POST -d "category=d&score=8" \
 ### Vote on a quote or tipp
 
 ```bash
-curl -u user1:user1 -X POST -d vote=up http://localhost:8000/api/v1/tipps/5/vote
+curl -u user1:user1 -X POST -d vote=up https://studentenportal.ch/api/v1/tipps/5/vote
 ```
 
 `vote` is `up`, `down` or `remove`.
