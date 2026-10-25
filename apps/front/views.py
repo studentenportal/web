@@ -54,13 +54,15 @@ def send_email_change_notification(user, old_email, new_email):
     recipients = [new_email]
     if old_email and old_email != new_email:
         recipients.append(old_email)
-    send_mail(
-        subject,
-        body,
-        settings.DEFAULT_FROM_EMAIL,
-        recipients,
-        fail_silently=True,
-    )
+    try:
+        send_mail(
+            subject,
+            body,
+            settings.DEFAULT_FROM_EMAIL,
+            recipients,
+        )
+    except Exception:
+        pass
 
 
 class Profile(LoginRequiredMixin, UpdateView):

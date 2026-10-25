@@ -45,12 +45,14 @@ class Command(BaseCommand):
             subject = render_to_string("front/inactivity_notice_subject.txt", context)
             subject = "".join(subject.splitlines())
             body = render_to_string("front/inactivity_notice.txt", context)
-            send_mail(
-                subject,
-                body,
-                settings.DEFAULT_FROM_EMAIL,
-                recipients,
-                fail_silently=True,
-            )
+            try:
+                send_mail(
+                    subject,
+                    body,
+                    settings.DEFAULT_FROM_EMAIL,
+                    recipients,
+                )
+            except Exception:
+                pass
             sent += 1
         self.stdout.write(self.style.SUCCESS("Sent %d inactivity notice(s)." % sent))

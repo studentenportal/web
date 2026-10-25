@@ -7,18 +7,21 @@ from django.test import override_settings
 from model_bakery import baker
 
 from apps.events import models
+from apps.events.signals import flush
 
 User = get_user_model()
 
 
 @pytest.fixture(autouse=True)
 def clear_mail():
+    flush()
     mail.outbox.clear()
     yield
+    flush()
 
 
 def create_event(summary="Test Event"):
-    return models.Event.objects.create(
+    event = models.Event.objects.create(
         summary=summary,
         description="A new event",
         start_date=datetime.date.today() + datetime.timedelta(days=1),
@@ -26,6 +29,8 @@ def create_event(summary="Test Event"):
         end_time=datetime.time(18, 0),
         location="Gebäude 1",
     )
+    flush()
+    return event
 
 
 @pytest.mark.django_db

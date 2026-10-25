@@ -262,15 +262,26 @@ if not DEBUG:
 # Email
 DEFAULT_FROM_EMAIL = "Studentenportal <noreply@studentenportal.ch>"
 SERVER_EMAIL = DEFAULT_FROM_EMAIL
-if DEBUG:
-    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-else:
-    EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-    if "DJANGO_EMAIL_HOST" in os.environ:
-        EMAIL_HOST = env("DJANGO_EMAIL_HOST")
-        EMAIL_HOST_USER = env("DJANGO_EMAIL_HOST_USER")
-        EMAIL_HOST_PASSWORD = env("DJANGO_EMAIL_HOST_PASSWORD")
-        EMAIL_USE_TLS = True
+MAILERS = {
+    "default": {
+        "BACKEND": (
+            "django.core.mail.backends.console.EmailBackend"
+            if DEBUG
+            else "django.core.mail.backends.smtp.EmailBackend"
+        ),
+        "OPTIONS": (
+            {
+                "host": env("DJANGO_EMAIL_HOST"),
+                "host_user": env("DJANGO_EMAIL_HOST_USER"),
+                "host_password": env("DJANGO_EMAIL_HOST_PASSWORD"),
+                "use_tls": True,
+                "timeout": 10,
+            }
+            if "DJANGO_EMAIL_HOST" in os.environ and not DEBUG
+            else {}
+        ),
+    },
+}
 
 # Absolute URL of the site, used to build links in e-mails sent without
 # an HTTP request (management commands, signals).
@@ -278,6 +289,8 @@ SITE_URL = env("SITE_URL", "https://studentenportal.ch")
 
 # Event notifications: e-mail all opted-in users when a new event is created
 EVENT_NOTIFICATIONS_ENABLED = True
+# Max. number of notification e-mails sent concurrently (via the task queue)
+EVENT_NOTIFICATIONS_CONCURRENCY = 5
 
 # Inactive users: after INACTIVITY_NOTICE_THRESHOLD_DAYS without login a
 # confirmation e-mail is sent. If the user doesn't confirm within
