@@ -151,11 +151,18 @@ def repeat_dates(start_date, repeat_every, repeat_unit, end_date):
     return dates
 
 
+def is_future_event(e):
+    return (
+        e.start_date >= datetime.date.today()
+        and (e.start_time or datetime.time.min) >= datetime.datetime.now().time()
+    )
+
+
 def add_recurring_events(events):
     future = []
     past = []
     for e in events:
-        if e.start_date > datetime.date.today():
+        if is_future_event(e):
             future.append(e)
         else:
             past.append(e)
@@ -178,7 +185,7 @@ def add_recurring_events(events):
                     if e.end_date is not None
                     else None
                 )
-                if date > datetime.date.today():
+                if is_future_event(new_e):
                     future.append(new_e)
                 else:
                     past.append(new_e)
