@@ -272,8 +272,8 @@ MAILERS = {
         "OPTIONS": (
             {
                 "host": env("DJANGO_EMAIL_HOST"),
-                "host_user": env("DJANGO_EMAIL_HOST_USER"),
-                "host_password": env("DJANGO_EMAIL_HOST_PASSWORD"),
+                "username": env("DJANGO_EMAIL_HOST_USER"),
+                "password": env("DJANGO_EMAIL_HOST_PASSWORD"),
                 "use_tls": True,
                 "timeout": 10,
             }
