@@ -2,7 +2,7 @@
 # Additional packages for dev are added here.
 
 ### builder ###
-FROM python:3.12 AS builder
+FROM python:3.15 AS builder
 
 RUN apt-get update && apt-get -y install \
     build-essential gcc g++ \
@@ -20,7 +20,7 @@ RUN python3 -m pip --quiet install --prefix=/install \
     -r /tmp/requirements/testing/requirements.txt
 
 ### runtime ###
-FROM python:3.12
+FROM python:3.15
 
 ARG SASS_VERSION=1.105.1
 
