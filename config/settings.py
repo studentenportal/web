@@ -288,7 +288,7 @@ MAILERS = {
 SITE_URL = env("SITE_URL", "https://studentenportal.ch")
 
 # Event notifications: e-mail all opted-in users when a new event is created
-EVENT_NOTIFICATIONS_ENABLED = True
+EVENT_NOTIFICATIONS_ENABLED = False
 # Max. number of notification e-mails sent concurrently (via the task queue)
 EVENT_NOTIFICATIONS_CONCURRENCY = 5
 
