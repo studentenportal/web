@@ -4,7 +4,7 @@
 #  and are uploaded to dockerhub.
 
 ### builder ###
-FROM python:3.12 AS builder
+FROM python:3.15 AS builder
 
 RUN apt-get update && apt-get -y install \
     build-essential gcc g++ procps less vim \
@@ -20,7 +20,7 @@ RUN python3 -m pip --quiet install --prefix=/install \
     -r /tmp/requirements/production/requirements.txt
 
 ### runtime ###
-FROM python:3.12-slim
+FROM python:3.15-slim
 
 ARG SASS_VERSION=1.105.1
 
