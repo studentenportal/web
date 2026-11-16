@@ -157,10 +157,9 @@ def is_future_event(e):
         return True
     if e.start_date < today:
         return False
-    if e.start_time is None:
+    if e.end_time is None
         return True
-    return e.start_time >= datetime.datetime.now().time()
-
+    return e.end_time >= datetime.datetime.now().time()
 
 def add_recurring_events(events):
     future = []
