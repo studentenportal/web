@@ -50,7 +50,8 @@ def test_event_notification_sent_to_opted_in_users():
         receive_event_notifications=False,
     )
 
-    create_event()
+    with override_settings(EVENT_NOTIFICATIONS_ENABLED=True):
+        create_event()
 
     assert len(mail.outbox) == 1
     message = mail.outbox[0]
@@ -72,7 +73,8 @@ def test_event_notification_single_email_for_same_address():
         notification_email="TWICE@ost.ch",
     )
 
-    create_event()
+    with override_settings(EVENT_NOTIFICATIONS_ENABLED=True):
+        create_event()
 
     assert len(mail.outbox) == 1
     assert mail.outbox[0].to == ["twice@ost.ch"]
@@ -96,7 +98,8 @@ def test_event_notification_personalized_per_user():
         email="ben@ost.ch",
     )
 
-    create_event()
+    with override_settings(EVENT_NOTIFICATIONS_ENABLED=True):
+        create_event()
 
     assert len(mail.outbox) == 2
     by_recipient = {message.to[0]: message for message in mail.outbox}
@@ -112,7 +115,8 @@ def test_event_notification_falls_back_to_username():
     """Users without a first/last name are addressed by their username."""
     baker.make(User, username="noname.user", email="noname@ost.ch")
 
-    create_event()
+    with override_settings(EVENT_NOTIFICATIONS_ENABLED=True):
+        create_event()
 
     assert len(mail.outbox) == 1
     assert "Hey noname.user," in mail.outbox[0].body
@@ -137,7 +141,8 @@ def test_event_notification_no_recipients_no_email():
         receive_event_notifications=False,
     )
 
-    create_event()
+    with override_settings(EVENT_NOTIFICATIONS_ENABLED=True):
+        create_event()
 
     assert mail.outbox == []
 
@@ -147,10 +152,11 @@ def test_event_edit_does_not_notify():
     """Only new events are announced, not edits of existing ones."""
     baker.make(User, username="notify.me", email="notify@ost.ch")
 
-    event = create_event()
-    assert len(mail.outbox) == 1
+    with override_settings(EVENT_NOTIFICATIONS_ENABLED=True):
+        event = create_event()
+        assert len(mail.outbox) == 1
 
-    event.summary = "Changed"
-    event.save()
+        event.summary = "Changed"
+        event.save()
 
-    assert len(mail.outbox) == 1
+        assert len(mail.outbox) == 1

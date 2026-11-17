@@ -1,7 +1,9 @@
 import atexit
 import queue
+import re
 import threading
 
+import dns.resolver
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.mail import send_mail
@@ -73,10 +75,45 @@ def send_event_notification(event):
         _task_queue.put((user, event))
 
 
+_EMAIL_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
+
+
+def is_deliverable(address):
+    """Best-effort check that an e-mail address is deliverable.
+
+    Rejects addresses that fail a basic syntax check or whose domain has
+    neither an MX nor an A record. On any DNS error or timeout we assume the
+    address is deliverable so that transient DNS issues never drop a real
+    user. This does NOT guarantee the mailbox exists -- only a bounce does.
+    """
+    if address.endswith("hsr.ch"):
+        return False
+    if not _EMAIL_RE.match(address or ""):
+        return False
+    _, _, domain = (address or "").rpartition("@")
+    if not domain:
+        return False
+    resolver = dns.resolver.Resolver()
+    resolver.timeout = 3
+    resolver.lifetime = 3
+    try:
+        try:
+            resolver.resolve(domain, "MX")
+        except dns.resolver.NoAnswer:
+            # No MX but maybe an A record -> host may accept mail directly.
+            try:
+                resolver.resolve(domain, "A")
+            except dns.resolver.NoAnswer:
+                return False
+        return True
+    except dns.exception.DNSException:
+        return True
+
+
 def _send_event_email(user, event):
     """Send the notification to a single user. Failures are isolated so an
     unreachable address never affects any other user's e-mail."""
-    recipients = user.notification_addresses()
+    recipients = [a for a in user.notification_addresses() if is_deliverable(a)]
     if not recipients:
         return
     context = {
