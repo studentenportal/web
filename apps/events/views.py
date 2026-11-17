@@ -161,6 +161,7 @@ def is_future_event(e):
         return True
     return e.end_time >= datetime.datetime.now().time()
 
+
 def add_recurring_events(events):
     future = []
     past = []
