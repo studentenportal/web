@@ -13,7 +13,7 @@ django-mathfilters==1.0.0
 easy-thumbnails==2.10.1
 markdown==3.11
 bleach==6.4.0
-dnspython==2.7.0
+dnspython==2.9.2
 
 # Parsing
 beautifulsoup4==4.15.0
