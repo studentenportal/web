@@ -28,6 +28,8 @@ def _worker():
                 return
             user, event = task
             _send_event_email(user, event)
+        except Exception:
+            pass
         finally:
             _task_queue.task_done()
 
@@ -113,20 +115,22 @@ def is_deliverable(address):
 def _send_event_email(user, event):
     """Send the notification to a single user. Failures are isolated so an
     unreachable address never affects any other user's e-mail."""
+    if getattr(event, "pk", None) is None:
+        return
     recipients = [a for a in user.notification_addresses() if is_deliverable(a)]
     if not recipients:
         return
-    context = {
-        "user": user,
-        "event": event,
-        "event_url": "%s%s"
-        % (settings.SITE_URL, reverse("events:event_detail", args=[event.pk])),
-        "profile_url": "%s%s" % (settings.SITE_URL, reverse("profile")),
-    }
-    subject = render_to_string("events/event_notification_subject.txt", context)
-    subject = "".join(subject.splitlines())
-    body = render_to_string("events/event_notification.txt", context)
     try:
+        context = {
+            "user": user,
+            "event": event,
+            "event_url": "%s%s"
+            % (settings.SITE_URL, reverse("events:event_detail", args=[event.pk])),
+            "profile_url": "%s%s" % (settings.SITE_URL, reverse("profile")),
+        }
+        subject = render_to_string("events/event_notification_subject.txt", context)
+        subject = "".join(subject.splitlines())
+        body = render_to_string("events/event_notification.txt", context)
         send_mail(
             subject,
             body,
